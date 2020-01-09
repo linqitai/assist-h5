@@ -1,0 +1,578 @@
+<style lang="scss">
+// @import '@/assets/scss/variable.scss';
+@import '~@/assets/scss/index.scss';
+[class*=van-hairline]::after {
+    border: 1px solid transparent !important;
+}
+.modelTip{
+	font-size: 0.75rem;
+	padding: 0 12px;
+	color: $grayDarker;
+}
+.van-cell__value, .van-cell__value--alone, .van-field__control{
+	color: #323232 !important;
+}
+.realNameBox{
+	@include pageBlackBG();
+	.realName{
+		overflow-y: scroll;
+		.van-cell__value, .van-cell__value--alone, .van-field__control{
+			color: #323232 !important;
+		}
+		.van-field__control{
+			font-size: 12px !important;
+		}
+		.line{
+			display: flex;
+			flex-direction: row;
+			align-content: center;
+			align-items: center;
+			padding: 12px;
+			.label{
+				flex: 0 0 120px;
+			}
+			.text{
+				flex: 1;
+				text-align: right;
+				color: red;
+				font-size: 12px;
+				text-decoration: underline;
+			}
+			.value{
+				flex: 0 0 60px;
+				text-align: right;
+				position: relative;
+				.iconfont-upload-pic{
+					font-size: 50px;
+					color: $main-adorn-color;
+				}
+				.selectPicInput{
+					position: absolute;
+					right: 0;
+					top: 0;
+					width: 50px;
+					height: 50px;
+				}
+			}
+			.selectedImg{
+				width: 100%;
+			}
+		}
+	}
+	.notRealName{
+		color: $mainTextColor;
+		position: absolute;
+		top:0;
+		bottom: 0;
+		width: 100%;
+		align-content: center;
+		align-items: center;
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+		.flexRealName{
+			
+		}
+	}
+	.items{
+		margin-top: $marginTop2;
+		background-color:$main-box-color;
+		padding-left:$boxPadding2;
+		padding-right:$boxPadding2;
+		.my-cell{
+			height: 2.875rem;
+			line-height: 2.875rem;
+			color: $mainTextColor;
+			font-size: 0.75rem;
+			border-bottom: 1px solid $mainBorderColor;
+			display:flex;
+			align-content: center;
+			align-items: center;
+			flex-direction: row;
+			justify-content: center;
+			.flex1{
+				flex:0 0 5rem;
+				color: $mainTextColor;
+				font-size: 0.875rem;
+			}
+			.flex2{
+				flex:1;
+				text-align:right;
+				position: relative;
+				.iconfont-right-arrow2{
+					font-size: 0.75rem;
+					height: 1rem;
+					line-height: 1rem;
+					color: $grayLight2;
+				}
+				span{
+					font-size: 0.875rem;
+				}
+				.blockAddress{
+					/* width:150px;
+					white-space:nowrap;
+					text-overflow:ellipsis;
+					overflow:hidden; */
+				}
+				.copy{
+					font-size: $fs-10;
+					margin-right: 10px;
+				}
+			}
+			.address{
+				span{font-size: 0.687rem;width: 180px !important;display: block;}
+				.iconfont{height: 2.875rem;line-height: 2.875rem;}
+			}
+		}
+	}
+	.update1{
+		.van-cell__value, .van-cell__value--alone, .van-field__control{
+			color: #323232 !important;
+		}
+	}
+	.update2{
+		.van-cell__value, .van-cell__value--alone, .van-field__control{
+			color: #323232 !important;
+		}
+	}
+}
+</style>
+<template>
+  <div class="realNameBox">
+	<m-header>
+		<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
+		<div class="text">实名认证</div>
+		<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
+	</m-header>
+	<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
+		<div class="paddingWing f-12 lineHeight textJustify tip4model2 textIndent">
+			<div>
+				1.请仔细填写真实姓名，切记登录密码与安全密码。
+			</div>
+			<div class="placeholderLine4"></div>
+			<div>
+				2.若实名有误或忘记密码，每修改一次(一样)要花1张帮扶券。
+			</div>
+		</div>
+	</van-dialog>
+	<!-- 实名认证 -->
+	<div class="realName">
+		<div class="tip4model1">
+			温馨提示：以下资料是用户之间交换矿石时的凭据信息，请认真填写。<br>
+			注：微信号和支付宝号需填写所绑定的手机号，且与帮扶链平台的登录手机号保持一致，若您的微信和支付宝未绑定手机号，请先去微信和支付宝绑定。<br>
+			<b>身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，ASST认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i>
+		</div>
+		
+		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
+		<!-- <van-field v-model="form.telPhone" required clearable label="手机号" right-icon="question-o" :placeholder="errorHint.telPhone" maxlength="11"
+		@click-right-icon="$toast(errorHint.telPhone)"
+		@blur="validate('telPhone')"
+		:error-message="errorInfo.telPhone"/> -->
+		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="20"
+		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
+		<van-field v-model="form.wechartNum" required clearable label="微信号" maxlength="11" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
+		<van-field v-model="form.alipayNum" required clearable label="支付宝" maxlength="11" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
+		<!-- <van-field v-model="form.bankCard" required clearable label="银行卡号" right-icon="question-o" :placeholder="errorHint.bankCard"
+		@click-right-icon="$toast(errorHint.bankCard)"
+		@blur="validate('bankCard')"
+		:error-message="errorInfo.bankCard"/> -->
+		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
+		<div class="line">
+			<span class="label">身份证正面照片</span>
+			<span class="text" @click="showExamplePic">点击查看模板</span>
+			<span class="value">
+				<i class="iconfont iconfont-upload-pic"></i>
+				<input accept="image/png,image/jpeg,image/jpg" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event,'idCardPic')"/>
+			</span>
+		</div>
+		<div class="line" v-if="form.idCardPic">
+			<img class="selectedImg" :src="form.idCardPic"/>
+		</div>
+		<!-- <div class="line">
+			<span class="label">手势照片</span>
+			<span class="value">
+				<i class="iconfont iconfont-upload-pic"></i>
+				<input accept="image/png,image/jpeg,image/jpg" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event,'gesturePic')"/>
+			</span>
+		</div>
+		<div class="line" v-if="form.gesturePic">
+			<img class="selectedImg" :src="form.gesturePic"/>
+		</div> -->
+		<van-field v-model="form.securityPassword" required clearable label="设置安全密码" type="password" :placeholder="errorHint.securityPassword" maxlength="20" @blur="validate('securityPassword')" :error-message="errorInfo.securityPassword"/>
+		<van-field v-model="form.securityPassword2" required clearable label="确认安全密码"  type="password" :placeholder="errorHint.securityPassword2" maxlength="20" @blur="validate('securityPassword2')" :error-message="errorInfo.securityPassword2"/>
+		<div class="placeholderLine40"></div>
+		<div class="sureAppointBtnBox">
+			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="submitRealNameBtn">确 认</van-button>
+		</div>
+	</div>
+	<van-dialog
+	  v-model="showIdCardPicExmple"
+	  title="照片模板"
+	  :showConfirmButton="true"
+	  confirmButtonText="OK"
+	>
+		<div class="placeholderLine10"></div>
+		<img style="width: 100%;" src="../../assets/image/idCardPic.png">
+	</van-dialog>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+// import HelloWorld from '@/components/HelloWorld.vue'
+// import { getTestUser,ERR_OK } from "@/api/index";
+import mHeader from '@/components/Header.vue';
+import clip from '@/assets/js/clipboard';
+import { Dialog } from 'vant';
+import { Toast } from 'vant';
+import { ImagePreview } from 'vant';
+
+export default {
+	data() {
+		return {
+			showTipModel:false,
+			result:"",
+			loading:true,
+			showUpdateModel:false,
+			showUpdatePasswordModel:false,
+			showRealNameModel:false,
+			titleName:'',
+			label:'---',
+			userInfo:{},
+			form:{
+				nickName:"",
+				telPhone:"",
+				realName:"",
+				alipayNum:"",
+				wechartNum:"",
+				address:"",
+				loginPassword:"",
+				securityPassword:"",
+				sureNewPassword:"",
+				securityPassword2:"",
+				verificationCode:"",
+				bankCard:"",
+				idCard:"",
+				idCardPic:"",
+				gesturePic:""
+			},
+			errorHint:{
+				nickName:"",
+				telPhone:"",
+				realName:"",
+				alipayNum:"",
+				wechartNum:"",
+				address:"",
+				loginPassword:"",
+				securityPassword:"",
+				securityPassword2:"",
+				sureNewPassword:"",
+				verificationCode:"",
+				bankCard:"",
+				idCard:""
+			},
+			errorInfo:{
+				nickName:"",
+				telPhone:"",
+				realName:"",
+				alipayNum:"",
+				wechartNum:"",
+				address:"",
+				loginPassword:"",
+				securityPassword:"",
+				securityPassword2:"",
+				sureNewPassword:"",
+				verificationCode:"",
+				bankCard:"",
+				idCard:""
+			},
+			updateValidate:true,
+			flag:'',
+			isRealName:true,
+			userId:'',
+			projectName:'',
+			mobilePhone:'',
+			uploadType:'',
+			showIdCardPicExmple:false
+		}
+	},  
+	components:{
+	    mHeader
+	},
+	mounted(){
+		let _this = this;
+		_this.mobilePhone = localStorage.getItem("mobilePhone");
+		console.log('_this.mobilePhone',_this.mobilePhone);
+		_this.projectName = _this.$api.projectName;
+		let userInfo = localStorage.getItem("_USERINFO_");
+		if(userInfo){
+			_this.userInfo = JSON.parse(userInfo);
+			if(_this.userInfo.actived==2){
+				_this.form = _this.userInfo;
+				_this.getAssistUserInfoPicByUserId();
+			}
+		}else{
+			_this.$toast(_this.$api.loginAgainTipText);
+			_this.$router.replace('login');
+			return;
+		}
+		_this.initializeHintInfo();
+	},
+	methods:{
+		back(){
+			this.$router.replace('my');
+		},
+		getAssistUserInfoPicByUserId(){
+			let _this = this;
+			_this.$ajax.ajax(_this.$api.getAssistUserInfoPicByUserId, 'GET', null, function(res){
+				if(res.code == _this.$api.CODE_OK){
+					// _this.form.idCardPic = res.data.idCardPic;
+					// _this.form.gesturePic = res.data.gesturePic;
+					_this.form = res.data;
+					console.log("form",_this.form);
+				}
+			})
+		},
+		uploadIMG(e,type) {
+			let _this = this;
+			//设置上传图片的类型，身份证还是手势
+			console.log("type",type);
+			_this.uploadType = type;
+			console.log('正在解析图片');
+			// Toast.clear();
+			_this.toast = Toast.loading({
+			  duration: 3000, // 持续展示 toast
+			  closeOnClickOverlay:true,
+			  message: "正在解析图片"
+			});
+			let files = e.target.files || e.dataTransfer.files;
+			if (!files.length) return;
+			console.log("pic_size(MB)", files[0].size / 1024 / 1024);
+			if (files[0].size / 1024 / 1024 > 7) {
+			   _this.$toast('上传图片大小不能超过 7MB');
+			} else {
+			  console.log('正在获取图片');
+			  _this.toast.message = `正在获取图片`;
+			  _this.imgPreview(files[0]);
+			}
+		},
+		//获取图片
+		imgPreview(file) {
+			let _this = this;
+			_this.toast.message = `正在压缩图片`;
+			//判断支不支持FileReader
+			if (!file || !window.FileReader) return false;
+			if (/^image/.test(file.type)) {
+			  //创建一个reader
+			  let reader = new FileReader();
+			  //将图片转成base64格式
+			  reader.readAsDataURL(file);
+			  //读取成功后的回调
+			  reader.onloadend = function(res) {
+				let result = this.result;
+				let img = new Image();
+				img.src = result;
+				console.log('********未压缩前的图片大小(KB)********');
+				console.log(result.length / 1024);
+				// _this.toast.message = `未压缩前的图片大小 ${result.length / 1024} KB`;
+				img.onload = function() {
+					let data = _this.compress(img, 0.1);//调整压缩比例
+					console.log('*******压缩后的图片大小(KB)*******');
+					console.log(data.length / 1024);
+					console.log('_this.uploadType',_this.uploadType);
+					if(_this.uploadType == "idCardPic"){
+						_this.form.idCardPic = data;
+						// console.log("idcardpic",_this.form.idCardPic)
+					}else if(_this.uploadType == "gesturePic"){
+						_this.form.gesturePic = data;
+					}
+				}
+			  }
+			}
+		},
+		// 压缩图片
+		compress(img, size) {
+			let canvas = document.createElement('canvas');
+			let ctx = canvas.getContext('2d');
+			let initSize = img.src.length;
+			let width = img.width;
+			let height = img.height;
+			canvas.width = width;
+			canvas.height = height;
+			// 铺底色
+			ctx.fillStyle = '#fff';
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			ctx.drawImage(img, 0, 0, width, height);
+			//进行最小压缩
+			let ndata = canvas.toDataURL('image/jpeg', size);
+			return ndata;
+		},
+		showExamplePic(){
+			this.showIdCardPicExmple = true;
+		},
+		showTip(){
+			this.showTipModel = true;
+		},
+		initializeHintInfo(){
+			let _this = this;
+			
+			_this.errorHint = {
+				nickName:"请填写1~7位昵称",
+				// telPhone:"请填写与微信绑定的手机号",
+				realName:"请填写2~20位真实姓名",
+				alipayNum:"请填写绑定了支付宝的登录手机号",
+				wechartNum:"请填写绑定了微信的登录手机号",
+				address:"",
+				loginPassword:"请填写新登录密码",
+				securityPassword:"请填写安全密码",
+				securityPassword2:"请确认安全密码",
+				sureNewPassword:"请确认新密码",
+				verificationCode:"请填写验证码",
+				bankCard:"请填写银行卡号",
+				idCard:"请填写身份证号",
+			}
+		},
+		submitRealNameBtn(){
+			let _this = this;
+			let params = {
+				id:_this.userInfo.id,
+				userId:_this.userInfo.userId,
+				nickName:_this.form.nickName,
+				realName:_this.form.realName,
+				alipayNum:_this.form.alipayNum,
+				wechartNum:_this.form.wechartNum,
+				idCard:_this.form.idCard,
+				idCardPic:_this.form.idCardPic,
+				/* gesturePic:_this.form.gesturePic, */
+				securityPassword:_this.form.securityPassword,
+			}
+			// console.log('params',params)
+			if(_this.$utils.hasNull(params)){
+				_this.$toast('系统提示：请填写完整信息');
+				return;
+			}
+			if(_this.$utils.hasVal(_this.errorInfo)){
+				_this.$toast(`系统提示：请按要求填写信息`);
+				return;
+			}
+			if(_this.form.securityPassword!=_this.form.securityPassword2){
+				_this.$toast(`系统提示：2次密码不一样`);
+				return;
+			}
+			let mobilePhone = localStorage.getItem('mobilePhone');
+			if(params.alipayNum == params.wechartNum && params.wechartNum == mobilePhone){
+				console.log('系统提示：可提交信息');
+				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
+					// console.log('res',res);
+					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+					if(res.code == _this.$api.CODE_OK){
+						// _this.info = res.data.list;
+						// _this.isRealName = true;
+						// _this.$toast(res.message);
+						_this.$router.go(-1);
+						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+					}else{
+						_this.$toast(res.message);
+					}
+					if(res.code == _this.$api.CODE_4003){
+						// _this.info = res.data.list;
+						// _this.showRealNameModel = true;
+						_this.isRealName = false;
+					}
+				})
+			}else{
+				if(params.alipayNum != mobilePhone){
+					//_this.$toast(`系统提示:请填写和支付宝绑定的手机号作为支付宝号。`);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '请填写和支付宝绑定的手机号作为支付宝号'
+					}).then(() => {
+					  // on close
+					});
+				}
+				if(params.wechartNum != mobilePhone){
+					// _this.$toast(`系统提示:请填写和微信绑定的手机号作为微信号。`);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '请填写和微信绑定的手机号作为微信号'
+					}).then(() => {
+					  // on close
+					});
+				}
+				/* _this.$toast(`系统提示：注册手机号、微信号、支付宝号，三者需要一致。`); */
+			}
+		},
+		validate(key){
+			let _this = this;
+			if(key == 'nickName') {
+				if((_this.form.nickName.length)<=7&&(_this.form.nickName.length)>0){
+					_this.errorInfo.nickName = '';
+				}else{
+					_this.errorInfo.nickName = _this.errorHint.nickName;
+				}
+			}else if(key == 'telPhone'){
+				if(_this.$reg.phone.test(_this.form.telPhone)){
+					_this.errorInfo.telPhone = ''
+				}else{
+					_this.errorInfo.telPhone = _this.errorHint.telPhone;
+				}
+			}else if(key == 'realName'){
+				if((_this.form.realName.length)<=20&&(_this.form.realName.length)>1){
+					_this.errorInfo.realName = '';
+				}else{
+					_this.errorInfo.realName = _this.errorHint.realName;
+				}
+			}else if(key == 'alipayNum') {
+				if(_this.form.alipayNum==_this.mobilePhone){
+					_this.errorInfo.alipayNum = '';
+				}else{
+					_this.errorInfo.alipayNum = _this.errorHint.alipayNum;
+				}
+				/* if(_this.form.alipayNum.indexOf('@')==-1){
+					if(_this.$reg.phone.test(_this.form.alipayNum)){
+						_this.errorInfo.alipayNum = '';
+					}else{
+						_this.errorInfo.alipayNum = _this.$reg.alipayHint;
+					}
+				} */
+			}else if(key == 'wechartNum') {
+				if(_this.form.wechartNum==_this.mobilePhone){
+					_this.errorInfo.wechartNum = '';
+				}else{
+					_this.errorInfo.wechartNum = _this.errorHint.wechartNum;
+				}
+			}else if(key == 'loginPassword') {
+				if(_this.$reg.password.test(_this.form.loginPassword)){
+					_this.errorInfo.loginPassword = '';
+				}else{
+					_this.errorInfo.loginPassword = _this.$reg.passwordHint;
+				}
+			}else if(key == 'securityPassword') {
+				if(_this.$reg.safePassword.test(_this.form.securityPassword)){
+					_this.errorInfo.securityPassword = '';
+				}else{
+					_this.errorInfo.securityPassword = _this.$reg.safePasswordHint;
+				}
+			}else if(key == 'securityPassword2') {
+				if(_this.form.securityPassword2==_this.form.securityPassword){
+					_this.errorInfo.securityPassword2 = '';
+				}else{
+					_this.errorInfo.securityPassword2 = "2次密码不一样"
+				}
+			}else if(key == 'bankCard') {
+				if(_this.$reg.bankCard.test(_this.form.bankCard)){
+					_this.errorInfo.bankCard = '';
+				}else{
+					_this.errorInfo.bankCard = _this.$reg.bankCardHint;
+				}
+			}else if(key == 'idCard'){
+				if(_this.$reg.idCard.test(_this.form.idCard)){
+					_this.errorInfo.idCard = '';
+				}else{
+					_this.errorInfo.idCard = _this.$reg.idCardHint;
+				}
+			}
+		},
+	}
+}
+</script>

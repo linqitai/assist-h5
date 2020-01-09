@@ -1,0 +1,1620 @@
+<style lang="scss">
+	@import '~@/assets/scss/index.scss';
+	.myDeal{
+		@include pageHaveHeight();
+		
+		[class*=van-hairline]::after {
+			border: none !important;
+		    border-bottom: 1px solid #efefef !important;
+		}
+		.myDealTabs {
+			// margin-top: $header-height;
+			min-height: 100%;
+			color: $mainTextColor;
+			/* .van-tabs,.van-pull-refresh{
+				min-height: 700px !important;
+			} */
+			.list{
+				.item{
+					margin-top: 1px;
+					display: flex;
+					flex-direction: row;
+					align-content: center;
+					align-items: center;
+					padding: $boxPadding2;
+					background-color: $main-box-color;
+					position: relative;
+					// border-bottom:1px solid $main-bg-color;
+					// &::last-child{
+					// 	border-bottom:1px solid transparent;
+					// }
+					.tagIcon{
+						position: absolute;
+						right: 0;
+						top: 0;
+						height: 16px;
+						width: 30px;
+						font-size: 16px;
+					}
+					.tagIconText{
+						position: absolute;
+						right: 6px;
+						top: 2px;
+						font-size: 11px;
+					}
+					.tag4Sell{
+						color: $warnColor;
+					}
+					.tag4Buy{
+						color: $main-adorn-color;
+					}
+					.flex{
+						flex: 1;
+						.info{
+							display: flex;
+							flex-direction: row;
+							align-content: center;
+							align-items: center;
+							font-size: $fs-12;
+							.flexNum{
+								flex: 0 0 60px;
+								.d{
+									margin-top: 0.5rem;
+								}
+							}
+							.flex1{
+								flex: 1;
+								.d{
+									margin-top: 0.5rem;
+								}
+							}
+						}
+						.timeBox{
+							font-size: $fs-12;
+							margin-top: 0.5rem;
+						}
+					}
+					.btnBox{
+						flex: 0 0 80px;
+						text-align: center;
+						font-size: $fs-12;
+					}
+					.operatorBox4complate{
+						flex: 0 0 70px;
+						text-align: center;
+						font-size: $fs-12;
+						.van-count-down{
+							color: $mainTextColor !important;
+						}
+						// .countDownTime{
+						// 	color: $mainTextColor !important;
+						// }
+						.cancelBtn,.showDetailBtn{
+							text-decoration: underline;
+						}
+					}
+					.operatorBox{
+						flex: 0 0 100px;
+						text-align: center;
+						font-size: $fs-12;
+						.van-count-down{
+							color: $mainTextColor !important;
+						}
+						// .countDownTime{
+						// 	color: $mainTextColor !important;
+						// }
+						.cancelBtn,.showDetailBtn{
+							text-decoration: underline;
+						}
+					}
+				}
+			}
+		}
+		.cancelSellTip{
+			padding:24px $boxPadding2;
+			font-size: 13px;
+			line-height: 1.4em;
+			.tipText2{
+				text-indent: 2em;
+				letter-spacing: 1px;
+			}
+		}
+		.countDownTimeBox{
+			display: flex;
+			flex-direction: row;
+			align-content: center;
+			align-items: center;
+			.flexCountTime{
+				flex: 1;
+			}
+		}
+		.detailBox{
+			padding: $boxPadding2 $boxPadding1;
+			.line{
+				display: flex;
+				flex-direction: row;
+				align-content: center;
+				align-items: center;
+				padding: 12px 0;
+				.label{
+					flex: 0 0 90px;
+				}
+				.value{
+					flex: 1;
+					text-align: right;
+					position: relative;
+					.copy{
+						font-size: $fs-10;
+						margin-right: 10px;
+						background-color: #E5E5E5;
+						padding: 1px 2px;
+					}
+					.iconfont-upload-pic{
+						font-size: 50px;
+						color: $main-adorn-color;
+					}
+					.selectPicInput{
+						position: absolute;
+						right: 0;
+						top: 0;
+						width: 50px;
+						height: 50px;
+					}
+				}
+			}
+			.selectedImg{
+				width: 100%;
+			}
+			.tipText{
+				text-indent: 2em;
+				line-height: 1.4em;
+				color: $grayDark;
+			}
+			.tipText2{
+				margin-top: 10px;
+				text-indent: 2em;
+				line-height: 1.4em;
+				color: $main-adorn-color;
+			}
+		}
+		.textAdornColor{
+			color: $main-adorn-color !important;
+		}
+		.remark{
+			.van-cell__value, .van-cell__value--alone, .van-field__control {
+			    color: #323232 !important;
+			}
+		}
+		.box {
+			display: flex;
+			background-color: $main-box-color;
+			padding: $boxPadding2;
+			box-sizing: border-box !important;
+			color: $mainTextColor;
+			@include userSelectNone();
+		}
+		
+		$avatorWidth:80px;
+		
+		.box1 {
+			// height: $avatorWidth+$boxPadding1;
+			margin-top: 2px;
+			.flex {
+				&.flex1 {
+					flex: 0 0 70px;
+					$heightwidht:70px;
+					.name{
+						width: $heightwidht;
+						height: $heightwidht;
+						border-radius: $heightwidht;
+						background-color: $main-blue-color;
+						text-align: center;
+						line-height: $heightwidht;
+						font-size: 22px;
+					}
+				}
+				&.flex2 {
+					flex: 1;
+					padding: 0 $boxPadding2;
+					display: flex;
+					flex-direction: column;
+					align-content: center;
+		
+					.line1{
+						flex: 1;
+						line-height: 26px;
+		
+						.nick_name {
+							font-size: 14px;
+							height: 20px;
+							line-height: 20px;
+						}
+		
+						.level {
+							background-color: $main-adorn-color;
+							height: 20px;
+							line-height: 20px;
+							font-size: 11px;
+							border-radius: 0 10px 10px 0;
+							padding: 0 8px 0 4px;
+							margin-left: 4px;
+						}
+					}
+					.line{
+						flex: 1;
+						line-height: 20px;
+						font-size: 11px;
+					}
+				}
+			}
+		}
+		
+		.box2 {
+			margin-top: $marginTop1;
+			text-align: center;
+			.flex {
+				flex: 1;
+				.value{
+					
+				}
+				.text {
+					font-size: $fs-1;
+					margin-top: 6px;
+				}
+			}
+		}
+		
+		.box3 {
+			margin-top: $marginTop1;
+			text-align: center;
+			.flex {
+				flex: 1;
+				.text {
+					font-size: $fs-1;
+					margin-top: 6px;
+					line-height: 1.2em;
+				}
+			}
+		}
+	}
+</style>
+<template>
+	<div class="myDeal">
+		<m-header>
+			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
+			<div class="text">
+				我的交易
+			</div>
+			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
+		</m-header>
+		
+		<div class="myDealTabs">
+			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
+			<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
+			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+				<van-tab title="求购中" name="buy">
+					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
+						<div class="list">
+							<div class="item" v-for="item in list1" :key="item.id">
+								<div class="flex">
+									<div class="info">
+										<div class="flex1">
+											<div>数量</div>
+											<div class="d">{{item.minNumber}}~{{item.maxNumber}}{{pen}}</div>
+										</div>
+										<div class="flex1">
+											<div>单价</div>
+											<div class="d">{{item.price}}CNY</div>
+										</div>
+									</div>
+									<div class="timeBox">
+										挂单时间 {{ item.createTime }}
+									</div>
+								</div>
+								<div class="btnBox">
+									<div>{{maxPrice(item)}}CNY</div>
+									<div class="placeholderLine8"></div>
+									<van-button type="primary" size="small" :block="true" @click="cancelBuyBillBtn(item)">撤 销</van-button>
+								</div>
+							</div>
+						</div>
+					</van-list>	
+				</van-tab>
+				<!-- <van-tab title="出售" name="sell">
+					
+				</van-tab> -->
+				<van-tab title="待付款" name="pay">
+					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
+						<div class="list">
+							<div class="item" v-for="item in list2" :key="item.id">
+								<div class="flex">
+									<div class="info">
+										<div class="flexNum">
+											<div>数量</div>
+											<div class="d">{{item.num}}{{pen}}</div>
+										</div>
+										<div class="flex1">
+											<div>单价</div>
+											<div class="d">{{item.price}}CNY</div>
+										</div>
+										<div class="flex1">
+											<div>总价</div>
+											<div class="d">{{totalPrice(item)}}CNY</div>
+										</div>
+									</div>
+									<div class="timeBox">
+										匹配时间 {{ item.machingTime }}
+									</div>
+								</div>
+								<div class="operatorBox">
+									<div>
+										<span class="showDetailBtn lineHeight" @click="showSellerInfoBtn(item)">了解卖家</span>
+									</div>
+									<div class="margT6">
+										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">进入订单</span>
+									</div>
+									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
+									<div class="margT6 lineHeight">
+										{{item.status | dealStatusType}}
+									</div>
+									<div class="margT6" v-if="buyOrSell(item)=='sell'&&item.status==0">
+										<span class="cancelBtn" @click="cancelDealBtn(item)">取消交易</span>
+									</div>
+									<div class="margT6" v-if="buyOrSell(item)=='buy'&&item.status==0">
+										<span class="cancelBtn" @click="lockTransactionBtn(item)">锁定交易</span>
+									</div>
+								</div>
+								<i class="tagIcon iconfont iconfont-tag tag4Buy"></i>
+								<i class="tagIconText">买</i>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				<van-tab title="待收款" name="get">
+					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
+						<div class="list">
+							<div class="item" v-for="item in list4" :key="item.id">
+								<div class="flex">
+									<div class="info">
+										<div class="flexNum">
+											<div>数量</div>
+											<div class="d">{{item.num}}{{pen}}</div>
+										</div>
+										<div class="flex1">
+											<div>单价</div>
+											<div class="d">{{item.price}}CNY</div>
+										</div>
+										<div class="flex1">
+											<div>总价</div>
+											<div class="d">{{totalPrice(item)}}CNY</div>
+										</div>
+									</div>
+									<div class="timeBox">
+										匹配时间 {{ item.machingTime }}
+									</div>
+								</div>
+								<div class="operatorBox">
+									<div>
+										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">查看详情</span>
+									</div>
+									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
+									<div class="margT6 lineHeight">
+										{{item.status | dealStatusType}}
+									</div>
+									<div class="margT6" v-if="buyOrSell(item)=='sell'&&(item.status==0||item.status==1)">
+										<span class="cancelBtn" @click="cancelDealBtn(item)">取消交易</span>
+									</div>
+								</div>
+								<i class="tagIcon iconfont iconfont-tag tag4Sell"></i>
+								<i class="tagIconText">卖</i>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				<van-tab title="已完成" name="complated">
+					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
+						<div class="list">
+							<div class="item" v-for="item in list3" :key="item.id">
+								<div class="flex">
+									<div class="info">
+										<div class="flexNum">
+											<div>数量</div>
+											<div class="d">{{item.num}}{{pen}}</div>
+										</div>
+										<div class="flex1">
+											<div>单价</div>
+											<div class="d">{{item.price}}CNY</div>
+										</div>
+										<div class="flex1">
+											<div>总价</div>
+											<div class="d">{{totalPrice(item)}}CNY</div>
+										</div>
+									</div>
+									<div class="timeBox">
+										匹配时间 {{ item.machingTime }}
+									</div>
+									<div class="timeBox">
+										完成时间 {{ item.coinReleaseTime }}
+									</div>
+								</div>
+								<div class="operatorBox4complate">
+									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
+									<div class="margT6 lineHeight">
+										{{item.status | dealStatusType}}
+									</div>
+								</div>
+								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item)"></i>
+								<i class="tagIconText">{{buyOrSell(item)=='buy'?'买':'卖'}}</i>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				<van-tab title="已取消" name="canceled">
+					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
+						<div class="list">
+							<div class="item" v-for="item in list5" :key="item.id">
+								<div class="flex">
+									<div class="info">
+										<div class="flexNum">
+											<div>数量</div>
+											<div class="d">{{item.num}}{{pen}}</div>
+										</div>
+										<div class="flex1">
+											<div>单价</div>
+											<div class="d">{{item.price}}CNY</div>
+										</div>
+										<div class="flex1">
+											<div>总价</div>
+											<div class="d">{{totalPrice(item)}}CNY</div>
+										</div>
+									</div>
+									<div class="timeBox">
+										匹配时间 {{ item.machingTime }}
+									</div>
+								</div>
+								<div class="operatorBox4complate">
+									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
+									<div class="margT6 lineHeight">
+										{{item.status | dealStatusType}}
+									</div>
+								</div>
+								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item)"></i>
+								<i class="tagIconText">{{buyOrSell(item)=='buy'?'买':'卖'}}</i>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+			</van-tabs>
+			</van-pull-refresh>
+		</div>
+		<!-- <van-sticky></van-sticky> -->
+		<!-- 买家所显示的订单详情 -->
+		<van-action-sheet v-model="showSellerDetailModel" title="订单详情">
+			<div v-if="!detail4sellerInfo">
+				<div class="placeholderLine20"></div>
+				<van-skeleton :row="16"/>
+				<div class="placeholderLine20"></div>
+			</div>
+			<div class="detailBox" v-if="detail4sellerInfo">
+				<div class="line">
+					<span class="label">卖方</span>
+					<span class="value">{{detail4sellerInfo.realName}}</span>
+				</div>
+				<div class="line">
+					<span class="label">卖方手机号</span>
+					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.mobilePhone,$event)">复制</span>{{detail4sellerInfo.mobilePhone}}</div>
+				</div>
+				<div class="line">
+					<div class="label">卖方支付宝</div>
+					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.alipayNum,$event)">复制</span>{{detail4sellerInfo.alipayNum}}</div>
+				</div>
+				<div class="line">
+					<div class="label">卖方微信号</div>
+					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.wechartNum,$event)">复制</span>{{detail4sellerInfo.wechartNum}}</div>
+				</div>
+				<div class="line">
+					<span class="label">数量</span>
+					<span class="value">{{detail4sellerInfo.num}}</span>
+				</div>
+				<div class="line">
+					<span class="label">单价</span>
+					<span class="value">{{detail4sellerInfo.price}} CNY</span>
+				</div>
+				<div class="line">
+					<span class="label">总价</span>
+					<span class="value">{{totalPrice(detail4sellerInfo)}} CNY</span>
+				</div>
+				<div class="line" v-if="detail4sellerInfo.status>-1">
+					<span class="label">状态</span>
+					<span class="value textAdornColor">{{detail4sellerInfo.status | dealStatusType}}</span>
+				</div>
+				<div class="line" v-if="detail4sellerInfo.remark">
+					<span class="label">小报告</span>
+					<span class="value <red></red>">{{detail4sellerInfo.remark}}</span>
+				</div>
+				<div class="line" v-if="detail4sellerInfo.status==0 || detail4sellerInfo.status==1">
+					<span class="label">自动取消倒计时</span>
+					<span class="value textAdornColor">
+						<van-count-down :time="setCancelDealDownTime(detail4sellerInfo.canCancelTime)" />
+					</span>
+				</div>
+				<!-- <div class="line" v-if="detail4sellerInfo.status=='1'">
+					<span class="label">锁定</span>
+					<span class="value textAdornColor">买方已锁定交易</span>
+				</div> -->
+				<div v-if="detail4sellerInfo.status==0||detail4sellerInfo.status==1">
+					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn">我已付款 让卖家确认</van-button>
+					<div class="placeholderLine10"></div>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(detail4sellerInfo)" size="normal" :block="true">取消交易</van-button>
+				</div>
+				<div class="line" v-if="detail4sellerInfo.status==2 || detail4sellerInfo.status==4">
+					<span class="label">卖方确认倒计时</span>
+					<span class="value textAdornColor">
+						<van-count-down :time="setLetSureDownTime(detail4sellerInfo.letSureTime)" />
+					</span>
+				</div>
+				<div class="line" v-if="detail4sellerInfo.status==3">
+					<span class="label">付款凭证</span>
+					<span class="value">
+						<i class="iconfont iconfont-upload-pic"></i>
+						<input accept="image/png,image/jpeg,image/jpg" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
+						<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
+					</span>
+				</div>
+				<div class="line" v-if="detail4sellerInfo.status==4">
+					<span class="label">修改凭证</span>
+					<span class="value">
+						<i class="iconfont iconfont-upload-pic"></i>
+						<input accept="image/png,image/jpeg,image/jpg" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
+						<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
+					</span>
+				</div>
+				<div v-if="detail4sellerInfo.status==4 || detail4sellerInfo.status==5">
+					<img class="selectedImg" :src="detail4sellerInfo.imgUrl"/>
+				</div>
+				<div class="margT10">
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4sellerInfo)" size="normal" :block="true">向平台打小报告</van-button>
+				</div>
+				<div class="tipText margT10">
+					{{tipText}}
+				</div>
+			</div>
+		</van-action-sheet>
+		<!-- 卖家所显示的订单详情 -->
+		<van-action-sheet v-model="showBuyerDetailModel" title="订单详情">
+			<div v-if="!detail4buyerInfo">
+				<div class="placeholderLine20"></div>
+				<van-skeleton :row="16"/>
+				<div class="placeholderLine20"></div>
+			</div>
+			<div class="detailBox" v-if="detail4buyerInfo">
+				<div class="line">
+					<span class="label">买方</span>
+					<span class="value">{{detail4buyerInfo.realName}}</span>
+				</div>
+				<!-- <div class="line">
+					<span class="label">买方手机号</span>
+					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.mobilePhone,$event)">复制</span>{{detail4buyerInfo.mobilePhone}}</div>
+				</div> -->
+				<div class="line">
+					<div class="label">买方微信号</div>
+					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.wechartNum,$event)">复制</span>{{detail4buyerInfo.wechartNum}}</div>
+				</div>
+				<div class="line">
+					<span class="label">数量</span>
+					<span class="value">{{detail4buyerInfo.num}}</span>
+				</div>
+				<div class="line">
+					<span class="label">单价</span>
+					<span class="value">{{detail4buyerInfo.price}} CNY</span>
+				</div>
+				<div class="line">
+					<span class="label">总价</span>
+					<span class="value">{{totalPrice(detail4buyerInfo)}} CNY</span>
+				</div>
+				<div class="line" v-if="detail4buyerInfo.status>-1">
+					<span class="label">状态</span>
+					<span class="value textAdornColor">{{detail4buyerInfo.status | dealStatusType}}</span>
+				</div>
+				<div class="line" v-if="detail4buyerInfo.status==0 || detail4buyerInfo.status==1">
+					<span class="label">可取消倒计时</span>
+					<span class="value textAdornColor">
+						<van-count-down :time="setCancelDealDownTime(detail4buyerInfo.canCancelTime)" />
+					</span>
+				</div>
+				<!-- <div class="line" v-if="detail4buyerInfo.status=='1'">
+					<span class="label">锁定</span>
+					<span class="value textAdornColor">买方已锁定交易</span>
+				</div> -->
+				<div class="tipText2" v-if="detail4buyerInfo.status==1">
+					{{buyerHaveWord}}
+				</div>
+				<van-button v-if="detail4buyerInfo.status==4" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认放矿石</van-button>
+				<div class="margT10" v-if="detail4buyerInfo.status==4">
+					<img class="selectedImg" :src="detail4buyerInfo.imgUrl"/>
+				</div>
+				<div class="margT10" v-if="detail4buyerInfo.status==2">
+					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认放矿石</van-button>
+					<div class="placeholderLine10"></div>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="notReciveCNYBtn" size="normal" :block="true">我没收到款 请对方上传付款凭证</van-button>
+				</div>
+				<div class="margT10">
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4buyerInfo)" size="normal" :block="true">向平台打小报告</van-button>
+				</div>
+				<div class="tipText margT10">
+					{{tipText}}
+				</div>
+			</div>
+		</van-action-sheet>
+		<!-- 取消交易提示 -->
+		<van-action-sheet v-model="showSureCancelTransactionModel4seller" title="温馨提示">
+			<div class="cancelSellTip">
+				<div class="tipText2">若买方在30分钟内没付款，且联系无果，卖方可取消交易。若买方正有事情在忙，锁定了交易，则交易时间延长30分钟。</div>
+				<div class="countDownTimeBox margT20 clear hidden" v-if="cancelSellSureBtnText=='知道了'">
+					<div class="flexCountTime">可取消倒计时：</div>
+					<div class="flexCountTime">
+						<van-count-down :time="setCountDownTime4seller" />
+					</div>
+				</div>
+			</div>
+			<div class="sureAppointBtnBox">
+				<van-button @click="cancel4seller" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">{{cancelSellSureBtnText}}</van-button>
+			</div>
+		</van-action-sheet>
+		<van-action-sheet v-model="showSureCancelTransactionModel4buyer" title="温馨提示">
+			<div class="cancelSellTip">
+				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要减0.5个贡献值。若卖方实名信息不符或者有其他问题，请向平台打小报告，让客服来处理单子并免费帮您取消交易。</div>
+			</div>
+			<div class="sureAppointBtnBox">
+				<van-button @click="cancel4buyer" :loading="sureCancelBtnLoading" loading-type="spinner" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确认取消</van-button>
+			</div>
+		</van-action-sheet>
+		<van-dialog
+		  v-model="showComplainDialog"
+		  title="打小报告的理由"
+		  show-cancel-button
+		  @confirm="submitComplainBtn"
+		>
+			<div class="remark">
+				<van-field
+					v-model="remark"
+					rows="2"
+					autosize
+					type="textarea"
+					maxlength="100"
+					placeholder="请填写理由,让平台找到线索好介入调查"
+					show-word-limit
+				  />
+			</div>	  
+		  <!-- <van-field v-model="remark" required clearable placeholder="写点内容,让平台好找到线索"/> -->
+		</van-dialog>
+		<van-action-sheet v-model="showSellerUserInfoModel" title="卖家信息">
+			<div class="box box1" v-if="sellerUserInfo">
+				<div class="flex flex1">
+					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
+					<div class="name">{{sellerUserInfo.realName | getLastName}}</div>
+				</div>
+				<div class="flex flex2">
+					<div class="line1">
+						<div class="nick_name left">{{sellerUserInfo.nickName}}</div>
+						<div class="level left">{{sellerUserInfo.level | getUserType}}</div>
+					</div>
+					<!-- <div class="line">
+						ID {{info.userId}}
+					</div> -->
+					<div class="line margT3">
+						注册时间 {{sellerUserInfo.registerTime}}
+					</div>
+					<div class="line">
+						<div class="left">买入次数 {{sellerUserInfo.buyTimes}}</div>
+						<div class="mlBox left">买入数量 {{sellerUserInfo.buyAmount}}</div>
+					</div>
+					<div class="line">
+						<div class="left">卖出次数 {{sellerUserInfo.sellTimes}}</div>
+						<div class="mlBox left">卖出数量 {{sellerUserInfo.sellAmount}}</div>
+					</div>
+					<div class="line">个人限购数量 {{sellerUserInfo.canBuyNum}}</div>
+					<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
+				</div>
+			</div>
+			<!-- <div class="box">
+				<div class="line">
+					<div class="f-11">区块地址 {{sellerUserInfo.blockAddress}}</div>
+				</div>
+			</div> -->
+			<div class="box box2">
+				<div class="flex flex1">
+					<div class="value" @click="toBookView('1',sellerUserInfo.userId)">{{sellerUserInfo.teamCalculationPower}}</div>
+					<div class="text">团队算力</div>
+				</div>
+				<div class="flex flex4">
+					<!-- <div>{{sellerUserInfo.platformTicket}}</div> -->
+					<div class="value" @click="toBookView('2',sellerUserInfo.userId)">{{sellerUserInfo.platformTicket}}</div>
+					<div class="text">帮扶券</div>
+				</div>
+				<div class="flex flex3">
+					<!-- <div>{{sellerUserInfo.contributionValue}}</div> -->
+					<div class="value" @click="toBookView('3',sellerUserInfo.userId)">{{sellerUserInfo.contributionValue}}</div>
+					<div class="text">贡献值</div>
+				</div>
+				<div class="flex flex2">
+					<!-- <div>{{sellerUserInfo.thisWeekMineral}}</div> -->
+					<div class="value" @click="toBookView('4',sellerUserInfo.userId)">{{sellerUserInfo.thisWeekMineral}}</div>
+					<div class="text">矿石</div>
+				</div>
+			</div>
+			<div class="box box3">
+				<div class="flex flex1">
+					<div>{{sellerUserInfo.myCalculationPower}}</div>
+					<!-- <NumberGrow :value="userInfo.myCalculationPower"></NumberGrow> -->
+					<div class="text">我的算力</div>
+				</div>
+				<div class="flex flex4">
+					<div>{{sellerUserInfo.temporaryFreezePlatformTicket}}</div>
+					<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
+					<div class="text">交易中<br>帮扶券</div>
+				</div>
+				<div class="flex flex3">
+					<div>{{sellerUserInfo.temporaryFreezeContribution}}</div>
+					<!-- <NumberGrow :value="userInfo.temporaryFreezeContribution"></NumberGrow> -->
+					<div class="text">交易中<br>贡献值</div>
+				</div>
+				<div class="flex flex2">
+					<div>{{sellerUserInfo.temporaryFreezeMineral}}</div>
+					<!-- <NumberGrow :value="userInfo.temporaryFreezeMineral"></NumberGrow> -->
+					<div class="text">交易中<br>矿石</div>
+				</div>
+			</div>
+			<div class="margT10">
+				<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="lookThisBook(sellerUserInfo.userId)">查看对方账本</van-button>
+			</div>
+			<div class="margT10">
+				<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" size="normal" @click="complain(sellerUserInfo)" :block="true">向平台打小报告</van-button>
+			</div>
+		</van-action-sheet>
+		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
+			<div class="paddingWing f-12 lineHeight tip4model2 textJustify">
+				<div class="textIndent">
+					单子匹配后，请卖家耐心等待30分钟，若买方在30分钟内没付款，也没锁定交易，卖方可取消交易。单子匹配后，买家若当时在忙没时间付款，可先锁定交易，锁定交易后，可延长30分钟的交易时间，锁定交易后买方若在匹配后的1小时内没付款，卖方亦可取消交易。（注：买方若是要通过微信所绑定的手机号转账，请卖方在微信中的'<b>支付-支付管理</b>'中开通'<b>允许通过手机号向我转账</b>'的功能）。
+				</div>
+			</div>
+		</van-dialog>
+		<m-refresh @refreshEvent="refreshEvent"></m-refresh>
+	</div>
+</template>
+
+<script>
+	import mHeader from '@/components/Header.vue';
+	import mFullscreen from '@/components/Fullscreen.vue';
+	import mRefresh from '@/components/Refresh.vue';
+	import clip from '@/assets/js/clipboard';
+	import { Dialog } from 'vant';
+	import { Toast } from 'vant';
+	export default {
+		data() {
+			return {
+				showTipModel:false,
+				sureCancelBtnLoading: false,
+				showComplainDialog:false,
+				remark:"",
+				pen:"",
+				uploadPicBase64:"",
+				buyerHaveWord:"买方有话说：您好，我手头正有事情在忙，请稍等片刻。",
+				tipText:"温馨提示：单子匹配后，请卖家耐心等待30分钟，若买方在30分钟内没付款，也没锁定交易，卖方可取消交易。单子匹配后，买家若当时在忙没时间付款，可先锁定交易，锁定交易后，可延长30分钟的交易时间，锁定交易后买方若在匹配后的1小时内没付款，卖方亦可取消交易。（注：买方若是要通过微信所绑定的手机号转账，请卖方在微信中的'支付-支付管理'中开通'允许通过手机号向我转账'的功能）",
+				activeName: "pay",
+				pageCount: 1000,
+				totalItems: 10000,
+				mcTime: '2019-10-16 15:30:12',
+				setCountDownTime4seller: 30 * 60 * 60 * 1000,
+				countDownTimeBoxIsShow: true,
+				showSureCancelTransactionModel4seller: false,
+				showSureCancelTransactionModel4buyer:false,
+				showSellerUserInfoModel:false,
+				showSellerDetailModel: false,
+				showBuyerDetailModel: false,
+				cancelSellSureBtnText: '知道了',
+				currentPage1: 1,
+				currentPage2: 1,
+				currentPage3: 1,
+				currentPage4: 1,
+				currentPage5: 1,
+				pageSize: 10,
+				loading:true,
+				loading1: false,
+				finished1: false,
+				loading2: false,
+				finished2: false,
+				loading3: false,
+				finished3: false,
+				loading4: false,
+				finished4: false,
+				loading5: false,
+				finished5: false,
+				list1:[],
+				list2:[],
+				list3:[],
+				list4:[],
+				list5:[],
+				detail4buyerInfo:"",
+				sellerUserInfo:"",
+				detail4sellerInfo:"",
+				userId:'',
+				transactionBuyerId:'',
+				transactionId:'',
+				toast:""
+			}
+		},
+		components: {
+			mHeader,
+			mFullscreen,
+			mRefresh,
+		},
+		create() {
+			this.toScrollTop();
+		},
+		mounted() {
+			let _this = this;
+			_this.pen = _this.$api.projectEnglishName;
+			_this.userId = _this.$cookies.get('userId');
+			if(_this.$utils.isNUll(_this.userId)){
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+			}
+			_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+			// _this.initializeHintInfo();
+			_this.initializeTabActiveName();
+			// let all = 2000;
+			// let r=0.005;
+			// let count = 0;
+			// for(let i=0;i<10000;i++){
+			// 	count = count + all*r;
+			// 	all = all-all*r;
+			// 	if(count>8500){
+			// 		console.log('天数',i); // 天数 353
+			// 		break;
+			// 	}
+			// }
+		},
+		methods: {
+			back(){
+				this.$router.go(-1);
+			},
+			showTip(){
+				this.showTipModel = true;
+			},
+			lookThisBook(userId){
+				this.$router.push({path:"myLookBook",query:{lookUserId:userId}})
+			},
+			toBookView(val,userId){
+				let _this = this;
+				console.log('toBookView');
+				let name = 'mineral';
+				if(val==1){
+					name = 'calculation';
+				}else if(val==2){
+					name = 'ticket';
+				}else if(val==3){
+					name = 'contribution';
+				}else if(val==4){
+					name = 'mineral';
+				}
+				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
+				_this.$router.push({path:"myLookBook",query:{lookUserId:userId}})
+			},
+			toScrollTop(){
+				window.scrollTo(0,0);
+				document.body.scrollTop = 0;
+				document.documentElement.scrollTop = 0;
+			},
+			tagColor(item){
+				let _this = this;
+				if(item.buyerId == _this.userId){
+					return "tag4Buy"
+				}else{
+					return "tag4Sell"
+				}
+			},
+			uploadBtn(){
+				let _this = this;
+				// _this.showBuyDetailModel = false;
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  message: '您确定上传以上付款凭证么？'
+				}).then(() => {
+				  // on confirm
+				  console.log('sure',_this.imagesList);
+				  _this.showBuyDetailModel = false;
+				  //这里调用确认付款接口
+				  //.....
+				}).catch(() => {
+				  // on cancel
+				  console.log('cancel');
+				});
+			},
+			uploadIMG(e) {
+				let _this = this;
+				console.log('正在解析图片');
+				// Toast.clear();
+				_this.toast = Toast.loading({
+				  duration: 3000, // 持续展示 toast
+				  closeOnClickOverlay:true,
+				  message: "正在解析图片"
+				});
+				let files = e.target.files || e.dataTransfer.files;
+				if (!files.length) return;
+				console.log("pic_size(MB)", files[0].size / 1024 / 1024);
+				if (files[0].size / 1024 / 1024 > 7) {
+				   _this.$toast('上传图片大小不能超过 7MB');
+				} else {
+				  console.log('正在获取图片');
+				  _this.toast.message = `正在获取图片`;
+				  _this.imgPreview(files[0]);
+				}
+			},
+			//获取图片
+			imgPreview(file) {
+				let _this = this;
+				_this.toast.message = `正在压缩图片`;
+				//判断支不支持FileReader
+				if (!file || !window.FileReader) return false;
+				if (/^image/.test(file.type)) {
+				  //创建一个reader
+				  let reader = new FileReader();
+				  //将图片转成base64格式
+				  reader.readAsDataURL(file);
+				  //读取成功后的回调
+				  reader.onloadend = function(res) {
+					let result = this.result;
+					let img = new Image();
+					img.src = result;
+					console.log('********未压缩前的图片大小(KB)********');
+					console.log(result.length / 1024);
+					// _this.toast.message = `未压缩前的图片大小 ${result.length / 1024} KB`;
+					img.onload = function() {
+					  let data = _this.compress(img, 0.1);//调整压缩比例
+					  console.log('*******压缩后的图片大小(KB)*******');
+					  console.log(data.length / 1024);
+					  // _this.toast.message = `压缩后的图片大小 ${data.length / 1024} KB`;
+					  // console.log(data);
+					  // _this.uploadPicBase64 = data;
+					  //执行上传图片接口：updateTransactionImgUrlById
+					  let params = {
+						imgUrl: data,
+						id: _this.id,
+					  	/* buyerId: _this.userId, */
+					  }
+					  _this.toast.message = `正在上传图片`;
+					  _this.$ajax.ajax(_this.$api.updateTransactionImgUrlById, 'POST', params, function(res) {
+							// console.log('res', res);
+							if (res.code == _this.$api.CODE_OK) {
+								_this.toast.message = `图片上传成功`;
+								_this.toast.icon = 'success'
+								// Toast.clear();
+								// _this.$toast(`图片上传成功`);
+								_this.showSellerDetailModel = false;
+								_this.onLoad2();
+							}
+					  })
+					}
+				  }
+				}
+			},
+			// 压缩图片
+			compress(img, size) {
+				let canvas = document.createElement('canvas');
+				let ctx = canvas.getContext('2d');
+				let initSize = img.src.length;
+				let width = img.width;
+				let height = img.height;
+				canvas.width = width;
+				canvas.height = height;
+				// 铺底色
+				ctx.fillStyle = '#fff';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				ctx.drawImage(img, 0, 0, width, height);
+				//进行最小压缩
+				let ndata = canvas.toDataURL('image/jpeg', size);
+				return ndata;
+			},
+			buyOrSell(item){
+				let _this = this;
+				if(item.buyerId == _this.userId){
+					return "buy"
+				}else{
+					return "sell"
+				}
+			},
+			maxPrice(item){
+				return (item.maxNumber*item.price).toFixed(2);
+			},
+			totalPrice(item){
+				return (item.num*item.price).toFixed(2);
+			},
+			initializeTabActiveName() {
+				let _this = this;
+				if (_this.$cookies.isKey("tabName4MyDeal")) {
+					_this.activeName = _this.$cookies.get("tabName4MyDeal");
+				}
+			},
+			tabChange(name, title) {
+				console.log(name, title);
+				let _this = this;
+				this.$cookies.set("tabName4MyDeal", name, 60 * 60 * 1);
+				if(name == 'pay' || name == 'complated'){
+					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+				}
+			},
+			refreshEvent() {
+				console.log("refresh")
+				let _this = this;
+				_this.loading = true;
+				if(_this.activeName == "buy"){
+					_this.onLoad1();
+				}else if(_this.activeName == "pay"){
+					_this.onLoad2();
+				}else if(_this.activeName == "get"){
+					_this.onLoad4();
+				}else if(_this.activeName == "complated"){
+					_this.onLoad3();
+				}else if(_this.activeName == "canceled"){
+					_this.onLoad5();
+				}
+			},
+			onLoad1(){
+				console.log('load1')
+				let _this = this;
+				// 异步更新数据
+				_this.$ajax.ajax(_this.$api.getAssistBuyBillListByBuyerId, 'GET', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list1 = res.data;
+						_this.loading1 = false;
+						_this.finished1 = true;
+					}
+					_this.loading = false;
+				})
+			},
+			onLoad2(){
+				console.log('load2')
+				let _this = this;
+				_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+				// 异步更新数据
+				/* let params = {
+					userId: _this.userId
+				} */
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4buyer, 'GET', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list2 = res.data;
+						_this.loading2 = false;
+						_this.finished2 = true;
+					}
+					_this.loading = false;
+				})
+			},
+			onLoad4(){
+				console.log('load4')
+				let _this = this;
+				// 异步更新数据
+				/* let params = {
+					userId: _this.userId
+				} */
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4sellerByUserId, 'GET', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list4 = res.data;
+						_this.loading4 = false;
+						_this.finished4 = true;
+					}
+					_this.loading = false;
+				})
+			},
+			onLoad3(){
+				console.log('load3')
+				let _this = this;
+				_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+				// 异步更新数据
+				/* let params = {
+					userId: _this.userId
+				} */
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4ComplateByUserId, 'GET', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						// let list = res.data.list;
+						_this.list3 = res.data;
+						_this.loading3 = false;
+						_this.finished3 = true;
+					}
+					_this.loading = false;
+				})
+			},
+			onLoad5(){
+				console.log('load5')
+				let _this = this;
+				// 异步更新数据
+				/* let params = {
+					userId: _this.userId
+				} */
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4CancelByUserId, 'GET', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list5 = res.data;
+						_this.loading5 = false;
+						_this.finished5 = true;
+					}
+					_this.loading = false;
+				})
+			},
+			handleCopy(text, event) {
+				let _this = this;
+				clip(text,event,function(res){
+					_this.$toast(`复制${res.text}成功`);
+				});
+			},
+			lockTransactionBtn(item){
+				let _this = this;
+				_this.id = item.id;
+				console.log('lockTransactionBtn');
+				Dialog.confirm({
+				  title: '确认信息',
+				  confirmButtonText:'确定',
+				  message: '锁定交易可延长30分钟自动取消订单的时间，您是否确定要锁定交易？'
+				}).then(() => {
+					// on confirm
+					console.log('sure');
+					let params = {
+						/* userId:  _this.userId, */
+						status:1,
+						id: _this.id
+					}
+					console.log('params',params)
+					_this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
+						// console.log('res', res);
+						if (res.code == _this.$api.CODE_OK) {
+							// let list = res.data.list;
+							if(res.data==1){
+								_this.onLoad2();
+							}
+						}
+					})
+				}).catch(() => {
+				  // on cancel
+				  console.log('cancel');
+				});
+			},
+			cancelBuyBillBtn(item){
+				let _this = this;
+				_this.id = item.id;
+				Dialog.confirm({
+				  title: '确认信息',
+				  confirmButtonText:'确定',
+				  message: '买家您是否确定要撤销此买单？'
+				}).then(() => {
+					// on confirm
+					console.log('sure');
+					 let params = {
+						id: _this.id,
+						userId: _this.userId
+					 }
+					 console.log('params',params)
+					 _this.$ajax.ajax(_this.$api.deleteBuyBillById, 'POST', params, function(res) {
+						// console.log('res', res);
+						if (res.code == _this.$api.CODE_OK) {
+							// let list = res.data.list;
+							if(res.data == 1){
+								_this.$toast("撤销成功");
+								_this.onLoad1();
+							}
+						}
+					 })
+				}).catch(() => {
+				  // on cancel
+				  console.log('cancel');
+				});
+			},
+			complain(){
+				let _this = this;
+				_this.showComplainDialog = true;
+			},
+			submitComplainBtn(){
+				let _this = this;
+				let params = {
+					remark:_this.remark,
+					id:_this.id,
+				}
+				console.log('params',params);
+				if(_this.$utils.hasNull(params)){
+					_this.$toast('请填写理由');
+					return;
+				}
+				//调用申诉接口
+				_this.$ajax.ajax(_this.$api.updateTransactionStatus5ById, 'POST', params, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						// let list = res.data.list;
+						if(res.data == 1){
+							_this.$toast("申诉成功");
+							_this.onLoad2();
+							_this.showSellerDetailModel = false;
+							_this.onLoad4();
+							_this.showBuyerDetailModel = false;
+							_this.showSellerUserInfoModel = false;
+						}
+					}
+				})
+			},
+			cancelDealBtn(item) {
+				let _this = this;
+				_this.id = item.id;
+				let bs = _this.buyOrSell(item);
+				if(bs=='sell'){
+					_this.setCountDownTime(item.canCancelTime);
+					_this.showSureCancelTransactionModel4seller = true;
+				}else if(bs=='buy'){
+					_this.showSureCancelTransactionModel4buyer = true;
+				}
+			},
+			cancel4seller(){
+				let _this = this;
+				if(_this.cancelSellSureBtnText=="知道了"){
+					_this.showSureCancelTransactionModel4seller = false;
+				}else{
+					//调用取消接口
+					let params = {
+						id: _this.id,
+						/* userId: _this.userId */
+					}
+					_this.sureCancelBtnLoading = true;
+					_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
+						// console.log('res', res);
+						_this.sureCancelBtnLoading = false;
+						if (res.code == _this.$api.CODE_OK) {
+							// let list = res.data.list;
+							if(res.data==101){
+								_this.$toast(res.message);
+							}
+							if(res.data == 1){
+								_this.$toast("已成功取消");
+								_this.showSureCancelTransactionModel4seller = false;
+								_this.onLoad4();
+								_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+							}
+						}
+					})
+				}
+			},
+			cancel4buyer(){
+				let _this = this;
+				//调用取消接口
+				let params = {
+					id: _this.id,
+					/* userId: _this.userId */
+				}
+				_this.sureCancelBtnLoading = true;
+				_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
+					// console.log('res', res);
+					_this.sureCancelBtnLoading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						// let list = res.data.list;
+						if(res.data==101){
+							_this.$toast(res.message);
+						}
+						if(res.data == 1){
+							_this.$toast("已成功取消");
+							_this.showSureCancelTransactionModel4buyer = false;
+							_this.showSellerDetailModel = false;
+							_this.onLoad2();
+						}
+					}
+				})
+			},
+			showSellerInfoBtn(item){
+				let _this = this;
+				_this.showSellerUserInfoModel = true;
+				_this.id = item.id;
+				let params = {
+					id: item.id
+				}
+				_this.$ajax.ajax(_this.$api.getAssistSellerUserInfoByTransactionId, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						if(res.data){
+							_this.sellerUserInfo = res.data;
+						}
+					}
+				})
+			},
+			showDetailBtn(item) {
+				let _this = this;
+				// const toast = Toast.loading({
+				//   duration: 0, // 持续展示 toast
+				//   forbidClick: true
+				// });
+				_this.id = item.id;
+				let bs = _this.buyOrSell(item);
+				if(bs=='sell'){
+					let params = {
+						id: _this.id
+					}
+					_this.showBuyerDetailModel = true;
+					_this.$ajax.ajax(_this.$api.getAssistBuyerInfoByTransactionId, 'GET', params, function(res) {
+						// console.log('res', res);
+						// Toast.clear();
+						if (res.code == _this.$api.CODE_OK) {
+							// let list = res.data.list;
+							if(res.data){
+								_this.detail4buyerInfo = res.data;
+							}else{
+								_this.onLoad2();
+							}
+						}
+					})
+				}else if(bs=='buy'){
+					if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+						let params = {
+							id: _this.id,
+							/* userId: _this.userId */
+						}
+						_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
+							// console.log('res', res);
+							if (res.code == _this.$api.CODE_OK) {
+								// let list = res.data.list;
+								if(res.data==101){
+									_this.$toast(res.message);//当前状态无法取消交易
+								}
+								if(res.data == 1){
+									Dialog.alert({
+									  title: '提示信息',
+									  confirmButtonText:'已经知晓',
+									  message: '由于您超时未付款，已超过付款时间，该买单已被系统自动取消！并因锁定交易后未付款而减了0.2~0.5贡献值。'
+									}).then(() => {
+									  // on confirm
+									  console.log('sure');
+									  
+									}).catch(() => {
+									  // on cancel
+									  console.log('cancel');
+									});
+									_this.onLoad2();
+								}
+							}
+						})
+						return;
+					}
+					let params = {
+						id: _this.id
+					}
+					_this.showSellerDetailModel = true;
+					_this.$ajax.ajax(_this.$api.getAssistSellerInfoByTransactionId, 'GET', params, function(res) {
+						// console.log('res', res);
+						// Toast.clear();
+						if (res.code == _this.$api.CODE_OK) {
+							// let list = res.data.list;
+							if(res.data){
+								_this.detail4sellerInfo = res.data;
+								if(_this.detail4sellerInfo.status == 0){
+									Dialog.alert({
+									  title: '温馨提示',
+									  confirmButtonText:'锁定交易',
+									  message: '为了让交易顺利进行，查看详情之前需先锁定交易，锁定后可延长30分钟自动取消交易的时间！'
+									}).then(() => {
+										// on confirm
+										console.log('sure');
+										let params = {
+											/* userId:  _this.userId, */
+											status:1,
+											id: _this.id
+										}
+										Toast.loading({
+										  message: '锁定中...',
+										  forbidClick: true,
+										  loadingType: 'spinner'
+										});
+										console.log('params',params)
+										_this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
+											// console.log('res', res);
+											Toast.clear();
+											if (res.code == _this.$api.CODE_OK) {
+												// let list = res.data.list;
+												if(res.data==1){
+													_this.onLoad2();
+													_this.getSellerInfoByTransactionId();
+												}
+											}
+										})
+									}).catch(() => {
+									  // on cancel
+									  console.log('cancel');
+									});
+								}else{
+									_this.getSellerInfoByTransactionId();
+								}
+							}else{
+								_this.onLoad2();
+							}
+						}
+					})
+				}
+				
+			},
+			getSellerInfoByTransactionId(){
+				let _this = this;
+				let params = {
+					id: _this.id
+				}
+				_this.showSellerDetailModel = true;
+				_this.$ajax.ajax(_this.$api.getAssistSellerInfoByTransactionId, 'GET', params, function(res) {
+					// console.log('res', res);
+					// Toast.clear();
+					if (res.code == _this.$api.CODE_OK) {
+						// let list = res.data.list;
+						if(res.data){
+							_this.detail4sellerInfo = res.data;
+							let now = _this.$utils.getDateTime(new Date());
+							if(_this.detail4sellerInfo.letSureTime&&_this.detail4sellerInfo.letSureTime<now){
+								
+								Dialog.confirm({
+								  title: '提示信息',
+								  confirmButtonText:'需要',
+								  message: '由于卖家30分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
+								}).then(() => {
+								  // on confirm
+								  console.log('sure');
+								  _this.letSureByBuyer();
+								}).catch(() => {
+								  // on cancel
+								  console.log('cancel');
+								});
+							}
+						}else{
+							_this.onLoad2();
+						}
+					}
+				})
+			},
+			letSureByBuyer(){
+				let _this = this;
+				let params = {
+					id: _this.id,
+					/* buyerId:  _this.userId, */
+				}
+				console.log('params',params)
+				_this.$ajax.ajax(_this.$api.updateTransactionStatus84buyerById, 'POST', params, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						// let list = res.data.list;
+						if(res.data==1){
+							_this.showSellerDetailModel = false;
+							_this.$toast('确认成功');
+							//把是否刷新用户信息设置成true,打开‘我的’页面的时候，会自动重新获取一遍userInfo
+							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+							_this.onLoad2();
+						}
+					}
+				})
+			},
+			notReciveCNYBtn(){
+				let _this = this;
+				// _this.showBuyDetailModel = false;
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  message: '请先去支付宝或微信确认是否收到款，您确定没收到款？'
+				}).then(() => {
+				  // on confirm
+				  console.log('sure');
+				  _this.showSellerDetailModel = false;
+				  //这里调用让对方上传截图接口
+				  let params = {
+					/* userId:  _this.userId, */
+					status:3,
+				  	id: _this.id
+				  }
+				  console.log('params',params)
+				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
+				  	// console.log('res', res);
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		// let list = res.data.list;
+				  		if(res.data==1){
+							_this.showBuyerDetailModel = false;
+							_this.onLoad4();
+						}
+				  	}
+				  })
+				}).catch(() => {
+				  // on cancel
+				  console.log('cancel');
+				});
+			},
+			letMineralBtn(){
+				let _this = this;
+				// _this.showBuyDetailModel = false;
+				Dialog.confirm({
+				  title: '提示信息',
+				  message: '请先查看您的支付宝或微信，确认已经收到款后再放矿石哦?',
+				  cancelButtonText:'先去查看',
+				  confirmButtonText:'确认已收到'
+				}).then(() => {
+				  // on confirm
+				  console.log('sure');
+				  //这里调用确认付款接口
+				  let params = {
+					// userId:  _this.userId,
+					status:8,
+				  	id: _this.id
+				  }
+				  console.log('params',params)
+				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
+				  	// console.log('res', res);
+					_this.showBuyerDetailModel = false;
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		// let list = res.data.list;
+				  		if(res.data==1){
+							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+							_this.onLoad4();
+						}
+				  	}else{
+						_this.$toast(res.message);
+					}
+				  })
+				}).catch(() => {
+				  // on cancel
+				  console.log('cancel');
+				});
+			},
+			payedBtn(){
+				let _this = this;
+				// _this.showBuyDetailModel = false;
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  message: '您确定已经付款？若没付款，对方可以驳回并要求上传付款凭证的哦！'
+				}).then((res) => {
+				  // on confirm
+				  console.log('sure',res);
+				  //这里调用确认付款接口
+				  let params = {
+					/* userId:  _this.userId, */
+					status:2,
+				  	id: _this.id
+				  }
+				  console.log('params',params)
+				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
+				  	// console.log('res', res);
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		// let list = res.data.list;
+				  		if(res.data==1){
+				  			_this.showSellerDetailModel = false;
+							_this.onLoad2();
+						}
+				  	}
+				  })
+				}).catch(() => {
+				  // on cancel
+				  console.log('cancel');
+				});
+			},
+			setCountDownTime(canCancelTime) {
+				let _this = this;
+				let mcTime = _this.$utils.getTime(canCancelTime);
+				let nowTime = _this.$utils.getTime(new Date());
+				_this.setCountDownTime4seller = (mcTime - nowTime); 
+				if (_this.setCountDownTime4seller <= 0) {
+					// _this.countDownTimeBoxIsShow = false;
+					_this.cancelSellSureBtnText = "确认取消";
+				}
+			},
+			setLetSureDownTime(letSureTime) {
+				let _this = this;
+				let ltTime = _this.$utils.getTime(letSureTime);
+				let nowTime = _this.$utils.getTime(new Date());
+				return (ltTime - nowTime);
+			},
+			setCancelDealDownTime(canCancelTime) {
+				let _this = this;
+				let ltTime = _this.$utils.getTime(canCancelTime);
+				let nowTime = _this.$utils.getTime(new Date());
+				return (ltTime - nowTime);
+			},
+		}
+	}
+</script>

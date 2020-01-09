@@ -1,0 +1,402 @@
+<style lang="scss">
+	@import '~@/assets/scss/index.scss';
+	.ranking{
+		@include page4Home4Scroll();
+		/* .van-sticky--fixed{
+			top: 47px !important;
+		} */
+		[class*=van-hairline]::after {
+		    border: 1px solid transparent !important;
+		}
+		.rankingTabs {
+			color: $mainTextColor;
+			.list{
+				.item{
+					display: flex;
+					flex-direction: row;
+					align-content: center;
+					align-items: center;
+					justify-content: center;
+					padding: $boxPadding2;
+					background-color: $main-box-color;
+					border-top: 1px solid $main-bg-color;
+					.flexLeft{
+						flex: 0 0 36px;
+						font-size: $fs-12;
+						$heightwidht:30px;
+						.name{
+							width: $heightwidht;
+							height: $heightwidht;
+							border-radius: $heightwidht;
+							background-color: $main-adorn-color;
+							text-align: center;
+							line-height: $heightwidht;
+							font-size: 18px;
+						}
+						.nameChild{
+							width: $heightwidht;
+							height: $heightwidht;
+							border-radius: $heightwidht;
+							background-color: $main-blue-color;
+							text-align: center;
+							line-height: $heightwidht;
+							font-size: 18px;
+						}
+						.iconleft{
+							font-size: 22px;
+						}
+					}
+					.flex{
+						flex: 1;
+						.line{
+							.copy{
+								font-size: $fs-10;
+								margin-left: 3px;
+								background-color: #E5E5E5;
+								padding: 1px 2px;
+								color: #0E1935;
+								border-radius: 2px;
+							}
+						}
+					}
+					.flexRight{
+						flex: 0 0 90px;
+						text-align: right;
+						font-size: $fs-12;
+					}
+					.operatorBox{
+						flex: 0 0 100px;
+						text-align: center;
+						font-size: $fs-12;
+						.van-count-down{
+							color: $mainTextColor !important;
+						}
+						// .countDownTime{
+						// 	color: $mainTextColor !important;
+						// }
+						.cancelBtn,.showDetailBtn{
+							text-decoration: underline;
+						}
+					}
+				}
+			}
+		}
+		.textAdornColor{
+			color: $main-adorn-color !important;
+		}
+		.questionHelper{
+			background-color: $main-adorn-color;
+			color: $mainTextColor;
+			text-align: center;
+			line-height: 40px;
+		}
+		.paddingWing{
+			.van-cell{
+				padding:1px 0;
+				line-height: 1.3em;
+			}
+			.van-cell__title{
+				font-weight: bolder;
+			}
+			.van-panel__content{
+				line-height: 1.3em;
+				color: $grayDark;
+			}
+		}
+		.flexBox4Dialog{
+			display: flex;
+			.flexLeft{
+				flex: 1;
+			}
+			.flexRight{
+				flex: 1;
+			}
+		}
+	}
+	
+</style>
+<template>
+	<div class="ranking">
+		<m-header>
+			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
+			<div class="text">排行榜前20</div>
+			<i class="rightBox icon"></i>
+		</m-header>
+		<div class="rankingTabs">
+			<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
+			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+				<van-tab title="矿石" name="ranking1">
+					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
+						<div class="list" v-for="(item,index) in list1" :key='item.id'>
+							<div class="item">
+								<div class="flexLeft">
+									<div class="name">{{index+1}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+									<!-- <div class="placeholderLine10"></div>
+									<div class="line">
+										<div>
+											<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}
+											<span class="margL1" @click="lookWeChartNumBtn(item.shareCode)">查看</span>
+										</div>
+									</div> -->
+								</div>
+								<div class="flexRight">{{item.num}}</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				
+				<van-tab title="贡献值" name="ranking2">
+					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
+						<div class="list" v-for="item in list2" :key='item.id'>
+							<div class="item">
+								<div class="flexLeft">
+									<div class="name">{{item.nickName | getLastName}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+								</div>
+								<div class="flexRight">{{item.num}}</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				
+				<van-tab title="帮扶券" name="ranking3">
+					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
+						<div class="list" v-for="item in list3" :key='item.id'>
+							<div class="item">
+								<div class="flexLeft">
+									<div class="name">{{item.nickName | getLastName}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+								</div>
+								<div class="flexRight">{{item.num}}</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				
+				<van-tab title="团队算力" name="ranking4">
+					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
+						<div class="list" v-for="item in list4" :key='item.id'>
+							<div class="item">
+								<div class="flexLeft">
+									<div class="name">{{item.nickName | getLastName}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+								</div>
+								<div class="flexRight">{{item.num}}</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+			</van-tabs>
+		</div>
+	</div>
+</template>
+
+<script>
+	import mHeader from '@/components/Header.vue';
+	import clip from '@/assets/js/clipboard';
+	import { Dialog } from 'vant'
+	// import mFullscreen from '@/components/Fullscreen.vue';
+	export default {
+		data() {
+			return {
+				currentPage1: 1,
+				list1:[],
+				loading1:false,
+				finished1:false,
+				currentPage2: 1,
+				list2:[],
+				loading2:false,
+				finished2:false,
+				currentPage3: 1,
+				list3:[],
+				loading3:false,
+				finished3:false,
+				currentPage4: 1,
+				list4:[],
+				loading4:false,
+				finished4:false,
+				pageSize:20,
+				activeName:'ranking1',
+				showTipModel:false,
+				showTipModel4LookWeCharNum:false,
+				shareCode:"",
+				weChartNum:""
+			}
+		},
+		components: {
+			mHeader
+		},
+		mounted() {
+			let _this = this;
+		
+		},
+		methods: {
+			back(){
+				this.$router.go(-1);
+			},
+			showTip(){
+				this.showTipModel = true;
+			},
+			/* lookWeChartNumBtn(shareCode){
+				let _this = this;
+				_this.showTipModel4LookWeCharNum = true;
+				_this.shareCode = shareCode;
+			}, */
+			/* getAssistWeChartNumByShareCode(){
+				let _this = this;
+				return new Promise((resolve, reject) => {
+					_this.$ajax.ajax(_this.$api.getAssistWeChartNumByShareCode + _this.shareCode, 'GET', null, function(res) {
+						if (res.code == _this.$api.CODE_OK) {
+							console.log("res.data",res.data)
+							resolve(res.data);
+						}else{
+							reject(false)
+						}
+					})
+				})
+			}, */
+			handleCopy(text, event) {
+				let _this = this;
+				clip(text,event,function(res){
+					_this.$toast(`复制${res.text}成功`);
+				});
+			},
+			onLoad1(){
+				console.log('load1')
+				let _this = this;
+				// 异步更新数据
+				var params = {
+					pageNo: this.currentPage1,
+					pageSize: this.pageSize,
+					mobilePhone:""
+				}
+				_this.loading1 = true;
+				_this.finished1 = false;
+				_this.$ajax.ajax(_this.$api.getMineralRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list1.push(...list);
+						_this.loading1 = false;
+						_this.loading1 = false;
+						_this.finished1 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished1 = true;
+						}else{
+							_this.currentPage1 = _this.currentPage1 + 1;
+						} */
+					}else{
+						_this.loading1 = false;
+						_this.finished1 = true;
+					}
+				})
+			},
+			onLoad2(){
+				console.log('load2')
+				let _this = this;
+				var params = {
+					pageNo: this.currentPage2,
+					pageSize: this.pageSize,
+					mobilePhone:""
+				}
+				_this.loading2 = true;
+				_this.finished2 = false;
+				_this.$ajax.ajax(_this.$api.getContributionValueRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list2.push(...list);
+						_this.loading2 = false;
+						_this.loading2 = false;
+						_this.finished2 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished2 = true;
+						}else{
+							_this.currentPage2 = _this.currentPage2 + 1;
+						} */
+					}else{
+						_this.loading2 = false;
+						_this.finished2 = true;
+					}
+				})
+			},
+			onLoad3(){
+				console.log('load3')
+				let _this = this;
+				// 异步更新数据
+				var params = {
+					pageNo: this.currentPage3,
+					pageSize: this.pageSize,
+					mobilePhone:""
+				}
+				_this.loading3 = true;
+				_this.finished3 = false;
+				_this.$ajax.ajax(_this.$api.getPlatformTicketRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list3.push(...list);
+						_this.loading3 = false;
+						_this.loading3 = false;
+						_this.finished3 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished3 = true;
+						}else{
+							_this.currentPage3 = _this.currentPage3 + 1;
+						} */
+					}else{
+						_this.loading3 = false;
+						_this.finished3 = true;
+					}
+				})
+			},
+			onLoad4(){
+				console.log('load4')
+				let _this = this;
+				// 异步更新数据
+				var params = {
+					pageNo: this.currentPage4,
+					pageSize: this.pageSize,
+					mobilePhone:""
+				}
+				_this.loading4 = true;
+				_this.finished4 = false;
+				_this.$ajax.ajax(_this.$api.getTeamCalculationPowerRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list4.push(...list);
+						_this.loading4 = false;
+						_this.loading4 = false;
+						_this.finished4 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished4 = true;
+						}else{
+							_this.currentPage4 = _this.currentPage4 + 1;
+						} */
+					}else{
+						_this.loading4 = false;
+						_this.finished4 = true;
+					}
+				})
+			},
+			tabChange(res) {
+				let _this = this;
+				console.log('res', res)
+				/* if(res == 'ranking2'){
+					_this.onLoad2();
+				} */
+			},
+			onSearch(res){
+				console.log('res', res)
+			}
+		}
+	}
+</script>
+
+

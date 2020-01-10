@@ -381,7 +381,7 @@ export default {
 			_this.$router.replace('login');
 			return;
 		}
-		_this.getUserInfo();
+		// _this.getUserInfo();
 		/* if(_this.$cookies.get('isRefreshUserInfo')==1){
 			_this.getUserInfo();
 		} */

@@ -369,6 +369,7 @@ export default {
 					// _this.info = res.data.list;
 					// _this.isRealName = true;
 					_this.$toast(res.message);
+					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 					_this.$router.go(-1);
 				}else{
 					_this.$toast(res.message);

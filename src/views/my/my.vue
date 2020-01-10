@@ -597,7 +597,7 @@
 				_this.$router.replace('login');
 				return;
 			}
-			_this.getUserInfo();
+			// _this.getUserInfo();
 			
 			/* if (_this.$cookies.get("buyAndSellInfo")) {
 				_this.buyAndSellInfo = _this.$cookies.get("buyAndSellInfo");

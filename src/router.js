@@ -53,7 +53,7 @@ export default new Router({
 					path: '/deal',
 					name: '市场',
 					component: () => import('./views/deal/deal'),
-					meta:{footer:true,question:true},
+					meta:{footer:true,question:true,showRecordIcon:true},
 					// children:[
 					// 	{
 					// 		path: '/myDeal4Deal',
@@ -160,12 +160,6 @@ export default new Router({
 					meta:{footer:false},
 				},
 				{
-					path: '/myLookBook',
-					name: '对方账本',
-					component: () => import('./views/my/myLookBook'),
-					meta:{footer:false},
-				},
-				{
 					path: '/merchantProcess',
 					name: '商家入驻',
 					component: () => import('./views/home/merchantProcess'),
@@ -253,6 +247,18 @@ export default new Router({
 					component: () => import('./views/raise/raise.vue')
 				},
 			]
+		},
+		{
+			path: '/lookBook',
+			name: '对方账本',
+			component: () => import('./views/deal/lookBook'),
+			meta:{footer:false,keepAlive:true},
+		},
+		{
+			path: '/dealRecord',
+			name: '交易流水',
+			component: () => import('./views/deal/dealRecord'),
+			meta:{footer:false},
 		},
 		{
 			path: '/register',

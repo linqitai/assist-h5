@@ -88,6 +88,7 @@ export default {
 	getMineralBookList: host + "assist/mineralBook/getMineralBookList",
 	getMineralBookListByUserId: host + "assist/mineralBook/getMineralBookListByUserId",
 	transferMineral: host + "assist/userInfo/transferMineral",
+	getMineralBookList4SellType: host + "assist/mineralBook/getMineralBookList4SellType",
 	//平台券账本
 	getAssistPlateformTicketAccountBookList: host + "assist/plateformTicketAccountBook/getAssistPlateformTicketAccountBookList",
 	transferPlatformTicket: host + "assist/userInfo/transferPlatformTicket",

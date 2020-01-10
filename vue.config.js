@@ -6,7 +6,7 @@ module.exports = {
 		port: 8086,
         proxy: {
             '/bflApp':{
-                target:'http://localhost:8002/',
+                target:'http://localhost:8001/',
                 changeOrigin:true,
                 pathRewrite:{
                     '/bflApp':''

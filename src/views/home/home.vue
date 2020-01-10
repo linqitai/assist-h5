@@ -107,6 +107,10 @@ $noticeHeight:40px;
 					.iconBackgroundRank {
 						background-color: #f39800;
 					}
+					
+					.iconBackgroundShare {
+						background-color: #42a0ff;
+					}
 				}
 		
 				.text {
@@ -490,6 +494,14 @@ $noticeHeight:40px;
 				<div class="cateInfo">
 					<div class="infoBox" @click="waiting">
 						<div class="iconBox">
+							<div class="iconBackground iconBackground2">
+								<van-icon class-prefix="iconfont" name="merchant" />
+							</div>
+						</div>
+						<div class="text">商家入驻</div>
+					</div>
+					<div class="infoBox" @click="waiting">
+						<div class="iconBox">
 							<div class="iconBackground iconBackground1">
 								<van-icon class-prefix="iconfont" name="guide" />
 							</div>
@@ -498,31 +510,21 @@ $noticeHeight:40px;
 					</div>
 					<div class="infoBox" @click="waiting">
 						<div class="iconBox">
-							<div class="iconBackground iconBackground2">
-								<van-icon class-prefix="iconfont" name="merchant" />
+							<div class="iconBackground iconBackgroundShare">
+								<van-icon class-prefix="iconfont" name="guide" />
 							</div>
 						</div>
-						<div class="text">商家入驻</div>
+						<div class="text">资源共享</div>
 					</div>
 					<div class="infoBox">
-						<router-link to="/agency">
-							<div class="iconBox">
-								<!-- <div class="iconBackground iconBackground3">
-									<van-icon class-prefix="iconfont" name="crown" />
-								</div> -->
-							</div>
-							<div class="text"></div>
-						</router-link>
-					</div>
-					<div class="infoBox">
-						<router-link to="/voteList">
-							<div class="iconBox">
-								<!-- <div class="iconBackground iconBackground4">
-									<van-icon class-prefix="iconfont" name="vote" />
-								</div> -->
-							</div>
-							<div class="text"></div>
-						</router-link>
+						
+						<div class="iconBox">
+							<!-- <div class="iconBackground iconBackground4">
+								<van-icon class-prefix="iconfont" name="vote" />
+							</div> -->
+						</div>
+						<div class="text"></div>
+						
 					</div>
 				</div>
 				<div class="noticeFlag">

@@ -392,6 +392,8 @@
 					return 'tag2'
 				}else if(tag==3){
 					return 'tag2'
+				}else if(tag==4){
+					return 'tag2'
 				}
 			},
 			nextReceipt(value){
@@ -464,7 +466,7 @@
 				// 	id:id
 				// }
 				//运行之前先判断该用户是否是已经升级了的用户
-				if(_this.userInfo.isAgent<=0){
+				/* if(_this.userInfo.isAgent<=0){
 					Dialog.alert({
 						title: "系统提示",
 						message: "用户等级提升后即可启动该矿机（至少要是青铜级工会会长），是否前去查看升级条件？"
@@ -473,7 +475,7 @@
 					  _this.$router.push("task");
 					})
 					return;
-				}
+				} */
 				_this.$ajax.ajax(_this.$api.runMyMachineById + id, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.onLoadMyMill();
@@ -483,7 +485,7 @@
 							message: res.message
 						}).then(() => {
 						  // on confirm
-						  _this.$router.push("task");
+						  // _this.$router.push("task");
 						})
 					}
 				})

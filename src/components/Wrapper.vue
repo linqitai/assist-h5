@@ -32,7 +32,6 @@
 			z-index: 1;
 			.leftBox{
 				flex: 0 0 70px;
-				font-size: 0.75rem;
 				padding-left: $boxPadding2;
 				height: $headerHeight;
 				line-height: $headerHeight;
@@ -82,8 +81,9 @@
 	<div class="wrapper">
 		<div class="wrapperIn">
 			<div class="header">
-				<div class="leftBox" @click="back">
-					<i class="iconfont iconfont-left-arrow" v-if="$route.meta.back"></i>
+				<div class="leftBox">
+					<i class="iconfont iconfont-record f-16" v-if="$route.meta.showRecordIcon" @click="toView('dealRecord')"></i>
+					<i class="iconfont iconfont-left-arrow f-12" v-if="$route.meta.back" @click="back"></i>
 				</div>
 				<div class="centerBox">
 					{{$route.name}}
@@ -168,6 +168,15 @@ export default {
 	methods:{
 		back(){
 			this.$router.go(-1);
+		},
+		toView(view){
+			let _this = this;
+			if(view == 'dealRecord'){
+				console.log("dealRecord");
+				_this.$router.push({path:"dealRecord"});
+				// _this.$router.push({path:"lookBook",query:{lookUserId:'50'}})
+			}
+			//this.$router.push("lookBook");
 		},
 		showTip(type){
 			this.showTipModel4Wrapper = true;

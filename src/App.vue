@@ -1,6 +1,10 @@
 <template>
   <div id="app" ref="app">
-    <router-view/>
+	<transition name="van-fade">
+		<keep-alive include="dealRecord">
+			<router-view/>
+		</keep-alive>
+	</transition>
   </div>
 </template>
 <script>

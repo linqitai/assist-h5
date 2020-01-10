@@ -6,7 +6,7 @@ export default{
 	platformTicketBookTypeOptions:[{id:0,value:'转入'},{id:1,value:'修改信息'},{id:2,value:'第一次租赁矿机'},{id:3,value:'卖出使用服务费'},{id:4,value:'取消交易'},{id:5,value:'竞选省代理获得'},{id:6,value:'竞选市代理获得'},{id:7,value:'转出'},{id:8,value:'津贴奖励'},{id:9,value:'内排注册'},{id:10,value:'留言'}],
 	dealStatusOptions:[{id:0,value:'待付款'},{id:1,value:'买方已锁定交易'},{id:2,value:'待确认'},{id:3,value:'需上传付款凭证'},{id:4,value:'付款凭证已上传'},{id:5,value:'待客服介入调查'},{id:6,value:'取消交易'},{id:7,value:'卖方取消交易'},{id:8,value:'交易成功'},{id:9,value:'客服介入取消交易'}],
 	machineTypeOptions:[{id:0,value:'体验矿机'},{id:1,value:'微型矿机'},{id:2,value:'小型矿机'},{id:3,value:'中型矿机'},{id:4,value:'大型矿机'},{id:5,value:'巨型矿机'}],
-	machineTagOptions:[{id:0,value:'购买'},{id:1,value:'奖励'},{id:2,value:'赠送'},{id:3,value:'内排赠送'}],
+	machineTagOptions:[{id:0,value:'购买'},{id:1,value:'奖励'},{id:2,value:'赠送'},{id:3,value:'内排赠送'},{id:4,value:'群达标赠送'}],
 	machineVersionNoOptions:[{id:1,value:'1'},{id:2,value:'2'},{id:3,value:'3'},{id:4,value:'4'},{id:5,value:'5'},{id:6,value:'6'}],
 	versionOptions:[{id:1,value:'1'},{id:2,value:'2'},{id:3,value:'3'},{id:4,value:'4'},{id:5,value:'5'},{id:6,value:'6'}],
 	isOrNoOptions:[{id:0,value:'否'},{id:1,value:'是'}],

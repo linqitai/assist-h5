@@ -899,7 +899,7 @@
 					name = 'mineral';
 				}
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
-				_this.$router.push({path:"myLookBook",query:{lookUserId:userId}})
+				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
 			toScrollTop(){
 				window.scrollTo(0,0);

@@ -225,6 +225,7 @@
 						_this.loading = false;
 						if (res.code == _this.$api.CODE_OK) {
 							_this.$toast('留言成功');
+							_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
 							_this.$router.push({
 								path: `/myWordList`
 							});

@@ -172,7 +172,7 @@
 				let _this = this;
 				let params = {
 					questionId: _this.form.questionId,
-					userId: _this.userId
+					/* userId: _this.userId */
 				}
 				console.log('params',params);
 				if(_this.form.questionId==0){

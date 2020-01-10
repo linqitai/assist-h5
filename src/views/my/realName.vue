@@ -304,6 +304,7 @@ export default {
 		_this.mobilePhone = localStorage.getItem("mobilePhone");
 		console.log('_this.mobilePhone',_this.mobilePhone);
 		_this.projectName = _this.$api.projectName;
+		_this.$cookies.set('isRefreshUserInfo',1,60*30*1);
 		let userInfo = localStorage.getItem("_USERINFO_");
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);

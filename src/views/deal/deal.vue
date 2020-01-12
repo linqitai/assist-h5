@@ -704,20 +704,6 @@ export default {
 				_this.$cookies.set('isRefreshDealInfo',0,_this.$api.cookiesTime);
 			}
 		},
-		getBuyAndSellInfo(){
-			let _this = this;
-			let params = {
-				// userId:_this.userInfo.userId
-			}
-			_this.$ajax.ajax(_this.$api.getBuyInAndSellOutInfoByUserId, 'GET', params, function(res) {
-				if (res.code == _this.$api.CODE_OK) {
-					_this.buyAndSellInfo = res.data;
-					_this.$cookies.set("buyAndSellInfo", _this.buyAndSellInfo, 60*30*1);
-					_this.canBuyNum = _this.buyAndSellInfo.canBuyNum;
-					console.log("_this.canBuyNum——getBuyAndSellInfo",_this.canBuyNum);
-				}
-			})
-		},
 		getHomeMineralStaticInfo(){
 			let _this = this;
 			_this.loading = true;
@@ -739,23 +725,6 @@ export default {
 				}
 			})
 		},
-		/* getList(){
-			let _this = this;
-			let params = {
-				pageNo: _this.currentPage,
-				pageSize: _this.pageSize
-			}
-			_this.loading = true;
-			_this.$ajax.ajax(_this.$api.getAssistBuyBillListPage, 'GET', params, function(res) {
-				// console.log('res', res);
-				if (res.code == _this.$api.CODE_OK) {
-					_this.list1 = res.data.list;
-					_this.totalItems = res.data.total;
-					_this.loading = false;
-					localStorage.setItem("LIST1",JSON.stringify(_this.list1));
-				}
-			})
-		}, */
 		getListGeneral(){
 			let _this = this;
 			let params = {
@@ -995,7 +964,7 @@ export default {
 					_this.errorInfo4BuyBill.sellAmount = _this.clickIconTip.sellAmount;
 				}
 			})
-			_this.$ajax.ajax(_this.$api.getAssistTransactionCountBySellerId + _this.userInfo.userId, 'GET', null, function(res) {
+			_this.$ajax.ajax(_this.$api.getAssistTransactionCountBySellerId, 'GET', null, function(res) {
 				// console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) { // 200
 					_this.userIdSellBillCount = res.data;
@@ -1063,8 +1032,8 @@ export default {
 				return;
 			} */
 			let params = {
-				userId:_this.userInfo.userId,//userId看看能否不用传，从后台接口缓存里获取
-				/* serviceCharge:_this.form4BuyBill.serviceCharge, */
+				/*userId:_this.userInfo.userId,
+				serviceCharge:_this.form4BuyBill.serviceCharge, */
 				maxNumber:_this.form4BuyBill.buyAmount,
 				minNumber:_this.form4BuyBill.buyLowestAmount,
 				price:_this.form4BuyBill.price,

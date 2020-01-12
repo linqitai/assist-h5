@@ -1,5 +1,5 @@
 {
-  "name": "assist-h5-app",
+  "name": "assist-h5",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "canvas": "^2.6.0",
     "canvg": "^3.0.4",
     "clipboard": "^2.0.4",
     "core-js": "^3.6.2",

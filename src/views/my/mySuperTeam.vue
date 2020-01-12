@@ -305,7 +305,7 @@
 						_this.list1.push(...list);
 						_this.totalNum = res.data.total;
 						_this.myShareText = '我的团队' + ' ' + res.data.total;//团队注册人数
-						//_this.unactivedText = '未实名' + ' ' + (res.data.total - _this.realnameNum);
+						_this.unactivedText = '未实名' + ' ' + (res.data.total - _this.userInfo.realnameNum);
 						_this.loading1 = false;
 						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
@@ -355,10 +355,11 @@
 			},
 			updateRealNameNumByUserId(){
 				let _this = this;
-				_this.$ajax.ajax(_this.$api.updateRealNameNumByUserId + _this.userInfo.userId, 'GET', null, function(res) {
+				_this.$ajax.ajax(_this.$api.updateRealNameNumByUserId, 'GET', null, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						console.log("updateRealNameNumOK");
+						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
 					}
 				})
 			},

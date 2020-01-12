@@ -1,15 +1,11 @@
 <style lang="scss">
-	@import '~@/assets/scss/variable.scss';
-	.register{
-		padding: $boxPadding1;
+	@import '~@/assets/scss/index.scss';
+	.forgetPassword{	
 		color: $mainTextColor;
-		background-color: $main-bg-color;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		overflow-y: scroll;
+		@include pageHaveHeight4Scroll();
+		width: 100%;
+		box-sizing: border-box;
+		padding: $boxPadding1;
 		.welcomeText{
 			font-size: 1.5rem;
 		}
@@ -47,8 +43,14 @@
 </style>
 
 <template>
-	<div class="register">
-		<div class="welcomeText">忘记密码</div>
+	<div class="forgetPassword">
+		<m-header>
+			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
+			<div class="text">
+				忘记密码
+			</div>
+			<i class="rightBox icon"></i>
+		</m-header>
 		<van-cell-group :border="isNo">
 			<div class="labelText">手机号</div>
 			<van-field v-model="form.phone" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
@@ -69,6 +71,7 @@
 </template>
 
 <script>
+	import mHeader from '@/components/Header.vue';
 	export default {
 		data() {
 			return {
@@ -95,7 +98,9 @@
 				isLoading:false,
 			}
 		},
-		
+		components: {
+			mHeader
+		},
 		mounted() {
 			let _this = this;
 			// _this.initializeerrorHint();
@@ -114,6 +119,9 @@
 			_this.form.phone = localStorage.getItem("mobilePhone");
 		},
 		methods:{
+			back(){
+				this.$router.go(-1);
+			},
 			loginBtn(){
 				this.$router.push('login');
 			},

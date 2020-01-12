@@ -234,7 +234,6 @@
 				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>
-		<div class="placeholderLine10"></div>
 	</div>
 	<!-- <van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="logout">安 全 退 出</van-button> -->
 	<div class="fixedBottom">

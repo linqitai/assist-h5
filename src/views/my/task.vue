@@ -328,7 +328,7 @@
 // import { getTestUser,ERR_OK } from "@/api/index";
 // import {getCookie} from '@/assets/js/utils.js'
 import mHeader from '@/components/Header.vue';
-import { Dialog } from 'vant'
+import { Dialog } from 'vant';
 export default {
 	data() {
 		return {

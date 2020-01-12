@@ -115,6 +115,8 @@
 				console.log(`now:${now},deadTime:${val}`);
 				if(now>val){
 					return '已截止';
+				}else{
+					return '进行中';
 				}
 			},
 			onLoad1(){

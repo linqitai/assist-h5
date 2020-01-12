@@ -1194,7 +1194,7 @@
 					console.log('sure');
 					 let params = {
 						id: _this.id,
-						userId: _this.userId
+						// userId: _this.userId
 					 }
 					 console.log('params',params)
 					 _this.$ajax.ajax(_this.$api.deleteBuyBillById, 'POST', params, function(res) {

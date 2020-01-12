@@ -1,16 +1,33 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Home from './views/Wrapper.vue'
+import Register from './views/start/register'
+import Login from './views/start/login'
 
 Vue.use(Router)
 
 export default new Router({
-	// mode: 'history',
+	mode: 'history',
 	base: process.env.BASE_URL,
-	routes: [{
-			path: '/test',
-			name: '测试',
-			component: () => import('./views/test/test')
+	routes: [
+		{
+			path: '/register',
+			name: '注册',
+			component: Register
+		},
+		{
+			path: '/login',
+			name: '登录',
+			component: Login
+		},
+		{
+			path: '/forgetPassword',
+			name: '忘记密码',
+			component: () => import('./views/start/forgetPassword.vue')
+		},
+		{
+			path: '/agreement',
+			name: '服务协议',
+			component: () => import('./views/other/agreement')
 		},
 		{
 			path: '/404',
@@ -259,21 +276,6 @@ export default new Router({
 			name: '交易流水',
 			component: () => import('./views/deal/dealRecord'),
 			meta:{footer:false},
-		},
-		{
-			path: '/register',
-			name: '注册',
-			component: () => import('./views/start/register.vue')
-		},
-		{
-			path: '/login',
-			name: '登录',
-			component: () => import('./views/start/login.vue')
-		},
-		{
-			path: '/forgetPassword',
-			name: '忘记密码',
-			component: () => import('./views/start/forgetPassword.vue')
 		},
 	]
 })

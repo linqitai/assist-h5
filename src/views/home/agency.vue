@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	.agency{
-		@include page4Home();
+		@include page4Home4Scroll();
 		/* .van-sticky--fixed{
 			top: 47px !important;
 		} */

@@ -100,6 +100,10 @@ $noticeHeight:40px;
 						background-color: #fd5f00;
 					}
 					
+					.iconBackgroundRaise{
+						background-color: #f50808;
+					}
+					
 					.iconBackgroundAttendance {
 						background-color: #1aa034;
 					}
@@ -502,16 +506,16 @@ $noticeHeight:40px;
 					</div>
 					<div class="infoBox" @click="waiting">
 						<div class="iconBox">
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="guide" />
+							<div class="iconBackground iconBackgroundRaise">
+								<van-icon class-prefix="iconfont" name="love2" />
 							</div>
 						</div>
 						<div class="text">水滴帮扶筹</div>
 					</div>
 					<div class="infoBox" @click="waiting">
 						<div class="iconBox">
-							<div class="iconBackground iconBackgroundShare">
-								<van-icon class-prefix="iconfont" name="guide" />
+							<div class="iconBackground iconBackground1">
+								<van-icon class-prefix="iconfont" name="share3" />
 							</div>
 						</div>
 						<div class="text">资源共享</div>

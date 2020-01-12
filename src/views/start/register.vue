@@ -1,15 +1,11 @@
 <style lang="scss">
-	@import '~@/assets/scss/variable.scss';
+	@import '~@/assets/scss/index.scss';
 	.register{
 		padding: $boxPadding1;
 		color: $mainTextColor;
-		background-color: $main-bg-color;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		overflow-y: scroll;
+		@include pageNoHeight4Scroll();
+		width: 100%;
+		box-sizing: border-box;
 		.van-cell__value,.van-cell__value--alone,.van-field__control{
 			color: $mainTextColor !important;
 		}
@@ -64,7 +60,7 @@
 			<van-field v-model="form.shareCode" clearable :placeholder="placeholder.shareCode" @blur="validate('shareCode')" :error-message="errorHint.shareCode" />
 		</van-cell-group>
 		<div class="sureBox">
-			<div class="tip">点击注册即表示您同意<span class="agreement">《服务协议》</span></div>
+			<div class="tip">点击注册即表示您同意<span class="agreement" @click="$router.push('agreement')">《服务协议》</span></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" @click="registerBtn" :loading="isLoading" loading-type="spinner">注  册</van-button>
 			<div class="placeholderLine"></div>
 			<div class="placeholderLine"></div>

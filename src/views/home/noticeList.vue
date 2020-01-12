@@ -133,7 +133,6 @@
 			getNoticeList() {
 				let _this = this;
 				let params = {
-					isPublish:1,
 					type:0
 				}
 				_this.$ajax.ajax(_this.$api.getNoticeList, 'GET', params, function(res) {

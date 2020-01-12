@@ -86,7 +86,7 @@
 			<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
 		</van-cell-group>
 		<div class="sureBox">
-			<div class="tip">点击登录即表示您同意<span class="agreement">《服务协议》</span><span class="forget" @click="forget">忘记密码？</span></div>
+			<div class="tip">点击登录即表示您同意<span class="agreement" @click="$router.push('agreement')">《服务协议》</span><span class="forget" @click="forget">忘记密码？</span></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" :loading="isLoading" @click="loginBtn" loading-type="spinner">登  录</van-button>
 			<div class="placeholderLine10"></div>
 			<!-- <van-button color="inherit" size="normal" :block="true">手机号已更换，用秘钥登录</van-button> -->
@@ -200,18 +200,6 @@
 				},function(res){
 					// console.log("complate",res);
 					_this.isLoading = false;
-				})
-			},
-			getBuyAndSellInfo(userId){
-				let _this = this;
-				let params = {
-					userId: userId || 0
-				}
-				_this.$ajax.ajax(_this.$api.getBuyInAndSellOutInfoByUserId, 'GET', params, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						_this.buyAndSellInfo = res.data;
-						_this.$cookies.set("buyAndSellInfo", _this.buyAndSellInfo, _this.$api.cookiesTime);
-					}
 				})
 			},
 			validate(key){

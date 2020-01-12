@@ -676,18 +676,6 @@
 					}
 				})
 			},
-			getBuyAndSellInfo(){
-				let _this = this;
-				let params = {
-					// userId:_this.userId
-				}
-				_this.$ajax.ajax(_this.$api.getBuyInAndSellOutInfoByUserId, 'GET', params, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						_this.buyAndSellInfo = res.data;
-						_this.$cookies.set("buyAndSellInfo", _this.buyAndSellInfo, 60*30*1);
-					}
-				})
-			},
 			refreshEvent() {
 				console.log("refresh")
 				let _this = this;

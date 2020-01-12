@@ -39,7 +39,7 @@ export default {
 	updateAssistUsrInfo: host + 'assist/userInfo/updateAssistUsrInfo',
 	updateAssistUsrInfo4RealName: host + 'assist/userInfo/updateAssistUsrInfo4RealName',
 	getAssistUserInfoPageList: host +'assist/userInfo/getAssistUserInfoPageList',
-	updateRealNameNumByUserId: host + 'assist/userInfo/updateRealNameNumByUserId/',
+	updateRealNameNumByUserId: host + 'assist/userInfo/updateRealNameNumByUserId',
 	updatePassword: host + "assist/userInfo/updatePassword",
 	getAssistUserInfoPicByUserId: host + "assist/userInfo/getAssistUserInfoPicByUserId",
 	getAssistUserInfoPageList4Check: host + "assist/userInfo/getAssistUserInfoPageList4Check",
@@ -53,9 +53,7 @@ export default {
 	getNoticeList: host + 'assist/notice/getNoticeList',
 	getNoticePageList: host + "assist/notice/getNoticePageList",
 	getNoticeDetail: host + 'assist/notice/getNoticeDetail',
-	getDealPageInfo: host + 'assist/statistics/getDealPageInfo',
 	getQrCodeUrl: host + 'assist/qrcode/getQrCodeUrl',
-	getAssistMachine: host + 'assist/miningMachine/getAssistMiningMachineList',
 	//留言板
 	insertAssistMessageBoard: host + 'assist/messageBoard/insertAssistMessageBoard',
 	getAssistMessageBoardPageList: host + 'assist/messageBoard/getAssistMessageBoardPageList',
@@ -68,16 +66,17 @@ export default {
 	getAssistVote: host + "assist/assistVote/getAssistVote/",
 	//answer
 	insertAssistAnswer: host + "assist/answer/insertAssistAnswer",
+	getAssistAnswerListPage: host + "assist/answer/getAssistAnswerListPage",
 	//contributionValue
 	getAssistContributionValueListByUserId: host + "assist/contributionValue/getAssistContributionValueListByUserId",
 	getAssistContributionValueList: host + "assist/contributionValue/getAssistContributionValueList",
 	//machine
 	getAssistMiningMachineList: host + "assist/miningMachine/getAssistMiningMachineList",
 	getAssistMiningMachineList4MillShop: host + "assist/miningMachine/getAssistMiningMachineList4MillShop",
+	getAssistMachine: host + 'assist/miningMachine/getAssistMiningMachineList',
 	//mymachine
 	getAssistMyMachine: host + "assist/myMachine/getAssistMyMachine",
 	insertAssistMyMachine: host + "assist/myMachine/insertAssistMyMachine",
-	updateAssistMyMachine: host + "assist/myMachine/updateAssistMyMachine",
 	runMyMachineById: host + "assist/myMachine/runMyMachineById/",
 	getMyMachinesReceipt: host + "assist/myMachine/getMyMachinesReceipt",
 	//算力账本列表
@@ -102,13 +101,11 @@ export default {
 	//deal
 	getAssistBuyBillListGeneralPage: host + "assist/buybill/getAssistBuyBillListGeneralPage",
 	getAssistBuyBillListAddPricePage: host + "assist/buybill/getAssistBuyBillListAddPricePage",
-	getAssistBuyBillListPage: host + "assist/buybill/getAssistBuyBillListPage",
 	getAssistBuyBillListByBuyerId: host + "assist/buybill/getAssistBuyBillListByBuyerId",
 	getAssistBuyBillListCountByUserId: host + "assist/buybill/getAssistBuyBillListCountByUserId",
 	insertBuyBill: host + "assist/buybill/insertBuyBill",
 	deleteBuyBillById: host + "assist/buybill/deleteBuyBillById",
-	getAssistTransactionCountBySellerId: host + "assist/transaction/getAssistTransactionCountBySellerId/",
-	insertTransaction4type0: host + "assist/transaction/insertTransaction4type0",
+	getAssistTransactionCountBySellerId: host + "assist/transaction/getAssistTransactionCountBySellerId",
 	insertTransaction4PickBill: host + "assist/transaction/insertTransaction4PickBill",
 	getAssistTransactionListByUserId: host + "assist/transaction/getAssistTransactionListByUserId",
 	getAssistTransactionList4buyer: host + "assist/transaction/getAssistTransactionList4buyer",
@@ -128,10 +125,10 @@ export default {
 	getBeDigMineralNum: host + "assist/statistics/getBeDigMineralNum",
 	getCanCirculateMineralNum: host + "assist/statistics/getCanCirculateMineralNum",
 	getMinAndMaxBuyBillByUserId: host + "assist/statistics/getMinAndMaxBuyBillByUserId",
-	getBuyAndSellInfoByUserId: host + "assist/statistics/getBuyAndSellInfoByUserId",
 	getBuyInAndSellOutInfoByUserId: host + "assist/statistics/getBuyInAndSellOutInfoByUserId",
 	getMineralRanking: host + "assist/statistics/getMineralRanking",
 	getContributionValueRanking: host + "assist/statistics/getContributionValueRanking",
 	getPlatformTicketRanking: host + "assist/statistics/getPlatformTicketRanking",
 	getTeamCalculationPowerRanking: host + "assist/statistics/getTeamCalculationPowerRanking",
+	getDealPageInfo: host + 'assist/statistics/getDealPageInfo',
 }

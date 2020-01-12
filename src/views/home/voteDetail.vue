@@ -1,8 +1,8 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	$cellHeight:50px;
-	.vote{
-		@include page4Home();
+	.voteDetail{
+		@include page4Home4Scroll();
 		.van-dropdown-menu{
 			height: $cellHeight !important;
 			background-color: inherit !important;
@@ -29,27 +29,88 @@
 			color: $mainTextColor;
 			// margin-top: $header-height;
 			margin-bottom: $header-height;
-			.title{
-				height:40px;
-				line-height:40px;
-				font-size:$fs-title;
-				font-weight:bold;
+			padding:0 $boxPadding2;
+			.box1,.box2{
+				background: $main-box-color;
+				padding:10px $boxPadding2;
+				.title{
+					font-size:$fs-title;
+					font-weight:bold;
+				}
+				.time{
+					margin-top: 10px;
+					color: $grayLight2;
+				}
+				.content{
+					color:$mainTextColor;
+				}
+				.result{
+					height: 24px;
+					line-height: 24px;
+				}
 			}
-			.time{
-				color: $grayLight2;
-			}
-			.content{
-				color:$mainTextColor;
-			}
+			
 			.sureBtn{
 				position: fixed;
 				bottom: 0;
 				left: 0;
 				right: 0;
 			}
-			.result{
-				height: 24px;
-				line-height: 24px;
+			$itemLRHeight:40px;
+			$itemInnerLine1Height:20px;
+			.voteList{
+				background-color: $main-box-color;
+				margin-top:12px;
+				.item{
+					display:flex;
+					padding:10px $boxPadding2;
+					border-bottom:1px solid $mainBorderColor;
+					position: relative;
+					// &:last-child{
+					// 	border-bottom: 1px solid transparent;
+					// }
+					.itemLeft{
+						flex: 1;
+						.title{
+							width: 100%;
+							font-size: 12px;
+							line-height:$itemInnerLine1Height;
+							color: $mainTextColor;
+						}
+						.time{
+							font-size: 11px;
+							color: $grayLight2;
+							line-height:$itemInnerLine1Height;
+						}
+						.iconfont-right-arrow{
+							font-size: 10px !important;
+						}
+					}
+					.itemRight{
+						flex: 0 0 80px;
+						height: $itemLRHeight;
+						line-height: $itemLRHeight;
+						font-size: 1rem;
+						color: $mainTextColor;
+						.status{
+							font-size: 12px;
+							text-align: right;
+						}
+					}
+					.tagIcon{
+						position: absolute;
+						right: 0;
+						top: 0;
+						font-size: 16px;
+						color: $main-red-color;
+					}
+					.tagIconText{
+						position: absolute;
+						right: 6px;
+						top: 2px;
+						font-size: 11px;
+					}
+				}
 			}
 		}
 		.describe{
@@ -64,7 +125,7 @@
 	
 </style>
 <template>
-	<div class="vote">
+	<div class="voteDetail">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
@@ -74,31 +135,68 @@
 		</m-header>
 		<div class="myVotePage">
 			<div class="placeholderLine10"></div>
-			<div class="title paddingWing">
-				{{voteInfo.voteTitle}}
-			</div>
-			<div class="time paddingWing">{{voteInfo.createTime|getDateTimeTOHM}} ~ {{voteInfo.deadTime|getDateTimeTOHM}}</div>
-			<div class="paddingWing margT10">
-				<van-radio-group v-model="form.questionId" v-if="isDead==0" @change="radioChange">
-				  <van-radio v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" checked-color="#ffae00">
-				  	<!-- <div class="content" v-html="voteInfo.vote1"></div> -->
-				  	方案{{index + 1}}：{{item.questionTitle}}
-				  </van-radio>
-				</van-radio-group>
-				<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" v-if="isDead==1">
-					方案{{index + 1}}：{{item.questionTitle}}
+			<div class="box1">
+				<div class="title">
+					{{voteInfo.voteTitle}}
+				</div>
+				<div class="time">{{voteInfo.createTime|getDateTimeTOHM}} ~ {{voteInfo.deadTime|getDateTimeTOHM}}</div>
+				<div class="margT10">
+					<van-radio-group v-model="form.questionId" v-if="isDead==0" @change="radioChange">
+					  <van-radio v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" checked-color="#ffae00">
+					  	<!-- <div class="content" v-html="voteInfo.vote1"></div> -->
+					  	方案{{index + 1}}：{{item.questionTitle}}
+					  </van-radio>
+					</van-radio-group>
+					<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" v-if="isDead==1">
+						方案{{index + 1}}：{{item.questionTitle}}
+					</div>
 				</div>
 			</div>
 			<div class="placeholderLine10"></div>
-			<div class="paddingWing">
+			<div class="box2">
 				<div class="title" v-if="isDead==0">
 					目前投票结果：
 				</div>
 				<div class="title" v-if="isDead==1">
 					投票结果：
 				</div>
+				<div class="placeholderLine10"></div>
 				<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id">
 					方案{{index+1}}：{{item.num}} 票
+				</div>
+			</div>
+			<div class="voteList" v-if="myVoteInfo">
+				<div class="item">
+					<div class="itemLeft">
+						<div class="title">{{myVoteInfo.mobilePhone}}</div>
+						<div class="time">{{myVoteInfo.createTime|getDateTime}}</div>
+					</div>
+					<div class="itemRight">
+						<div class="status">{{myVoteInfo.questionTitle}}</div>
+					</div>
+					<i class="tagIcon iconfont iconfont-tag"></i>
+					<i class="tagIconText">我</i>
+				</div>
+			</div>
+			<div class="voteList" v-if="voteList">
+				<div class="item" v-for="item in voteList" :key="item.id">
+					<div class="itemLeft">
+						<div class="title">{{item.mobilePhone}}</div>
+						<div class="time">{{item.createTime|getDateTime}}</div>
+					</div>
+					<div class="itemRight">
+						<div class="status">{{item.questionTitle}}</div>
+					</div>
+				</div>
+				<div v-if="totalItems>0">
+					<van-pagination 
+					  v-model="currentPage" 
+					  :total-items="totalItems" 
+					  :items-per-page="pageSize"
+					  :show-page-size="3" 
+					  force-ellipses
+					  @change="changeCurrentPage"
+					/>
 				</div>
 			</div>
 			<div class="sureBtn" v-if="isDead==0">
@@ -125,11 +223,14 @@
 </template>
 <script>
 	import mHeader from '@/components/Header.vue';
+	import { Dialog } from 'vant';
 	// import Schart from 'vue-schart';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
 		data() {
 			return {
+				currentPage:1,
+				pageSize:10,
 				projectName:'',
 				radio:0,
 				showTipModel:false,
@@ -146,6 +247,10 @@
 				id:'',
 				userInfo:'',
 				isDead:0,
+				voteList:[],
+				totalItems:0,
+				myVoteInfo:'',
+				voteId:'',
 			}
 		},
 		components: {
@@ -182,6 +287,42 @@
 					return 0;
 				}
 			},
+			getAssistAnswer4Self(){
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage,
+					pageSize: _this.pageSize,
+					voteId:_this.voteId,
+					userId:_this.userId
+				}
+				_this.$ajax.ajax(_this.$api.getAssistAnswerListPage, 'GET', params, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) { // 200
+						_this.myVoteInfo = res.data.list[0];
+					}
+				})
+			},
+			getAssistAnswerListPage(){
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage,
+					pageSize: _this.pageSize,
+					voteId:_this.voteId,
+				}
+				_this.$ajax.ajax(_this.$api.getAssistAnswerListPage, 'GET', params, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) { // 200
+						_this.voteList = res.data.list;
+						_this.totalItems = res.data.total;
+					}
+				})
+			},
+			changeCurrentPage(val){
+				let _this = this;
+				console.log('val',val);
+				_this.currentPage = val;
+				_this.getAssistAnswerListPage();
+			},
 			getVoteInfo(){
 				let _this = this;
 				_this.id = _this.$route.query.id;
@@ -190,7 +331,10 @@
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.voteInfo = res.data;
-						_this.isDead = _this.judgeTime4VoteStatus(_this.voteInfo.deadTime)
+						_this.voteId = _this.voteInfo.id;
+						_this.isDead = _this.judgeTime4VoteStatus(_this.voteInfo.deadTime);
+						_this.getAssistAnswer4Self();
+						_this.getAssistAnswerListPage();
 					}
 				})
 			},
@@ -214,10 +358,22 @@
 							_this.$toast('投票成功');
 							_this.getVoteInfo();
 						}else if(res.data == 0){
-							_this.$toast("每人投一票，您已投过票");
+							Dialog.alert({
+							  title: '系统提示',
+							  message: '每人投一票，您已投过票'
+							}).then(() => {
+							  // on close
+							});
 						}else{
 							_this.$toast('可能出错了，请联系平台');
 						}
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				})
 			},

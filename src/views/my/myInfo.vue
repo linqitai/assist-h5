@@ -365,7 +365,17 @@ export default {
 	components:{
 	    mHeader
 	},
+	watch:{
+		$route(now,old){
+			let _this = this;
+			// console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo')
+			if(_this.$cookies.get('isRefreshUserInfo')==1){
+				_this.getUserInfo();
+			}
+		},
+	},
 	created(){
+		console.log("create");
 		let _this = this;
 		_this.projectName = _this.$api.projectName;
 		// _this.userInfo = _this.$cookies.get('_USERINFO_');
@@ -381,7 +391,9 @@ export default {
 			_this.$router.replace('login');
 			return;
 		}
-		// _this.getUserInfo();
+		/* if(_this.$cookies.get('isRefreshUserInfo')==1){
+			_this.getUserInfo();
+		} */
 		/* if(_this.$cookies.get('isRefreshUserInfo')==1){
 			_this.getUserInfo();
 		} */

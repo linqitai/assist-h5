@@ -572,7 +572,7 @@
 				console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo')
 				if(_this.$cookies.get('isRefreshUserInfo')==1){
 					_this.getUserInfo();
-					_this.$cookies.set('isRefreshUserInfo',0,60*30*1);
+					_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 				}
 				// _this.pageHeight = _this.$utils.getViewPortHeight();
 				// _this.$utils.scrollTop();
@@ -667,6 +667,7 @@
 					console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
+						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 						console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
 						_this.loading = false;

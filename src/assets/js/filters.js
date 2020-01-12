@@ -90,11 +90,24 @@ function voteStatus(val){
 
 // 获取年月日
 function getDateYMD(t) {
-  let time = new Date(t)
-  let y = time.getFullYear()
-  let m = time.getMonth() + 1
-  let d = time.getDate()
+  let time = new Date(t);
+  let y = time.getFullYear();
+  let m = time.getMonth() + 1;
+  let d = time.getDate();
   return y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
+}
+
+// 获取完整的时间
+function getDateTimeTOHM(t) {
+  let time = new Date(t);
+  let y = time.getFullYear();
+  let m = time.getMonth() + 1;
+  let d = time.getDate();
+  let h = time.getHours();
+  let mm = time.getMinutes();
+  let s = time.getSeconds();
+  return y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d) + ' ' + (h < 10 ? '0' + h : h) + ':' +
+    (mm < 10 ? '0' + mm : mm);
 }
 
 // 获取完整的时间
@@ -234,6 +247,7 @@ export {
 	voteStatus,
 	getDateYMD,
 	getDateTime,
+	getDateTimeTOHM,
 	hiddenlastName,
 	getLastName,
 	contributeType,

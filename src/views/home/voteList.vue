@@ -70,10 +70,10 @@
 				<div class="item" v-for="item in voteList" :key="item.id" @click="toVoteDetail(item)">
 					<div class="itemLeft">
 						<div class="title">{{item.voteTitle}}</div>
-						<div class="time">{{item.createTime}}</div>
+						<div class="time">{{item.createTime|getDateTimeTOHM}} ~ {{item.deadTime|getDateTimeTOHM}}</div>
 					</div>
 					<div class="itemRight">
-						<div class="status">{{item.type | voteStatus}} <i class="iconfont iconfont-right-arrow2"></i></div>
+						<div class="status">{{judgeTime4VoteStatus(item.deadTime)}} <i class="iconfont iconfont-right-arrow2"></i></div>
 					</div>
 				</div>
 			</div>
@@ -108,6 +108,14 @@
 		methods: {
 			back(){
 				this.$router.go(-1);
+			},
+			judgeTime4VoteStatus(val){
+				let _this = this;
+				let now = _this.$utils.getDateTime(new Date());
+				console.log(`now:${now},deadTime:${val}`);
+				if(now>val){
+					return '已截止';
+				}
 			},
 			onLoad1(){
 				console.log('load1')

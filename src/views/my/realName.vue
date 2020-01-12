@@ -437,7 +437,6 @@ export default {
 			let _this = this;
 			let params = {
 				id:_this.userInfo.id,
-				userId:_this.userInfo.userId,
 				nickName:_this.form.nickName,
 				realName:_this.form.realName,
 				alipayNum:_this.form.alipayNum,
@@ -470,8 +469,8 @@ export default {
 						// _this.info = res.data.list;
 						// _this.isRealName = true;
 						// _this.$toast(res.message);
-						_this.$router.go(-1);
 						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+						_this.$router.replace("myInfo");
 					}else{
 						_this.$toast(res.message);
 					}

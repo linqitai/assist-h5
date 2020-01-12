@@ -36,11 +36,9 @@ export default {
 	//用户信息
 	getAssistUserInfo: host + 'assist/userInfo/getAssistUserInfo',
 	getAssistUserInfo4Path: host + 'assist/userInfo/getAssistUserInfo4Path/',
-	insertAssistUserInfo: host + 'assist/userInfo/insertAssistUserInfo',
 	updateAssistUsrInfo: host + 'assist/userInfo/updateAssistUsrInfo',
 	updateAssistUsrInfo4RealName: host + 'assist/userInfo/updateAssistUsrInfo4RealName',
 	getAssistUserInfoPageList: host +'assist/userInfo/getAssistUserInfoPageList',
-	updateThisWeekMineralByUserId: host + 'assist/userInfo/updateThisWeekMineralByUserId',
 	updateRealNameNumByUserId: host + 'assist/userInfo/updateRealNameNumByUserId/',
 	updatePassword: host + "assist/userInfo/updatePassword",
 	getAssistUserInfoPicByUserId: host + "assist/userInfo/getAssistUserInfoPicByUserId",
@@ -92,13 +90,15 @@ export default {
 	//平台券账本
 	getAssistPlateformTicketAccountBookList: host + "assist/plateformTicketAccountBook/getAssistPlateformTicketAccountBookList",
 	transferPlatformTicket: host + "assist/userInfo/transferPlatformTicket",
-	//领取升级任务奖励
+	//领取任务奖励
 	getAssistXXLevelRewardByUserId: host + "assist/reward/getAssistXXLevelRewardByUserId",
 	getAssistRewardOneLevelByUserId: host + "assist/reward/getAssistRewardOneLevelByUserId/",
 	getAssistRewardTwoLevelByUserId: host + "assist/reward/getAssistRewardTwoLevelByUserId/",
 	getAssistRewardThreeLevelByUserId: host + "assist/reward/getAssistRewardThreeLevelByUserId/",
 	getAssistRewardFourLevelByUserId: host + "assist/reward/getAssistRewardFourLevelByUserId/",
 	getAssistRewardFiveLevelByUserId: host + "assist/reward/getAssistRewardFiveLevelByUserId/",
+	getAssistBuyMineralReward: host + "assist/reward/getAssistBuyMineralReward",
+	getShareReword: host + "assist/reward/getShareReword",
 	//deal
 	getAssistBuyBillListGeneralPage: host + "assist/buybill/getAssistBuyBillListGeneralPage",
 	getAssistBuyBillListAddPricePage: host + "assist/buybill/getAssistBuyBillListAddPricePage",

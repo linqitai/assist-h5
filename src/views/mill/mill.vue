@@ -1,12 +1,7 @@
 <style lang="scss">
-	@import '~@/assets/scss/variable.scss';
+	@import '~@/assets/scss/index.scss';
 	.millPage{
-		position: absolute;
-		top: 0;
-		width: 100%;
-		bottom: 0;
-		background-color: $main-bg-color;
-		min-height:100%;
+		@include pageHaveHeight();
 		.van-sticky--fixed{
 			top: 47px !important;
 		}

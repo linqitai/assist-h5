@@ -82,12 +82,6 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
-							path: '/mill',
-							name: '矿机',
-							component: () => import('./views/mill/mill'),
-							meta:{footer:false},
-						},
-						{
 							path: '/mySuperTeam',
 							name: '我的战队',
 							component: () => import('./views/my/mySuperTeam'),
@@ -153,6 +147,12 @@ export default new Router({
 			path: '/',
 			component: () => import('./components/WrapperChild'),
 			children: [
+				{
+					path: '/mill',
+					name: '矿机',
+					component: () => import('./views/mill/mill'),
+					meta:{footer:false},
+				},
 				{
 					path: '/myDeal',
 					name: '我的交易',

@@ -119,7 +119,7 @@
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
-		<div class="box share" @click="toView('share3')">
+		<div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
 					进阶任务 分享
@@ -131,24 +131,40 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="!userInfo.isGetShareTask">去完成</div>
-				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask"></i>
+				<div v-if="userInfo.isGetShareTask==0" @click="getShareReword1">去领取</div>
+				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask==1"></i>
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
-		<div class="box share" @click="toView('setGroup')">
+		<div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
 					进阶任务 建群
 				</div>
 				<div class="line text margT10">
 					建立帮扶链工会群<br>
-					条件：设立2名群管理<br>
+					需要：设立2名群管理<br>
 					所服务的帮扶链用户数量超过300名<br>
 					需省市代理审核群活跃度并引荐给客服<br>
 					达标后群主和群管理获得一台小型矿机<br>
 					会员等级提升后即可启动该矿机
 				</div>
+			</div>
+		</div>
+		<div class="placeholderLine10"></div>
+		<div class="box share">
+			<div class="flexLeft" @click="toView('deal')">
+				<div class="line title">
+					进阶任务 收购矿石
+				</div>
+				<div class="line text margT10">
+					需要：累计收购10个矿石<br>
+					达到后可额外获得体验矿机一台<br>
+				</div>
+			</div>
+			<div class="flexRight">
+				<div v-if="userInfo.isGetBuyTask==0" @click="getBuyIn10MineralReword">去领取</div>
+				<i class="iconfont iconfont-finished" v-if="userInfo.isGetBuyTask==1"></i>
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
@@ -186,7 +202,7 @@
 				</div>
 				<div class="line text margT10">
 					成为青铜级工会会长<br>
-					条件：团队算力达到10G<br>
+					需要：团队算力达到10G<br>
 					达到后可获得二台微型矿机
 				</div>
 			</div>
@@ -203,7 +219,7 @@
 				</div>
 				<div class="line text margT10">
 					成为白银级工会会长<br>
-					条件：团队算力达到100G<br>
+					需要：团队算力达到100G<br>
 					达到后可获得一台小型矿机<br>
 				</div>
 			</div>
@@ -220,7 +236,7 @@
 				</div>
 				<div class="line text margT10">
 					成为黄金级工会会长<br>
-					条件：团队算力达到500<br>
+					需要：团队算力达到500<br>
 					达到后可获得一台中型矿机<br>
 					<!-- 2.平台3-5期权分红权限 -->
 				</div>
@@ -238,7 +254,7 @@
 				</div>
 				<div class="line text margT10">
 					成为铂金级工会会长<br>
-					条件：团队算力达到2000<br>
+					需要：团队算力达到2000<br>
 					完成后可获得二台中型矿机<br>
 					<!-- 2.平台3-3期权分红权限 -->
 				</div>
@@ -256,7 +272,7 @@
 				</div>
 				<div class="line text margT10">
 					成为砖石级工会会长<br>
-					条件：团队算力达到10000<br>
+					需要：团队算力达到10000<br>
 					达到后可获得一台大型矿机<br>
 					<!-- 2.平台3-2期权分红权限 -->
 				</div>
@@ -367,7 +383,62 @@ export default {
 				_this.$router.push('/myShare');
 			}else if(type=='buyMill'){
 				_this.$router.push('/mill');
+			}else if(type=='deal'){
+				_this.$router.push('/deal');
 			}
+		},
+		getShareReword1(){
+			let _this = this;
+			if(_this.userInfo.isGetShareTask==1){
+				_this.$toast("您已领取过该奖励");
+				return;
+			}
+			if(_this.userInfo.realnameNum<10){
+				_this.$toast("您尚未达到领取该奖励的标准");
+				return;
+			}
+			_this.$ajax.ajax(_this.$api.getShareReword, 'POST', null, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+					Dialog.alert({
+					  title: '温馨提示',
+					  message: '恭喜您，奖励领取成功！'
+					}).then(() => {
+					  // on close
+					  _this.$cookies.set("tab_name_book", "contribution", _this.$api.cookiesTime)
+					  _this.$router.push('/myBook');
+					});
+				}else{
+					_this.$toast(res.message);
+				}
+			})
+		},
+		getBuyIn10MineralReword(){
+			let _this = this;
+			if(_this.userInfo.isGetBuy==1){
+				_this.$toast("您已领取过该奖励");
+				return;
+			}
+			if(_this.userInfo.buyAmount<10){
+				_this.$toast("您尚未达到领取该奖励的标准");
+				return;
+			}
+			_this.$ajax.ajax(_this.$api.getAssistBuyMineralReward, 'POST', null, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+					Dialog.alert({
+					  title: '温馨提示',
+					  message: '恭喜您，奖励领取成功。为了把控算力上的泡沫，经研究决定所奖励的矿机不加算力，用此矿机所产出的矿石去商城租赁矿机即可加算力，请您知晓，帮扶链感恩有您的支持！'
+					}).then(() => {
+					  // on close
+					  _this.$router.push('/mill');
+					});
+				}else{
+					_this.$toast(res.message);
+				}
+			})
 		},
 		getAssistReward4Level(level){
 			let _this = this;
@@ -461,6 +532,7 @@ export default {
 						return;
 					}
 					if(res.data==1){
+						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 						Dialog.alert({
 						  title: '温馨提示',
 						  message: '恭喜您，奖励领取成功。为了把控算力上的泡沫，经精算师研究决定奖励型矿机不加算力,用此矿机所产出的矿石去商城租赁矿机即可加算力，请您知晓，帮扶链感恩有您的支持！'

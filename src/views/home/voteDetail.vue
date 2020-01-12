@@ -35,6 +35,9 @@
 				font-size:$fs-title;
 				font-weight:bold;
 			}
+			.time{
+				color: $grayLight2;
+			}
 			.content{
 				color:$mainTextColor;
 			}
@@ -74,24 +77,33 @@
 			<div class="title paddingWing">
 				{{voteInfo.voteTitle}}
 			</div>
-			<div class="paddingWing">
-				<van-radio-group v-model="form.questionId">
+			<div class="time paddingWing">{{voteInfo.createTime|getDateTimeTOHM}} ~ {{voteInfo.deadTime|getDateTimeTOHM}}</div>
+			<div class="paddingWing margT10">
+				<van-radio-group v-model="form.questionId" v-if="isDead==0" @change="radioChange">
 				  <van-radio v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" checked-color="#ffae00">
 				  	<!-- <div class="content" v-html="voteInfo.vote1"></div> -->
 				  	方案{{index + 1}}：{{item.questionTitle}}
 				  </van-radio>
 				</van-radio-group>
+				<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" v-if="isDead==1">
+					方案{{index + 1}}：{{item.questionTitle}}
+				</div>
 			</div>
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing">
-				<div class="title">
+				<div class="title" v-if="isDead==0">
 					目前投票结果：
 				</div>
-				<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id">方案{{index+1}}：{{item.num}} 票</div>
+				<div class="title" v-if="isDead==1">
+					投票结果：
+				</div>
+				<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id">
+					方案{{index+1}}：{{item.num}} 票
+				</div>
 			</div>
-			<div class="sureBtn">
+			<div class="sureBtn" v-if="isDead==0">
 				<!-- <div class="lookMore">查看历史投票</div> -->
-				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="large" @click="submit">{{btnText}}</van-button>
+				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="large" @click="submit(voteInfo.id)">{{btnText}}</van-button>
 			</div>
 		</div>
 		<!-- <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
@@ -133,6 +145,7 @@
 				btnText:'提交',
 				id:'',
 				userInfo:'',
+				isDead:0,
 			}
 		},
 		components: {
@@ -156,6 +169,19 @@
 			showTip(){
 				this.showTipModel = true;
 			},
+			radioChange(val){
+				console.log('changeVal',val);
+			},
+			judgeTime4VoteStatus(val){
+				let _this = this;
+				let now = _this.$utils.getDateTime(new Date());
+				console.log(`now:${now},deadTime:${val}`);
+				if(now>val){
+					return 1;
+				}else{
+					return 0;
+				}
+			},
 			getVoteInfo(){
 				let _this = this;
 				_this.id = _this.$route.query.id;
@@ -164,13 +190,15 @@
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.voteInfo = res.data;
+						_this.isDead = _this.judgeTime4VoteStatus(_this.voteInfo.deadTime)
 					}
 				})
 			},
-			submit(){
+			submit(voteId){
 				console.log("submit");
 				let _this = this;
 				let params = {
+					voteId:voteId,
 					questionId: _this.form.questionId,
 					/* userId: _this.userId */
 				}

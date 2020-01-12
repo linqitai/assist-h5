@@ -4,6 +4,7 @@ import $ from 'jquery'
 import qs from 'qs'
 import router from '@/router.js'
 import VueCookies from 'vue-cookies';
+import { Dialog } from 'vant'
 // import { getCookie } from '../assets/js/utils.js'
 // import axios from 'axios'
 // import http from './service'
@@ -62,7 +63,14 @@ export default {
 			error: function(res) {
 				// console.log("errorInfo", res);
 				if(res.status == 500){
-					alert(res.responseJSON.message);
+					// alert(res.responseJSON.message);
+					Dialog.alert({
+					  title: '温馨提示',
+					  message: '登录状态已过期,需重新登录'
+					}).then(() => {
+					  // on close
+					  //_this.$router.push('/login');
+					});
 					// router.replace({
 					// 	path: '/login'
 					// });

@@ -10,6 +10,9 @@
 		left: 0;
 		right: 0;
 		overflow-y: scroll;
+		.van-cell__value,.van-cell__value--alone,.van-field__control{
+			color: $mainTextColor !important;
+		}
 		.van-cell-group,.van-cell{
 			background-color: inherit !important;
 		}
@@ -34,9 +37,6 @@
 			}
 			.agreement{color: $main-adorn-color;}
 		}
-	}
-	.van-cell__value,.van-cell__value--alone,.van-field__control{
-		color: $mainTextColor !important;
 	}
 	.van-field__error-message{
 		color: $main-adorn-color !important;

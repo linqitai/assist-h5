@@ -100,6 +100,7 @@
 
 <script>
 	// import {setCookie} from '@/assets/js/utils.js'
+	import { Dialog } from 'vant';
 	export default {
 		data() {
 			return {
@@ -119,7 +120,8 @@
 				},
 				loginValidate:true,
 				isLoading:false,
-				cookiesTime: 60 * 60 * 24
+				cookiesTime: 60 * 60 * 24,
+				userFreezeInfo:"",
 			}
 		},
 		created() {
@@ -149,22 +151,28 @@
 				let province = _this.$utils.getProvince(address);
 				//alert(province);
 			},
+			getUserFreezeInfo(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getAssistUserFreezeByUserId, 'GET', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
+						_this.userFreezeInfo = res.data;
+						Dialog.alert({
+						  title: '系统提示',
+						  message: '您的账号异常或暂时被冻结，原因：' + _this.userFreezeInfo.reason + '。需找省市代理或客服解除异常或解冻。',
+						}).then(() => {
+						  // on close
+						});
+					}else{
+						_this.$toast(res.message);
+					}
+				})
+			},
 			loginBtn(){
 				let _this = this;
 				let params = {
 					userName: _this.form.phone,
 					password: _this.form.password
 				}
-				// let mobilePhone = localStorage.getItem('mobilePhone');
-				// console.log('mobilePhone',mobilePhone);
-				// if(_this.$utils.isNUll(mobilePhone)){
-					
-				// }else{
-				// 	if(mobilePhone!=params.userName){
-				// 		_this.$toast(`系统提示:该设备已经登录过${mobilePhone}账号，请勿登录多账号`);
-				// 		return;
-				// 	}
-				// }
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('系统提示:账号或密码不能为空');
 					return;
@@ -193,7 +201,11 @@
 						localStorage.setItem('_USERINFO_',JSON.stringify(userInfo));
 						/* alert("userInfo2:" + ); */
 						localStorage.setItem('mobilePhone',userInfo.mobilePhone);
-						_this.$router.replace("home");
+						if(userInfo.accountStatus == 1){
+							_this.getUserFreezeInfo();
+						}else{
+							_this.$router.replace("home");
+						}
 					}else{
 						_this.$toast(res.message);
 					}
@@ -217,7 +229,7 @@
 						_this.errorHint.password = _this.$reg.passwordHint;
 					}
 				}
-			},
+			}
 		}
 	}
 </script>

@@ -83,13 +83,12 @@
 			<i class="iconfont iconfont-question rightBox icon" @click="showTipModel=true"></i>
 		</m-header>
 		<div class="transferPage">
+			<!-- <div class="line text margT10">
+				区块地址和手机号二选一
+			</div> -->
 			<van-cell-group>
-				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量"
-						  @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
-						<!-- <van-field v-model="form4AppointDeal.price" required clearable label="卖出单价" placeholder="请填写协商好的卖出单价"
-						  @blur="validate4AppointDeal('price')"
-						  :error-message="errorInfo4AppointDeal.price"/> -->
-				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请粘贴对方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
+				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
+				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
 			</van-cell-group>
 			<!-- <div class="myCell">
@@ -118,12 +117,12 @@
 				//定向交易
 				form4AppointDeal:{
 					transferAmount:'',
-					blockAddress:"",
+					mobilePhone:"",
 					safePassword:"",
 				},
 				errorInfo4AppointDeal:{
 					transferAmount:"",
-					blockAddress:"",
+					mobilePhone:"",
 					safePassword:"",
 				},
 				option1: [
@@ -168,11 +167,11 @@
 					}else{
 						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在1~10000之间";
 					}
-				}else if(key == 'blockAddress'){
-					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
-						_this.errorInfo4AppointDeal.blockAddress = '';
+				}else if(key == 'mobilePhone'){
+					if(_this.$reg.phone.test(_this.form4AppointDeal[key])){
+						_this.errorInfo4AppointDeal.mobilePhone = '';
 					}else{
-						_this.errorInfo4AppointDeal.blockAddress = "请正确粘贴对方的区块地址";
+						_this.errorInfo4AppointDeal.mobilePhone = "请正确粘贴对方的手机号";
 					}
 				}else if(key == 'safePassword') {
 					if(_this.$reg.safePassword.test(_this.form4AppointDeal[key])){
@@ -186,11 +185,9 @@
 				console.log("submit");
 				let _this = this;
 				let params = {
-					/* userId: _this.userId, */
 					transferAmount: _this.form4AppointDeal.transferAmount,
-					blockAddress: _this.form4AppointDeal.blockAddress,
+					mobilePhone: _this.form4AppointDeal.mobilePhone,
 					safePassword: _this.form4AppointDeal.safePassword,
-					// createTime:_this.$utils.getDateTime(new Date())
 				}
 				console.log('params',params);
 				if(_this.$utils.hasNull(params)){

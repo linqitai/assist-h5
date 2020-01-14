@@ -84,11 +84,8 @@
 		</m-header>
 		<div class="transferPage">
 			<van-cell-group>
-				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量"
-						  @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
-						<!-- <van-field v-model="form4AppointDeal.price" required clearable label="卖出单价" placeholder="请填写协商好的卖出单价"
-						  @blur="validate4AppointDeal('price')"
-						  :error-message="errorInfo4AppointDeal.price"/> -->
+				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
+				<van-field v-model="form4AppointDeal.price" required clearable label="卖出单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
 				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请粘贴对方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
 			</van-cell-group>
@@ -119,11 +116,13 @@
 				//定向交易
 				form4AppointDeal:{
 					transferAmount:'',
-					blockAddress:"",
-					safePassword:"",
+					price:'',
+					blockAddress:'',
+					safePassword:'',
 				},
 				errorInfo4AppointDeal:{
 					transferAmount:"",
+					price:"",
 					blockAddress:"",
 					safePassword:"",
 				},
@@ -164,10 +163,16 @@
 			validate4AppointDeal(key){
 				let _this = this;
 				if(key == 'transferAmount') {
-					if(_this.form4AppointDeal[key]>=1&&_this.form4AppointDeal[key]<=10000){//这里判断单次卖出的数量是否合法,由于
+					if(_this.form4AppointDeal[key]>=1&&_this.form4AppointDeal[key]<=10000){
 						_this.errorInfo4AppointDeal.transferAmount = '';
 					}else{
 						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在1~10000之间";
+					}
+				}else if(key == 'price') {
+					if(_this.form4AppointDeal[key]>=0.1&&_this.form4AppointDeal[key]<=10000){
+						_this.errorInfo4AppointDeal.price = '';
+					}else{
+						_this.errorInfo4AppointDeal.price = "定向交易价格暂时控制在0.1~100";
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
@@ -188,7 +193,8 @@
 				let _this = this;
 				let params = {
 					/* userId: _this.userId, */
-					transferAmount: _this.form4AppointDeal.transferAmount,
+					num: _this.form4AppointDeal.transferAmount,
+					price: _this.form4AppointDeal.price,
 					blockAddress: _this.form4AppointDeal.blockAddress,
 					safePassword: _this.form4AppointDeal.safePassword,
 					// createTime:_this.$utils.getDateTime(new Date())
@@ -204,15 +210,16 @@
 					return;
 				}
 				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.transferMineral, 'POST', params, function(res) {
+				_this.$ajax.ajax(_this.$api.insertTransaction4AppointBill, 'POST', params, function(res) {
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast('转让成功');
 						_this.$utils.formClear(_this.form4AppointDeal);
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
-						_this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime);
+						/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
+						_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
 						_this.$router.push({
-							path: `/myBook`
+							path: `/myDeal`
 						});
 					}else{
 						_this.$toast(res.message);

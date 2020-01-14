@@ -373,7 +373,7 @@
 					</router-link>
 				</div>
 			</div>
-			<div class="items" v-if="userInfo.isAgent!=0">
+			<div class="items" v-if="userInfo.isAgent>0">
 				<router-link to="myCheck">
 					<div class="my-cell">
 						<div class="flex1">
@@ -408,6 +408,16 @@
 					<div class="my-cell">
 						<div class="flex1">
 							定向转让帮扶券
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+				<router-link to="unFreeze">
+					<div class="my-cell">
+						<div class="flex1">
+							给他人解冻账号
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>

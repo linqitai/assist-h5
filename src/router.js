@@ -117,6 +117,12 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
+							path: '/myDeal',
+							name: '我的交易',
+							component: () => import('./views/my/myDeal'),
+							meta:{footer:false},
+						},
+						{
 							path: '/myInfo',
 							name: '我的身份',
 							component: () => import('./views/my/myInfo'),
@@ -156,6 +162,12 @@ export default new Router({
 							component: () => import('./views/my/transferMineral'),
 							meta:{footer:false},
 						},
+						{
+							path: '/unFreeze',
+							name: '解冻账号',
+							component: () => import('./views/my/unFreeze'),
+							meta:{footer:false},
+						},
 					]
 				}
 			]
@@ -168,12 +180,6 @@ export default new Router({
 					path: '/mill',
 					name: '矿机',
 					component: () => import('./views/mill/mill'),
-					meta:{footer:false},
-				},
-				{
-					path: '/myDeal',
-					name: '我的交易',
-					component: () => import('./views/my/myDeal'),
 					meta:{footer:false},
 				},
 				{

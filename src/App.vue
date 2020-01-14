@@ -167,8 +167,11 @@ b{font-weight: bold;}
 	letter-spacing: 1px;
 }
 
-.showTipModel{
-	
+.tip4model4{
+	color: $grayDarker;
+	font-size: 0.75rem;
+	line-height: 1.4em;
+	letter-spacing: 1px;
 }
 	
 .van-pagination{

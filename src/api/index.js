@@ -49,6 +49,9 @@ export default {
 	getAssistUserInfoCount4Check: host + "assist/userInfo/getAssistUserInfoCount4Check",
 	getAssistWeChartNumByShareCode: host + "assist/userInfo/getAssistWeChartNumByShareCode/",
 	getAssistSellerUserInfoByTransactionId: host + "assist/userInfo/getAssistSellerUserInfoByTransactionId",
+	getAssistUserInfoByPath: host + "assist/userInfo/getAssistUserInfoByPath/",
+	getAssistUserInfoByBD: host + "assist/userInfo/getAssistUserInfoByBD/",
+	getAssistUserInfoByObj: host + "assist/userInfo/getAssistUserInfoByObj",
 	//公告
 	getNoticeList: host + 'assist/notice/getNoticeList',
 	getNoticePageList: host + "assist/notice/getNoticePageList",
@@ -119,6 +122,7 @@ export default {
 	updateTransactionStatus84buyerById: host + "assist/transaction/updateTransactionStatus84buyerById",
 	updateTransactionStatus5ById: host + "assist/transaction/updateTransactionStatus5ById",
 	getAssistTransactionList4CancelByUserId: host + "assist/transaction/getAssistTransactionList4CancelByUserId",
+	insertTransaction4AppointBill: host + "assist/transaction/insertTransaction4AppointBill",
 	//统计
 	getHomeMineralStaticInfo: host + "assist/statistics/getHomeMineralStaticInfo",
 	getCurrentBuyNum: host + "assist/statistics/getCurrentBuyNum",
@@ -134,4 +138,5 @@ export default {
 	//冻结
 	getAssistUserFreeze: host + "assist/userFreeze/getAssistUserFreeze/",
 	getAssistUserFreezeByUserId: host + "assist/userFreeze/getAssistUserFreezeByUserId",
+	unFreeze: host + "assist/userFreeze/unFreeze",
 }

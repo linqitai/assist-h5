@@ -237,6 +237,26 @@ function agentType(val){
 	return agentOptions[val].value;
 }
 
+function accountStatus(val){
+	if(val==0){
+		return '正常';
+	}else if(val==1){
+		return '冻结中';
+	}else{
+		return val;
+	}
+}
+
+function canUnFreeze(val){
+	if(val==0){
+		return '需要给客服排查问题';
+	}else if(val==1){
+		return '可以让省市代理解冻';
+	}else{
+		return val;
+	}
+}
+
 export {
 	getUserType,
 	getRoleType,
@@ -268,5 +288,7 @@ export {
 	serviceChargeOptions,
 	serviceChargeType,
 	agentType,
-	machineType4Pic
+	machineType4Pic,
+	accountStatus,
+	canUnFreeze
 }

@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	.myDeal{
-		@include pageHaveHeight();
+		@include pageMy();
 		
 		[class*=van-hairline]::after {
 			border: none !important;
@@ -747,7 +747,7 @@
 				<div class="flex flex1">
 					<div>{{sellerUserInfo.myCalculationPower}}</div>
 					<!-- <NumberGrow :value="userInfo.myCalculationPower"></NumberGrow> -->
-					<div class="text">我的算力</div>
+					<div class="text">TA的算力</div>
 				</div>
 				<div class="flex flex4">
 					<div>{{sellerUserInfo.temporaryFreezePlatformTicket}}</div>
@@ -771,6 +771,7 @@
 			<div class="margT10">
 				<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" size="normal" @click="complain(sellerUserInfo)" :block="true">向平台打小报告</van-button>
 			</div>
+			<div class="placeholderLine10"></div>
 		</van-action-sheet>
 		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 			<div class="paddingWing f-12 lineHeight tip4model2 textJustify">
@@ -883,7 +884,7 @@
 				this.showTipModel = true;
 			},
 			lookThisBook(userId){
-				this.$router.push({path:"myLookBook",query:{lookUserId:userId}})
+				this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
 			toBookView(val,userId){
 				let _this = this;

@@ -66,7 +66,7 @@ export default {
 					// alert(res.responseJSON.message);
 					Dialog.alert({
 					  title: '温馨提示',
-					  message: '登录状态已过期,需重新登录'
+					  message: res.responseJSON.message
 					}).then(() => {
 					  // on close
 					  //_this.$router.push('/login');

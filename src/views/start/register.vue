@@ -109,21 +109,15 @@
 		mounted() {
 			let _this = this;
 			_this.welcomeText = _this.$api.welcomeText;
-			// _this.initializeerrorHint();
-			// _this.initializeTabActiveName();
-			/* let userInfo = localStorage.getItem("_USERINFO_");
-			if(userInfo){
-				_this.userInfo = JSON.parse(userInfo);
-				console.log('userInfo',_this.userInfo);
-				_this.form.shareCode = _this.userInfo.shareCode;
-				console.log('_this.form.shareCode',_this.form.shareCode);
-			}else{
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			} */
 			_this.form.shareCode = _this.$route.query.id;
 			console.log('shareCode',_this.$route.query.id);
+			/*
+			//ASE
+			let testPhone = "linqitai121421.";
+			let encryptPhone = _this.$encryption(testPhone);
+			console.log("encryptPhone",encryptPhone);
+			let decryptPhone = _this.$decryption(encryptPhone);
+			console.log("decryptPhone",decryptPhone); */
 		},
 		methods:{
 			loginBtn(){
@@ -146,6 +140,9 @@
 					_this.$toast('2次密码不一致');
 					return;
 				}
+				delete params.confirmPassword;
+				params.password = _this.$encryption(_this.form.password);
+				// console.log('params',params);
 				_this.isLoading = true;
 				_this.$ajax.ajax(_this.$api.register, 'POST', params, function(res) {
 					// console.log('res', res);

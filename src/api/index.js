@@ -7,9 +7,9 @@ const host = '/bflApp/'
 const domainName = 'www.assist-china.com';
 export default {
 	projectName:'帮扶链',
-	projectEnglishName:'矿石',
-	ticketName:'平台券',
-	welcomeText:"欢迎来到ASST帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的好平台。",
+	projectEnglishName:'HPC',
+	ticketName:'帮扶券',
+	welcomeText:"欢迎来到HPC帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。",
 	HOST_IMG: hostImg,
 	cookiesTime: 60 * 60 * 24,
 	cookiesTime8h: 60 * 60 * 8,
@@ -32,7 +32,6 @@ export default {
 	loginOut: host + 'web/login/loginOut',
 	register: host + 'assist/register/register',
 	innerRegister: host + 'assist/register/innerRegister',
-	changeLoginPassword: host + 'assist/register/changePassword',
 	//用户信息
 	getAssistUserInfo: host + 'assist/userInfo/getAssistUserInfo',
 	getAssistUserInfo4Path: host + 'assist/userInfo/getAssistUserInfo4Path/',

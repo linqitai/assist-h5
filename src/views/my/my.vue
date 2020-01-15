@@ -579,7 +579,6 @@
 		watch:{
 			$route(now,old){
 				let _this = this;
-				console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo')
 				if(_this.$cookies.get('isRefreshUserInfo')==1){
 					_this.getUserInfo();
 					_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
@@ -589,17 +588,12 @@
 				// console.log("scrollTop");
 			},
 		},
-		destroyed() {
-			console.log("destroyed");
-			/* console.log("isOpenP",localStorage.getItem("isOpenP"));
-			localStorage.setItem("isOpenP",0);
-			console.log("isOpenP",localStorage.getItem("isOpenP")); */
-		},
-		mounted() {
+		created() {
 			let _this = this;
 			
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
+				console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
 				_this.userId = _this.userInfo.userId;
 			}else{

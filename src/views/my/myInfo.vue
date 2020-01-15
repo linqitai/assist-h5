@@ -13,7 +13,7 @@
 	color: #323232 !important;
 }
 .myInfo{
-	@include pageMy();
+	@include pageHaveHeight4Scroll();
 	[class*=van-hairline]::after {
 	    border: 1px solid transparent !important;
 	}
@@ -364,7 +364,7 @@ export default {
 	components:{
 	    mHeader
 	},
-	watch:{
+	/* watch:{
 		$route(now,old){
 			let _this = this;
 			// console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo')
@@ -372,9 +372,8 @@ export default {
 				_this.getUserInfo();
 			}
 		},
-	},
+	}, */
 	created(){
-		console.log("create");
 		let _this = this;
 		_this.projectName = _this.$api.projectName;
 		// _this.userInfo = _this.$cookies.get('_USERINFO_');
@@ -390,6 +389,7 @@ export default {
 			_this.$router.replace('login');
 			return;
 		}
+		_this.getUserInfo();
 		/* if(_this.$cookies.get('isRefreshUserInfo')==1){
 			_this.getUserInfo();
 		} */
@@ -400,7 +400,7 @@ export default {
 	},
 	methods:{
 		back(){
-			this.$router.replace('my');
+			this.$router.go(-1);
 		},
 		getActiveStatus(val){
 			let _this = this;

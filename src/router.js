@@ -4,7 +4,13 @@ import Register from './views/start/register'
 import Login from './views/start/login'
 
 Vue.use(Router)
-
+/**
+ * 重写路由的push方法
+ */
+/* const routerPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+} */
 export default new Router({
 	// mode: 'history',
 	base: process.env.BASE_URL,
@@ -49,7 +55,7 @@ export default new Router({
 			redirect: "/home"
 		},
 		{
-			path: '/',
+			path: '/wrapper',
 			component: () => import('./components/Wrapper'),
 			children: [{
 					path: '/home',
@@ -123,18 +129,6 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
-							path: '/myInfo',
-							name: '我的身份',
-							component: () => import('./views/my/myInfo'),
-							meta:{footer:false},
-						},
-						{
-							path: '/realName',
-							name: '实名认证',
-							component: () => import('./views/my/realName'),
-							meta:{footer:false},
-						},
-						{
 							path: '/myWord',
 							name: '我要留言',
 							component: () => import('./views/my/myWord'),
@@ -201,6 +195,18 @@ export default new Router({
 							meta:{footer:false,back:true,child1:0},
 						},
 					]
+				},
+				{
+					path: '/myInfo',
+					name: '我的身份',
+					component: () => import('./views/my/myInfo'),
+					meta:{footer:false},
+				},
+				{
+					path: '/realName',
+					name: '实名认证',
+					component: () => import('./views/my/realName'),
+					meta:{footer:false},
 				},
 				{
 					path: '/ranking',

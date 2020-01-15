@@ -16,11 +16,21 @@ Vue.config.productionTip = false;
 Vue.prototype.$toast = Toast;
 Vue.prototype.$api = api;
 import reg from '@/assets/js/reg';
-import utils from '@/assets/js/utils';
-import getAjaxs from '@/api/ajax';
 Vue.prototype.$reg = reg;
+import utils from '@/assets/js/utils';
 Vue.prototype.$utils = utils;
+import getAjaxs from '@/api/ajax';
 Vue.prototype.$ajax = getAjaxs;
+import JsEncrypt from 'jsencrypt';
+Vue.prototype.$jsEncrypt = JsEncrypt;
+Vue.prototype.$encryption = function(obj){
+	//let publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgSjCttX/jUBHyK1UtJOWvckHHNtbJICMRysZWg9/pZ8TuXPODIJ+wSyV4PbaLImvalf60iRdbCY96qlZamF/BEvcScChHweJ/pf/AT6KUDjFwXTnCj18i+Fzck3MqSm7+3kdUYsJz5Et7GGlHmnwvTDFibRAM4UbSrer+KCdRlagX0zY4sjLwjP88yY9jmqQQ+0CKr2GubYeFlRkAcNiQpAByDWxNsTx/M2FG1Bog5Ee3kAqZKKrMOaf5E9wN8QT7JDqTIUs9QV066YLH553h9w5ntSjG7Jqt8WWkgufeepvNAi2njHJ6f1mEKstAkywjo7N17eowu3I7BT/atqoLwIDAQAB";
+	let publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeFqs6BJOWFQnJ0s0q/VU44KBg0ePJYvCT1YNiJO3pu+a7690yoFcgVioZq0J6pNbxv8FlMYv1IXuZDNlJQHBpQnJF/CUj1iOCJHx0wGcNthR6wph04BinnM+p6WVgpzdzBPH0d7ZzoVDoG+iTcXON0khzI8JNKNB1ncq3GLbG2QIDAQAB";
+	let encrypt = new JsEncrypt();
+	encrypt.setPublicKey(publicKey);
+	return encrypt.encrypt(obj);
+}
+
 import * as filters from '@/assets/js/filters';
 // Vue.prototype.filters = filters;
 import VueCookies from 'vue-cookies';

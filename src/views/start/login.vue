@@ -181,6 +181,8 @@
 					_this.$toast('系统提示:请按要求填写信息');
 					return;
 				}
+				params.password = _this.$encryption(_this.form.password);
+				console.log('params',params);
 				_this.isLoading = true;
 				_this.$ajax.ajax(_this.$api.loginUser, 'GET', params, function(res) {
 					// console.log('res', res);
@@ -204,7 +206,7 @@
 						if(userInfo.accountStatus == 1){
 							_this.getUserFreezeInfo();
 						}else{
-							_this.$router.replace("home");
+							_this.$router.replace("/home");
 						}
 					}else{
 						_this.$toast(res.message);

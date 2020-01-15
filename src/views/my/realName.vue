@@ -13,7 +13,7 @@
 	color: #323232 !important;
 }
 .realNameBox{
-	@include pageBlackBG();
+	@include pageBlackBGHaveHeight();
 	.realName{
 		overflow-y: scroll;
 		.van-cell__value, .van-cell__value--alone, .van-field__control{
@@ -158,9 +158,10 @@
 	<!-- 实名认证 -->
 	<div class="realName">
 		<div class="tip4model1">
-			温馨提示：以下资料是用户之间交换矿石时的凭据信息，请认真填写。<br>
+			<b class="textBold">温馨提示：</b>
+			<br>以下资料是用户之间交换矿石时的凭据信息，提交实名后需待客服审核，每个账号只有3次实名的机会，请认真填写。<br>
 			注：微信号和支付宝号需填写所绑定的手机号，且与帮扶链平台的登录手机号保持一致，若您的微信和支付宝未绑定手机号，请先去微信和支付宝绑定。<br>
-			<b>身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，ASST认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i>
+			<b class="textBold">身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，{{$api.projectEnglishName}}认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i>
 		</div>
 		
 		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
@@ -459,18 +460,22 @@ export default {
 				_this.$toast(`系统提示：2次密码不一样`);
 				return;
 			}
+			params.securityPassword = _this.$encryption(_this.form.securityPassword);
 			let mobilePhone = localStorage.getItem('mobilePhone');
 			if(params.alipayNum == params.wechartNum && params.wechartNum == mobilePhone){
 				console.log('系统提示：可提交信息');
 				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
-					// console.log('res',res);
+					console.log('res.code',res.code);
 					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 					if(res.code == _this.$api.CODE_OK){
-						// _this.info = res.data.list;
-						// _this.isRealName = true;
-						// _this.$toast(res.message);
-						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
-						_this.$router.replace("myInfo");
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+						  _this.$router.replace("my");
+						});
 					}else{
 						_this.$toast(res.message);
 					}

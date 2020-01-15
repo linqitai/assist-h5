@@ -243,12 +243,9 @@
 	<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
 		<div class="paddingWing f-12 lineHeight textJustify tip4model2 textIndent">
 			<div>
-				1.请仔细填写信息，切记登录密码与安全密码。
+				1.实名资料是用户之间交换矿石时的凭据信息，提交实名后需待客服审核，每个账号只有3次实名的机会，请认真填写
 			</div>
 			<div class="placeholderLine4"></div>
-			<div>
-				2.若实名有误或忘记密码，每修改一次(一样)至少要花1张帮扶券。
-			</div>
 		</div>
 	</van-dialog>
 	
@@ -278,11 +275,16 @@
 			<!-- <van-field center clearable label="短信验证码" placeholder="请输入短信验证码">
 				<van-button slot="button" size="small" type="primary">发送验证码</van-button>
 			</van-field> -->
+			<van-field v-model="form['idCard']" required clearable label="身份证号" right-icon="question-o" :placeholder="errorHint['idCard']" type="password"
+			  maxlength="18" @click-right-icon="$toast(errorHint['idCard'])"
+			  @blur="validate('idCard')"
+			  :error-message="errorInfo['idCard']"/>
 			<van-field v-model="form[flag]" required clearable :label="label" right-icon="question-o" :placeholder="errorHint[flag]" type="password"
-			  @click-right-icon="$toast(errorHint[flag])"
+			  maxlength="20" @click-right-icon="$toast(errorHint[flag])"
 			  @blur="validate(flag)"
 			  :error-message="errorInfo[flag]"/>
-			<van-field v-model="form['sureNewPassword']" required clearable label="确认新密码" right-icon="question-o" :placeholder="errorHint['sureNewPassword']" maxlength="20" type="password"
+			<van-field v-model="form['sureNewPassword']" required clearable label="确认新密码" right-icon="question-o" :placeholder="errorHint['sureNewPassword']" 
+				maxlength="20" type="password"
 			  @click-right-icon="$toast(errorHint['sureNewPassword'])"
 			  @blur="validate('sureNewPassword')"
 			  :error-message="errorInfo['sureNewPassword']"/>
@@ -325,7 +327,8 @@ export default {
 				securityPassword:"",
 				sureNewPassword:"",
 				verificationCode:"",
-				bankCard:""
+				bankCard:"",
+				idCard:""
 			},
 			errorHint:{
 				nickName:"",
@@ -338,7 +341,8 @@ export default {
 				securityPassword:"",
 				sureNewPassword:"",
 				verificationCode:"",
-				bankCard:""
+				bankCard:"",
+				idCard:""
 			},
 			errorInfo:{
 				nickName:"",
@@ -351,7 +355,8 @@ export default {
 				securityPassword:"",
 				sureNewPassword:"",
 				verificationCode:"",
-				bankCard:""
+				bankCard:"",
+				idCard:""
 			},
 			updateValidate:true,
 			flag:'',
@@ -480,7 +485,8 @@ export default {
 				securityPassword:"请填写新安全密码",
 				sureNewPassword:"请确认新密码",
 				verificationCode:"请填写验证码",
-				bankCard:"请填写银行卡号"
+				bankCard:"请填写银行卡号",
+				idCard:"请填写实名时所留的身份证号"
 			}
 		},
 		// 更新信息
@@ -525,7 +531,6 @@ export default {
 			this.showUpdatePasswordModel = true;
 			_this.flag = flag;
 			_this.form = _this.$utils.formClear(_this.form);
-			console.log('_this.form',_this.form);
 			if(flag == 'loginPassword'){
 				_this.label = '登录密码';
 				_this.titleName = '修改登录密码';
@@ -571,27 +576,19 @@ export default {
 			}else if(type=='update2'){
 				if(_this.form[_this.flag]==_this.form['sureNewPassword']){
 					console.log('_this.form', _this.form);
-					let phone = localStorage.getItem("mobilePhone");
-					if(!phone){
-						_this.$toast('系统提示：需重新登录');
-						_this.$router.push('login');
-						return;
-					}
 					let params = {
-						/* id:_this.userInfo.id,
-						userId:_this.userInfo.userId, */
-						mobilePhone:phone,
+						idCard:_this.form.idCard,
 					}
 					if(_this.form.loginPassword){
 						params.type = 0;
-						params.password = _this.form.loginPassword;
+						params.password = _this.$encryption(_this.form.loginPassword);
 					}
 					if(_this.form.securityPassword){
 						params.type = 1;
-						params.password = _this.form.securityPassword;
+						params.password = _this.$encryption(_this.form.securityPassword);
 					}
 					if(_this.$utils.hasNull(params)){
-						_this.$toast('系统提示：信息有误');
+						_this.$toast('系统提示：请填写完整信息');
 						return;
 					}
 					_this.$ajax.ajax(_this.$api.updatePassword, 'POST', params, function(res){
@@ -604,68 +601,6 @@ export default {
 				}else{
 					_this.$toast(`系统提示：2次密码不一致`);
 				}
-			}
-			// if(_this.$utils.hasVal(_this.errorInfo)||_this.$utils.isNUll(_this.form[_this.flag])){
-			// 	_this.$toast(`请填写${_this.label}`);
-			// }else{
-			// }
-		},
-		submitRealNameBtn(){
-			let _this = this;
-			let params = {
-				id:_this.userInfo.id,
-				userId:_this.userId,
-				nickName:_this.form.nickName,
-				realName:_this.form.realName,
-				alipayNum:_this.form.alipayNum,
-				wechartNum:_this.form.wechartNum
-			}
-			console.log('params',params)
-			if(_this.$utils.hasVal(_this.errorInfo)||_this.$utils.hasNull(params)){
-				_this.$toast(`系统提示：请按要求填写信息`);
-				return;
-			}
-			let mobilePhone = localStorage.getItem('mobilePhone');
-			if(params.alipayNum == params.wechartNum && params.wechartNum == mobilePhone){
-				console.log('系统提示：可提交信息');
-				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
-					// console.log('res',res);
-					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
-					if(res.code == _this.$api.CODE_OK){
-						// _this.info = res.data.list;
-						// _this.isRealName = true;
-						_this.$toast(res.message);
-						_this.showRealNameModel = false;
-						_this.getUserInfo();
-					}else{
-						_this.$toast(res.message);
-					}
-					if(res.code == _this.$api.CODE_4003){
-						// _this.info = res.data.list;
-						// _this.showRealNameModel = true;
-						_this.isRealName = false;
-					}
-				})
-			}else{
-				if(params.alipayNum != mobilePhone){
-					//_this.$toast(`系统提示:请填写和支付宝绑定的手机号作为支付宝号。`);
-					Dialog.alert({
-					  title: '系统提示',
-					  message: '请填写和支付宝绑定的手机号作为支付宝号'
-					}).then(() => {
-					  // on close
-					});
-				}
-				if(params.wechartNum != mobilePhone){
-					// _this.$toast(`系统提示:请填写和微信绑定的手机号作为微信号。`);
-					Dialog.alert({
-					  title: '系统提示',
-					  message: '请填写和微信绑定的手机号作为微信号'
-					}).then(() => {
-					  // on close
-					});
-				}
-				/* _this.$toast(`系统提示：注册手机号、微信号、支付宝号，三者需要一致。`); */
 			}
 		},
 		validate(key){
@@ -724,6 +659,12 @@ export default {
 					_this.errorInfo.bankCard = '';
 				}else{
 					_this.errorInfo.bankCard = _this.$reg.bankCardHint;
+				}
+			}else if(key == 'idCard') {
+				if(_this.$reg.idCard.test(_this.form.idCard)){
+					_this.errorInfo.idCard = '';
+				}else{
+					_this.errorInfo.idCard = _this.$reg.idCardHint;
 				}
 			}
 		},

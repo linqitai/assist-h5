@@ -145,7 +145,7 @@
 			registerBtn(){
 				console.log('form',this.form);
 				let _this = this;
-				if(_this.userInfo.platformTicket<1){
+				if(_this.userInfo.platformTicket<1&&_this.userInfo.isAgent<=0){
 					Dialog.alert({
 						title: "系统提示",
 						confirmButtonText:'知道了',
@@ -173,6 +173,8 @@
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(res){
+					// console.log("complate",res);
 					_this.isLoading = false;
 				})
 			},

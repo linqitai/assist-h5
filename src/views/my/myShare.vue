@@ -254,7 +254,8 @@
 			},
 			innerRegister(){
 				let _this = this;
-				_this.$router.push({path:"innerRegister",query:{id:_this.userInfo.shareCode}})
+				_this.$router.push("innerRegister");
+				//_this.$router.push({path:"innerRegister",query:{id:_this.userInfo.shareCode}})
 			},
 			getQrcode2(){
 				let _this = this;

@@ -73,6 +73,12 @@ export default new Router({
 					meta:{footer:true}
 				},
 				{
+					path: '/mill',
+					name: '矿机',
+					component: () => import('./views/mill/mill'),
+					meta:{footer:true},
+				},
+				{
 					path: '/deal',
 					name: '市场',
 					component: () => import('./views/deal/deal'),
@@ -171,9 +177,9 @@ export default new Router({
 			component: () => import('./components/WrapperChild'),
 			children: [
 				{
-					path: '/mill',
-					name: '矿机',
-					component: () => import('./views/mill/mill'),
+					path: '/myMill',
+					name: '我的矿机',
+					component: () => import('./views/my/myMill'),
 					meta:{footer:false},
 				},
 				{

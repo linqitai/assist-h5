@@ -256,6 +256,20 @@ function scrollTop(){
 	document.documentElement.scrollTop = 0;
 }
 
+function getSC(str){
+	let iaz='qwertyuiopasdfghjklzxcvbnm';
+	let iazarr = iaz.split('');
+	let ic = str;
+	let arr = ic.split('');
+	for(let i=0;i<ic.length;i++){
+		let startIndex = ic.charCodeAt(i);
+		let leave = startIndex + iaz.indexOf(arr[i]);
+		let endIndex = (leave<=iaz.charCodeAt(19)?leave:leave%iaz.charCodeAt(19));
+		arr[i] = iazarr[endIndex%iaz.charCodeAt(10)];
+	}
+	return arr.join('');
+}
+
 export default {
 	fmoney,
 	getLetterLength,
@@ -279,5 +293,6 @@ export default {
 	getTodayAttendanceValue,
 	getViewPortHeight,
 	scollPostion,
-	scrollTop
+	scrollTop,
+	getSC
 }

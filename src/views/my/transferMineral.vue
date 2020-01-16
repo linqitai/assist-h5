@@ -209,6 +209,7 @@
 					_this.$toast('请按要求填写信息');
 					return;
 				}
+				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 				_this.loading = true;
 				_this.$ajax.ajax(_this.$api.insertTransaction4AppointBill, 'POST', params, function(res) {
 					_this.loading = false;

@@ -173,7 +173,7 @@
 			mHeader
 		},
 		create() {
-			this.toScrollTop();
+			
 		},
 		mounted() {
 			let _this = this;
@@ -193,11 +193,6 @@
 		methods: {
 			back(){
 				this.$router.go(-1);
-			},
-			toScrollTop(){
-				window.scrollTo(0,0);
-				document.body.scrollTop = 0;
-				document.documentElement.scrollTop = 0;
 			},
 			refreshEvent() {
 				// console.log("refresh1")

@@ -140,14 +140,14 @@ export default {
 		$route(now,old){
 			let _this = this;
 			_this.$utils.scrollTop();
-			console.log("scrollTop");
+			// console.log("scrollTop");
 		},
 	},
 	components:{
 	    mTabbar
 	},
 	beforeCreate() {
-		console.log("beforeCreate");
+		// console.log("beforeCreate");
 		//这里得加一个手势识别
 	},
 	created() {
@@ -172,7 +172,7 @@ export default {
 		toView(view){
 			let _this = this;
 			if(view == 'dealRecord'){
-				console.log("dealRecord");
+				// console.log("dealRecord");
 				_this.$router.push({path:"dealRecord"});
 				// _this.$router.push({path:"lookBook",query:{lookUserId:'50'}})
 			}
@@ -188,7 +188,7 @@ export default {
 			let _this = this;
 			ev = ev || event;
 			// ev.preventDefault();
-			console.log(ev.targetTouches);
+			// console.log(ev.targetTouches);
 			// console.log(ev.changedTouches);
 			// if(ev.touches.length == 1) {    //tounches类数组，等于1时表示此时有只有一只手指在触摸屏幕
 			// 	this.startX = ev.touches[0].clientX; // 记录开始位置

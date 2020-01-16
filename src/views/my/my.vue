@@ -301,7 +301,7 @@
 					</router-link>
 				</div>
 				<div class="infoBox">
-					<router-link to="/mill">
+					<router-link to="/myMill">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundMill">
 								<van-icon class-prefix="iconfont" name="mill2" />
@@ -548,7 +548,7 @@
 	import NumberGrow from '@/components/NumberGrow.vue';
 	import { Dialog } from 'vant';
 	// import mFullscreen from '@/components/Fullscreen.vue';
-	import { Skeleton } from 'vant';
+	/* import { Skeleton } from 'vant'; */
 	export default {
 		data() {
 			return {
@@ -577,16 +577,14 @@
 		// 	next();
 		// },
 		watch:{
-			$route(now,old){
+			/* $route(now,old){
 				let _this = this;
+				console.log("watch $route change");
 				if(_this.$cookies.get('isRefreshUserInfo')==1){
 					_this.getUserInfo();
 					_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 				}
-				// _this.pageHeight = _this.$utils.getViewPortHeight();
-				// _this.$utils.scrollTop();
-				// console.log("scrollTop");
-			},
+			}, */
 		},
 		created() {
 			let _this = this;
@@ -601,14 +599,12 @@
 				_this.$router.replace('login');
 				return;
 			}
-			// _this.getUserInfo();
+			console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
+			if(_this.$cookies.get('isRefreshUserInfo')==1){
+				_this.getUserInfo();
+				_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
+			}
 			
-			/* if (_this.$cookies.get("buyAndSellInfo")) {
-				_this.buyAndSellInfo = _this.$cookies.get("buyAndSellInfo");
-			}else{
-				_this.getBuyAndSellInfo();
-			} */
-			// _this.getAddress();
 		},
 		methods: {
 			getAddress(){
@@ -628,7 +624,7 @@
 				if(val=='mineral'){
 					message = '矿石：您当前所能用来流通的矿石。获得途径为矿机产出或者买入。卖出的时候要额外收10%或20%的服务费，比如卖100个矿石要花110或120个矿石，所收服务费的矿石全部销毁，不再它用。';
 				}else if(val=='platformTicket'){
-					message = '帮扶券：可用于卖出的时候当服务费、可用于修改个人信息、可用于参与爱心帮扶的众筹而获得贡献值，后续还会有其他用处...';
+					message = '帮扶券：可用于卖出的时候当服务费、可用于修改个人信息、可用于参与爱心帮扶的众筹而获得贡献值，后续还会有其他用处......。如何获取帮扶券？从省市代理那儿购买。';
 				}else if(val=='contribution'){
 					message = '贡献值：您有多少点贡献值决定您可卖出的矿石数量，比例为1:1，比如您卖100个矿石要花（100+服务费）个矿石和100点贡献值。';
 				}else if(val=='teamCalculationPower'){

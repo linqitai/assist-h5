@@ -42,6 +42,9 @@ export default {
 /* .van-pull-refresh,.van-pull-refresh__track,.van-list{
 	min-height: 100 !important;
 } */
+.ql-indent-1{
+	text-indent: 2em;
+}
 [class*=van-hairline]::after {
  border: 1px solid transparent !important;
 }

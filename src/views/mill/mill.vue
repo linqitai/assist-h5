@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	.millPage{
-		@include pageHaveHeight();
+		@include pageNoHeight4Scroll();
 		.van-sticky--fixed{
 			top: 47px !important;
 		}
@@ -169,124 +169,33 @@
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
 		<div class="millContent">
-			<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
-				<van-tab name="myMill">
-					<div slot="title" class="tabTitle">
-					     我的矿机 {{myMillList.length}}
-					</div>
-					<div class="getMineral">
-						<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
-					</div>
-					<van-list v-model="loadingMyMill" :finished="finishedMyMill" :finished-text="finishedMyMillText" @load="onLoadMyMill">
-						<div class="millList">
-							<div class="item" v-for="item in myMillList" :key="item.id">
-								<div class="flex flex1">
-									<!-- <img width="50" height="50" src="../../assets/image/mill/01.png" /> -->
-									<div class="machingBox">
-										<div class="name">{{item.type | machineType4Pic}}</div>
-									</div>
-								</div>
-								<div class="flex flex2">
-									<div class="line1">
-										<div class="millName inline">{{item.type | machineTypeType}}</div>
-										<!-- <div class="inline"><span class="tag" :class="tagColor(item.tag)">{{item.tag | machineTagType}}</span></div> -->
-										
-										<div class="inline calcullatePower">算力 {{item.calculationPower}}</div>
-										<div class="inline f-12">{{item.status | machineStatus}}</div>
-									</div>
-									<div class="line">租金 {{item.price}}矿石</div>
-									<div class="line">总产 {{item.totalOutput}}矿石</div>
-									<div class="line">已产 {{item.alreadyGet}}矿石</div>
-									<div class="line">总运行时长 {{item.allRuntime}}小时</div>
-									<div class="line" v-if="item.turnOnTime">开机时间 {{item.turnOnTime}}</div>
-									<div class="line" v-if="item.turnOffTime">到期时间 {{item.turnOffTime}}</div>
-									<div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div>
-									<div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
-									<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div>
-								</div>
-								<div class="flex flex3" v-if="item.status==0">
-									<div class="status line">{{item.status | machineStatus}}</div>
-									<div class="line margT3">
-										<van-button round type="info" v-if="item.status==0" @click="runMillEvent(item.id)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">运行</van-button>
-									</div>
-								</div>
-								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item.tag)"></i>
-								<i class="tagIconText">{{item.tag | machineTagIconTextType}}</i>
+			<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了" @load="onLoadMillShop">
+				<div class="millList">
+					<div class="item" v-for="item in millShopList" :key="item.id">
+						<div class="flex flex1">
+							<div class="machingBox">
+								<div class="name">{{item.type | machineType4Pic}}</div>
 							</div>
 						</div>
-					</van-list>
-
-				</van-tab>
-				<van-tab name="millStore">
-					<div slot="title" class="tabTitle">
-					     矿机商城
-						  <!-- {{millShopList?millShopList.length:''}} -->
-					</div>
-					<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了" @load="onLoadMillShop">
-						<div class="millList">
-							<div class="item" v-for="item in millShopList" :key="item.id">
-								<div class="flex flex1">
-									<div class="machingBox">
-										<div class="name">{{item.type | machineType4Pic}}</div>
-									</div>
-								</div>
-								<div class="flex flex2">
-									<div class="line1">
-										<span class="millName">{{item.type | machineTypeType}}</span>
-										<span class="calcullatePower">算力 {{item.calculationPower}}</span>
-									</div>
-									<div class="line">租金 {{item.price}}矿石</div>
-									<div class="line">总产 {{item.totalOutput}}矿石</div>
-									<div class="line">运行总时长 {{item.allRuntime}}小时</div>
-									<div class="line">限租 {{item.limitBuy}}台</div>
-								</div>
-								<div class="flex flex3">
-									<div class="line">库存{{item.inventory}}</div>
-									<div class="line margT3">
-										<van-button round type="info" @click="buyMill(item)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
-									</div>
-								</div>
+						<div class="flex flex2">
+							<div class="line1">
+								<span class="millName">{{item.type | machineTypeType}}</span>
+								<span class="calcullatePower">算力 {{item.calculationPower}}</span>
+							</div>
+							<div class="line">租金 {{item.price}}矿石</div>
+							<div class="line">总产 {{item.totalOutput}}矿石</div>
+							<div class="line">运行总时长 {{item.allRuntime}}小时</div>
+							<div class="line">限租 {{item.limitBuy}}台</div>
+						</div>
+						<div class="flex flex3">
+							<div class="line">库存{{item.inventory}}</div>
+							<div class="line margT3">
+								<van-button round type="info" @click="buyMill(item)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
 							</div>
 						</div>
-					</van-list>
-				</van-tab>
-				<van-tab name="pastMill">
-					<div slot="title" class="tabTitle">
-					     过期矿机 {{pastMillList?pastMillList.length:''}}
 					</div>
-					<van-list :offset="100" v-model="loadingPastMill" :finished="finishedPastMill" finished-text="没有更多了" @load="onLoadPastMill">
-						<div class="millList">
-							<div class="item" v-for="item in pastMillList" :key="item.id">
-								<div class="flex flex1">
-									<div class="machingBox">
-										<div class="name">{{item.type | machineType4Pic}}</div>
-									</div>
-								</div>
-								<div class="flex flex2">
-									<div class="line1">
-										<div class="millName inline">{{item.type | machineTypeType}}</div>
-										<div class="status inline">{{item.status | machineStatus}}</div>
-										<div class="calcullatePower inline">算力 {{item.calculationPower}}</div>
-									</div>
-									<div class="line">租金 {{item.price}}矿石</div>
-									<div class="line">总产 {{item.totalOutput}}矿石</div>
-									<div class="line">已产 {{item.alreadyGet}}矿石</div>
-									<div class="line">总运行时长 {{item.allRuntime}}小时</div>
-									<div class="line" v-if="item.turnOnTime">开机时间 {{item.turnOnTime}}</div>
-									<div class="line" v-if="item.turnOffTime">到期时间 {{item.turnOffTime}}</div>
-									<div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div>
-								</div>
-								<!-- <div class="flex flex3">
-									<div class="line">算力 {{item.calculationPower}}</div>
-								</div> -->
-								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item.tag)"></i>
-								<i class="tagIconText">{{item.tag | machineTagIconTextType}}</i>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-			</van-tabs>
+				</div>
+			</van-list>
 		</div>
 		<!-- <van-button type="primary" @click="testLoginUrl()">登录</van-button>
 	  <van-button type="primary" @click="testUrl()">获取信息</van-button> -->
@@ -351,15 +260,6 @@
 		components: {
 			mHeader
 		},
-		// computed:{
-		// 	nextReceipt:function(value){
-		// 		let _this = this;
-		// 		let dateTime = new Date(value).getTime() + 24*60*60;
-		// 		_this.$nextTick(()=>{
-		// 			return _this.$utils.getDateTime(dateTime);
-		// 		})
-		// 	}
-		// },
 		created() {
 			let _this = this;
 			let userInfo = localStorage.getItem("_USERINFO_");
@@ -370,10 +270,11 @@
 				_this.$router.replace('login');
 				return;
 			}
+			console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
 		},
 		methods: {
 			back() {
-				this.$router.replace('my');
+				this.$router.go(-1);
 			},
 			showTip(){
 				this.showTipModel = true;
@@ -390,100 +291,6 @@
 				}else if(tag==4){
 					return 'tag2'
 				}
-			},
-			nextReceipt(value){
-				let _this = this;
-				let dateTime = new Date(value).getTime()/1000 + 24*60*60;
-				// console.log("dateTime",dateTime);
-				let result = _this.$utils.getDateTime(dateTime*1000);
-				// console.log("result",result);
-				return result;
-				// _this.$nextTick(()=>{
-					
-				// })
-			},
-			getReceipt(){
-				let _this = this;
-				_this.showReceiptTip = true;
-				let nowTimestamp = new Date().getTime();
-				/* if(_this.userInfo.lastReceiptTime==null || _this.userInfo.lastReceiptTime==""){
-					_this.receiptModelTile = "系统提示";
-					_this.isShowReceiptLoading = false;
-					_this.mineralNumTip = "矿机启动后过24小时才能领取收益";
-					_this.isShowMineralNum = true;
-					_this.isShowConfirmButton = true;
-					return;
-				} */
-				console.log('_this.userInfo.lastReceiptTime',_this.userInfo.lastReceiptTime);
-				let lastReceiptTimestamp = new Date(_this.userInfo.lastReceiptTime).getTime();
-				console.log('lastReceiptTimestamp',lastReceiptTimestamp);
-				//if(!lastReceiptTimestamp)
-				let timestamp = (nowTimestamp - lastReceiptTimestamp)/1000;
-				if(timestamp<24*60*60){
-					_this.receiptModelTile = "系统提示";
-					_this.isShowReceiptLoading = false;
-					_this.mineralNumTip = "距离上次收益满24小时后再来哦";
-					_this.isShowMineralNum = true;
-					_this.isShowConfirmButton = true;
-					return;
-				}
-				_this.$ajax.ajax(_this.$api.getMyMachinesReceipt, 'POST', null, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						_this.isShowConfirmButton = true;
-						if(res.data==1001){
-							// _this.$toast('距离上次收益满24小时后再来哦');
-							_this.receiptModelTile = "系统提示";
-							_this.isShowReceiptLoading = false;
-							_this.mineralNumTip = "距离上次收益满24小时后再来哦";
-							_this.isShowMineralNum = true;
-							return;
-						}
-						if(res.data){
-							_this.isShowReceiptLoading = false;
-							_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
-							_this.isShowMineralNum = true;
-							_this.onLoadMyMill();
-							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
-						}
-					}
-				})
-			},
-			getThisMachineReceipt(item){
-				if(item.beforeReceipt){
-					
-				}else{//第一次领取收益的时候
-					let beforeReceipt = new Date();
-				}
-			},
-			runMillEvent(id){
-				let _this = this;
-				// let params = {
-				// 	id:id
-				// }
-				//运行之前先判断该用户是否是已经升级了的用户
-				/* if(_this.userInfo.isAgent<=0){
-					Dialog.alert({
-						title: "系统提示",
-						message: "用户等级提升后即可启动该矿机（至少要是青铜级工会会长），是否前去查看升级条件？"
-					}).then(() => {
-					  // on confirm
-					  _this.$router.push("task");
-					})
-					return;
-				} */
-				_this.$ajax.ajax(_this.$api.runMyMachineById + id, 'POST', null, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						_this.onLoadMyMill();
-					}else{
-						Dialog.alert({
-							title: "系统提示",
-							message: res.message
-						}).then(() => {
-						  // on confirm
-						  // _this.$router.push("task");
-						})
-					}
-				})
 			},
 			buyMill(item){
 				let _this = this;
@@ -535,29 +342,8 @@
 						  if(res.data==1){
 							  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 						  }
-						  _this.activeName = 'myMill';
-						  _this.onLoadMyMill();
 						  _this.onLoadMillShop();
 						});
-					}
-				})
-			},
-			onLoadMyMill() {
-				let _this = this;
-				_this.loadingMyMill = true;
-				_this.$ajax.ajax(_this.$api.getAssistMyMachine, 'GET', null, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						let myMill = res.data;
-						_this.myMillList = myMill.filter(item=>item.status!=2);
-						_this.pastMillList = myMill.filter(item=>item.status==2);
-						if(_this.myMillList.length>0){
-							_this.finishedMyMillText = '没有更多了';
-						}else{
-							_this.finishedMyMillText = '亲，您目前没有矿机';
-						}
-						// console.log("myMillList" + _this.myMillList);
-						_this.loadingMyMill = false;
-						_this.finishedMyMill = true;
 					}
 				})
 			},
@@ -577,18 +363,6 @@
 						_this.finishedMillShop = true;
 					}
 				})
-			},
-			onLoadPastMill() {
-				let _this = this;
-				_this.loadingPastMill = true;
-				_this.millShopCurrentPage = _this.millShopCurrentPage + 1;
-				console.log('_this.millShopCurrentPage', _this.millShopCurrentPage);
-				// 异步更新数据
-				setTimeout(() => {
-					// 加载状态结束
-					_this.loadingPastMill = false;
-					_this.finishedPastMill = true;
-				}, 500);
 			},
 			initializeTabActiveName() {
 				let _this = this;

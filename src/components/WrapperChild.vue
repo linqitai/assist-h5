@@ -30,6 +30,13 @@ export default {
 	},  
 	components:{
 	},
+	watch:{
+		$route(now,old){
+			let _this = this;
+			_this.$utils.scrollTop();
+			// console.log("scrollTop");
+		},
+	},
 	created() {
 		let _this = this;
 		

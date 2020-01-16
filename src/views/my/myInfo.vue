@@ -275,7 +275,7 @@
 			<!-- <van-field center clearable label="短信验证码" placeholder="请输入短信验证码">
 				<van-button slot="button" size="small" type="primary">发送验证码</van-button>
 			</van-field> -->
-			<van-field v-model="form['idCard']" required clearable label="身份证号" right-icon="question-o" :placeholder="errorHint['idCard']" type="password"
+			<van-field v-model="form['idCard']" required clearable label="身份证号" right-icon="question-o" :placeholder="errorHint['idCard']" type="number"
 			  maxlength="18" @click-right-icon="$toast(errorHint['idCard'])"
 			  @blur="validate('idCard')"
 			  :error-message="errorInfo['idCard']"/>
@@ -581,11 +581,11 @@ export default {
 					}
 					if(_this.form.loginPassword){
 						params.type = 0;
-						params.password = _this.$encryption(_this.form.loginPassword);
+						params.password = _this.$JsEncrypt.encrypt(_this.form.loginPassword);
 					}
 					if(_this.form.securityPassword){
 						params.type = 1;
-						params.password = _this.$encryption(_this.form.securityPassword);
+						params.password = _this.$JsEncrypt.encrypt(_this.form.securityPassword);
 					}
 					if(_this.$utils.hasNull(params)){
 						_this.$toast('系统提示：请填写完整信息');

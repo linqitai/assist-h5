@@ -231,7 +231,7 @@
 							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="boxLeft">
 									<div class="">单价 {{item.price}}CNY</div>
-									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{pen}}</div>
+									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
@@ -263,7 +263,7 @@
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="boxLeft">
 									<div class="">单价 {{item.price}}CNY</div>
-									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{pen}}</div>
+									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
@@ -427,7 +427,6 @@ export default {
 			min4Price:0,
 			max4Price:3,
 			step4Price:0.01,
-			pen:"",
 			sellBtnLoading:false,
 			tabActiveName:"dealArea1",
 			currentPage1:1,
@@ -581,7 +580,6 @@ export default {
 	},
 	created() {
 		let _this = this;
-		_this.pen = _this.$api.projectEnglishName;
 		_this.initializeData();
 		_this.initializeTabActiveName();
 	},
@@ -920,6 +918,7 @@ export default {
 				_this.$toast('系统提示：您的贡献值不够');
 				return;
 			}
+			params.safePassword = _this.$JsEncrypt.encrypt(_this.form4pickSellBill.safePassword);
 			_this.sellBtnLoading = true;
 			console.log('可请求接口');
 			_this.$ajax.ajax(_this.$api.insertTransaction4PickBill, 'POST', params, function(res) {
@@ -1051,6 +1050,7 @@ export default {
 				return;
 			}else{
 				console.log('可请求接口');
+				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4BuyBill.safePassword);
 				_this.$ajax.ajax(_this.$api.insertBuyBill, 'POST', params, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200

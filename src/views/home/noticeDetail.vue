@@ -64,7 +64,7 @@
 		mounted() {
 			let _this = this;
 			_this.id = _this.$route.query.id;
-			console.log('_this.id', _this.id);
+			// console.log('_this.id', _this.id);
 			_this.getNoticeDetail();
 		},
 		methods: {
@@ -78,7 +78,7 @@
 				}, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.obj = res.data;
-						console.log("-------" + _this.obj.noticeContent);
+						// console.log("-------" + _this.obj.noticeContent);
 					}
 				})
 			}

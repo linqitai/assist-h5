@@ -113,7 +113,7 @@
 				</van-cell-group>
 			</div>
 			<div class="sureBtn">
-				<div class="tip">为了提高留言质量，提交留言需使用1张帮扶券</div>
+				<div class="tip">为了提高留言质量，提交留言需使用1个帮扶券</div>
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提交</van-button>
 			</div>
 		</div>

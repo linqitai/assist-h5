@@ -105,19 +105,10 @@
 				isLoading:false,
 			}
 		},
-		
 		mounted() {
 			let _this = this;
 			_this.welcomeText = _this.$api.welcomeText;
 			_this.form.shareCode = _this.$route.query.id;
-			console.log('shareCode',_this.$route.query.id);
-			/*
-			//ASE
-			let testPhone = "linqitai121421.";
-			let encryptPhone = _this.$encryption(testPhone);
-			console.log("encryptPhone",encryptPhone);
-			let decryptPhone = _this.$decryption(encryptPhone);
-			console.log("decryptPhone",decryptPhone); */
 		},
 		methods:{
 			loginBtn(){
@@ -141,7 +132,7 @@
 					return;
 				}
 				delete params.confirmPassword;
-				params.password = _this.$encryption(_this.form.password);
+				params.password = _this.$JsEncrypt.encrypt(_this.form.password);
 				// console.log('params',params);
 				_this.isLoading = true;
 				_this.$ajax.ajax(_this.$api.register, 'POST', params, function(res) {

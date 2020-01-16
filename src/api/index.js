@@ -8,6 +8,7 @@ const domainName = 'www.assist-china.com';
 export default {
 	projectName:'帮扶链',
 	projectEnglishName:'HPC',
+	coinUnit:'矿石',
 	ticketName:'帮扶券',
 	welcomeText:"欢迎来到HPC帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。",
 	HOST_IMG: hostImg,
@@ -138,4 +139,6 @@ export default {
 	getAssistUserFreeze: host + "assist/userFreeze/getAssistUserFreeze/",
 	getAssistUserFreezeByUserId: host + "assist/userFreeze/getAssistUserFreezeByUserId",
 	unFreeze: host + "assist/userFreeze/unFreeze",
+	//验证码
+	getSecurityCode:host + "assist/securitycode/getSecurityCode",
 }

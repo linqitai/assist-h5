@@ -10,34 +10,31 @@
 		left: 0;
 		right: 0;
 		overflow-y: scroll;
-		
-		.van-cell-group,.van-cell{
-			background-color: inherit !important;
-		}
-		.van-cell{
-			color: $mainTextColor !important;
-			padding: 10px 0 !important;
-			&::last-child{
-				border-bottom: 1px solid #BABABA !important;
+		.formBox{
+			.labelText{
+				margin-top: 20px;
 			}
-		}
-		.van-cell__value,.van-cell__value--alone,.van-field__control{
-			color: $mainTextColor !important;
-		}
-		.van-cell__value{
-			color: $mainTextColor !important;
-		}
-		.van-cell__value--alone{
-			color: $mainTextColor !important;
-		}
-		.van-field__control{
-			color: $mainTextColor !important;
-		}
-		.van-cell:not(:last-child)::after{
-			left: 0 !important;
-		}
-		.labelText{
-			margin-top: 20px;
+			.van-cell-group,.van-cell{
+				background-color: inherit !important;
+			}
+			.van-cell{
+				color: $mainTextColor !important;
+				padding: 10px 0 !important;
+				&::last-child{
+					border-bottom: 1px solid #BABABA !important;
+				}
+			}
+			.van-cell__value,.van-cell__value--alone,.van-field__control{
+				color: $mainTextColor !important;
+			}
+			.van-cell:not(:last-child)::after{
+				left: 0 !important;
+			}
+			.van-button__text{
+				font-size: 16px;
+				font-weight: bold;
+				letter-spacing: 2px;
+			}
 		}
 		.sureBox{
 			margin-top: 1.25rem;
@@ -79,12 +76,18 @@
 			<img src="../../assets/image/LOGO.png" alt="">
 		</div>
 		<div class="welcomeText textIndent">{{welcomeText}}</div>
-		<van-cell-group :border="isNo">
-			<div class="labelText">账号</div>
-			<van-field v-model="form.phone" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
-			<div class="labelText">密码</div>
-			<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
-		</van-cell-group>
+		<div class="formBox">
+			<van-cell-group :border="isNo">
+				<div class="labelText">账号</div>
+				<van-field v-model="form.phone" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
+				<div class="labelText">密码</div>
+				<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
+				<div class="labelText">验证码</div>
+				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码">
+					<van-button slot="button" size="small" type="primary">{{securityCode}}</van-button>
+				</van-field>
+			</van-cell-group>
+		</div>
 		<div class="sureBox">
 			<div class="tip">点击登录即表示您同意<span class="agreement" @click="$router.push('agreement')">《服务协议》</span><span class="forget" @click="forget">忘记密码？</span></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" :loading="isLoading" @click="loginBtn" loading-type="spinner">登  录</van-button>
@@ -106,32 +109,35 @@
 			return {
 				welcomeText:"",
 				isNo:false,
+				securityCode:'love',
 				form:{
 					phone:'',
-					password:''
+					password:'',
+					securityCode:''
 				},
 				placeholder:{
 					phone:'请填写11位登录手机号',
-					password:'请填写6~16位登录密码'
+					password:'请填写6~16位登录密码',
+					securityCode:'请填写6位验证码'
 				},
 				errorHint:{
 					phone:'',
-					password:''
+					password:'',
+					securityCode:''
 				},
 				loginValidate:true,
 				isLoading:false,
 				cookiesTime: 60 * 60 * 24,
-				userFreezeInfo:"",
+				userFreezeInfo:'',
+				getInitCode:''
 			}
 		},
 		created() {
 			let _this = this;
 			_this.form.phone = localStorage.getItem("mobilePhone");
-			console.log(_this.form.phone,'_this.form.phone')
+			// console.log(_this.form.phone,'_this.form.phone')
 			_this.welcomeText = _this.$api.welcomeText;
-			// _this.initializeerrorHint();
-			// _this.initializeTabActiveName();
-			// _this.getAddress();
+			_this.getSecurityCode();
 		},
 		methods:{
 			forget(){
@@ -150,6 +156,19 @@
 				let address = localStorage.getItem("address");
 				let province = _this.$utils.getProvince(address);
 				//alert(province);
+			},
+			getSecurityCode(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getSecurityCode, 'POST', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
+						// console.log('securityCode4Web',res.data);
+						_this.getInitCode = res.data;
+						let initCode = _this.$JsEncrypt.decrypt(_this.getInitCode.initCode);
+						_this.securityCode = _this.$utils.getSC(initCode);
+					}else{
+						_this.$toast(res.message);
+					}
+				})
 			},
 			getUserFreezeInfo(){
 				let _this = this;
@@ -171,7 +190,8 @@
 				let _this = this;
 				let params = {
 					userName: _this.form.phone,
-					password: _this.form.password
+					password: _this.form.password,
+					securityCode: _this.form.securityCode.toLowerCase()
 				}
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('系统提示:账号或密码不能为空');
@@ -181,8 +201,8 @@
 					_this.$toast('系统提示:请按要求填写信息');
 					return;
 				}
-				params.password = _this.$encryption(_this.form.password);
-				console.log('params',params);
+				params.password = _this.$JsEncrypt.encrypt(_this.form.password);
+				// console.log('params',params);
 				_this.isLoading = true;
 				_this.$ajax.ajax(_this.$api.loginUser, 'GET', params, function(res) {
 					// console.log('res', res);
@@ -209,7 +229,13 @@
 							_this.$router.replace("/home");
 						}
 					}else{
-						_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						  _this.getSecurityCode();
+						});
 					}
 				},function(res){
 					// console.log("complate",res);
@@ -229,6 +255,12 @@
 						_this.errorHint.password = '';
 					}else{
 						_this.errorHint.password = _this.$reg.passwordHint;
+					}
+				}else if(key == 'securityCode'){
+					if(_this.$reg.securityCode.test(_this.form.securityCode)){
+						_this.errorHint.securityCode = '';
+					}else{
+						_this.errorHint.securityCode = _this.$reg.securityCodeHint;
 					}
 				}
 			}

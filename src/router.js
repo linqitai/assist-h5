@@ -123,18 +123,6 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
-							path: '/myBook',
-							name: '我的账本',
-							component: () => import('./views/my/myBook'),
-							meta:{footer:false},
-						},
-						{
-							path: '/myDeal',
-							name: '我的交易',
-							component: () => import('./views/my/myDeal'),
-							meta:{footer:false},
-						},
-						{
 							path: '/myWord',
 							name: '我要留言',
 							component: () => import('./views/my/myWord'),
@@ -176,6 +164,18 @@ export default new Router({
 			path: '/',
 			component: () => import('./components/WrapperChild'),
 			children: [
+				{
+					path: '/myBook',
+					name: '我的账本',
+					component: () => import('./views/my/myBook'),
+					meta:{footer:false},
+				},
+				{
+					path: '/myDeal',
+					name: '我的交易',
+					component: () => import('./views/my/myDeal'),
+					meta:{footer:false},
+				},
 				{
 					path: '/myMill',
 					name: '我的矿机',

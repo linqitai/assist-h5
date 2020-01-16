@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	.myDeal{
-		@include pageMy();
+		@include pageHaveHeight4Scroll();
 		
 		[class*=van-hairline]::after {
 			border: none !important;
@@ -9,7 +9,7 @@
 		}
 		.myDealTabs {
 			// margin-top: $header-height;
-			min-height: 100%;
+			// min-height: 100%;
 			color: $mainTextColor;
 			/* .van-tabs,.van-pull-refresh{
 				min-height: 700px !important;

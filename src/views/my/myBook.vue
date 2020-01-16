@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	.myBook{
-		@include pageMy();
+		@include pageHaveHeight4Scroll();
 		.myBookTabs {
 			color: $mainTextColor;
 			.list{
@@ -192,6 +192,7 @@
 		},
 		methods: {
 			back(){
+				// this.$router.replace('my');
 				this.$router.go(-1);
 			},
 			refreshEvent() {

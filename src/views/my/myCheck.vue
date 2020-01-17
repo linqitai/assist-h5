@@ -6,12 +6,15 @@
 		background-color: $main-bg-color;
 	} */
 	.checkPage{
-		@include pageWhiteBGHaveHeight();
+		// @include pageWhiteBGHaveHeight();
 		
-		/* @include pageHaveHeight();
-		.van-cell__value, .van-cell__value--alone, .van-field__control {
-		    color: #323232 !important;
-		} */
+		@include pageHaveHeight();
+		.van-search{
+			background-color: $main-bg-color !important;
+			.van-search__action{
+				color: $mainTextColor !important;
+			}
+		}
 		.checkList{
 			/* background-color: $main-box-color; */
 			// margin-top:$header-height;
@@ -25,7 +28,7 @@
 				align-content: center;
 				align-items: center;
 				justify-content: center;
-				color: $mainTextColor2;
+				color: $mainTextColor;
 				// &:last-child{
 				// 	border-bottom: 1px solid transparent;
 				// }
@@ -83,14 +86,14 @@
 				<div class="">
 					<b>审核指标：</b><br>
 					1.用户的真实姓名和身份证号与证件照中的对得上。<br>
-					2.照片上有贴小纸条:ASST实名专用+最近两天的日期。<br>
+					2.照片上有贴小纸条:{{$api.projectEnglishName}}实名专用+最近3天的日期。<br>
 					满足以上2点即可通过；否则就驳回。
 				</div>
 				<div class="">
 					<b>审核嘱咐：</b>帮扶链平台不是张三的，也不是李四的，而是大家的，期望各位领导人认真审核，共同维护好平台，做好公平、公正的榜样。
 				</div>
 				<div class="">
-					<b>审核津贴：</b>若用户实名信息无误，审核通过奖励审核人0.1个帮扶券；若用户实名信息有误，审核驳回奖励审核人1个帮扶券。
+					<b>审核津贴：</b>若用户实名信息无误，审核通过奖励审核人0.1个帮扶券；若用户实名信息有误，审核驳回奖励审核人0.5个帮扶券。
 				</div>
 			</div>
 			<div class="placeholderLine4"></div>

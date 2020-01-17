@@ -114,7 +114,7 @@ function getDateTime(t) {
   var h = time.getHours()
   var mm = time.getMinutes()
   var s = time.getSeconds()
-  return y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d) + ' ' + (h < 10 ? '0' + h : h) + ':' +
+  return y + '/' + (m < 10 ? '0' + m : m) + '/' + (d < 10 ? '0' + d : d) + ' ' + (h < 10 ? '0' + h : h) + ':' +
     (mm < 10 ? '0' + mm : mm) + ':' + (s < 10 ? '0' + s : s)
 }
 
@@ -124,7 +124,7 @@ function getDate(t) {
   var y = time.getFullYear()
   var m = time.getMonth() + 1
   var d = time.getDate()
-  return y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
+  return y + '/' + (m < 10 ? '0' + m : m) + '/' + (d < 10 ? '0' + d : d);
 }
 
 // 获取时间戳

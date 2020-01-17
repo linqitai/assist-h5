@@ -151,7 +151,7 @@
 				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>
-		<div class="my-cell" @click="update('realName')">
+		<div class="my-cell">
 			<div class="flex1">
 				真实姓名
 			</div>
@@ -279,6 +279,11 @@
 			  maxlength="18" @click-right-icon="$toast(errorHint['idCard'])"
 			  @blur="validate('idCard')"
 			  :error-message="errorInfo['idCard']"/>
+			<van-field v-model="form['originalPassowrd']" required clearable label="原始密码" right-icon="question-o" :placeholder="errorHint['originalPassowrd']"
+				maxlength="20" type="password"
+			  @click-right-icon="$toast(errorHint['originalPassowrd'])"
+			  @blur="validate('originalPassowrd')"
+			  :error-message="errorInfo['sureNewPassword']"/>
 			<van-field v-model="form[flag]" required clearable :label="label" right-icon="question-o" :placeholder="errorHint[flag]" type="password"
 			  maxlength="20" @click-right-icon="$toast(errorHint[flag])"
 			  @blur="validate(flag)"
@@ -323,6 +328,7 @@ export default {
 				alipayNum:"",
 				wechartNum:"",
 				address:"",
+				originalPassowrd:"",
 				loginPassword:"",
 				securityPassword:"",
 				sureNewPassword:"",
@@ -337,6 +343,7 @@ export default {
 				alipayNum:"",
 				wechartNum:"",
 				address:"",
+				originalPassowrd:"",
 				loginPassword:"",
 				securityPassword:"",
 				sureNewPassword:"",
@@ -351,6 +358,7 @@ export default {
 				alipayNum:"",
 				wechartNum:"",
 				address:"",
+				originalPassowrd:"",
 				loginPassword:"",
 				securityPassword:"",
 				sureNewPassword:"",
@@ -481,6 +489,7 @@ export default {
 				alipayNum:"请填写绑定了支付宝的登录手机号",
 				wechartNum:"请填写绑定了微信的登录手机号",
 				address:"",
+				originalPassowrd:"请填写原来的密码",
 				loginPassword:"请填写新登录密码",
 				securityPassword:"请填写新安全密码",
 				sureNewPassword:"请确认新密码",
@@ -575,9 +584,9 @@ export default {
 				})
 			}else if(type=='update2'){
 				if(_this.form[_this.flag]==_this.form['sureNewPassword']){
-					console.log('_this.form', _this.form);
 					let params = {
 						idCard:_this.form.idCard,
+						originalPassowrd:_this.form.originalPassowrd,
 					}
 					if(_this.form.loginPassword){
 						params.type = 0;
@@ -591,11 +600,14 @@ export default {
 						_this.$toast('系统提示：请填写完整信息');
 						return;
 					}
+					params.originalPassowrd = _this.$JsEncrypt.encrypt(_this.form.originalPassowrd);
+					// console.log('params', params);
 					_this.$ajax.ajax(_this.$api.updatePassword, 'POST', params, function(res){
-						console.log('res',res);
 						if(res.code == _this.$api.CODE_OK){
 							_this.showUpdatePasswordModel = false;
 							_this.$toast('系统提示：修改成功');
+						}else{
+							_this.$toast('系统提示：' + res.message);
 						}
 					})
 				}else{
@@ -641,6 +653,12 @@ export default {
 					_this.errorInfo.wechartNum = '';
 				}else{
 					_this.errorInfo.wechartNum = _this.errorHint.wechartNum;
+				}
+			}else if(key == 'originalPassowrd') {
+				if(_this.$reg.password.test(_this.form.originalPassowrd)){
+					_this.errorInfo.originalPassowrd = '';
+				}else{
+					_this.errorInfo.originalPassowrd = _this.$reg.passwordHint;
 				}
 			}else if(key == 'loginPassword') {
 				if(_this.$reg.password.test(_this.form.loginPassword)){

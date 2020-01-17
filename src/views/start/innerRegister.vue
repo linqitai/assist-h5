@@ -75,10 +75,10 @@
 			<!-- <van-button color="inherit" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button> -->
 			<div class="tip4model3">
 				Tip：<br>
-				1.内排注册送小型矿机一台，用户等级提升后即可启动该矿机。<br>
-				2.登录密码初始化为该注册手机号，未实名认证无修改密码权限。<br>
-				3.实名认证审核通过方可修改密码，请团队长们提醒到位。<br>
-				4.为了提高内排注册的质量，每内排注册一名用户需使用1个帮扶券。
+				1.内排注册功能专为预打造团队的用户开放。<br>
+				2.参与内排注册的用户系统赠送小型矿机一台，用户等级提升后才可启动该矿机。<br>
+				3.登录密码初始化为该注册手机号，未实名认证无修改密码权限，实名认证审核通过方可修改密码，请团队长们提醒到位。<br>
+				4.为了提高内排注册的质量，注册一名用户上级需使用0.1个帮扶券。
 			</div>
 		</div>
 	</div>
@@ -171,7 +171,13 @@
 						_this.$toast('系统提示：注册成功');
 						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 					}else{
-						_this.$toast(res.message);
+						Dialog.alert({
+							title: "系统提示",
+							confirmButtonText:'哦哦',
+							message: res.message
+						}).then(() => {
+						  // on confirm
+						})
 					}
 				},function(res){
 					// console.log("complate",res);

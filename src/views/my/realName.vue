@@ -30,6 +30,14 @@
 			padding: 12px;
 			.label{
 				flex: 0 0 120px;
+				margin-left: 4px;
+			}
+			.label::before {
+				position: absolute;
+				left: 8px;
+				color: #ee0a24;
+				font-size: 14px;
+				content: '*';
 			}
 			.text{
 				flex: 1;
@@ -302,13 +310,13 @@ export default {
 	},
 	mounted(){
 		let _this = this;
-		_this.mobilePhone = localStorage.getItem("mobilePhone");
 		console.log('_this.mobilePhone',_this.mobilePhone);
 		_this.projectName = _this.$api.projectName;
 		_this.$cookies.set('isRefreshUserInfo',1,60*30*1);
 		let userInfo = localStorage.getItem("_USERINFO_");
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
+			_this.mobilePhone = _this.userInfo.mobilePhone;
 			if(_this.userInfo.actived==2){
 				_this.form = _this.userInfo;
 				_this.getAssistUserInfoPicByUserId();
@@ -460,9 +468,8 @@ export default {
 				_this.$toast(`系统提示：2次密码不一样`);
 				return;
 			}
-			params.securityPassword = _this.$encryption(_this.form.securityPassword);
-			let mobilePhone = localStorage.getItem('mobilePhone');
-			if(params.alipayNum == params.wechartNum && params.wechartNum == mobilePhone){
+			params.securityPassword = _this.$JsEncrypt.encrypt(_this.form.securityPassword);
+			if(params.alipayNum == params.wechartNum && params.wechartNum == _this.mobilePhone){
 				console.log('系统提示：可提交信息');
 				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
 					console.log('res.code',res.code);
@@ -486,7 +493,7 @@ export default {
 					}
 				})
 			}else{
-				if(params.alipayNum != mobilePhone){
+				if(params.alipayNum != _this.mobilePhone){
 					//_this.$toast(`系统提示:请填写和支付宝绑定的手机号作为支付宝号。`);
 					Dialog.alert({
 					  title: '系统提示',
@@ -495,7 +502,7 @@ export default {
 					  // on close
 					});
 				}
-				if(params.wechartNum != mobilePhone){
+				if(params.wechartNum != _this.mobilePhone){
 					// _this.$toast(`系统提示:请填写和微信绑定的手机号作为微信号。`);
 					Dialog.alert({
 					  title: '系统提示',

@@ -175,7 +175,7 @@
 					<div slot="title" class="tabTitle">
 					     我的矿机 {{myMillList.length}}
 					</div>
-					<div class="getMineral">
+					<div class="getMineral" v-if="isShowOneReciept">
 						<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
 					</div>
 					<van-list v-model="loadingMyMill" :finished="finishedMyMill" :finished-text="finishedMyMillText" @load="onLoadMyMill">
@@ -208,7 +208,7 @@
 								<div class="flex flex3" v-if="item.status==0">
 									<div class="status line">{{item.status | machineStatus}}</div>
 									<div class="line margT3">
-										<van-button round type="info" v-if="item.status==0" @click="runMillEvent(item.id)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">运行</van-button>
+										<van-button round type="info" v-if="item.status==0" :loading="isRunMillBtnLoading" @click="runMillEvent(item.id)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">运行</van-button>
 									</div>
 								</div>
 								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item.tag)"></i>
@@ -285,6 +285,7 @@
 	export default {
 		data() {
 			return {
+				isRunMillBtnLoading: false,
 				showTipModel:false,
 				activeName: "myMill",
 				loadingMyMill: false,
@@ -307,6 +308,7 @@
 				}],
 				userInfo:'',
 				showReceiptTip:false,
+				isShowOneReciept:true,
 				isShowReceiptLoading: true,
 				mineralNumTip:'',
 				isShowMineralNum:false,
@@ -444,6 +446,7 @@
 					})
 					return;
 				} */
+				_this.isRunMillBtnLoading = true;
 				_this.$ajax.ajax(_this.$api.runMyMachineById + id, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.onLoadMyMill();
@@ -456,6 +459,8 @@
 						  // _this.$router.push("task");
 						})
 					}
+				},function(){
+					_this.isRunMillBtnLoading = false;
 				})
 			},
 			buyMill(item){
@@ -526,6 +531,7 @@
 						if(_this.myMillList.length>0){
 							_this.finishedMyMillText = '没有更多了';
 						}else{
+							_this.isShowOneReciept = false;
 							_this.finishedMyMillText = '亲，您目前没有矿机';
 						}
 						// console.log("myMillList" + _this.myMillList);

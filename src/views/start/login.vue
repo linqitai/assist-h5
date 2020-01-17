@@ -83,8 +83,8 @@
 				<div class="labelText">密码</div>
 				<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
 				<div class="labelText">验证码</div>
-				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码">
-					<van-button slot="button" size="small" type="primary">{{securityCode}}</van-button>
+				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
+					<van-button slot="button" size="small" type="primary" @click="getSecurityCode">{{securityCode}}</van-button>
 				</van-field>
 			</van-cell-group>
 		</div>

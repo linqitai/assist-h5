@@ -141,4 +141,5 @@ export default {
 	unFreeze: host + "assist/userFreeze/unFreeze",
 	//验证码
 	getSecurityCode:host + "assist/securitycode/getSecurityCode",
+	verifySecurityCode: host + "assist/securitycode/verifySecurityCode",
 }

@@ -8,6 +8,15 @@
 		[class*=van-hairline]::after {
 		    border: 1px solid transparent !important;
 		}
+		.van-search{
+			background-color: $main-bg-color !important;
+			.van-search__action{
+				color: $mainTextColor !important;
+			}
+			.van-cell__value, .van-cell__value--alone, .van-field__control {
+			    color: $mainTextColor2 !important;
+			}
+		}
 		.rankingTabs {
 			color: $mainTextColor;
 			.list{
@@ -119,10 +128,20 @@
 	<div class="ranking">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
-			<div class="text">排行榜前20</div>
+			<div class="text">排行榜</div>
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="rankingTabs">
+			<van-search
+			  v-model="mobilePhone"
+			  placeholder="请输入手机号"
+			  show-action
+			  shape="round"
+			  maxlength="11"
+			  @search="searchEvent"
+			>
+			  <div slot="action" @click="searchEvent">搜索</div>
+			</van-search>
 			<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
 			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
 				<van-tab title="矿石" name="ranking1">
@@ -130,10 +149,10 @@
 						<div class="list" v-for="(item,index) in list1" :key='item.id'>
 							<div class="item">
 								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
+									<div class="name">{{item.rank}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+									<div class="line"> {{item.nickName}}</div>
 									<!-- <div class="placeholderLine10"></div>
 									<div class="line">
 										<div>
@@ -153,10 +172,10 @@
 						<div class="list" v-for="item in list2" :key='item.id'>
 							<div class="item">
 								<div class="flexLeft">
-									<div class="name">{{item.nickName | getLastName}}</div>
+									<div class="name">{{item.rank}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+									<div class="line"> {{item.nickName}}</div>
 								</div>
 								<div class="flexRight">{{item.num}}</div>
 							</div>
@@ -169,10 +188,10 @@
 						<div class="list" v-for="item in list3" :key='item.id'>
 							<div class="item">
 								<div class="flexLeft">
-									<div class="name">{{item.nickName | getLastName}}</div>
+									<div class="name">{{item.rank}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+									<div class="line"> {{item.nickName}}</div>
 								</div>
 								<div class="flexRight">{{item.num}}</div>
 							</div>
@@ -185,10 +204,26 @@
 						<div class="list" v-for="item in list4" :key='item.id'>
 							<div class="item">
 								<div class="flexLeft">
-									<div class="name">{{item.nickName | getLastName}}</div>
+									<div class="name">{{item.rank}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+									<div class="line"> {{item.nickName}}</div>
+								</div>
+								<div class="flexRight">{{item.num}}</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				
+				<van-tab title="有效直推" name="ranking5">
+					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
+						<div class="list" v-for="item in list5" :key='item.id'>
+							<div class="item">
+								<div class="flexLeft">
+									<div class="name">{{item.rank}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"><!-- <i class="iconfont iconfont-name"></i> --> {{item.nickName}}</div>
 								</div>
 								<div class="flexRight">{{item.num}}</div>
 							</div>
@@ -224,12 +259,17 @@
 				list4:[],
 				loading4:false,
 				finished4:false,
+				currentPage5: 1,
+				list5:[],
+				loading5:false,
+				finished5:false,
 				pageSize:20,
 				activeName:'ranking1',
 				showTipModel:false,
 				showTipModel4LookWeCharNum:false,
 				shareCode:"",
-				weChartNum:""
+				weChartNum:"",
+				mobilePhone:""
 			}
 		},
 		components: {
@@ -270,21 +310,42 @@
 					_this.$toast(`复制${res.text}成功`);
 				});
 			},
+			tabChange(res) {
+				let _this = this;
+				console.log('res', res)
+				_this.activeName = res;
+			},
+			searchEvent(){
+				let _this = this;
+				if(_this.activeName == 'ranking1'){
+					_this.onLoad1();
+				}else if(_this.activeName == 'ranking2'){
+					_this.onLoad2();
+				}else if(_this.activeName == 'ranking3'){
+					_this.onLoad3();
+				}else if(_this.activeName == 'ranking4'){
+					_this.onLoad4();
+				}else if(_this.activeName == 'ranking5'){
+					_this.onLoad5();
+				}
+			},
 			onLoad1(){
 				console.log('load1')
 				let _this = this;
 				// 异步更新数据
 				var params = {
-					pageNo: this.currentPage1,
-					pageSize: this.pageSize,
-					mobilePhone:""
+					pageNo: _this.currentPage1,
+					pageSize: _this.pageSize,
+					mobilePhone: _this.mobilePhone,
+					type:'this_week_mineral'
 				}
 				_this.loading1 = true;
 				_this.finished1 = false;
-				_this.$ajax.ajax(_this.$api.getMineralRanking, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data.list;
-						_this.list1.push(...list);
+						/* let list = res.data.list;
+						_this.list1.push(...list); */
+						_this.list1 = res.data.list;
 						_this.loading1 = false;
 						_this.loading1 = false;
 						_this.finished1 = true;
@@ -305,14 +366,16 @@
 				var params = {
 					pageNo: this.currentPage2,
 					pageSize: this.pageSize,
-					mobilePhone:""
+					mobilePhone: _this.mobilePhone,
+					type:'contribution_value'
 				}
 				_this.loading2 = true;
 				_this.finished2 = false;
-				_this.$ajax.ajax(_this.$api.getContributionValueRanking, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data.list;
-						_this.list2.push(...list);
+						/* let list = res.data.list;
+						_this.list2.push(...list); */
+						_this.list2 = res.data.list;
 						_this.loading2 = false;
 						_this.loading2 = false;
 						_this.finished2 = true;
@@ -334,14 +397,16 @@
 				var params = {
 					pageNo: this.currentPage3,
 					pageSize: this.pageSize,
-					mobilePhone:""
+					mobilePhone: _this.mobilePhone,
+					type:'platform_ticket'
 				}
 				_this.loading3 = true;
 				_this.finished3 = false;
-				_this.$ajax.ajax(_this.$api.getPlatformTicketRanking, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data.list;
-						_this.list3.push(...list);
+						/* let list = res.data.list;
+						_this.list3.push(...list); */
+						_this.list3 = res.data.list;
 						_this.loading3 = false;
 						_this.loading3 = false;
 						_this.finished3 = true;
@@ -363,14 +428,16 @@
 				var params = {
 					pageNo: this.currentPage4,
 					pageSize: this.pageSize,
-					mobilePhone:""
+					mobilePhone: _this.mobilePhone,
+					type:'team_calculation_power'
 				}
 				_this.loading4 = true;
 				_this.finished4 = false;
-				_this.$ajax.ajax(_this.$api.getTeamCalculationPowerRanking, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data.list;
-						_this.list4.push(...list);
+						/* let list = res.data.list;
+						_this.list4.push(...list); */
+						_this.list4 = res.data.list;
 						_this.loading4 = false;
 						_this.loading4 = false;
 						_this.finished4 = true;
@@ -385,12 +452,36 @@
 					}
 				})
 			},
-			tabChange(res) {
+			onLoad5(){
+				console.log('load5')
 				let _this = this;
-				console.log('res', res)
-				/* if(res == 'ranking2'){
-					_this.onLoad2();
-				} */
+				// 异步更新数据
+				var params = {
+					pageNo: this.currentPage5,
+					pageSize: this.pageSize,
+					mobilePhone: _this.mobilePhone,
+					type:'realname_num'
+				}
+				_this.loading5 = true;
+				_this.finished5 = false;
+				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						/* let list = res.data.list;
+						_this.list5.push(...list); */
+						_this.list5 = res.data.list;
+						_this.loading5 = false;
+						_this.loading5 = false;
+						_this.finished5 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished4 = true;
+						}else{
+							_this.currentPage4 = _this.currentPage4 + 1;
+						} */
+					}else{
+						_this.loading5 = false;
+						_this.finished5 = true;
+					}
+				})
 			},
 			onSearch(res){
 				console.log('res', res)

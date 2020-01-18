@@ -167,9 +167,16 @@
 	<div class="realName">
 		<div class="tip4model1">
 			<b class="textBold">温馨提示：</b>
-			<br>以下资料是用户之间交换矿石时的凭据信息，提交实名后需待客服审核，每个账号只有3次实名的机会，请认真填写。<br>
-			注：微信号和支付宝号需填写所绑定的手机号，且与帮扶链平台的登录手机号保持一致，若您的微信和支付宝未绑定手机号，请先去微信和支付宝绑定。<br>
-			<b class="textBold">身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，{{$api.projectEnglishName}}认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i>
+			<br>
+			尊敬的原始矿工实名前请认真阅读以下规则：<br>
+			【1】以下资料是用户之间交换矿石时的凭据信息，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
+			【2】年龄范围18周岁以上，不用上传手持照片，微信号和支付宝号需填写所绑定的手机号，且与注册帐号保持一致，若您的微信和支付宝未绑定该手机号，请先去微信和支付宝绑定。<br>
+			【3】平台为保证每位矿工账号安全，真实姓名与支付宝不一致永久冻结账号处理，交易的时候遇到此问题欢迎向平台打小报告，情况属实买方会得到奖励。<br>
+			【4】如果支付宝帐号设置隐私导致买方无法通过手机号查找而无法完成交易的，客服介入调查取消交易且冻结卖方账号。请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
+			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现。零门槛、零投资、零风险、可继承。另外，对于有经验的矿工，挂单交易每人限购2000个矿石，请用闲散资金参与，这里没有一日暴富，所有的丰收都需经过坚定持续的努力，长久稳定才是广大矿工们所想要的，让我们一起打造集聚用户共识度的百年公益创业平台。<br>
+			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
+			<!-- 注：<br>
+			<b class="textBold">身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，{{$api.projectEnglishName}}认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i> -->
 		</div>
 		
 		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
@@ -177,15 +184,15 @@
 		@click-right-icon="$toast(errorHint.telPhone)"
 		@blur="validate('telPhone')"
 		:error-message="errorInfo.telPhone"/> -->
-		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="20"
-		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
-		<van-field v-model="form.wechartNum" required clearable label="微信号" maxlength="11" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
-		<van-field v-model="form.alipayNum" required clearable label="支付宝" maxlength="11" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
+		<van-field v-model="form.wechartNum" required disabled clearable label="微信号" maxlength="11" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
+		<van-field v-model="form.alipayNum" required disabled clearable label="支付宝" maxlength="11" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
 		<!-- <van-field v-model="form.bankCard" required clearable label="银行卡号" right-icon="question-o" :placeholder="errorHint.bankCard"
 		@click-right-icon="$toast(errorHint.bankCard)"
 		@blur="validate('bankCard')"
 		:error-message="errorInfo.bankCard"/> -->
 		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
+		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="20"
+		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
 		<div class="line">
 			<span class="label">身份证正面照片</span>
 			<span class="text" @click="showExamplePic">点击查看模板</span>
@@ -211,7 +218,7 @@
 		<van-field v-model="form.securityPassword2" required clearable label="确认安全密码"  type="password" :placeholder="errorHint.securityPassword2" maxlength="20" @blur="validate('securityPassword2')" :error-message="errorInfo.securityPassword2"/>
 		<div class="placeholderLine40"></div>
 		<div class="sureAppointBtnBox">
-			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="submitRealNameBtn">确 认</van-button>
+			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitRealNameLoding" @click="submitRealNameBtn">提 交</van-button>
 		</div>
 	</div>
 	<van-dialog
@@ -302,7 +309,8 @@ export default {
 			projectName:'',
 			mobilePhone:'',
 			uploadType:'',
-			showIdCardPicExmple:false
+			showIdCardPicExmple:false,
+			submitRealNameLoding:false
 		}
 	},  
 	components:{
@@ -310,13 +318,15 @@ export default {
 	},
 	mounted(){
 		let _this = this;
-		console.log('_this.mobilePhone',_this.mobilePhone);
 		_this.projectName = _this.$api.projectName;
-		_this.$cookies.set('isRefreshUserInfo',1,60*30*1);
+		_this.$cookies.set('isRefreshUserInfo',1,_this.$cookies.cookiesTime);
 		let userInfo = localStorage.getItem("_USERINFO_");
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
 			_this.mobilePhone = _this.userInfo.mobilePhone;
+			_this.form.wechartNum = _this.userInfo.mobilePhone;
+			_this.form.alipayNum = _this.userInfo.mobilePhone;
+			console.log(_this.mobilePhone,_this.form.wechartNum,_this.form.alipayNum);
 			if(_this.userInfo.actived==2){
 				_this.form = _this.userInfo;
 				_this.getAssistUserInfoPicByUserId();
@@ -469,6 +479,7 @@ export default {
 				return;
 			}
 			params.securityPassword = _this.$JsEncrypt.encrypt(_this.form.securityPassword);
+			_this.submitRealNameLoding = true;
 			if(params.alipayNum == params.wechartNum && params.wechartNum == _this.mobilePhone){
 				console.log('系统提示：可提交信息');
 				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
@@ -484,20 +495,22 @@ export default {
 						  _this.$router.replace("my");
 						});
 					}else{
-						_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
-					if(res.code == _this.$api.CODE_4003){
-						// _this.info = res.data.list;
-						// _this.showRealNameModel = true;
-						_this.isRealName = false;
-					}
+				},function(){
+					_this.submitRealNameLoding = false;
 				})
 			}else{
 				if(params.alipayNum != _this.mobilePhone){
 					//_this.$toast(`系统提示:请填写和支付宝绑定的手机号作为支付宝号。`);
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '请填写和支付宝绑定的手机号作为支付宝号'
+					  message: '请填写和支付宝绑定的手机号作为支付宝号且与登录手机号保持一致'
 					}).then(() => {
 					  // on close
 					});
@@ -506,7 +519,7 @@ export default {
 					// _this.$toast(`系统提示:请填写和微信绑定的手机号作为微信号。`);
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '请填写和微信绑定的手机号作为微信号'
+					  message: '请填写和微信绑定的手机号作为微信号且与登录手机号保持一致'
 					}).then(() => {
 					  // on close
 					});

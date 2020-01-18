@@ -221,7 +221,7 @@
 				<div class="flex flex2">
 					<div class="line1">
 						<div class="nick_name left">{{userInfo.nickName}}</div>
-						<div class="level left">{{userInfo.level | getUserType}}</div>
+						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}</div>
 					</div>
 					<!-- <div class="line">
 						ID {{info.userId}}

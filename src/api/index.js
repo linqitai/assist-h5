@@ -135,6 +135,7 @@ export default {
 	getPlatformTicketRanking: host + "assist/statistics/getPlatformTicketRanking",
 	getTeamCalculationPowerRanking: host + "assist/statistics/getTeamCalculationPowerRanking",
 	getDealPageInfo: host + 'assist/statistics/getDealPageInfo',
+	getRanking: host + "assist/statistics/getRanking",
 	//冻结
 	getAssistUserFreeze: host + "assist/userFreeze/getAssistUserFreeze/",
 	getAssistUserFreezeByUserId: host + "assist/userFreeze/getAssistUserFreezeByUserId",

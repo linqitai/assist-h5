@@ -143,10 +143,12 @@
 				</div>
 				<div class="line text margT10">
 					建立帮扶链工会群<br>
-					需要：设立2名群管理<br>
+					需要：<br>
+					设立2名群管理<br>
 					所服务的帮扶链用户数量超过300名<br>
 					需省市代理审核群活跃度并引荐给客服<br>
-					达标后群主和群管理获得一台小型矿机<br>
+					达标后：<br>
+					群主和群管理获得一台小型矿机<br>
 					会员等级提升后即可启动该矿机
 				</div>
 			</div>
@@ -158,8 +160,10 @@
 					进阶任务 收购矿石
 				</div>
 				<div class="line text margT10">
-					需要：累计收购10个矿石<br>
-					达到后可额外获得体验矿机一台<br>
+					需要：<br>
+					累计收购10个矿石<br>
+					达到后：<br>
+					可额外获得一台体验矿机<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -184,10 +188,10 @@
 		<div class="box area">
 			<div class="flexLeft">
 				<div class="line title">
-					省市券商任务
+					省市代理任务
 				</div>
 				<div class="line text margT10">
-					成为省市券商<br>
+					成为省市代理<br>
 					完成后可获得如下奖励<br>
 					1.奖励10000张帮扶券<br>
 					2.奖励1台大型矿机
@@ -202,8 +206,11 @@
 				</div>
 				<div class="line text margT10">
 					成为青铜级工会会长<br>
-					需要：团队算力达到10G<br>
-					达到后可获得二台微型矿机
+					需要：<br>
+					团队算力达到10G<br>
+					完成后:<br>
+					1.可获得二台微型矿机<br>
+					2.每次租赁矿机所加贡献值比例提升至 1:0.12<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -219,8 +226,11 @@
 				</div>
 				<div class="line text margT10">
 					成为白银级工会会长<br>
-					需要：团队算力达到100G<br>
-					达到后可获得一台小型矿机<br>
+					需要：<br>
+					团队算力达到100G<br>
+					完成后:<br>
+					1.可获得一台小型矿机<br>
+					2.每次租赁矿机所加贡献值比例提升至 1:0.14<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -236,8 +246,11 @@
 				</div>
 				<div class="line text margT10">
 					成为黄金级工会会长<br>
-					需要：团队算力达到500<br>
-					达到后可获得一台中型矿机<br>
+					需要：<br>
+					团队算力达到500<br>
+					完成后:<br>
+					1.可获得一台中型矿机<br>
+					2.每次租赁矿机所加贡献值比例提升至 1:0.16<br>
 					<!-- 2.平台3-5期权分红权限 -->
 				</div>
 			</div>
@@ -254,8 +267,11 @@
 				</div>
 				<div class="line text margT10">
 					成为铂金级工会会长<br>
-					需要：团队算力达到2000<br>
-					完成后可获得二台中型矿机<br>
+					需要：<br>
+					团队算力达到2000<br>
+					完成后:<br>
+					1.可获得二台中型矿机<br>
+					2.每次租赁矿机所加贡献值比例提升至 1:0.18<br>
 					<!-- 2.平台3-3期权分红权限 -->
 				</div>
 			</div>
@@ -272,8 +288,11 @@
 				</div>
 				<div class="line text margT10">
 					成为砖石级工会会长<br>
-					需要：团队算力达到10000<br>
-					达到后可获得一台大型矿机<br>
+					需要：<br>
+					团队算力达到10000<br>
+					完成后:<br>
+					1.可获得一台大型矿机<br>
+					2.每次租赁矿机所加贡献值比例提升至 1:0.20<br>
 					<!-- 2.平台3-2期权分红权限 -->
 				</div>
 			</div>
@@ -390,11 +409,11 @@ export default {
 		getShareReword1(){
 			let _this = this;
 			if(_this.userInfo.isGetShareTask==1){
-				_this.$toast("您已领取过该奖励");
+				_this.$toast("系统提示：您已领取过该奖励");
 				return;
 			}
 			if(_this.userInfo.realnameNum<10){
-				_this.$toast("您尚未达到领取该奖励的标准");
+				_this.$toast("系统提示：您尚未达到领取该奖励的标准");
 				return;
 			}
 			_this.$ajax.ajax(_this.$api.getShareReword, 'POST', null, function(res){
@@ -417,11 +436,11 @@ export default {
 		getBuyIn10MineralReword(){
 			let _this = this;
 			if(_this.userInfo.isGetBuy==1){
-				_this.$toast("您已领取过该奖励");
+				_this.$toast("系统提示：您已领取过该奖励");
 				return;
 			}
 			if(_this.userInfo.buyAmount<10){
-				_this.$toast("您尚未达到领取该奖励的标准");
+				_this.$toast("系统提示：您尚未达到领取该奖励的标准");
 				return;
 			}
 			_this.$ajax.ajax(_this.$api.getAssistBuyMineralReward, 'POST', null, function(res){
@@ -557,7 +576,7 @@ export default {
 					if(res.code == _this.$api.CODE_OK){
 						if(res.data==null){
 							_this.isAgency = false;
-							_this.$toast('您还不是省市券商');
+							_this.$toast('您还不是省市代理');
 						}else{
 							_this.isAgency = true;
 							//奖励10000个帮扶券

@@ -596,7 +596,7 @@
 					<span class="label">买方手机号</span>
 					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.mobilePhone,$event)">复制</span>{{detail4buyerInfo.mobilePhone}}</div>
 				</div> -->
-				<div class="line">
+				<div class="line" v-if="detail4buyerInfo.status!=5">
 					<div class="label">买方微信号</div>
 					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.wechartNum,$event)">复制</span>{{detail4buyerInfo.wechartNum}}</div>
 				</div>
@@ -1234,7 +1234,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
 						if(res.data == 1){
-							_this.$toast("申诉成功");
+							_this.$toast("打小报告成功");
 							_this.onLoad2();
 							_this.showSellerDetailModel = false;
 							_this.onLoad4();

@@ -69,7 +69,7 @@ function wordType(val){
 	} else if (val == 1) {
 		return '意见建议';
 	} else if (val == 2) {
-		return '我要告状';
+		return '打小报告';
 	} else if (val == 3) {
 		return '其他类型';
 	} else {

@@ -317,14 +317,11 @@
 		  <van-cell-group>
 			  <div class="pickSellContent">
 				  <div class="showMyInfo">
+					  <div>我的 矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  贡献值:{{userInfo.contributionValue.toFixed(2)}}点  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
+					  <div class="placeholderLine10"></div>
 					  <div>若卖{{form4pickSellBill.sellAmountSliderValue}}个后</div>
 					  <div class="placeholderLine10"></div>
-				  	  <div class="">个人所剩矿石 {{ remainMineral }}</div>
-					  <div class="placeholderLine10"></div>
-				  	  <div class="">个人所剩贡献值 {{ remainContributionValue }}</div>
-					  <div class="placeholderLine10"></div>
-					  <div class="">个人所剩帮扶券 {{ remainPlateForm }}</div>
-					  <!-- <div class="">我所剩帮扶券 {{ userInfo.platformTicket }}</div> -->
+				  	  <div class="">所剩 矿石:{{ remainMineral }}个 贡献值:{{ remainContributionValue }}点 帮扶券:{{ remainPlateForm }}个</div>
 				  </div>
 				  <div class="placeholderLine20 clear"></div>
 				  <div class="inLine">

@@ -162,7 +162,7 @@
 <template>
 	<div class="millPage">
 		<m-header>
-			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
+			<i class="leftBox"></i>
 			<div class="text">
 				矿机
 			</div>
@@ -213,6 +213,7 @@
 	  		<div class="textIndent">
 	  			矿机商城里的矿机是限量的，每一批大型矿机被租赁完，就会减产，矿机商城中的矿机全部会换成新的一批减产后的矿机。
 	  		</div>
+			<div class="placeholderLine10"></div>
 	  	</div>
 	  </van-dialog>
 	</div>
@@ -341,8 +342,9 @@
 						  // on close
 						  if(res.data==1){
 							  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+							  _this.$router.push('myMill');
 						  }
-						  _this.onLoadMillShop();
+						  //_this.onLoadMillShop();
 						});
 					}
 				})

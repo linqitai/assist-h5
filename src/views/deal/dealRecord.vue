@@ -29,7 +29,7 @@
 						}
 					}
 					.flexRight{
-						flex: 0 0 80px;
+						flex: 0 0 50px;
 						text-align: right;
 						font-size: $fs-16;
 					}
@@ -76,21 +76,23 @@
 			  <div slot="action" @click="onSearch">搜索</div>
 			</van-search> -->
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-				<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-				 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
-					<!-- <van-tab title="帮扶券" name="ticket">
-						<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
-						<div class="list">
-							<div class="item" v-for="item in list4" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime | getDateTime}}</div>
-									<div class="line margT6">{{item.type | platformBookType}}后拥有帮扶券数 {{item.currentTicketNum}}</div>
+				<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
+					 <div class="list">
+						<div class="item" v-for="item in list1" :key="item.id">
+							<div class="flex">
+								<div class="line">{{item.createTime | getDateTime}}</div>
+								<div class="line margT6">
+									<span class="ellipsis userIdSpan" @click="toBookView(2,item.fromUserId)">{{item.fromUserId}}</span>
+									<i class="iconfont iconfont-arrow-to"></i>
+									<span class="ellipsis userIdSpan" @click="toBookView(2,item.toUserId)">{{item.toUserId}}</span>
 								</div>
-								<div class="flexRight">{{item.addOrReduce}} {{item.platformTicket}}</div>
 							</div>
+							<div class="flexRight">{{item.number}}</div>
 						</div>
-						</van-list>
-					</van-tab> -->
+					 </div>
+				</van-list>
+				<!-- <van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
+				 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
 					<van-tab title="矿石" name="mineral">
 						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list">
@@ -108,7 +110,7 @@
 						</div>
 						</van-list>
 					</van-tab>
-				</van-tabs>
+				</van-tabs> -->
 			</van-pull-refresh>
 		</div>
 		<!-- </van-pull-refresh> -->

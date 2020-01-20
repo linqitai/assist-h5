@@ -270,6 +270,19 @@ function getSC(str){
 	return arr.join('');
 }
 
+function isIphoneOrAndroid(){
+	var u = navigator.userAgent;
+	console.log("u",u);
+	/* alert(u); */
+	if (/(iPhone|iPad|iPod|iOS)/i.test(u)) { 
+		return 'i';
+	}else if (/(Android)/i.test(u)) { 
+		return 'a';
+	}else { 
+		return 'pc';
+	}
+}
+
 export default {
 	fmoney,
 	getLetterLength,
@@ -294,5 +307,6 @@ export default {
 	getViewPortHeight,
 	scollPostion,
 	scrollTop,
-	getSC
+	getSC,
+	isIphoneOrAndroid
 }

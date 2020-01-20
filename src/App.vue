@@ -21,6 +21,7 @@ export default {
 		// console.log('this.$refs.app.style.height',this.$refs.app.style.height)
 		// console.log('window.innerHeight',window.innerHeight)
 		// this.$refs.app.style.height = window.innerHeight+100;
+		/* this.$utils.isIphoneOrAndroid(); */
 	},
 	mounted(){
 		// console.log('this.$refs.app.style.height',this.$refs.app.style.color)

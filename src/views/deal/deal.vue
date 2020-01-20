@@ -295,7 +295,7 @@
 		<div class="slider">
 		  <van-slider v-model="value" :min="10" :max="30" @change="onChange" />
 		</div> -->
-		<van-action-sheet v-model="showAppointDealModel" title="定向交易">
+		<!-- <van-action-sheet v-model="showAppointDealModel" title="定向交易">
 		  <van-cell-group>
 		    <van-field v-model="form4AppointDeal.sellAmount" required clearable label="卖出数量" placeholder="请填写卖出数量"
 			  @blur="validate4AppointDeal('sellAmount')"
@@ -311,7 +311,7 @@
 		  <div class="sureAppointBtnBox">
 			  <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确 认</van-button>
 		  </div>
-		</van-action-sheet>
+		</van-action-sheet> -->
 		
 		<van-action-sheet v-model="showPickSellModel" title="卖出">
 		  <van-cell-group>
@@ -355,6 +355,7 @@
 			  <van-button @click="sureHangPickedSellBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="sellBtnLoading" loading-type="spinner">确 认</van-button>
 		  </div>
 		</van-action-sheet>
+		
 		<div class="buy" @click="showBuyModelBtn()">挂买</div>
 		<van-action-sheet v-model="showBuyModel" title="挂买">
 			<div class="hangBuyContent">
@@ -405,6 +406,32 @@
 				<div class="placeholderLine40"></div>
 			</div>
 		</van-action-sheet>
+		<!-- <van-dialog v-model="showSendSMSTipModel" title="系统提示" :show-confirm-button="false">
+			<div class="placeholderLine10"></div>
+			<div class="tip4model3 paddingWing">
+				订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。
+			</div>
+			<div class="placeholderLine10"></div>
+			<div class="myCell">
+				<van-field label="买家手机号" clearable disabled="" v-model="transactionVo4BuyerTip.mobilePhone"/>
+			</div>
+			<van-cell-group>
+			  <van-field
+				label="短信内容"
+			    v-model="smsContent"
+			    rows="2" required
+			    autosize clearable
+			    type="textarea"
+			    maxlength="100"
+			    placeholder="请输入短信内容(不超过100字)"
+			    show-word-limit
+			  />
+			</van-cell-group>
+			<div class="placeholderLine10"></div>
+			<a :href="sendSmsHref">
+				<van-button type="primary" size="normal" :block="true">去发送</van-button>
+			</a>
+		</van-dialog> -->
 		<!-- <m-fullscreen></m-fullscreen> -->
     </div>
 </template>
@@ -418,6 +445,9 @@ import { Dialog } from 'vant';
 export default {
 	data() {
 		return {
+			sendSmsHref:"",
+			smsContent:"",
+			showSendSMSTipModel:false,
 			questionText:"",
 			showTipModel:false,
 			addPriceValue:0,
@@ -522,7 +552,8 @@ export default {
 				todayTransactionNum:100000,
 				initCanBuyNu:100000,
 				currentPlatformPrice:100000
-			}
+			},
+			transactionVo4BuyerTip:""
 		}
 	},  
 	components:{
@@ -922,16 +953,18 @@ export default {
 				/* console.log('insertTransaction4PickBill')
 				console.log('res', res); */
 				if (res.code == _this.$api.CODE_OK) { // 200
-					if(res.data == 1){
-						_this.showSellModel = false;
-						_this.$toast(res.message);
-						//把是否刷新用户信息设置成true,打开‘我的’页面的时候，会自动重新获取一遍userInfo
-						_this.$cookies.set('isRefreshUserInfo',true,_this.$api.cookiesTime);
-						//路由跳转
-						//缓存所需要显示的页面
-						_this.$cookies.set("tabName4MyDeal", "get", 60 * 60 * 1)
-						_this.$router.push('myDeal');
-					}
+					_this.showSellModel = false;
+					_this.transactionVo4BuyerTip = res.data;
+					
+					//_this.showSendSMSTipModel = true;
+					//把是否刷新用户信息设置成true,打开‘我的’页面的时候，会自动重新获取一遍userInfo
+					_this.$cookies.set('isRefreshUserInfo',true,_this.$api.cookiesTime);
+					//路由跳转
+					//缓存所需要显示的页面
+					_this.$cookies.set("tabName4MyDeal", "get", 60 * 60 * 1)
+					_this.$router.push({path:'myDeal',query:{mobilePhone:_this.transactionVo4BuyerTip.mobilePhone,num:_this.transactionVo4BuyerTip.num}});
+					
+					//_this.$toast(res.message);
 				}else{
 					// _this.$toast(res.message);
 					Dialog.alert({
@@ -941,8 +974,18 @@ export default {
 					  // on close
 					});
 				}
+			},function(){
 				_this.sellBtnLoading = false;
 			})
+		},
+		sendShortMessageBtn(){
+			_this.sellBtnLoading = false;
+			//把是否刷新用户信息设置成true,打开‘我的’页面的时候，会自动重新获取一遍userInfo
+			_this.$cookies.set('isRefreshUserInfo',true,_this.$api.cookiesTime);
+			//路由跳转
+			//缓存所需要显示的页面
+			_this.$cookies.set("tabName4MyDeal", "get", 60 * 60 * 1)
+			_this.$router.push('myDeal');
 		},
 		showSellModelBtn(){
 			let _this = this;

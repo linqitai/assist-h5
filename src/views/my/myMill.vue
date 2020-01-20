@@ -402,25 +402,25 @@
 						if(res.data==1001){
 							// _this.$toast('距离上次收益满24小时后再来哦');
 							_this.receiptModelTile = "系统提示";
-							_this.isShowReceiptLoading = false;
 							_this.mineralNumTip = "距离上次收益满24小时后再来哦";
 							_this.isShowMineralNum = true;
 							return;
 						}
 						if(res.data){
-							_this.isShowReceiptLoading = false;
 							_this.receiptModelTile = "系统提示";
 							_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
 							_this.isShowMineralNum = true;
 							_this.onLoadMyMill();
 							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 						}else{
-							_this.isShowReceiptLoading = false;
 							_this.receiptModelTile = "系统提示";
 							_this.mineralNumTip = `未到领取收益的时间`;
 							_this.isShowMineralNum = true;
 						}
 					}
+				},function(){
+					_this.isShowReceiptLoading = false;
+					_this.isShowMineralNum = true;
 				})
 			},
 			getThisMachineReceipt(item){

@@ -144,7 +144,7 @@
 					text-align: right;
 					position: relative;
 					.copy{
-						font-size: $fs-10;
+						font-size: $fs-12;
 						margin-right: 10px;
 						background-color: #E5E5E5;
 						padding: 1px 2px;
@@ -179,6 +179,12 @@
 		}
 		.textAdornColor{
 			color: $main-adorn-color !important;
+		}
+		.sendMessageBox{
+			.van-cell__value, .van-cell__value--alone, .van-field__control {
+			    color: #323232 !important;
+				font-size: 12px !important;
+			}
 		}
 		.remark{
 			.van-cell__value, .van-cell__value--alone, .van-field__control {
@@ -351,7 +357,7 @@
 										<span class="showDetailBtn lineHeight" @click="showSellerInfoBtn(item)">了解卖家</span>
 									</div>
 									<div class="margT6">
-										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">进入订单</span>
+										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">订单详情</span>
 									</div>
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
 									<div class="margT6 lineHeight">
@@ -395,7 +401,7 @@
 								</div>
 								<div class="operatorBox">
 									<div>
-										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">查看详情</span>
+										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">订单详情</span>
 									</div>
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
 									<div class="margT6 lineHeight">
@@ -575,7 +581,7 @@
 				<div class="margT10">
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4sellerInfo)" size="normal" :block="true">向平台打小报告</van-button>
 				</div>
-				<div class="tipText margT10">
+				<div class="margT10 tip4model3 textIndent">
 					{{tipText}}
 				</div>
 			</div>
@@ -596,6 +602,10 @@
 					<span class="label">买方手机号</span>
 					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.mobilePhone,$event)">复制</span>{{detail4buyerInfo.mobilePhone}}</div>
 				</div> -->
+				<div class="line" v-if="detail4buyerInfo.status!=5">
+					<div class="label">买方手机号</div>
+					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.mobilePhone,$event)">复制</span>{{detail4buyerInfo.mobilePhone}}</div>
+				</div>
 				<div class="line" v-if="detail4buyerInfo.status!=5">
 					<div class="label">买方微信号</div>
 					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.wechartNum,$event)">复制</span>{{detail4buyerInfo.wechartNum}}</div>
@@ -634,14 +644,14 @@
 					<img class="selectedImg" :src="detail4buyerInfo.imgUrl"/>
 				</div>
 				<div class="margT10" v-if="detail4buyerInfo.status==2">
-					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认放矿石</van-button>
+					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
 					<div class="placeholderLine10"></div>
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="notReciveCNYBtn" size="normal" :block="true">我没收到款 请对方上传付款凭证</van-button>
 				</div>
 				<div class="margT10">
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4buyerInfo)" size="normal" :block="true">向平台打小报告</van-button>
 				</div>
-				<div class="tipText margT10">
+				<div class="margT10 tip4model3 textIndent">
 					{{tipText}}
 				</div>
 			</div>
@@ -780,6 +790,35 @@
 				</div>
 			</div>
 		</van-dialog>
+		<van-dialog v-model="showSendSMSTipModel" title="系统提示" :show-confirm-button="false">
+			<div class="sendMessageBox">
+				<div class="placeholderLine10"></div>
+				<div class="tip4model3 paddingWing textIndent">
+					{{sendSmsTipText}}
+				</div>
+				<div class="placeholderLine10"></div>
+				<div class="myCell">
+					<van-field label="对方手机号" clearable disabled v-model="mobilePhone"/>
+				</div>
+				<van-cell-group>
+				  <van-field
+					label="短信内容"
+				    v-model="smsContent"
+				    rows="2" required
+				    autosize clearable
+				    type="textarea"
+				    maxlength="100"
+				    placeholder="请输入短信内容(不超过100字)"
+				    show-word-limit
+				  />
+				</van-cell-group>
+				<div class="placeholderLine10"></div>
+				 <!-- v-if="phoneType!='pc'" -->
+				<a :href="sendSmsHref">
+					<van-button type="primary" size="normal" :block="true" @click="showSendSMSTipModel=false">一键发送</van-button>
+				</a>
+			</div>
+		</van-dialog>
 		<m-refresh @refreshEvent="refreshEvent"></m-refresh>
 	</div>
 </template>
@@ -794,6 +833,11 @@
 	export default {
 		data() {
 			return {
+				sendSmsTipText:"订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。",
+				mobilePhone:"",
+				sendSmsHref:"",
+				smsContent:"",
+				showSendSMSTipModel:false,
 				showTipModel:false,
 				sureCancelBtnLoading: false,
 				showComplainDialog:false,
@@ -801,7 +845,7 @@
 				pen:"",
 				uploadPicBase64:"",
 				buyerHaveWord:"买方有话说：您好，我手头正有事情在忙，请稍等片刻。",
-				tipText:"温馨提示：单子匹配后，请卖家耐心等待30分钟，若买方在30分钟内没付款，也没锁定交易，卖方可取消交易。单子匹配后，买家若当时在忙没时间付款，可先锁定交易，锁定交易后，可延长30分钟的交易时间，锁定交易后买方若在匹配后的1小时内没付款，卖方亦可取消交易。（注：买方若是要通过微信所绑定的手机号转账，请卖方在微信中的'支付-支付管理'中开通'允许通过手机号向我转账'的功能）",
+				tipText:"温馨提示：单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待30分钟，若买方在30分钟内没付款，也没锁定交易，卖方可取消交易。单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长30分钟交易时间，锁定交易后买方若在匹配后的1小时内没付款，卖方亦可取消交易。（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
 				activeName: "pay",
 				pageCount: 1000,
 				totalItems: 10000,
@@ -836,13 +880,14 @@
 				list3:[],
 				list4:[],
 				list5:[],
-				detail4buyerInfo:"",
-				sellerUserInfo:"",
-				detail4sellerInfo:"",
+				detail4buyerInfo:'',
+				sellerUserInfo:'',
+				detail4sellerInfo:'',
 				userId:'',
 				transactionBuyerId:'',
 				transactionId:'',
-				toast:""
+				toast:'',
+				phoneType:''
 			}
 		},
 		components: {
@@ -850,10 +895,7 @@
 			mFullscreen,
 			mRefresh,
 		},
-		create() {
-			this.toScrollTop();
-		},
-		mounted() {
+		created() {
 			let _this = this;
 			_this.pen = _this.$api.projectEnglishName;
 			_this.userId = _this.$cookies.get('userId');
@@ -864,6 +906,18 @@
 			_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 			// _this.initializeHintInfo();
 			_this.initializeTabActiveName();
+			
+			if(_this.$route.query.mobilePhone){
+				//发送短信提示start
+				_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。";
+				_this.mobilePhone = _this.$route.query.mobilePhone;
+				_this.smsContent = `【HPC帮扶链】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看。`;
+				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
+				//发送短信提示end
+				console.log('_this.sendSmsHref',_this.sendSmsHref);
+				_this.showSendSMSTipModel = true;
+			}
+			
 			// let all = 2000;
 			// let r=0.005;
 			// let count = 0;
@@ -993,6 +1047,12 @@
 								_this.toast.icon = 'success'
 								// Toast.clear();
 								// _this.$toast(`图片上传成功`);
+								//发送短信提示start
+								_this.sendSmsTipText = "图片上传成功，为了让交易顺利进行，请给卖家发个短信提醒。";
+								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
+								_this.smsContent = `【HPC帮扶链】付款凭证已上传，请在“我的--我的交易--待收款”的订单详情中查看。`;
+								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
+								//发送短信提示end
 								_this.showSellerDetailModel = false;
 								_this.onLoad2();
 							}
@@ -1516,6 +1576,10 @@
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
 				  		if(res.data==1){
+							_this.sendSmsTipText = "提交未收到款状态成功，为了让交易顺利进行，请给卖家发个短信要求对方上传付款凭证。";
+							_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
+							_this.smsContent = `【HPC帮扶链】您好，我并未收到款，请在“我的--我的交易--待付款”的订单详情中上传付款凭证。`;
+							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							_this.showBuyerDetailModel = false;
 							_this.onLoad4();
 						}
@@ -1550,6 +1614,13 @@
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
 				  		if(res.data==1){
+							_this.$toast("交易已经顺利完成");
+							//发送短信提示start
+							/* _this.sendSmsTipText = "交易已经顺利完成！互帮互助，合作共赢，请给对方发条感谢信并给个好评。";
+							_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
+							_this.smsContent = `【HPC帮扶链】已经确认收款并释放矿石，互帮互助，合作共赢，请给个好评，谢谢。`;
+							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent); */
+							//发送短信提示end
 							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 							_this.onLoad4();
 						}
@@ -1561,6 +1632,18 @@
 				  // on cancel
 				  console.log('cancel');
 				});
+			},
+			setSendSmsHref(mobilePhone,smsContent){
+				let _this = this;
+				let phoneType = _this.$utils.isIphoneOrAndroid();
+				if(phoneType=='a'){
+					_this.sendSmsHref = `sms:${mobilePhone}?body=${smsContent}`;
+				}else if(phoneType=='i'){
+					_this.sendSmsHref = `sms:${mobilePhone}&body=${smsContent}`;
+				}else{
+					_this.sendSmsHref = `sms:${mobilePhone}?body=${smsContent}`;
+				}
+				_this.showSendSMSTipModel = true;
 			},
 			payedBtn(){
 				let _this = this;
@@ -1584,6 +1667,12 @@
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
 				  		if(res.data==1){
+							//发送短信提示start
+							_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请给卖家发个短信提醒对方确认收款并释放矿石。";
+							_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
+							_this.smsContent = `【HPC帮扶链】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收到款并释放矿石。`;
+							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
+							//发送短信提示end
 				  			_this.showSellerDetailModel = false;
 							_this.onLoad2();
 						}

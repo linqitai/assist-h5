@@ -10,6 +10,9 @@
 		left: 0;
 		right: 0;
 		overflow-y: scroll;
+		.logoBox{
+			min-height: 280px;
+		}
 		.formBox{
 			.labelText{
 				margin-top: 20px;
@@ -118,7 +121,7 @@
 				placeholder:{
 					phone:'请填写11位登录手机号',
 					password:'请填写6~16位登录密码',
-					securityCode:'请填写6位验证码'
+					securityCode:'请填写4位验证码'
 				},
 				errorHint:{
 					phone:'',
@@ -142,14 +145,14 @@
 		methods:{
 			forget(){
 				let _this = this;
-				let phone = localStorage.getItem("mobilePhone");
+				/* let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != localStorage.getItem("mobilePhone")){
 						_this.$toast("请不要操作多账号");
 						return;
 					}
-				}
-				_this.$router.push('forgetPassword');
+				} */
+				_this.$router.replace('/forgetPassword');
 			},
 			getAddress(){
 				let _this = this;
@@ -194,7 +197,7 @@
 					securityCode: _this.form.securityCode.toLowerCase()
 				}
 				if(_this.$utils.hasNull(params)){
-					_this.$toast('系统提示:账号或密码不能为空');
+					_this.$toast('系统提示:请填写完成信息');
 					return;
 				}
 				if(_this.$utils.hasVal(_this.errorHint)){

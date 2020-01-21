@@ -36,7 +36,7 @@ export default {
 	//用户信息
 	getAssistUserInfo: host + 'assist/userInfo/getAssistUserInfo',
 	getAssistUserInfo4Path: host + 'assist/userInfo/getAssistUserInfo4Path/',
-	updateAssistUsrInfo: host + 'assist/userInfo/updateAssistUsrInfo',
+	updateAssistNickName: host + 'assist/userInfo/updateAssistNickName',
 	updateAssistUsrInfo4RealName: host + 'assist/userInfo/updateAssistUsrInfo4RealName',
 	getAssistUserInfoPageList: host +'assist/userInfo/getAssistUserInfoPageList',
 	updateRealNameNumByUserId: host + 'assist/userInfo/updateRealNameNumByUserId',
@@ -143,4 +143,5 @@ export default {
 	//验证码
 	getSecurityCode:host + "assist/securitycode/getSecurityCode",
 	verifySecurityCode: host + "assist/securitycode/verifySecurityCode",
+	getSecurityCodeByPhone: host + "assist/securitycode/getSecurityCodeByPhone",
 }

@@ -157,7 +157,7 @@
 			</div>
 			<div class="flex2">
 				<span class="ellipsis">{{userInfo.realName}}</span>
-				<i class="iconfont iconfont-right-arrow2"></i>
+				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 			</div>
 		</div>
 		<div class="my-cell">
@@ -254,16 +254,20 @@
 		<van-action-sheet v-model="showUpdateModel" :title="titleName">
 			<div class="placeholderLine40"></div>
 		  <van-cell-group>
-		    <van-field v-model="form[flag]" required clearable :label="label" right-icon="question-o" :placeholder="errorHint[flag]"
-		      @click-right-icon="$toast(errorHint[flag])"
-		      @blur="validate(flag)"
-		      :error-message="errorInfo[flag]"/>
+		    <van-field v-model="form['idCard']" required clearable label="身份证号" right-icon="question-o" :placeholder="errorHint['idCard']" type="number"
+		      maxlength="18" @click-right-icon="$toast(errorHint['idCard'])" @blur="validate('idCard')" :error-message="errorInfo['idCard']"/>
+			  
+			<van-field v-model="form[flag]" required clearable :label="label" right-icon="question-o" :placeholder="errorHint[flag]"
+		      @click-right-icon="$toast(errorHint[flag])" @blur="validate(flag)" :error-message="errorInfo[flag]"/>
+			  
+			  <van-field v-model="form['safePassword']" required clearable label="安全密码" right-icon="question-o" :placeholder="errorHint['safePassword']"
+			  	maxlength="20" type="password" @click-right-icon="$toast(errorHint['safePassword'])" @blur="validate('safePassword')" :error-message="errorInfo['safePassword']"/>
 		  </van-cell-group>
 		  <div class="placeholderLine10"></div>
 		  <div class="placeholderLine40"></div>
-		  <div class="modelTip">系统提示：修改信息需使用1个帮扶券</div>
+		  <div class="modelTip">系统提示：修改昵称需使用1个帮扶券</div>
 		  <div class="sureAppointBtnBox">
-			  <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="sureUpdate('update1')">确 认</van-button>
+			  <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="update1Loading" @click="sureUpdate('update1')">确 认</van-button>
 		  </div>
 		</van-action-sheet>
 	</div>
@@ -297,7 +301,7 @@
 	  </div>
 	  <div class="placeholderLine40"></div>
 	  <div class="sureAppointBtnBox">
-		  <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="sureUpdate('update2')">确 认</van-button>
+		  <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="update2Loading" @click="sureUpdate('update2')">确 认</van-button>
 	  </div>
 	</van-action-sheet>
   </div>
@@ -309,9 +313,12 @@
 // import { getTestUser,ERR_OK } from "@/api/index";
 import clip from '@/assets/js/clipboard';
 import mHeader from '@/components/Header.vue';
+import { Dialog } from 'vant';
 export default {
 	data() {
 		return {
+			update1Loading:false,
+			update2Loading:false,
 			showTipModel:false,
 			result:"",
 			loading:true,
@@ -445,8 +452,9 @@ export default {
 					_this.$cookies.remove('userId');
 					_this.$cookies.remove('token');
 					// console.log("_this.$cookies.keys()",_this.$cookies.keys());
-					_this.$router.replace('login');
 				}
+			},function(){
+				_this.$router.replace('login');
 			})
 		},
 		showTip(){
@@ -554,33 +562,42 @@ export default {
 			if(type=='update1'){
 				// console.log('_this.form', _this.form);
 				let params = {
-					/* id:_this.userInfo.id, */
-					/* userId: _this.userInfo.userId, */
+					idCard:_this.form.idCard,
+					securityPassword:_this.form.safePassword,
 				}
 				params[_this.flag] = _this.form[_this.flag];
 				console.log('params', params);
-				// if(_this.$utils.hasVal(_this.errorInfo)){
-				// 	_this.$toast('请按要求填写信息');
-				// 	return;
-				// }
+				if(_this.$utils.hasNull(params)){	
+					_this.$toast('系统提示：请填写完整信息');
+					return;
+				}
+				if(_this.$utils.hasVal(_this.errorInfo)){
+					_this.$toast('请按要求填写信息');
+					return;
+				}
 				if(_this.userInfo.platformTicket<=0){
 					_this.$toast('系统提示：您的帮扶券不足，修改信息要使用1张帮扶券');
 					return;
 				}
-				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo, 'POST', params, function(res){
+				params.securityPassword = _this.$JsEncrypt.encrypt(_this.form.safePassword);
+				_this.update1Loading = true;
+				_this.$ajax.ajax(_this.$api.updateAssistNickName, 'POST', params, function(res){
 					// console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
-						_this.showUpdateModel=false;
 						_this.$toast('系统提示：修改成功');
+						_this.showUpdateModel = false;
 						_this.getUserInfo();
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message,
+						}).then(() => {
+						  // on close
+						  
+						});
 					}
-					if(res.data == 1001){
-						_this.$toast('系统提示：您的帮扶券不足，修改信息要使用1张帮扶券');
-					}
-					if(res.code == 500){
-						_this.$toast(res.message);
-						_this.showUpdateModel=false;
-					}
+				},function(){
+					_this.update1Loading = false;
 				})
 			}else if(type=='update2'){
 				if(_this.form[_this.flag]==_this.form['sureNewPassword']){
@@ -602,13 +619,22 @@ export default {
 					}
 					params.originalPassowrd = _this.$JsEncrypt.encrypt(_this.form.originalPassowrd);
 					// console.log('params', params);
+					_this.update2Loading = true;
 					_this.$ajax.ajax(_this.$api.updatePassword, 'POST', params, function(res){
 						if(res.code == _this.$api.CODE_OK){
 							_this.showUpdatePasswordModel = false;
 							_this.$toast('系统提示：修改成功');
 						}else{
-							_this.$toast('系统提示：' + res.message);
+							Dialog.alert({
+							  title: '系统提示',
+							  message: res.message,
+							}).then(() => {
+							  // on close
+							  
+							});
 						}
+					},function(){
+						_this.update2Loading = false;
 					})
 				}else{
 					_this.$toast(`系统提示：2次密码不一致`);

@@ -6,6 +6,9 @@
 		@include pageNoHeight4Scroll();
 		width: 100%;
 		box-sizing: border-box;
+		.logoBox{
+			min-height: 280px;
+		}
 		.formBox{
 			.van-cell__value,.van-cell__value--alone,.van-field__control{
 				color: $mainTextColor !important;
@@ -82,8 +85,8 @@
 				<div class="labelText">确认密码</div>
 				<van-field v-model="form.password2" type="password" clearable :placeholder="placeholder.password2" @blur="validate('password2')" :error-message="errorHint.password2"/>
 				<div class="labelText">验证码</div>
-				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
-					<van-button slot="button" size="small" type="primary" @click="getSecurityCode">{{securityCode}}</van-button>
+				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码"  @blur="validate('securityCode')" :error-message="errorHint.securityCode">
+					<van-button slot="button" size="small" type="primary" :loading="getSCLoading" @click="getSecurityCode">{{securityCode}}</van-button>
 				</van-field>
 				<!-- <div class="labelText">短信验证码</div>
 				<van-field v-model="form.validateCode" clearable :placeholder="placeholder.validateCode" @blur="validate('validateCode')" :error-message="errorHint.validateCode">
@@ -112,7 +115,7 @@
 			<div class="placeholderLine10"></div>
 			<div class="securityCodeBox">
 				<van-field v-model="form.securityCode" label="图形验证" center clearable placeholder="请填写图形验证码">
-					<van-button slot="button" size="small" type="primary" :loading="isGetInitCodeLoading">{{securityCode}}</van-button>
+					<van-button slot="button" size="small" type="primary" :loading="getSCLoading">{{securityCode}}</van-button>
 				</van-field>
 			</div>
 			<div class="placeholderLine10"></div>
@@ -126,6 +129,7 @@
 	export default {
 		data() {
 			return {
+				getSCLoading:false,
 				interval:180,
 				time:180,
 				welcomeText:"",
@@ -158,7 +162,6 @@
 				registerValidate:true,
 				isLoading:false,
 				showTipModel:false,
-				isGetInitCodeLoading:false,
 				isShortMessageDisabled:false
 			}
 		},
@@ -205,7 +208,7 @@
 			},
 			getSecurityCode(){
 				let _this = this;
-				_this.isGetInitCodeLoading = true;
+				_this.getSCLoading = true;
 				_this.$ajax.ajax(_this.$api.getSecurityCode, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						// console.log('securityCode4Web',res.data);
@@ -216,7 +219,7 @@
 						_this.$toast(res.message);
 					}
 				},function(res){
-					// _this.isGetInitCodeLoading = false;
+					_this.getSCLoading = false;
 				})
 			},
 			setTimeInterval(){

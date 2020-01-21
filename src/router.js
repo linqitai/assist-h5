@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Register from './views/start/register'
 import Login from './views/start/login'
+import ForgetPassword from './views/start/forgetPassword'
 
 Vue.use(Router)
 /**
@@ -24,11 +25,6 @@ export default new Router({
 			path: '/login',
 			name: '登录',
 			component: Login
-		},
-		{
-			path: '/forgetPassword',
-			name: '忘记密码',
-			component: () => import('./views/start/forgetPassword.vue')
 		},
 		{
 			path: '/agreement',
@@ -164,6 +160,12 @@ export default new Router({
 			path: '/',
 			component: () => import('./components/WrapperChild'),
 			children: [
+				{
+					path: '/forgetPassword',
+					name: '忘记密码',
+					component: ForgetPassword,
+					meta:{footer:false},
+				},
 				{
 					path: '/myBook',
 					name: '我的账本',

@@ -137,6 +137,7 @@
 				totalItems: 10000,
 				userId:"",
 				loading:false,
+				maxPrice:''
 			}
 		},
 		components: {
@@ -149,16 +150,20 @@
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 			}
+			_this.getDealPageInfo();
 		},
 		methods: {
 			back(){
 				this.$router.go(-1);
 			},
-			toListView(){
+			getDealPageInfo(){
 				let _this = this;
-				_this.$router.push({
-					path: `/myWordList`
-				});
+				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'GET', null, function(res) {
+					console.log('getDealPageInfo', res);
+					if (res.code == _this.$api.CODE_OK) {
+						_this.maxPrice = parseFloat(res.data.currentPlatformPrice)*1.3+4;
+					}
+				})
 			},
 			validate4AppointDeal(key){
 				let _this = this;
@@ -169,10 +174,10 @@
 						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在1~10000之间";
 					}
 				}else if(key == 'price') {
-					if(_this.form4AppointDeal[key]>=0.1&&_this.form4AppointDeal[key]<=10000){
+					if(_this.form4AppointDeal[key]>=0.1&&_this.form4AppointDeal[key]<=_this.maxPrice){
 						_this.errorInfo4AppointDeal.price = '';
 					}else{
-						_this.errorInfo4AppointDeal.price = "定向交易价格暂时控制在0.1~100";
+						_this.errorInfo4AppointDeal.price = `定向交易价格暂时控制在0.1~${_this.maxPrice}`;
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
@@ -219,9 +224,7 @@
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
 						/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
 						_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
-						_this.$router.push({
-							path: `/myDeal`
-						});
+						_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:_this.form4AppointDeal.transferAmount}});
 					}else{
 						_this.$toast(res.message);
 					}

@@ -34,12 +34,12 @@ export default {
 				// XMLHttpRequest.setRequestHeader("token", localStorage.getItem('token'));
 				// that.progressDialog = true;
 				let token = VueCookies.get('token');
-				// console.log("cookie token in complete", token);
+				console.log("cookie token in complete", token);
 				if(token){
 					 XMLHttpRequest.setRequestHeader('token', token);
 				}else{
 					// alert("登录状态已过期,请重新登录");
-					router.replace('login');
+					// router.replace('login');
 				}
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},

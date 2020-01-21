@@ -897,7 +897,7 @@
 		},
 		created() {
 			let _this = this;
-			_this.pen = _this.$api.projectEnglishName;
+			//_this.pen = _this.$api.projectEnglishName;
 			_this.userId = _this.$cookies.get('userId');
 			if(_this.$utils.isNUll(_this.userId)){
 				_this.$toast(_this.$api.loginAgainTipText);

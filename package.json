@@ -44,6 +44,7 @@
     "sass-loader": "^8.0.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
+    "terser-webpack-plugin": "^2.3.2",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {

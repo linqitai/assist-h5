@@ -169,33 +169,35 @@
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
 		<div class="millContent">
-			<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了" @load="onLoadMillShop">
-				<div class="millList">
-					<div class="item" v-for="item in millShopList" :key="item.id">
-						<div class="flex flex1">
-							<div class="machingBox">
-								<div class="name">{{item.type | machineType4Pic}}</div>
+			<van-pull-refresh v-model="loading" @refresh="getMillShopList">
+				<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
+					<div class="millList">
+						<div class="item" v-for="item in millShopList" :key="item.id">
+							<div class="flex flex1">
+								<div class="machingBox">
+									<div class="name">{{item.type | machineType4Pic}}</div>
+								</div>
 							</div>
-						</div>
-						<div class="flex flex2">
-							<div class="line1">
-								<span class="millName">{{item.type | machineTypeType}}</span>
-								<span class="calcullatePower">算力 {{item.calculationPower}}</span>
+							<div class="flex flex2">
+								<div class="line1">
+									<span class="millName">{{item.type | machineTypeType}}</span>
+									<span class="calcullatePower">算力 {{item.calculationPower}}</span>
+								</div>
+								<div class="line">租金 {{item.price}}矿石</div>
+								<div class="line">总产 {{item.totalOutput}}矿石</div>
+								<div class="line">运行总时长 {{item.allRuntime}}小时</div>
+								<div class="line">限租 {{item.limitBuy}}台</div>
 							</div>
-							<div class="line">租金 {{item.price}}矿石</div>
-							<div class="line">总产 {{item.totalOutput}}矿石</div>
-							<div class="line">运行总时长 {{item.allRuntime}}小时</div>
-							<div class="line">限租 {{item.limitBuy}}台</div>
-						</div>
-						<div class="flex flex3">
-							<div class="line">库存{{item.inventory}}</div>
-							<div class="line margT3">
-								<van-button round type="info" @click="buyMill(item)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
+							<div class="flex flex3">
+								<div class="line">库存{{item.inventory}}</div>
+								<div class="line margT3">
+									<van-button round type="info" @click="buyMill(item)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</van-list>
+				</van-list>
+			</van-pull-refresh>
 		</div>
 		<!-- <van-button type="primary" @click="testLoginUrl()">登录</van-button>
 	  <van-button type="primary" @click="testUrl()">获取信息</van-button> -->
@@ -229,6 +231,7 @@
 	export default {
 		data() {
 			return {
+				loading: false,
 				showTipModel:false,
 				activeName: "myMill",
 				loadingMyMill: false,
@@ -272,6 +275,7 @@
 				return;
 			}
 			console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
+			_this.onLoadMillShop();
 		},
 		methods: {
 			back() {
@@ -341,12 +345,28 @@
 						}).then(() => {
 						  // on close
 						  if(res.data==1){
+							  _this.getMillShopList();
 							  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 							  _this.$router.push('myMill');
 						  }
-						  //_this.onLoadMillShop();
 						});
 					}
+				})
+			},
+			getMillShopList() {
+				let _this = this;
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data;
+						localStorage.setItem("millShopList",JSON.stringify(list));
+						_this.millShopList = list;
+						_this.loadingMillShop = false;
+						_this.finishedMillShop = true;
+					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			onLoadMillShop() {
@@ -355,16 +375,21 @@
 				// let params = {
 				// 	versionNo: 1
 				// }
-				_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
-					// console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data;
-						_this.millShopList = list;
-						// localStorage.setItem("_millShopList_",JSON.stringify(_this.millShopList));
-						_this.loadingMillShop = false;
-						_this.finishedMillShop = true;
-					}
-				})
+				let millShopList = JSON.parse(localStorage.getItem('millShopList'));
+				if(millShopList.length>0){
+					_this.millShopList = millShopList;
+				}else{
+					_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
+						// console.log('res', res);
+						if (res.code == _this.$api.CODE_OK) {
+							let list = res.data;
+							localStorage.setItem("millShopList",JSON.stringify(list));
+							_this.millShopList = list;
+							_this.loadingMillShop = false;
+							_this.finishedMillShop = true;
+						}
+					})
+				}
 			},
 			initializeTabActiveName() {
 				let _this = this;

@@ -1,6 +1,6 @@
 <style scoped lang="scss">
 	@import '~@/assets/scss/variable.scss';
-    .error-page{
+    .maintain-page{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -16,54 +16,82 @@
 		text-align: center;
 		padding: $boxPadding2;
 		// padding: 100px $boxPadding2 $boxPadding2 $boxPadding2;
-		.error-code{
+		.maintain-code{
 		    line-height: 1;
-		    font-size: 5rem;
+		    font-size: 3rem;
 		    font-weight: bolder;
-		    color: #2d8cf0;
-			span{
-				color: #00a854;
-			}
+		    color: $main-adorn-color;
 		}
-		.error-desc{
+		.maintain-desc{
 		    font-size: 0.875rem;
 		    color: $mainTextColor;
+			line-height: 1.3em;
 		}
-		.error-handle{
+		.maintain-handle{
 			width: 100%;
 		    margin-top: 30px;
+		}
+		.van-count-down{
+			color: $main-adorn-color;
 		}
     }
     
 </style>
 <template>
-	<div class="error-page">
-		<div class="error-code">系统维护中</div>
+	<div class="maintain-page">
+		<div class="maintain-code">系统维护中</div>
 		<div class="placeholderLine"></div>
 		<div class="placeholderLine"></div>
-		<div class="error-desc">啊哦,您所访问的页面在维护</div>
+		<div class="maintain-desc">
+			预计<div class="flexCountTime inline">
+				<van-count-down :time="setCountDownTime4Maintain" />
+			</div>后维护好
+		</div>
 		<div class="placeholderLine"></div>
-		<div class="error-desc">预计3小时后维护好</div>
-		<div class="error-handle" v-if="isShow">
+		<div class="maintain-desc" v-html="maintainInfo.maintainContent"></div>
+		<div class="maintain-handle" v-if="isShow">
 			<van-button to="/home" type="info" size="normal" color="linear-gradient(to right, #00ffe4, #005db4)" :block="true">返回首页</van-button>
 			<div class="placeholderLine"></div>
 			<div class="placeholderLine"></div>
 			<van-button type="info" size="normal" color="linear-gradient(to right, #005db4, #00ffe4)" :block="true" @click="goBack">返回上一页</van-button>
 		</div>
+		<m-refresh @refreshEvent="getMaintainInfo"></m-refresh>
 	</div>
 </template>
 
 <script>
+	import mRefresh from '@/components/Refresh.vue';
 	export default {
 		data() {
 			return {
-				isShow: true
+				isShow: false,
+				setCountDownTime4Maintain: 30 * 60 * 60 * 1000,
+				maintainInfo:""
 			}
+		},
+		components: {
+			mRefresh,
+		},
+		created() {
+			let _this = this;
+			_this.getMaintainInfo();
 		},
 		methods: {
 			goBack() {
 				this.$router.go(-1);
-			}
+			},
+			getMaintainInfo(){
+				let _this = this;
+				_this.maintainInfo = JSON.parse(localStorage.getItem('maintainInfo'));
+				console.log(_this.maintainInfo,'maintainInfo');
+				let maintainEndTime = _this.$utils.getTime(_this.maintainInfo.maintainEndTime);
+				let nowTime = _this.$utils.getTime(new Date());
+				_this.setCountDownTime4Maintain = (maintainEndTime - nowTime);
+				console.log('_this.setCountDownTime4Maintain',_this.setCountDownTime4Maintain);
+				if(_this.setCountDownTime4Maintain<=0){
+					_this.$router.replace('/login');
+				}
+			},
 		}
 	}
 </script>

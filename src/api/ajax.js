@@ -25,6 +25,7 @@ export default {
 		$.ajax({
 			url: url,
 			type: method,
+			timeout: 10000,
 			// processData: true,
 			// contentType: 'application/json',
 			// dataType:'json',
@@ -43,13 +44,17 @@ export default {
 				}
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},
-			complete: function(xhr, data) {
-				// this.authorization = xhr.getResponseHeader('authorization')
-				// console.log(xhr.getResponseHeader('authorization'),'authorization')
-				// console.log(data,'data')
-				// console.log("cookie in complete", VueCookies.get("_USERINFO_"));
+			complete: function(XMLHttpRequest,status) {
+				if(status=='timeout') {//超时,status还有success,error等值的情况
+					Dialog.alert({
+						title: '温馨提示',
+						message: '哎呦网络不好,请过会儿再试'
+					}).then(() => {
+						
+					});
+				}
 				if (typeof doComplete == "function") {
-					doComplete(data);
+					doComplete(status);
 				}
 			},
 			success: function(res) {
@@ -83,6 +88,7 @@ export default {
 		$.ajax({
 			url: url,
 			type: method,
+			timeout: 10000,
 			// processData: true,
 			contentType: 'application/json',
 			dataType:'json',
@@ -95,10 +101,18 @@ export default {
 				// console.log("cookie token in complete", token);
 				token ? XMLHttpRequest.setRequestHeader('token', token) : '';
 			},
-			complete: function(xhr, data) {
-				// this.authorization = xhr.getResponseHeader('authorization')
-				// console.log(xhr.getResponseHeader('authorization'),'authorization')
-				// console.log(data,'data')
+			complete: function(XMLHttpRequest,status) {
+				if(status=='timeout') {//超时,status还有success,error等值的情况
+					Dialog.alert({
+						title: '温馨提示',
+						message: '哎呦网络不好,请过会儿再试'
+					}).then(() => {
+						
+					});
+				}
+				if (typeof doComplete == "function") {
+					doComplete(status);
+				}
 			},
 			success: function(res) {
 				// console.log(res, "====res====")

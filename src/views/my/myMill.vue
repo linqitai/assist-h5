@@ -28,6 +28,9 @@
 			// [class*=van-hairline]::after{
 			// 	border: 0 solid transparent;
 			// }
+			.van-list__finished-text{
+				background-color: $main-bg-color !important;
+			}
 			.getMineral{
 				margin-top: $marginTop2;
 			}

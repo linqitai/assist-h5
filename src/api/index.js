@@ -76,6 +76,7 @@ export default {
 	//machine
 	getAssistMiningMachineList: host + "assist/miningMachine/getAssistMiningMachineList",
 	getAssistMiningMachineList4MillShop: host + "assist/miningMachine/getAssistMiningMachineList4MillShop",
+	getAssistMiningMachineList4MillShopToString: host + "assist/miningMachine/getAssistMiningMachineList4MillShopToString",
 	getAssistMachine: host + 'assist/miningMachine/getAssistMiningMachineList',
 	//mymachine
 	getAssistMyMachine: host + "assist/myMachine/getAssistMyMachine",
@@ -144,4 +145,6 @@ export default {
 	getSecurityCode:host + "assist/securitycode/getSecurityCode",
 	verifySecurityCode: host + "assist/securitycode/verifySecurityCode",
 	getSecurityCodeByPhone: host + "assist/securitycode/getSecurityCodeByPhone",
+	//parameterInfo
+	getAssistMaintainInfo: host + "assist/parameter/getAssistMaintainInfo",
 }

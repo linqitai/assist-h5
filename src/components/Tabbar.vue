@@ -57,6 +57,9 @@ export default {
 		    default:
 		       _this.active = 0;
 		} 
+	},
+	methods:{
+		
 	}
 }
 </script>

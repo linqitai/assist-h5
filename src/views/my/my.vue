@@ -545,7 +545,6 @@
 	// import $ from 'jquery';
 	import mHeader from '@/components/Header.vue';
 	import mRefresh from '@/components/Refresh.vue';
-	import NumberGrow from '@/components/NumberGrow.vue';
 	import { Dialog } from 'vant';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	/* import { Skeleton } from 'vant'; */
@@ -569,7 +568,6 @@
 		components: {
 			mHeader,
 			mRefresh,
-			NumberGrow,
 			// mFullscreen
 		},
 		// beforeRouteEnter(to,from,next) {

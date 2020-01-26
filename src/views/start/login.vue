@@ -140,6 +140,7 @@
 			_this.form.phone = localStorage.getItem("mobilePhone");
 			// console.log(_this.form.phone,'_this.form.phone')
 			_this.welcomeText = _this.$api.welcomeText;
+			//_this.getAssistMaintainInfo();
 			_this.getSecurityCode();
 		},
 		methods:{
@@ -159,6 +160,24 @@
 				let address = localStorage.getItem("address");
 				let province = _this.$utils.getProvince(address);
 				//alert(province);
+			},
+			getAssistMaintainInfo(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getAssistMaintainInfo, 'POST', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
+						// console.log('securityCode4Web',res.data);
+						let maintainEndTime = _this.$utils.getTime(res.data.maintainEndTime);
+						let nowTime = _this.$utils.getTime(new Date());
+						if(maintainEndTime>nowTime){
+							localStorage.setItem('maintainInfo',JSON.stringify(res.data));
+							_this.$router.push("/maintain");
+						}else{
+							_this.getSecurityCode();
+						}
+					}else{
+						_this.$toast(res.message);
+					}
+				})
 			},
 			getSecurityCode(){
 				let _this = this;

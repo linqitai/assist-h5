@@ -278,8 +278,10 @@ function isIphoneOrAndroid(){
 		return 'i';
 	}else if (/(Android)/i.test(u)) { 
 		return 'a';
-	}else { 
+	}else if(/(Windows)/i.test(u)){ 
 		return 'pc';
+	}else{
+		return 'o';
 	}
 }
 

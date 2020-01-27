@@ -11,6 +11,12 @@
 export default {
     name: 'app',
 	created() {
+		let _this = this;
+		let device = this.$utils.isIphoneOrAndroid();
+		console.log('device',device);
+		if(device=='pc'){
+			_this.$router.push('tip');
+		}
 		//强制让内容超过   
 		//$('#app').css("height",window.innerHeight+100);   
 		//window.scrollTo(0, 1);   

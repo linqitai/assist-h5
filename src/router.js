@@ -32,6 +32,11 @@ export default new Router({
 			component: () => import('./views/other/agreement')
 		},
 		{
+			path: '/tip',
+			name: '提示',
+			component: () => import('./views/other/tip')
+		},
+		{
 			path: '/404',
 			name: '404',
 			component: () => import('./views/other/404')
@@ -160,6 +165,12 @@ export default new Router({
 			path: '/',
 			component: () => import('./components/WrapperChild'),
 			children: [
+				{
+					path: '/cService',
+					name: '客服服务',
+					component: () => import('./views/home/cService'),
+					meta:{footer:false},
+				},
 				{
 					path: '/forgetPassword',
 					name: '忘记密码',

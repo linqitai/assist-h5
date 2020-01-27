@@ -102,7 +102,7 @@
 			</van-cell-group>
 		</div>
 		<div class="sureBox">
-			<div class="tip">点击注册即表示您同意<span class="agreement" @click="$router.push('agreement')">《服务协议》</span></div>
+			<div class="tip">点击注册即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" @click="registerBtn" :loading="isLoading" loading-type="spinner">注  册</van-button>
 			<div class="placeholderLine10"></div>
 			<van-button color="inherit" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>

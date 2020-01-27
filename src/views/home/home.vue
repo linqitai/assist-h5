@@ -22,7 +22,7 @@ $noticeHeight:40px;
 			background-color: white;
 			border-radius: $borderRadius;
 			// margin-top:6px;
-			margin-top: -$noticeHeight/2;
+			margin-top: -$noticeHeight/4;
 			position: relative;
 			// z-index: 2;
 		}
@@ -98,6 +98,10 @@ $noticeHeight:40px;
 		
 					.iconBackground4 {
 						background-color: #fd5f00;
+					}
+					
+					.iconBackgroundCService{
+						background-color: #fbca42;
 					}
 					
 					.iconBackgroundRaise{
@@ -423,7 +427,7 @@ $noticeHeight:40px;
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent" v-if="$route.meta.footer">
 			<div class="HomeContent">
 				<div class="swipe">
-					<van-swipe :autoplay="3000" style="height: 168px;" vertical>
+					<van-swipe :autoplay="3000" style="height: 200px;">
 					  <van-swipe-item v-for="(item, index) in noticeList4Swipe" :key="index">
 						<img :src="item.imgUrl" />
 					  </van-swipe-item>
@@ -496,6 +500,16 @@ $noticeHeight:40px;
 					</div>
 				</div>
 				<div class="cateInfo">
+					<div class="infoBox">
+						<router-link to="/cService">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundCService">
+									<van-icon class-prefix="iconfont" name="cservice" />
+								</div>
+							</div>
+							<div class="text">客服服务</div>
+						</router-link>
+					</div>
 					<div class="infoBox" @click="waiting">
 						<div class="iconBox">
 							<div class="iconBackground iconBackground2">
@@ -519,16 +533,6 @@ $noticeHeight:40px;
 							</div>
 						</div>
 						<div class="text">资源共享</div>
-					</div>
-					<div class="infoBox">
-						
-						<div class="iconBox">
-							<!-- <div class="iconBackground iconBackground4">
-								<van-icon class-prefix="iconfont" name="vote" />
-							</div> -->
-						</div>
-						<div class="text"></div>
-						
 					</div>
 				</div>
 				<div class="noticeFlag">
@@ -743,6 +747,7 @@ $noticeHeight:40px;
 				/* alert("refresh"); */
 				let _this = this;
 				_this.getHomeMineralStaticInfo();
+				_this.getNoticeList4Swipe();
 			},
 			toNoticeDetail(item) {
 				let _this = this;

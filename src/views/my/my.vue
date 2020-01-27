@@ -7,6 +7,9 @@
 		// margin-top: $header-height;
 		// margin-bottom: $header-height;
 		$iconBgWidth:50px;
+		.refreshBox{
+			top: 60px;
+		}
 		.cateInfo {
 			display: flex;
 			width: 100%;
@@ -424,105 +427,6 @@
 						</div>
 					</div>
 				</router-link>
-				<!-- <router-link 
-				<!-- <router-link to="/myInfo">
-					<div class="my-cell">
-						<div class="flex1">
-							我的身份
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<!-- <router-link to="myWord">
-					<div class="my-cell">
-						<div class="flex1">
-							我要留言
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<!-- <router-link to="/task">
-					<div class="my-cell">
-						<div class="flex1">
-							任务中心
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<!-- <router-link to="myDeal">
-					<div class="my-cell">
-						<div class="flex1">
-							我的交易
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<!-- <router-link to="mill">
-					<div class="my-cell">
-						<div class="flex1">
-							我的矿机
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<!-- <router-link to="mySuperTeam">
-					<div class="my-cell">
-						<div class="flex1">
-							我的战队
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<!-- <router-link to="myShare">
-					<div class="my-cell">
-						<div class="flex1">
-							我要分享
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<!-- <router-link to="myBook">
-					<div class="my-cell">
-						<div class="flex1">
-							我的账本
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<!-- <router-link to="shopOrder">
-					<div class="my-cell">
-						<div class="flex1">
-							购物订单
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<!-- <div class="my-cell" @click="toScrollTop">
-					<div class="flex1">
-						返回顶部
-					</div>
-					<div class="flex2">
-						<i class="iconfont iconfont-right-arrow2"></i>
-					</div>
-				</div> -->
 			</div>
 		</van-pull-refresh>
 		<!-- <img alt="Vue logo" src="../assets/logo.png"> -->
@@ -544,7 +448,7 @@
 	// import { ajax } from "@/api/ajax";
 	// import $ from 'jquery';
 	import mHeader from '@/components/Header.vue';
-	import mRefresh from '@/components/Refresh.vue';
+	import mRefresh from '@/components/Refresh2.vue';
 	import { Dialog } from 'vant';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	/* import { Skeleton } from 'vant'; */
@@ -668,10 +572,11 @@
 						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 						console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
-						_this.loading = false;
 						// _this.getBuyAndSellInfo();
 						// _this.$cookies.set("_USERINFO_", res.data, _this.$api.cookiesTime);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			refreshEvent() {

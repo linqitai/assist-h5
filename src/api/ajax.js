@@ -45,6 +45,16 @@ export default {
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},
 			complete: function(XMLHttpRequest,status) {
+				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON.message)
+				if(XMLHttpRequest.responseJSON.message=='登录已过期，请重新登录') {
+					Dialog.alert({
+						title: '温馨提示',
+						message: XMLHttpRequest.responseJSON.message
+					}).then(() => {
+						router.replace('/login');
+					});
+				}
+				console.log('complete_status',status)
 				if(status=='timeout') {//超时,status还有success,error等值的情况
 					Dialog.alert({
 						title: '温馨提示',
@@ -115,7 +125,7 @@ export default {
 				}
 			},
 			success: function(res) {
-				// console.log(res, "====res====")
+				console.log(res, "====success====")
 				if (typeof res == 'string') {
 					res = JSON.parse(res);
 				}

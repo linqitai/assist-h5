@@ -92,7 +92,7 @@
 			</van-cell-group>
 		</div>
 		<div class="sureBox">
-			<div class="tip">点击登录即表示您同意<span class="agreement" @click="$router.push('agreement')">《服务协议》</span><span class="forget" @click="forget">忘记密码？</span></div>
+			<div class="tip">点击登录即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span><span class="forget" @click="forget">忘记密码？</span></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" :loading="isLoading" @click="loginBtn" loading-type="spinner">登  录</van-button>
 			<div class="placeholderLine10"></div>
 			<!-- <van-button color="inherit" size="normal" :block="true">手机号已更换，用秘钥登录</van-button> -->
@@ -140,6 +140,11 @@
 			_this.form.phone = localStorage.getItem("mobilePhone");
 			// console.log(_this.form.phone,'_this.form.phone')
 			_this.welcomeText = _this.$api.welcomeText;
+			
+			if(_this.$cookies.get('token')){
+				_this.$router.push("home");
+			}
+			
 			//_this.getAssistMaintainInfo();
 			_this.getSecurityCode();
 		},

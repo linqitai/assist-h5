@@ -2,9 +2,9 @@
 // export const host = '/web/assist';//阿广电脑
 export const hostImg = 'http://192.168.100.3:8088'; //阿广电脑
 // http://192.168.100.3:8001/admin/user/getAdminUserPageList
-const hostIPPort = 'http://192.168.100.6:8086';
+const hostIPPort = 'http://115.29.190.174';
 const host = '/bflApp/'
-const domainName = 'www.assist-china.com';
+const domainName = '115.29.190.174';
 export default {
 	projectName:'帮扶链',
 	projectEnglishName:'HPC',

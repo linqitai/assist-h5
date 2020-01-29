@@ -52,6 +52,11 @@ export default new Router({
 			component: () => import('./views/other/maintain')
 		},
 		{
+			path: '/test',
+			name: 'test',
+			component: () => import('./views/test/test')
+		},
+		{
 			path: '/',
 			redirect: "/home"
 		},

@@ -5,7 +5,7 @@
 
 <template>
 	<div class="raise">
-		<div class="helpBox">
+		<!-- <div class="helpBox">
 			<i class="iconfont iconfont-love leftBox"></i>
 			<span class="centerBox">紧急求助！1岁宝宝急需移植骨髓，等钱救命！</span>
 			<i class="iconfont iconfont-right-arrow2 rightBox icon"></i>
@@ -172,7 +172,7 @@
 					</div>
 				</div>
 			</div>
-		</van-list>
+		</van-list> -->
 	</div>
 </template>
 

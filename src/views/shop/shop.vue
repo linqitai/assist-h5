@@ -59,12 +59,11 @@
 		<i class="iconfont iconfont-question rightBox icon"></i>
 	</m-header>
 	<div class="shopList">
-		<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
+		<!-- <van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 			<div class="list">
 				<div class="item">
 					<router-link to="shopDetail">
 					<div class="imgBox">
-						<!-- <van-image width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 						<img src="../../assets/image/shop/lkl02.png" alt="">
 					</div>
 					<div class="textBox">
@@ -77,24 +76,8 @@
 					</div>
 					</router-link>
 				</div>
-				<div class="item">
-					<router-link to="shopDetail">
-					<div class="imgBox">
-						<!-- <van-image width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
-						<img src="../../assets/image/shop/lkl02.png" alt="">
-					</div>
-					<div class="textBox">
-						<div class="line">
-							<div class="left title">卡拉卡智能POS</div>
-							<div class="freeGet right">￥299押金</div>
-						</div>
-						<div class="line content margT3 justify">平台小店预热优惠活动：订购此产品成功后奖励300张平台券，每人最多拍1件(激活POS机需要刷卡299元,激活成功后￥299押金原路退回)</div>
-						<div class="line content"><div class="left">已售 100</div><div class="right">库存 1000</div></div>
-					</div>
-					</router-link>
-				</div>
 			</div>
-		</van-list>
+		</van-list> -->
 	</div>
   </div>
 </template>

@@ -377,7 +377,6 @@ export default {
 			flag:'',
 			isRealName:true,
 			userId:'',
-			projectName:'',
 			mobilePhone:'',
 		}
 	},  
@@ -395,10 +394,7 @@ export default {
 	}, */
 	created(){
 		let _this = this;
-		_this.projectName = _this.$api.projectName;
-		// _this.userInfo = _this.$cookies.get('_USERINFO_');
-		// console.log(JSON.parse(localStorage.getItem("_USERINFO_")),'userinfo')
-		// _this.userInfo = JSON.parse(localStorage.getItem("_USERINFO_"));
+		
 		let userInfo = localStorage.getItem("_USERINFO_");
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
@@ -410,17 +406,24 @@ export default {
 			return;
 		}
 		_this.getUserInfo();
-		/* if(_this.$cookies.get('isRefreshUserInfo')==1){
-			_this.getUserInfo();
-		} */
-		/* if(_this.$cookies.get('isRefreshUserInfo')==1){
-			_this.getUserInfo();
-		} */
 		_this.initializeHintInfo();
+		_this.bsTip();
 	},
 	methods:{
 		back(){
 			this.$router.go(-1);
+		},
+		bsTip(){
+			let _this = this;
+			let isWeixin = _this.$utils.isWeixin();
+			if(isWeixin){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: _this.$api.bsTip
+				}).then(() => {
+				  // on close
+				});
+			}
 		},
 		getActiveStatus(val){
 			let _this = this;

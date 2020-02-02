@@ -608,10 +608,23 @@ export default {
 	},
 	created() {
 		let _this = this;
+		_this.bsTip();
 		_this.initializeData();
 		_this.initializeTabActiveName();
 	},
 	methods:{
+		bsTip(){
+			let _this = this;
+			let isWeixin = _this.$utils.isWeixin();
+			if(isWeixin){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: _this.$api.bsTip
+				}).then(() => {
+				  // on close
+				});
+			}
+		},
 		alertTip(text){
 			this.showTipModel = true;
 			this.questionText = text;
@@ -1070,6 +1083,15 @@ export default {
 				});
 				return;
 			} */
+			if(_this.userInfo.actived<=0){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '挂单需先完成实名认证'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
 			let params = {
 				/*userId:_this.userInfo.userId,
 				serviceCharge:_this.form4BuyBill.serviceCharge, */
@@ -1099,6 +1121,7 @@ export default {
 							_this.$toast(res.message);
 							// _this.getList();
 							_this.$cookies.set("tabName4MyDeal", "buy", 60 * 60 * 1)
+							_this.$cookies.set("isRefreshDealInfo", 1, 60 * 60 * 1)
 							_this.$router.push('myDeal');
 						}
 					}else if(res.code == 2003){

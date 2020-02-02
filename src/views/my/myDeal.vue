@@ -813,10 +813,10 @@
 				  />
 				</van-cell-group>
 				<div class="placeholderLine10"></div>
+				<van-button type="primary" size="normal" :block="true" @click="toSendPage">一键发送</van-button>
 				 <!-- v-if="phoneType!='pc'" -->
-				<a :href="sendSmsHref">
-					<van-button type="primary" size="normal" :block="true" @click="showSendSMSTipModel=false">一键发送</van-button>
-				</a>
+				<!-- <a :href="sendSmsHref">
+				</a> -->
 			</div>
 		</van-dialog>
 		<m-refresh @refreshEvent="refreshEvent"></m-refresh>
@@ -914,9 +914,10 @@
 				_this.smsContent = `【HPC帮扶链】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看。`;
 				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 				//发送短信提示end
-				console.log('_this.sendSmsHref',_this.sendSmsHref);
 				_this.showSendSMSTipModel = true;
 			}
+			
+			_this.bsTip();
 			
 			// let all = 2000;
 			// let r=0.005;
@@ -933,6 +934,18 @@
 		methods: {
 			back(){
 				this.$router.go(-1);
+			},
+			bsTip(){
+				let _this = this;
+				let isWeixin = _this.$utils.isWeixin();
+				if(isWeixin){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.bsTip
+					}).then(() => {
+					  // on close
+					});
+				}
 			},
 			showTip(){
 				this.showTipModel = true;
@@ -1636,14 +1649,24 @@
 			setSendSmsHref(mobilePhone,smsContent){
 				let _this = this;
 				let phoneType = _this.$utils.isIphoneOrAndroid();
+				console.log("=======phoneType================",phoneType);
 				if(phoneType=='a'){
 					_this.sendSmsHref = `sms:${mobilePhone}?body=${smsContent}`;
 				}else if(phoneType=='i'){
-					_this.sendSmsHref = `sms:${mobilePhone}&body=${smsContent}`;
+					// let tempUrl = encodeURI(_this.smsContent);
+					let encodeUrl = encodeURI(_this.smsContent);
+					// console.log("encodeUrl",encodeUrl);
+					// let encodeUrl = "HPC"
+					_this.sendSmsHref = `sms:${mobilePhone}&body=${encodeUrl}`;
 				}else{
 					_this.sendSmsHref = `sms:${mobilePhone}?body=${smsContent}`;
 				}
 				_this.showSendSMSTipModel = true;
+			},
+			toSendPage(){
+				let _this = this;
+				_this.showSendSMSTipModel=false;
+				window.location.href = _this.sendSmsHref;
 			},
 			payedBtn(){
 				let _this = this;
@@ -1670,7 +1693,7 @@
 							//发送短信提示start
 							_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请给卖家发个短信提醒对方确认收款并释放矿石。";
 							_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-							_this.smsContent = `【HPC帮扶链】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收到款并释放矿石。`;
+							_this.smsContent = "【HPC帮扶链】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收到款并释放矿石。";
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							//发送短信提示end
 				  			_this.showSellerDetailModel = false;

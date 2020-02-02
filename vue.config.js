@@ -4,6 +4,13 @@ module.exports = {
 			config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
 		}
 	},
+	/* configureWebpack: {
+		externals: {
+			vue: "Vue",
+			vuex: "Vuex",
+			"vue-router": "Router"
+		}
+	}, */
 	// baseUrl: './',
 	publicPath: './',
 	productionSourceMap: false,

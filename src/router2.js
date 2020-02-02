@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Register from './views/start/register'
-// import Login from './views/start/login'
-// import ForgetPassword from './views/start/forgetPassword'
+import Register from './views/start/register'
+import Login from './views/start/login'
+import ForgetPassword from './views/start/forgetPassword'
 
 Vue.use(Router)
 /**
@@ -19,42 +19,42 @@ export default new Router({
 		{
 			path: '/register',
 			name: '注册',
-			component: resolve => require(['./views/start/register'],resolve)
+			component: Register
 		},
 		{
 			path: '/login',
 			name: '登录',
-			component: resolve => require(['./views/start/login'],resolve)
+			component: Login
 		},
 		{
 			path: '/agreement',
 			name: '服务协议',
-			component: resolve => require(['./views/other/agreement'],resolve)
+			component: () => import('./views/other/agreement')
 		},
 		{
 			path: '/tip',
 			name: '提示',
-			component: resolve => require(['./views/other/tip'],resolve)
+			component: () => import('./views/other/tip')
 		},
 		{
 			path: '/404',
 			name: '404',
-			component: resolve => require(['./views/other/404'],resolve)
+			component: () => import('./views/other/404')
 		},
 		{
 			path: '/error',
 			name: 'error',
-			component: resolve => require(['./views/other/error'],resolve)
+			component: () => import('./views/other/error')
 		},
 		{
 			path: '/maintain',
 			name: 'maintain',
-			component: resolve => require(['./views/other/maintain'],resolve)
+			component: () => import('./views/other/maintain')
 		},
 		{
 			path: '/test',
 			name: 'test',
-			component: resolve => require(['./views/test/test'],resolve)
+			component: () => import('./views/test/test')
 		},
 		{
 			path: '/',
@@ -62,11 +62,11 @@ export default new Router({
 		},
 		{
 			path: '/wrapper',
-			component: resolve => require(['./components/Wrapper'],resolve),
+			component: () => import('./components/Wrapper'),
 			children: [{
 					path: '/home',
 					name: '首页',
-					component: resolve => require(['./views/home/home'],resolve),
+					component: () => import('./views/home/home'),
 					meta:{footer:true,back:false,question:false},
 					children:[
 						
@@ -75,19 +75,19 @@ export default new Router({
 				{
 					path: '/shop',
 					name: '小店',
-					component: resolve => require(['./views/shop/shop'],resolve),
+					component: () => import('./views/shop/shop'),
 					meta:{footer:true}
 				},
 				{
 					path: '/mill',
 					name: '矿机',
-					component: resolve => require(['./views/mill/mill'],resolve),
+					component: () => import('./views/mill/mill'),
 					meta:{footer:true},
 				},
 				{
 					path: '/deal',
 					name: '市场',
-					component: resolve => require(['./views/deal/deal'],resolve),
+					component: () => import('./views/deal/deal'),
 					meta:{footer:true,question:true,showRecordIcon:true},
 					// children:[
 					// 	{
@@ -101,65 +101,65 @@ export default new Router({
 				{
 					path: '/my',
 					name: '我的',
-					component: resolve => require(['./views/my/my'],resolve),
+					component: () => import('./views/my/my'),
 					meta:{footer:true,back:false},
 					children:[
 						{
 							path: '/innerRegister',
 							name: '内排注册',
-							component: resolve => require(['./views/start/innerRegister'],resolve),
+							component: () => import('./views/start/innerRegister.vue'),
 							meta:{footer:false},
 						},
 						{
 							path: '/task',
 							name: '任务中心',
-							component: resolve => require(['./views/my/task'],resolve),
+							component: () => import('./views/my/task'),
 							meta:{footer:false},
 						},
 						{
 							path: '/mySuperTeam',
 							name: '我的战队',
-							component: resolve => require(['./views/my/mySuperTeam'],resolve),
+							component: () => import('./views/my/mySuperTeam'),
 							meta:{footer:false},
 						},
 						{
 							path: '/myShare',
 							name: '我要分享',
-							component: resolve => require(['./views/my/myShare'],resolve),
+							component: () => import('./views/my/myShare'),
 							meta:{footer:false},
 						},
 						{
 							path: '/myWord',
 							name: '我要留言',
-							component: resolve => require(['./views/my/myWord'],resolve),
+							component: () => import('./views/my/myWord'),
 							meta:{footer:false},
 						},
 						{
 							path: '/myWordList',
 							name: '留言列表',
-							component: resolve => require(['./views/my/myWordList'],resolve),
+							component: () => import('./views/my/myWordList')
 						},
 						{
 							path: '/myWordDetail',
 							name: '留言详情',
-							component: resolve => require(['./views/my/myWordDetail'],resolve),
+							component: () => import('./views/my/myWordDetail')
 						},
 						{
 							path: '/transferTicket',
 							name: '定向转让帮扶券',
-							component: resolve => require(['./views/my/transferTicket'],resolve),
+							component: () => import('./views/my/transferTicket'),
 							meta:{footer:false},
 						},
 						{
 							path: '/transferMineral',
 							name: '定向转让矿石',
-							component: resolve => require(['./views/my/transferMineral'],resolve),
+							component: () => import('./views/my/transferMineral'),
 							meta:{footer:false},
 						},
 						{
 							path: '/unFreeze',
 							name: '解冻账号',
-							component: resolve => require(['./views/my/unFreeze'],resolve),
+							component: () => import('./views/my/unFreeze'),
 							meta:{footer:false},
 						},
 					]
@@ -168,54 +168,54 @@ export default new Router({
 		},
 		{
 			path: '/',
-			component: resolve => require(['./components/WrapperChild'],resolve),
+			component: () => import('./components/WrapperChild'),
 			children: [
 				{
 					path: '/cService',
 					name: '客服服务',
-					component: resolve => require(['./views/home/cService'],resolve),
+					component: () => import('./views/home/cService'),
 					meta:{footer:false},
 				},
 				{
 					path: '/forgetPassword',
 					name: '忘记密码',
-					component: resolve => require(['./views/start/forgetPassword'],resolve),
+					component: ForgetPassword,
 					meta:{footer:false},
 				},
 				{
 					path: '/myBook',
 					name: '我的账本',
-					component: resolve => require(['./views/my/myBook'],resolve),
+					component: () => import('./views/my/myBook'),
 					meta:{footer:false},
 				},
 				{
 					path: '/myDeal',
 					name: '我的交易',
-					component: resolve => require(['./views/my/myDeal'],resolve),
+					component: () => import('./views/my/myDeal'),
 					meta:{footer:false},
 				},
 				{
 					path: '/myMill',
 					name: '我的矿机',
-					component: resolve => require(['./views/my/myMill'],resolve),
+					component: () => import('./views/my/myMill'),
 					meta:{footer:false},
 				},
 				{
 					path: '/merchantProcess',
 					name: '商家入驻',
-					component: resolve => require(['./views/home/merchantProcess'],resolve),
+					component: () => import('./views/home/merchantProcess'),
 					meta:{footer:false,back:true,child1:1},
 					children:[
 						{
 							path: '/merchantEnter',
 							name: '填写资料',
-							component: resolve => require(['./views/home/merchantEnter'],resolve),
+							component: () => import('./views/home/merchantEnter'),
 							meta:{footer:false,back:true,child1:0},
 						},
 						{
 							path: '/charge',
 							name: '缴费中心',
-							component: resolve => require(['./views/charge/charge'],resolve),
+							component: () => import('./views/charge/charge'),
 							meta:{footer:false,back:true,child1:0},
 						},
 					]
@@ -223,94 +223,94 @@ export default new Router({
 				{
 					path: '/myInfo',
 					name: '我的身份',
-					component: resolve => require(['./views/my/myInfo'],resolve),
+					component: () => import('./views/my/myInfo'),
 					meta:{footer:false},
 				},
 				{
 					path: '/realName',
 					name: '实名认证',
-					component: resolve => require(['./views/my/realName'],resolve),
+					component: () => import('./views/my/realName'),
 					meta:{footer:false},
 				},
 				{
 					path: '/ranking',
 					name: '排行榜',
-					component: resolve => require(['./views/home/ranking'],resolve),
+					component: () => import('./views/home/ranking'),
 					meta:{footer:false},
 				},
 				{
 					path: '/agency',
 					name: '省市代理',
-					component: resolve => require(['./views/home/agency'],resolve),
+					component: () => import('./views/home/agency'),
 					meta:{footer:false},
 				},
 				{
 					path: '/voteList',
 					name: '投票中心',
-					component: resolve => require(['./views/home/voteList'],resolve),
+					component: () => import('./views/home/voteList'),
 					meta:{footer:false,back:true,question:false},
 				},
 				{
 					path: '/voteDetail',
 					name: '投票详情',
-					component: resolve => require(['./views/home/voteDetail'],resolve),
+					component: () => import('./views/home/voteDetail'),
 					meta:{footer:false,back:true,question:false},
 				},
 				{
 					path: '/noticeList',
 					name: '公告列表',
-					component: resolve => require(['./views/home/noticeList'],resolve),
+					component: () => import('./views/home/noticeList'),
 					meta:{footer:false,back:true,question:false},
 				},
 				{
 					path: '/noticeDetail',
 					name: '公告详情 ',
-					component: resolve => require(['./views/home/noticeDetail'],resolve),
+					component: () => import('./views/home/noticeDetail'),
 					meta:{footer:false,back:true,question:false},
 				},
 				{
 					path: '/myCheck',
 					name: '实名审核',
-					component: resolve => require(['./views/my/myCheck'],resolve)
+					component: () => import('./views/my/myCheck')
 				},
 				{
 					path: '/myCheckDetail',
 					name: '实名详情',
-					component: resolve => require(['./views/my/myCheckDetail'],resolve)
+					component: () => import('./views/my/myCheckDetail')
 				},
 				{
 					path: '/shopCharge',
 					name: '订购商品',
-					component: resolve => require(['./views/shop/shopCharge'],resolve)
+					component: () => import('./views/shop/shopCharge')
 				},
 				{
 					path: '/shopDetail',
 					name: '详情',
-					component: resolve => require(['./views/shop/shopDetail'],resolve)
+					component: () => import('./views/shop/shopDetail')
 				},
 				{
 					path: '/shopOrder',
 					name: '购物订单',
-					component: resolve => require(['./views/my/shopOrder'],resolve)
+					component: () => import('./views/my/shopOrder')
 				},
 				
 				{
 					path: '/raise',
 					name: 'raise',
-					component: resolve => require(['./views/raise/raise'],resolve)
+					component: () => import('./views/raise/raise.vue')
 				},
 			]
 		},
 		{
 			path: '/lookBook',
 			name: '对方账本',
-			component: resolve => require(['./views/deal/lookBook'],resolve),
+			component: () => import('./views/deal/lookBook'),
 			meta:{footer:false,keepAlive:true},
 		},
 		{
 			path: '/dealRecord',
 			name: '交易流水',
-			component: resolve => require(['./views/deal/dealRecord'],resolve),
+			component: () => import('./views/deal/dealRecord'),
 			meta:{footer:false},
 		},
 	]

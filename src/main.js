@@ -31,8 +31,8 @@ import * as filters from '@/assets/js/filters';
 import VueCookies from 'vue-cookies';
 Vue.prototype.$cookies = VueCookies;
 
-import echarts from 'echarts';
-Vue.prototype.$echarts = echarts;
+// import echarts from 'echarts';
+// Vue.prototype.$echarts = echarts;
 
 import fastclick from 'fastclick';
 fastclick.attach(document.body);

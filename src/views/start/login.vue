@@ -135,7 +135,7 @@
 				getInitCode:''
 			}
 		},
-		created() {
+		mounted() {
 			let _this = this;
 			_this.form.phone = localStorage.getItem("mobilePhone");
 			// console.log(_this.form.phone,'_this.form.phone')
@@ -144,11 +144,23 @@
 			if(_this.$cookies.get('token')){
 				_this.$router.push("home");
 			}
-			
+			_this.bsTip();
 			//_this.getAssistMaintainInfo();
 			_this.getSecurityCode();
 		},
 		methods:{
+			bsTip(){
+				let _this = this;
+				let isWeixin = _this.$utils.isWeixin();
+				if(isWeixin){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.bsTip
+					}).then(() => {
+					  // on close
+					});
+				}
+			},
 			forget(){
 				let _this = this;
 				/* let phone = localStorage.getItem("mobilePhone");

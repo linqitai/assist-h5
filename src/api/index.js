@@ -2,15 +2,16 @@
 // export const host = '/web/assist';//阿广电脑
 export const hostImg = 'http://192.168.100.3:8088'; //阿广电脑
 // http://192.168.100.3:8001/admin/user/getAdminUserPageList
-const hostIPPort = 'http://115.29.190.174';
+const hostIPPort = 'http://www.helpchain.online';
 const host = '/bflApp/'
-const domainName = '115.29.190.174';
+const domainName = 'http://www.helpchain.online';
 export default {
 	projectName:'帮扶链',
 	projectEnglishName:'HPC',
 	coinUnit:'矿石',
 	ticketName:'帮扶券',
 	welcomeText:"欢迎来到HPC帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。",
+	bsTip:'为了提高户提体验，建议在浏览器中打开该页面。推荐使用:百度、UC、谷歌浏览器',
 	HOST_IMG: hostImg,
 	cookiesTime: 60 * 60 * 24,
 	cookiesTime8h: 60 * 60 * 8,

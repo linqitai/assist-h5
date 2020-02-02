@@ -79,9 +79,8 @@
 	</m-header>
 	<div class="shopList">
 		<div class="list">
-			<div class="item">
+			<!-- <div class="item">
 				<div class="imgBox">
-					<!-- <van-image width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 					<img src="../../assets/image/shop/lkl02.png" alt="">
 				</div>
 				<div class="textBox">
@@ -100,13 +99,9 @@
 					</van-image-preview>
 				</div>
 				<div class="sureBtn">
-					<!-- <div class="tip">点击登录即表示您同意<span class="agreement">《服务协议》</span></div> -->
 					<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="large" @click="orderBtn">去订购</van-button>
 				</div>
-				<!-- <div class="submitBox">
-					<van-field v-model="form.address" required clearable placeholder="请输入您的收货地址" maxlength="20"/>
-				</div> -->
-			</div>
+			</div> -->
 		</div>
 		<van-action-sheet v-model="showSubmitModel" title="确认信息">
 		  <div class="placeholderLine40"></div>

@@ -90,7 +90,7 @@
 		<i class="iconfont iconfont-question rightBox icon"></i>
 	  </m-header>
 	  <div class="millContent">
-		  <van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00" title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+		  <!-- <van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00" title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
 		    <van-tab title="待付款" name="active1">
 				<van-list
 				  v-model="loading1"
@@ -176,7 +176,7 @@
 		  		</div>
 				</van-list>
 		  	</van-tab>
-		  </van-tabs>
+		  </van-tabs> -->
 	  </div>
 	  <!-- <van-button type="primary" @click="testLoginUrl()">登录</van-button>
 	  <van-button type="primary" @click="testUrl()">获取信息</van-button> -->

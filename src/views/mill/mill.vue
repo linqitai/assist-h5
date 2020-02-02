@@ -164,7 +164,7 @@
 		<m-header>
 			<i class="leftBox"></i>
 			<div class="text">
-				矿机
+				矿机商城
 			</div>
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
@@ -201,6 +201,23 @@
 		</div>
 		<!-- <van-button type="primary" @click="testLoginUrl()">登录</van-button>
 	  <van-button type="primary" @click="testUrl()">获取信息</van-button> -->
+	  <van-dialog v-model="showSelectBox" title="请选择用什么租赁" :show-cancel-button="true" :show-confirm-button="true" @confirm="sureBuyMillEvent">
+	  		<div class="paddingWing">
+				<div class="placeholderLine20"></div>
+				<div class="f-14">当前可用矿石：{{userInfo.thisWeekMineral}}</div>
+				<div class="placeholderLine10"></div>
+				<div class="f-14">当前可用贡献值：{{userInfo.contributionValue}}</div>
+				<div class="placeholderLine10"></div>
+				<div class="f-14">租赁此矿机要花{{price}}个矿石或者贡献值</div>
+				<div class="placeholderLine10"></div>
+				<van-radio-group v-model="selectRadioValue" @change="selectRadioChange">
+				  <van-radio name="1">矿石</van-radio>
+				  <div class="placeholderLine10"></div>
+				  <van-radio name="2">贡献值</van-radio>
+				</van-radio-group>
+				<div class="placeholderLine20"></div>
+			</div>
+	  </van-dialog>
 	  <van-dialog v-model="showReceiptTip" :title="receiptModelTile" :show-confirm-button="isShowConfirmButton">
 		<div class="placeholderLine20"></div>
 	    <div class="paddingWing textCenter">
@@ -231,6 +248,7 @@
 	export default {
 		data() {
 			return {
+				selectRadioValue:'1',
 				loading: false,
 				showTipModel:false,
 				activeName: "myMill",
@@ -254,11 +272,14 @@
 				}],
 				userInfo:'',
 				showReceiptTip:false,
+				showSelectBox:false,
 				isShowReceiptLoading: true,
 				mineralNumTip:'',
 				isShowMineralNum:false,
 				receiptModelTile:"领取结果计算中",
 				isShowConfirmButton:false,
+				price:'',
+				machineId:''
 			}
 		},
 		components: {
@@ -297,27 +318,43 @@
 					return 'tag2'
 				}
 			},
+			selectRadioChange(value){
+				console.log(value);
+			},
 			buyMill(item){
 				let _this = this;
-				Dialog.confirm({
-				  title: '确认弹窗',
-				  message: `您当前可用矿石${_this.userInfo.thisWeekMineral}个,租赁此矿机要花${item.price}矿石,是否确定租赁？`
-				}).then(() => {
-				  // on confirm
-				  if(_this.userInfo.thisWeekMineral<item.price){
-					  _this.$toast(_this.$api.DATA_102);
-				  }else{
-					  _this.sureBuyMillEvent(item.id);
-				  }
-				}).catch(() => {
-				  // on cancel
-				});
+				_this.showSelectBox = true;
+				_this.price = item.price;
+				_this.machineId = item.id;
+				// Dialog.confirm({
+				//   title: '确认弹窗',
+				//   message: `您当前可用矿石${_this.userInfo.thisWeekMineral}个,租赁此矿机要花${item.price}矿石,是否确定租赁？`
+				// }).then(() => {
+				//   // on confirm
+				//   if(_this.userInfo.thisWeekMineral<item.price){
+				// 	  _this.$toast(_this.$api.DATA_102);
+				//   }else{
+				// 	  _this.sureBuyMillEvent(item.id);
+				//   }
+				// }).catch(() => {
+				//   // on cancel
+				// });
 			},
-			sureBuyMillEvent(machineId){
+			sureBuyMillEvent(){
 				let _this = this;
+				if(_this.selectRadioValue==1){
+					if(_this.userInfo.thisWeekMineral<_this.price){
+						_this.$toast("您所拥有的矿石不够租赁该矿机");return;
+					}
+				}else if(_this.selectRadioValue==2){
+					if(_this.userInfo.contributionValue<_this.price){
+						_this.$toast("您所拥有的贡献值不够租赁该矿机");return;
+					}
+				}
 				let params = {
 					/* userId:_this.userInfo.userId, */
-					machineId:machineId
+					machineId:_this.machineId,
+					use:_this.selectRadioValue
 				}
 				Toast.loading({
 				  message: '租赁中...',
@@ -327,20 +364,8 @@
 				_this.$ajax.ajax(_this.$api.insertAssistMyMachine, 'POST', params, function(res) {
 					Toast.clear();
 					if (res.code == _this.$api.CODE_OK) {
-						if(res.data == 1000){//此类矿机已经售空
-							_this.$toast(_this.$api.DATA_100);
-							return;
-						}
-						if(res.data == 1001){//该用户此类矿机已满，不让租赁
-							_this.$toast(_this.$api.DATA_101);
-							return;
-						}
-						if(res.data == 1002){//该用户所拥有矿石不够，不让租赁
-							_this.$toast(_this.$api.DATA_102);
-							return;
-						}
 						Dialog.alert({
-						  title: '温馨提示',
+						  title: '系统提示',
 						  message: res.data == 1?'租赁成功':'租赁失败'
 						}).then(() => {
 						  // on close
@@ -350,6 +375,18 @@
 							  _this.$router.push('myMill');
 						  }
 						});
+					}else if(res.code == 1000){//此类矿机已经售空
+						_this.$toast("此类矿机已经售空");
+						return;
+					}else if(res.code == 1001){//该用户此类矿机已满，不让租赁
+						_this.$toast("您所拥有的此类矿机已经超过限购数量");
+						return;
+					}else if(res.code == 1002){//该用户所拥有矿石不够，不让租赁
+						_this.$toast("您所拥有的矿石不够租赁该矿机");
+						return;
+					}else if(res.code == 1003){//该用户所拥有矿石不够，不让租赁
+						_this.$toast('您所拥有的贡献值不够租赁该矿机');
+						return;
 					}
 				})
 			},
@@ -362,34 +399,41 @@
 						let list = res.data;
 						localStorage.setItem("millShopList",JSON.stringify(list));
 						_this.millShopList = list;
-						_this.loadingMillShop = false;
-						_this.finishedMillShop = true;
 					}
 				},function(){
 					_this.loading = false;
+					_this.loadingMillShop = false;
+					_this.finishedMillShop = true;
 				})
 			},
 			onLoadMillShop() {
 				let _this = this;
+				console.log("onLoadMillShop");
 				// 异步更新数据
 				// let params = {
 				// 	versionNo: 1
 				// }
 				let millShopList = JSON.parse(localStorage.getItem('millShopList'));
-				if(millShopList.length>0){
+				if(millShopList){
 					_this.millShopList = millShopList;
 				}else{
+					_this.loading = true;
 					_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
 						// console.log('res', res);
 						if (res.code == _this.$api.CODE_OK) {
 							let list = res.data;
 							localStorage.setItem("millShopList",JSON.stringify(list));
 							_this.millShopList = list;
-							_this.loadingMillShop = false;
-							_this.finishedMillShop = true;
 						}
+					},function(){
+						_this.loading = false;
+						_this.loadingMillShop = false;
+						_this.finishedMillShop = true;
 					})
 				}
+				_this.loading = false;
+				_this.loadingMillShop = false;
+				_this.finishedMillShop = true;
 			},
 			initializeTabActiveName() {
 				let _this = this;

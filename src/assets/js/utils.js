@@ -285,6 +285,15 @@ function isIphoneOrAndroid(){
 	}
 }
 
+function isWeixin(){
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/MicroMessenger/i) == "micromessenger") {
+	return true;
+  } else {
+	return false;
+  }
+}
+
 export default {
 	fmoney,
 	getLetterLength,
@@ -310,5 +319,6 @@ export default {
 	scollPostion,
 	scrollTop,
 	getSC,
-	isIphoneOrAndroid
+	isIphoneOrAndroid,
+	isWeixin
 }

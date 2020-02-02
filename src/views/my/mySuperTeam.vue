@@ -256,11 +256,12 @@
 			_this.realnameNum = _this.userInfo.realnameNum;
 			// console.log('_this.userInfo',_this.userInfo);
 			_this.activedText = _this.activedText + ' ' + _this.realnameNum;
-			if(localStorage.getItem('parentUserInfo')){
+			_this.getParentUserInfo();
+			/* if(localStorage.getItem('parentUserInfo')){
 				_this.parentUserInfo = JSON.parse(localStorage.getItem('parentUserInfo'));
 			}else{
 				_this.getParentUserInfo();
-			}
+			} */
 		},
 		methods: {
 			back() {
@@ -280,10 +281,10 @@
 				_this.loading = true;
 				let parentId = _this.userInfo.parentId==null?_this.userInfo.userId:_this.userInfo.parentId;
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo4Path + parentId, 'GET', null, function(res){
-					console.log('res',res);
+					// console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
 						_this.parentUserInfo = res.data;
-						localStorage.setItem('parentUserInfo',JSON.stringify(_this.parentUserInfo));
+						//localStorage.setItem('parentUserInfo',JSON.stringify(_this.parentUserInfo));
 						// console.log('_this.parentUserInfo',_this.parentUserInfo);
 					}
 				})
@@ -370,8 +371,8 @@
 				let params = {
 					pageNo: _this.currentPage3,
 					pageSize: _this.pageSize,
-					parentId: _this.userInfo.userId,
-					actived:0
+					// parentId: _this.userInfo.userId,
+					actived:-1
 				}
 				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList, 'GET', params, function(res) {
 					// console.log('res', res);

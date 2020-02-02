@@ -43,7 +43,7 @@
 	  <div class="placeholderLine"></div> -->
       <div class="error-desc">该链接需在手机浏览器中打开</div>
 	  <div class="placeholderLine"></div>
-	  <div class="error-desc">平台推荐使用：谷歌浏览器</div>
+	  <div class="error-desc">平台推荐使用：谷歌、搜狗、百度浏览器</div>
 	   <!-- <div class="error-handle">
 	   		  <van-button to="/home" type="info" size="normal" color="linear-gradient(to right, #00ffe4, #005db4)" :block="true" @click="goBack">返回</van-button>
 	   </div> -->

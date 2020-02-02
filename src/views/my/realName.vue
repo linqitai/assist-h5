@@ -173,7 +173,7 @@
 			【2】年龄范围18周岁以上，不用上传手持照片，微信号和支付宝号需填写所绑定的手机号，且与注册帐号保持一致，若您的微信和支付宝未绑定该手机号，请先去微信和支付宝绑定。<br>
 			【3】平台为保证每位矿工账号安全，真实姓名与支付宝不一致永久冻结账号处理，交易的时候遇到此问题欢迎向平台打小报告，情况属实买方会得到奖励。<br>
 			【4】如果支付宝帐号设置隐私导致买方无法通过手机号查找而无法完成交易的，客服介入调查取消交易且冻结卖方账号。请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
-			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现。零门槛、零投资、零风险、可继承。另外，对于有经验的矿工，挂单交易每人限购2000个矿石，请用闲散资金参与，这里没有一日暴富，所有的丰收都需经过坚定持续的努力，长久稳定才是广大矿工们所想要的，让我们一起打造集聚用户共识度的百年公益创业平台。<br>
+			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现。零门槛、零投资、零风险、可继承。另外，对于有经验的矿工，挂单交易每人限购2000个矿石。<br>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
 			<!-- 注：<br>
 			<b class="textBold">身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，{{$api.projectEnglishName}}认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i> -->
@@ -193,7 +193,7 @@
 		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
 		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="20"
 		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
-		<div class="line">
+		<!-- <div class="line">
 			<span class="label">身份证正面照片</span>
 			<span class="text" @click="showExamplePic">点击查看模板</span>
 			<span class="value">
@@ -203,7 +203,7 @@
 		</div>
 		<div class="line" v-if="form.idCardPic">
 			<img class="selectedImg" :src="form.idCardPic"/>
-		</div>
+		</div> -->
 		<!-- <div class="line">
 			<span class="label">手势照片</span>
 			<span class="value">
@@ -461,7 +461,7 @@ export default {
 				alipayNum:_this.form.alipayNum,
 				wechartNum:_this.form.wechartNum,
 				idCard:_this.form.idCard,
-				idCardPic:_this.form.idCardPic,
+				/* idCardPic:_this.form.idCardPic, */
 				/* gesturePic:_this.form.gesturePic, */
 				securityPassword:_this.form.securityPassword,
 			}

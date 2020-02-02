@@ -26,10 +26,10 @@ export default {
 	created() {
 		let _this = this;
 		// 基于准备好的dom，初始化echarts实例 写在 mounted（）里面
-		this.$nextTick(() => { this.myEcharts() })
+		//this.$nextTick(() => { this.myEcharts() })
 	},
 	methods:{
-		myEcharts(){
+		/* myEcharts(){
 			let _this = this;
 			let myChart = _this.$echarts.init(document.getElementById("main"));
 			
@@ -63,7 +63,7 @@ export default {
 				}]
 			};
 			myChart.setOption(option);
-		}
+		} */
 	}
 }
 </script>

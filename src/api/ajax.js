@@ -21,8 +21,8 @@ export default {
 		})
 	},
 	ajax(url, method, params, doSuccess, doComplete) {
-		var _this = this;
-		$.ajax({
+		let _this = this;
+		let queryAjax = $.ajax({
 			url: url,
 			type: method,
 			timeout: 10000,
@@ -56,9 +56,10 @@ export default {
 				}
 				console.log('complete_status',status)
 				if(status=='timeout') {//超时,status还有success,error等值的情况
+					queryAjax.abort();
 					Dialog.alert({
 						title: '温馨提示',
-						message: '哎呦网络不好,请过会儿再试'
+						message: '哎呦,网络不稳定,请过会儿再试'
 					}).then(() => {
 						
 					});

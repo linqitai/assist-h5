@@ -911,7 +911,7 @@
 				//发送短信提示start
 				_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。";
 				_this.mobilePhone = _this.$route.query.mobilePhone;
-				_this.smsContent = `【HPC帮扶链】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看。`;
+				_this.smsContent = `【HPC帮扶链】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
 				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 				//发送短信提示end
 				_this.showSendSMSTipModel = true;
@@ -1229,6 +1229,7 @@
 				let _this = this;
 				_this.id = item.id;
 				console.log('lockTransactionBtn');
+				
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
@@ -1256,9 +1257,43 @@
 				  console.log('cancel');
 				});
 			},
+			cancelDeal4OverTime(){
+				let _this = this;
+				let params = {
+					id: _this.id,
+				}
+				_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						// let list = res.data.list;
+						if(res.data==101){
+							_this.$toast(res.message);//当前状态无法取消交易
+						}
+						if(res.data == 1){
+							Dialog.alert({
+							  title: '提示信息',
+							  confirmButtonText:'已经知晓',
+							  message: '由于您超时未付款，已超过付款时间，该买单已被系统自动取消！并因匹配后未付款而罚了0.2~0.5贡献值。'
+							}).then(() => {
+							  // on confirm
+							  console.log('sure');
+							  
+							}).catch(() => {
+							  // on cancel
+							  console.log('cancel');
+							});
+							_this.onLoad2();
+						}
+					}
+				})
+			},
 			cancelBuyBillBtn(item){
 				let _this = this;
 				_this.id = item.id;
+				if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+					_this.cancelDeal4OverTime();
+					return;
+				}
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
@@ -1424,34 +1459,7 @@
 					})
 				}else if(bs=='buy'){
 					if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
-						let params = {
-							id: _this.id,
-							/* userId: _this.userId */
-						}
-						_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
-							// console.log('res', res);
-							if (res.code == _this.$api.CODE_OK) {
-								// let list = res.data.list;
-								if(res.data==101){
-									_this.$toast(res.message);//当前状态无法取消交易
-								}
-								if(res.data == 1){
-									Dialog.alert({
-									  title: '提示信息',
-									  confirmButtonText:'已经知晓',
-									  message: '由于您超时未付款，已超过付款时间，该买单已被系统自动取消！并因锁定交易后未付款而减了0.2~0.5贡献值。'
-									}).then(() => {
-									  // on confirm
-									  console.log('sure');
-									  
-									}).catch(() => {
-									  // on cancel
-									  console.log('cancel');
-									});
-									_this.onLoad2();
-								}
-							}
-						})
+						_this.cancelDeal4OverTime();
 						return;
 					}
 					let params = {

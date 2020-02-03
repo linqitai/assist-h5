@@ -337,8 +337,8 @@
 				  </div>
 			  </div>
 			  <van-field v-model="form4pickSellBill.price" disabled clearable label="单价"/>
-			  <van-field readonly clickable label="选择服务费" :value="serviceCharge" placeholder="请先选择服务费" @click="showPicker4ServiceChargePopup = true" @blur="validate4pickSellBill('serviceCharge')" :error-message="errorInfo4pickSellBill.serviceCharge"/>
-			  
+			  <van-field readonly clickable label="服务费" :value="serviceCharge"/>
+			  <!-- <van-field readonly clickable label="选择服务费" :value="serviceCharge" placeholder="请先选择服务费" @click="showPicker4ServiceChargePopup = true" @blur="validate4pickSellBill('serviceCharge')" :error-message="errorInfo4pickSellBill.serviceCharge"/>
 			  <van-popup v-model="showPicker4ServiceChargePopup" position="bottom">
 			    <van-picker
 			      show-toolbar
@@ -346,11 +346,11 @@
 			      @cancel="showPicker4ServiceChargePopup = false"
 			      @confirm="onConfirm4ServiceCharge"
 			    />
-			  </van-popup>
+			  </van-popup> -->
 			  <van-field required v-model="form4pickSellBill.safePassword" type="password" clearable label="安全密码" @blur="validate4pickSellBill('safePassword')" :error-message="errorInfo4pickSellBill.safePassword" placeholder="请填写安全密码"/>
 		  </van-cell-group>
 		  <div class="sureAppointBtnBox">
-			  <div class="modelTipText">系统提示：卖出匹配是随机的，最新挂买的前16单会优先被匹配。</div>
+			  <div class="modelTipText">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div>
 			  <div class="placeholderLine10"></div>
 			  <van-button @click="sureHangPickedSellBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="sellBtnLoading" loading-type="spinner">确 认</van-button>
 		  </div>
@@ -364,11 +364,11 @@
 				</div> -->
 				<van-cell-group>
 				<van-field v-model="userInfo.canBuyNum" label="我的限购数量" disabled right-icon="question-o" @click-right-icon="alertTip(clickIconTip.buyAmount)"/>
-				<van-field v-model="form4BuyBill.buyAmount" required clearable label="想买数量" right-icon="question-o" placeholder="请填写想要买入的数量"
+				<van-field v-model="form4BuyBill.buyAmount" required clearable label="想买数量" right-icon="question-o" placeholder="请填写想要买入的总数量"
 				  @click-right-icon="alertTip(clickIconTip.buyAmount)"
 				  @blur="validate4BuyBill('buyAmount')"
 				  :error-message="errorInfo4BuyBill.buyAmount"/>
-				<van-field v-model="form4BuyBill.buyLowestAmount" required clearable label="最低匹配数量" right-icon="question-o" placeholder="请填写单次买入的最低数量"
+				<van-field v-model="form4BuyBill.buyLowestAmount" required clearable label="最低匹配数量" right-icon="question-o" placeholder="请填写允许被匹配的最低数量"
 				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
 				@blur="validate4BuyBill('buyLowestAmount')"
 				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
@@ -482,7 +482,7 @@ export default {
 				buyLowestAmount:"",
 				safePassword:"",
 			},
-			serviceCharge:'20%矿石',
+			serviceCharge:'',
 			//挂所选择的卖单
 			form4pickSellBill:{
 				sellAmountSliderValue:1,
@@ -542,7 +542,7 @@ export default {
 			userIdSellBillCount:0,
 			loading: true,
 			canBuyNum:2000,
-			columns4ServiceCharge: [{id:0,text:'20%矿石'},{id:1,text:'10%矿石+10%帮扶券'}],
+			columns4ServiceCharge: [],
 			showPicker4ServiceChargePopup: false,
 			platformTicket:0,
 			buyAndSellInfo:{},
@@ -580,7 +580,7 @@ export default {
 			let _this = this;
 			let num = 0
 			if(_this.form4pickSellBill.serviceCharge==0){
-				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue*1.2;
+				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue*(1.0+_this.dealPageInfo.dealRatio);
 			}else{
 				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue*1.1;
 			}
@@ -597,7 +597,7 @@ export default {
 				if(num<0){
 					alert('系统提示：对不起，您的帮扶券不够，请选择矿石做服务费');
 					_this.form4pickSellBill.serviceCharge = 0;
-					_this.serviceCharge = "20%矿石";
+					_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`;
 					num = _this.platformTicket;
 					return num;
 				}
@@ -717,6 +717,8 @@ export default {
 			}
 			if(_this.$cookies.get('dealPageInfo')){
 				_this.dealPageInfo = _this.$cookies.get('dealPageInfo');
+				_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`;
+				_this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}];
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 			}else{
 				_this.getDealPageInfo();
@@ -759,6 +761,8 @@ export default {
 				console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
+					_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`;
+					_this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}];
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 					_this.$cookies.set("dealPageInfo",_this.dealPageInfo, 60 * 30 * 1);
 				}
@@ -785,7 +789,6 @@ export default {
 					}else{
 						localStorage.setItem("LIST1",JSON.stringify(_this.list1));
 					}
-					
 				}
 			})
 		},
@@ -861,12 +864,13 @@ export default {
 			let myContributionValue = _this.userInfo.contributionValue;
 			let myMineralNum = _this.userInfo.thisWeekMineral;
 			let myMaxCanSellNum = 0;
+			let ratio = _this.dealPageInfo.dealRatio;
 			if(_this.form4pickSellBill.serviceCharge==0){
-				if(myContributionValue<=myMineralNum/1.2){
+				if(myContributionValue<=myMineralNum/(1.0 + ratio)){
 					myMaxCanSellNum = myContributionValue;
 				}
-				if(myContributionValue>=myMineralNum/1.2){
-					myMaxCanSellNum = myMineralNum/1.2;
+				if(myContributionValue>=myMineralNum/(1.0 + ratio)){
+					myMaxCanSellNum = myMineralNum/(1.0 + ratio);
 				}
 				console.log(myMaxCanSellNum,'myMaxCanSellNum');
 			}else if(_this.form4pickSellBill.serviceCharge==1){
@@ -898,8 +902,27 @@ export default {
 		},
 		//挂卖操作
 		sureHangPickedSellBillBtn(){
-			console.log('sureHangPickedSellBillBtn');
 			let _this = this;
+			console.log('sureHangPickedSellBillBtn');
+			//挂卖之前先判断时间
+			if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '交易时间是9~21点，请明天再来'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '交易时间是9~21点，请到点再来'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
 			let params = {
 				/* sellerId:_this.userInfo.userId, */
 				serviceCharge:_this.form4pickSellBill.serviceCharge,
@@ -925,18 +948,7 @@ export default {
 				_this.$toast('请按要求填写信息');
 				return;
 			}
-			// if(_this.userInfo.temporaryFreezeMineral>0||_this.userInfo.temporaryFreezeContribution>0){
-			// 	_this.$toast('对不起，您还有交易未完成，请先完成现有交易');
-			// 	_this.$cookies.set("tabName4MyDeal", "dealing", 60 * 60 * 1)
-			// 	_this.$router.push('myDeal');
-			// 	return;
-			// }
-			/* let serviceChargeRatio = 1.2;
-			let serviceCharge = params.serviceCharge;
-			if(serviceCharge==1){
-				serviceChargeRatio = 1.1;
-			}
-			let leaveNum = _this.userInfo.thisWeekMineral - params.num*serviceChargeRatio; */
+			
 			console.log("_this.remainMineral",_this.remainMineral);
 			if(_this.remainMineral<2.0){
 				Dialog.alert({
@@ -1102,6 +1114,19 @@ export default {
 				safePassword:_this.form4BuyBill.safePassword
 			}
 			console.log('params',params);
+			console.log('_this.form4BuyBill.buyAmount',_this.form4BuyBill.buyAmount);
+			console.log('_this.form4BuyBill.buyLowestAmount',_this.form4BuyBill.buyLowestAmount);
+			console.log('_this.form4BuyBill.buyAmount<_this.form4BuyBill.buyLowestAmount',_this.form4BuyBill.buyAmount<_this.form4BuyBill.buyLowestAmount);
+			if(_this.form4BuyBill.buyAmount<_this.form4BuyBill.buyLowestAmount){
+				// _this.$toast('想买数量和最低匹配数量填写反了');
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '想买数量和最低匹配数量填写反了'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
 			if(_this.$utils.hasNull(params)){
 				_this.$toast('请填写完整信息');
 				return;
@@ -1127,7 +1152,7 @@ export default {
 					}else if(res.code == 2003){
 						Dialog.alert({
 						  title: '系统提示',
-						  message: '同一价格每人只能挂一单买单，前去查看您所挂的买单？'
+						  message: '同一价格每人只能挂一单，前去查看您所挂的买单？'
 						}).then(() => {
 						  // on close
 						  _this.$cookies.set("tabName4MyDeal", "buy", 60 * 60 * 1)

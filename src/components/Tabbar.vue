@@ -14,9 +14,9 @@
 <template>
   <van-tabbar v-model="active" inactive-color="#ffffff">
     <van-tabbar-item icon="home-o" replace to="/home">首页</van-tabbar-item>
-    <van-tabbar-item icon="coupon-o" replace to="/mill">矿机</van-tabbar-item>
+    <van-tabbar-item icon="coupon-o" replace to="/mill">矿机商城</van-tabbar-item>
 	<!-- <van-tabbar-item icon="shop-o" replace to="/shop">小店</van-tabbar-item> -->
-    <van-tabbar-item icon="after-sale" replace to="/deal">市场</van-tabbar-item>
+    <van-tabbar-item icon="after-sale" replace to="/deal">交易市场</van-tabbar-item>
     <van-tabbar-item icon="contact" replace to="/my">我的</van-tabbar-item>
   </van-tabbar>
 </template>

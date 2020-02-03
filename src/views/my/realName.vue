@@ -193,7 +193,7 @@
 		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
 		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="20"
 		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
-		<!-- <div class="line">
+		<div class="line">
 			<span class="label">身份证正面照片</span>
 			<span class="text" @click="showExamplePic">点击查看模板</span>
 			<span class="value">
@@ -203,7 +203,7 @@
 		</div>
 		<div class="line" v-if="form.idCardPic">
 			<img class="selectedImg" :src="form.idCardPic"/>
-		</div> -->
+		</div> 
 		<!-- <div class="line">
 			<span class="label">手势照片</span>
 			<span class="value">
@@ -346,7 +346,7 @@ export default {
 			let _this = this;
 			_this.$ajax.ajax(_this.$api.getAssistUserInfoPicByUserId, 'GET', null, function(res){
 				if(res.code == _this.$api.CODE_OK){
-					// _this.form.idCardPic = res.data.idCardPic;
+					_this.form.idCardPic = res.data.idCardPic;
 					// _this.form.gesturePic = res.data.gesturePic;
 					_this.form = res.data;
 					console.log("form",_this.form);
@@ -396,10 +396,7 @@ export default {
 				console.log(result.length / 1024);
 				// _this.toast.message = `未压缩前的图片大小 ${result.length / 1024} KB`;
 				img.onload = function() {
-					let data = _this.compress(img, 0.1);//调整压缩比例
-					console.log('*******压缩后的图片大小(KB)*******');
-					console.log(data.length / 1024);
-					console.log('_this.uploadType',_this.uploadType);
+					let data = _this.$utils.compress(img, 0.3);//调整压缩比例
 					if(_this.uploadType == "idCardPic"){
 						_this.form.idCardPic = data;
 						// console.log("idcardpic",_this.form.idCardPic)
@@ -409,23 +406,6 @@ export default {
 				}
 			  }
 			}
-		},
-		// 压缩图片
-		compress(img, size) {
-			let canvas = document.createElement('canvas');
-			let ctx = canvas.getContext('2d');
-			let initSize = img.src.length;
-			let width = img.width;
-			let height = img.height;
-			canvas.width = width;
-			canvas.height = height;
-			// 铺底色
-			ctx.fillStyle = '#fff';
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
-			ctx.drawImage(img, 0, 0, width, height);
-			//进行最小压缩
-			let ndata = canvas.toDataURL('image/jpeg', size);
-			return ndata;
 		},
 		showExamplePic(){
 			this.showIdCardPicExmple = true;
@@ -461,7 +441,7 @@ export default {
 				alipayNum:_this.form.alipayNum,
 				wechartNum:_this.form.wechartNum,
 				idCard:_this.form.idCard,
-				/* idCardPic:_this.form.idCardPic, */
+				idCardPic:_this.form.idCardPic,
 				/* gesturePic:_this.form.gesturePic, */
 				securityPassword:_this.form.securityPassword,
 			}
@@ -488,7 +468,7 @@ export default {
 					if(res.code == _this.$api.CODE_OK){
 						Dialog.alert({
 						  title: '系统提示',
-						  message: res.message
+						  message: _this.$api.checkTip
 						}).then(() => {
 						  // on close
 						  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);

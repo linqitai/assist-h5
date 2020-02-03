@@ -240,7 +240,7 @@
 						<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
 						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
 					</div>
-					<div class="line">个人限购数量 {{userInfo.canBuyNum}}</div>
+					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
 				</div>
 			</div>
@@ -376,6 +376,30 @@
 					</router-link>
 				</div>
 			</div>
+			<div class="items">
+				<router-link to="transferMineral">
+					<div class="my-cell">
+						<div class="flex1">
+							定向转让矿石
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+			</div>
+			<div class="items" v-if="userInfo.isAgent>3">
+				<router-link to="transferTicket">
+					<div class="my-cell">
+						<div class="flex1">
+							定向转让帮扶券
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+			</div>
 			<div class="items" v-if="userInfo.isAgent>0">
 				<router-link to="myCheck">
 					<div class="my-cell">
@@ -397,7 +421,7 @@
 						</div>
 					</div>
 				</router-link>
-				<router-link to="transferMineral">
+				<!-- <router-link to="transferMineral">
 					<div class="my-cell">
 						<div class="flex1">
 							定向转让矿石
@@ -406,7 +430,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link>
+				</router-link> -->
 				<router-link to="transferTicket">
 					<div class="my-cell">
 						<div class="flex1">
@@ -524,15 +548,17 @@
 				console.log(val);
 				let message = '';
 				if(val=='mineral'){
-					message = '矿石：您当前所能用来流通的矿石。获得途径为矿机产出或者买入。卖出的时候要额外收10%或20%的服务费，比如卖100个矿石要花110或120个矿石，所收服务费的矿石全部销毁，不再它用。';
+					message = '矿石：您当前所能用来流通的矿石。卖出的时候要额外收20%的服务费，比如卖100个矿石要花110或120个矿石，所收服务费的矿石全部销毁，不再它用。获得途径：矿机产出、买入。';
 				}else if(val=='platformTicket'){
-					message = '帮扶券：可用于卖出的时候当服务费、可用于修改个人信息、可用于参与爱心帮扶的众筹而获得贡献值，后续还会有其他用处......。如何获取帮扶券？从省市代理那儿购买。';
+					message = '帮扶券：可用于卖出的时候当服务费、可用于修改个人信息、可用于参与爱心帮扶的众筹而获得贡献值，后续还会有其他用处......。获取途径：从省市代理那儿购买。';
 				}else if(val=='contribution'){
-					message = '贡献值：您有多少点贡献值决定您可卖出的矿石数量，比例为1:1，比如您卖100个矿石要使用100点贡献值。';
+					message = '贡献值：您有多少点贡献值决定您可卖出的矿石数量，比例为1:1，比如您卖100个矿石要使用100点贡献值。获取途径：签到、买入矿石、自己复投矿机、直推复投矿机、捐赠帮扶券。';
 				}else if(val=='teamCalculationPower'){
 					message = '团队算力：您的个人算力+您所有直推的个人算力。只计算到上下两级，它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
 				}else if(val=='myCalculationPower'){
 					message = '我的算力：由您个人所拥有的矿机所决定。';
+				}else if(val=='limitBuyNum'){
+					message = '个人限购数量=2000+(卖出数量-买入数量)';
 				}
 				Dialog.alert({
 				  title: '温馨提示',

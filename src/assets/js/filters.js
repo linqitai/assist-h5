@@ -232,7 +232,7 @@ function serviceChargeType(val){
 	return serviceChargeOptions[val].value;
 }
 
-const agentOptions = [{id:0,value:''},{id:1,value:'省代理'},{id:2,value:'市代理'},{id:3,value:'客服'}];
+const agentOptions = config.agentOptions;
 function agentType(val){
 	return agentOptions[val].value;
 }

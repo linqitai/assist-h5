@@ -89,7 +89,7 @@
 					{{$route.name}}
 				</div>
 				<div class="rightBox">
-					<i class="iconfont iconfont-question icon" v-if="$route.meta.question" @click="showTip('deal')"></i>
+					<i class="iconfont iconfont-question icon" v-if="$route.meta.question" @click="showTip($route.meta.questionName)"></i>
 				</div>
 			</div>
 			<div class="body">
@@ -103,7 +103,7 @@
 			<div class="footer" v-if="$route.meta.footer">
 				<m-tabbar></m-tabbar>
 			</div>
-			<van-dialog v-model="showTipModel4Wrapper" title="提示小帮手" confirmButtonText="已晓得">
+			<van-dialog v-model="showDealTipModel" title="提示小帮手" confirmButtonText="已晓得">
 				<div class="paddingWing f-12 lineHeight textJustify tip4model2">
 					<div>
 						1.交易前，需先去完成'我的--任务中心'里的基础任务。
@@ -118,6 +118,14 @@
 					</div>
 				</div>
 			</van-dialog>
+			<van-dialog v-model="showMillTipModel" title="问题小帮手" confirmButtonText="好的">
+				<div class="paddingWing f-12 lineHeight tip4model2">
+					<div class="textIndent">
+						矿机商城里的矿机是限量的，每一批大型矿机被租赁完，就会减产，矿机商城中的矿机全部会换成新的一批减产后的矿机。
+					</div>
+					<div class="placeholderLine10"></div>
+				</div>
+			</van-dialog>
 		</div>
 	</div>
 </template>
@@ -130,7 +138,8 @@ export default {
 	},
 	data() {
 		return {
-			showTipModel4Wrapper:false,
+			showDealTipModel:false,
+			showMillTipModel:false,
 			fullscreen:false,
 			phoneType:"",
 			is2883:"",
@@ -179,9 +188,10 @@ export default {
 			//this.$router.push("lookBook");
 		},
 		showTip(type){
-			this.showTipModel4Wrapper = true;
 			if(type=="deal"){
-				
+				this.showDealTipModel = true;
+			}else if(type=="mill"){
+				this.showMillTipModel = true;
 			}
 		},
 		touchStart:function(ev) {

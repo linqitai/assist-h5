@@ -10,6 +10,7 @@ export default {
 	projectEnglishName:'HPC',
 	coinUnit:'矿石',
 	ticketName:'帮扶券',
+	checkTip:"实名信息已经提交成功,预计48小时内审核出结果,若需优先审核,请去首页找省市代理或者客服,提供注册手机号即可",
 	welcomeText:"欢迎来到HPC帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。",
 	bsTip:'为了提高户提体验，建议在浏览器中打开该页面。推荐使用:百度、UC、谷歌浏览器',
 	HOST_IMG: hostImg,
@@ -21,12 +22,12 @@ export default {
 	CODE_ERROR: 500, //未实名认证
 	CODE_OFTEN: 500, //请求太频繁提示
 	CODE_registered: 501, //已注册
-	DATA_102:'系统提示:您所拥有的矿石不够租赁此矿机',
-	DATA_101:'系统提示:您所拥有的此类矿机已经超过限购数量',
-	DATA_100:'系统提示:此类矿机已经售空',
-	DATA_LEVEL:'系统提示:您尚未达到领取此奖励的等级',
-	DATA_ISGET:'系统提示:您已经领取过奖励',
-	DATA_NOTGET:'系统提示:您尚未达到领取该奖励的条件',
+	DATA_102:'您所拥有的矿石不够租赁此矿机',
+	DATA_101:'您所拥有的此类矿机已经超过限购数量',
+	DATA_100:'此类矿机已经售空',
+	DATA_LEVEL:'您尚未达到领取此奖励的等级',
+	DATA_ISGET:'您已经领取过奖励',
+	DATA_NOTGET:'您尚未达到领取该奖励的条件',
 	domainName: domainName,
 	hostIPPort: hostIPPort,
 	getTestURL: host + '/user/1',
@@ -53,6 +54,7 @@ export default {
 	getAssistUserInfoByPath: host + "assist/userInfo/getAssistUserInfoByPath/",
 	getAssistUserInfoByBD: host + "assist/userInfo/getAssistUserInfoByBD/",
 	getAssistUserInfoByObj: host + "assist/userInfo/getAssistUserInfoByObj",
+	getAdminUserPageList: host + "assist/user/getAdminUserPageList",
 	//公告
 	getNoticeList: host + 'assist/notice/getNoticeList',
 	getNoticePageList: host + "assist/notice/getNoticePageList",
@@ -148,4 +150,5 @@ export default {
 	getSecurityCodeByPhone: host + "assist/securitycode/getSecurityCodeByPhone",
 	//parameterInfo
 	getAssistMaintainInfo: host + "assist/parameter/getAssistMaintainInfo",
+	getAssistQQFlock: host + "assist/parameter/getAssistQQFlock"
 }

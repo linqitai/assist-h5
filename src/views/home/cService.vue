@@ -5,6 +5,11 @@
 	.cServiceContent{
 		color: $mainTextColor;
 		padding: $boxPadding2;
+		.title{
+			font-size: 14px;
+			font-weight: bold;
+			color: $main-adorn-color;
+		}
 		.copy{
 			font-size: $fs-12;
 			margin-right: 10px;
@@ -42,18 +47,25 @@
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="cServiceContent">
-			<div>QQ客服：</div>
-			<div class="placeholderLine8"></div>
+			<div class="title">官方QQ群：</div>
+			<div class="placeholderLine10"></div>
 			<div>
-				<b class="textBold">514917919</b><span class="copy margL10" @click="handleCopy('514917919',$event)">复制</span>
+				<b class="textBold">{{qqFlock}}</b><span class="copy margL10" @click="handleCopy(qqFlock,$event)">复制</span>
 			</div>
-			<div class="placeholderLine8"></div>
-			<div>
-				<b class="textBold">514917919</b><span class="copy margL10" @click="handleCopy('514917919',$event)">复制</span>
+			<div class="placeholderLine10"></div>
+			<div class="title">QQ客服：</div>
+			<div class="placeholderLine10"></div>
+			<div v-for="item in serviceList" :key="item.id">
+				<b class="textBold">{{item.remark}}QQ号：{{item.qq}}</b><span class="copy margL10" @click="handleCopy(item.qq,$event)">复制</span>
+				<div class="placeholderLine10"></div>
 			</div>
-			<div class="placeholderLine20"></div>
-			<div>微信客服：</div>
-			<div class="placeholderLine4"></div>
+			<div class="title">微信客服：</div>
+			<div class="placeholderLine10"></div>
+			<div v-for="item in serviceList" :key="item.id+20">
+				<b class="textBold">{{item.remark}}微信号：{{item.weiChart}}</b><span class="copy margL10" @click="handleCopy(item.weiChart,$event)">复制</span>
+				<div class="placeholderLine10"></div>
+			</div>
+			<!-- <div class="placeholderLine4"></div>
 			<van-row gutter="10">
 			  <van-col span="12">
 				  <div class="cateInfo">
@@ -71,7 +83,7 @@
 				  	</div>
 				  </div>
 			  </van-col>
-			</van-row>
+			</van-row> -->
 		</div>
 	</div>
 </template>
@@ -86,12 +98,21 @@
 		},
 		data() {
 			return {
-				
+				serviceList:[],
+				qqList:[],
+				wxList:[],
+				qqFlock:''
 			}
 		},
 		mounted() {
 			let _this = this;
-			
+			_this.getAdminUserPageList();
+			let qqFlock = _this.$cookies.get('qqFlock');
+			if(qqFlock){
+				_this.qqFlock = qqFlock;
+			}else{
+				_this.getAssistQQFlock();
+			}
 		},
 		methods: {
 			back(){
@@ -102,6 +123,40 @@
 				clip(text,event,function(res){
 					_this.$toast(`复制成功`);
 				});
+			},
+			getAdminUserPageList(){
+				let _this = this;
+				var params = {
+					pageNo: 1,
+					pageSize: 20,
+				}
+				_this.$ajax.ajax(_this.$api.getAdminUserPageList, 'GET', params, function(res) {
+					console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) { // 200
+						_this.serviceList = res.data.list;
+						// let qqList = [];
+						// let wxList = [];
+						// _this.serviceList.forEach((item)=>{
+						// 	let newItem = {id:item.id,qq:item.qq}
+						// 	qqList.push(newItem);
+						// 	_this.qqList = qqList;
+						// 	let newItem2 = {id:item.id+20,weiChart:item.weiChart}
+						// 	wxList.push(newItem2);
+						// 	_this.wxList = wxList;
+						// })
+						// console.log('qqList',qqList);
+						// console.log('wxList',wxList);
+					}
+				})
+			},
+			getAssistQQFlock(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getAssistQQFlock, 'POST', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) { // 200
+						_this.qqFlock = res.data.qqFlock;
+						_this.$cookies.set('qqFlock',res.data.qqFlock,_this.$api.cookiesTime);
+					}
+				})
 			},
 		}
 	}

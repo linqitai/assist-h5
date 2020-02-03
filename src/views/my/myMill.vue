@@ -271,7 +271,7 @@
 	  <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 	  	<div class="paddingWing f-12 lineHeight tip4model2">
 	  		<div class="textIndent">
-	  			参与内排注册所赠送的矿机和建群任务达标后所赠送的矿机，运行前需先升级用户等级(升级规则在'我的--任务中心'里)；体验矿机和微型矿机除外。
+	  			完成【我的--任务中心】里的任务后所奖励(赠送)的矿机不加算力，只有从矿机商城中所租赁的矿机才加算力。
 	  		</div>
 	  	</div>
 	  </van-dialog>

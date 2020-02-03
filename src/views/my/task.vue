@@ -88,7 +88,7 @@
 		<div class="box finishInfo" @click="toView('info')">
 			<div class="flexLeft">
 				<div class="line title">
-					基础任务 实名认证
+					基础任务1 实名认证
 				</div>
 				<div class="line text margT10">
 					认证后可获得如下权益<br>
@@ -107,7 +107,7 @@
 		<div class="box finishInfo" @click="toView('buyMill')">
 			<div class="flexLeft">
 				<div class="line title">
-					基础任务 租赁矿机
+					基础任务2 租赁矿机
 				</div>
 				<div class="line text margT10">
 					第二次租赁矿机<br>
@@ -123,7 +123,7 @@
 		<div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
-					进阶任务 分享
+					进阶任务1 分享
 				</div>
 				<div class="line text margT10">
 					分享10名实名认证通过的会员且完成基础任务<br>
@@ -140,7 +140,7 @@
 		<div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
-					进阶任务 建群
+					进阶任务2 建群
 				</div>
 				<div class="line text margT10">
 					建立帮扶链工会群<br>
@@ -157,7 +157,7 @@
 		<div class="box share">
 			<div class="flexLeft" @click="toView('deal')">
 				<div class="line title">
-					进阶任务 收购矿石
+					进阶任务3 收购矿石
 				</div>
 				<div class="line text margT10">
 					需要：<br>
@@ -202,7 +202,7 @@
 		<div class="box level">
 			<div class="flexLeft">
 				<div class="line title">
-					升级任务 Ⅰ
+					升级任务1
 				</div>
 				<div class="line text margT10">
 					成为青铜级工会会长<br>
@@ -222,7 +222,7 @@
 		<div class="box level">
 			<div class="flexLeft">
 				<div class="line title">
-					升级任务 Ⅱ
+					升级任务2
 				</div>
 				<div class="line text margT10">
 					成为白银级工会会长<br>
@@ -242,7 +242,7 @@
 		<div class="box level">
 			<div class="flexLeft">
 				<div class="line title">
-					升级任务 Ⅲ
+					升级任务3
 				</div>
 				<div class="line text margT10">
 					成为黄金级工会会长<br>
@@ -263,7 +263,7 @@
 		<div class="box level">
 			<div class="flexLeft">
 				<div class="line title">
-					升级任务 Ⅳ
+					升级任务4
 				</div>
 				<div class="line text margT10">
 					成为铂金级工会会长<br>
@@ -284,7 +284,7 @@
 		<div class="box level">
 			<div class="flexLeft">
 				<div class="line title">
-					升级任务 Ⅴ
+					升级任务5
 				</div>
 				<div class="line text margT10">
 					成为砖石级工会会长<br>
@@ -409,11 +409,23 @@ export default {
 		getShareReword1(){
 			let _this = this;
 			if(_this.userInfo.isGetShareTask==1){
-				_this.$toast("系统提示：您已领取过该奖励");
+				// _this.$toast("您已领取过该奖励");
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您已领取过该奖励'
+				}).then(() => {
+				  // on close
+				});
 				return;
 			}
 			if(_this.userInfo.realnameNum<10){
-				_this.$toast("系统提示：您尚未达到领取该奖励的标准");
+				// _this.$toast("您尚未达到领取该奖励的标准");
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您尚未达到领取该奖励的标准'
+				}).then(() => {
+				  // on close
+				});
 				return;
 			}
 			_this.$ajax.ajax(_this.$api.getShareReword, 'POST', null, function(res){
@@ -436,11 +448,21 @@ export default {
 		getBuyIn10MineralReword(){
 			let _this = this;
 			if(_this.userInfo.isGetBuy==1){
-				_this.$toast("系统提示：您已领取过该奖励");
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您已领取过该奖励'
+				}).then(() => {
+				  // on close
+				});
 				return;
 			}
 			if(_this.userInfo.buyAmount<10){
-				_this.$toast("系统提示：您尚未达到领取该奖励的标准");
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您尚未达到领取该奖励的标准'
+				}).then(() => {
+				  // on close
+				});
 				return;
 			}
 			_this.$ajax.ajax(_this.$api.getAssistBuyMineralReward, 'POST', null, function(res){
@@ -465,71 +487,161 @@ export default {
 			console.log("_this.userInfo",_this.userInfo);
 			if(level==1){
 				if(_this.userInfo.calculationPower<10){
-					_this.$toast(_this.$api.DATA_NOTGET);
+					// _this.$toast();
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_NOTGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.level<1){
-					_this.$toast(_this.$api.DATA_LEVEL);
+					// _this.$toast();
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_LEVEL
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.isGetOneLevelTask){
-					_this.$toast(_this.$api.DATA_ISGET);
+					// _this.$toast(_this.$api.DATA_ISGET);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_ISGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				// url = _this.$api.getAssistRewardOneLevelByUserId;
 			}else if(level==2){
 				if(_this.userInfo.calculationPower<100){
-					_this.$toast(_this.$api.DATA_NOTGET);
+					// _this.$toast(_this.$api.DATA_NOTGET);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_NOTGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.level<2){
-					_this.$toast(_this.$api.DATA_LEVEL);
+					// _this.$toast(_this.$api.DATA_LEVEL);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_LEVEL
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.isGetTwoLevelTask){
-					_this.$toast(_this.$api.DATA_ISGET);
+					// _this.$toast(_this.$api.DATA_ISGET);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_ISGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				// url = _this.$api.getAssistRewardTwoLevelByUserId;
 			}else if(level==3){
 				if(_this.userInfo.calculationPower<500){
-					_this.$toast(_this.$api.DATA_NOTGET);
+					// _this.$toast(_this.$api.DATA_NOTGET);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_NOTGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.level<3){
-					_this.$toast(_this.$api.DATA_LEVEL);
+					// _this.$toast(_this.$api.DATA_LEVEL);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_LEVEL
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.isGetThreeLevelTask){
 					_this.$toast(_this.$api.DATA_ISGET);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_ISGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				// url = _this.$api.getAssistRewardThreeLevelByUserId;
 			}else if(level==4){
 				if(_this.userInfo.calculationPower<2000){
-					_this.$toast(_this.$api.DATA_NOTGET);
+					// _this.$toast(_this.$api.DATA_NOTGET);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_NOTGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.level<4){
-					_this.$toast(_this.$api.DATA_LEVEL);
+					// _this.$toast(_this.$api.DATA_LEVEL);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_LEVEL
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.isGetFourLevelTask){
-					_this.$toast(_this.$api.DATA_ISGET);
+					// _this.$toast(_this.$api.DATA_ISGET);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_ISGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				// url = _this.$api.getAssistRewardFourLevelByUserId;
 			}else if(level==5){
 				if(_this.userInfo.calculationPower<10000){
-					_this.$toast(_this.$api.DATA_NOTGET);
+					// _this.$toast(_this.$api.DATA_NOTGET);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_NOTGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.level<5){
-					_this.$toast(_this.$api.DATA_LEVEL);
+					// _this.$toast(_this.$api.DATA_LEVEL);
+					Dialog.alert({
+					  title: '系统提示',
+					  // message: _this.$api.DATA_LEVEL
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				if(_this.userInfo.isGetFiveLevelTask){
-					_this.$toast(_this.$api.DATA_ISGET);
+					// _this.$toast(_this.$api.DATA_ISGET);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.DATA_ISGET
+					}).then(() => {
+					  // on close
+					});
 					return;
 				}
 				// url = _this.$api.getAssistRewardFiveLevelByUserId;

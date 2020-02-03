@@ -127,6 +127,15 @@ function getDate(t) {
   return y + '/' + (m < 10 ? '0' + m : m) + '/' + (d < 10 ? '0' + d : d);
 }
 
+// 获取时分秒
+function getTimeHMS(t) {
+  var time = new Date(t)
+  var h = time.getHours()
+  var mm = time.getMinutes()
+  var s = time.getSeconds()
+  return (h < 10 ? '0' + h : h) + ':' + (mm < 10 ? '0' + mm : mm) + ':' + (s < 10 ? '0' + s : s)
+}
+
 // 获取时间戳
 function getTime(t) {
   var time = new Date(t)
@@ -309,6 +318,7 @@ export default {
 	delCookie,
 	getDateTime,
 	getTime,
+	getTimeHMS,
 	getDate,
 	compress,
 	find,

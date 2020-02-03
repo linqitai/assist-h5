@@ -161,13 +161,13 @@
 </style>
 <template>
 	<div class="millPage">
-		<m-header>
+		<!-- <m-header>
 			<i class="leftBox"></i>
 			<div class="text">
 				矿机商城
 			</div>
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
-		</m-header>
+		</m-header> -->
 		<div class="millContent">
 			<van-pull-refresh v-model="loading" @refresh="getMillShopList">
 				<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">

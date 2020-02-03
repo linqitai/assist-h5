@@ -80,15 +80,15 @@ export default new Router({
 				},
 				{
 					path: '/mill',
-					name: '矿机',
+					name: '矿机商城',
 					component: resolve => require(['./views/mill/mill'],resolve),
-					meta:{footer:true},
+					meta:{footer:true,question:true,questionName:'mill'},
 				},
 				{
 					path: '/deal',
-					name: '市场',
+					name: '交易市场',
 					component: resolve => require(['./views/deal/deal'],resolve),
-					meta:{footer:true,question:true,showRecordIcon:true},
+					meta:{footer:true,question:true,questionName:'deal',showRecordIcon:true},
 					// children:[
 					// 	{
 					// 		path: '/myDeal4Deal',

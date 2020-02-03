@@ -427,7 +427,7 @@ $noticeHeight:40px;
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent" v-if="$route.meta.footer">
 			<div class="HomeContent">
 				<div class="swipe">
-					<van-swipe :autoplay="3000" style="height: 200px;">
+					<van-swipe :autoplay="3000" style="height: 190px;">
 					  <van-swipe-item v-for="(item, index) in noticeList4Swipe" :key="index">
 						<img :src="item.imgUrl" />
 					  </van-swipe-item>
@@ -439,7 +439,8 @@ $noticeHeight:40px;
 					</van-swipe> -->
 				</div>
 				<div class="notice">
-					<van-notice-bar :text="lastNoticeItem.noticeTitle" left-icon="volume-o" @click="toNoticeDetail(lastNoticeItem)" />
+					<!-- <van-notice-bar :text="lastNoticeItem.noticeTitle" left-icon="volume-o" @click="toNoticeDetail(lastNoticeItem)" /> -->
+					<van-notice-bar :text="qqFlock" left-icon="volume-o" @click="toServicePage"/>
 				</div>
 				<div class="millInfo">
 					<div class="infoBox">
@@ -603,6 +604,7 @@ $noticeHeight:40px;
 				},
 				canCirculateNum:0,
 				loading: true,
+				qqFlock:''
 			}
 		},
 		mounted() {
@@ -661,10 +663,28 @@ $noticeHeight:40px;
 			}else{
 				_this.getNoticeList4Swipe();
 			}
-			// _this.getMineralStatic();
+			let qqFlock = _this.$cookies.get('qqFlock');
+			if(qqFlock){
+				_this.qqFlock = `官方QQ群：${qqFlock}`;
+			}else{
+				_this.getAssistQQFlock();
+			}
 			// _this.getCanCirculateMineralNum();
 		},
 		methods: {
+			toServicePage(){
+				this.$router.push('cService');
+			},
+			getAssistQQFlock(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getAssistQQFlock, 'POST', null, function(res) {
+					console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) { // 200
+						_this.qqFlock = `官方QQ群：${res.data.qqFlock}`;
+						_this.$cookies.set('qqFlock',res.data.qqFlock,_this.$api.cookiesTime);
+					}
+				})
+			},
 			waiting(){
 				let _this = this;
 				/* _this.$toast("此功能正在努力建设中"); */

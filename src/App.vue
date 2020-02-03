@@ -61,6 +61,9 @@ export default {
 .van-sticky{
 	border-bottom: 1px solid $bottomLineColor;
 }
+.van-dialog__message{
+	padding: 24px 12px !important;
+}
 .welcomeText{
 	font-size: 14px;
 	line-height: 1.3em;

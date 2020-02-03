@@ -85,7 +85,7 @@
 					overflow:hidden; */
 				}
 				.copy{
-					font-size: $fs-10;
+					font-size: $fs-12;
 					margin-right: 10px;
 				}
 			}
@@ -194,7 +194,7 @@
 			<div class="flex2">
 				<div class="value">
 					<div class="f-12 blockAddress right" @click="handleCopy(userInfo.blockAddress,$event)">{{userInfo.blockAddress}}</div>
-					<!-- <span class="copy right" >复制</span> -->
+					<span class="copy right" @click="handleCopy(userInfo.blockAddress,$event)">复制</span>
 				</div>
 			</div>
 		</div>
@@ -430,7 +430,7 @@ export default {
 			if(val==-1){
 				return "您尚未实名认证";
 			}else if(val==0){
-				return "实名信息待审核中,预计48小时内审核完,若需优先审核,请去首页找省市代理，提供注册手机号即可";
+				return _this.$api.checkTip;
 			}else if(val==2){
 				console.log('_this.userInfo.remark',_this.userInfo.remark);
 				return "审核结果：" + _this.userInfo.remark;
@@ -439,7 +439,7 @@ export default {
 		handleCopy(text, event) {
 			let _this = this;
 			clip(text,event,function(res){
-				_this.$toast(`复制${res.text}成功`);
+				_this.$toast(`复制区块地址成功`);
 			});
 		},
 		logout(){

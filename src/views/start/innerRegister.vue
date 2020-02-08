@@ -10,7 +10,7 @@
 		left: 0;
 		right: 0;
 		overflow-y: scroll;
-		.van-cell__value,.van-cell__value--alone,.van-field__control{
+		/* .van-cell__value,.van-cell__value--alone,.van-field__control{
 			color: $mainTextColor !important;
 		}
 		.van-field__error-message{
@@ -18,7 +18,7 @@
 		}
 		.van-cell-group,.van-cell{
 			background-color: inherit !important;
-		}
+		} */
 		.van-cell{
 			color: $mainTextColor !important;
 			padding: 10px 0 !important;
@@ -76,10 +76,9 @@
 			<div class="tip4model3">
 				Tip：<br>
 				1.内排注册功能专为预打造团队的用户开放。<br>
-				2.参与内排注册的用户系统赠送微型矿机+小型矿机一台，该赠送的小型矿机需用户等级提升后才可启动。<br>
+				2.参与内排注册的用户系统赠送小型矿机一台，个人算力达到1G后方可启动该矿机。<br>
 				3.登录密码初始化为该注册手机号，未实名认证无修改密码权限，实名认证审核通过方可修改密码，请团队长们提醒到位。<br>
-				4.为了提高内排注册的质量，注册一名用户上级需使用0.1个帮扶券。<br>
-				5.该内排注册窗口只开放到2月29号。
+				4.为了提高内排注册的质量，内排注册功能暂时只为个人算力大于等于0.3G的用户使用。<br>
 			</div>
 		</div>
 	</div>
@@ -146,11 +145,11 @@
 			registerBtn(){
 				console.log('form',this.form);
 				let _this = this;
-				if(_this.userInfo.platformTicket<1&&_this.userInfo.isAgent<=0){
+				if(_this.userInfo.myCalculationPower<0.3){
 					Dialog.alert({
 						title: "系统提示",
 						confirmButtonText:'知道了',
-						message: "您的帮扶券不足1张，无法为他人内排"
+						message: "内排注册功能暂时只为个人算力大于等于0.3G的用户使用"
 					}).then(() => {
 					  // on confirm
 					})

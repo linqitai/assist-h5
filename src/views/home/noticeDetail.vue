@@ -1,26 +1,32 @@
-<style lang="scss">
+<style lang="scss" scoped>
 	@import '~@/assets/scss/index.scss';
-
+	
 	.noticeDetail {
 		@include page4Home();
 		color: $mainTextColor;
 		padding: 0 $boxPadding2;
 		box-sizing: border-box;
-		.title{
-			font-size: $fs-title;;
-			text-align: center;
-			line-height: 2em;
-			font-weight:bold;
+		.content{
+			font-size: 12px;
+			margin-top: 7px;
+			line-height: 1.2em;
+			letter-spacing: 1px;
+			text-align: justify;
+			color: $grayDark !important;
+			.ql-indent-1{
+				margin-top: 2px;
+			}
 		}
-		.line{
+		.detailTime{
 			overflow: hidden;
 			clear: both;
-			font-size: $fs-decorate;
+			font-size: 11px;
+			color: #c7c7c7 !important;
+			margin-bottom: 6px;
+			text-align: right;
 		}
-		.content{
-			font-size: $fs-content;
-			margin-top: 7px;
-			line-height: 1.3em;
+		[class*=van-hairline]::after {
+		    border: 0px solid transparent !important;
 		}
 	}
 </style>
@@ -33,12 +39,12 @@
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
-		<div class="noticeDetail">
-			<div class="title">
+		<div class="noticeDetail paddingWing">
+			<div class="title textCenter margT10">
 				{{obj.noticeTitle}}
 			</div>
-			<div class="content" v-if="obj.noticeContent" v-html="obj.noticeContent"/>
-			<div class="line textRight margT10">
+			<div class="content margT10" v-if="obj.noticeContent" v-html="obj.noticeContent"/>
+			<div class="detailTime margT10">
 				{{obj.createTime}}
 			</div>
 		</div>

@@ -24,11 +24,11 @@
 						font-size: 14px;
 						height:$itemInnerLine1Height;
 						line-height:$itemInnerLine1Height;
-						color: $mainTextColor;
+						color: $mainTextColor2;
 					}
 					.time{
 						font-size: 0.875rem;
-						color: $grayLight;
+						color: $grayDark;
 						// margin-top: 0.5rem;
 						height:$itemInnerLine1Height;
 						line-height:$itemInnerLine1Height;

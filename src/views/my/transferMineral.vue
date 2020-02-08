@@ -21,12 +21,12 @@
 		[class*=van-hairline]::after{
 			border: none !important;
 		}
-		.van-field__control{
+		/* .van-field__control{
 			color: $mainTextColor;
 		}
 		.van-cell,.van-cell-group{
 			background-color: inherit !important;
-		}
+		} */
 		.transferPage{
 			color: $mainTextColor;
 			margin-top: $headerHeight;
@@ -34,17 +34,17 @@
 			.van-field__label{
 				width: 70px !important;
 			}
-			.van-cell__value, .van-cell__value--alone, .van-field__control,.van-cell {
-			    color: #FFFFFF !important;
-			}
+			// .van-cell__value, .van-cell__value--alone, .van-field__control,.van-cell {
+			//     color: #FFFFFF !important;
+			// }
 			.myCell{
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 				border-bottom: 1px solid $main-bg-color;
-				.van-cell__value, .van-cell__value--alone, .van-field__control {
-				    color: #FFFFFF !important;
-				}
+				// .van-cell__value, .van-cell__value--alone, .van-field__control {
+				//     color: #FFFFFF !important;
+				// }
 				.flex{
 					flex: 1;
 					padding-left: 16px;
@@ -97,24 +97,14 @@
 			<div class="sureBtn">
 				<div class="paddingWing tip4model3">
 					点对点(定向)交易规则：<br>
-					1.服务费收20%矿石+1个帮扶券,省市代理除外<br>
-					2.交易需先完成【我的--任务中心】里的基础任务<br>
+					1.服务费收20%矿石<br>
+					2.完成【我的--任务中心】里的基础任务后即可开通定向转让矿石的权限<br>
 					3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石是用来复投矿机的
-				</div>	
+				</div>
 				<div class="placeholderLine4"></div>
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
 			</div>
 		</div>
-		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
-			<div class="paddingWing f-12 lineHeight tip4model2">
-				<div class="line text margT10">
-					点对点(定向)交易规则：<br>
-					1.服务费收20%矿石+1个帮扶券,省市代理除外<br>
-					2.交易需先完成【我的--任务中心】里的基础任务<br>
-					3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石是用来复投矿机的
-				</div>
-			</div>
-		</van-dialog>
 	</div>
 </template>
 <script>
@@ -249,10 +239,10 @@
 					_this.$toast('您的贡献值不够');
 					return;
 				}
-				if(_this.userInfo.platformTicket<1){
+				/* if(_this.userInfo.platformTicket<1){
 					_this.$toast('您的帮扶券不够');
 					return;
-				}
+				} */
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');
 					return;

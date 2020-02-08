@@ -25,22 +25,16 @@
 				align-content: center;
 				justify-content: center;
 			}
-			// [class*=van-hairline]::after{
-			// 	border: 0 solid transparent;
-			// }
-			.getMineral{
-				margin-top: $marginTop2;
-			}
 			.millList{
-				background-color: $main-box-color;
-				margin-top: $marginTop2;
+				background-color: $main-box-fh-bg-color;
+				color: $main-box-fh-text-color;
 				overflow: hidden;
 				height: 100%;
 				.item{
 					position: relative;
 					display: flex;
 					padding: $boxPadding2;
-					border-bottom:1px solid $main-bg-color;
+					border-bottom:1px solid $bottomLineColor;
 					align-items: center;
 					align-content: center;
 					justify-content: center;
@@ -87,7 +81,7 @@
 								height: $heightwidht;
 								// border-radius: $heightwidht;
 								background-color: $main-box-color;
-								color: $mainTextColor;
+								color: $main-adorn-color;
 								text-align: center;
 								line-height: $heightwidht;
 								font-size: 20px;
@@ -169,7 +163,7 @@
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header> -->
 		<div class="millContent">
-			<van-pull-refresh v-model="loading" @refresh="getMillShopList">
+			<van-pull-refresh v-model="loading" @refresh="onLoadMillShop">
 				<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
 					<div class="millList">
 						<div class="item" v-for="item in millShopList" :key="item.id">
@@ -295,8 +289,18 @@
 				_this.$router.replace('login');
 				return;
 			}
-			console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
-			_this.onLoadMillShop();
+			
+			if(_this.$cookies.get('HMSI')){
+				let millShopList = JSON.parse(localStorage.getItem('millShopList'));
+				if(millShopList){
+					_this.millShopList = millShopList;
+					_this.finishedMillShop = true;
+				}else{
+					_this.onLoadMillShop();
+				}
+			}else{
+				_this.onLoadMillShop();
+			}
 		},
 		methods: {
 			back() {
@@ -370,7 +374,7 @@
 						}).then(() => {
 						  // on close
 						  if(res.data==1){
-							  _this.getMillShopList();
+							  _this.onLoadMillShop();
 							  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 							  _this.$router.push('myMill');
 						  }
@@ -390,22 +394,6 @@
 					}
 				})
 			},
-			getMillShopList() {
-				let _this = this;
-				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
-					// console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data;
-						localStorage.setItem("millShopList",JSON.stringify(list));
-						_this.millShopList = list;
-					}
-				},function(){
-					_this.loading = false;
-					_this.loadingMillShop = false;
-					_this.finishedMillShop = true;
-				})
-			},
 			onLoadMillShop() {
 				let _this = this;
 				console.log("onLoadMillShop");
@@ -413,27 +401,20 @@
 				// let params = {
 				// 	versionNo: 1
 				// }
-				let millShopList = JSON.parse(localStorage.getItem('millShopList'));
-				if(millShopList){
-					_this.millShopList = millShopList;
-				}else{
-					_this.loading = true;
-					_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
-						// console.log('res', res);
-						if (res.code == _this.$api.CODE_OK) {
-							let list = res.data;
-							localStorage.setItem("millShopList",JSON.stringify(list));
-							_this.millShopList = list;
-						}
-					},function(){
-						_this.loading = false;
-						_this.loadingMillShop = false;
-						_this.finishedMillShop = true;
-					})
-				}
-				_this.loading = false;
-				_this.loadingMillShop = false;
-				_this.finishedMillShop = true;
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data;
+						localStorage.setItem("millShopList",JSON.stringify(list));
+						_this.$cookies.set("HMSI",1,_this.$api.cookiesTime)
+						_this.millShopList = list;
+					}
+				},function(){
+					_this.loading = false;
+					_this.loadingMillShop = false;
+					_this.finishedMillShop = true;
+				})
 			},
 			initializeTabActiveName() {
 				let _this = this;

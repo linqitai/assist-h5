@@ -27,11 +27,11 @@
 						font-size: 14px;
 						height:$itemInnerLine1Height;
 						line-height:$itemInnerLine1Height;
-						color: $mainTextColor;
+						color: $mainTextColor2;
 					}
 					.time{
 						font-size: 0.875rem;
-						color: $grayLight;
+						color: $grayDarker;
 						// margin-top: 0.5rem;
 						height:$itemInnerLine1Height;
 						line-height:$itemInnerLine1Height;
@@ -51,10 +51,12 @@
 						// line-height: $itemLRHeight;
 						font-size: 0.75rem;
 						display: inline-block;
+						color: $main-adorn-color;
 					}
 					.iconfont-right-arrow2{
 						display: inline-block;
 						font-size: 0.75rem;
+						color: $grayDark;
 					}
 				}
 			}

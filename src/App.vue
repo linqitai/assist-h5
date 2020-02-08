@@ -58,9 +58,6 @@ export default {
 .van-sticky--fixed{
 	top: $header-height !important;
 }
-.van-sticky{
-	border-bottom: 1px solid $bottomLineColor;
-}
 .van-dialog__message{
 	padding: 24px 12px !important;
 }
@@ -109,6 +106,7 @@ b{font-weight: bold;}
 	text-align: justify;
 }
 .mlBox{margin-left:10px;}
+.line1pxbgcolor{height: 1px;background-color: $bottomLineColor;}
 .placeholderLine1{height: 1px;}
 .placeholderLine{height: 4px;}
 .placeholderLine4{height: 4px;}
@@ -189,15 +187,15 @@ b{font-weight: bold;}
 	
 .van-pagination{
 	.van-pagination__item--active{
-		    color: #fff !important;
-		    background-color: $main-bg-color !important;
+		    color: $main-box-fh-text-color !important;
+		    background-color: $bottomLineColor !important;
 	}
 	.van-pagination__item {
-		color: $mainTextColor !important;
-		background-color: $main-box-color;
+		color: $bottomLineColor;
+		// background-color: $main-box-fh-bg-color;
 	}
 	.van-pagination__page-desc{
-		color: $mainTextColor !important;
+		color: $bottomLineColor !important;
 	}
 	[class*=van-hairline]::after {
 		border: 1px solid transparent !important;

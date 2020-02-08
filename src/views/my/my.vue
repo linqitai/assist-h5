@@ -1,6 +1,7 @@
 <style lang="scss">
 	// @import '@/assets/scss/variable.scss';
 	@import '~@/assets/scss/index.scss';
+	$main-box-color:#ffffff;
 	.myPage{
 		position: relative;
 		height: 100%;
@@ -13,11 +14,10 @@
 		.cateInfo {
 			display: flex;
 			width: 100%;
-			margin-top: $marginTop2;
 			// margin-left: $marginLeft;
 			// border-radius: $borderRadius;
-			background-color: $main-box-color;
-			color: $mainBorderColor;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			padding: 10px 0;
 		
 			.infoBox {
@@ -32,7 +32,7 @@
 						line-height: $iconBgWidth;
 						border-radius: $iconBgWidth/3;
 						margin: 0 auto;
-						color: white;
+						color: $main-box-fh-text-color;
 						font-size: 30px;
 					}
 		
@@ -68,10 +68,9 @@
 						background-color: #1aa034;
 					}
 				}
-		
 				.text {
 					margin-top: 0.375rem;
-					color: $mainTextColor;
+					color: $main-box-fh-text-color;
 				}
 			}
 		}
@@ -87,8 +86,8 @@
 		$avatorWidth:80px;
 		
 		.box1 {
-			// height: $avatorWidth+$boxPadding1;
-			margin-top: 2px;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			.flex {
 				&.flex1 {
 					flex: 0 0 70px;
@@ -98,9 +97,10 @@
 						height: $heightwidht;
 						border-radius: $heightwidht;
 						background-color: $main-blue-color;
+						color: $main-box-fh-text-color;
 						text-align: center;
 						line-height: $heightwidht;
-						font-size: 22px;
+						font-size: 16px;
 					}
 				}
 				&.flex2 {
@@ -109,7 +109,7 @@
 					display: flex;
 					flex-direction: column;
 					align-content: center;
-		
+					
 					.line1{
 						flex: 1;
 						line-height: 26px;
@@ -122,6 +122,7 @@
 		
 						.level {
 							background-color: $main-adorn-color;
+							color: $main-box-fh-text-color;
 							height: 20px;
 							line-height: 20px;
 							font-size: 11px;
@@ -140,7 +141,8 @@
 		}
 		
 		.box2 {
-			margin-top: $marginTop2;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			text-align: center;
 			.flex {
 				flex: 1;
@@ -155,7 +157,8 @@
 		}
 		
 		.box3 {
-			margin-top: $marginTop1;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			text-align: center;
 			.flex {
 				flex: 1;
@@ -168,28 +171,24 @@
 		}
 		
 		.items {
-			margin-top: $marginTop2;
-			background-color: $main-box-color;
-			padding-left: $boxPadding2;
-			padding-right: $boxPadding2;
-		
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			.my-cell {
 				height: 2.875rem;
 				line-height: 2.875rem;
-				color: $mainTextColor;
+				color: $main-box-fh-text-color;
 				font-size: 0.75rem;
-				border-bottom: 1px solid $mainBorderColor;
+				border-bottom: 1px solid $bottomLineColor;
 				display: flex;
-		
+				padding-left: $boxPadding2;
+				padding-right: $boxPadding2;
 				.flex1 {
 					flex: 1;
-					color: $mainTextColor;
+					color: $main-box-fh-text-color;
 				}
-		
 				.flex2 {
 					flex: 0 0 40px;
 					text-align: right;
-		
 					.iconfont-right-arrow2 {
 						font-size: 0.75rem;
 						color: $grayLight2;
@@ -244,11 +243,7 @@
 					<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
 				</div>
 			</div>
-			<!-- <div class="box">
-				<div class="line">
-					<div class="f-11">区块地址 {{userInfo.blockAddress}}</div>
-				</div>
-			</div> -->
+			<div class="line1pxbgcolor"></div>
 			<div class="box box2">
 				<div class="flex flex1">
 					<div class="value" @click="toBookView('1')">{{userInfo.teamCalculationPower}}</div>
@@ -270,11 +265,12 @@
 					<div class="text" @click="showTip('mineral')">矿石 <i class="iconfont iconfont-question"/></div>
 				</div>
 			</div>
+			<div class="line1pxbgcolor"></div>
 			<div class="box box3">
 				<div class="flex flex1">
 					<div>{{userInfo.myCalculationPower}}</div>
 					<!-- <NumberGrow :value="userInfo.myCalculationPower"></NumberGrow> -->
-					<div class="text" @click="showTip('myCalculationPower')">我的算力<br><i class="iconfont iconfont-question"/></div>
+					<div class="text" @click="showTip('myCalculationPower')">个人算力<br><i class="iconfont iconfont-question"/></div>
 				</div>
 				<div class="flex flex4">
 					<div>{{userInfo.temporaryFreezePlatformTicket}}</div>
@@ -292,6 +288,7 @@
 					<div class="text">交易中<br>矿石</div>
 				</div>
 			</div>
+			<div class="line1pxbgcolor"></div>
 			<div class="cateInfo">
 				<div class="infoBox">
 					<router-link to="/task">
@@ -334,6 +331,7 @@
 					</router-link>
 				</div>
 			</div>
+			<div class="line1pxbgcolor"></div>
 			<div class="cateInfo">
 				<div class="infoBox">
 					<router-link to="/myInfo">
@@ -352,7 +350,7 @@
 								<van-icon class-prefix="iconfont" name="team" />
 							</div>
 						</div>
-						<div class="text">我的战队</div>
+						<div class="text">我的团队</div>
 					</router-link>
 				</div>
 				<div class="infoBox">
@@ -376,6 +374,7 @@
 					</router-link>
 				</div>
 			</div>
+			<div class="line1pxbgcolor"></div>
 			<div class="items">
 				<router-link to="transferMineral">
 					<div class="my-cell">
@@ -548,11 +547,11 @@
 				console.log(val);
 				let message = '';
 				if(val=='mineral'){
-					message = '矿石：您当前所能用来流通的矿石。卖出的时候要额外收20%的服务费，比如卖100个矿石要花110或120个矿石，所收服务费的矿石全部销毁，不再它用。获得途径：矿机产出、买入。';
+					message = '矿石：您当前所能用来流通的矿石。卖出的时候要额外收20%的手续费(服务费)，比如卖100个矿石要使用120个矿石，所收的手续费(服务费)全部销毁，不再它用。获得途径：矿机产出、买入。';
 				}else if(val=='platformTicket'){
-					message = '帮扶券：可用于卖出的时候当服务费、可用于修改个人信息、可用于参与爱心帮扶的众筹而获得贡献值，后续还会有其他用处......。获取途径：从省市代理那儿购买。';
+					message = '帮扶券：可用于交易的时候当手续费(服务费)、用于帮助平台上生活遇到困难的会员而获得贡献值(此功能即将推出)，后续还会有其他用处......。获取途径：从省市代理那儿购买。';
 				}else if(val=='contribution'){
-					message = '贡献值：您有多少点贡献值决定您可卖出的矿石数量，比例为1:1，比如您卖100个矿石要使用100点贡献值。获取途径：签到、买入矿石、自己复投矿机、直推复投矿机、捐赠帮扶券。';
+					message = '贡献值：您有多少点贡献值决定您可卖出的矿石数量，比例为1:1，比如您卖100个矿石要使用100点贡献值。获取途径：签到、推广、买入矿石、自己复投矿机、直推复投矿机、捐赠帮扶券。';
 				}else if(val=='teamCalculationPower'){
 					message = '团队算力：您的个人算力+您所有直推的个人算力。只计算到上下两级，它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
 				}else if(val=='myCalculationPower'){

@@ -407,23 +407,10 @@ export default {
 		}
 		_this.getUserInfo();
 		_this.initializeHintInfo();
-		_this.bsTip();
 	},
 	methods:{
 		back(){
 			this.$router.go(-1);
-		},
-		bsTip(){
-			let _this = this;
-			let isWeixin = _this.$utils.isWeixin();
-			if(isWeixin){
-				Dialog.alert({
-				  title: '系统提示',
-				  message: _this.$api.bsTip
-				}).then(() => {
-				  // on close
-				});
-			}
 		},
 		getActiveStatus(val){
 			let _this = this;

@@ -12,7 +12,7 @@
 }
 </style>
 <template>
-  <van-tabbar v-model="active" inactive-color="#ffffff">
+  <van-tabbar v-model="active" inactive-color="#ffffff" active-color="#ffae00">
     <van-tabbar-item icon="home-o" replace to="/home">首页</van-tabbar-item>
     <van-tabbar-item icon="coupon-o" replace to="/mill">矿机商城</van-tabbar-item>
 	<!-- <van-tabbar-item icon="shop-o" replace to="/shop">小店</van-tabbar-item> -->

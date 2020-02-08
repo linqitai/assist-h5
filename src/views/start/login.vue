@@ -1,17 +1,21 @@
 <style lang="scss">
 	@import '~@/assets/scss/variable.scss';
 	.loginBox{
-		padding: $boxPadding1;
 		color: $mainTextColor;
 		background-color: $main-bg-color;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		overflow-y: scroll;
-		.logoBox{
-			min-height: 280px;
+		min-height: 100%;
+		width: 100%;
+		box-sizing: border-box;
+		.formHeader{
+			padding: $boxPadding1;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
+			.logoBox{
+				position: relative;
+				img{
+					width: 100%;
+				}
+			}
 		}
 		.formBox{
 			.labelText{
@@ -75,11 +79,13 @@
 <template>
 	<div class="loginBox">
 		<!-- <div class="welcomeText">欢迎来到帮扶链</div> -->
-		<div class="logoBox">
-			<img src="../../assets/image/LOGO.png" alt="">
+		<div class="formHeader">
+			<div class="logoBox">
+				<img src="../../assets/image/LOGO.png" alt="">
+			</div>
+			<div class="welcomeText textIndent">{{welcomeText}}</div>
 		</div>
-		<div class="welcomeText textIndent">{{welcomeText}}</div>
-		<div class="formBox">
+		<div class="formBox paddingWing">
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>
 				<van-field v-model="form.phone" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
@@ -91,7 +97,7 @@
 				</van-field>
 			</van-cell-group>
 		</div>
-		<div class="sureBox">
+		<div class="sureBox paddingWing">
 			<div class="tip">点击登录即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span><span class="forget" @click="forget">忘记密码？</span></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" :loading="isLoading" @click="loginBtn" loading-type="spinner">登  录</van-button>
 			<div class="placeholderLine10"></div>
@@ -100,6 +106,7 @@
 			<div class="tip4model3">
 				Tip：您若已经参与了内排注册，登录密码初始化为所注册的手机号。
 			</div>
+			<div class="placeholderLine10"></div>
 		</div>
 	</div>
 </template>
@@ -161,15 +168,22 @@
 					});
 				}
 			},
-			forget(){
+			judgeMoreAccount(){
 				let _this = this;
-				/* let phone = localStorage.getItem("mobilePhone");
+				let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
-					if(_this.form.phone != localStorage.getItem("mobilePhone")){
-						_this.$toast("请不要操作多账号");
+					if(_this.form.phone != phone){
+						_this.$toast("一机一号，切勿违规操作");
 						return;
 					}
-				} */
+				}
+			},
+			forget(){
+				let _this = this;
+				/*
+				//请不要操作多账号
+				_this.judgeMoreAccount();
+				*/
 				_this.$router.replace('/forgetPassword');
 			},
 			getAddress(){
@@ -232,6 +246,21 @@
 					password: _this.form.password,
 					securityCode: _this.form.securityCode.toLowerCase()
 				}
+				//请不要操作多账号
+				// _this.judgeMoreAccount();
+				/* let phone = localStorage.getItem("mobilePhone");
+				if(!_this.$utils.isNUll(phone)){
+					if(_this.form.phone != phone){
+						// _this.$toast("一机一号，切勿违规操作");
+						Dialog.alert({
+						  title: '系统提示',
+						  message: '该设备已登录过其他账号,切勿多账号操作',
+						}).then(() => {
+						  // on close
+						});
+						return;
+					}
+				} */
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('系统提示:请填写完成信息');
 					return;
@@ -247,12 +276,6 @@
 					// console.log('res', res);
 					_this.isLoading = false;
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
-						// if(_this.$cookies.isKey("userId")){
-						// 	if(_this.$cookies.get("userId")!=res.data.assistUserInfoVo.userId){
-						// 		_this.$toast("请不要多账号登录");
-						// 		return;
-						// 	}
-						// }
 						let userInfo = res.data.assistUserInfoVo4Web;
 						/* alert("userInfo1:" + JSON.stringify(userInfo)); */
 						/* _this.getBuyAndSellInfo(userInfo.userId); */

@@ -10,7 +10,7 @@
 		bottom: 0;
 		background-color: $main-box-color;
 		z-index: 2;
-		.van-dropdown-menu{
+		/* .van-dropdown-menu{
 			height: $cellHeight !important;
 			background-color: inherit !important;
 		}
@@ -26,7 +26,7 @@
 		}
 		.van-cell,.van-cell-group{
 			background-color: inherit !important;
-		}
+		} */
 		.unFreezePage{
 			color: $mainTextColor;
 			margin-top: $headerHeight;
@@ -35,17 +35,17 @@
 				width: 70px !important;
 				line-height: 30px;
 			}
-			.van-cell__value, .van-cell__value--alone, .van-field__control,.van-cell {
-			    color: #FFFFFF !important;
-			}
+			// .van-cell__value, .van-cell__value--alone, .van-field__control,.van-cell {
+			//     color: #FFFFFF !important;
+			// }
 			.myCell{
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 				border-bottom: 1px solid $main-bg-color;
-				.van-cell__value, .van-cell__value--alone, .van-field__control {
-				    color: #FFFFFF !important;
-				}
+				// .van-cell__value, .van-cell__value--alone, .van-field__control {
+				//     color: #FFFFFF !important;
+				// }
 				.flex{
 					flex: 1;
 					padding-left: 16px;

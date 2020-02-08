@@ -1,5 +1,5 @@
 <style lang="scss">
-	@import '~@/assets/scss/variable.scss';
+	@import '~@/assets/scss/index.scss';
 	
 	[class*=van-hairline]::after {
 	    border: 1px solid transparent !important;
@@ -9,7 +9,8 @@
 		color: #323232 !important;
 	}
 	.deal{
-		// margin-top: $header-height;
+		background-color: $main-box-fh-bg-color;
+		min-height: 100%;
 		[class*=van-hairline]::after {
 		    border: 1px solid transparent !important;
 		}
@@ -30,11 +31,11 @@
 			line-height: 1.4em;
 		}
 		.statistics{
-			background-color: $main-box-color;
-			color: $mainTextColor;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			padding: $boxPadding2;
-			border-top: 1px solid $main-bg-color;
-			border-bottom: 2px solid $main-bg-color;
+			// border-top: 1px solid $bottomLineColor;
+			border-bottom: 1px solid $bottomLineColor;
 			font-size: 0.75rem;
 			.line{
 				margin-top: 0.25rem;
@@ -42,16 +43,16 @@
 			}
 		}
 		.dealContent{
-			color: $mainTextColor;
-			margin-top: 1px;
 			// margin-top: $marginTop2;
 			.dealList{
 				// margin-top: $marginTop2;
 				.item{
-					background-color: $main-box-color;
-					color: $mainTextColor;
+					background-color: $main-box-fh-bg-color;
+					color: $main-box-fh-text-color;
+					// background-color: $main-box-color;
+					// color: $mainTextColor2;
 					padding: $boxPadding2;
-					border-bottom: 1px solid $main-bg-color;
+					border-bottom: 1px solid $bottomLineColor;
 					display: flex;
 					flex-direction: row;
 					align-content: center;
@@ -72,6 +73,7 @@
 		.buy{
 			bottom: $bottom;
 			right: $right;
+			color: $main-box-fh-text-color;
 		}
 		.sale{
 			bottom: $bottom + 60px;
@@ -80,13 +82,13 @@
 		.buy,.sale{
 			position: fixed;
 			background: linear-gradient(to right, #ffae00 , #ff8400); /* 标准的语法 */
+			color: $main-box-fh-text-color;
 			width:$fixed-btn-width2;
 			height:$fixed-btn-width2;
 			line-height:$fixed-btn-width2;
 			border-radius:$fixed-btn-width2;
 			text-align: center;
 			z-index:2001;
-			color: $mainTextColor;
 			font-size: 0.875rem;
 			user-select:none;
 		}
@@ -223,9 +225,10 @@
 		</van-sticky>
 		
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-			<van-tabs v-model="tabActiveName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+			<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab title="普通市场" name="dealArea1">
+					<div class="line1pxbgcolor"></div>
 					<div class="dealContent">
 						<div class="dealList">
 							<div class="item" v-for="item in list1" :key="item.id">
@@ -235,7 +238,7 @@
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
-									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="primary" size="mini" loading-type="spinner">卖TA</van-button></div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">卖TA</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -260,6 +263,7 @@
 				<van-tab title="溢价市场" name="dealArea2">
 					<div class="dealContent">
 						<div class="dealList">
+							<div class="line1pxbgcolor"></div>
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="boxLeft">
 									<div class="">单价 {{item.price}}CNY</div>
@@ -267,7 +271,7 @@
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
-									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="primary" size="mini" loading-type="spinner">卖TA</van-button></div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">卖TA</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -291,27 +295,6 @@
 				</van-tab>
 			</van-tabs>	
 		</van-pull-refresh>
-		<!-- deal  {{value/10}}
-		<div class="slider">
-		  <van-slider v-model="value" :min="10" :max="30" @change="onChange" />
-		</div> -->
-		<!-- <van-action-sheet v-model="showAppointDealModel" title="定向交易">
-		  <van-cell-group>
-		    <van-field v-model="form4AppointDeal.sellAmount" required clearable label="卖出数量" placeholder="请填写卖出数量"
-			  @blur="validate4AppointDeal('sellAmount')"
-			  :error-message="errorInfo4AppointDeal.sellAmount"/>
-			<van-field v-model="form4AppointDeal.price" required clearable label="卖出单价" placeholder="请填写协商好的卖出单价"
-			  @blur="validate4AppointDeal('price')"
-			  :error-message="errorInfo4AppointDeal.price"/>
-			<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请粘贴对方的区块地址" maxlength="36"
-			  @blur="validate4AppointDeal('blockAddress')"
-			  :error-message="errorInfo4AppointDeal.blockAddress"/>
-			<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
-		  </van-cell-group>
-		  <div class="sureAppointBtnBox">
-			  <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确 认</van-button>
-		  </div>
-		</van-action-sheet> -->
 		
 		<van-action-sheet v-model="showPickSellModel" title="卖出">
 		  <van-cell-group>
@@ -337,8 +320,8 @@
 				  </div>
 			  </div>
 			  <van-field v-model="form4pickSellBill.price" disabled clearable label="单价"/>
-			  <van-field readonly clickable label="服务费" :value="serviceCharge"/>
-			  <!-- <van-field readonly clickable label="选择服务费" :value="serviceCharge" placeholder="请先选择服务费" @click="showPicker4ServiceChargePopup = true" @blur="validate4pickSellBill('serviceCharge')" :error-message="errorInfo4pickSellBill.serviceCharge"/>
+			  <!-- <van-field readonly clickable label="服务费" :value="serviceCharge"/> -->
+			  <van-field readonly clickable label="选择服务费" :value="serviceCharge" placeholder="请先选择服务费" @click="showPicker4ServiceChargePopup = true" @blur="validate4pickSellBill('serviceCharge')" :error-message="errorInfo4pickSellBill.serviceCharge"/>
 			  <van-popup v-model="showPicker4ServiceChargePopup" position="bottom">
 			    <van-picker
 			      show-toolbar
@@ -346,7 +329,7 @@
 			      @cancel="showPicker4ServiceChargePopup = false"
 			      @confirm="onConfirm4ServiceCharge"
 			    />
-			  </van-popup> -->
+			  </van-popup>
 			  <van-field required v-model="form4pickSellBill.safePassword" type="password" clearable label="安全密码" @blur="validate4pickSellBill('safePassword')" :error-message="errorInfo4pickSellBill.safePassword" placeholder="请填写安全密码"/>
 		  </van-cell-group>
 		  <div class="sureAppointBtnBox">
@@ -406,33 +389,6 @@
 				<div class="placeholderLine40"></div>
 			</div>
 		</van-action-sheet>
-		<!-- <van-dialog v-model="showSendSMSTipModel" title="系统提示" :show-confirm-button="false">
-			<div class="placeholderLine10"></div>
-			<div class="tip4model3 paddingWing">
-				订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。
-			</div>
-			<div class="placeholderLine10"></div>
-			<div class="myCell">
-				<van-field label="买家手机号" clearable disabled="" v-model="transactionVo4BuyerTip.mobilePhone"/>
-			</div>
-			<van-cell-group>
-			  <van-field
-				label="短信内容"
-			    v-model="smsContent"
-			    rows="2" required
-			    autosize clearable
-			    type="textarea"
-			    maxlength="100"
-			    placeholder="请输入短信内容(不超过100字)"
-			    show-word-limit
-			  />
-			</van-cell-group>
-			<div class="placeholderLine10"></div>
-			<a :href="sendSmsHref">
-				<van-button type="primary" size="normal" :block="true">去发送</van-button>
-			</a>
-		</van-dialog> -->
-		<!-- <m-fullscreen></m-fullscreen> -->
     </div>
 </template>
 
@@ -715,8 +671,9 @@ export default {
 				_this.$router.replace('login');
 				return;
 			}
-			if(_this.$cookies.get('dealPageInfo')){
-				_this.dealPageInfo = _this.$cookies.get('dealPageInfo');
+			console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
+			if(_this.$cookies.get('haveDealPageInfo')){
+				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
 				_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`;
 				_this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}];
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
@@ -764,7 +721,8 @@ export default {
 					_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`;
 					_this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}];
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
-					_this.$cookies.set("dealPageInfo",_this.dealPageInfo, 60 * 30 * 1);
+					_this.$cookies.set("haveDealPageInfo",1, 60 * 30 * 1);
+					localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
 				}
 			})
 		},
@@ -850,10 +808,10 @@ export default {
 		showPickSellModelBtn(item){
 			let _this = this;
 			if(_this.tabActiveName == 'dealArea2'){
-				if(_this.userInfo.level==0){
+				if(_this.userInfo.myCalculationPower<0.3){
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '等级为青铜以上的用户（包含青铜）才有权限在溢价市场卖出'
+					  message: '个人算力达到0.3G后即可开通溢价交易'
 					}).then(() => {
 					  // on close
 					});
@@ -891,7 +849,12 @@ export default {
 				_this.maxBill = Math.floor(item.maxNumber);
 			}
 			if(myMaxCanSellNum<item.minNumber){
-				_this.$toast("您的最大可卖数量不够匹配该买单");
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您的最大可卖数量不够匹配该买单。每卖1个矿石需有1.2个矿石和1个贡献值。'
+				}).then(() => {
+				  // on close
+				});
 				return;
 			}
 			_this.showPickSellModel = true;

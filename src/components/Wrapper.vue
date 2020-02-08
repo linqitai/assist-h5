@@ -18,8 +18,8 @@
 		flex-direction: column;
 		.header{
 			flex: 0 0 $headerHeight;
-			color: $mainTextColor;
-			background: $main-box-color;
+			color: $main-box-fh-text-color;
+			background: $main-box-fh-bg-color;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
@@ -65,13 +65,9 @@
 			overflow-y: scroll;
 		}
 		.footer {
-		  // position: fixed;
-		  // bottom: 0;
-		  // left: 0;
 		  flex: 0 0 $footerHeight;
-		  background: $main-bg-color;
+		  background-color: $main-box-fh-bg-color;
 		  width: 100%;
-		  // height: $footerHeight;
 		  border-top: 1px solid $bottomLineColor;
 		}
 	}
@@ -110,7 +106,7 @@
 					</div>
 					<div class="placeholderLine4"></div>
 					<div>
-						2.等级为青铜以上的用户（包含青铜）才有权限在溢价市场卖出。
+						2.个人算力达到0.3G后即可开通溢价交易。
 					</div>
 					<div class="placeholderLine4"></div>
 					<div>

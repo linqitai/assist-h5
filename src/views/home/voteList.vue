@@ -1,4 +1,4 @@
-<style lang="scss">
+<style lang="scss" scoped>
 	@import '~@/assets/scss/index.scss';
 	$itemLRHeight:40px;
 	$itemInnerLine1Height:20px;
@@ -23,11 +23,11 @@
 						width: 100%;
 						font-size: 12px;
 						line-height:$itemInnerLine1Height;
-						color: $mainTextColor;
+						color: $mainTextColor2;
 					}
 					.time{
 						font-size: 11px;
-						color: $grayLight;
+						color: $grayDark;
 						// margin-top: 0.5rem;
 						line-height:$itemInnerLine1Height;
 					}
@@ -40,10 +40,13 @@
 					height: $itemLRHeight;
 					line-height: $itemLRHeight;
 					font-size: 1rem;
-					color: $grayLight2;
 					.status{
 						font-size: 12px;
 						text-align: right;
+						color: $main-adorn-color;
+						.iconfont{
+							color: $grayLight2;
+						}
 					}
 				}
 			}

@@ -35,7 +35,8 @@
 				margin-top: $marginTop2;
 			}
 			.millList{
-				background-color: $main-box-color;
+				background-color: $main-box-fh-bg-color;
+				color: $main-box-fh-text-color;
 				margin-top: $marginTop2;
 				overflow: hidden;
 				height: 100%;
@@ -43,7 +44,7 @@
 					position: relative;
 					display: flex;
 					padding: $boxPadding2;
-					border-bottom:1px solid $main-bg-color;
+					border-bottom:1px solid $mainBorderColor;
 					align-items: center;
 					align-content: center;
 					justify-content: center;
@@ -63,6 +64,7 @@
 						right: 10px;
 						top: 4px;
 						font-size: 11px;
+						color: $main-box-fh-text-color;
 					}
 					.tag0{
 						color: $main-blue-color;
@@ -90,7 +92,8 @@
 								height: $heightwidht;
 								// border-radius: $heightwidht;
 								background-color: $main-box-color;
-								color: $mainTextColor;
+								color: $main-box-fh-text-color;
+								color: $main-adorn-color;
 								text-align: center;
 								line-height: $heightwidht;
 								font-size: 20px;
@@ -172,8 +175,8 @@
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
 		<div class="millContent">
-			<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab name="myMill">
 					<div slot="title" class="tabTitle">
 					     我的矿机 {{myMillList.length}}

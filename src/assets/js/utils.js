@@ -303,6 +303,108 @@ function isWeixin(){
   }
 }
 
+/* function get_ip(cb) {
+	var script = document.createElement("script"),
+		s = document.getElementsByTagName("script")[0];
+	script.src = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=jsonp";
+	s.parentNode.insertBefore(script, s);
+	var it = setInterval(function() {
+		if (!remote_ip_info) {
+			cb(remote_ip_info);
+			remote_ip_info = null;
+			clearInterval(it);
+			it = null;
+		}
+	}, 100);
+} */
+
+function readFile(file){ 
+	//判断类型是不是图片
+	if(!/image\/\w+/.test(file.type)){
+		return false; 
+	} 
+	var reader = new FileReader(); 
+	reader.readAsDataURL(file); 
+	reader.onload = function(e){ 
+		return this.result; //就是base64
+	} 
+}
+
+function selectFileImage(e) {
+	let _this = this;
+	//alert("selectFileImage");
+	let files = e.target.files || e.dataTransfer.files;
+	if (!files.length) return;
+	var file = files[0];  
+	var Orientation = null;
+	if (file) {  
+		//alert("file");
+		//console.log("正在上传,请稍后...");  
+		var rFilter = /^(image\/jpeg|image\/png|image\/jpg)$/i; // 检查图片格式  
+		if (!rFilter.test(file.type)) {  
+			alert("请选择jpeg、jpg、png格式的图片");  
+			return;  
+		}    
+		//获取照片方向角属性，用户旋转控制  
+		EXIF.getData(file, function() {  
+			EXIF.getAllTags(this);   
+			Orientation = EXIF.getTag(this, 'Orientation');  
+		});  
+		alert("oReader.onload");
+		var oReader = new FileReader();  
+		oReader.onload = function(e) {  
+			var image = new Image();  
+			image.src = e.target.result;  
+			//alert("image.src");
+			image.onload = function() {
+				//alert("image.onload");
+				var expectWidth = this.naturalWidth;  
+				var expectHeight = this.naturalHeight; 
+				var scale = expectWidth / expectHeight;
+				var canvas = document.createElement("canvas");  
+				var ctx = canvas.getContext("2d");  
+				canvas.width = expectWidth;  
+				canvas.height = expectHeight;  
+				
+				//如果方向角不为1，都需要进行旋转 
+				if(Orientation && Orientation != "" && Orientation != 1){  
+					var degree=0;
+					switch(Orientation){  
+						case 6://需要顺时针（向左）90度旋转  
+							degree=90;  
+							canvas.width = expectHeight;  
+							canvas.height = expectWidth;
+							ctx.translate(expectHeight / 2,expectWidth / 2);
+							ctx.rotate(degree * Math.PI / 180);
+							ctx.translate(-expectWidth / 2,-expectHeight / 2);
+							ctx.drawImage(image,0,0,expectWidth,expectHeight);
+							break;  
+						case 8://需要逆时针（向右）90度旋转
+							degree=-90;  
+							canvas.width = expectHeight;  
+							canvas.height = expectWidth;
+							ctx.translate(expectHeight / 2,expectWidth / 2);
+							ctx.rotate(degree * Math.PI / 180);
+							ctx.translate(-expectWidth / 2,-expectHeight / 2);
+							ctx.drawImage(image,0,0,expectWidth,expectHeight);
+							break;  
+						case 3://需要180度旋转  
+							degree=-180;  
+							ctx.rotate(degree * Math.PI / 180);
+							ctx.drawImage(image,-expectWidth,-expectHeight,expectWidth,expectHeight);
+							break;  
+					}         
+				}else{
+					ctx.drawImage(image,0,0,expectWidth,expectHeight);
+				} 
+				var datu = canvas.toDataURL("image/png");
+				_this.form.idCardPic = datu; 
+			};  
+		};
+		oReader.readAsDataURL(file);  
+	}  
+}
+
 export default {
 	fmoney,
 	getLetterLength,
@@ -330,5 +432,6 @@ export default {
 	scrollTop,
 	getSC,
 	isIphoneOrAndroid,
-	isWeixin
+	isWeixin,
+	readFile
 }

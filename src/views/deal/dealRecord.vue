@@ -12,6 +12,7 @@
 					align-content: center;
 					align-items: center;
 					padding: $boxPadding2;
+					border-bottom:1px solid $mainBorderColor;
 					background-color: $main-box-color;
 					.flex{
 						flex: 1;
@@ -61,7 +62,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				区块浏览
+				交易记录
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>

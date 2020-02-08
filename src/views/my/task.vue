@@ -12,10 +12,10 @@
 .realname{
 	@include pageMy();
 	.taskList{
-		color: $mainTextColor;
 		width: 100%;
 		padding: $boxPadding2;
 		box-sizing: border-box;
+		color: $main-box-fh-text-color;
 		.box{
 			position: relative;
 			display: flex;
@@ -24,6 +24,7 @@
 			border-radius: 4px;
 			overflow: hidden;
 			padding: $boxPadding2;
+			color: $main-box-fh-text-color;
 			&.finishInfo{
 				background-color: $main-adorn-color;
 			}
@@ -111,7 +112,7 @@
 				</div>
 				<div class="line text margT10">
 					第二次租赁矿机<br>
-					在获得(租赁矿机所需矿石数的10%~20%)点贡献值的同时，额外奖励1点贡献值<br>
+					在获得(租赁矿机所需矿石数的10%~20%)点贡献值的同时，额外加1点贡献值<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -126,9 +127,9 @@
 					进阶任务1 分享
 				</div>
 				<div class="line text margT10">
-					分享10名实名认证通过的会员且完成基础任务<br>
+					分享10名会员完成基础任务<br>
 					达到后可获得如下奖励<br>
-					每分享1名有效会员获得1点贡献值的同时，额外获得10点贡献值
+					每分享1名有效会员可获得1点贡献值的同时，额外获得一台体验矿机
 				</div>
 			</div>
 			<div class="flexRight">
@@ -207,10 +208,10 @@
 				<div class="line text margT10">
 					成为青铜级工会会长<br>
 					需要：<br>
-					团队算力达到10G<br>
+					直推团队至少3人团队算力达到10G<br>
 					完成后:<br>
 					1.可获得二台微型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 12/100<br>
+					2.每次租赁矿机所加贡献值比例提升至 12%<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -227,10 +228,10 @@
 				<div class="line text margT10">
 					成为白银级工会会长<br>
 					需要：<br>
-					团队算力达到100G<br>
+					直推团队至少20人团队算力达到100G<br>
 					完成后:<br>
 					1.可获得一台小型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 14/100<br>
+					2.每次租赁矿机所加贡献值比例提升至 14%<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -247,10 +248,10 @@
 				<div class="line text margT10">
 					成为黄金级工会会长<br>
 					需要：<br>
-					团队算力达到500G<br>
+					直推团队至少50人团队算力达到500G<br>
 					完成后:<br>
 					1.可获得一台中型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 16/100<br>
+					2.每次租赁矿机所加贡献值比例提升至 16%<br>
 					<!-- 2.平台3-5期权分红权限 -->
 				</div>
 			</div>
@@ -268,10 +269,10 @@
 				<div class="line text margT10">
 					成为铂金级工会会长<br>
 					需要：<br>
-					团队算力达到2000G<br>
+					直推团队至少100人团队算力达到2000G<br>
 					完成后:<br>
-					1.可获得二台中型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 18/100<br>
+					1.可获得一台大型矿机<br>
+					2.每次租赁矿机所加贡献值比例提升至 18%<br>
 					<!-- 2.平台3-3期权分红权限 -->
 				</div>
 			</div>
@@ -289,10 +290,10 @@
 				<div class="line text margT10">
 					成为砖石级工会会长<br>
 					需要：<br>
-					团队算力达到10000G<br>
+					直推团队至少300人团队算力达到10000G<br>
 					完成后:<br>
-					1.可获得一台大型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 20/100<br>
+					1.可获得一台巨型矿机<br>
+					2.每次租赁矿机所加贡献值比例提升至 20%<br>
 					<!-- 2.平台3-2期权分红权限 -->
 				</div>
 			</div>
@@ -330,7 +331,7 @@
 			</div>
 			<div class="placeholderLine10"></div>
 			<div class="textIndent">
-				Tip2：平台会不定期举办爱心帮扶活动，帮助经济上有困难的会长，大病求助款优先获得帮助，帮扶对象的年龄限制在24~65岁(需要医院证明，然后省市代理会亲自去拜访帮扶对象)；若是18周岁以上的学生，学费上有困难也可以得到帮扶链平台的帮助(需要家乡居委会的证明，然后省市代理会亲自去拜访帮扶对象)；帮扶对象由省市代理以及白银级以上的工会会长（包括白银）引荐。
+				Tip2：平台会不定期举办爱心帮扶活动，帮助经济上有困难的会长，大病求助款优先获得帮助，帮扶对象的年龄为24~70周岁(需要医院证明，然后省市代理去拜访帮扶对象并核实)；若是18周岁以上的学生，学费上有困难也可以得到帮扶链平台的帮助(需要家乡居委会的证明，然后省市代理去拜访帮扶对象并核实)；帮扶对象由省市代理以及白银级以上的工会会长（包括白银）引荐。
 			</div>
 			<div class="placeholderLine10"></div>
 			<div class="textIndent">
@@ -485,22 +486,16 @@ export default {
 			let _this = this;
 			let url = "";
 			console.log("_this.userInfo",_this.userInfo);
+			let teamCP = _this.userInfo.teamCalculationPower;
+			let myCP = _this.userInfo.myCalculationPower;
+			let teamNum = _this.userInfo.teamateNum;
+			let levelNow = _this.userInfo.level;
 			if(level==1){
-				if(_this.userInfo.calculationPower<10){
+				if((teamNum<3&&teamCP<10&&levelNow<=0) && (myCP<1&&levelNow<=0)){
 					// _this.$toast();
 					Dialog.alert({
 					  title: '系统提示',
-					  message: _this.$api.DATA_NOTGET
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
-				if(_this.userInfo.level<1){
-					// _this.$toast();
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.DATA_LEVEL
+					  message: '您尚未达到领取该奖励的条件'
 					}).then(() => {
 					  // on close
 					});
@@ -518,21 +513,11 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardOneLevelByUserId;
 			}else if(level==2){
-				if(_this.userInfo.calculationPower<100){
+				if((teamNum<10&&teamCP<100&&levelNow<=1) && (myCP<9&&levelNow<=1)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.DATA_NOTGET
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
-				if(_this.userInfo.level<2){
-					// _this.$toast(_this.$api.DATA_LEVEL);
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.DATA_LEVEL
 					}).then(() => {
 					  // on close
 					});
@@ -550,21 +535,11 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardTwoLevelByUserId;
 			}else if(level==3){
-				if(_this.userInfo.calculationPower<500){
+				if((teamNum<50&&teamCP<500&&levelNow<=2) && (myCP<34&&levelNow<=2)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.DATA_NOTGET
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
-				if(_this.userInfo.level<3){
-					// _this.$toast(_this.$api.DATA_LEVEL);
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.DATA_LEVEL
 					}).then(() => {
 					  // on close
 					});
@@ -582,21 +557,11 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardThreeLevelByUserId;
 			}else if(level==4){
-				if(_this.userInfo.calculationPower<2000){
+				if((teamNum<100&&teamCP<2000&&levelNow<=3) && (myCP<114&&levelNow<=3)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.DATA_NOTGET
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
-				if(_this.userInfo.level<4){
-					// _this.$toast(_this.$api.DATA_LEVEL);
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.DATA_LEVEL
 					}).then(() => {
 					  // on close
 					});
@@ -614,21 +579,11 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardFourLevelByUserId;
 			}else if(level==5){
-				if(_this.userInfo.calculationPower<10000){
+				if((teamNum<300&&teamCP<10000&&levelNow<=4) && (myCP<214&&levelNow<=4)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.DATA_NOTGET
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
-				if(_this.userInfo.level<5){
-					// _this.$toast(_this.$api.DATA_LEVEL);
-					Dialog.alert({
-					  title: '系统提示',
-					  // message: _this.$api.DATA_LEVEL
 					}).then(() => {
 					  // on close
 					});
@@ -649,7 +604,7 @@ export default {
 			url = _this.$api.getAssistXXLevelRewardByUserId;
 			let params = {
 				/* userId: _this.userInfo.userId, */
-				level: _this.userInfo.level
+				level: levelNow
 			}
 			_this.$ajax.ajax(url, 'POST', params, function(res){
 				// console.log('res',res);
@@ -666,7 +621,7 @@ export default {
 						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 						Dialog.alert({
 						  title: '温馨提示',
-						  message: '恭喜您，奖励领取成功。为了把控算力上的泡沫，经精算师研究决定奖励型矿机不加算力,用此矿机所产出的矿石去商城租赁矿机即可加算力，请您知晓，帮扶链感恩有您的支持！'
+						  message: '恭喜您，奖励领取成功。为了把控算力上的泡沫，经精算师研究决定奖励型矿机不加算力,用此矿机所产出的矿石去商城租赁矿机即可加算力，请您知晓！'
 						}).then(() => {
 						  // on close
 						  _this.$router.push('/mill');

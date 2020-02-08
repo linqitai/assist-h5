@@ -9,17 +9,17 @@
   height: $headerHeight;
   width: 100%;
   line-height: $headerHeight;
-  background: $main-box-color;
+  background: $main-box-fh-bg-color;
   border-bottom: 0.0625rem solid $bottomLineColor;
   @include userSelectNone();
   z-index:200;
-  .van-nav-bar{
-	  background-color: inherit !important;
-	  color: $mainTextColor;
-  }
-  .van-nav-bar__title{
-	  color: inherit !important;
-  }
+	  .van-nav-bar{
+		  background-color: inherit !important;
+		  color: $mainTextColor;
+	  }
+	  .van-nav-bar__title{
+		  color: inherit !important;
+	  }
 	.header-wrapper{
 	  position:relative;
 	  height:100%;
@@ -31,14 +31,14 @@
 	  // line-height: $header-height;
 	  .leftBox{
 			flex: 0 0 70px;
-			color: $mainTextColor;
+			color: $main-box-fh-text-color;
 			font-size: 0.75rem;
 	  }
 	  .text{
 		  flex: 1;
 		  text-align: center;
 		  font-size: 16px;
-		  color:$mainTextColor;
+		  color:$main-box-fh-text-color;
 	  }
 	  .rightBox{
 			flex: 0 0 70px;
@@ -46,10 +46,10 @@
 			&.text{
 				color: $main-adorn-color;
 				font-size: 0.75rem;
-				color: $mainTextColor;
+				color: $main-box-fh-text-color;
 			}
 			&.icon{
-				color: $mainTextColor;
+				color: $main-box-fh-text-color;
 				font-size: 20px;
 			}
 	  }

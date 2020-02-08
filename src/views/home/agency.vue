@@ -20,6 +20,7 @@
 					padding: $boxPadding2;
 					background-color: $main-box-color;
 					border-top: 1px solid $main-bg-color;
+					border-bottom:1px solid $mainBorderColor;
 					.flexLeft{
 						flex: 0 0 60px;
 						font-size: $fs-12;
@@ -29,6 +30,7 @@
 							height: $heightwidht;
 							border-radius: $heightwidht;
 							background-color: $main-adorn-color;
+							color: $main-box-fh-text-color;
 							text-align: center;
 							line-height: $heightwidht;
 							font-size: 18px;
@@ -49,6 +51,9 @@
 					.flex{
 						flex: 1;
 						.line{
+							.iconfont{
+								color:$main-green-color;
+							}
 							.copy{
 								font-size: $fs-10;
 								margin-left: 3px;
@@ -114,8 +119,8 @@
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
 		<div class="agencyTabs">
-			<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab title="竞选中" name="agency1">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list">
@@ -128,7 +133,7 @@
 								<div class="flex">
 									<div class="line">正在竞选中</div>
 									<div class="placeholderLine10"></div>
-									<div class="line">符合竞选条件的用户可联系现有代理做引荐</div>
+									<div class="line">有意向的团队长请联系现有代理做引荐</div>
 								</div>
 								<!-- <div class="flexRight">浙江省券商</div> -->
 							</div>
@@ -191,21 +196,17 @@
 		<van-action-sheet v-model="showTipModel" title="问题小帮手">
 			<div class="paddingWing">
 				<!-- 帮扶券：详情请查看<span  class="underline">新手指南</span>。 -->
-				<div class="tip4model3">第一批省代理正在招募中，需通过现有代理或客服引荐。</div>
+				<!-- <div class="tip4model3">第一批省代理正在招募中，需通过现有代理或客服引荐。</div> -->
 				<div class="placeholderLine10"></div>
 				<div class="tip4model4">
 					<b class="textBold">省市代理的权限：</b><br>
-					1.省市代理拥有帮扶券的代理权。帮扶券：平台到省代理再到市代理再到用户。<br>
-					2.省市代理点对点(定向)交易不收矿石上的手续费，代收请优先找省市代理。<br>
-					3.省市代理拥有引荐受帮扶对象的权限。<br>
-					4.省市代理拥有给他人解冻账号的权限。<br>
-					5.省市代理拥有给他人实名审核的权限。<br>
-					6.其他......<br>
+					省市代理的权限：<br>					1.省市代理拥有引荐受帮扶对象的权限。<br>					2.省市代理拥有给他人解冻账号的权限。<br>					3.省市代理拥有给他人实名审核的权限。<br>					4.省市代理点对点(定向)交易免矿石上的手续费而收20%的帮扶券，代收请优先找省市代理，代收规则：比如省市代理A接到户主B的代收1000个矿石任务后，A先发广告从会员手中收零散的矿石（1个、2个、3个...），收到100个或者1000个后，再依次转给户主B。<br>
+					5.省市代理拥有帮扶券的代理权。帮扶券的用处：用于帮助生活中遇到困难的会员、也可用于交易当作手续费等。<br>					<!-- 5.省市代理拥有帮扶券的代理权。帮扶券：用户之间点对点(定向)交易需用一个帮扶券，帮扶券由平台发放到区域代理再到省代理再到市代理再到用户。<br> -->					6.其他......	
 					<div class="placeholderLine10"></div>
 					<b class="textBold">获得省市代理的方案：</b><br>
 					方案一.前期福利：2020年04月31日21:00:00,系统给有效直推排名在【首页-排行榜】中的用户赠送市代理名额。（该福利发放时间2020/05/01）<br>
 					方案二.实力认购：认购7000个帮扶券成为省代理，同时获赠一台大型矿机；认购3000个帮扶券成为市代理，同时获赠一台中型矿机。<br>
-					Tip:若同一个代理有多个用户竞选，以团队算力决定竞选结果。
+					Tip:若同一个代理同时有多个用户竞选，以团队算力决定竞选结果。
 				</div>
 				<div class="placeholderLine40"></div>
 			</div>

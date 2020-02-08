@@ -10,11 +10,13 @@
 		.myDealTabs {
 			// margin-top: $header-height;
 			// min-height: 100%;
-			color: $mainTextColor;
+			// background-color: $main-box-fh-bg-color;
+			// color: $main-box-fh-text-color;
 			/* .van-tabs,.van-pull-refresh{
 				min-height: 700px !important;
 			} */
 			.list{
+				
 				.item{
 					margin-top: 1px;
 					display: flex;
@@ -22,15 +24,14 @@
 					align-content: center;
 					align-items: center;
 					padding: $boxPadding2;
-					background-color: $main-box-color;
 					position: relative;
-					// border-bottom:1px solid $main-bg-color;
+					border-bottom:1px solid $mainBorderColor;
 					// &::last-child{
 					// 	border-bottom:1px solid transparent;
 					// }
 					.tagIcon{
 						position: absolute;
-						right: 0;
+						right: 1px;
 						top: 0;
 						height: 16px;
 						width: 30px;
@@ -41,6 +42,7 @@
 						right: 6px;
 						top: 2px;
 						font-size: 11px;
+						color: $main-box-fh-text-color;
 					}
 					.tag4Sell{
 						color: $warnColor;
@@ -214,6 +216,7 @@
 						height: $heightwidht;
 						border-radius: $heightwidht;
 						background-color: $main-blue-color;
+						color: $main-box-fh-text-color;
 						text-align: center;
 						line-height: $heightwidht;
 						font-size: 22px;
@@ -296,8 +299,8 @@
 		
 		<div class="myDealTabs">
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-			<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab title="求购中" name="buy">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list">
@@ -477,6 +480,9 @@
 									<div class="timeBox">
 										匹配时间 {{ item.machingTime }}
 									</div>
+									<div class="timeBox">
+										取消时间 {{ item.canCancelTime }}
+									</div>
 								</div>
 								<div class="operatorBox4complate">
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
@@ -563,7 +569,7 @@
 					<span class="label">付款凭证</span>
 					<span class="value">
 						<i class="iconfont iconfont-upload-pic"></i>
-						<input accept="image/png,image/jpeg,image/jpg" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
+						<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
 						<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
 					</span>
 				</div>
@@ -639,7 +645,7 @@
 				<div class="tipText2" v-if="detail4buyerInfo.status==1">
 					{{buyerHaveWord}}
 				</div>
-				<van-button v-if="detail4buyerInfo.status==4" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认放矿石</van-button>
+				<van-button v-if="detail4buyerInfo.status==4" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
 				<div class="margT10" v-if="detail4buyerInfo.status==4">
 					<img class="selectedImg" :src="detail4buyerInfo.imgUrl"/>
 				</div>
@@ -699,39 +705,6 @@
 		  <!-- <van-field v-model="remark" required clearable placeholder="写点内容,让平台好找到线索"/> -->
 		</van-dialog>
 		<van-action-sheet v-model="showSellerUserInfoModel" title="卖家信息">
-			<div class="box box1" v-if="sellerUserInfo">
-				<div class="flex flex1">
-					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
-					<div class="name">{{sellerUserInfo.realName | getLastName}}</div>
-				</div>
-				<div class="flex flex2">
-					<div class="line1">
-						<div class="nick_name left">{{sellerUserInfo.nickName}}</div>
-						<div class="level left">{{sellerUserInfo.level | getUserType}}</div>
-					</div>
-					<!-- <div class="line">
-						ID {{info.userId}}
-					</div> -->
-					<div class="line margT3">
-						注册时间 {{sellerUserInfo.registerTime}}
-					</div>
-					<div class="line">
-						<div class="left">买入次数 {{sellerUserInfo.buyTimes}}</div>
-						<div class="mlBox left">买入数量 {{sellerUserInfo.buyAmount}}</div>
-					</div>
-					<div class="line">
-						<div class="left">卖出次数 {{sellerUserInfo.sellTimes}}</div>
-						<div class="mlBox left">卖出数量 {{sellerUserInfo.sellAmount}}</div>
-					</div>
-					<div class="line">个人限购数量 {{sellerUserInfo.canBuyNum}}</div>
-					<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
-				</div>
-			</div>
-			<!-- <div class="box">
-				<div class="line">
-					<div class="f-11">区块地址 {{sellerUserInfo.blockAddress}}</div>
-				</div>
-			</div> -->
 			<div class="box box2">
 				<div class="flex flex1">
 					<div class="value" @click="toBookView('1',sellerUserInfo.userId)">{{sellerUserInfo.teamCalculationPower}}</div>
@@ -828,6 +801,7 @@
 	import mFullscreen from '@/components/Fullscreen.vue';
 	import mRefresh from '@/components/Refresh.vue';
 	import clip from '@/assets/js/clipboard';
+	import EXIF from 'exif-js';
 	import { Dialog } from 'vant';
 	import { Toast } from 'vant';
 	export default {
@@ -911,7 +885,7 @@
 				//发送短信提示start
 				_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。";
 				_this.mobilePhone = _this.$route.query.mobilePhone;
-				_this.smsContent = `【HPC帮扶链】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
+				_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
 				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 				//发送短信提示end
 				_this.showSendSMSTipModel = true;
@@ -1024,72 +998,95 @@
 			imgPreview(file) {
 				let _this = this;
 				_this.toast.message = `正在压缩图片`;
+				let Orientation = null;
 				//判断支不支持FileReader
 				if (!file || !window.FileReader) return false;
 				if (/^image/.test(file.type)) {
 				  //创建一个reader
+				  EXIF.getData(file, function() {
+				      EXIF.getAllTags(this);   
+				      Orientation = EXIF.getTag(this, 'Orientation');  
+				  });  
 				  let reader = new FileReader();
 				  //将图片转成base64格式
 				  reader.readAsDataURL(file);
 				  //读取成功后的回调
 				  reader.onloadend = function(res) {
 					let result = this.result;
-					let img = new Image();
-					img.src = result;
-					console.log('********未压缩前的图片大小(KB)********');
-					console.log(result.length / 1024);
-					// _this.toast.message = `未压缩前的图片大小 ${result.length / 1024} KB`;
-					img.onload = function() {
-					  let data = _this.compress(img, 0.1);//调整压缩比例
-					  console.log('*******压缩后的图片大小(KB)*******');
-					  console.log(data.length / 1024);
-					  // _this.toast.message = `压缩后的图片大小 ${data.length / 1024} KB`;
-					  // console.log(data);
-					  // _this.uploadPicBase64 = data;
-					  //执行上传图片接口：updateTransactionImgUrlById
-					  let params = {
-						imgUrl: data,
-						id: _this.id,
-					  	/* buyerId: _this.userId, */
-					  }
-					  _this.toast.message = `正在上传图片`;
-					  _this.$ajax.ajax(_this.$api.updateTransactionImgUrlById, 'POST', params, function(res) {
-							// console.log('res', res);
-							if (res.code == _this.$api.CODE_OK) {
-								_this.toast.message = `图片上传成功`;
-								_this.toast.icon = 'success'
-								// Toast.clear();
-								// _this.$toast(`图片上传成功`);
-								//发送短信提示start
-								_this.sendSmsTipText = "图片上传成功，为了让交易顺利进行，请给卖家发个短信提醒。";
-								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-								_this.smsContent = `【HPC帮扶链】付款凭证已上传，请在“我的--我的交易--待收款”的订单详情中查看。`;
-								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
-								//发送短信提示end
-								_this.showSellerDetailModel = false;
-								_this.onLoad2();
+					let image = new Image();
+					image.src = result;//base64
+					image.onload = function() {
+						//alert("image.onload");
+					    var expectWidth = this.naturalWidth;  
+					    var expectHeight = this.naturalHeight; 
+					    var scale = expectWidth / expectHeight;
+					    var canvas = document.createElement("canvas");
+					    var ctx = canvas.getContext("2d");
+					    canvas.width = expectWidth;
+					    canvas.height = expectHeight;
+					    //如果方向角不为1，都需要进行旋转 
+					    if(Orientation && Orientation != "" && Orientation != 1){  
+					        var degree=0;
+					        switch(Orientation){
+					            case 6://需要顺时针（向左）90度旋转  
+					                degree=90;
+					                canvas.width = expectHeight;
+					                canvas.height = expectWidth;
+					                ctx.translate(expectHeight / 2,expectWidth / 2);
+					                ctx.rotate(degree * Math.PI / 180);
+					                ctx.translate(-expectWidth / 2,-expectHeight / 2);
+					                ctx.drawImage(image,0,0,expectWidth,expectHeight);
+					                break;
+					            case 8://需要逆时针（向右）90度旋转
+					                degree=-90;
+					                canvas.width = expectHeight;
+					                canvas.height = expectWidth;
+					                ctx.translate(expectHeight / 2,expectWidth / 2);
+					                ctx.rotate(degree * Math.PI / 180);
+					                ctx.translate(-expectWidth / 2,-expectHeight / 2);
+					                ctx.drawImage(image,0,0,expectWidth,expectHeight);
+					                break;
+					            case 3://需要180度旋转  
+					                degree=-180;
+					                ctx.rotate(degree * Math.PI / 180);
+					                ctx.drawImage(image,-expectWidth,-expectHeight,expectWidth,expectHeight);
+					                break;
+					        }         
+					    }else{
+					        ctx.drawImage(image,0,0,expectWidth,expectHeight);
+					    }
+					    let dataOri = canvas.toDataURL("image/png");
+						let img = new Image();
+						img.src = dataOri;//base64
+						// console.log("dataOri",dataOri);
+						console.log('********未压缩前的图片大小(KB)********');
+						console.log(dataOri.length / 1024);
+						img.onload = function() {
+							let data = _this.$utils.compress(img, 0.4);//调整压缩比例
+							let params = {
+								imgUrl: data,
+								id: _this.id,
+								/* buyerId: _this.userId, */
 							}
-					  })
-					}
+							_this.toast.message = `正在上传图片`;
+							_this.$ajax.ajax(_this.$api.updateTransactionImgUrlById, 'POST', params, function(res) {
+								if (res.code == _this.$api.CODE_OK) {
+									_this.toast.message = `图片上传成功`;
+									_this.toast.icon = 'success'
+									//发送短信提示start
+									_this.sendSmsTipText = "图片上传成功，为了让交易顺利进行，请给卖家发个短信提醒。";
+									_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
+									_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】我的付款凭证已上传，请在“我的--我的交易--待收款”的订单详情中查看。`;
+									_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
+									//发送短信提示end
+									_this.showSellerDetailModel = false;
+									_this.onLoad2();
+								}
+							})
+						}
+					};
 				  }
 				}
-			},
-			// 压缩图片
-			compress(img, size) {
-				let canvas = document.createElement('canvas');
-				let ctx = canvas.getContext('2d');
-				let initSize = img.src.length;
-				let width = img.width;
-				let height = img.height;
-				canvas.width = width;
-				canvas.height = height;
-				// 铺底色
-				ctx.fillStyle = '#fff';
-				ctx.fillRect(0, 0, canvas.width, canvas.height);
-				ctx.drawImage(img, 0, 0, width, height);
-				//进行最小压缩
-				let ndata = canvas.toDataURL('image/jpeg', size);
-				return ndata;
 			},
 			buyOrSell(item){
 				let _this = this;
@@ -1599,7 +1596,7 @@
 				  		if(res.data==1){
 							_this.sendSmsTipText = "提交未收到款状态成功，为了让交易顺利进行，请给卖家发个短信要求对方上传付款凭证。";
 							_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
-							_this.smsContent = `【HPC帮扶链】您好，我并未收到款，请在“我的--我的交易--待付款”的订单详情中上传付款凭证。`;
+							_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】您好，我并未收到款，请在“我的--我的交易--待付款”的订单详情中上传付款凭证。`;
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							_this.showBuyerDetailModel = false;
 							_this.onLoad4();
@@ -1635,12 +1632,12 @@
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
 				  		if(res.data==1){
-							_this.$toast("交易已经顺利完成");
+							// _this.$toast("交易已经顺利完成");
 							//发送短信提示start
-							/* _this.sendSmsTipText = "交易已经顺利完成！互帮互助，合作共赢，请给对方发条感谢信并给个好评。";
+							_this.sendSmsTipText = "交易已经顺利完成！互帮互助，合作共赢，请最后告知对方您已经确认收款并释放矿石。";
 							_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
-							_this.smsContent = `【HPC帮扶链】已经确认收款并释放矿石，互帮互助，合作共赢，请给个好评，谢谢。`;
-							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent); */
+							_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】我已经确认收款并释放矿石，谢谢。`;
+							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							//发送短信提示end
 							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 							_this.onLoad4();
@@ -1701,7 +1698,7 @@
 							//发送短信提示start
 							_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请给卖家发个短信提醒对方确认收款并释放矿石。";
 							_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-							_this.smsContent = "【HPC帮扶链】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收到款并释放矿石。";
+							_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收到款并释放矿石。`;
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							//发送短信提示end
 				  			_this.showSellerDetailModel = false;

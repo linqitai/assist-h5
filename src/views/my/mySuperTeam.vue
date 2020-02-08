@@ -13,7 +13,8 @@
 				align-items: center;
 				justify-content: center;
 				padding: $boxPadding2 2px;
-				background-color: $main-box-color;
+				background-color: $main-box-fh-bg-color;
+				color: $main-box-fh-text-color;
 				.flex1 {
 					flex: 0 0 84px;
 					text-align: center;
@@ -24,6 +25,7 @@
 						height: $heightwidht;
 						border-radius: $heightwidht;
 						background-color: $main-blue-color;
+						color: $main-box-fh-text-color;
 						text-align: center;
 						line-height: $heightwidht;
 						font-size: 22px;
@@ -42,11 +44,11 @@
 				.item {
 					display: flex;
 					padding: $boxPadding2;
-					border-bottom: 1px solid $main-bg-color;
 					background-color: $main-box-color;
 					align-content: center;
 					align-items: center;
 					justify-content: center;
+					border-bottom:1px solid $mainBorderColor;
 					&::last-child {
 						border-bottom: 1px solid transparent;
 					}
@@ -60,6 +62,7 @@
 							height: $heightwidht;
 							border-radius: $heightwidht;
 							background-color: $main-adorn-color;
+							color: $main-box-fh-text-color;
 							text-align: center;
 							line-height: $heightwidht;
 							font-size: 18px;
@@ -139,9 +142,9 @@
 					<!-- <div class="line">战队QQ群：8838585858</div> -->
 				</div>
 			</div>
-			<div class="placeholderLine1"></div>
-			<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+			<div class="line1pxbgcolor"></div>
+			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab :title="myShareText" name="myShare">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1" :offset='100'>
 						<div class="list">
@@ -233,7 +236,7 @@
 				list3:[],
 				userInfo:{},
 				parentUserInfo:{},
-				myShareText:'我的团队',
+				myShareText:'我的直推',
 				activedText:'已实名',
 				unactivedText:'未实名',
 				realnameNum:0

@@ -19,10 +19,10 @@
 			color: $mainTextColor;
 			font-size: 0.75rem !important;
 		}
-		[class*=van-hairline]::after{
+		/* [class*=van-hairline]::after{
 			border: none !important;
-		}
-		.van-field__control{
+		} */
+		/* .van-field__control{
 			color: $mainTextColor;
 		}
 		.van-cell,.van-cell-group{
@@ -30,7 +30,7 @@
 		}
 		.van-cell__value, .van-cell__value--alone, .van-field__control {
 		    color: #FFFFFF !important;
-		}
+		} */
 		.myWordPage{
 			margin-top: $headerHeight;
 			background-color: $main-box-color;
@@ -38,10 +38,10 @@
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				border-bottom: 1px solid $main-bg-color;
-				.van-cell__value, .van-cell__value--alone, .van-field__control {
+				border-bottom: 1px solid $mainBorderColor;
+				/* .van-cell__value, .van-cell__value--alone, .van-field__control {
 				    color: #FFFFFF !important;
-				}
+				} */
 				.flex{
 					flex: 1;
 					padding-left: 16px;
@@ -54,8 +54,7 @@
 				}
 			}
 			.myCell2{
-				height: 200px;
-				border-bottom: 1px solid $main-bg-color;
+				border-bottom: 1px solid $mainBorderColor;
 			}
 			.sureBtn{
 				position: fixed;
@@ -99,7 +98,7 @@
 			<div class="myCell">
 				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的留言标题" />
 			</div>
-			<div class="myCell3">
+			<div class="myCell2">
 				<van-cell-group>
 				  <van-field
 				    v-model="form.wordContent" @blur="validate('wordContent')"
@@ -113,7 +112,7 @@
 				</van-cell-group>
 			</div>
 			<div class="sureBtn">
-				<div class="tip">为了提高留言质量，提交留言需使用1个帮扶券</div>
+				<!-- <div class="tip">为了提高留言质量，提交留言需使用1个帮扶券</div> -->
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提交</van-button>
 			</div>
 		</div>
@@ -187,16 +186,16 @@
 				// console.log("submit");
 				let _this = this;
 				// console.log("_this.userInfo.platformTicket",_this.userInfo.platformTicket);
-				if(_this.userInfo.platformTicket<1){
+				/* if(_this.userInfo.platformTicket<1){
 					Dialog.alert({
 						title: "系统提示",
 						confirmButtonText:'知道了',
-						message: "您的帮扶券不足1张，无法留言"
+						message: "您的帮扶券不足0.01张，无法留言"
 					}).then(() => {
 					  // on confirm
 					})
 					return;
-				}
+				} */
 				if(_this.form.wordTitle==''){
 					_this.$toast('留言标题不能为空');
 					return;
@@ -205,10 +204,11 @@
 					_this.$toast('留言内容不能为空');
 					return;
 				}
+				//为了提高留言质量，提交留言需使用1张帮扶券，您是否确定要留言？
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
-				  message: '为了提高留言质量，提交留言需使用1张帮扶券，您是否确定要留言？'
+				  message: '您是否确定要留言？'
 				}).then(() => {
 					// on confirm
 					console.log('sure');

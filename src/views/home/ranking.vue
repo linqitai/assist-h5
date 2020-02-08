@@ -38,6 +38,7 @@
 							height: $heightwidht;
 							border-radius: $heightwidht;
 							background-color: $main-adorn-color;
+							color: $main-box-fh-text-color;
 							text-align: center;
 							line-height: $heightwidht;
 							font-size: 18px;
@@ -142,8 +143,8 @@
 			>
 			  <div slot="action" @click="searchEvent">搜索</div>
 			</van-search>
-			<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-			 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab title="矿石" name="ranking1">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list" v-for="(item,index) in list1" :key='item.id'>

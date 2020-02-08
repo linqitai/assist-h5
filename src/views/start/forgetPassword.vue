@@ -2,7 +2,7 @@
 	@import '~@/assets/scss/index.scss';
 	.forgetPassword{	
 		color: $mainTextColor;
-		@include pageHaveHeight4Scroll();
+		@include page4Home();
 		width: 100%;
 		box-sizing: border-box;
 		padding: $boxPadding1;
@@ -84,6 +84,7 @@
 				<div class="logoBox">
 					<img src="../../assets/image/zjwx.png" alt="">
 				</div>
+				<div class="placeholderLine10"></div>
 			</div>
 		</div>
 	</div>
@@ -120,7 +121,7 @@
 		},
 		methods:{
 			back(){
-				this.$router.go(-1);
+				this.$router.push('login');
 			},
 			handleCopy(text, event) {
 				let _this = this;

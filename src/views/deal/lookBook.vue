@@ -65,8 +65,8 @@
 			  <div slot="action" @click="onSearch">搜索</div>
 			</van-search> -->
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-				<van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-				 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
+				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 					<van-tab title="团队算力" name="calculation">
 						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 						<div class="list">

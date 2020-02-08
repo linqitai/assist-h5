@@ -59,7 +59,7 @@
 			$itemLRHeight:40px;
 			$itemInnerLine1Height:20px;
 			.voteList{
-				background-color: $main-box-color;
+				background-color: $main-box-fh-bg-color;
 				margin-top:12px;
 				.item{
 					display:flex;
@@ -75,7 +75,7 @@
 							width: 100%;
 							font-size: 12px;
 							line-height:$itemInnerLine1Height;
-							color: $mainTextColor;
+							color: $main-box-fh-text-color;
 						}
 						.time{
 							font-size: 11px;
@@ -91,7 +91,7 @@
 						height: $itemLRHeight;
 						line-height: $itemLRHeight;
 						font-size: 1rem;
-						color: $mainTextColor;
+						color: $main-box-fh-text-color;
 						.status{
 							font-size: 12px;
 							text-align: right;
@@ -109,6 +109,7 @@
 						right: 6px;
 						top: 2px;
 						font-size: 11px;
+						color: $main-box-fh-text-color;
 					}
 				}
 			}
@@ -142,10 +143,13 @@
 				<div class="time">{{voteInfo.createTime|getDateTimeTOHM}} ~ {{voteInfo.deadTime|getDateTimeTOHM}}</div>
 				<div class="margT10">
 					<van-radio-group v-model="form.questionId" v-if="isDead==0" @change="radioChange">
-					  <van-radio v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" checked-color="#ffae00">
-					  	<!-- <div class="content" v-html="voteInfo.vote1"></div> -->
-					  	方案{{index + 1}}：{{item.questionTitle}}
-					  </van-radio>
+						<div v-for="(item,index) in voteInfo.questionVoList" :key="item.id" class="margT6">
+							<van-radio :name="item.id" checked-color="#ffae00">
+								<!-- <div class="content" v-html="voteInfo.vote1"></div> -->
+								方案{{index + 1}}：{{item.questionTitle}} 
+							</van-radio>
+							<div class="f-12 lineHeight">{{item.questionContent}}</div>
+						</div>
 					</van-radio-group>
 					<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" v-if="isDead==1">
 						方案{{index + 1}}：{{item.questionTitle}}
@@ -199,6 +203,7 @@
 					/>
 				</div>
 			</div>
+			<div class="placeholderLine10"></div>
 			<div class="sureBtn" v-if="isDead==0">
 				<!-- <div class="lookMore">查看历史投票</div> -->
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="large" @click="submit(voteInfo.id)">{{btnText}}</van-button>
@@ -213,7 +218,7 @@
 			<div class="paddingWing">
 				<div class="placeholderLine40"></div>
 				<div class="describe">
-					<b>尊敬的{{projectName}}用户们</b>，平台从建立之初始终本着<b>公平、公正、公开、透明</b>的原则，把大家的综合意愿放首位。平台在每一次重要决策上的预调整或预变动，会尽量让大家参加进来<b>共同做决策</b>。同时为了避免部分用户或团队存在垄断拉票的现象，所以平台经仔细考虑后决定，只有<b>青铜级别或者青铜以上</b>的用户才能参与投票，望全体用户理解！
+					<b>尊敬的{{projectName}}用户们</b>，平台从建立之初始终本着<b>公平、公正、公开、透明</b>的原则，把大家的综合意愿放首位。平台在每一次重要决策上的预调整或预变动，会尽量让大家参加进来<b>共同做决策</b>。Tip:参与投票之前要先完成基础任务1。
 				</div>
 				<div class="placeholderLine40"></div>
 				<div class="placeholderLine40"></div>

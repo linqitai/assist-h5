@@ -182,6 +182,8 @@
 				<div class="placeholderLine10"></div>
 				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopy(registerUrl,$event)" :block="true">复制分享链接</van-button>
 				<div class="placeholderLine10"></div>
+				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="innerRegister" :block="true">内排注册</van-button>
+				<div class="placeholderLine10"></div>
 				<div class="tip4model3">
 					分享是快速提升团队算力的首选方案<br>
 					而想要管理好团队快速增长算力<br>
@@ -191,7 +193,7 @@
 					需省市代理审核群活跃度并引荐给客服<br>
 					达标后群主和群管理获得一台小型矿机<br>
 				</div>
-				<!-- <van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="innerRegister" :block="true">内排注册</van-button> -->
+				
 			</div>
 		</div>
 		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">

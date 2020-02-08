@@ -261,8 +261,21 @@
 				})
 			},
 			registerBtn(){
-				console.log('form',this.form);
 				let _this = this;
+				console.log('form',this.form);
+				let phone = localStorage.getItem("mobilePhone");
+				if(!_this.$utils.isNUll(phone)){
+					if(_this.form.phone != phone){
+						// _this.$toast("一机一号，切勿违规操作");
+						Dialog.alert({
+						  title: '系统提示',
+						  message: '该设备已登录过其他账号,切勿多账号操作',
+						}).then(() => {
+						  // on close
+						});
+						return;
+					}
+				}
 				let params = {
 					telephone:_this.form.phone,
 					password:_this.form.password,

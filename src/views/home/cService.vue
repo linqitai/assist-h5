@@ -13,7 +13,7 @@
 		.copy{
 			font-size: $fs-12;
 			margin-right: 10px;
-			background-color: #E5E5E5;
+			background-color: $main-adorn-color;
 			padding: 1px 2px;
 			color: $main-bg-color;
 		}

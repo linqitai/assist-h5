@@ -5,8 +5,7 @@
 .body {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
   bottom: $footerHeight;
   background: $main-bg-color;
   overflow-y: scroll;

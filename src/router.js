@@ -118,7 +118,7 @@ export default new Router({
 						},
 						{
 							path: '/mySuperTeam',
-							name: '我的战队',
+							name: '我的团队',
 							component: resolve => require(['./views/my/mySuperTeam'],resolve),
 							meta:{footer:false},
 						},
@@ -309,7 +309,7 @@ export default new Router({
 		},
 		{
 			path: '/dealRecord',
-			name: '交易流水',
+			name: '交易记录',
 			component: resolve => require(['./views/deal/dealRecord'],resolve),
 			meta:{footer:false},
 		},

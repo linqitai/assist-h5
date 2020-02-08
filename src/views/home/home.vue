@@ -4,6 +4,36 @@
 $noticeHeight:40px;
 .homePage{
 	// margin-top: $header-height;
+	[class*=van-hairline]::after {
+	    border: 0px solid transparent !important;
+	}
+	.noticeDetail{
+		padding: 0 $boxPadding2;
+		box-sizing: border-box;
+		font-size: 14px;
+		overflow: hidden;
+		.content{
+			font-size: 12px;
+			margin-top: 7px;
+			line-height: 1.2em;
+			letter-spacing: 1px;
+			text-align: justify;
+			color: $grayDark !important;
+			.ql-indent-1{
+				margin-top: 2px;
+			}
+		}
+		.detailTime{
+			overflow: hidden;
+			clear: both;
+			font-size: 11px;
+			color: #a7a7a7 !important;
+			margin-bottom: 6px;
+		}
+		[class*=van-hairline]::after {
+		    border: 0px solid transparent !important;
+		}
+	}
 	.HomeContent{
 		position: relative;
 		// margin-top: $headerHeight;
@@ -14,7 +44,6 @@ $noticeHeight:40px;
 				}
 			}
 		}
-		
 		.notice {
 			width: $lineWidth;
 			height: $noticeHeight;
@@ -22,7 +51,7 @@ $noticeHeight:40px;
 			background-color: white;
 			border-radius: $borderRadius;
 			// margin-top:6px;
-			margin-top: -$noticeHeight/4;
+			margin-top: -18px;
 			position: relative;
 			// z-index: 2;
 		}
@@ -37,8 +66,8 @@ $noticeHeight:40px;
 			margin-top: $marginTop2;
 			margin-left: $marginLeft;
 			border-radius: $borderRadius;
-			background-color: white;
-			color: $grayDarker;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			padding: 16px 0;
 		
 			.infoBox {
@@ -64,8 +93,8 @@ $noticeHeight:40px;
 			margin-top: $marginTop2;
 			margin-left: $marginLeft;
 			border-radius: $borderRadius;
-			background-color: white;
-			color: $mainBorderColor;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			padding: 10px 0;
 		
 			.infoBox {
@@ -80,7 +109,7 @@ $noticeHeight:40px;
 						line-height: $iconBgWidth;
 						border-radius: $iconBgWidth/3;
 						margin: 0 auto;
-						color: white;
+						color: $main-box-fh-text-color;
 						font-size: 30px;
 					}
 		
@@ -120,27 +149,23 @@ $noticeHeight:40px;
 						background-color: #42a0ff;
 					}
 				}
-		
 				.text {
 					margin-top: 0.375rem;
-					color: $grayDarker;
+					color: $main-box-fh-text-color;
 				}
 			}
 		}
 		
-		$noticeFlagHeight:2.5rem;
+		$noticeFlagHeight:2rem;
 		
 		.noticeFlag {
 			width: $lineWidth;
-			margin-left: $marginLeft;
-			height: $noticeFlagHeight;
 			overflow: hidden;
 			clear: both;
-		
 			.title {
 				float: left;
 				font-size: 0.875rem;
-				color: $mainTextColor;
+				color: $grayDarker;
 				height: $noticeFlagHeight;
 				line-height: $noticeFlagHeight;
 			}
@@ -148,10 +173,11 @@ $noticeHeight:40px;
 			.lookMore {
 				float: right;
 				font-size: 0.75rem;
-				color: $mainTextColor;
+				color: $grayDarker;
 				height: $noticeFlagHeight;
 				line-height: $noticeFlagHeight;
 				text-decoration: underline;
+				margin-right: 12px;
 			}
 		}
 		
@@ -159,13 +185,10 @@ $noticeHeight:40px;
 		$itemInnerLine1Height:20px;
 		
 		.noticeList {
-			background-color: $main-box-color;
-		
-			// margin-top:$marginTop2;
 			.item {
 				display: flex;
 				padding: 10px $boxPadding2;
-				border-bottom: 1px solid $mainBorderColor;
+				border-top: 1px solid $mainBorderColor;
 		
 				&:last-child {
 					border-bottom: 1px solid transparent;
@@ -179,12 +202,12 @@ $noticeHeight:40px;
 						font-size: 14px;
 						height: $itemInnerLine1Height;
 						line-height: $itemInnerLine1Height;
-						color: $mainTextColor;
+						color: $mainTextColor2;
 					}
 		
 					.time {
 						font-size: 0.875rem;
-						color: $grayLight;
+						color: $grayDarker;
 						// margin-top: 0.5rem;
 						height: $itemInnerLine1Height;
 						line-height: $itemInnerLine1Height;
@@ -248,7 +271,7 @@ $noticeHeight:40px;
 					width: $circleWidth;
 					border-radius: $circleWidth;
 					font-size: 12px;
-					color: $mainTextColor;
+					color: $main-box-fh-text-color;
 					&.bgcolor1{
 						background-color: $main-adorn-color;
 					}
@@ -536,7 +559,7 @@ $noticeHeight:40px;
 						<div class="text">资源共享</div>
 					</div>
 				</div>
-				<div class="noticeFlag">
+				<div class="noticeFlag paddingWing margT8">
 					<div class="title">历史公告</div>
 					<!-- <div class="lookMore">查看更多</div> -->
 					<router-link class="lookMore" to="/noticeList">查看更多 </router-link>
@@ -554,6 +577,14 @@ $noticeHeight:40px;
 				</div>
 			</div>
 		</van-pull-refresh>
+		<van-dialog v-model="isShowLastNotice" :title="lastNoticeItem.noticeTitle" v-if="lastNoticeItem.noticeTitle">
+			<div class="noticeDetail paddingWing">
+				<div class="content margT6" v-html="lastNoticeItem.noticeContent"/>
+				<div class="detailTime textCenter margT10">
+					{{lastNoticeItem.createTime}}
+				</div>
+			</div>
+		</van-dialog>
 		<transition name="van-fade">
 		  <router-view></router-view>
 		</transition>
@@ -575,7 +606,7 @@ $noticeHeight:40px;
 		},
 		data() {
 			return {
-				/* beforeAttendanceDate:"", */
+				isShowLastNotice:false,
 				todayIsAttendance:false,
 				isDisableAttendanceBtn:false,
 				isLoading:false,
@@ -604,7 +635,8 @@ $noticeHeight:40px;
 				},
 				canCirculateNum:0,
 				loading: true,
-				qqFlock:''
+				qqFlock:'',
+				dealPageInfo: ''
 			}
 		},
 		mounted() {
@@ -622,6 +654,7 @@ $noticeHeight:40px;
 				_this.userId = _this.userInfo.userId;
 				_this.refreshAttendanceInfo();
 			}else{
+				_this.$cookies.remove('token');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('/login');
 				/* return; */
@@ -638,19 +671,18 @@ $noticeHeight:40px;
 			}else{
 				_this.refreshEvent();
 			}
-			// _this.getnoticeList();
-			// _this.getNoticeList4Swipe();
 			//公告缓存获取
 			if(_this.$cookies.get('hasnoticeList')){
 				_this.noticeList = JSON.parse(localStorage.getItem("noticeListLocal"));
 				if(_this.noticeList){
 					_this.lastNoticeItem = _this.noticeList[0];
+					//实在显示首页的最新公告弹窗
+					_this.isShowLastNotice = true;
 				}else{
-					_this.getnoticeList();
+					_this.getNoticeList();
 				}
-				
 			}else{
-				_this.getnoticeList();
+				_this.getNoticeList();
 			}
 			//轮播图存获取
 			if(_this.$cookies.isKey('hasNoticeList4Swipe')){
@@ -670,6 +702,11 @@ $noticeHeight:40px;
 				_this.getAssistQQFlock();
 			}
 			// _this.getCanCirculateMineralNum();
+			/* if(_this.$cookies.get("haveDealPageInfo")){
+				_this.dealPageInfo = JSON.parse(localStorage.getItem("dealPageInfo"));
+				console.log("dealPageInfo",_this.dealPageInfo);
+			} */
+			
 		},
 		methods: {
 			toServicePage(){
@@ -681,7 +718,7 @@ $noticeHeight:40px;
 					console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.qqFlock = `官方QQ群：${res.data.qqFlock}`;
-						_this.$cookies.set('qqFlock',res.data.qqFlock,_this.$api.cookiesTime);
+						_this.$cookies.set('qqFlock',res.data.qqFlock,_this.$api.cookiesTime8h);
 					}
 				})
 			},
@@ -768,6 +805,7 @@ $noticeHeight:40px;
 				let _this = this;
 				_this.getHomeMineralStaticInfo();
 				_this.getNoticeList4Swipe();
+				_this.getNoticeList();
 			},
 			toNoticeDetail(item) {
 				let _this = this;
@@ -824,11 +862,11 @@ $noticeHeight:40px;
 					if (res.code == _this.$api.CODE_OK) {
 						_this.noticeList4Swipe = res.data.list;
 						localStorage.setItem('noticeList4Swipe',JSON.stringify(_this.noticeList4Swipe));
-						_this.$cookies.set('hasNoticeList4Swipe','has',_this.$api.cookiesTime8h);
+						_this.$cookies.set('hasNoticeList4Swipe',1,_this.$api.cookiesTime8h);
 					}
 				})
 			},
-			getnoticeList() {
+			getNoticeList() {
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage,
@@ -840,10 +878,11 @@ $noticeHeight:40px;
 					if (res.code == _this.$api.CODE_OK) {
 						_this.noticeList = res.data.list;
 						_this.lastNoticeItem = _this.noticeList[0];
-						// localStorage.setItem('noticeList',JSON.stringify(_this.noticeList));
+						//实在显示首页的最新公告弹窗
+						_this.isShowLastNotice = true;
 						localStorage.removeItem('noticeListLocal');
 						localStorage.setItem('noticeListLocal',JSON.stringify(res.data.list));
-						_this.$cookies.set('hasnoticeList',"has",_this.$api.cookiesTime8h);
+						_this.$cookies.set('hasnoticeList',1,_this.$api.cookiesTime8h);
 					}
 				})
 			},

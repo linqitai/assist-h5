@@ -21,12 +21,12 @@
 		[class*=van-hairline]::after{
 			border: none !important;
 		}
-		.van-field__control{
+		/* .van-field__control{
 			color: $mainTextColor;
-		}
-		.van-cell,.van-cell-group{
+		} */
+		/* .van-cell,.van-cell-group{
 			background-color: inherit !important;
-		}
+		} */
 		.transferPage{
 			color: $mainTextColor;
 			margin-top: $headerHeight;
@@ -34,17 +34,17 @@
 			.van-field__label{
 				width: 70px !important;
 			}
-			.van-cell__value, .van-cell__value--alone, .van-field__control,.van-cell {
-			    color: #FFFFFF !important;
-			}
+			/* .van-cell,.van-cell__value, .van-cell__value--alone, .van-field__control,.van-cell {
+			    color: $mainTextColor !important;
+			} */
 			.myCell{
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 				border-bottom: 1px solid $main-bg-color;
-				.van-cell__value, .van-cell__value--alone, .van-field__control {
-				    color: #FFFFFF !important;
-				}
+				/* .van-cell__value, .van-cell__value--alone, .van-field__control {
+				    color: $mainTextColor !important;
+				} */
 				.flex{
 					flex: 1;
 					padding-left: 16px;

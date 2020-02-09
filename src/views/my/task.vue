@@ -208,7 +208,7 @@
 				<div class="line text margT10">
 					成为青铜级工会会长<br>
 					需要：<br>
-					直推团队至少3人团队算力达到10G<br>
+					直推团队至少3人团队算力达到10或个人算力达到1<br>
 					完成后:<br>
 					1.可获得二台微型矿机<br>
 					2.每次租赁矿机所加贡献值比例提升至 12%<br>
@@ -228,7 +228,7 @@
 				<div class="line text margT10">
 					成为白银级工会会长<br>
 					需要：<br>
-					直推团队至少20人团队算力达到100G<br>
+					直推团队至少20人团队算力达到100或个人算力达到9<br>
 					完成后:<br>
 					1.可获得一台小型矿机<br>
 					2.每次租赁矿机所加贡献值比例提升至 14%<br>
@@ -248,7 +248,7 @@
 				<div class="line text margT10">
 					成为黄金级工会会长<br>
 					需要：<br>
-					直推团队至少50人团队算力达到500G<br>
+					直推团队至少50人团队算力达到500或个人算力达到34<br>
 					完成后:<br>
 					1.可获得一台中型矿机<br>
 					2.每次租赁矿机所加贡献值比例提升至 16%<br>
@@ -269,7 +269,7 @@
 				<div class="line text margT10">
 					成为铂金级工会会长<br>
 					需要：<br>
-					直推团队至少100人团队算力达到2000G<br>
+					直推团队至少100人团队算力达到2000或个人算力达到114<br>
 					完成后:<br>
 					1.可获得一台大型矿机<br>
 					2.每次租赁矿机所加贡献值比例提升至 18%<br>
@@ -290,7 +290,7 @@
 				<div class="line text margT10">
 					成为砖石级工会会长<br>
 					需要：<br>
-					直推团队至少300人团队算力达到10000G<br>
+					直推团队至少300人团队算力达到10000或个人算力达到214<br>
 					完成后:<br>
 					1.可获得一台巨型矿机<br>
 					2.每次租赁矿机所加贡献值比例提升至 20%<br>
@@ -491,7 +491,7 @@ export default {
 			let teamNum = _this.userInfo.teamateNum;
 			let levelNow = _this.userInfo.level;
 			if(level==1){
-				if((teamNum<3&&teamCP<10&&levelNow<=0) && (myCP<1&&levelNow<=0)){
+				if((teamNum<3||teamCP<10||levelNow<=0) && (myCP<1)){
 					// _this.$toast();
 					Dialog.alert({
 					  title: '系统提示',
@@ -513,7 +513,7 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardOneLevelByUserId;
 			}else if(level==2){
-				if((teamNum<10&&teamCP<100&&levelNow<=1) && (myCP<9&&levelNow<=1)){
+				if((teamNum<10||teamCP<100||levelNow<=1) && (myCP<9)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
@@ -535,7 +535,7 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardTwoLevelByUserId;
 			}else if(level==3){
-				if((teamNum<50&&teamCP<500&&levelNow<=2) && (myCP<34&&levelNow<=2)){
+				if((teamNum<50||teamCP<500||levelNow<=2) && (myCP<34)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
@@ -557,7 +557,7 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardThreeLevelByUserId;
 			}else if(level==4){
-				if((teamNum<100&&teamCP<2000&&levelNow<=3) && (myCP<114&&levelNow<=3)){
+				if((teamNum<100||teamCP<2000||levelNow<=3) && (myCP<114)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
@@ -579,7 +579,7 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardFourLevelByUserId;
 			}else if(level==5){
-				if((teamNum<300&&teamCP<10000&&levelNow<=4) && (myCP<214&&levelNow<=4)){
+				if((teamNum<300||teamCP<10000||levelNow<=4) && (myCP<214)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
@@ -604,8 +604,9 @@ export default {
 			url = _this.$api.getAssistXXLevelRewardByUserId;
 			let params = {
 				/* userId: _this.userInfo.userId, */
-				level: levelNow
+				level: level
 			}
+			console.log('params',params);
 			_this.$ajax.ajax(url, 'POST', params, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -624,7 +625,7 @@ export default {
 						  message: '恭喜您，奖励领取成功。为了把控算力上的泡沫，经精算师研究决定奖励型矿机不加算力,用此矿机所产出的矿石去商城租赁矿机即可加算力，请您知晓！'
 						}).then(() => {
 						  // on close
-						  _this.$router.push('/mill');
+						  _this.$router.push('/myMill');
 						});
 					}
 				}

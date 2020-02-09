@@ -269,7 +269,7 @@
 						// _this.$toast("一机一号，切勿违规操作");
 						Dialog.alert({
 						  title: '系统提示',
-						  message: '该设备已登录过其他账号,切勿多账号操作',
+						  message: _this.$api.oneAccount,
 						}).then(() => {
 						  // on close
 						});

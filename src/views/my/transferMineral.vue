@@ -7,9 +7,10 @@
 		top: 0;
 		right: 0;
 		left: 0;
-		bottom: 0;
+		min-height: 100%;
 		background-color: $main-box-color;
 		z-index: 2;
+		overflow-y:scroll;
 		.van-dropdown-menu{
 			height: $cellHeight !important;
 			background-color: inherit !important;
@@ -91,16 +92,17 @@
 				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请粘贴对方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
 			</van-cell-group>
+			<div class="placeholderLine10"></div>
+			<div class="paddingWing tip4model3">
+				点对点(定向)交易规则：<br>
+				1.服务费收20%矿石<br>
+				2.完成【我的--任务中心】里的基础任务后即可开通定向转让矿石的权限<br>
+				3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机
+			</div>
 			<!-- <div class="myCell">
 				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的留言标题" />
 			</div> -->
 			<div class="sureBtn">
-				<div class="paddingWing tip4model3">
-					点对点(定向)交易规则：<br>
-					1.服务费收20%矿石<br>
-					2.完成【我的--任务中心】里的基础任务后即可开通定向转让矿石的权限<br>
-					3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石是用来复投矿机的
-				</div>
 				<div class="placeholderLine4"></div>
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
 			</div>
@@ -166,7 +168,7 @@
 			},
 			getDealPageInfo(){
 				let _this = this;
-				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'GET', null, function(res) {
+				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
 					console.log('getDealPageInfo', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.maxPrice = parseFloat(res.data.currentPlatformPrice)*1.3+4;

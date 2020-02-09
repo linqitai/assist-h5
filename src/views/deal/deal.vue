@@ -191,6 +191,11 @@
 				transform: scaleY(.5);
 			}
 		}
+		.kline{
+			width: 95%;
+			margin-left: 3%;
+			min-height: 260px;
+		}
 	}
 </style>
 <template>
@@ -207,6 +212,8 @@
 				<div>您好主人，小帮正在努力加载中</div>
 			</van-skeleton>
 		</div> -->
+		<!-- <div class="kline" id="kline"></div> -->
+		<van-button type="info" size="normal" to="kline" color="#ff8400" :block="true"><span class="letterSpacing">查看K线图</span></van-button>
 		<van-sticky>
 			<div class="statistics">
 				<div class="line clearBoth flexCenter f-14">
@@ -225,9 +232,40 @@
 		</van-sticky>
 		
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-			<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			<div class="line1pxbgcolor"></div>
+			<div class="dealContent">
+				<div class="dealList">
+					<div class="item" v-for="item in list1" :key="item.id">
+						<div class="boxLeft">
+							<div class="">单价 {{item.price}}CNY</div>
+							<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
+						</div>
+						<div class="boxRight">
+							<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
+							<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">卖TA</van-button></div>
+						</div>
+					</div>
+				</div>
+				<div class="placeholderLine"></div>
+				<div class="placeholderLine"></div>
+				<div class="placeholderLine"></div>
+				<div class="paddingWing" v-if="totalItems1>0">
+					<van-pagination 
+					  v-model="currentPage1" 
+					  :total-items="totalItems1" 
+					  :items-per-page="pageSize"
+					  :show-page-size="3" 
+					  force-ellipses
+					  @change="changeCurrentPage1"
+					/>
+				</div>
+				<div class="placeholderLine"></div>
+				<div class="placeholderLine"></div>
+				<div class="placeholderLine"></div>
+			</div>
+			<!-- <van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
-				<van-tab title="普通市场" name="dealArea1">
+				<van-tab title="平价市场" name="dealArea1">
 					<div class="line1pxbgcolor"></div>
 					<div class="dealContent">
 						<div class="dealList">
@@ -293,7 +331,7 @@
 						<div class="placeholderLine"></div>
 					</div>
 				</van-tab>
-			</van-tabs>	
+			</van-tabs>	 -->
 		</van-pull-refresh>
 		
 		<van-action-sheet v-model="showPickSellModel" title="卖出">
@@ -414,7 +452,7 @@ export default {
 			tabActiveName:"dealArea1",
 			currentPage1:1,
 			currentPage2:1,
-			pageSize:6,
+			pageSize:8,
 			pageCount:0,
 			totalItems1:0,
 			totalItems2:0,
@@ -509,7 +547,7 @@ export default {
 				initCanBuyNu:100000,
 				currentPlatformPrice:100000
 			},
-			transactionVo4BuyerTip:""
+			transactionVo4BuyerTip:"",
 		}
 	},  
 	components:{
@@ -714,7 +752,7 @@ export default {
 		},
 		getDealPageInfo(){
 			let _this = this;
-			_this.$ajax.ajax(_this.$api.getDealPageInfo, 'GET', null, function(res) {
+			_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
 				console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;

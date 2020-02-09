@@ -32,19 +32,19 @@
 				background-color: $main-bg-color !important;
 			}
 			.getMineral{
-				margin-top: $marginTop2;
+				//margin-top: $marginTop2;
 			}
 			.millList{
 				background-color: $main-box-fh-bg-color;
 				color: $main-box-fh-text-color;
-				margin-top: $marginTop2;
+				//margin-top: $marginTop2;
 				overflow: hidden;
 				height: 100%;
 				.item{
 					position: relative;
 					display: flex;
 					padding: $boxPadding2;
-					border-bottom:1px solid $mainBorderColor;
+					border-bottom:1px solid $bottomLineColor;
 					align-items: center;
 					align-content: center;
 					justify-content: center;
@@ -397,7 +397,7 @@
 				if(timestamp<24*60*60){
 					_this.receiptModelTile = "系统提示";
 					_this.isShowReceiptLoading = false;
-					_this.mineralNumTip = "距离上次收益满24小时后再来哦";
+					_this.mineralNumTip = "距离上次收益未满24小时";
 					_this.isShowMineralNum = true;
 					_this.isShowConfirmButton = true;
 					return;

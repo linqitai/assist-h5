@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import Router from 'vue-router'
 // import Register from './views/start/register'
 // import Login from './views/start/login'
@@ -300,6 +300,12 @@ export default new Router({
 					component: resolve => require(['./views/raise/raise'],resolve)
 				},
 			]
+		},
+		{
+			path: '/kline',
+			name: 'K线图',
+			component: resolve => require(['./views/deal/kline'],resolve),
+			meta:{footer:false,keepAlive:true},
 		},
 		{
 			path: '/lookBook',

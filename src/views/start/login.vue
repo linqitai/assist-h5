@@ -248,19 +248,19 @@
 				}
 				//请不要操作多账号
 				// _this.judgeMoreAccount();
-				/* let phone = localStorage.getItem("mobilePhone");
+				let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
 						// _this.$toast("一机一号，切勿违规操作");
 						Dialog.alert({
 						  title: '系统提示',
-						  message: '该设备已登录过其他账号,切勿多账号操作',
+						  message: _this.$api.oneAccount,
 						}).then(() => {
 						  // on close
 						});
 						return;
 					}
-				} */
+				}
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('系统提示:请填写完成信息');
 					return;

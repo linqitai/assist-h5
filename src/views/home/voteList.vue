@@ -115,7 +115,6 @@
 			judgeTime4VoteStatus(val){
 				let _this = this;
 				let now = _this.$utils.getDateTime(new Date());
-				console.log(`now:${now},deadTime:${val}`);
 				if(now>val){
 					return '已截止';
 				}else{
@@ -138,12 +137,8 @@
 						_this.loading1 = false;
 						_this.voteList = res.data.list;
 						// _this.total = res.data.size;
-						console.log('_this.voteList',_this.voteList);
-						console.log('res.data.endRow',res.data.endRow);
-						console.log('res.data.total',res.data.total);
 						if(res.data.endRow == res.data.total){
 							_this.finished1 = true;
-							console.log('res.data.endRow == res.data.total');
 						}else{
 							_this.pageIndex = _this.pageIndex + 1;
 						}

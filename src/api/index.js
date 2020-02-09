@@ -10,11 +10,11 @@ export default {
 	tabTextColor:'#ffffff',
 	tabActiveColor:'#ffae00',
 	projectName:'帮扶链',
-	projectEnglishName:'HPC',
+	projectEnglishName:'',
 	coinUnit:'矿石',
 	ticketName:'帮扶券',
 	checkTip:"实名信息已经提交成功,预计48小时内审核出结果,若需优先审核,请去首页找省市代理或者客服,提供注册手机号即可",
-	welcomeText:"欢迎来到HPC帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。",
+	welcomeText:"欢迎来到帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。",
 	bsTip:'为了提高户提体验，推荐使用:谷歌、百度、UC或QQ浏览器中打开该页面。',
 	HOST_IMG: hostImg,
 	cookiesTime: 60 * 60 * 24,
@@ -25,6 +25,7 @@ export default {
 	CODE_ERROR: 500, //未实名认证
 	CODE_OFTEN: 500, //请求太频繁提示
 	CODE_registered: 501, //已注册
+	oneAccount:'该设备已登录过其他账号,切勿多账号操作',
 	DATA_102:'您所拥有的矿石不够租赁此矿机',
 	DATA_101:'您所拥有的此类矿机已经超过限购数量',
 	DATA_100:'此类矿机已经售空',
@@ -143,6 +144,7 @@ export default {
 	getTeamCalculationPowerRanking: host + "assist/statistics/getTeamCalculationPowerRanking",
 	getDealPageInfo: host + 'assist/statistics/getDealPageInfo',
 	getRanking: host + "assist/statistics/getRanking",
+	getAssistStatisticsBookList4Num: host + "assist/statisticsbook/getAssistStatisticsBookList4Num",
 	//冻结
 	getAssistUserFreeze: host + "assist/userFreeze/getAssistUserFreeze/",
 	getAssistUserFreezeByUserId: host + "assist/userFreeze/getAssistUserFreezeByUserId",

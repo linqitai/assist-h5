@@ -8,6 +8,8 @@
 		// margin-top: $header-height;
 		// margin-bottom: $header-height;
 		$iconBgWidth:50px;
+		background-color: $main-box-fh-bg-color;
+		color: $main-box-fh-text-color;
 		.refreshBox{
 			top: 60px;
 		}
@@ -16,10 +18,7 @@
 			width: 100%;
 			// margin-left: $marginLeft;
 			// border-radius: $borderRadius;
-			background-color: $main-box-fh-bg-color;
-			color: $main-box-fh-text-color;
 			padding: 10px 0;
-		
 			.infoBox {
 				flex: 1;
 				text-align: center;
@@ -553,7 +552,7 @@
 				}else if(val=='contribution'){
 					message = '贡献值：您有多少点贡献值决定您可卖出的矿石数量，比例为1:1，比如您卖100个矿石要使用100点贡献值。获取途径：签到、推广、买入矿石、自己复投矿机、直推复投矿机、捐赠帮扶券。';
 				}else if(val=='teamCalculationPower'){
-					message = '团队算力：您的个人算力+您所有直推的个人算力。只计算到上下两级，它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
+					message = '团队算力：它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
 				}else if(val=='myCalculationPower'){
 					message = '我的算力：由您个人所拥有的矿机所决定。';
 				}else if(val=='limitBuyNum'){

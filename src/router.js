@@ -201,6 +201,12 @@ export default new Router({
 					meta:{footer:false},
 				},
 				{
+					path: '/myMillDetail',
+					name: '矿机详情',
+					component: resolve => require(['./views/my/myMillDetail'],resolve),
+					meta:{footer:false},
+				},
+				{
 					path: '/merchantProcess',
 					name: '商家入驻',
 					component: resolve => require(['./views/home/merchantProcess'],resolve),

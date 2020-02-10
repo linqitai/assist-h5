@@ -2,14 +2,27 @@
 	@import '~@/assets/scss/index.scss';
 	.test{
 		@include pageBlackBG();
-		.main{
-			margin-left: 5%;
+		.matrix{
+			position: relative;
+		}
+		.content{
+			position: absolute;
+			left: 0;
+			top: 0;
+			color: white;
+			z-index: 1001;
 		}
 	}
 </style>
 <template>
 	<div class="test">
-		<div class="" id="kline" style="width: 95%;height: 300px;"></div>
+		<canvas class="matrix" id="matrix">
+		</canvas>
+		<div class="content">
+			了看得见啊看来大家阿斯利康
+			<br>
+			爱睡懒觉的阿拉斯加大深刻理解打开了时间的
+		</div>
 	</div>
 </template>
 
@@ -27,277 +40,35 @@ export default {
 	},
 	mounted() {
 		let _this = this;
-		// 基于准备好的dom，初始化echarts实例 写在 mounted（）里面
-		/* _this.$nextTick(() => { 
-			_this.myEcharts();
-			_this.myKLineEcharts();
-		}); */
-		_this.getAssistStatisticsBookList4Num();
-		// _this.$nextTick(() => {
-		// 	_this.myKLineEcharts();
-		// });
+		_this.startCodeRain();
 	},
 	methods:{
-		getAssistStatisticsBookList4Num(){
-			let _this = this;
-			//获取最近30条价格信息
-			let params = {
-				num: 30
+		startCodeRain(){
+			var matrix = document.getElementById("matrix");
+			var context = matrix.getContext("2d");
+			matrix.height = window.innerHeight;
+			matrix.width = window.innerWidth;
+			var drop = [];
+			var fontSize = 12; //字体
+			var columns = matrix.width / fontSize;
+			for (var i = 0; i < columns; i++) {
+			    drop[i] = 1;
 			}
-			_this.$ajax.ajax(_this.$api.getAssistStatisticsBookList4Num, 'GET', params, function(res) {
-				if (res.code == _this.$api.CODE_OK) {
-					let dataArr = res.data;
-					let dataList = [];
-					dataArr.forEach((item)=>{
-						let itemArr = []; 
-						itemArr.push(_this.$utils.getDate(item.createTime));
-						itemArr.push(item.open);
-						itemArr.push(item.close);
-						itemArr.push(item.lowest);
-						itemArr.push(item.highest);
-						itemArr.push(item.transactionNum24);
-						dataList.push(itemArr)
-					})
-					let data = _this.$utils.splitData(dataList);
-					// _this.dataList = dataList;
-					console.log("data",data);
-					_this.myKLineEcharts(data);
-				}
-			})
-		},
-		myKLineEcharts(data){
-			let _this = this;
-			let myChart = echarts.init(document.getElementById("kline"));
-			let colorList = ['#c23531','#2f4554','#61a0a8','#d48265','#91c7ae','#749f83','#ca8622','#bda29a','#6e7074','#546570','#c4ccd3'];
-			let labelFont = 'bold 12px Sans-serif';
-			//h5
-			let dates = data.categoryData;
-			let values = data.values;
-			let volumes = data.volumes;
-			let dataMA5 = _this.$utils.calculateMA(5, values);
-			let dataMA10 = _this.$utils.calculateMA(10, values);
-			let dataMA20 = _this.$utils.calculateMA(20, values);
-			let option = {
-			    animation: false,
-			    color: colorList,
-			    title: {
-			        left: 'center',
-			        text: '帮扶链 K线图'
-			    },
-			    legend: {
-			        top: 30,
-			        data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
-			    },
-			    tooltip: {
-			        trigger: 'axis',
-			        transitionDuration: 0,
-			        confine: true,
-			        bordeRadius: 4,
-			        borderWidth: 1,
-			        borderColor: '#333',
-			        backgroundColor: 'rgba(255,255,255,0.9)',
-			        textStyle: {
-			            fontSize: 12,
-			            color: '#333'
-			        },
-			        position: function (pos, params, el, elRect, size) {
-			            var obj = {
-			                top: 60
-			            };
-			            obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
-			            return obj;
-			        }
-			    },
-			    axisPointer: {
-			        link: [{
-			            xAxisIndex: [0, 1]
-			        }]
-			    },
-			    dataZoom: [{
-			        type: 'slider',
-			        xAxisIndex: [0, 1],
-			        realtime: false,
-			        start: 20,
-			        end: 70,
-			        top: 65,
-			        height: 20,
-			        handleIcon: 'M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
-			        handleSize: '120%'
-			    }, {
-			        type: 'inside',
-			        xAxisIndex: [0, 1],
-			        start: 40,
-			        end: 70,
-			        top: 30,
-			        height: 20
-			    }],
-			    xAxis: [{
-			        type: 'category',
-			        data: dates,
-			        boundaryGap : false,
-			        axisLine: { lineStyle: { color: '#777' } },
-			        axisLabel: {
-			            formatter: function (value) {
-			                return echarts.format.formatTime('MM-dd', value);
-			            }
-			        },
-			        min: 'dataMin',
-			        max: 'dataMax',
-			        axisPointer: {
-			            show: true
-			        }
-			    }, {
-			        type: 'category',
-			        gridIndex: 1,
-			        data: dates,
-			        scale: true,
-			        boundaryGap : false,
-			        splitLine: {show: false},
-			        axisLabel: {show: false},
-			        axisTick: {show: false},
-			        axisLine: { lineStyle: { color: '#777' } },
-			        splitNumber: 20,
-			        min: 'dataMin',
-			        max: 'dataMax',
-			        axisPointer: {
-			            type: 'shadow',
-			            label: {show: false},
-			            triggerTooltip: true,
-			            handle: {
-			                show: true,
-			                margin: 30,
-			                color: '#B80C00'
-			            }
-			        }
-			    }],
-			    yAxis: [{
-			        scale: true,
-			        splitNumber: 2,
-			        axisLine: { lineStyle: { color: '#777' } },
-			        splitLine: { show: true },
-			        axisTick: { show: false },
-			        axisLabel: {
-			            inside: true,
-			            formatter: '{value}\n'
-			        }
-			    }, {
-			        scale: true,
-			        gridIndex: 1,
-			        splitNumber: 2,
-			        axisLabel: {show: false},
-			        axisLine: {show: false},
-			        axisTick: {show: false},
-			        splitLine: {show: false}
-			    }],
-			    grid: [{
-			        left: 20,
-			        right: 20,
-			        top: 110,
-			        height: 120
-			    }, {
-			        left: 20,
-			        right: 20,
-			        height: 40,
-			        top: 260
-			    }],
-			    graphic: [{
-			        type: 'group',
-			        left: 'center',
-			        top: 70,
-			        width: 300,
-			        bounding: 'raw',
-			        children: [{
-			            id: 'MA5',
-			            type: 'text',
-			            style: {fill: colorList[1], font: labelFont},
-			            left: 0
-			        }, {
-			            id: 'MA10',
-			            type: 'text',
-			            style: {fill: colorList[2], font: labelFont},
-			            left: 'center'
-			        }, {
-			            id: 'MA20',
-			            type: 'text',
-			            style: {fill: colorList[3], font: labelFont},
-			            right: 0
-			        }]
-			    }],
-			    series: [{
-			        name: 'Volume',
-			        type: 'bar',
-			        xAxisIndex: 1,
-			        yAxisIndex: 1,
-			        itemStyle: {
-			            color: '#7fbe9e'
-			        },
-					tooltip: {
-						formatter: function (param) {
-							param = param[0];
-							return [
-								'Date: ' + param.name + '<hr size=1 style="margin: 3px 0">',
-								'Open: ' + param.data[0] + '<br/>',
-								'Close: ' + param.data[1] + '<br/>',
-								'Lowest: ' + param.data[2] + '<br/>',
-								'Highest: ' + param.data[3] + '<br/>'
-							].join('');
-						}
-					},
-			        emphasis: {
-			            itemStyle: {
-			                color: '#140'
-			            }
-			        },
-			        data: volumes
-			    }, {
-			        type: 'candlestick',
-			        name: '日K',
-			        data: values,
-			        itemStyle: {
-			            color: '#ef232a',
-			            color0: '#14b143',
-			            borderColor: '#ef232a',
-			            borderColor0: '#14b143'
-			        },
-			        emphasis: {
-			            itemStyle: {
-			                color: 'black',
-			                color0: '#444',
-			                borderColor: 'black',
-			                borderColor0: '#444'
-			            }
-			        }
-			    }, {
-			        name: 'MA5',
-			        type: 'line',
-			        data: dataMA5,
-			        smooth: true,
-			        showSymbol: false,
-			        lineStyle: {
-			            width: 1
-			        }
-			    }, {
-			        name: 'MA10',
-			        type: 'line',
-			        data: dataMA10,
-			        smooth: true,
-			        showSymbol: false,
-			        lineStyle: {
-			            width: 1
-			        }
-			    }, {
-			        name: 'MA20',
-			        type: 'line',
-			        data: dataMA20,
-			        smooth: true,
-			        showSymbol: false,
-			        lineStyle: {
-			            width: 1
-			        }
-			    }]
-			};
-			myChart.setOption(option);
-		},
+			function drawMatrix() {
+			    context.fillStyle = "rgba(0, 0, 0, 0.1)";
+			    context.fillRect(0, 0, matrix.width, matrix.height);
+			    context.fillStyle = "green";
+			    context.font = fontSize + "px";
+			    for (var i = 0; i < columns; i++) {
+			        context.fillText(Math.floor(Math.random() * 2), i * fontSize, drop[i] * fontSize);
+			        if (drop[i] * fontSize > (matrix.height * 2 / 3) && Math.random() > 0.85){
+						drop[i] = 0;
+					}
+			        drop[i]++;
+			    }
+			}
+			setInterval(drawMatrix, 50);//按照指定间隔一直执行方法
+		}
 	}
 }
 </script>

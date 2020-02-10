@@ -105,12 +105,12 @@
 						1.交易前，需先去完成'我的--任务中心'里的基础任务。
 					</div>
 					<div class="placeholderLine4"></div>
-					<div>
+					<!-- <div>
 						2.个人算力达到0.3G后即可开通溢价交易。
 					</div>
-					<div class="placeholderLine4"></div>
+					<div class="placeholderLine4"></div> -->
 					<div>
-						3.交易后所剩矿石数不得少于2个，至少要保留注册所赠送的2个矿石，用来复投矿机。
+						2.交易后所剩矿石数不得少于2个，至少要保留注册所赠送的2个矿石，用来复投矿机。
 					</div>
 				</div>
 			</van-dialog>

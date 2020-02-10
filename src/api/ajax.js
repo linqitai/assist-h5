@@ -1,5 +1,5 @@
 // import Vue from 'vue';
-import $ from 'jquery'
+// import $ from 'jquery'
 // import http from './public'
 import qs from 'qs'
 import router from '@/router.js'

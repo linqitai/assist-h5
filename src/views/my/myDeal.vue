@@ -885,7 +885,7 @@
 				//发送短信提示start
 				_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。";
 				_this.mobilePhone = _this.$route.query.mobilePhone;
-				_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
+				_this.smsContent = `【${_this.$api.projectEnglishName}国际帮扶链】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
 				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 				//发送短信提示end
 				_this.showSendSMSTipModel = true;
@@ -1076,7 +1076,7 @@
 									//发送短信提示start
 									_this.sendSmsTipText = "图片上传成功，为了让交易顺利进行，请给卖家发个短信提醒。";
 									_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-									_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】我的付款凭证已上传，请在“我的--我的交易--待收款”的订单详情中查看。`;
+									_this.smsContent = `【${_this.$api.projectEnglishName}国际帮扶链】我的付款凭证已上传，请在“我的--我的交易--待收款”的订单详情中查看。`;
 									_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 									//发送短信提示end
 									_this.showSellerDetailModel = false;
@@ -1596,7 +1596,7 @@
 				  		if(res.data==1){
 							_this.sendSmsTipText = "提交未收到款状态成功，为了让交易顺利进行，请给卖家发个短信要求对方上传付款凭证。";
 							_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
-							_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】您好，我并未收到款，请在“我的--我的交易--待付款”的订单详情中上传付款凭证。`;
+							_this.smsContent = `【${_this.$api.projectEnglishName}国际帮扶链】您好，我并未收到款，请在“我的--我的交易--待付款”的订单详情中上传付款凭证。`;
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							_this.showBuyerDetailModel = false;
 							_this.onLoad4();
@@ -1636,7 +1636,7 @@
 							//发送短信提示start
 							_this.sendSmsTipText = "交易已经顺利完成！互帮互助，合作共赢，请最后告知对方您已经确认收款并释放矿石。";
 							_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
-							_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】我已经确认收款并释放矿石，谢谢。`;
+							_this.smsContent = `【${_this.$api.projectEnglishName}国际帮扶链】我已经确认收款并释放矿石，谢谢。`;
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							//发送短信提示end
 							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
@@ -1698,7 +1698,7 @@
 							//发送短信提示start
 							_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请给卖家发个短信提醒对方确认收款并释放矿石。";
 							_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-							_this.smsContent = `【${_this.$api.projectEnglishName}帮扶链】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收到款并释放矿石。`;
+							_this.smsContent = `【${_this.$api.projectEnglishName}国际帮扶链】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收款并释放矿石，谢谢。`;
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							//发送短信提示end
 				  			_this.showSellerDetailModel = false;

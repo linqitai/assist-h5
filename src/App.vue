@@ -49,6 +49,9 @@ export default {
 /* .van-pull-refresh,.van-pull-refresh__track,.van-list{
 	min-height: 100 !important;
 } */
+.van-list__finished-text{
+	background-color: transparent !important;
+}
 .ql-indent-1{
 	text-indent: 2em;
 }

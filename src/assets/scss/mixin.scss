@@ -4,6 +4,13 @@
 	-moz-user-select: none;
 	-webkit-user-select: none;
 }
+@mixin newPage() {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	background-color: $main-bg-color;
+	font-size: 0.75rem;
+}
 @mixin page() {
 	position: absolute;
 	top: 0;

@@ -3,12 +3,13 @@
 	$cellHeight:50px;
 	.transfer{
 		font-size: 0.75rem;
-		position: fixed;
+		position: absolute;
 		top: 0;
 		right: 0;
 		left: 0;
 		min-height: 100%;
-		background-color: $main-box-color;
+		background-color: $main-bg-color;
+		color: $main-box-text-color;
 		z-index: 2;
 		overflow-y:scroll;
 		.van-dropdown-menu{
@@ -16,7 +17,7 @@
 			background-color: inherit !important;
 		}
 		.van-dropdown-menu__title{
-			color: $mainTextColor;
+			color: $main-box-text-color;
 			font-size: 0.75rem !important;
 		}
 		[class*=van-hairline]::after{
@@ -29,9 +30,6 @@
 			background-color: inherit !important;
 		} */
 		.transferPage{
-			color: $mainTextColor;
-			margin-top: $headerHeight;
-			background-color: $main-box-color;
 			.van-field__label{
 				width: 70px !important;
 			}
@@ -85,23 +83,34 @@
 		</m-header>
 		<div class="transferPage">
 			<div class="placeholderLine10"></div>
-			<div class="paddingWing tip4model3">当前拥有<br>矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  贡献值:{{userInfo.contributionValue.toFixed(2)}}点  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
+			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
+			<div class="paddingWing tip4model3">当前拥有<br>矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
 			<van-cell-group>
+				<van-field v-model="curerntPlatformPrice" required disabled label="指导价"/>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
 				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
-				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请粘贴对方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
+				<van-field v-model="assurePrice" required clearable label="担保金额" placeholder="请先填写转让单价" @blur="validate4AppointDeal('assurePrice')" :error-message="errorInfo4AppointDeal.assurePrice"/>
+				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请粘贴买方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
+				<van-field v-model="form4AppointDeal.agentPhone" required clearable label="指定代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone">
+					<!-- <van-button slot="button" size="small" type="primary">自动分配</van-button> -->
+				</van-field>
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
 			</van-cell-group>
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing tip4model3">
-				点对点(定向)交易规则：<br>
-				1.服务费收20%矿石<br>
-				2.完成【我的--任务中心】里的基础任务后即可开通定向转让矿石的权限<br>
-				3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机
+				<b class="textBold">点对点(定向)交易的安全性：</b><br>
+				每笔交易都由省市代理预先来审核双方账号是否正常、实名信息是否正确、区块账本数据是否对得上等，最大限度得维护了投资者的利益。
 			</div>
-			<!-- <div class="myCell">
-				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的留言标题" />
-			</div> -->
+			<div class="placeholderLine10"></div>
+			<div class="paddingWing tip4model3">
+				<b class="textBold">点对点(定向)交易规则：</b><br>
+				1.服务费收20%矿石。<br>
+				2.完成【我的--任务中心】里的基础任务后即可开通定向转让矿石的权限。<br>
+				3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机。<br>
+			</div>
+			<div class="margT10 paddingWing tip4model3" v-html="tipText4AppointDeal"></div>
+			<div class="placeholderLine40"></div>
+			<div class="placeholderLine40"></div>
 			<div class="sureBtn">
 				<div class="placeholderLine4"></div>
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
@@ -121,14 +130,18 @@
 				form4AppointDeal:{
 					transferAmount:'',
 					price:'',
+					assurePrice:'',
 					blockAddress:'',
 					safePassword:'',
+					agentPhone:''
 				},
 				errorInfo4AppointDeal:{
-					transferAmount:"",
-					price:"",
-					blockAddress:"",
-					safePassword:"",
+					transferAmount:'',
+					price:'',
+					assurePrice:'',
+					blockAddress:'',
+					safePassword:'',
+					agentPhone:''
 				},
 				option1: [
 					{ text: '问题反馈', value: 0 },
@@ -142,14 +155,25 @@
 				userId:"",
 				loading:false,
 				maxPrice:'',
-				userInfo:''
+				userInfo:'',
+				curerntPlatformPrice:'',
+				tipText4AppointDeal:''
 			}
 		},
 		components: {
 			mHeader
 		},
+		computed:{
+			assurePrice () {
+				let _this = this;
+				let num = _this.form4AppointDeal.transferAmount * _this.form4AppointDeal.price;
+				_this.form4AppointDeal.assurePrice = num.toFixed(2);
+				return num.toFixed(2);
+			},
+		},
 		created() {
 			let _this = this;
+			_this.tipText4AppointDeal = _this.$api.tipText4AppointDeal;
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				console.log("userInfo_localStorage");
@@ -171,6 +195,7 @@
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
 					console.log('getDealPageInfo', res);
 					if (res.code == _this.$api.CODE_OK) {
+						_this.curerntPlatformPrice = res.data.currentPlatformPrice;
 						_this.maxPrice = parseFloat(res.data.currentPlatformPrice)*1.3+4;
 					}
 				})
@@ -187,7 +212,13 @@
 					if(_this.form4AppointDeal[key]>=0.1&&_this.form4AppointDeal[key]<=_this.maxPrice){
 						_this.errorInfo4AppointDeal.price = '';
 					}else{
-						_this.errorInfo4AppointDeal.price = `定向交易价格暂时控制在0.1~${_this.maxPrice}`;
+						_this.errorInfo4AppointDeal.price = `定向交易价格暂时控制在0.1~${_this.maxPrice}CNY`;
+					}
+				}else if(key == 'assurePrice') {
+					if(_this.form4AppointDeal[key]>=0.1&&_this.form4AppointDeal[key]<=1000000){
+						_this.errorInfo4AppointDeal.assurePrice = '';
+					}else{
+						_this.errorInfo4AppointDeal.assurePrice = `担保金额暂时控制在0.1~1000000`;
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
@@ -200,6 +231,12 @@
 						_this.errorInfo4AppointDeal.safePassword = '';
 					}else{
 						_this.errorInfo4AppointDeal.safePassword = "安全密码不超过20位，由'字母或数字或._'组成";
+					}
+				}else if(key == 'agentPhone') {
+					if(_this.$reg.phone.test(_this.form4AppointDeal[key])){
+						_this.errorInfo4AppointDeal.agentPhone = '';
+					}else{
+						_this.errorInfo4AppointDeal.agentPhone = "请正确填写11位手机号码";
 					}
 				}
 			},
@@ -228,7 +265,9 @@
 					/* userId: _this.userId, */
 					num: _this.form4AppointDeal.transferAmount,
 					price: _this.form4AppointDeal.price,
+					assurePrice: _this.form4AppointDeal.assurePrice,
 					blockAddress: _this.form4AppointDeal.blockAddress,
+					agentPhone: _this.form4AppointDeal.agentPhone,
 					safePassword: _this.form4AppointDeal.safePassword,
 					// createTime:_this.$utils.getDateTime(new Date())
 				}
@@ -263,7 +302,8 @@
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
 						/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
 						_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
-						_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:params.num}});
+						_this.$router.push('myDeal');
+						//_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:params.num}});
 						_this.$utils.formClear(_this.form4AppointDeal);
 					}else{
 						// _this.$toast(res.message);

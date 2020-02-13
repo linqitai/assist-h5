@@ -3,8 +3,9 @@
 	@import '~@/assets/scss/index.scss';
 	$main-box-color:#ffffff;
 	.myPage{
-		position: relative;
-		height: 100%;
+		position: absolute;
+		min-height: 100%;
+		width: 100%;
 		// margin-top: $header-height;
 		// margin-bottom: $header-height;
 		$iconBgWidth:50px;
@@ -75,18 +76,18 @@
 		}
 		.box {
 			display: flex;
-			background-color: $main-box-color;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			padding: $boxPadding2;
 			box-sizing: border-box !important;
-			color: $mainTextColor;
 			@include userSelectNone();
 		}
 		
 		$avatorWidth:80px;
 		
 		.box1 {
-			background-color: $main-box-fh-bg-color;
-			color: $main-box-fh-text-color;
+			/* background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color; */
 			.flex {
 				&.flex1 {
 					flex: 0 0 70px;
@@ -99,7 +100,7 @@
 						color: $main-box-fh-text-color;
 						text-align: center;
 						line-height: $heightwidht;
-						font-size: 16px;
+						font-size: 18px;
 					}
 				}
 				&.flex2 {
@@ -140,8 +141,8 @@
 		}
 		
 		.box2 {
-			background-color: $main-box-fh-bg-color;
-			color: $main-box-fh-text-color;
+			/* background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color; */
 			text-align: center;
 			.flex {
 				flex: 1;
@@ -156,8 +157,8 @@
 		}
 		
 		.box3 {
-			background-color: $main-box-fh-bg-color;
-			color: $main-box-fh-text-color;
+			/* background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color; */
 			text-align: center;
 			.flex {
 				flex: 1;
@@ -170,8 +171,8 @@
 		}
 		
 		.items {
-			background-color: $main-box-fh-bg-color;
-			color: $main-box-fh-text-color;
+			/* background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color; */
 			.my-cell {
 				height: 2.875rem;
 				line-height: 2.875rem;
@@ -208,251 +209,256 @@
 			</div>
 			<i class="iconfont iconfont-set rightBox icon" @click="toMyInfo"></i>
 		</m-header>
-		<!-- <div class="margTHeader" v-if="!userInfo">
-			<van-skeleton avatar avatar-size="70px" :row="3"/>
-			<div class="placeholderLine20"></div>
-			<van-skeleton :row="20"/>
-		</div> -->
-		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-			<div class="box box1">
-				<div class="flex flex1">
-					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
-					<div class="name" @click="toMyInfo">{{userInfo.realName | getLastName}}</div>
-				</div>
-				<div class="flex flex2">
-					<div class="line1">
-						<div class="nick_name left">{{userInfo.nickName}}</div>
-						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}</div>
-					</div>
-					<!-- <div class="line">
-						ID {{info.userId}}
-					</div> -->
-					<div class="line margT3">
-						注册时间 {{userInfo.registerTime}}
-					</div>
-					<div class="line">
-						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
-						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}</div>
-					</div>
-					<div class="line">
-						<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
-						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
-					</div>
-					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
-					<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
-				</div>
+		<!-- <van-pull-refresh v-model="loading" @refresh="refreshEvent">
+			
+		</van-pull-refresh> -->
+		<div class="box box1">
+			<div class="flex flex1">
+				<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
+				<div class="name" @click="toMyInfo">{{userInfo.realName | getLastName}}</div>
 			</div>
-			<div class="line1pxbgcolor"></div>
-			<div class="box box2">
-				<div class="flex flex1">
-					<div class="value" @click="toBookView('1')">{{userInfo.teamCalculationPower}}</div>
-					<div class="text" @click="showTip('teamCalculationPower')">团队算力 <i class="iconfont iconfont-question"/></div>
+			<div class="flex flex2">
+				<div class="line1">
+					<div class="nick_name left">{{userInfo.nickName}}</div>
+					<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}</div>
 				</div>
-				<div class="flex flex4">
-					<!-- <div>{{userInfo.platformTicket}}</div> -->
-					<div class="value" @click="toBookView('2')">{{userInfo.platformTicket}}</div>
-					<div class="text" @click="showTip('platformTicket')">帮扶券 <i class="iconfont iconfont-question"/></div>
+				<!-- <div class="line">
+					ID {{info.userId}}
+				</div> -->
+				<div class="line margT3">
+					注册时间 {{userInfo.registerTime}}
 				</div>
-				<div class="flex flex3">
-					<!-- <div>{{userInfo.contributionValue}}</div> -->
-					<div class="value" @click="toBookView('3')">{{userInfo.contributionValue}}</div>
-					<div class="text" @click="showTip('contribution')">贡献值 <i class="iconfont iconfont-question"/></div>
+				<div class="line">
+					<div class="left">买入次数 {{userInfo.buyTimes}}</div>
+					<div class="mlBox left">买入数量 {{userInfo.buyAmount}}</div>
 				</div>
-				<div class="flex flex2">
-					<!-- <div>{{userInfo.thisWeekMineral}}</div> -->
-					<div class="value" @click="toBookView('4')">{{userInfo.thisWeekMineral}}</div>
-					<div class="text" @click="showTip('mineral')">矿石 <i class="iconfont iconfont-question"/></div>
+				<div class="line">
+					<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
+					<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
 				</div>
+				<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
+				<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
+				<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
 			</div>
-			<div class="line1pxbgcolor"></div>
-			<div class="box box3">
-				<div class="flex flex1">
-					<div>{{userInfo.myCalculationPower}}</div>
-					<!-- <NumberGrow :value="userInfo.myCalculationPower"></NumberGrow> -->
-					<div class="text" @click="showTip('myCalculationPower')">个人算力<br><i class="iconfont iconfont-question"/></div>
-				</div>
-				<div class="flex flex4">
-					<div>{{userInfo.temporaryFreezePlatformTicket}}</div>
-					<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
-					<div class="text">交易中<br>帮扶券</div>
-				</div>
-				<div class="flex flex3">
-					<div>{{userInfo.temporaryFreezeContribution}}</div>
-					<!-- <NumberGrow :value="userInfo.temporaryFreezeContribution"></NumberGrow> -->
-					<div class="text">交易中<br>贡献值</div>
-				</div>
-				<div class="flex flex2">
-					<div>{{userInfo.temporaryFreezeMineral}}</div>
-					<!-- <NumberGrow :value="userInfo.temporaryFreezeMineral"></NumberGrow> -->
-					<div class="text">交易中<br>矿石</div>
-				</div>
+		</div>
+		<div class="line1pxbgcolor"></div>
+		<div class="box box2">
+			<div class="flex flex1">
+				<div class="value" @click="toBookView('1')">{{userInfo.teamCalculationPower}}</div>
+				<div class="text" @click="showTip('teamCalculationPower')">团队算力 <i class="iconfont iconfont-question"/></div>
 			</div>
-			<div class="line1pxbgcolor"></div>
-			<div class="cateInfo">
-				<div class="infoBox">
-					<router-link to="/task">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="task2" />
-							</div>
-						</div>
-						<div class="text">任务中心</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/myMill">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundMill">
-								<van-icon class-prefix="iconfont" name="mill2" />
-							</div>
-						</div>
-						<div class="text">我的矿机</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/myDeal">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundDeal">
-								<van-icon class-prefix="iconfont" name="deal" />
-							</div>
-						</div>
-						<div class="text">我的交易</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/myBook">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundBook">
-								<van-icon class-prefix="iconfont" name="book" />
-							</div>
-						</div>
-						<div class="text">我的账本</div>
-					</router-link>
-				</div>
+			<div class="flex flex4">
+				<!-- <div>{{userInfo.platformTicket}}</div> -->
+				<div class="value" @click="toBookView('2')">{{userInfo.platformTicket}}</div>
+				<div class="text" @click="showTip('platformTicket')">帮扶券 <i class="iconfont iconfont-question"/></div>
 			</div>
-			<div class="line1pxbgcolor"></div>
-			<div class="cateInfo">
-				<div class="infoBox">
-					<router-link to="/myInfo">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground4">
-								<van-icon class-prefix="iconfont" name="realname" />
-							</div>
-						</div>
-						<div class="text">我的实名</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/mySuperTeam">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground2">
-								<van-icon class-prefix="iconfont" name="team" />
-							</div>
-						</div>
-						<div class="text">我的团队</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/myShare">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="share2" />
-							</div>
-						</div>
-						<div class="text">我要推广</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/myWord">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundWord">
-								<van-icon class-prefix="iconfont" name="word" />
-							</div>
-						</div>
-						<div class="text">我要留言</div>
-					</router-link>
-				</div>
+			<!-- <div class="flex flex3">
+				<div class="value" @click="toBookView('3')">{{userInfo.contributionValue}}</div>
+				<div class="text" @click="showTip('contribution')">贡献值 <i class="iconfont iconfont-question"/></div>
+			</div> -->
+			<div class="flex flex2">
+				<!-- <div>{{userInfo.thisWeekMineral}}</div> -->
+				<div class="value" @click="toBookView('4')">{{userInfo.thisWeekMineral}}</div>
+				<div class="text" @click="showTip('mineral')">矿石 <i class="iconfont iconfont-question"/></div>
 			</div>
-			<div class="line1pxbgcolor"></div>
-			<div class="items">
-				<router-link to="transferMineral">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让矿石
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
+		</div>
+		<div class="line1pxbgcolor"></div>
+		<div class="box box3">
+			<div class="flex flex1">
+				<div>{{userInfo.myCalculationPower}}</div>
+				<!-- <NumberGrow :value="userInfo.myCalculationPower"></NumberGrow> -->
+				<div class="text" @click="showTip('myCalculationPower')">个人算力<br><i class="iconfont iconfont-question"/></div>
+			</div>
+			<div class="flex flex4">
+				<div>{{userInfo.temporaryFreezePlatformTicket}}</div>
+				<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
+				<div class="text">交易中<br>帮扶券</div>
+			</div>
+			<!-- <div class="flex flex3">
+				<div>{{userInfo.temporaryFreezeContribution}}</div>
+				<div class="text">交易中<br>贡献值</div>
+			</div> -->
+			<div class="flex flex2">
+				<div>{{userInfo.temporaryFreezeMineral}}</div>
+				<!-- <NumberGrow :value="userInfo.temporaryFreezeMineral"></NumberGrow> -->
+				<div class="text">交易中<br>矿石</div>
+			</div>
+		</div>
+		<div class="line1pxbgcolor"></div>
+		<div class="cateInfo">
+			<div class="infoBox">
+				<router-link to="/task">
+					<div class="iconBox">
+						<div class="iconBackground iconBackground1">
+							<van-icon class-prefix="iconfont" name="task2" />
 						</div>
 					</div>
+					<div class="text">任务中心</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent>3">
-				<router-link to="transferTicket">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让帮扶券
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
+			<div class="infoBox">
+				<router-link to="/myMill">
+					<div class="iconBox">
+						<div class="iconBackground iconBackgroundMill">
+							<van-icon class-prefix="iconfont" name="mill2" />
 						</div>
 					</div>
+					<div class="text">我的矿机</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent>0">
-				<router-link to="myCheck">
-					<div class="my-cell">
-						<div class="flex1">
-							实名审核
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
+			<div class="infoBox">
+				<router-link to="/myDeal">
+					<div class="iconBox">
+						<div class="iconBackground iconBackgroundDeal">
+							<van-icon class-prefix="iconfont" name="deal" />
 						</div>
 					</div>
-				</router-link>
-				<router-link to="innerRegister">
-					<div class="my-cell">
-						<div class="flex1">
-							内排注册
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-				<!-- <router-link to="transferMineral">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让矿石
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<router-link to="transferTicket">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让帮扶券
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-				<router-link to="unFreeze">
-					<div class="my-cell">
-						<div class="flex1">
-							给他人解冻账号
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
+					<div class="text">我的交易</div>
 				</router-link>
 			</div>
-		</van-pull-refresh>
-		<!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-		<!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+			<div class="infoBox">
+				<router-link to="/myBook">
+					<div class="iconBox">
+						<div class="iconBackground iconBackgroundBook">
+							<van-icon class-prefix="iconfont" name="book" />
+						</div>
+					</div>
+					<div class="text">我的账本</div>
+				</router-link>
+			</div>
+		</div>
+		<div class="line1pxbgcolor"></div>
+		<div class="cateInfo">
+			<div class="infoBox">
+				<router-link to="/myInfo">
+					<div class="iconBox">
+						<div class="iconBackground iconBackground4">
+							<van-icon class-prefix="iconfont" name="realname" />
+						</div>
+					</div>
+					<div class="text">我的实名</div>
+				</router-link>
+			</div>
+			<div class="infoBox">
+				<router-link to="/mySuperTeam">
+					<div class="iconBox">
+						<div class="iconBackground iconBackground2">
+							<van-icon class-prefix="iconfont" name="team" />
+						</div>
+					</div>
+					<div class="text">我的团队</div>
+				</router-link>
+			</div>
+			<div class="infoBox">
+				<router-link to="/myShare">
+					<div class="iconBox">
+						<div class="iconBackground iconBackground1">
+							<van-icon class-prefix="iconfont" name="share2" />
+						</div>
+					</div>
+					<div class="text">我要推广</div>
+				</router-link>
+			</div>
+			<div class="infoBox">
+				<router-link to="/myWord">
+					<div class="iconBox">
+						<div class="iconBackground iconBackgroundWord">
+							<van-icon class-prefix="iconfont" name="word" />
+						</div>
+					</div>
+					<div class="text">我要留言</div>
+				</router-link>
+			</div>
+		</div>
+		<div class="line1pxbgcolor"></div>
+		<div class="items">
+			<router-link to="transferMineral">
+				<div class="my-cell">
+					<div class="flex1">
+						定向转让矿石
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+			</router-link>
+		</div>
+		<div class="items" v-if="userInfo.isAgent==1||userInfo.isAgent==2">
+			<router-link to="myDealCheck">
+				<div class="my-cell">
+					<div class="flex1">
+						定向转让审核
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+			</router-link>
+		</div>
+		<div class="items" v-if="userInfo.isAgent>3">
+			<router-link to="transferTicket">
+				<div class="my-cell">
+					<div class="flex1">
+						定向转让帮扶券
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+			</router-link>
+		</div>
+		<div class="items" v-if="userInfo.isAgent>0">
+			<router-link to="myCheck">
+				<div class="my-cell">
+					<div class="flex1">
+						实名审核
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+			</router-link>
+			<router-link to="innerRegister">
+				<div class="my-cell">
+					<div class="flex1">
+						内排注册
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+			</router-link>
+			<!-- <router-link to="transferMineral">
+				<div class="my-cell">
+					<div class="flex1">
+						定向转让矿石
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+			</router-link> -->
+			<router-link to="transferTicket">
+				<div class="my-cell">
+					<div class="flex1">
+						定向转让帮扶券
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+			</router-link>
+			<router-link to="unFreeze">
+				<div class="my-cell">
+					<div class="flex1">
+						给他人解冻账号
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+			</router-link>
+		</div>
 		<!-- <m-fullscreen></m-fullscreen> -->
 		<m-refresh @refreshEvent="refreshEvent"></m-refresh>
 		
@@ -528,7 +534,6 @@
 				_this.getUserInfo();
 				_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 			}
-			
 		},
 		methods: {
 			getAddress(){
@@ -546,15 +551,15 @@
 				console.log(val);
 				let message = '';
 				if(val=='mineral'){
-					message = '矿石：您当前所能用来流通的矿石。卖出的时候要额外收20%的手续费(服务费)，比如卖100个矿石要使用120个矿石，所收的手续费(服务费)全部销毁，不再它用。获得途径：矿机产出、买入。';
+					message = '矿石：当前所能用来流通的矿石。卖出的时候要额外收20%的手续费(服务费)，比如卖100个矿石要使用120个矿石，所收的手续费(服务费)全部销毁，不再它用。获得途径：矿机产出、买入。';
 				}else if(val=='platformTicket'){
 					message = '帮扶券：可用于交易的时候当手续费(服务费)、用于帮助平台上生活遇到困难的会员而获得贡献值(此功能即将推出)，后续还会有其他用处......。获取途径：从省市代理那儿购买。';
 				}else if(val=='contribution'){
-					message = '贡献值：您有多少点贡献值决定您可卖出的矿石数量，比例为1:1，比如您卖100个矿石要使用100点贡献值。获取途径：签到、推广、买入矿石、自己复投矿机、直推复投矿机、捐赠帮扶券。';
+					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：签到、推广、自己复投矿机、直推复投矿机、捐赠帮扶券。';
 				}else if(val=='teamCalculationPower'){
 					message = '团队算力：它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
 				}else if(val=='myCalculationPower'){
-					message = '我的算力：由您个人所拥有的矿机所决定。';
+					message = '我的算力：由个人所拥有的矿机所决定。';
 				}else if(val=='limitBuyNum'){
 					message = '个人限购数量=2000+(卖出数量-买入数量)';
 				}

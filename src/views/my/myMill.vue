@@ -15,11 +15,14 @@
 		    border: 1px solid #c7c7c7 !important;
 		}
 		.millContent{
-			color: $mainTextColor;
+			color: $main-box-fh-text-color;
 			min-height: 100%;
 			position: absolute;
 			top:0;
 			width: 100%;
+			.van-list__finished-text{
+				color: inherit !important;
+			}
 			.tabTitle{
 				display: flex;
 				align-items: center;
@@ -34,7 +37,6 @@
 			}
 			.millList{
 				// background-color: $main-box-fh-bg-color;
-				color: $main-box-fh-text-color;
 				//margin-top: $marginTop2;
 				overflow: hidden;
 				height: 100%;
@@ -106,7 +108,8 @@
 						flex: 1;
 						.line1{
 							.millName{
-								font-size: 0.875rem;
+								font-weight: bold;
+								font-size: 1rem;
 							}
 							.calcullatePower{
 								font-size: 0.687rem;
@@ -195,7 +198,7 @@
 									<div class="line1">
 										<div class="millName inline">{{item.type | machineTypeType}}</div>
 										<!-- <div class="inline"><span class="tag" :class="tagColor(item.tag)">{{item.tag | machineTagType}}</span></div> -->
-										<div class="inline calcullatePower">算力 {{item.calculationPower}}</div>
+										<div class="inline calcullatePower">算力 {{item.calculationPower}}GH/s</div>
 										<!-- <div class="inline f-12 status">{{item.status | machineStatus}}</div> -->
 									</div>
 									<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 到期</div>
@@ -237,7 +240,7 @@
 									<div class="line1">
 										<div class="millName inline">{{item.type | machineTypeType}}</div>
 										<div class="status inline">{{item.status | machineStatus}}</div>
-										<div class="calcullatePower inline">算力 {{item.calculationPower}}</div>
+										<div class="calcullatePower inline">算力 {{item.calculationPower}}GH/s</div>
 									</div>
 									<div class="line">租金 {{item.price}}矿石</div>
 									<div class="line">总产 {{item.totalOutput}}矿石</div>

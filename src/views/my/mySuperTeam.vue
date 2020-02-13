@@ -71,6 +71,9 @@
 					.flex2 {
 						padding-left: 6px;
 						flex: 1;
+						.iconfont{
+							color:$main-green-color;
+						}
 						.line1 {
 							.millName {
 								font-size: 0.875rem;

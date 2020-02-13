@@ -195,6 +195,12 @@ export default new Router({
 					meta:{footer:false},
 				},
 				{
+					path: '/myDealCheck',
+					name: '定向转让审核',
+					component: resolve => require(['./views/my/myDealCheck'],resolve),
+					meta:{footer:false},
+				},
+				{
 					path: '/myMill',
 					name: '我的矿机',
 					component: resolve => require(['./views/my/myMill'],resolve),

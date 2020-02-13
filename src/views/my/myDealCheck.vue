@@ -1,13 +1,13 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
-	.myDeal{
+	.myDealCheck{
 		@include pageHaveHeight4Scroll();
 		
 		[class*=van-hairline]::after {
 			border: none !important;
 		    border-bottom: 1px solid #efefef !important;
 		}
-		.myDealTabs {
+		.myDealCheckTabs {
 			// margin-top: $header-height;
 			// min-height: 100%;
 			// background-color: $main-box-fh-bg-color;
@@ -288,54 +288,24 @@
 	}
 </style>
 <template>
-	<div class="myDeal">
+	<div class="myDealCheck">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				我的交易
+				定向转让审核
 			</div>
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
 		
-		<div class="myDealTabs">
+		<div class="myDealCheckTabs">
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
-				<van-tab title="求购中" name="buy">
+				
+				<van-tab title="待审核" name="check">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list">
 							<div class="item" v-for="item in list1" :key="item.id">
-								<div class="flex">
-									<div class="info">
-										<div class="flex1">
-											<div>数量</div>
-											<div class="d">{{item.minNumber}}~{{item.maxNumber}}{{pen}}</div>
-										</div>
-										<div class="flex1">
-											<div>单价</div>
-											<div class="d">{{item.price}}CNY</div>
-										</div>
-									</div>
-									<div class="timeBox">
-										挂单时间 {{ item.createTime }}
-									</div>
-								</div>
-								<div class="btnBox">
-									<div>{{maxPrice(item)}}CNY</div>
-									<div class="placeholderLine8"></div>
-									<van-button type="primary" size="small" :block="true" @click="cancelBuyBillBtn(item)">撤 销</van-button>
-								</div>
-							</div>
-						</div>
-					</van-list>	
-				</van-tab>
-				<!-- <van-tab title="出售" name="sell">
-					
-				</van-tab> -->
-				<van-tab title="待付款" name="pay">
-					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
-						<div class="list">
-							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="flex">
 									<div class="info">
 										<div class="flexNum">
@@ -379,7 +349,7 @@
 						</div>
 					</van-list>
 				</van-tab>
-				<van-tab title="待收款" name="get">
+				<van-tab title="已审核" name="get">
 					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 						<div class="list">
 							<div class="item" v-for="item in list4" :key="item.id">
@@ -771,6 +741,30 @@
 		  <!-- <van-field v-model="remark" required clearable placeholder="写点内容,让平台好找到线索"/> -->
 		</van-dialog>
 		<van-action-sheet v-model="showSellerUserInfoModel" title="卖家信息">
+			<div class="box box1">
+				<div class="flex flex1">
+					<div class="name">{{sellerUserInfo.realName | getLastName}}</div>
+				</div> 
+				<div class="flex flex2">
+					<div class="line1">
+						<div class="nick_name left">{{sellerUserInfo.nickName}}</div>
+						<div class="level left">{{sellerUserInfo.level | getUserType}}</div>
+					</div>
+					<div class="line margT3">
+						注册时间 {{sellerUserInfo.registerTime}}
+					</div>
+					<div class="line">
+						<div class="left">买入次数 {{sellerUserInfo.buyTimes}}</div>
+						<div class="mlBox left">买入数量 {{sellerUserInfo.buyAmount}}</div>
+					</div>
+					<div class="line">
+						<div class="left">卖出次数 {{sellerUserInfo.sellTimes}}</div>
+						<div class="mlBox left">卖出数量 {{sellerUserInfo.sellAmount}}</div>
+					</div>
+					<div class="line">个人限购数量 {{sellerUserInfo.canBuyNum}}</div>
+					<div class="line"><span @click="toBookView('3')">贡献值 {{sellerUserInfo.contributionValue}}</span></div>
+				</div>
+			</div>
 			<div class="box box2">
 				<div class="flex flex1">
 					<div class="value" @click="toBookView('1',sellerUserInfo.userId)">{{sellerUserInfo.teamCalculationPower}}</div>
@@ -780,11 +774,6 @@
 					<!-- <div>{{sellerUserInfo.platformTicket}}</div> -->
 					<div class="value" @click="toBookView('2',sellerUserInfo.userId)">{{sellerUserInfo.platformTicket}}</div>
 					<div class="text">帮扶券</div>
-				</div>
-				<div class="flex flex3">
-					<!-- <div>{{sellerUserInfo.contributionValue}}</div> -->
-					<div class="value" @click="toBookView('3',sellerUserInfo.userId)">{{sellerUserInfo.contributionValue}}</div>
-					<div class="text">贡献值</div>
 				</div>
 				<div class="flex flex2">
 					<!-- <div>{{sellerUserInfo.thisWeekMineral}}</div> -->
@@ -802,11 +791,6 @@
 					<div>{{sellerUserInfo.temporaryFreezePlatformTicket}}</div>
 					<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
 					<div class="text">交易中<br>帮扶券</div>
-				</div>
-				<div class="flex flex3">
-					<div>{{sellerUserInfo.temporaryFreezeContribution}}</div>
-					<!-- <NumberGrow :value="userInfo.temporaryFreezeContribution"></NumberGrow> -->
-					<div class="text">交易中<br>贡献值</div>
 				</div>
 				<div class="flex flex2">
 					<div>{{sellerUserInfo.temporaryFreezeMineral}}</div>
@@ -1186,13 +1170,14 @@
 				console.log('load1')
 				let _this = this;
 				// 异步更新数据
-				_this.$ajax.ajax(_this.$api.getAssistBuyBillListByBuyerId, 'GET', null, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4Agent, 'GET', null, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data;
-						_this.loading1 = false;
-						_this.finished1 = true;
 					}
+				},function(){
+					_this.loading1 = false;
+					_this.finished1 = true;
 					_this.loading = false;
 				})
 			},

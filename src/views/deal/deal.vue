@@ -338,11 +338,11 @@
 		  <van-cell-group>
 			  <div class="pickSellContent">
 				  <div class="showMyInfo">
-					  <div>我的 矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  贡献值:{{userInfo.contributionValue.toFixed(2)}}点  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
+					  <div>我的 矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
 					  <div class="placeholderLine10"></div>
 					  <div>若卖{{form4pickSellBill.sellAmountSliderValue}}个后</div>
 					  <div class="placeholderLine10"></div>
-				  	  <div class="">所剩 矿石:{{ remainMineral }}个 贡献值:{{ remainContributionValue }}点 帮扶券:{{ remainPlateForm }}个</div>
+				  	  <div class="">所剩 矿石:{{ remainMineral }}个 帮扶券:{{ remainPlateForm }}个</div>
 				  </div>
 				  <div class="placeholderLine20 clear"></div>
 				  <div class="inLine">
@@ -565,11 +565,11 @@ export default {
 	    }
 	},
 	computed:{
-		remainContributionValue () {
+		/* remainContributionValue () {
 			let _this = this;
 			let num = _this.userInfo.contributionValue - _this.form4pickSellBill.sellAmountSliderValue;
 			return num.toFixed(2);
-		},
+		}, */
 		remainMineral () {
 			let _this = this;
 			let num = 0
@@ -857,26 +857,31 @@ export default {
 				}
 			}
 			// 如果用户在中途选择了第二种服务费，最大可卖数量要在原来基础上加10%
-			let myContributionValue = _this.userInfo.contributionValue;
+			//卖出需要贡献值
+			// let myContributionValue = _this.userInfo.contributionValue;
 			let myMineralNum = _this.userInfo.thisWeekMineral;
 			let myMaxCanSellNum = 0;
 			let ratio = _this.dealPageInfo.dealRatio;
 			if(_this.form4pickSellBill.serviceCharge==0){
-				if(myContributionValue<=myMineralNum/(1.0 + ratio)){
+				//卖出需要贡献值
+				/* if(myContributionValue<=myMineralNum/(1.0 + ratio)){
 					myMaxCanSellNum = myContributionValue;
 				}
 				if(myContributionValue>=myMineralNum/(1.0 + ratio)){
 					myMaxCanSellNum = myMineralNum/(1.0 + ratio);
-				}
+				} */
+				myMaxCanSellNum = myMineralNum/(1.0 + ratio);
 				console.log(myMaxCanSellNum,'myMaxCanSellNum');
 			}else if(_this.form4pickSellBill.serviceCharge==1){
 				console.log('serviceCharge==1')
-				if(myContributionValue<=myMineralNum/1.1){
+				//卖出需要贡献值
+				/* if(myContributionValue<=myMineralNum/1.1){
 					myMaxCanSellNum = myContributionValue;
 				}
 				if(myContributionValue>=myMineralNum){
 					myMaxCanSellNum = myMineralNum/1.1;
-				}
+				} */
+				myMaxCanSellNum = myMineralNum/1.1;
 				console.log(myMaxCanSellNum,'myMaxCanSellNum');
 			}
 			console.log(myMaxCanSellNum,'myMaxCanSellNum');

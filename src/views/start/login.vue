@@ -100,6 +100,9 @@
 		<div class="sureBox paddingWing">
 			<div class="tip">点击登录即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span><span class="forget" @click="forget">忘记密码？</span></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" :loading="isLoading" @click="loginBtn" loading-type="spinner">登  录</van-button>
+			<!-- <van-button size="normal" :block="true" @click="setECBtn" loading-type="spinner">setECBtn</van-button>
+			<van-button size="normal" :block="true" @click="getECBTN" loading-type="spinner">getECBTN</van-button> -->
+			
 			<div class="placeholderLine10"></div>
 			<!-- <van-button color="inherit" size="normal" :block="true">手机号已更换，用秘钥登录</van-button> -->
 			<!-- <van-button color="inherit" size="normal" :block="true">手机号已更换，用邮箱登录</van-button> -->
@@ -113,6 +116,7 @@
 
 <script>
 	// import {setCookie} from '@/assets/js/utils.js'
+	// var evercookie = require('evercookie');
 	import { Dialog } from 'vant';
 	export default {
 		data() {
@@ -156,6 +160,12 @@
 			_this.getSecurityCode();
 		},
 		methods:{
+			getECBTN(){
+				//everCookie.get("id", function(value) { alert("EverCookie value is " + value) });
+			},
+			setECBtn(){
+				//everCookie.set("_TEST_","test_ec");
+			},
 			bsTip(){
 				let _this = this;
 				let isWeixin = _this.$utils.isWeixin();

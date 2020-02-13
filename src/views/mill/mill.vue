@@ -15,10 +15,14 @@
 		    border: 1px solid #c7c7c7 !important;
 		}
 		.millContent{
-			color: $mainTextColor;
+			background-color: $main-box-fh-bg-color;
+			color: $main-box-fh-text-color;
 			min-height: 100%;
 			position: absolute;
 			width: 100%;
+			.van-list__finished-text{
+				color: inherit !important;
+			}
 			.tabTitle{
 				display: flex;
 				align-items: center;
@@ -26,8 +30,6 @@
 				justify-content: center;
 			}
 			.millList{
-				background-color: $main-box-fh-bg-color;
-				color: $main-box-fh-text-color;
 				overflow: hidden;
 				height: 100%;
 				.item{
@@ -96,7 +98,8 @@
 						flex: 1;
 						.line1{
 							.millName{
-								font-size: 0.875rem;
+								font-weight: bold;
+								font-size: 1rem;
 							}
 							.calcullatePower{
 								font-size: 0.687rem;
@@ -167,15 +170,15 @@
 				<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
 					<div class="millList">
 						<div class="item" v-for="item in millShopList" :key="item.id">
-							<div class="flex flex1">
+							<!-- <div class="flex flex1">
 								<div class="machingBox">
 									<div class="name">{{item.type | machineType4Pic}}</div>
 								</div>
-							</div>
+							</div> -->
 							<div class="flex flex2">
 								<div class="line1">
 									<span class="millName">{{item.type | machineTypeType}}</span>
-									<span class="calcullatePower">算力 {{item.calculationPower}}</span>
+									<span class="calcullatePower">算力 {{item.calculationPower}}GH/s</span>
 								</div>
 								<div class="line">租金 {{item.price}}矿石</div>
 								<div class="line">总产 {{item.totalOutput}}矿石</div>

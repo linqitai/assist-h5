@@ -78,7 +78,7 @@
 				1.内排注册功能专为预打造团队的用户开放。<br>
 				2.参与内排注册的用户系统赠送小型矿机一台，个人算力达到1G后方可启动该矿机。<br>
 				3.登录密码初始化为该注册手机号，未实名认证无修改密码权限，实名认证审核通过方可修改密码，请团队长们提醒到位。<br>
-				4.为了提高内排注册的质量，内排注册功能暂时只为个人算力大于等于0.3G的用户使用。<br>
+				4.为了提高内排注册的质量，内排注册功能暂时只为个人算力达到9G的工会会长或省市代理开放。<br>
 			</div>
 		</div>
 	</div>
@@ -145,11 +145,11 @@
 			registerBtn(){
 				console.log('form',this.form);
 				let _this = this;
-				if(_this.userInfo.myCalculationPower<0.3){
+				if(_this.userInfo.myCalculationPower<9 && _this.userInfo.isAgent()<=0){
 					Dialog.alert({
 						title: "系统提示",
 						confirmButtonText:'知道了',
-						message: "内排注册功能暂时只为个人算力大于等于0.3G的用户使用"
+						message: "内排注册功能暂时只为个人算力达到9G的工会会长或省市代理开放"
 					}).then(() => {
 					  // on confirm
 					})

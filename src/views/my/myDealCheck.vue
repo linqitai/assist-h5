@@ -241,6 +241,7 @@
 		
 						.level {
 							background-color: $main-adorn-color;
+							color: $main-box-fh-text-color;
 							height: 20px;
 							line-height: 20px;
 							font-size: 11px;
@@ -336,23 +337,15 @@
 									<div class="margT6 lineHeight">
 										{{item.status | dealStatusType}}
 									</div>
-									<div class="margT6" v-if="buyOrSell(item)=='sell'&&item.status==0">
-										<span class="cancelBtn" @click="cancelDealBtn(item)">取消交易</span>
-									</div>
-									<div class="margT6" v-if="buyOrSell(item)=='buy'&&item.status==0">
-										<span class="cancelBtn" @click="lockTransactionBtn(item)">锁定交易</span>
-									</div>
 								</div>
-								<i class="tagIcon iconfont iconfont-tag tag4Buy"></i>
-								<i class="tagIconText">买</i>
 							</div>
 						</div>
 					</van-list>
 				</van-tab>
-				<van-tab title="已审核" name="get">
-					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
+				<van-tab title="已审核" name="checked">
+					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 						<div class="list">
-							<div class="item" v-for="item in list4" :key="item.id">
+							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="flex">
 									<div class="info">
 										<div class="flexNum">
@@ -380,12 +373,7 @@
 									<div class="margT6 lineHeight">
 										{{item.status | dealStatusType}}
 									</div>
-									<div class="margT6" v-if="buyOrSell(item)=='sell'&&(item.status==0||item.status==1)">
-										<span class="cancelBtn" @click="cancelDealBtn(item)">取消交易</span>
-									</div>
 								</div>
-								<i class="tagIcon iconfont iconfont-tag tag4Sell"></i>
-								<i class="tagIconText">卖</i>
 							</div>
 						</div>
 					</van-list>
@@ -422,16 +410,14 @@
 										{{item.status | dealStatusType}}
 									</div>
 								</div>
-								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item)"></i>
-								<i class="tagIconText">{{buyOrSell(item)=='buy'?'买':'卖'}}</i>
 							</div>
 						</div>
 					</van-list>
 				</van-tab>
 				<van-tab title="已取消" name="canceled">
-					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
+					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 						<div class="list">
-							<div class="item" v-for="item in list5" :key="item.id">
+							<div class="item" v-for="item in list4" :key="item.id">
 								<div class="flex">
 									<div class="info">
 										<div class="flexNum">
@@ -460,8 +446,6 @@
 										{{item.status | dealStatusType}}
 									</div>
 								</div>
-								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item)"></i>
-								<i class="tagIconText">{{buyOrSell(item)=='buy'?'买':'卖'}}</i>
 							</div>
 						</div>
 					</van-list>
@@ -469,97 +453,6 @@
 			</van-tabs>
 			</van-pull-refresh>
 		</div>
-		<!-- <van-sticky></van-sticky> -->
-		<!-- 买家所显示的订单详情 -->
-		<van-action-sheet v-model="showSellerDetailModel" title="订单详情">
-			<div v-if="!detail4sellerInfo">
-				<div class="placeholderLine20"></div>
-				<van-skeleton :row="16"/>
-				<div class="placeholderLine20"></div>
-			</div>
-			<div class="detailBox" v-if="detail4sellerInfo">
-				<div class="line">
-					<span class="label">卖方</span>
-					<span class="value">{{detail4sellerInfo.realName}}</span>
-				</div>
-				<div class="line">
-					<span class="label">卖方手机号</span>
-					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.mobilePhone,$event)">复制</span>{{detail4sellerInfo.mobilePhone}}</div>
-				</div>
-				<div class="line">
-					<div class="label">卖方支付宝</div>
-					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.alipayNum,$event)">复制</span>{{detail4sellerInfo.alipayNum}}</div>
-				</div>
-				<div class="line">
-					<div class="label">卖方微信号</div>
-					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.wechartNum,$event)">复制</span>{{detail4sellerInfo.wechartNum}}</div>
-				</div>
-				<div class="line">
-					<span class="label">数量</span>
-					<span class="value">{{detail4sellerInfo.num}}</span>
-				</div>
-				<div class="line">
-					<span class="label">单价</span>
-					<span class="value">{{detail4sellerInfo.price}} CNY</span>
-				</div>
-				<div class="line">
-					<span class="label">总价</span>
-					<span class="value">{{totalPrice(detail4sellerInfo)}} CNY</span>
-				</div>
-				<div class="line" v-if="detail4sellerInfo.status>-1">
-					<span class="label">状态</span>
-					<span class="value textAdornColor">{{detail4sellerInfo.status | dealStatusType}}</span>
-				</div>
-				<div class="line" v-if="detail4sellerInfo.remark">
-					<span class="label">小报告</span>
-					<span class="value <red></red>">{{detail4sellerInfo.remark}}</span>
-				</div>
-				<div class="line" v-if="detail4sellerInfo.status==0 || detail4sellerInfo.status==1">
-					<span class="label">自动取消倒计时</span>
-					<span class="value textAdornColor">
-						<van-count-down :time="setCancelDealDownTime(detail4sellerInfo.canCancelTime)" />
-					</span>
-				</div>
-				<!-- <div class="line" v-if="detail4sellerInfo.status=='1'">
-					<span class="label">锁定</span>
-					<span class="value textAdornColor">买方已锁定交易</span>
-				</div> -->
-				<div v-if="detail4sellerInfo.status==0||detail4sellerInfo.status==1">
-					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn">我已付款 让卖家确认</van-button>
-					<div class="placeholderLine10"></div>
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(detail4sellerInfo)" size="normal" :block="true">取消交易</van-button>
-				</div>
-				<div class="line" v-if="detail4sellerInfo.status==2 || detail4sellerInfo.status==4">
-					<span class="label">卖方确认倒计时</span>
-					<span class="value textAdornColor">
-						<van-count-down :time="setLetSureDownTime(detail4sellerInfo.letSureTime)" />
-					</span>
-				</div>
-				<div class="line" v-if="detail4sellerInfo.status==3">
-					<span class="label">付款凭证</span>
-					<span class="value">
-						<i class="iconfont iconfont-upload-pic"></i>
-						<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
-						<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
-					</span>
-				</div>
-				<div class="line" v-if="detail4sellerInfo.status==4">
-					<span class="label">修改凭证</span>
-					<span class="value">
-						<i class="iconfont iconfont-upload-pic"></i>
-						<input accept="image/png,image/jpeg,image/jpg" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
-						<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
-					</span>
-				</div>
-				<div v-if="detail4sellerInfo.status==4 || detail4sellerInfo.status==5">
-					<img class="selectedImg" :src="detail4sellerInfo.imgUrl"/>
-				</div>
-				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4sellerInfo)" size="normal" :block="true">向平台打小报告</van-button>
-				</div>
-				<div class="margT10 tip4model3" v-html="tipText"></div>
-			</div>
-		</van-action-sheet>
 		<!-- 省市代理订单详情 -->
 		<van-action-sheet v-model="showAgentDetailModel" title="订单详情">
 			<div v-if="!appointDealDetail">
@@ -568,37 +461,31 @@
 				<div class="placeholderLine20"></div>
 			</div>
 			<div class="detailBox" v-if="appointDealDetail">
-				<div class="line">
-					<span class="label">代理昵称</span>
-					<span class="value">{{appointDealDetail.assistAppointAgentInfo.nickName}}</span>
-				</div>
-				<!-- <div class="line">
-					<span class="label">买方手机号</span>
-					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.mobilePhone,$event)">复制</span>{{detail4buyerInfo.mobilePhone}}</div>
-				</div> -->
-				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status!=5">
-					<div class="label">代理手机号</div>
-					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.mobilePhone,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.mobilePhone}}</div>
-				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status!=5">
-					<div class="label">代理支付宝</div>
-					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.alipayNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.alipayNum}}</div>
-				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status!=5">
-					<div class="label">代理微信号</div>
-					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.wechartNum}}</div>
-				</div>
+				<div class="tip4model3" v-html="$api.tipText4Safe"></div>
+				<div class="margT10 tip4model3" v-html="$api.tipText4AppointDeal"></div>
 				<div class="line">
 					<span class="label">数量</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.num}}</span>
 				</div>
 				<div class="line">
-					<span class="label">单价</span>
-					<span class="value">{{appointDealDetail.assistAppointDealInfo.price}} CNY</span>
+					<span class="label">指导单价</span>
+					<span class="value">{{appointDealDetail.assistAppointDealInfo.curerntPlatformPrice}} CNY</span>
+				</div>
+				<div class="line">
+					<span class="label">转让单价</span>
+					<span class="value">{{appointDealDetail.assistAppointDealInfo.price.toFixed(2)}} CNY</span>
 				</div>
 				<div class="line">
 					<span class="label">担保总价</span>
 					<span class="value">{{totalPrice(appointDealDetail.assistAppointDealInfo)}} CNY</span>
+				</div>
+				<div class="line">
+					<span class="label">买方应付</span>
+					<span class="value">{{totalPrice(appointDealDetail.assistAppointDealInfo)}} CNY</span>
+				</div>
+				<div class="line">
+					<span class="label">卖方应收</span>
+					<span class="value">{{sellerGet(appointDealDetail.assistAppointDealInfo)}} CNY</span>
 				</div>
 				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status>-1">
 					<span class="label">状态</span>
@@ -610,115 +497,69 @@
 						<van-count-down :time="setCancelDealDownTime(appointDealDetail.assistAppointDealInfo.canCancelTime)" />
 					</span>
 				</div>
-				<van-button v-if="appointDealDetail.assistAppointDealInfo.status==4" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
-				<div class="margT10" v-if="appointDealDetail.assistAppointDealInfo.status==4">
-					<img class="selectedImg" :src="appointDealDetail.assistAppointDealInfo.imgUrl"/>
+				<div class="line">
+					<span class="label red">卖方姓名</span>
+					<span class="value">{{appointDealDetail.assistAppointDealSellerInfo.realName}}</span>
 				</div>
-				<div class="margT10" v-if="appointDealDetail.assistAppointDealInfo.status==2&&activeName=='get'">
-					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">代理已收到款 确认并释放矿石</van-button>
-					<!-- <div class="placeholderLine10"></div>
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="notReciveCNYBtn" size="normal" :block="true">代理没收到款 请对方上传付款凭证</van-button> -->
+				<div class="line" v-if="appointDealDetail.assistAppointDealSellerInfo.status!=5">
+					<div class="label red">卖方手机号</div>
+					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealSellerInfo.mobilePhone,$event)">复制</span>{{appointDealDetail.assistAppointDealSellerInfo.mobilePhone}}</div>
 				</div>
-				<div v-if="appointDealDetail.assistAppointDealInfo.status==0||appointDealDetail.assistAppointDealInfo.status==1">
-					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn">我已付款 让代理确认</van-button>
+				<div class="line" v-if="appointDealDetail.assistAppointDealSellerInfo.status!=5">
+					<div class="label red">卖方支付宝</div>
+					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealSellerInfo.alipayNum,$event)">复制</span>{{appointDealDetail.assistAppointDealSellerInfo.alipayNum}}</div>
+				</div>
+				<div class="line" v-if="appointDealDetail.assistAppointDealSellerInfo.status!=5">
+					<div class="label red">卖方微信号</div>
+					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealSellerInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointDealSellerInfo.wechartNum}}</div>
+				</div>
+				<div class="line">
+					<span class="label blue">代理姓名</span>
+					<span class="value">{{appointDealDetail.assistAppointAgentInfo.realName}}</span>
+				</div>
+				<div class="line">
+					<span class="label blue">代理昵称</span>
+					<span class="value">{{appointDealDetail.assistAppointAgentInfo.nickName}}</span>
+				</div>
+				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status!=5">
+					<div class="label blue">代理手机号</div>
+					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.mobilePhone,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.mobilePhone}}</div>
+				</div>
+				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status!=5">
+					<div class="label blue">代理支付宝</div>
+					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.alipayNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.alipayNum}}</div>
+				</div>
+				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status!=5">
+					<div class="label blue">代理微信号</div>
+					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.wechartNum}}</div>
+				</div>
+				<div class="line">
+					<span class="label green">买方姓名</span>
+					<span class="value">{{appointDealDetail.assistAppointDealBuyerInfo.realName}}</span>
+				</div>
+				<div class="line" v-if="appointDealDetail.assistAppointDealBuyerInfo.status!=5">
+					<div class="label green">买方手机号</div>
+					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealBuyerInfo.mobilePhone,$event)">复制</span>{{appointDealDetail.assistAppointDealBuyerInfo.mobilePhone}}</div>
+				</div>
+				<div class="line" v-if="appointDealDetail.assistAppointDealBuyerInfo.status!=5">
+					<div class="label green">买方支付宝</div>
+					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealBuyerInfo.alipayNum,$event)">复制</span>{{appointDealDetail.assistAppointDealBuyerInfo.alipayNum}}</div>
+				</div>
+				<div class="line" v-if="appointDealDetail.assistAppointDealBuyerInfo.status!=5">
+					<div class="label green">买方微信号</div>
+					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealBuyerInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointDealBuyerInfo.wechartNum}}</div>
+				</div>
+				<div class="margT10" v-if="appointDealDetail.assistAppointDealInfo.status==11">
+					<div class="tip4model3">请省市代理审核卖方支付宝上的实名是否和在{{$api.projectName}}平台上所留的姓名一致</div>
 					<div class="placeholderLine10"></div>
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">取消交易</van-button>
+					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="checkPassBtn(appointDealDetail.assistAppointDealInfo)">审核通过</van-button>
 				</div>
 				<div class="margT10">
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">向平台打小报告</van-button>
 				</div>
-				<div class="margT10 tip4model3" v-html="tipText4AppointDeal"></div>
-			</div>
-		</van-action-sheet>
-		<!-- 卖家所显示的订单详情 -->
-		<van-action-sheet v-model="showBuyerDetailModel" title="订单详情">
-			<div v-if="!detail4buyerInfo">
-				<div class="placeholderLine20"></div>
-				<van-skeleton :row="16"/>
-				<div class="placeholderLine20"></div>
-			</div>
-			<div class="detailBox" v-if="detail4buyerInfo">
-				<div class="line">
-					<span class="label">买方</span>
-					<span class="value">{{detail4buyerInfo.realName}}</span>
-				</div>
-				<!-- <div class="line">
-					<span class="label">买方手机号</span>
-					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.mobilePhone,$event)">复制</span>{{detail4buyerInfo.mobilePhone}}</div>
-				</div> -->
-				<div class="line" v-if="detail4buyerInfo.status!=5">
-					<div class="label">买方手机号</div>
-					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.mobilePhone,$event)">复制</span>{{detail4buyerInfo.mobilePhone}}</div>
-				</div>
-				<div class="line" v-if="detail4buyerInfo.status!=5">
-					<div class="label">买方微信号</div>
-					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.wechartNum,$event)">复制</span>{{detail4buyerInfo.wechartNum}}</div>
-				</div>
-				<div class="line">
-					<span class="label">数量</span>
-					<span class="value">{{detail4buyerInfo.num}}</span>
-				</div>
-				<div class="line">
-					<span class="label">单价</span>
-					<span class="value">{{detail4buyerInfo.price}} CNY</span>
-				</div>
-				<div class="line">
-					<span class="label">总价</span>
-					<span class="value">{{totalPrice(detail4buyerInfo)}} CNY</span>
-				</div>
-				<div class="line" v-if="detail4buyerInfo.status>-1">
-					<span class="label">状态</span>
-					<span class="value textAdornColor">{{detail4buyerInfo.status | dealStatusType}}</span>
-				</div>
-				<div class="line" v-if="detail4buyerInfo.status==0 || detail4buyerInfo.status==1">
-					<span class="label">可取消倒计时</span>
-					<span class="value textAdornColor">
-						<van-count-down :time="setCancelDealDownTime(detail4buyerInfo.canCancelTime)" />
-					</span>
-				</div>
-				<!-- <div class="line" v-if="detail4buyerInfo.status=='1'">
-					<span class="label">锁定</span>
-					<span class="value textAdornColor">买方已锁定交易</span>
-				</div> -->
-				<div class="tipText2" v-if="detail4buyerInfo.status==1">
-					{{buyerHaveWord}}
-				</div>
-				<van-button v-if="detail4buyerInfo.status==4" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
-				<div class="margT10" v-if="detail4buyerInfo.status==4">
-					<img class="selectedImg" :src="detail4buyerInfo.imgUrl"/>
-				</div>
-				<div class="margT10" v-if="detail4buyerInfo.status==2">
-					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
-					<div class="placeholderLine10"></div>
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="notReciveCNYBtn" size="normal" :block="true">我没收到款 请对方上传付款凭证</van-button>
-				</div>
 				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4buyerInfo)" size="normal" :block="true">向平台打小报告</van-button>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">取消交易</van-button>
 				</div>
-				<div class="margT10 tip4model3" v-html="tipText"></div>
-			</div>
-		</van-action-sheet>
-		<!-- 取消交易提示 -->
-		<van-action-sheet v-model="showSureCancelTransactionModel4seller" title="温馨提示">
-			<div class="cancelSellTip">
-				<div class="tipText2">若买方在30分钟内没付款，且联系无果，卖方可取消交易。若买方正有事情在忙，锁定了交易，则交易时间延长30分钟。</div>
-				<div class="countDownTimeBox margT20 clear hidden" v-if="cancelSellSureBtnText=='知道了'">
-					<div class="flexCountTime">可取消倒计时：</div>
-					<div class="flexCountTime">
-						<van-count-down :time="setCountDownTime4seller" />
-					</div>
-				</div>
-			</div>
-			<div class="sureAppointBtnBox">
-				<van-button @click="cancel4seller" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">{{cancelSellSureBtnText}}</van-button>
-			</div>
-		</van-action-sheet>
-		<van-action-sheet v-model="showSureCancelTransactionModel4buyer" title="温馨提示">
-			<div class="cancelSellTip">
-				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要减0.5个贡献值。若卖方实名信息不符或者有其他问题，请向平台打小报告，让客服来处理单子并免费帮您取消交易。</div>
-			</div>
-			<div class="sureAppointBtnBox">
-				<van-button @click="cancel4buyer" :loading="sureCancelBtnLoading" loading-type="spinner" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确认取消</van-button>
 			</div>
 		</van-action-sheet>
 		<van-dialog
@@ -763,6 +604,12 @@
 					</div>
 					<div class="line">个人限购数量 {{sellerUserInfo.canBuyNum}}</div>
 					<div class="line"><span @click="toBookView('3')">贡献值 {{sellerUserInfo.contributionValue}}</span></div>
+					<div class="line">
+						<span class="label">姓名 {{sellerUserInfo.realName}}</span>
+					</div>
+					<div class="line">
+						<div class="label">手机号 {{sellerUserInfo.mobilePhone}} <span class="copy" @click="handleCopy(sellerUserInfo.mobilePhone,$event)">复制</span></div>
+					</div>
 				</div>
 			</div>
 			<div class="box box2">
@@ -873,7 +720,7 @@
 				buyerHaveWord:"买方有话说：您好，我手头正有事情在忙，请稍等片刻。",
 				tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待30分钟，若买方在30分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长30分钟交易时间，锁定交易后买方若在匹配后的1小时内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
 				tipText4AppointDeal: "",
-				activeName: "pay",
+				activeName: "check",
 				pageCount: 1000,
 				totalItems: 10000,
 				mcTime: '2019-10-16 15:30:12',
@@ -930,7 +777,6 @@
 			//_this.pen = _this.$api.projectEnglishName;
 			_this.userId = _this.$cookies.get('userId');
 			_this.tipText = _this.$api.tipText;
-			_this.tipText4AppointDeal = _this.$api.tipText4AppointDeal;
 			if(_this.$utils.isNUll(_this.userId)){
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
@@ -943,7 +789,7 @@
 				//发送短信提示start
 				_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。";
 				_this.mobilePhone = _this.$route.query.mobilePhone;
-				_this.smsContent = `【${_this.$api.projectEnglishName}国际帮扶链】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
+				_this.smsContent = `【${_this.$api.projectName}】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
 				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 				//发送短信提示end
 				_this.showSendSMSTipModel = true;
@@ -1134,7 +980,7 @@
 									//发送短信提示start
 									_this.sendSmsTipText = "图片上传成功，为了让交易顺利进行，请给卖家发个短信提醒。";
 									_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-									_this.smsContent = `【${_this.$api.projectEnglishName}国际帮扶链】我的付款凭证已上传，请在“我的--我的交易--待收款”的订单详情中查看。`;
+									_this.smsContent = `【${_this.$api.projectName}】我的付款凭证已上传，请在“我的--我的交易--待收款”的订单详情中查看。`;
 									_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 									//发送短信提示end
 									_this.showSellerDetailModel = false;
@@ -1159,6 +1005,9 @@
 			},
 			totalPrice(item){
 				return (item.num*item.price).toFixed(2);
+			},
+			sellerGet(item){
+				return (item.assurePrice*0.97).toFixed(2);
 			},
 			initializeTabActiveName() {
 				let _this = this;
@@ -1189,30 +1038,14 @@
 				/* let params = {
 					userId: _this.userId
 				} */
-				_this.$ajax.ajax(_this.$api.getAssistTransactionList4buyer, 'GET', null, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4AgentChecked, 'GET', null, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list2 = res.data;
-						_this.loading2 = false;
-						_this.finished2 = true;
 					}
-					_this.loading = false;
-				})
-			},
-			onLoad4(){
-				console.log('load4')
-				let _this = this;
-				// 异步更新数据
-				/* let params = {
-					userId: _this.userId
-				} */
-				_this.$ajax.ajax(_this.$api.getAssistTransactionList4sellerByUserId, 'GET', null, function(res) {
-					// console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) {
-						_this.list4 = res.data;
-						_this.loading4 = false;
-						_this.finished4 = true;
-					}
+				},function(){
+					_this.loading2 = false;
+					_this.finished2 = true;
 					_this.loading = false;
 				})
 			},
@@ -1224,14 +1057,32 @@
 				/* let params = {
 					userId: _this.userId
 				} */
-				_this.$ajax.ajax(_this.$api.getAssistTransactionList4ComplateByUserId, 'GET', null, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4AgentComplate, 'GET', null, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
-						// let list = res.data.list;
 						_this.list3 = res.data;
-						_this.loading3 = false;
-						_this.finished3 = true;
 					}
+				},function(){
+					_this.loading3 = false;
+					_this.finished3 = true;
+					_this.loading = false;
+				})
+			},
+			onLoad4(){
+				console.log('load4')
+				let _this = this;
+				// 异步更新数据
+				/* let params = {
+					userId: _this.userId
+				} */
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4AgentCancel, 'GET', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list4 = res.data;
+					}
+				},function(){
+					_this.loading4 = false;
+					_this.finished4 = true;
 					_this.loading = false;
 				})
 			},
@@ -1253,6 +1104,7 @@
 			},
 			handleCopy(text, event) {
 				let _this = this;
+				_this.showSendSMSTipModel = false;
 				clip(text,event,function(res){
 					_this.$toast(`复制成功`);
 				});
@@ -1297,10 +1149,6 @@
 				_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
-						// let list = res.data.list;
-						if(res.data==101){
-							_this.$toast(res.message);//当前状态无法取消交易
-						}
 						if(res.data == 1){
 							Dialog.alert({
 							  title: '提示信息',
@@ -1316,6 +1164,8 @@
 							});
 							_this.onLoad2();
 						}
+					}else{
+						_this.$toast(res.message);//当前状态无法取消交易
 					}
 				})
 			},
@@ -1344,6 +1194,43 @@
 							// let list = res.data.list;
 							if(res.data == 1){
 								_this.$toast("撤销成功");
+								_this.onLoad1();
+							}
+						}
+					 })
+				}).catch(() => {
+				  // on cancel
+				  console.log('cancel');
+				});
+			},
+			checkPassBtn(item){
+				let _this = this;
+				_this.id = item.id;
+				Dialog.confirm({
+				  title: '确认信息',
+				  confirmButtonText:'已确认',
+				  message: '是否已确认对方的收付款账户实名正确？'
+				}).then(() => {
+					// on confirm
+					console.log('sure');
+					 let params = {
+						status:0,
+						id: _this.id,
+						// userId: _this.userId
+					 }
+					 console.log('params',params)
+					 _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
+						// console.log('res', res);
+						if (res.code == _this.$api.CODE_OK) {
+							// let list = res.data.list;
+							if(res.data == 1){
+								_this.showAgentDetailModel = false;
+								// _this.$toast("操作成功");
+								_this.sendSmsTipText = "审核已经通过，为了让交易顺利进行，请提醒买家按照订单信息付款。";
+								_this.mobilePhone = _this.appointDealDetail.assistAppointDealBuyerInfo.mobilePhone;
+								_this.smsContent = `【${_this.$api.projectName}】您好，卖方账号信息已通过审核，请根据“我的--我的交易--待付款--订单详情”中的信息进行付款。`;
+								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
+								_this.showBuyerDetailModel = false;
 								_this.onLoad1();
 							}
 						}
@@ -1386,14 +1273,33 @@
 			},
 			cancelDealBtn(item) {
 				let _this = this;
-				_this.id = item.id;
-				let bs = _this.buyOrSell(item);
-				if(bs=='sell'){
-					_this.setCountDownTime(item.canCancelTime);
-					_this.showSureCancelTransactionModel4seller = true;
-				}else if(bs=='buy'){
-					_this.showSureCancelTransactionModel4buyer = true;
-				}
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确认',
+				  message: '此操作即将取消交易，您是否确认？'
+				}).then(() => {
+				  // on confirm
+				  console.log('sure');
+				  let params = {
+				  	id: item.id
+				  }
+				  _this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
+				  	// console.log('res', res);
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		if(res.data == 1){
+				  			_this.$toast("已成功取消");
+							_this.showAgentDetailModel = false;
+				  			_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+							_this.onLoad1();
+				  		}
+				  	}else{
+						_this.$toast(res.message);
+					}
+				  })
+				}).catch(() => {
+				  // on cancel
+				  console.log('cancel');
+				});
 			},
 			cancel4seller(){
 				let _this = this;
@@ -1410,16 +1316,14 @@
 						// console.log('res', res);
 						_this.sureCancelBtnLoading = false;
 						if (res.code == _this.$api.CODE_OK) {
-							// let list = res.data.list;
-							if(res.data==101){
-								_this.$toast(res.message);
-							}
 							if(res.data == 1){
 								_this.$toast("已成功取消");
 								_this.showSureCancelTransactionModel4seller = false;
 								_this.onLoad4();
 								_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 							}
+						}else{
+							_this.$toast(res.message);
 						}
 					})
 				}
@@ -1436,16 +1340,15 @@
 					// console.log('res', res);
 					_this.sureCancelBtnLoading = false;
 					if (res.code == _this.$api.CODE_OK) {
-						// let list = res.data.list;
-						if(res.data==101){
-							_this.$toast(res.message);
-						}
 						if(res.data == 1){
+							_this.showAgentDetailModel = false;
 							_this.$toast("已成功取消");
 							_this.showSureCancelTransactionModel4buyer = false;
 							_this.showSellerDetailModel = false;
 							_this.onLoad2();
 						}
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -1468,16 +1371,14 @@
 				console.log("refresh")
 				let _this = this;
 				_this.loading = true;
-				if(_this.activeName == "buy"){
+				if(_this.activeName == "check"){
 					_this.onLoad1();
-				}else if(_this.activeName == "pay"){
+				}else if(_this.activeName == "checked"){
 					_this.onLoad2();
-				}else if(_this.activeName == "get"){
-					_this.onLoad4();
 				}else if(_this.activeName == "complated"){
 					_this.onLoad3();
 				}else if(_this.activeName == "canceled"){
-					_this.onLoad5();
+					_this.onLoad4();
 				}
 			},
 			tabChange(name, title) {
@@ -1491,114 +1392,21 @@
 			},
 			showDetailBtn(item) {
 				let _this = this;
-				// const toast = Toast.loading({
-				//   duration: 0, // 持续展示 toast
-				//   forbidClick: true
-				// });
+				console.log("showDetailBtn");
 				_this.id = item.id;
-				let bs = _this.buyOrSell(item);
 				let params = {
 					id: _this.id
 				}
-				/* _this.$ajax.ajax(_this.$api.getAssistAppointDealDetailById, 'GET', params, function(res) {
+				_this.type = item.type;
+				console.log("_this.type",_this.type);
+				// 交易类型 0平台 1溢价 2定向
+				_this.showAgentDetailModel = true;
+				_this.$ajax.ajax(_this.$api.getAssistAppointDealDetailById, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
 						_this.appointDealDetail = res.data;
 					}
-				}) */
-				_this.type = item.type;
-				// 交易类型 0平台 1溢价 2定向
-				if(item.type == 2){
-					if(_this.activeName == 'get'){//get是卖家
-						_this.showAgentDetailModel = true;
-						_this.$ajax.ajax(_this.$api.getAssistAppointDealDetailById, 'GET', params, function(res) {
-							if (res.code == _this.$api.CODE_OK) {
-								// let list = res.data.list;
-								_this.appointDealDetail = res.data;
-							}
-						})
-					}else if(_this.activeName == 'pay'){//pay是买家
-						console.log('pay是买家');
-						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
-							_this.cancelDeal4OverTime();
-							return;
-						}
-						_this.showAgentDetailModel = true;
-						_this.$ajax.ajax(_this.$api.getAssistAppointDealDetailById, 'GET', params, function(res) {
-							if (res.code == _this.$api.CODE_OK) {
-								_this.appointDealDetail = res.data;
-							}
-						})
-					}
-				}else{
-					console.log('else?')
-					if(bs=='sell'){
-						let params = {
-							id: _this.id
-						}
-						_this.showBuyerDetailModel = true;
-						_this.$ajax.ajax(_this.$api.getAssistBuyerInfoByTransactionId, 'GET', params, function(res) {
-							if (res.code == _this.$api.CODE_OK) {
-								if(res.data){
-									_this.detail4buyerInfo = res.data;
-								}else{
-									_this.onLoad2();
-								}
-							}
-						})
-					}else if(bs=='buy'){
-						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
-							_this.cancelDeal4OverTime();
-							return;
-						}
-						let params = {
-							id: _this.id
-						}
-						_this.showSellerDetailModel = true;
-						_this.$ajax.ajax(_this.$api.getAssistSellerInfoByTransactionId, 'GET', params, function(res) {
-							if (res.code == _this.$api.CODE_OK) {
-								if(res.data){
-									_this.detail4sellerInfo = res.data;
-									if(_this.detail4sellerInfo.status == 0){
-										Dialog.alert({
-										  title: '温馨提示',
-										  confirmButtonText:'锁定交易',
-										  message: '为了让交易顺利进行，查看详情之前需先锁定交易，锁定后可延长30分钟自动取消交易的时间！'
-										}).then(() => {
-											// on confirm
-											console.log('sure');
-											let params = {
-												status:1,
-												id: _this.id
-											}
-											Toast.loading({
-											  message: '锁定中...',
-											  forbidClick: true,
-											  loadingType: 'spinner'
-											});
-											console.log('params',params)
-											_this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-												Toast.clear();
-												if (res.code == _this.$api.CODE_OK) {
-													if(res.data==1){
-														_this.onLoad2();
-														_this.getSellerInfoByTransactionId();
-													}
-												}
-											})
-										}).catch(() => {
-										  console.log('cancel');
-										});
-									}else{
-										_this.getSellerInfoByTransactionId();
-									}
-								}else{
-									_this.onLoad2();
-								}
-							}
-						})
-					}
-				}
+				})
 			},
 			getSellerInfoByTransactionId(){
 				console.log('==getSellerInfoByTransactionId==')
@@ -1682,7 +1490,7 @@
 				  		if(res.data==1){
 							_this.sendSmsTipText = "提交未收到款状态成功，为了让交易顺利进行，请给卖家发个短信要求对方上传付款凭证。";
 							_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
-							_this.smsContent = `【${_this.$api.projectEnglishName}国际帮扶链】您好，我并未收到款，请在“我的--我的交易--待付款”的订单详情中上传付款凭证。`;
+							_this.smsContent = `【${_this.$api.projectName}】您好，我并未收到款，请在“我的--我的交易--待付款”的订单详情中上传付款凭证。`;
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							_this.showBuyerDetailModel = false;
 							_this.onLoad4();
@@ -1722,7 +1530,7 @@
 							//发送短信提示start
 							_this.sendSmsTipText = "交易已经顺利完成！互帮互助，合作共赢，请最后告知对方您已经确认收款并释放矿石。";
 							_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
-							_this.smsContent = `【${_this.$api.projectEnglishName}国际帮扶链】我已经确认收款并释放矿石，谢谢。`;
+							_this.smsContent = `【${_this.$api.projectName}】我已经确认收款并释放矿石，谢谢。`;
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							//发送短信提示end
 							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
@@ -1745,7 +1553,7 @@
 					_this.sendSmsHref = `sms:${mobilePhone}?body=${smsContent}`;
 				}else if(phoneType=='i'){
 					// let tempUrl = encodeURI(_this.smsContent);
-					let encodeUrl = encodeURI(_this.smsContent);
+					let encodeUrl = encodeURI(smsContent);
 					// console.log("encodeUrl",encodeUrl);
 					// let encodeUrl = "HPC"
 					_this.sendSmsHref = `sms:${mobilePhone}&body=${encodeUrl}`;
@@ -1787,7 +1595,7 @@
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个短信提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-								_this.smsContent = `【${api.projectName}】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收款并释放矿石，谢谢。`;
+								_this.smsContent = `【${_this.$api.projectName}】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收款并释放矿石，谢谢。`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								//发送短信提示end
 								_this.showSellerDetailModel = false;
@@ -1795,7 +1603,7 @@
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个信息提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.appointDealDetail.assistAppointAgentInfo.mobilePhone;
-								_this.smsContent = `【${api.projectName}】我已付款，请确认收款并释放矿石，谢谢。`;
+								_this.smsContent = `【${_this.$api.projectName}】我已付款，请确认收款并释放矿石，谢谢。`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								//发送短信提示end
 								_this.showAgentDetailModel = false;

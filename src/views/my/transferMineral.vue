@@ -89,7 +89,7 @@
 				<van-field v-model="curerntPlatformPrice" required disabled label="指导价"/>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
 				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
-				<van-field v-model="assurePrice" required clearable label="担保金额" placeholder="请先填写转让单价" @blur="validate4AppointDeal('assurePrice')" :error-message="errorInfo4AppointDeal.assurePrice"/>
+				<van-field v-model="assurePrice" required clearable label="担保总价" placeholder="请先填写转让单价" @blur="validate4AppointDeal('assurePrice')" :error-message="errorInfo4AppointDeal.assurePrice"/>
 				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请粘贴买方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
 				<van-field v-model="form4AppointDeal.agentPhone" required clearable label="指定代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone">
 					<!-- <van-button slot="button" size="small" type="primary">自动分配</van-button> -->
@@ -97,10 +97,7 @@
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
 			</van-cell-group>
 			<div class="placeholderLine10"></div>
-			<div class="paddingWing tip4model3">
-				<b class="textBold">点对点(定向)交易的安全性：</b><br>
-				每笔交易都由省市代理预先来审核双方账号是否正常、实名信息是否正确、区块账本数据是否对得上等，最大限度得维护了投资者的利益。
-			</div>
+			<div class="paddingWing tip4model3" v-html="$api.tipText4Safe"></div>
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing tip4model3">
 				<b class="textBold">点对点(定向)交易规则：</b><br>
@@ -196,7 +193,7 @@
 					console.log('getDealPageInfo', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.curerntPlatformPrice = res.data.currentPlatformPrice;
-						_this.maxPrice = parseFloat(res.data.currentPlatformPrice)*1.3+4;
+						_this.maxPrice = (parseFloat(res.data.currentPlatformPrice)*1.3+4).toFixed(2);
 					}
 				})
 			},
@@ -264,6 +261,7 @@
 				let params = {
 					/* userId: _this.userId, */
 					num: _this.form4AppointDeal.transferAmount,
+					curerntPlatformPrice:_this.curerntPlatformPrice,
 					price: _this.form4AppointDeal.price,
 					assurePrice: _this.form4AppointDeal.assurePrice,
 					blockAddress: _this.form4AppointDeal.blockAddress,
@@ -296,7 +294,6 @@
 				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 				_this.loading = true;
 				_this.$ajax.ajax(_this.$api.insertTransaction4AppointBill, 'POST', params, function(res) {
-					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						// _this.$toast('转让成功');
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
@@ -314,6 +311,8 @@
 						  // on close
 						});
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 		}

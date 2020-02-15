@@ -240,7 +240,7 @@
 			submit(){
 				console.log("submit");
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
+				/* if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '交易时间是9~21点，请明天再来'
@@ -248,7 +248,7 @@
 					  // on close
 					});
 					return;
-				}
+				} */
 				if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
@@ -299,7 +299,8 @@
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
 						/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
 						_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
-						_this.$router.push('myDeal');
+						// _this.$router.push('myDeal');
+						_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
 						//_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:params.num}});
 						_this.$utils.formClear(_this.form4AppointDeal);
 					}else{

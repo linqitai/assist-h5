@@ -133,6 +133,7 @@ b{font-weight: bold;}
 .paddingT20{padding-top: 30px;}
 .blue{color: #409EFF;}
 .green{color: green;}
+.yellow{color: $main-adorn-color;}
 .warn_text{color: rgb(211, 0, 0);}
 .green_text{color: #07961f;}
 .inline{display: inline-block;}

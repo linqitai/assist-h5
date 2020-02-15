@@ -591,6 +591,23 @@
 			toMyInfo(){
 				this.$router.push('/myInfo');
 			},
+			logout(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
+					if(res.code == _this.$api.CODE_OK){
+						_this.$toast('账户异常且退出登录');
+						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
+						// console.log("_this.$cookies.keys()",_this.$cookies.keys());
+						// _this.$cookies.remove('_USERINFO_');
+						// _this.$cookies.remove('buyAndSellInfo');
+						_this.$cookies.remove('userId');
+						_this.$cookies.remove('token');
+						// console.log("_this.$cookies.keys()",_this.$cookies.keys());
+					}
+				},function(){
+					_this.$router.replace('login');
+				})
+			},
 			getUserInfo() {
 				let _this = this;
 				_this.loading = true;
@@ -601,8 +618,10 @@
 						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 						console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
-						// _this.getBuyAndSellInfo();
-						// _this.$cookies.set("_USERINFO_", res.data, _this.$api.cookiesTime);
+						if(_this.userInfo.accountStatus==1){
+							//退出登录
+							_this.logout();
+						}
 					}
 				},function(){
 					_this.loading = false;

@@ -309,7 +309,7 @@
 									<div class="info">
 										<div class="flex1">
 											<div>数量</div>
-											<div class="d">{{item.minNumber}}~{{item.maxNumber}}{{pen}}</div>
+											<div class="d">{{item.minNumber}}~{{item.maxNumber}}{{$api.numUnit}}</div>
 										</div>
 										<div class="flex1">
 											<div>单价</div>
@@ -340,7 +340,7 @@
 									<div class="info">
 										<div class="flexNum">
 											<div>数量</div>
-											<div class="d">{{item.num}}{{pen}}</div>
+											<div class="d">{{item.num}} {{$api.numUnit}}</div>
 										</div>
 										<div class="flex1">
 											<div>单价</div>
@@ -363,13 +363,13 @@
 										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">订单详情</span>
 									</div>
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
-									<div class="margT6 lineHeight">
+									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
 									<div class="margT6" v-if="buyOrSell(item)=='sell'&&item.status==0">
 										<span class="cancelBtn" @click="cancelDealBtn(item)">取消交易</span>
 									</div>
-									<div class="margT6" v-if="buyOrSell(item)=='buy'&&item.status==0">
+									<div class="margT6" v-if="buyOrSell(item)=='buy'&&item.status==0&&item.type!=2">
 										<span class="cancelBtn" @click="lockTransactionBtn(item)">锁定交易</span>
 									</div>
 								</div>
@@ -387,7 +387,7 @@
 									<div class="info">
 										<div class="flexNum">
 											<div>数量</div>
-											<div class="d">{{item.num}}{{pen}}</div>
+											<div class="d">{{item.num}} {{$api.numUnit}}</div>
 										</div>
 										<div class="flex1">
 											<div>单价</div>
@@ -407,7 +407,7 @@
 										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">订单详情</span>
 									</div>
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
-									<div class="margT6 lineHeight">
+									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
 									<div class="margT6" v-if="buyOrSell(item)=='sell'&&(item.status==0||item.status==1)">
@@ -428,7 +428,7 @@
 									<div class="info">
 										<div class="flexNum">
 											<div>数量</div>
-											<div class="d">{{item.num}}{{pen}}</div>
+											<div class="d">{{item.num}} {{$api.numUnit}}</div>
 										</div>
 										<div class="flex1">
 											<div>单价</div>
@@ -448,7 +448,7 @@
 								</div>
 								<div class="operatorBox4complate">
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
-									<div class="margT6 lineHeight">
+									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
 								</div>
@@ -466,7 +466,7 @@
 									<div class="info">
 										<div class="flexNum">
 											<div>数量</div>
-											<div class="d">{{item.num}}{{pen}}</div>
+											<div class="d">{{item.num}} {{$api.numUnit}}</div>
 										</div>
 										<div class="flex1">
 											<div>单价</div>
@@ -486,7 +486,7 @@
 								</div>
 								<div class="operatorBox4complate">
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
-									<div class="margT6 lineHeight">
+									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
 								</div>
@@ -526,7 +526,7 @@
 				</div>
 				<div class="line">
 					<span class="label">数量</span>
-					<span class="value">{{detail4sellerInfo.num}}</span>
+					<span class="value">{{detail4sellerInfo.num}} {{$api.numUnit}}</span>
 				</div>
 				<div class="line">
 					<span class="label">单价</span>
@@ -602,7 +602,7 @@
 				<div class="margT10 tip4model3" v-html="$api.tipText4AppointDeal"></div>
 				<div class="line">
 					<span class="label">数量</span>
-					<span class="value">{{appointDealDetail.assistAppointDealInfo.num}}</span>
+					<span class="value">{{appointDealDetail.assistAppointDealInfo.num}} {{$api.numUnit}}</span>
 				</div>
 				<div class="line">
 					<span class="label">指导单价</span>
@@ -628,27 +628,27 @@
 					<span class="label">状态</span>
 					<span class="value textAdornColor">{{appointDealDetail.assistAppointDealInfo.status | dealStatusType}}</span>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status==0 || appointDealDetail.assistAppointDealInfo.status==1">
+				<div class="line" v-if="(appointDealDetail.assistAppointDealInfo.status==0 || appointDealDetail.assistAppointDealInfo.status==1)&&activeName=='get'">
 					<span class="label">可取消倒计时</span>
 					<span class="value textAdornColor">
 						<van-count-down :time="setCancelDealDownTime(appointDealDetail.assistAppointDealInfo.canCancelTime)" />
 					</span>
 				</div>
 				<div class="line">
-					<span class="label red">卖方昵称</span>
-					<span class="value">{{appointDealDetail.assistAppointDealSellerInfo.nickName}}</span>
-				</div>
-				<div class="line">
 					<span class="label green">买方昵称</span>
 					<span class="value">{{appointDealDetail.assistAppointDealBuyerInfo.nickName}}</span>
 				</div>
 				<div class="line">
-					<span class="label blue">代理姓名</span>
-					<span class="value">{{appointDealDetail.assistAppointAgentInfo.realName}}</span>
+					<span class="label red">卖方昵称</span>
+					<span class="value">{{appointDealDetail.assistAppointDealSellerInfo.nickName}}</span>
 				</div>
-				<div class="line">
+				<!-- <div class="line">
 					<span class="label blue">代理昵称</span>
 					<span class="value">{{appointDealDetail.assistAppointAgentInfo.nickName}}</span>
+				</div> -->
+				<div class="line">
+					<span class="label blue">代理姓名</span>
+					<span class="value">{{appointDealDetail.assistAppointAgentInfo.realName}}</span>
 				</div>
 				<div class="line">
 					<div class="label blue">代理手机号</div>
@@ -708,7 +708,7 @@
 				</div>
 				<div class="line">
 					<span class="label">数量</span>
-					<span class="value">{{detail4buyerInfo.num}}</span>
+					<span class="value">{{detail4buyerInfo.num}} {{$api.numUnit}}</span>
 				</div>
 				<div class="line">
 					<span class="label">单价</span>
@@ -767,7 +767,7 @@
 		</van-action-sheet>
 		<van-action-sheet v-model="showSureCancelTransactionModel4buyer" title="温馨提示">
 			<div class="cancelSellTip">
-				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要减0.5个贡献值。若卖方实名信息不符或者有其他问题，请向平台打小报告，让客服来处理单子并免费帮您取消交易。</div>
+				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要减0.2~0.5个贡献值。若卖方实名信息不符或者有其他问题，请向平台打小报告，让客服来处理单子并免费帮您取消交易。</div>
 			</div>
 			<div class="sureAppointBtnBox">
 				<van-button @click="cancel4buyer" :loading="sureCancelBtnLoading" loading-type="spinner" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确认取消</van-button>
@@ -876,7 +876,7 @@
 				<div class="placeholderLine10"></div>
 				<van-button type="primary" size="normal" :block="true" @click="toSendPage">一键发送</van-button>
 				<div class="placeholderLine10"></div>
-				<van-button type="info" size="normal" :block="true" @click="handleCopy(smsContent,$event)">我是对方好友 复制短信内容</van-button>
+				<van-button type="info" size="normal" :block="true" @click="handleCopy(smsContent,$event)">我是对方好友 复制该短信内容</van-button>
 				 <!-- v-if="phoneType!='pc'" -->
 				<!-- <a :href="sendSmsHref">
 				</a> -->
@@ -978,9 +978,14 @@
 			
 			if(_this.$route.query.mobilePhone){
 				//发送短信提示start
-				_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。";
 				_this.mobilePhone = _this.$route.query.mobilePhone;
-				_this.smsContent = `【${_this.$api.projectName}】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
+				if(_this.$route.query.dealType==1){
+					_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请提醒代理审核单子。";
+					_this.smsContent = `【${_this.$api.projectName}】我的定向交易单子选择了您做担保代理，请审核，谢谢。`;
+				}else{
+					_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。";
+					_this.smsContent = `【${_this.$api.projectName}】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
+				}
 				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 				//发送短信提示end
 				_this.showSendSMSTipModel = true;
@@ -1453,6 +1458,7 @@
 						_this.sureCancelBtnLoading = false;
 						if (res.code == _this.$api.CODE_OK) {
 							if(res.data == 1){
+								_this.showAgentDetailModel = false;
 								_this.$toast("已成功取消");
 								_this.showSureCancelTransactionModel4seller = false;
 								_this.onLoad4();
@@ -1477,6 +1483,7 @@
 					_this.sureCancelBtnLoading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data == 1){
+							_this.showAgentDetailModel = false;
 							_this.$toast("已成功取消");
 							_this.showSureCancelTransactionModel4buyer = false;
 							_this.showSellerDetailModel = false;
@@ -1763,9 +1770,9 @@
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
 				  		if(res.data==1){
-							// _this.$toast("交易已经顺利完成");
+							_this.showAgentDetailModel = false;
 							//发送短信提示start
-							_this.sendSmsTipText = "交易已经顺利完成！互帮互助，合作共赢，请最后告知对方您已经确认收款并释放矿石。";
+							_this.sendSmsTipText = "交易已经顺利完成！请最后告知对方您已经确认收款并释放矿石。";
 							if(_this.type==2){
 								_this.mobilePhone = _this.appointDealDetail.assistAppointAgentInfo.mobilePhone;
 								//_this.smsContent = `【${_this.$api.projectName}】我已确认并释放矿石，谢谢。`;

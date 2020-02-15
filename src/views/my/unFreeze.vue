@@ -266,13 +266,14 @@
 					<div class="textCenter">
 						该账户状态：{{thisUserInfo.accountStatus | accountStatus}}
 					</div>
-					<div class="placeholderLine10"></div>
-					<div class="textCenter" v-if="userFreezeInfo">
+					<div class="textCenter margT10" v-if="userFreezeInfo">
 						被冻结原因：{{userFreezeInfo.reason}}
 					</div>
-					<div class="placeholderLine10"></div>
-					<div class="textCenter" v-if="userFreezeInfo">
+					<div class="textCenter margT10">
 						可否解冻：{{thisUserInfo.canUnfreeze | canUnFreeze}}
+					</div>
+					<div class="textCenter margT10" v-if="userFreezeInfo">
+						解冻所需帮扶券：{{userFreezeInfo.needTicket}}
 					</div>
 				</div>
 			</div>

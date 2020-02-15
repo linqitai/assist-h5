@@ -200,6 +200,22 @@
 					</van-list>
 				</van-tab>
 				
+				<van-tab title="个人算力" name="ranking6">
+					<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
+						<div class="list" v-for="item in list6" :key='item.id'>
+							<div class="item">
+								<div class="flexLeft">
+									<div class="name">{{item.rank}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"> {{item.nickName}}</div>
+								</div>
+								<div class="flexRight">{{item.num}}</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				
 				<van-tab title="团队算力" name="ranking4">
 					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 						<div class="list" v-for="item in list4" :key='item.id'>
@@ -264,6 +280,10 @@
 				list5:[],
 				loading5:false,
 				finished5:false,
+				currentPage6: 1,
+				list6:[],
+				loading6:false,
+				finished6:false,
 				pageSize:20,
 				activeName:'ranking1',
 				showTipModel:false,
@@ -328,7 +348,40 @@
 					_this.onLoad4();
 				}else if(_this.activeName == 'ranking5'){
 					_this.onLoad5();
+				}else if(_this.activeName == 'ranking6'){
+					_this.onLoad6();
 				}
+			},
+			onLoad6(){
+				console.log('load6')
+				let _this = this;
+				// 异步更新数据
+				var params = {
+					pageNo: _this.currentPage6,
+					pageSize: _this.pageSize,
+					mobilePhone: _this.mobilePhone,
+					type:'my_calculation_power'
+				}
+				_this.loading6 = true;
+				_this.finished6 = false;
+				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						/* let list = res.data.list;
+						_this.list1.push(...list); */
+						_this.list6 = res.data.list;
+						_this.loading6 = false;
+						_this.loading6 = false;
+						_this.finished6 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished1 = true;
+						}else{
+							_this.currentPage1 = _this.currentPage1 + 1;
+						} */
+					}else{
+						_this.loading6 = false;
+						_this.finished6 = true;
+					}
+				})
 			},
 			onLoad1(){
 				console.log('load1')

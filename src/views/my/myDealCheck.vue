@@ -311,7 +311,7 @@
 									<div class="info">
 										<div class="flexNum">
 											<div>数量</div>
-											<div class="d">{{item.num}}{{pen}}</div>
+											<div class="d">{{item.num}}{{$api.numUnit}}</div>
 										</div>
 										<div class="flex1">
 											<div>单价</div>
@@ -334,7 +334,7 @@
 										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">订单详情</span>
 									</div>
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
-									<div class="margT6 lineHeight">
+									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
 								</div>
@@ -350,7 +350,7 @@
 									<div class="info">
 										<div class="flexNum">
 											<div>数量</div>
-											<div class="d">{{item.num}}{{pen}}</div>
+											<div class="d">{{item.num}} {{$api.numUnit}}</div>
 										</div>
 										<div class="flex1">
 											<div>单价</div>
@@ -370,7 +370,7 @@
 										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">订单详情</span>
 									</div>
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
-									<div class="margT6 lineHeight">
+									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
 								</div>
@@ -386,7 +386,7 @@
 									<div class="info">
 										<div class="flexNum">
 											<div>数量</div>
-											<div class="d">{{item.num}}{{pen}}</div>
+											<div class="d">{{item.num}} {{$api.numUnit}}</div>
 										</div>
 										<div class="flex1">
 											<div>单价</div>
@@ -406,7 +406,7 @@
 								</div>
 								<div class="operatorBox4complate">
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
-									<div class="margT6 lineHeight">
+									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
 								</div>
@@ -422,7 +422,7 @@
 									<div class="info">
 										<div class="flexNum">
 											<div>数量</div>
-											<div class="d">{{item.num}}{{pen}}</div>
+											<div class="d">{{item.num}} {{$api.numUnit}}</div>
 										</div>
 										<div class="flex1">
 											<div>单价</div>
@@ -442,7 +442,7 @@
 								</div>
 								<div class="operatorBox4complate">
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
-									<div class="margT6 lineHeight">
+									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
 								</div>
@@ -465,7 +465,7 @@
 				<div class="margT10 tip4model3" v-html="$api.tipText4AppointDeal"></div>
 				<div class="line">
 					<span class="label">数量</span>
-					<span class="value">{{appointDealDetail.assistAppointDealInfo.num}}</span>
+					<span class="value">{{appointDealDetail.assistAppointDealInfo.num}} {{$api.numUnit}}</span>
 				</div>
 				<div class="line">
 					<span class="label">指导单价</span>
@@ -550,9 +550,12 @@
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealBuyerInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointDealBuyerInfo.wechartNum}}</div>
 				</div>
 				<div class="margT10" v-if="appointDealDetail.assistAppointDealInfo.status==11">
-					<div class="tip4model3">请省市代理审核卖方支付宝上的实名是否和在{{$api.projectName}}平台上所留的姓名一致</div>
+					<div class="tip4model3">请省市代理务必仔细审核卖方支付宝上的实名是否和在{{$api.projectName}}平台上所留的姓名一致，若不一致即可冻结卖方账号并取消交易。若发现卖方账号可疑，账本数据对不上、团队算力或个人算力的大小和拥有矿石数不相符等，即可向平台打小报告并即刻通知客服，让平台技术人员介入调查。</div>
 					<div class="placeholderLine10"></div>
 					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="checkPassBtn(appointDealDetail.assistAppointDealInfo)">审核通过</van-button>
+				</div>
+				<div class="margT10">
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="freezeAndCancelDealBtn(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">冻结卖方账号并取消交易</van-button>
 				</div>
 				<div class="margT10">
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">向平台打小报告</van-button>
@@ -685,7 +688,7 @@
 				<div class="placeholderLine10"></div>
 				<van-button type="primary" size="normal" :block="true" @click="toSendPage">一键发送</van-button>
 				<div class="placeholderLine10"></div>
-				<van-button type="info" size="normal" :block="true" @click="handleCopy(smsContent,$event)">我是对方好友 复制信息</van-button>
+				<van-button type="info" size="normal" :block="true" @click="handleCopy(smsContent,$event)">我是对方好友 复制该短信内容</van-button>
 				 <!-- v-if="phoneType!='pc'" -->
 				<!-- <a :href="sendSmsHref">
 				</a> -->
@@ -1228,7 +1231,7 @@
 								// _this.$toast("操作成功");
 								_this.sendSmsTipText = "审核已经通过，为了让交易顺利进行，请提醒买家按照订单信息付款。";
 								_this.mobilePhone = _this.appointDealDetail.assistAppointDealBuyerInfo.mobilePhone;
-								_this.smsContent = `【${_this.$api.projectName}】您好，卖方账号信息已通过审核，请根据“我的--我的交易--待付款--订单详情”中的信息进行付款。`;
+								_this.smsContent = `【${_this.$api.projectName}】您好，匹配到您的单子中卖方账号信息已通过审核，请根据“我的--我的交易--待付款--订单详情”中的信息进行付款。`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								_this.showBuyerDetailModel = false;
 								_this.onLoad1();
@@ -1270,6 +1273,36 @@
 						}
 					}
 				})
+			},
+			freezeAndCancelDealBtn(item){
+				let _this = this;
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确认',
+				  message: '此操作将【冻结卖家账号并取消交易】，您是否确认？'
+				}).then(() => {
+				  // on confirm
+				  console.log('sure');
+				  let params = {
+				  	id: item.id
+				  }
+				  _this.$ajax.ajax(_this.$api.freezeAndCancelDeal, 'POST', params, function(res) {
+				  	// console.log('res', res);
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		if(res.data == 1){
+				  			_this.$toast(res.message);
+							_this.showAgentDetailModel = false;
+				  			_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+							_this.onLoad1();
+				  		}
+				  	}else{
+						_this.$toast(res.message);
+					}
+				  })
+				}).catch(() => {
+				  // on cancel
+				  console.log('cancel');
+				});
 			},
 			cancelDealBtn(item) {
 				let _this = this;

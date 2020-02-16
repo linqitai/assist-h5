@@ -131,6 +131,8 @@ b{font-weight: bold;}
 .margL1{margin-left: 1px;}margL4{margin-left: 4px;}.margL10{margin-left: 10px;}.margL12{margin-left: 12px;}.margL20{margin-left: 20px;}.margL40{margin-left: 40px;}
 .margL100{margin-left: 100px;}.margL200{margin-left: 200px;}
 .paddingT20{padding-top: 30px;}
+.blueLight{color: #00e3e3;}
+.brown{color: #ba7c00;}
 .blue{color: #409EFF;}
 .green{color: green;}
 .yellow{color: $main-adorn-color;}

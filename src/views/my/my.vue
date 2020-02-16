@@ -375,7 +375,7 @@
 			<router-link to="transferMineral">
 				<div class="my-cell">
 					<div class="flex1">
-						定向转让矿石
+						担保交易矿石
 					</div>
 					<div class="flex2">
 						<i class="iconfont iconfont-right-arrow2"></i>
@@ -387,7 +387,7 @@
 			<router-link to="myDealCheck">
 				<div class="my-cell">
 					<div class="flex1">
-						定向转让审核
+						担保交易审核
 					</div>
 					<div class="flex2">
 						<i class="iconfont iconfont-right-arrow2"></i>

@@ -604,15 +604,19 @@
 					<span class="label">数量</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.num}} {{$api.numUnit}}</span>
 				</div>
-				<div class="line">
+				<div class="line blueLight">
 					<span class="label">指导单价</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.curerntPlatformPrice}} CNY</span>
 				</div>
-				<div class="line">
-					<span class="label">转让单价</span>
+				<div class="line blueLight">
+					<span class="label">指导总价</span>
+					<span class="value">{{getGuidancePrice}} CNY</span>
+				</div>
+				<div class="line brown">
+					<span class="label">担保单价</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.price.toFixed(2)}} CNY</span>
 				</div>
-				<div class="line">
+				<div class="line brown">
 					<span class="label">担保总价</span>
 					<span class="value">{{totalPrice(appointDealDetail.assistAppointDealInfo)}} CNY</span>
 				</div>
@@ -624,9 +628,13 @@
 					<span class="label">卖方应收</span>
 					<span class="value">{{sellerGet(appointDealDetail.assistAppointDealInfo)}} CNY</span>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status>-1">
+				<div class="line" v-if="activeName=='get'">
+					<span class="label">代理应收</span>
+					<span class="value">{{agentGet(appointDealDetail.assistAppointDealInfo)}} CNY</span>
+				</div>
+				<div class="line textAdornColor" v-if="appointDealDetail.assistAppointDealInfo.status>-1">
 					<span class="label">状态</span>
-					<span class="value textAdornColor">{{appointDealDetail.assistAppointDealInfo.status | dealStatusType}}</span>
+					<span class="value">{{appointDealDetail.assistAppointDealInfo.status | dealStatusType}}</span>
 				</div>
 				<div class="line" v-if="(appointDealDetail.assistAppointDealInfo.status==0 || appointDealDetail.assistAppointDealInfo.status==1)&&activeName=='get'">
 					<span class="label">可取消倒计时</span>
@@ -634,32 +642,32 @@
 						<van-count-down :time="setCancelDealDownTime(appointDealDetail.assistAppointDealInfo.canCancelTime)" />
 					</span>
 				</div>
-				<div class="line">
-					<span class="label green">买方昵称</span>
+				<div class="line green">
+					<span class="label">买方昵称</span>
 					<span class="value">{{appointDealDetail.assistAppointDealBuyerInfo.nickName}}</span>
 				</div>
-				<div class="line">
-					<span class="label red">卖方昵称</span>
+				<div class="line red">
+					<span class="label">卖方昵称</span>
 					<span class="value">{{appointDealDetail.assistAppointDealSellerInfo.nickName}}</span>
 				</div>
 				<!-- <div class="line">
 					<span class="label blue">代理昵称</span>
 					<span class="value">{{appointDealDetail.assistAppointAgentInfo.nickName}}</span>
 				</div> -->
-				<div class="line">
-					<span class="label blue">代理姓名</span>
+				<div class="line blue">
+					<span class="label">代理姓名</span>
 					<span class="value">{{appointDealDetail.assistAppointAgentInfo.realName}}</span>
 				</div>
-				<div class="line">
-					<div class="label blue">代理手机号</div>
+				<div class="line blue">
+					<div class="label">代理手机号</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.mobilePhone,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.mobilePhone}}</div>
 				</div>
-				<div class="line">
-					<div class="label blue">代理支付宝</div>
+				<div class="line blue">
+					<div class="label">代理支付宝</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.alipayNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.alipayNum}}</div>
 				</div>
-				<div class="line">
-					<div class="label blue">代理微信号</div>
+				<div class="line blue">
+					<div class="label">代理微信号</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.wechartNum}}</div>
 				</div>
 				
@@ -803,11 +811,10 @@
 					<div class="value" @click="toBookView('2',sellerUserInfo.userId)">{{sellerUserInfo.platformTicket}}</div>
 					<div class="text">帮扶券</div>
 				</div>
-				<div class="flex flex3">
-					<!-- <div>{{sellerUserInfo.contributionValue}}</div> -->
+				<!-- <div class="flex flex3">
 					<div class="value" @click="toBookView('3',sellerUserInfo.userId)">{{sellerUserInfo.contributionValue}}</div>
 					<div class="text">贡献值</div>
-				</div>
+				</div> -->
 				<div class="flex flex2">
 					<!-- <div>{{sellerUserInfo.thisWeekMineral}}</div> -->
 					<div class="value" @click="toBookView('4',sellerUserInfo.userId)">{{sellerUserInfo.thisWeekMineral}}</div>
@@ -825,11 +832,10 @@
 					<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
 					<div class="text">交易中<br>帮扶券</div>
 				</div>
-				<div class="flex flex3">
+				<!-- <div class="flex flex3">
 					<div>{{sellerUserInfo.temporaryFreezeContribution}}</div>
-					<!-- <NumberGrow :value="userInfo.temporaryFreezeContribution"></NumberGrow> -->
 					<div class="text">交易中<br>贡献值</div>
-				</div>
+				</div> -->
 				<div class="flex flex2">
 					<div>{{sellerUserInfo.temporaryFreezeMineral}}</div>
 					<!-- <NumberGrow :value="userInfo.temporaryFreezeMineral"></NumberGrow> -->
@@ -955,13 +961,22 @@
 				transactionId:'',
 				toast:'',
 				phoneType:'',
-				type:2
+				type:2,
+				guidancePrice:''
 			}
 		},
 		components: {
 			mHeader,
 			mFullscreen,
 			mRefresh,
+		},
+		computed:{
+			getGuidancePrice() {
+				let _this = this;
+				let guidancePrice = _this.appointDealDetail.assistAppointDealInfo.num * _this.appointDealDetail.assistAppointDealInfo.curerntPlatformPrice;
+				_this.guidancePrice = guidancePrice.toFixed(2);
+				return _this.guidancePrice;
+			},
 		},
 		created() {
 			let _this = this;
@@ -979,9 +994,16 @@
 			if(_this.$route.query.mobilePhone){
 				//发送短信提示start
 				_this.mobilePhone = _this.$route.query.mobilePhone;
+				console.log('_this.mobilePhone',_this.mobilePhone);
+				console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
 				if(_this.$route.query.dealType==1){
-					_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请提醒代理审核单子。";
-					_this.smsContent = `【${_this.$api.projectName}】我的定向交易单子选择了您做担保代理，请审核，谢谢。`;
+					if(_this.$route.query.isSelf) {
+						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。";
+						_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
+					}else{
+						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请提醒代理审核单子。";
+						_this.smsContent = `【${_this.$api.projectName}】我的定向交易单子选择了您做担保，请审核，谢谢。`;
+					}
 				}else{
 					_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。";
 					_this.smsContent = `【${_this.$api.projectName}】茫茫人海中，我所出售的${_this.$route.query.num}个矿石有缘匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
@@ -1208,6 +1230,9 @@
 			},
 			sellerGet(item){
 				return (item.assurePrice*0.97).toFixed(2);
+			},
+			agentGet(item){
+				return (item.assurePrice*0.03).toFixed(2);
 			},
 			initializeTabActiveName() {
 				let _this = this;
@@ -1774,7 +1799,9 @@
 							//发送短信提示start
 							_this.sendSmsTipText = "交易已经顺利完成！请最后告知对方您已经确认收款并释放矿石。";
 							if(_this.type==2){
-								_this.mobilePhone = _this.appointDealDetail.assistAppointAgentInfo.mobilePhone;
+								console.log('_this.mobilePhone',_this.mobilePhone);
+								console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
+								_this.mobilePhone = _this.appointDealDetail.assistAppointDealBuyerInfo.mobilePhone || _this.appointDealDetail.assistAppointAgentInfo.mobilePhone;
 								//_this.smsContent = `【${_this.$api.projectName}】我已确认并释放矿石，谢谢。`;
 							}else{
 								_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;

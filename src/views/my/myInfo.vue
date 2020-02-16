@@ -260,7 +260,7 @@
 			<van-field v-model="form[flag]" required clearable :label="label" right-icon="question-o" :placeholder="errorHint[flag]"
 		      @click-right-icon="$toast(errorHint[flag])" @blur="validate(flag)" :error-message="errorInfo[flag]"/>
 			  
-			  <van-field v-model="form['safePassword']" required clearable label="安全密码" right-icon="question-o" :placeholder="errorHint['safePassword']"
+			  <van-field v-model="form['safePassword']" required clearable label="安全密码" right-icon="question-o" placeholder="请填写安全密码"
 			  	maxlength="20" type="password" @click-right-icon="$toast(errorHint['safePassword'])" @blur="validate('safePassword')" :error-message="errorInfo['safePassword']"/>
 		  </van-cell-group>
 		  <div class="placeholderLine10"></div>

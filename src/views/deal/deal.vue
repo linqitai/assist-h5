@@ -911,7 +911,7 @@ export default {
 			let _this = this;
 			console.log('sureHangPickedSellBillBtn');
 			//挂卖之前先判断时间
-			if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
+			/* if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
 				Dialog.alert({
 				  title: '系统提示',
 				  message: '交易时间是9~21点，请明天再来'
@@ -919,7 +919,7 @@ export default {
 				  // on close
 				});
 				return;
-			}
+			} */
 			if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
 				Dialog.alert({
 				  title: '系统提示',
@@ -973,10 +973,10 @@ export default {
 				_this.$toast('系统提示：您的矿石不够');
 				return;
 			}
-			if(_this.userInfo.contributionValue<params.num){
+			/* if(_this.userInfo.contributionValue<params.num){
 				_this.$toast('系统提示：您的贡献值不够');
 				return;
-			}
+			} */
 			params.safePassword = _this.$JsEncrypt.encrypt(_this.form4pickSellBill.safePassword);
 			_this.sellBtnLoading = true;
 			console.log('可请求接口');
@@ -993,7 +993,7 @@ export default {
 					//路由跳转
 					//缓存所需要显示的页面
 					_this.$cookies.set("tabName4MyDeal", "get", 60 * 60 * 1)
-					_this.$router.push({path:'myDeal',query:{mobilePhone:_this.transactionVo4BuyerTip.mobilePhone,num:_this.transactionVo4BuyerTip.num}});
+					_this.$router.push({path:'myDeal',query:{dealType:0,mobilePhone:_this.transactionVo4BuyerTip.mobilePhone,num:_this.transactionVo4BuyerTip.num}});
 					
 					//_this.$toast(res.message);
 				}else{

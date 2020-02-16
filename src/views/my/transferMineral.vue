@@ -86,12 +86,13 @@
 			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
 			<div class="paddingWing tip4model3">当前拥有<br>矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
 			<van-cell-group>
-				<van-field v-model="curerntPlatformPrice" required disabled label="指导价"/>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
-				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
-				<van-field v-model="assurePrice" required clearable label="担保总价" placeholder="请先填写转让单价" @blur="validate4AppointDeal('assurePrice')" :error-message="errorInfo4AppointDeal.assurePrice"/>
+				<van-field v-model="curerntPlatformPrice" required disabled label="指导单价"/>
+				<van-field v-model="getGuidancePrice" required disabled label="指导总价"/>
+				<van-field v-model="form4AppointDeal.price" required clearable label="担保单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
+				<van-field v-model="getAssurePrice" required clearable label="担保总价" placeholder="请先填写转让单价" @blur="validate4AppointDeal('assurePrice')" :error-message="errorInfo4AppointDeal.assurePrice"/>
 				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请粘贴买方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
-				<van-field v-model="form4AppointDeal.agentPhone" required clearable label="指定代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone">
+				<van-field v-model="form4AppointDeal.agentPhone" required clearable label="担保代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone">
 					<!-- <van-button slot="button" size="small" type="primary">自动分配</van-button> -->
 				</van-field>
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
@@ -154,18 +155,25 @@
 				maxPrice:'',
 				userInfo:'',
 				curerntPlatformPrice:'',
-				tipText4AppointDeal:''
+				tipText4AppointDeal:'',
+				guidancePrice:'',
 			}
 		},
 		components: {
 			mHeader
 		},
 		computed:{
-			assurePrice () {
+			getGuidancePrice() {
 				let _this = this;
-				let num = _this.form4AppointDeal.transferAmount * _this.form4AppointDeal.price;
-				_this.form4AppointDeal.assurePrice = num.toFixed(2);
-				return num.toFixed(2);
+				let guidancePrice = _this.form4AppointDeal.transferAmount * _this.curerntPlatformPrice;
+				_this.guidancePrice = guidancePrice.toFixed(2);
+				return _this.guidancePrice;
+			},
+			getAssurePrice () {
+				let _this = this;
+				let assurePrice = _this.form4AppointDeal.transferAmount * _this.form4AppointDeal.price;
+				_this.form4AppointDeal.assurePrice = assurePrice.toFixed(2);
+				return _this.form4AppointDeal.assurePrice;
 			},
 		},
 		created() {
@@ -240,7 +248,7 @@
 			submit(){
 				console.log("submit");
 				let _this = this;
-				/* if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
+				if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '交易时间是9~21点，请明天再来'
@@ -248,7 +256,7 @@
 					  // on close
 					});
 					return;
-				} */
+				}
 				if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
@@ -274,10 +282,10 @@
 					_this.$toast('您的矿石不够');
 					return;
 				}
-				if(_this.userInfo.contributionValue<params.num){
+				/* if(_this.userInfo.contributionValue<params.num){
 					_this.$toast('您的贡献值不够');
 					return;
-				}
+				} */
 				/* if(_this.userInfo.platformTicket<1){
 					_this.$toast('您的帮扶券不够');
 					return;
@@ -300,7 +308,12 @@
 						/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
 						_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
 						// _this.$router.push('myDeal');
-						_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
+						if(params.agentPhone == localStorage.getItem('mobilePhone')) {
+							_this.$router.push({path:'myDeal',query:{dealType:1,isSelf:1,mobilePhone:res.data.mobilePhone,num:params.num}});
+						}else{
+							_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
+						}
+						//_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
 						//_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:params.num}});
 						_this.$utils.formClear(_this.form4AppointDeal);
 					}else{

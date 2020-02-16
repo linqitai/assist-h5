@@ -467,15 +467,19 @@
 					<span class="label">数量</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.num}} {{$api.numUnit}}</span>
 				</div>
-				<div class="line">
+				<div class="line blueLight">
 					<span class="label">指导单价</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.curerntPlatformPrice}} CNY</span>
 				</div>
-				<div class="line">
-					<span class="label">转让单价</span>
+				<div class="line blueLight">
+					<span class="label">指导总价</span>
+					<span class="value">{{getGuidancePrice}} CNY</span>
+				</div>
+				<div class="line brown">
+					<span class="label">担保单价</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.price.toFixed(2)}} CNY</span>
 				</div>
-				<div class="line">
+				<div class="line brown">
 					<span class="label">担保总价</span>
 					<span class="value">{{totalPrice(appointDealDetail.assistAppointDealInfo)}} CNY</span>
 				</div>
@@ -487,9 +491,13 @@
 					<span class="label">卖方应收</span>
 					<span class="value">{{sellerGet(appointDealDetail.assistAppointDealInfo)}} CNY</span>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status>-1">
+				<div class="line">
+					<span class="label">代理应收</span>
+					<span class="value">{{agentGet(appointDealDetail.assistAppointDealInfo)}} CNY</span>
+				</div>
+				<div class="line textAdornColor" v-if="appointDealDetail.assistAppointDealInfo.status>-1">
 					<span class="label">状态</span>
-					<span class="value textAdornColor">{{appointDealDetail.assistAppointDealInfo.status | dealStatusType}}</span>
+					<span class="value">{{appointDealDetail.assistAppointDealInfo.status | dealStatusType}}</span>
 				</div>
 				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status==0 || appointDealDetail.assistAppointDealInfo.status==1">
 					<span class="label">可取消倒计时</span>
@@ -497,56 +505,56 @@
 						<van-count-down :time="setCancelDealDownTime(appointDealDetail.assistAppointDealInfo.canCancelTime)" />
 					</span>
 				</div>
-				<div class="line">
-					<span class="label red">卖方姓名</span>
+				<div class="line red">
+					<span class="label">卖方姓名</span>
 					<span class="value">{{appointDealDetail.assistAppointDealSellerInfo.realName}}</span>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealSellerInfo.status!=5">
-					<div class="label red">卖方手机号</div>
+				<div class="line red">
+					<div class="label">卖方手机号</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealSellerInfo.mobilePhone,$event)">复制</span>{{appointDealDetail.assistAppointDealSellerInfo.mobilePhone}}</div>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealSellerInfo.status!=5">
-					<div class="label red">卖方支付宝</div>
+				<div class="line red">
+					<div class="label">卖方支付宝</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealSellerInfo.alipayNum,$event)">复制</span>{{appointDealDetail.assistAppointDealSellerInfo.alipayNum}}</div>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealSellerInfo.status!=5">
-					<div class="label red">卖方微信号</div>
+				<div class="line red">
+					<div class="label">卖方微信号</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealSellerInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointDealSellerInfo.wechartNum}}</div>
 				</div>
-				<div class="line">
-					<span class="label blue">代理姓名</span>
+				<div class="line blue">
+					<span class="label">代理姓名</span>
 					<span class="value">{{appointDealDetail.assistAppointAgentInfo.realName}}</span>
 				</div>
-				<div class="line">
-					<span class="label blue">代理昵称</span>
+				<div class="line blue">
+					<span class="label">代理昵称</span>
 					<span class="value">{{appointDealDetail.assistAppointAgentInfo.nickName}}</span>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status!=5">
-					<div class="label blue">代理手机号</div>
+				<div class="line blue">
+					<div class="label">代理手机号</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.mobilePhone,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.mobilePhone}}</div>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status!=5">
-					<div class="label blue">代理支付宝</div>
+				<div class="line blue">
+					<div class="label">代理支付宝</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.alipayNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.alipayNum}}</div>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealInfo.status!=5">
-					<div class="label blue">代理微信号</div>
+				<div class="line blue">
+					<div class="label">代理微信号</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.wechartNum}}</div>
 				</div>
-				<div class="line">
-					<span class="label green">买方姓名</span>
+				<div class="line green">
+					<span class="label">买方姓名</span>
 					<span class="value">{{appointDealDetail.assistAppointDealBuyerInfo.realName}}</span>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealBuyerInfo.status!=5">
-					<div class="label green">买方手机号</div>
+				<div class="line green">
+					<div class="label">买方手机号</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealBuyerInfo.mobilePhone,$event)">复制</span>{{appointDealDetail.assistAppointDealBuyerInfo.mobilePhone}}</div>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealBuyerInfo.status!=5">
-					<div class="label green">买方支付宝</div>
+				<div class="line green">
+					<div class="label">买方支付宝</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealBuyerInfo.alipayNum,$event)">复制</span>{{appointDealDetail.assistAppointDealBuyerInfo.alipayNum}}</div>
 				</div>
-				<div class="line" v-if="appointDealDetail.assistAppointDealBuyerInfo.status!=5">
-					<div class="label green">买方微信号</div>
+				<div class="line green">
+					<div class="label">买方微信号</div>
 					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointDealBuyerInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointDealBuyerInfo.wechartNum}}</div>
 				</div>
 				<div class="margT10" v-if="appointDealDetail.assistAppointDealInfo.status==11">
@@ -774,6 +782,14 @@
 			mHeader,
 			mFullscreen,
 			mRefresh,
+		},
+		computed:{
+			getGuidancePrice() {
+				let _this = this;
+				let guidancePrice = _this.appointDealDetail.assistAppointDealInfo.num * _this.appointDealDetail.assistAppointDealInfo.curerntPlatformPrice;
+				_this.guidancePrice = guidancePrice.toFixed(2);
+				return _this.guidancePrice;
+			},
 		},
 		created() {
 			let _this = this;
@@ -1011,6 +1027,9 @@
 			},
 			sellerGet(item){
 				return (item.assurePrice*0.97).toFixed(2);
+			},
+			agentGet(item){
+				return (item.assurePrice*0.03).toFixed(2);
 			},
 			initializeTabActiveName() {
 				let _this = this;

@@ -112,7 +112,7 @@
 				</van-cell-group>
 			</div>
 			<div class="sureBtn">
-				<!-- <div class="tip">为了提高留言质量，提交留言需使用1个帮扶券</div> -->
+				<div class="tip">为了提高留言质量，提交留言需使用1个帮扶券</div>
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提交</van-button>
 			</div>
 		</div>
@@ -186,16 +186,16 @@
 				// console.log("submit");
 				let _this = this;
 				// console.log("_this.userInfo.platformTicket",_this.userInfo.platformTicket);
-				/* if(_this.userInfo.platformTicket<1){
+				if(_this.userInfo.platformTicket<1){
 					Dialog.alert({
 						title: "系统提示",
 						confirmButtonText:'知道了',
-						message: "您的帮扶券不足0.01张，无法留言"
+						message: "您的帮扶券不足1个，无法留言"
 					}).then(() => {
 					  // on confirm
 					})
 					return;
-				} */
+				}
 				if(_this.form.wordTitle==''){
 					_this.$toast('留言标题不能为空');
 					return;

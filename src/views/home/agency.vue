@@ -40,6 +40,7 @@
 							height: $heightwidht;
 							border-radius: $heightwidht;
 							background-color: $main-blue-color;
+							color: $main-box-fh-text-color;
 							text-align: center;
 							line-height: $heightwidht;
 							font-size: 18px;
@@ -162,13 +163,13 @@
 								</div>
 								<div class="flex">
 									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
-									<div class="placeholderLine10"></div>
-									<div class="line">
+									<!-- <div class="placeholderLine10"></div> -->
+									<!-- <div class="line">
 										<div>
 											<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}
 											<span class="margL1" @touchstart="handleCopy(item.wechartNum,$event)" @tap="handleCopy(item.wechartNum,$event)" @click="handleCopy(item.wechartNum,$event)">复制</span>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="flexRight">{{item.provinceName}}</div>
 							</div>
@@ -178,13 +179,13 @@
 								</div>
 								<div class="flex">
 									<div class="line"><i class="iconfont iconfont-name"></i> {{itemChild.nickName}}</div>
-									<div class="placeholderLine10"></div>
+									<!-- <div class="placeholderLine10"></div>
 									<div class="line">
 										<div>
 											<i class="iconfont iconfont-weichat"></i> {{itemChild.wechartNum}}
 											<span class="margL1" @touchstart="handleCopy(item.wechartNum,$event)" @tap="handleCopy(item.wechartNum,$event)" @click="handleCopy(itemChild.wechartNum,$event)">复制</span>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="flexRight">{{itemChild.cityName}}</div>
 							</div>
@@ -199,11 +200,10 @@
 				<!-- <div class="tip4model3">第一批省代理正在招募中，需通过现有代理或客服引荐。</div> -->
 				<div class="placeholderLine10"></div>
 				<div class="tip4model4">
-					<b class="textBold">省市代理的权限：</b><br>
-					省市代理的权限：<br>					1.省市代理拥有引荐受帮扶对象的权限。<br>					2.省市代理拥有给他人解冻账号的权限。<br>					3.省市代理拥有给他人实名审核的权限。<br>
-					4.省市代理拥有给他人内排注册的权限。<br>					5.省市代理点对点(担保)交易免矿石上的手续费，代收服务请找省市代理。<br>省市代理代收规则1：比如省市代理A接到户主B的代收1000个矿石任务后，A去发广告从会员手中收零散的矿石（1个、2个、3个...），收到100个或者1000个后，再依次转给户主B。<br>省市代理代收规则2：比如省市代理A接到户主B的代收1000个矿石任务后，A去发广告寻找有卖整数矿石的户主C，然后让户主C把矿石匹配给户主B。<br>					6.省市代理拥有帮扶券的代理权。帮扶券的用处：可用于交易的时候当手续费(服务费)、可用于帮助平台上生活遇到困难的会员而获得贡献值等。<br>					7.每笔点对点(担保)交易都由所担保的代理审核买卖双方账号的真实性，其中所担保的代理应收3%的担保交易服务费，即每交易100块要给省市(担保)代理3块。<br>						7.其他......	
+					<b class="textBold">省市代理的权限：</b><br>					1.拥有引荐受帮扶对象的权限。<br>					2.拥有给他人解冻账号的权限。<br>					3.拥有给他人实名审核的权限。<br>					4.拥有给他人内排注册的权限。<br>					5.省市代理拥有帮扶券的代理权。<br>					帮扶券的用处：可用于交易的时候当手续费(这是平台方唯一的盈利点)、可用于帮助平台上生活遇到困难的会员而获得贡献值等。<br>
+					注：代理期限至少半年。每半年会重新竞选一次。优秀负责的代理可续任。
 					<div class="placeholderLine10"></div>
-					<b class="textBold">如何获得省市代理？</b><br>					方案一.前期福利①：建群推广的用户，群满300人，个人有效直推满20人找现有代理或者客服审核即赠送省市代理名额。<br>					方案二.前期福利②：个人算力在【首页-排行榜】中的用户找现有代理或者客服审核即赠送省市代理名额。<br>					方案三.实力认购：认购10000个帮扶券成为省代理；认购2500个帮扶券成为市代理。<br>					注：帮扶券1CNY一个。省市代理名额有限，先到先得。
+					<b class="textBold">如何获得省市代理？</b><br>					方案一.前期福利：2020/3/31 21:00 之前对接团队长，送市代理名额，由现代理引荐，送完为止，先到先得。<br>					方案二.前期福利：2020/3/31 21:00 个人算力在【首页-排行榜】中的用户找现有代理或客服审核即赠送市代理名额。<br>					方案三.实力抵押：抵押10000个帮扶券成为省代理；抵押5000个帮扶券成为市代理。<br>					注：帮扶券1CNY一个，会员从市代理那儿购买，市代理从省代理那儿购买，省代理从亚太区总代理那儿购买。
 				</div>
 				<div class="placeholderLine40"></div>
 			</div>

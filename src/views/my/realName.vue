@@ -176,8 +176,8 @@
 			<br>
 			尊敬的原始矿工实名前请认真阅读以下规则：<br>
 			【1】以下资料是用户之间交换矿石时的凭据信息，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
-			【2】年龄范围18周岁以上，不用上传手持照片，微信号和支付宝号需填写所绑定的手机号，且与注册帐号保持一致，若您的微信和支付宝未绑定该手机号，请先去微信和支付宝绑定。<br>
-			【3】平台为保证每位矿工账号安全，真实姓名与支付宝不一致永久冻结账号处理，交易的时候遇到此问题欢迎向平台打小报告，情况属实买方会得到奖励。<br>
+			【2】年龄范围18~70周岁，不用上传手持照片，微信号和支付宝号会自动填写为所注册的手机号，若您的支付宝和微信未绑定该手机号，请先去支付宝和微信绑定。<br>
+			【3】平台为保证交易的顺利进行，真实姓名与支付宝不一致永久冻结账号处理，交易的时候若遇到此问题欢迎向平台打报告，情况属实买方会得到奖励。<br>
 			【4】如果支付宝帐号设置隐私导致买方无法通过手机号查找而无法完成交易的，客服介入调查取消交易且冻结卖方账号。请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
 			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现。零门槛、零投资、零风险、可继承。另外，对于有经验的矿工，挂单交易每人限购2000个矿石。<br>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
@@ -199,32 +199,45 @@
 		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
 		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="20"
 		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
+		  <div class="line">
+		  	<span class="label">支付宝个人主页</span>
+		  	<span class="text" @click="showExamplePic2">点击查看模板</span>
+		  	<span class="value">
+		  		<i class="iconfont iconfont-upload-pic"></i>
+		  		<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
+		  	</span>
+		  </div>
+		  <div class="line" v-if="!pic2">
+		  	<img style="width: 100%;" src="../../assets/image/alipay.png">
+		  </div>
+		  <div class="line" v-if="pic2">
+		  	<img class="selectedImg" :src="pic2"/>
+		  </div>
+		<div class="line tip4modelRedText">
+			注意：1.若提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。2.年龄范围需在18~70周岁，否者实名审核可能通过不了。
+		</div> 
 		<div class="line">
 			<span class="label">身份证正面照片</span>
 			<span class="text" @click="showExamplePic">点击查看模板</span>
 			<span class="value">
 				<i class="iconfont iconfont-upload-pic"></i>
 				<!-- <input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="selectFileImage($event)"/> -->
-				<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event,'idCardPic')"/>
+				<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 			</span>
 		</div>
-		<div class="line" v-if="form.idCardPic">
+		<div class="line" v-if="!form.idCardPic">
+			<img style="width: 100%;" src="../../assets/image/idCardPic.png">
+		</div>
+		<div class="line">
 			<img class="selectedImg" :src="form.idCardPic"/>
-		</div> 
-		<!-- <div class="line">
-			<span class="label">手势照片</span>
-			<span class="value">
-				<i class="iconfont iconfont-upload-pic"></i>
-				<input accept="image/png,image/jpeg,image/jpg" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event,'gesturePic')"/>
-			</span>
 		</div>
-		<div class="line" v-if="form.gesturePic">
-			<img class="selectedImg" :src="form.gesturePic"/>
-		</div> -->
+		
 		<van-field v-model="form.securityPassword" required clearable label="设置安全密码" type="password" :placeholder="errorHint.securityPassword" maxlength="20" @blur="validate('securityPassword')" :error-message="errorInfo.securityPassword"/>
 		<van-field v-model="form.securityPassword2" required clearable label="确认安全密码"  type="password" :placeholder="errorHint.securityPassword2" maxlength="20" @blur="validate('securityPassword2')" :error-message="errorInfo.securityPassword2"/>
 		<div class="placeholderLine40"></div>
 		<div class="sureAppointBtnBox">
+			<div class="tip4model3">华为或三星等个别手机若无法提交实名，请裁剪压缩一下证件照片然后用百度浏览器或借用身边其他牌子的手机进行提交实名试试</div>
+			<div class="placeholderLine4"></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitRealNameLoding" @click="submitRealNameBtn">提 交</van-button>
 		</div>
 	</div>
@@ -236,6 +249,15 @@
 	>
 		<div class="placeholderLine10"></div>
 		<img style="width: 100%;" src="../../assets/image/idCardPic.png">
+	</van-dialog>
+	<van-dialog
+	  v-model="showIdCardPicExmple2"
+	  title="照片模板"
+	  :showConfirmButton="true"
+	  confirmButtonText="OK"
+	>
+		<div class="placeholderLine10"></div>
+		<img style="width: 100%;" src="../../assets/image/alipay.png">
 	</van-dialog>
   </div>
 </template>
@@ -278,8 +300,8 @@ export default {
 				bankCard:"",
 				idCard:"",
 				idCardPic:"",
-				gesturePic:""
 			},
+			pic2:'',
 			errorHint:{
 				nickName:"",
 				telPhone:"",
@@ -318,8 +340,10 @@ export default {
 			mobilePhone:'',
 			uploadType:'',
 			showIdCardPicExmple:false,
+			showIdCardPicExmple2:false,
 			submitRealNameLoding:false,
-			dataOri:''
+			dataOri:'',
+			isShowPic2:false
 		}
 	},  
 	components:{
@@ -335,7 +359,7 @@ export default {
 			_this.mobilePhone = _this.userInfo.mobilePhone;
 			_this.form.wechartNum = _this.userInfo.mobilePhone;
 			_this.form.alipayNum = _this.userInfo.mobilePhone;
-			console.log(_this.mobilePhone,_this.form.wechartNum,_this.form.alipayNum);
+			//console.log(_this.mobilePhone,_this.form.wechartNum,_this.form.alipayNum);
 			if(_this.userInfo.actived==2){
 				_this.form = _this.userInfo;
 				_this.getAssistUserInfoPicByUserId();
@@ -369,20 +393,16 @@ export default {
 			_this.$ajax.ajax(_this.$api.getAssistUserInfoPicByUserId, 'GET', null, function(res){
 				if(res.code == _this.$api.CODE_OK){
 					_this.form.idCardPic = res.data.idCardPic;
-					// _this.form.gesturePic = res.data.gesturePic;
+					_this.pic2 = res.data.gesturePic;
 					_this.form = res.data;
-					console.log("form",_this.form);
+					//console.log("form",_this.form);
 				}
 			})
 		},
 		
-		uploadIMG(e,type) {
+		uploadIMG(e) {
 			let _this = this;
-			//设置上传图片的类型，身份证还是手势
-			console.log("type",type);
-			_this.uploadType = type;
-			console.log('正在解析图片');
-			// Toast.clear();
+			
 			_this.toast = Toast.loading({
 			  duration: 3000, // 持续展示 toast
 			  closeOnClickOverlay:true,
@@ -390,17 +410,17 @@ export default {
 			});
 			let files = e.target.files || e.dataTransfer.files;
 			if (!files.length) return;
-			console.log("pic_size(MB)", files[0].size / 1024 / 1024);
-			if (files[0].size / 1024 / 1024 > 8) {
+			//console.log("pic_size(MB)", files[0].size / 1024 / 1024);
+			if (files[0].size / 1024 / 1024 > 5) {
 			   // _this.$toast('上传图片大小不能超过 8MB');
 			   Dialog.alert({
 			     title: '系统提示',
-			     message: '上传图片大小不能超过 8MB'
+			     message: '上传图片大小不能超过 5MB，请先进行压缩'
 			   }).then(() => {
 			     // on close
 			   });
 			} else {
-			  console.log('正在获取图片');
+			  //console.log('正在获取图片');
 			  _this.toast.message = `正在获取图片`;
 			  _this.imgPreview(files[0]);
 			}
@@ -428,16 +448,16 @@ export default {
 				image.src = result;//base64
 				image.onload = function() {
 					//alert("image.onload");
-				    var expectWidth = this.naturalWidth;  
-				    var expectHeight = this.naturalHeight; 
-				    var scale = expectWidth / expectHeight;
-				    var canvas = document.createElement("canvas");
-				    var ctx = canvas.getContext("2d");
+				    let expectWidth = this.naturalWidth;  
+				    let expectHeight = this.naturalHeight; 
+				    let scale = expectWidth / expectHeight;
+				    let canvas = document.createElement("canvas");
+				    let ctx = canvas.getContext("2d");
 				    canvas.width = expectWidth;
 				    canvas.height = expectHeight;
 				    //如果方向角不为1，都需要进行旋转 
 				    if(Orientation && Orientation != "" && Orientation != 1){  
-				        var degree=0;
+				        let degree=0;
 				        switch(Orientation){
 				            case 6://需要顺时针（向左）90度旋转  
 				                degree=90;
@@ -469,23 +489,122 @@ export default {
 				    let dataOri = canvas.toDataURL("image/png");
 					let img = new Image();
 					img.src = dataOri;//base64
-					// console.log("dataOri",dataOri);
-					console.log('********未压缩前的图片大小(KB)********');
-					console.log(dataOri.length / 1024);
+					// //console.log("dataOri",dataOri);
+					//console.log('********未压缩前的图片大小(KB)********');
+					//console.log(dataOri.length / 1024);
 					img.onload = function() {
-						let data = _this.$utils.compress(img, 0.4);//调整压缩比例
-						if(_this.uploadType == "idCardPic"){
-							_this.form.idCardPic = data;
-						}else if(_this.uploadType == "gesturePic"){
-							_this.form.gesturePic = data;
-						}
+						let data = _this.$utils.compress(img, 0.2);//调整压缩比例
+						_this.form.idCardPic = data;
 					}
-				};
+				}
+			  }
+			}
+		},
+		uploadIMG2(e) {
+			let _this = this;
+			// Toast.clear();
+			_this.isShowPic2 = true;
+			_this.toast = Toast.loading({
+			  duration: 3000, // 持续展示 toast
+			  closeOnClickOverlay:true,
+			  message: "正在解析图片"
+			});
+			let files = e.target.files || e.dataTransfer.files;
+			if (!files.length) return;
+			//console.log("pic_size(MB)", files[0].size / 1024 / 1024);
+			if (files[0].size / 1024 / 1024 > 5) {
+			   // _this.$toast('上传图片大小不能超过 8MB');
+			   Dialog.alert({
+			     title: '系统提示',
+			     message: '上传图片大小不能超过 5MB，请先进行压缩'
+			   }).then(() => {
+			     // on close
+			   });
+			} else {
+			  //console.log('正在获取图片');
+			  _this.toast.message = `正在获取图片`;
+			  _this.imgPreview2(files[0]);
+			}
+		},
+		imgPreview2(file) {
+			let _this = this;
+			_this.toast.message = `正在压缩图片`;
+			let Orientation = null;
+			//判断支不支持FileReader
+			if (!file || !window.FileReader) return false;
+			if (/^image/.test(file.type)) {
+			  //创建一个reader
+			  EXIF.getData(file, function() {
+			      EXIF.getAllTags(this);   
+			      Orientation = EXIF.getTag(this, 'Orientation');  
+			  });  
+			  let reader = new FileReader();
+			  //将图片转成base64格式
+			  reader.readAsDataURL(file);
+			  //读取成功后的回调
+			  reader.onloadend = function(res) {
+				let result = this.result;
+				let image = new Image();
+				image.src = result;//base64
+				image.onload = function() {
+					//alert("image.onload");
+				    let expectWidth = this.naturalWidth;  
+				    let expectHeight = this.naturalHeight; 
+				    let scale = expectWidth / expectHeight;
+				    let canvas = document.createElement("canvas");
+				    let ctx = canvas.getContext("2d");
+				    canvas.width = expectWidth;
+				    canvas.height = expectHeight;
+				    //如果方向角不为1，都需要进行旋转 
+				    if(Orientation && Orientation != "" && Orientation != 1){  
+				        let degree=0;
+				        switch(Orientation){
+				            case 6://需要顺时针（向左）90度旋转  
+				                degree=90;
+				                canvas.width = expectHeight;
+				                canvas.height = expectWidth;
+				                ctx.translate(expectHeight / 2,expectWidth / 2);
+				                ctx.rotate(degree * Math.PI / 180);
+				                ctx.translate(-expectWidth / 2,-expectHeight / 2);
+				                ctx.drawImage(image,0,0,expectWidth,expectHeight);
+				                break;
+				            case 8://需要逆时针（向右）90度旋转
+				                degree=-90;
+				                canvas.width = expectHeight;
+				                canvas.height = expectWidth;
+				                ctx.translate(expectHeight / 2,expectWidth / 2);
+				                ctx.rotate(degree * Math.PI / 180);
+				                ctx.translate(-expectWidth / 2,-expectHeight / 2);
+				                ctx.drawImage(image,0,0,expectWidth,expectHeight);
+				                break;
+				            case 3://需要180度旋转  
+				                degree=-180;
+				                ctx.rotate(degree * Math.PI / 180);
+				                ctx.drawImage(image,-expectWidth,-expectHeight,expectWidth,expectHeight);
+				                break;
+				        }         
+				    }else{
+				        ctx.drawImage(image,0,0,expectWidth,expectHeight);
+				    }
+				    let dataOri = canvas.toDataURL("image/png");
+					let img = new Image();
+					img.src = dataOri;//base64
+					// //console.log("dataOri",dataOri);
+					//console.log('********未压缩前的图片大小(KB)********');
+					//console.log(dataOri.length / 1024);
+					img.onload = function() {
+						let data = _this.$utils.compress(img, 0.6);//调整压缩比例
+						_this.pic2 = data;
+					}
+				}
 			  }
 			}
 		},
 		showExamplePic(){
 			this.showIdCardPicExmple = true;
+		},
+		showExamplePic2(){
+			this.showIdCardPicExmple2 = true;
 		},
 		showTip(){
 			this.showTipModel = true;
@@ -512,14 +631,14 @@ export default {
 		submitRealNameBtn(){
 			let _this = this;
 			let SRNTimes = localStorage.getItem('SRNTimes');
-			if(SRNTimes&&SRNTimes>=3){
-				Dialog.alert({
-				  title: '系统提示',
-				  message: '经过系统检测，您存在违规操作'
-				}).then(() => {
-				  // on close
-				});
-				return;
+			if(SRNTimes) {
+				let tip = '';
+				if(SRNTimes==2){
+					tip = '您只剩下最后1次实名机会，请认真核实资料，按模板上传照片';
+				}
+				if(SRNTimes>=4){
+					tip = '实名次数已用完';
+				}
 			}
 			let params = {
 				id:_this.userInfo.id,
@@ -529,10 +648,10 @@ export default {
 				wechartNum:_this.form.wechartNum,
 				idCard:_this.form.idCard,
 				idCardPic:_this.form.idCardPic,
-				/* gesturePic:_this.form.gesturePic, */
+				gesturePic:_this.pic2,
 				securityPassword:_this.form.securityPassword,
 			}
-			// console.log('params',params)
+			// //console.log('params',params)
 			if(_this.$utils.hasNull(params)){
 				_this.$toast('系统提示：请填写完整信息');
 				return;
@@ -548,9 +667,9 @@ export default {
 			params.securityPassword = _this.$JsEncrypt.encrypt(_this.form.securityPassword);
 			_this.submitRealNameLoding = true;
 			if(params.alipayNum == params.wechartNum && params.wechartNum == _this.mobilePhone){
-				console.log('系统提示：可提交信息');
-				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
-					console.log('res.code',res.code);
+				//console.log('系统提示：可提交信息');
+				_this.$ajax.ajax4NotTime(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
+					//console.log('res.code',res.code);
 					//标记该设备已经提交过实名认证
 					if(SRNTimes){
 						localStorage.setItem('SRNTimes',(parseInt(SRNTimes)+1));
@@ -569,6 +688,7 @@ export default {
 						  _this.$router.replace("my");
 						});
 					}else{
+						//'请按照提交按钮上方的提示操作'
 						Dialog.alert({
 						  title: '系统提示',
 						  message: res.message

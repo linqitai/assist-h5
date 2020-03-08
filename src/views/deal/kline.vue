@@ -117,7 +117,7 @@
 				    color: colorList,
 				    title: {
 				        left: 'center',
-				        text: '国际帮扶链'
+				        text: 'HPC帮扶链'
 				    },
 				    legend: {
 				        top: 30,

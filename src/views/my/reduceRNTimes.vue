@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	$cellHeight:50px;
-	.unFreeze{
+	.reduce{
 		font-size: 0.75rem;
 		position: fixed;
 		top: 0;
@@ -9,43 +9,19 @@
 		left: 0;
 		bottom: 0;
 		background-color: $main-box-color;
-		z-index: 2;
-		/* .van-dropdown-menu{
-			height: $cellHeight !important;
-			background-color: inherit !important;
-		}
-		.van-dropdown-menu__title{
-			color: $mainTextColor;
-			font-size: 0.75rem !important;
-		}
-		[class*=van-hairline]::after{
-			border: none !important;
-		}
-		.van-field__control{
-			color: $mainTextColor;
-		}
-		.van-cell,.van-cell-group{
-			background-color: inherit !important;
-		} */
-		.unFreezePage{
-			color: $mainTextColor;
+		color: $main-box-text-color;
+		.reducePage{
 			margin-top: $headerHeight;
 			background-color: $main-box-color;
 			.van-field__label{
 				width: 70px !important;
 				line-height: 30px;
 			}
-			// .van-cell__value, .van-cell__value--alone, .van-field__control,.van-cell {
-			//     color: #FFFFFF !important;
-			// }
 			.myCell{
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 				border-bottom: 1px solid $main-bg-color;
-				// .van-cell__value, .van-cell__value--alone, .van-field__control {
-				//     color: #FFFFFF !important;
-				// }
 				.flex{
 					flex: 1;
 					padding-left: 16px;
@@ -167,40 +143,19 @@
 	
 </style>
 <template>
-	<div class="unFreeze">
-		<m-header>
-			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
-			<div class="text">
-				给他人解冻账号
-			</div>
-			<i class="iconfont iconfont-question rightBox icon" @click="showTipModel=true"></i>
-		</m-header>
-		<div class="unFreezePage">
-			<van-cell-group>
-				<van-field v-model="form4AppointDeal.mobilePhone" clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11">
-					<van-button slot="button" size="small" color="#ffae00"  @click="getUserInfo">查询</van-button>
-				</van-field>
-				<!-- <van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11"/> -->
-				<!-- <van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/> -->
-			</van-cell-group>
+	<div class="reduce">
+		<div class="reducePage">
 			<div class="placeholderLine10"></div>
 			<div v-if="thisUserInfo">
 				<div class="box box1">
 					<div class="flex flex1">
-						<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 						<div class="name">{{thisUserInfo.realName | getLastName}}</div>
 					</div>
 					<div class="flex flex2">
 						<div class="line1">
 							<div class="nick_name left">{{thisUserInfo.nickName}}</div>
-							<div class="level left">{{thisUserInfo.level | getUserType}}+{{thisUserInfo.isAgent | agentType}}</div>
+							<div class="level left">{{thisUserInfo.level | getUserType}}</div>
 						</div>
-						<!-- <div class="line">
-							ID {{info.userId}}
-						</div> -->
-						<!-- <div class="line margT3">
-							注册时间 {{thisUserInfo.registerTime}}
-						</div> -->
 						<div class="line">
 							<div class="left">买入次数 {{thisUserInfo.buyTimes}}</div>
 							<div class="mlBox left">买入数量 {{thisUserInfo.buyAmount}}</div>
@@ -217,28 +172,20 @@
 						<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
 					</div>
 				</div>
-				<!-- <div class="box">
-					<div class="line">
-						<div class="f-11">区块地址 {{thisUserInfo.blockAddress}}</div>
-					</div>
-				</div> -->
 				<div class="box box2">
 					<div class="flex flex1">
 						<div class="value" @click="toBookView('1',thisUserInfo.userId)">{{thisUserInfo.teamCalculationPower}}</div>
 						<div class="text">团队算力</div>
 					</div>
 					<div class="flex flex4">
-						<!-- <div>{{thisUserInfo.platformTicket}}</div> -->
 						<div class="value" @click="toBookView('2',thisUserInfo.userId)">{{thisUserInfo.platformTicket}}</div>
 						<div class="text">帮扶券</div>
 					</div>
 					<div class="flex flex3">
-						<!-- <div>{{thisUserInfo.contributionValue}}</div> -->
 						<div class="value" @click="toBookView('3',thisUserInfo.userId)">{{thisUserInfo.contributionValue}}</div>
 						<div class="text">贡献值</div>
 					</div>
 					<div class="flex flex2">
-						<!-- <div>{{thisUserInfo.thisWeekMineral}}</div> -->
 						<div class="value" @click="toBookView('4',thisUserInfo.userId)">{{thisUserInfo.thisWeekMineral}}</div>
 						<div class="text">矿石</div>
 					</div>
@@ -246,22 +193,18 @@
 				<div class="box box3">
 					<div class="flex flex1">
 						<div>{{thisUserInfo.myCalculationPower}}</div>
-						<!-- <NumberGrow :value="userInfo.myCalculationPower"></NumberGrow> -->
 						<div class="text">TA的算力</div>
 					</div>
 					<div class="flex flex4">
 						<div>{{thisUserInfo.temporaryFreezePlatformTicket}}</div>
-						<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
 						<div class="text">交易中<br>帮扶券</div>
 					</div>
 					<div class="flex flex3">
 						<div>{{thisUserInfo.temporaryFreezeContribution}}</div>
-						<!-- <NumberGrow :value="userInfo.temporaryFreezeContribution"></NumberGrow> -->
 						<div class="text">交易中<br>贡献值</div>
 					</div>
 					<div class="flex flex2">
 						<div>{{thisUserInfo.temporaryFreezeMineral}}</div>
-						<!-- <NumberGrow :value="userInfo.temporaryFreezeMineral"></NumberGrow> -->
 						<div class="text">交易中<br>矿石</div>
 					</div>
 				</div>
@@ -285,6 +228,9 @@
 					<div class="textCenter margT10" v-if="thisUserInfo.remark">
 						上次审核被驳回原因：{{thisUserInfo.remark}}
 					</div>
+					<div class="textCenter margT10" v-if="thisUserInfo.submitActivedNum>2">
+						审核被驳回次数：{{thisUserInfo.submitActivedNum}}
+					</div>
 				</div>
 			</div>
 			<!-- <div class="myCell">
@@ -295,15 +241,28 @@
 			</div> -->
 			<div class="placeholderLine10"></div>
 			<div class="sureBtn" v-if="thisUserInfo">
-				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">给解冻</van-button>
+				<!-- <van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large">给下级销一次</van-button>
+				<div class="placeholderLine10"></div> -->
+				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="large" @click="reduce4me">给自己销一次</van-button>
 			</div>
 		</div>
-		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
-			<div class="paddingWing f-12 lineHeight tip4model2">
-				<div class="line text margT10 textCenter">
-					省市代理拥有定向转让帮扶券的权限
+		<!-- <van-dialog v-model="showModelBox" title="给自己销一次" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
+			<div class="paddingWing">
+				<van-field v-model="form.loginPassword" type="password" label="登录密码" clearable placeholder="请填写登录密码" @blur="validate('loginPassword')" :error-message="errorHint.loginPassword" />
+				<div class="placeholderLine20"></div>
+			</div>
+			<van-button type="info" @click="reduce4meEvent" :loading="loading4submit" :disabled="loading4submit" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">提 交</van-button>
+		</van-dialog> -->
+		<van-dialog v-model="showTipModel" title="系统提示" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
+			<div class="placeholderLine10"></div>
+			<van-field v-model="form.loginPassword" type="password" label="登录密码" clearable placeholder="请验证登录密码" @blur="validate('loginPassword')" :error-message="errorHint.loginPassword" />
+			<div class="placeholderLine10"></div>
+			<div class="paddingWing f-12 lineHeight tip4model3">
+				<div class="line text margT10">
+					注：销一次实名次数需要花3个帮扶券
 				</div>
 			</div>
+			<van-button type="info" @click="reduce4meEvent" :loading="loading4submit" :disabled="loading4submit" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">确 认</van-button>
 		</van-dialog>
 	</div>
 </template>
@@ -314,17 +273,15 @@
 	export default {
 		data() {
 			return {
+				loading4submit:false,
 				showTipModel:false,
 				//定向交易
-				form4AppointDeal:{
-					mobilePhone:'',
-					blockAddress:"",
-					safePassword:"",
+				form:{
+					mobilePhone:"",
+					loginPassword:"",
 				},
-				errorInfo4AppointDeal:{
-					unFreezeAmount:"",
-					blockAddress:"",
-					safePassword:"",
+				errorHint:{
+					loginPassword:"",
 				},
 				option1: [
 					{ text: '问题反馈', value: 0 },
@@ -335,7 +292,7 @@
 				currentPage: 1,
 				pageCount: 1000,
 				totalItems: 10000,
-				userId:"",
+				mobilePhone:"",
 				loading:false,
 				thisUserInfo:"",
 				userFreezeInfo:""
@@ -346,11 +303,12 @@
 		},
 		mounted() {
 			let _this = this;
-			_this.userId = _this.$cookies.get('userId');
-			if(_this.$utils.isNUll(_this.userId)){
+			_this.mobilePhone = localStorage.getItem('mobilePhone');
+			if(_this.$utils.isNUll(_this.mobilePhone)){
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 			}
+			_this.getUserInfo();
 		},
 		methods: {
 			back(){
@@ -378,32 +336,20 @@
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
-			validate4AppointDeal(key){
+			validate(key){
 				let _this = this;
-				if(key == 'unFreezeAmount') {
-					if(_this.form4AppointDeal[key]>=1&&_this.form4AppointDeal[key]<=10000){//这里判断单次卖出的数量是否合法,由于
-						_this.errorInfo4AppointDeal.unFreezeAmount = '';
+				if(key == 'loginPassword') {
+					if(_this.$reg.password.test(_this.form[key])){
+						_this.errorHint.loginPassword = '';
 					}else{
-						_this.errorInfo4AppointDeal.unFreezeAmount = "单次转让数量在1~10000之间";
-					}
-				}else if(key == 'blockAddress'){
-					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
-						_this.errorInfo4AppointDeal.blockAddress = '';
-					}else{
-						_this.errorInfo4AppointDeal.blockAddress = "请正确粘贴对方的区块地址";
-					}
-				}else if(key == 'safePassword') {
-					if(_this.$reg.safePassword.test(_this.form4AppointDeal[key])){
-						_this.errorInfo4AppointDeal.safePassword = '';
-					}else{
-						_this.errorInfo4AppointDeal.safePassword = "安全密码不超过20位，由'字母或数字或._'组成";
+						_this.errorHint.loginPassword = _this.$reg.passwordHint;
 					}
 				}
 			},
 			getUserInfo() {
 				let _this = this;
 				let params = {
-					mobilePhone: _this.form4AppointDeal.mobilePhone
+					mobilePhone: _this.mobilePhone
 				}
 				if(!_this.$reg.phone.test(params.mobilePhone)){
 					_this.$toast('手机号格式有误');
@@ -431,19 +377,23 @@
 					}
 				})
 			},
-			submit(){
+			reduce4me(){
 				console.log("submit");
 				let _this = this;
+				_this.showTipModel = true;
+			},
+			reduce4meEvent(){
+				let _this = this;
+				
 				let params = {
-					unFreezeUserId: _this.thisUserInfo.userId
+					loginPassword: _this.$JsEncrypt.encrypt(_this.form.loginPassword)
 				}
-				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.unFreeze, 'POST', params, function(res) {
+				_this.loading4submit = true;
+				_this.$ajax.ajax(_this.$api.reduceRealNameTime, 'POST', params, function(res) {
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
-						_this.$toast('解冻成功');
+						_this.$toast('操作成功');
 						_this.getUserInfo();
-						_this.userFreezeInfo = "";
 					}else{
 						Dialog.alert({
 						  title: '系统提示',
@@ -452,8 +402,11 @@
 						  // on close
 						});
 					}
+				},function(){
+					_this.loading4submit = false;
+					_this.showTipModel = false;
 				})
-			},
+			}
 		}
 	}
 </script>

@@ -131,7 +131,7 @@
 
 					}
 					.flex3{
-						flex: 0 0 60px;
+						flex: 0 0 70px;
 						.line{
 							font-size: 0.75rem;
 							text-align: center;
@@ -198,7 +198,8 @@
 		</div>
 		<!-- <van-button type="primary" @click="testLoginUrl()">登录</van-button>
 	  <van-button type="primary" @click="testUrl()">获取信息</van-button> -->
-	  <van-dialog v-model="showSelectBox" title="请选择用什么租赁" :show-cancel-button="true" :show-confirm-button="true" @confirm="sureBuyMillEvent">
+	  <!-- <van-dialog v-model="showSelectBox" title="请选择用什么租赁" :show-cancel-button="true" :show-confirm-button="true" @confirm="sureBuyMillEvent"> -->
+	  <van-dialog v-model="showSelectBox" title="请选择用什么租赁" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
 	  		<div class="paddingWing">
 				<div class="placeholderLine20"></div>
 				<div class="f-14">当前可用矿石：{{userInfo.thisWeekMineral}}</div>
@@ -212,8 +213,13 @@
 				  <div class="placeholderLine10"></div>
 				  <van-radio name="2">贡献值</van-radio>
 				</van-radio-group>
+				<!-- <van-field v-model="securityCode" center clearable placeholder="请输入右边的图形验证码" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
+					<van-button slot="button" size="small" type="primary" @click="getSecurityCode">{{securityCode}}</van-button>
+				</van-field> -->
 				<div class="placeholderLine20"></div>
 			</div>
+			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
+			<van-button type="info" @click="sureBuyMillEvent" :loading="buyMillLoading" :disabled="buyMillLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
 	  </van-dialog>
 	  <van-dialog v-model="showReceiptTip" :title="receiptModelTile" :show-confirm-button="isShowConfirmButton">
 		<div class="placeholderLine20"></div>
@@ -227,7 +233,7 @@
 	  <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 	  	<div class="paddingWing f-12 lineHeight tip4model2">
 	  		<div class="textIndent">
-	  			矿机商城里的矿机是限量的，每一批大型矿机被租赁完，就会减产，矿机商城中的矿机全部会换成新的一批减产后的矿机。
+	  			{{$api.tip4ReduceMill}}
 	  		</div>
 			<div class="placeholderLine10"></div>
 	  	</div>
@@ -245,6 +251,7 @@
 	export default {
 		data() {
 			return {
+				buyMillLoading:false,
 				selectRadioValue:'1',
 				loading: false,
 				showTipModel:false,
@@ -267,6 +274,9 @@
 					turnOnTime: '2019-12-12 12:12:12',
 					afterReceipt: '2019-12-13 12:12:12',
 				}],
+				errorHint:{
+					securityCode:''
+				},
 				userInfo:'',
 				showReceiptTip:false,
 				showSelectBox:false,
@@ -326,7 +336,17 @@
 				}
 			},
 			selectRadioChange(value){
-				console.log(value);
+				//console.log(value);
+			},
+			validate(key){
+				let _this = this;
+				if(key == 'securityCode'){
+					if(_this.$reg.securityCode.test(_this.form.securityCode.replace(/ /g,""))){
+						_this.errorHint.securityCode = '';
+					}else{
+						_this.errorHint.securityCode = _this.$reg.securityCodeHint;
+					}
+				}
 			},
 			buyMill(item){
 				let _this = this;
@@ -349,13 +369,17 @@
 			},
 			sureBuyMillEvent(){
 				let _this = this;
+				_this.showSelectBox = false;
+				_this.buyMillLoading = true;
 				if(_this.selectRadioValue==1){
 					if(_this.userInfo.thisWeekMineral<_this.price){
-						_this.$toast("您所拥有的矿石不够租赁该矿机");return;
+						_this.$toast("您所拥有的矿石不够租赁该矿机");
+						_this.buyMillLoading = false;return;
 					}
 				}else if(_this.selectRadioValue==2){
 					if(_this.userInfo.contributionValue<_this.price){
-						_this.$toast("您所拥有的贡献值不够租赁该矿机");return;
+						_this.$toast("您所拥有的贡献值不够租赁该矿机");
+						_this.buyMillLoading = false;return;
 					}
 				}
 				let params = {
@@ -382,31 +406,30 @@
 							  _this.$router.push('myMill');
 						  }
 						});
-					}else if(res.code == 1000){//此类矿机已经售空
-						_this.$toast("此类矿机已经售空");
-						return;
-					}else if(res.code == 1001){//该用户此类矿机已满，不让租赁
-						_this.$toast("您所拥有的此类矿机已经超过限购数量");
-						return;
-					}else if(res.code == 1002){//该用户所拥有矿石不够，不让租赁
-						_this.$toast("您所拥有的矿石不够租赁该矿机");
-						return;
-					}else if(res.code == 1003){//该用户所拥有矿石不够，不让租赁
-						_this.$toast('您所拥有的贡献值不够租赁该矿机');
+					}else {
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  
+						});
 						return;
 					}
+				},function(){
+					_this.buyMillLoading = false;
 				})
 			},
 			onLoadMillShop() {
 				let _this = this;
-				console.log("onLoadMillShop");
+				//console.log("onLoadMillShop");
 				// 异步更新数据
 				// let params = {
 				// 	versionNo: 1
 				// }
 				_this.loading = true;
 				_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
-					// console.log('res', res);
+					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data;
 						localStorage.setItem("millShopList",JSON.stringify(list));
@@ -426,7 +449,7 @@
 				}
 			},
 			tabChange(name, title) {
-				console.log(name, title);
+				//console.log(name, title);
 				this.$cookies.set("mill_tab_name", name, 60 * 60 * 1)
 			}
 		}

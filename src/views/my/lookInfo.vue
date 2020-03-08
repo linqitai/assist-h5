@@ -171,9 +171,9 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				给他人解冻账号
+				查询他人信息
 			</div>
-			<i class="iconfont iconfont-question rightBox icon" @click="showTipModel=true"></i>
+			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="unFreezePage">
 			<van-cell-group>
@@ -193,7 +193,7 @@
 					<div class="flex flex2">
 						<div class="line1">
 							<div class="nick_name left">{{thisUserInfo.nickName}}</div>
-							<div class="level left">{{thisUserInfo.level | getUserType}}+{{thisUserInfo.isAgent | agentType}}</div>
+							<div class="level left">{{thisUserInfo.level | getUserType}}</div>
 						</div>
 						<!-- <div class="line">
 							ID {{info.userId}}
@@ -294,17 +294,17 @@
 				<van-button color="#08abee" :loading="loading" size="large" @click="getUserInfo">查看该区块状态</van-button>
 			</div> -->
 			<div class="placeholderLine10"></div>
-			<div class="sureBtn" v-if="thisUserInfo">
+			<!-- <div class="sureBtn" v-if="thisUserInfo">
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">给解冻</van-button>
-			</div>
+			</div> -->
 		</div>
-		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
+		<!-- <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
 			<div class="paddingWing f-12 lineHeight tip4model2">
 				<div class="line text margT10 textCenter">
 					省市代理拥有定向转让帮扶券的权限
 				</div>
 			</div>
-		</van-dialog>
+		</van-dialog> -->
 	</div>
 </template>
 <script>

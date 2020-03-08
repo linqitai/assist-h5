@@ -293,7 +293,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				定向转让审核
+				担保交易审核
 			</div>
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
@@ -475,11 +475,11 @@
 					<span class="label">指导总价</span>
 					<span class="value">{{getGuidancePrice}} CNY</span>
 				</div>
-				<div class="line brown">
+				<div class="line blue">
 					<span class="label">担保单价</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.price.toFixed(2)}} CNY</span>
 				</div>
-				<div class="line brown">
+				<div class="line blue">
 					<span class="label">担保总价</span>
 					<span class="value">{{totalPrice(appointDealDetail.assistAppointDealInfo)}} CNY</span>
 				</div>

@@ -135,7 +135,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				我的团队
+				我的下级团队
 			</div>
 			<i class="rightBox icon"></i>
 			<!-- <i class="iconfont iconfont-share rightBox icon" @click="toView('myShare')"></i> -->
@@ -150,7 +150,7 @@
 					<div class="line">上级昵称：{{parentUserInfo.nickName}}</div>
 					<div class="line">上级微信：{{parentUserInfo.wechartNum}} <span class="copy" @click="handleCopy(parentUserInfo.wechartNum,$event)">复制</span></div>
 					<div class="line">二代总人数：{{teamNum}}</div>
-					<div class="line">因风控部门提供消息说三代奖励会有政策风险，团队上矿机三代贡献值收益分红的功能已终止研发，该奖励将会换成以全球分红的形式发放。</div>
+					<div class="line">(团队三代收益分红的功能正在研发中)</div>
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
@@ -159,23 +159,23 @@
 				<van-tab :title="myShareText" name="myShare">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1" :offset='100'>
 						<div class="list">
-							<div class="item" v-for="item in list1" :key="item.id" @click="toTeamView(item.userId,item.realnameNum)">
+							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="flex flex1">
 									<div class="name">{{item.realName | getLastName}}</div>
 								</div>
 								<div class="flex flex2">
 									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime | getDateYMD}}</div>
 									<div class="line2"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
-									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div>
+									<!-- <div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div> -->
 									<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>
 								</div>
 								<div class="flex flex3">
 									<div class="line2">{{item.level | getUserType}}</div>
 									<div class="line3">战友数{{item.teamateNum}}个</div>
 								</div>
-								<div class="flex flex4" v-if="item.teamateNum>0">
+								<!-- <div class="flex flex4" v-if="item.teamateNum>0">
 									<i class="iconfont iconfont-right-arrow2"></i>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</van-list>
@@ -183,14 +183,14 @@
 				<van-tab :title="activedText" name="actived">
 					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 						<div class="list">
-							<div class="item" v-for="item in list2" :key="item.id" @click="toTeamView(item.userId,item.realnameNum)">
+							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="flex flex1">
 									<div class="name">{{item.realName | getLastName}}</div>
 								</div>
 								<div class="flex flex2">
 									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime | getDateYMD}}</div>
 									<div class="line2"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
-									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div>
+									<!-- <div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div> -->
 									<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>
 									<!-- <div class="line3"><i class="iconfont iconfont-mill"></i> X台矿机正在运行</div> -->
 								</div>
@@ -198,9 +198,9 @@
 									<div class="line2">{{item.level | getUserType}}</div>
 									<div class="line3">战友数{{item.teamateNum}}个</div>
 								</div>
-								<div class="flex flex4" v-if="item.teamateNum>0">
+								<!-- <div class="flex flex4" v-if="item.teamateNum>0">
 									<i class="iconfont iconfont-right-arrow2"></i>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</van-list>
@@ -215,7 +215,7 @@
 								<div class="flex flex2">
 									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime | getDateYMD}}</div>
 									<div class="line2"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
-									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div>
+									<!-- <div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div> -->
 									<!-- <div class="line3"><i class="iconfont iconfont-mill"></i> X台矿机正在运行</div> -->
 								</div>
 								<div class="flex flex3">
@@ -254,11 +254,12 @@
 				list3:[],
 				userInfo:{},
 				parentUserInfo:{},
-				myShareText:'我的直推',
+				myShareText:'直推',
 				activedText:'已实名',
 				unactivedText:'未实名',
 				realnameNum:0,
-				teamNum:0
+				teamNum:0,
+				parentId:''
 			}
 		},
 		components: {
@@ -266,47 +267,42 @@
 		},
 		created() {
 			let _this = this;
-			console.log(_this.$route.meta.footer,'footer');
+			/* console.log(_this.$route.meta.footer,'footer');
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				_this.userInfo = JSON.parse(userInfo);
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
-				/* _this.$cookies.remove('userId');
-				_this.$cookies.remove('token'); */
 				_this.$router.replace('login');
 				return;
-			}
-			_this.realnameNum = _this.userInfo.realnameNum;
-			// console.log('_this.userInfo',_this.userInfo);
-			_this.activedText = '已实名' + ' ' + _this.realnameNum;
-			_this.getParentUserInfo();
-			/* if(localStorage.getItem('parentUserInfo')){
-				_this.parentUserInfo = JSON.parse(localStorage.getItem('parentUserInfo'));
-			}else{
-				_this.getParentUserInfo();
 			} */
+			// console.log('_this.userInfo',_this.userInfo);
+			_this.realnameNum = _this.$route.query.realnameNum;
+			console.log('realnameNum',_this.realnameNum);
+			_this.activedText = '已实名' + ' ' + _this.realnameNum;
+			_this.parentId = _this.$route.query.parentId;
+			console.log('parentId',_this.parentId);
+			_this.getParentUserInfo(_this.parentId);
 			_this.getCountTeamNum();
 		},
 		methods: {
+			refresh(parentId,realnameNum){
+				let _this = this;
+				_this.realnameNum = realnameNum;
+				_this.activedText = _this.activedText + ' ' + _this.realnameNum;
+				_this.parentId = parentId;
+				_this.getParentUserInfo(_this.parentId);
+				_this.getCountTeamNum();
+				_this.onLoad1();
+			},
 			back() {
-				this.$router.replace('my');
+				this.$router.go(-1);
 			},
 			toScrollTop(){
 				console.log('toScrollTop');
 				window.scrollTo(0,0);
 				document.body.scrollTop = 0;
 				document.documentElement.scrollTop = 0;
-			},
-			toTeamView(parentId,realnameNum){
-				console.log('parentId',parentId);
-				this.$router.push({
-					path:'/mySuperTeam2',
-					query:{
-					  parentId:parentId,
-					  realnameNum:realnameNum
-					}
-				});
 			},
 			toView(){
 				this.$router.push('/myshare');
@@ -320,23 +316,23 @@
 			},
 			getCountTeamNum(){
 				let _this = this;
-				_this.$ajax.ajax(_this.$api.getCountTeamNum, 'GET', null, function(res){
+				let params = {
+					userId: _this.parentId
+				}
+				_this.$ajax.ajax(_this.$api.getCountTeamNum, 'GET', params, function(res){
 					// console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
 						_this.teamNum = res.data;
 					}
 				})
 			},
-			getParentUserInfo(){
+			getParentUserInfo(parentId){
 				let _this = this;
 				_this.loading = true;
-				let parentId = _this.userInfo.parentId==null?_this.userInfo.userId:_this.userInfo.parentId;
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo4Path + parentId, 'GET', null, function(res){
 					// console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
 						_this.parentUserInfo = res.data;
-						//localStorage.setItem('parentUserInfo',JSON.stringify(_this.parentUserInfo));
-						// console.log('_this.parentUserInfo',_this.parentUserInfo);
 					}
 				})
 			},
@@ -346,7 +342,7 @@
 				let params = {
 					pageNo: _this.currentPage,
 					pageSize: _this.pageSize,
-					parentId: _this.userInfo.userId
+					parentId: _this.parentId
 				}
 				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList, 'GET', params, function(res) {
 					// console.log('res', res);
@@ -356,8 +352,8 @@
 						let list = res.data.list;
 						_this.list1.push(...list);
 						_this.totalNum = res.data.total;
-						_this.myShareText = '我的直推' + ' ' + res.data.total;//团队注册人数
-						_this.unactivedText = '未实名' + ' ' + (res.data.total - _this.userInfo.realnameNum);
+						_this.myShareText = '直推' + ' ' + res.data.total;//团队注册人数
+						_this.unactivedText = '未实名' + ' ' + (res.data.total - _this.realnameNum);
 						_this.loading1 = false;
 						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
@@ -377,7 +373,7 @@
 				let params = {
 					pageNo: _this.currentPage2,
 					pageSize: _this.pageSize,
-					parentId: _this.userInfo.userId,
+					parentId: _this.parentId,
 					actived:1
 				}
 				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList, 'GET', params, function(res) {
@@ -422,7 +418,7 @@
 				let params = {
 					pageNo: _this.currentPage3,
 					pageSize: _this.pageSize,
-					parentId: _this.userInfo.userId,
+					parentId: _this.parentId,
 					actived:-1
 				}
 				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList, 'GET', params, function(res) {

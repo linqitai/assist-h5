@@ -8,8 +8,8 @@
 		box-sizing: border-box;
 		.formHeader{
 			padding: $boxPadding1;
-			background-color: $main-box-fh-bg-color;
-			color: $main-box-fh-text-color;
+			// background-color: $main-box-fh-bg-color;
+			color: $mainTextColor;
 			.logoBox{
 				position: relative;
 				img{
@@ -100,15 +100,11 @@
 		<div class="sureBox paddingWing">
 			<div class="tip">点击登录即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span><span class="forget" @click="forget">忘记密码？</span></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" :loading="isLoading" @click="loginBtn" loading-type="spinner">登  录</van-button>
-			<!-- <van-button size="normal" :block="true" @click="setECBtn" loading-type="spinner">setECBtn</van-button>
-			<van-button size="normal" :block="true" @click="getECBTN" loading-type="spinner">getECBTN</van-button> -->
-			
+		
 			<div class="placeholderLine10"></div>
-			<!-- <van-button color="inherit" size="normal" :block="true">手机号已更换，用秘钥登录</van-button> -->
-			<!-- <van-button color="inherit" size="normal" :block="true">手机号已更换，用邮箱登录</van-button> -->
-			<div class="tip4model3">
+			<!-- <div class="tip4model3">
 				Tip：您若已经参与了内排注册，登录密码初始化为所注册的手机号。
-			</div>
+			</div> -->
 			<div class="placeholderLine10"></div>
 		</div>
 	</div>
@@ -148,12 +144,13 @@
 		},
 		mounted() {
 			let _this = this;
+			localStorage.removeItem('_USERINFO_');
 			_this.form.phone = localStorage.getItem("mobilePhone");
 			// console.log(_this.form.phone,'_this.form.phone')
 			_this.welcomeText = _this.$api.welcomeText;
 			
 			if(_this.$cookies.get('token')){
-				_this.$router.push("home");
+				//_this.$router.push("home");
 			}
 			_this.bsTip();
 			//_this.getAssistMaintainInfo();
@@ -183,17 +180,17 @@
 				let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
-						_this.$toast("一机一号，切勿违规操作");
+						_this.$toast("请勿多账号操作，若经平台检测发现，冻结账号处理");
 						return;
 					}
 				}
 			},
 			forget(){
 				let _this = this;
-				/*
+				
 				//请不要操作多账号
-				_this.judgeMoreAccount();
-				*/
+				//_this.judgeMoreAccount();
+				
 				_this.$router.replace('/forgetPassword');
 			},
 			getAddress(){
@@ -238,39 +235,61 @@
 				_this.$ajax.ajax(_this.$api.getAssistUserFreezeByUserId, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						_this.userFreezeInfo = res.data;
-						Dialog.alert({
-						  title: '系统提示',
-						  message: '您的账号异常或暂时被冻结，原因：' + _this.userFreezeInfo.reason + '。需找省市代理或客服解除异常或解冻。',
-						}).then(() => {
-						  // on close
-						});
+						if(_this.userFreezeInfo==null){
+							Dialog.alert({
+							  title: '系统提示',
+							  message: '您的账号被系统检测存在刷号现象，已被冻结。',
+							}).then(() => {
+							  // on close
+							});
+						}else{
+							Dialog.alert({
+							  title: '系统提示',
+							  message: '您的账号异常或暂时被冻结，原因：' + _this.userFreezeInfo.reason + '。需找省市代理或客服解除异常或解冻。',
+							}).then(() => {
+							  // on close
+							});
+						}
 					}else{
 						_this.$toast(res.message);
 					}
 				})
 			},
+			logout(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
+					if(res.code == _this.$api.CODE_OK){
+						_this.$toast(res.message);
+						localStorage.removeItem('_USERINFO_');
+						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
+						// console.log("_this.$cookies.keys()",_this.$cookies.keys());
+						// _this.$cookies.remove('_USERINFO_');
+						// _this.$cookies.remove('buyAndSellInfo');
+						_this.$cookies.remove('userId');
+						_this.$cookies.remove('token');
+						// console.log("_this.$cookies.keys()",_this.$cookies.keys());
+					}
+				},function(){
+					//_this.$router.replace('login');
+				})
+			},
 			loginBtn(){
 				let _this = this;
 				let params = {
-					userName: _this.form.phone,
-					password: _this.form.password,
-					securityCode: _this.form.securityCode.toLowerCase()
+					userName: _this.form.phone.replace(/ /g,""),
+					password: _this.form.password.replace(/ /g,""),
+					securityCode: _this.form.securityCode.toLowerCase().replace(/ /g,"")
 				}
 				//请不要操作多账号
-				// _this.judgeMoreAccount();
+				//_this.judgeMoreAccount();
 				let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
-						// _this.$toast("一机一号，切勿违规操作");
-						Dialog.alert({
-						  title: '系统提示',
-						  message: _this.$api.oneAccount,
-						}).then(() => {
-						  // on close
-						});
+						_this.$toast("请勿多账号操作，若经平台检测发现，将冻结账号处理");
 						return;
 					}
 				}
+				
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('系统提示:请填写完成信息');
 					return;
@@ -289,8 +308,8 @@
 						let userInfo = res.data.assistUserInfoVo4Web;
 						/* alert("userInfo1:" + JSON.stringify(userInfo)); */
 						/* _this.getBuyAndSellInfo(userInfo.userId); */
-						_this.$cookies.set("userId", userInfo.userId, _this.$api.cookiesTime);
-						_this.$cookies.set('token',res.data.token, _this.$api.cookiesTime);
+						_this.$cookies.set("userId", userInfo.userId);
+						_this.$cookies.set('token',res.data.token);
 						//登录后手机号缓存到本地，每次登录免得继续输入手机号，提高用户体验
 						localStorage.setItem('_USERINFO_',JSON.stringify(userInfo));
 						/* alert("userInfo2:" + ); */
@@ -323,13 +342,13 @@
 						_this.errorHint.phone = _this.$reg.phoneHint;
 					}
 				}else if(key == 'password'){
-					if(_this.$reg.password.test(_this.form.password)){
+					if(_this.$reg.password.test(_this.form.password.replace(/ /g,""))){
 						_this.errorHint.password = '';
 					}else{
 						_this.errorHint.password = _this.$reg.passwordHint;
 					}
 				}else if(key == 'securityCode'){
-					if(_this.$reg.securityCode.test(_this.form.securityCode)){
+					if(_this.$reg.securityCode.test(_this.form.securityCode.replace(/ /g,""))){
 						_this.errorHint.securityCode = '';
 					}else{
 						_this.errorHint.securityCode = _this.$reg.securityCodeHint;

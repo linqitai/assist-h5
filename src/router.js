@@ -32,6 +32,11 @@ export default new Router({
 			component: resolve => require(['./views/other/agreement'],resolve)
 		},
 		{
+			path: '/initPassword',
+			name: '初始化密码',
+			component: resolve => require(['./views/start/initPassword'],resolve)
+		},
+		{
 			path: '/tip',
 			name: '提示',
 			component: resolve => require(['./views/other/tip'],resolve)
@@ -82,7 +87,7 @@ export default new Router({
 					path: '/mill',
 					name: '矿机商城',
 					component: resolve => require(['./views/mill/mill'],resolve),
-					meta:{footer:true,question:true,questionName:'mill'},
+					meta:{footer:true,question:true,questionName:'mill',showMillRecordIcon:true},
 				},
 				{
 					path: '/deal',
@@ -123,6 +128,18 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
+							path: '/mySuperTeam2',
+							name: '我的下级团队',
+							component: resolve => require(['./views/my/mySuperTeam2'],resolve),
+							meta:{footer:false},
+						},
+						{
+							path: '/mySuperTeam3',
+							name: '我的下级团队',
+							component: resolve => require(['./views/my/mySuperTeam3'],resolve),
+							meta:{footer:false},
+						},
+						{
 							path: '/myShare',
 							name: '我要分享',
 							component: resolve => require(['./views/my/myShare'],resolve),
@@ -152,7 +169,7 @@ export default new Router({
 						},
 						{
 							path: '/transferMineral',
-							name: '定向转让矿石',
+							name: '担保交易矿石',
 							component: resolve => require(['./views/my/transferMineral'],resolve),
 							meta:{footer:false},
 						},
@@ -161,6 +178,18 @@ export default new Router({
 							name: '解冻账号',
 							component: resolve => require(['./views/my/unFreeze'],resolve),
 							meta:{footer:false},
+						},
+						{
+							path: '/lookInfo',
+							name: '调查他人信息',
+							component: resolve => require(['./views/my/lookInfo'],resolve),
+							meta:{footer:false},
+						},
+						{
+							path: '/reduceRNTimes',
+							name: '销实名次数',
+							component: resolve => require(['./views/my/reduceRNTimes'],resolve),
+							meta:{footer:false,back:true},
 						},
 					]
 				}
@@ -196,7 +225,7 @@ export default new Router({
 				},
 				{
 					path: '/myDealCheck',
-					name: '定向转让审核',
+					name: '担保交易审核',
 					component: resolve => require(['./views/my/myDealCheck'],resolve),
 					meta:{footer:false},
 				},
@@ -329,6 +358,12 @@ export default new Router({
 			path: '/dealRecord',
 			name: '交易记录',
 			component: resolve => require(['./views/deal/dealRecord'],resolve),
+			meta:{footer:false},
+		},
+		{
+			path: '/millRecord',
+			name: '购买矿机记录表',
+			component: resolve => require(['./views/mill/millRecord'],resolve),
 			meta:{footer:false},
 		},
 	]

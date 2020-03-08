@@ -115,38 +115,46 @@
 	<m-header>
 		<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 		<div class="text">实名审核</div>
-		<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
+		<i class="rightBox icon"></i>
 	</m-header>
-	<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="嗯 嗯">
-		<div class="placeholderLine4"></div>
-		<div class="paddingWing f-12 lineHeight textJustify tip4model2">
-			<div class="textIndent">
-				<b>审核指标：</b>只要用户的真实姓名和证件照中的姓名对得上，且身份证号也对得上即可通过；否则就驳回。
-			</div>
-			<div class="textIndent">
-				<b>审核嘱咐：</b>帮扶链平台会不是张三的，也不是李四的，而是大家的，期望各位领导人认真审核，共同维护好平台。
-			</div>
-			<div class="textIndent">
-				<b>审核津贴：</b>审核通过奖励审核人0.1张帮扶券；审核驳回奖励审核人0.5张帮扶券。
-			</div>
-		</div>
-		<div class="placeholderLine4"></div>
-	</van-dialog>
 	<!-- 实名认证 -->
 	<div class="realName">
+		<div class="f-12 lineHeight textJustify tip4model">
+			<div class="textIndent">
+				<b>审核指标：</b>请客服和团队长们一定要审核对方的支付宝账号的真实姓名，只要用户的真实姓名和支付宝中的姓名还有证件照中的姓名对得上，且身份证号也对得上即可通过；否则就驳回。
+			</div>
+			<div class="textIndent">
+				<b>审核嘱咐：</b>帮扶链这个平台不是张三的，也不是李四的，而是大家的，期望各位领导人认真审核，共同维护好平台。
+			</div>
+			<div class="textIndent">
+				<b>审核津贴：</b>审核通过奖励审核人0.1张帮扶券；审核驳回奖励审核人0.2张帮扶券。
+			</div>
+			<div class="textIndent">
+				注：若会员提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。
+			</div> 
+		</div>
 		<van-field v-model="form.nickName" required clearable label="昵称" disabled="true" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
-		<!-- <van-field v-model="form.telPhone" required clearable label="手机号" right-icon="question-o" :placeholder="errorHint.telPhone" maxlength="11"
-		@click-right-icon="$toast(errorHint.telPhone)"
-		@blur="validate('telPhone')"
-		:error-message="errorInfo.telPhone"/> -->
-		
-		<van-field v-model="form.wechartNum" required clearable label="微信号" maxlength="11" disabled="true" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
-		<van-field v-model="form.alipayNum" required clearable label="支付宝" maxlength="11" disabled="true" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
+		<van-field v-model="form.realName" required clearable label="真实姓名" disabled="true" placeholder="请填写真实姓名" maxlength="20"
+		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
+		<van-field v-model="form.mobilePhone" required clearable label="手机号" maxlength="11" disabled="true">
+			<van-button slot="button" size="small" type="primary" @click="handleCopy(form.mobilePhone,$event)">复制</van-button>
+		</van-field>
+		<van-field v-model="form.wechartNum" required clearable label="微信号" maxlength="11" disabled="true">
+			<van-button slot="button" size="small" type="primary" @click="handleCopy(form.wechartNum,$event)">复制</van-button>
+		</van-field>
+		<van-field v-model="form.alipayNum" required clearable label="支付宝" maxlength="11" disabled="true">
+			<van-button slot="button" size="small" type="primary" @click="handleCopy(form.alipayNum,$event)">复制</van-button>
+		</van-field>
+		<div class="line" v-if="form.gesturePic">
+			<img class="selectedImg" :src="form.gesturePic"/>
+		</div>
 		<!-- <van-field v-model="form.bankCard" required clearable label="银行卡号" right-icon="question-o" :placeholder="errorHint.bankCard"
 		@click-right-icon="$toast(errorHint.bankCard)"
 		@blur="validate('bankCard')"
 		:error-message="errorInfo.bankCard"/> -->
-		
+		<van-field v-model="form.mobilePhone" required clearable label="手机号" maxlength="11" disabled="true">
+			<van-button slot="button" size="small" type="primary" @click="handleCopy(form.mobilePhone,$event)">复制</van-button>
+		</van-field>
 		<van-field v-model="form.realName" required clearable label="真实姓名" disabled="true" placeholder="请填写真实姓名" maxlength="20"
 		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
 		<div class="line" v-if="form.idCardPic">
@@ -154,6 +162,9 @@
 		</div>
 		<div class="idcard">
 			<van-field v-model="form.idCard" required clearable label="身份证号" disabled="true" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
+		</div>
+		<div class="" v-if="form.remark">
+			<van-field v-model="form.remark" label="上次驳回原因" rows="2" autosize required disabled="true"/>
 		</div>
 		<!-- <div class="items2">
 			<div class="my-cell">
@@ -171,9 +182,14 @@
 		</div> -->
 		<div class="placeholderLine10"></div>
 		<div class="sureAppointBtnBox">
+			<div class="tip4model3">
+				注：会员若提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。
+			</div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="passBtn">通 过</van-button>
 			<div class="placeholderLine10"></div>
 			<van-button size="normal" :block="true" @click="refuseBtn">驳 回</van-button>
+			<div class="placeholderLine10"></div>
+			<van-button size="normal" :block="true" @click="freezzBtn">冻结账号</van-button>
 		</div>
 	</div>
 	<van-dialog v-model="showRefuseReasonModel" title="驳回原因" :showConfirmButton="false" :close-on-click-overlay="true">
@@ -181,6 +197,14 @@
 		<div class="refuseReason">
 			<van-field v-model="form.remark" required placeholder="请填写驳回原因,以便系统做统计" @blur="validate('remark')" :error-message="errorInfo.remark"/>
 			<van-button size="normal" :block="true" @click="submit('refuse')">提 交</van-button>
+		</div>
+		<div class="placeholderLine10"></div>
+	</van-dialog>
+	<van-dialog v-model="showFreezeReasonModel" title="冻结原因" :showConfirmButton="false" :close-on-click-overlay="true">
+		<div class="placeholderLine10"></div>
+		<div class="refuseReason">
+			<van-field v-model="form.remark" rows="2" autosize required placeholder="请填写冻结原因,以便系统做统计" @blur="validate('remark')" :error-message="errorInfo.remark"/>
+			<van-button size="normal" :block="true" @click="freezeEvent">提 交</van-button>
 		</div>
 		<div class="placeholderLine10"></div>
 	</van-dialog>
@@ -199,6 +223,7 @@ import { Toast } from 'vant';
 export default {
 	data() {
 		return {
+			showFreezeReasonModel:false,
 			showRefuseReasonModel:false,
 			showTipModel:false,
 			result:"",
@@ -281,7 +306,7 @@ export default {
 		}
 		
 		_this.userId = _this.$route.query.userId;
-		console.log('userId', _this.userId);
+		//console.log('userId', _this.userId);
 		_this.getAssistUserInfoPicByUserId();
 	},
 	methods:{
@@ -290,12 +315,12 @@ export default {
 		},
 		getAssistUserInfoPicByUserId(){
 			let _this = this;
-			_this.$ajax.ajax(_this.$api.getAssistUserInfo4CheckDetail + _this.userId, 'GET', null, function(res){
+			_this.$ajax.ajax4GetCheckDetail(_this.$api.getAssistUserInfo4CheckDetail + _this.userId, 'GET', null, function(res){
 				if(res.code == _this.$api.CODE_OK){
 					// _this.form.idCardPic = res.data.idCardPic;
 					// _this.form.gesturePic = res.data.gesturePic;
 					_this.form = res.data;
-					console.log("form",_this.form);
+					//console.log("form",_this.form);
 				}
 			})
 		},
@@ -330,15 +355,54 @@ export default {
 			  message: '该操作会将该用户审核通过，是否确认？'
 			}).then(() => {
 			  // on confirm
-			  console.log('sure');
+			  //console.log('sure');
 			  _this.submit("pass");
 			}).catch(() => {
 			  // on cancel
-			  console.log('cancel');
+			  //console.log('cancel');
 			});
 		},
+		handleCopy(text, event) {
+			let _this = this;
+			clip(text,event,function(res){
+				_this.$toast(`复制成功`);
+			});
+		},
+		freezzBtn(){
+			//console.log("submitRefuse");
+			let _this = this;
+			_this.showFreezeReasonModel = true;
+		},
+		freezeEvent(){
+			let _this = this;
+			
+			let params = {
+				userId: _this.form.userId,
+				reason: _this.form.remark, 
+				needTicket: 10,
+				canUnfreeze: 1
+			}
+			//console.log('params',params)
+			if(_this.$utils.hasNull(params)){
+				_this.$toast(`请提交完整信息`);
+				return;
+			}
+			//console.log('系统提示：可提交信息');
+			_this.$ajax.ajax(_this.$api.insertAssistUserFreeze, 'POST', params, function(res){
+				// //console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					// _this.info = res.data.list;
+					// _this.isRealName = true;
+					_this.$toast(res.message);
+					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+					_this.$router.go(-1);
+				}else{
+					_this.$toast(res.message);
+				}
+			})
+		},
 		refuseBtn(){
-			console.log("submitRefuse");
+			//console.log("submitRefuse");
 			let _this = this;
 			_this.showRefuseReasonModel = true;
 		},
@@ -357,14 +421,14 @@ export default {
 				params.actived = 2;
 				params.remark = _this.form.remark;
 			}
-			console.log('params',params)
+			//console.log('params',params)
 			if(_this.$utils.hasVal(_this.errorInfo)||_this.$utils.hasNull(params)){
 				_this.$toast(`系统提示：请提交完整信息`);
 				return;
 			}
-			console.log('系统提示：可提交信息');
+			//console.log('系统提示：可提交信息');
 			_this.$ajax.ajax(_this.$api.updateUserInfo4CheckPassOrNot, 'POST', params, function(res){
-				// console.log('res',res);
+				// //console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
 					// _this.info = res.data.list;
 					// _this.isRealName = true;
@@ -446,10 +510,10 @@ export default {
 					_this.errorInfo.idCard = _this.$reg.idCardHint;
 				}
 			}else if(key == 'remark'){
-				if(_this.$reg.remark.test(_this.form.remark)){
+				if(_this.form.remark.length>1&&_this.form.remark.length<100){
 					_this.errorInfo.remark = '';
 				}else{
-					_this.errorInfo.remark = _this.$reg.remarkHint;
+					_this.errorInfo.remark = "理由长度超出1~100个字的限制";
 				}
 			}
 		},

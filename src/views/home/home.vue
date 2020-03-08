@@ -462,8 +462,8 @@ $noticeHeight:40px;
 					</van-swipe> -->
 				</div>
 				<div class="notice">
-					<!-- <van-notice-bar :text="lastNoticeItem.noticeTitle" left-icon="volume-o" @click="toNoticeDetail(lastNoticeItem)" /> -->
-					<van-notice-bar :text="qqFlock" left-icon="volume-o" @click="toServicePage"/>
+					<van-notice-bar :text="lastNoticeItem.noticeTitle" left-icon="volume-o" @click="toNoticeDetail(lastNoticeItem)" />
+					<!-- <van-notice-bar :text="qqFlock" left-icon="volume-o" @click="toServicePage"/> -->
 				</div>
 				<div class="millInfo">
 					<div class="infoBox">
@@ -641,12 +641,7 @@ $noticeHeight:40px;
 		},
 		mounted() {
 			let _this = this;
-			/* _this.userId = _this.$cookies.get('userId');
-			if(_this.$utils.isNUll(_this.userId)){
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			} */
+			
 			let userInfo = localStorage.getItem("_USERINFO_");
 			/* alert("userInfo:" + userInfo); */
 			if(userInfo){
@@ -654,12 +649,13 @@ $noticeHeight:40px;
 				_this.userId = _this.userInfo.userId;
 				_this.refreshAttendanceInfo();
 			}else{
-				_this.$cookies.remove('token');
+				localStorage.removeItem('_USERINFO_');
+				//_this.$cookies.remove('token');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('/login');
 				/* return; */
 			}
-			// console.log('getImageHost',_this.$api.HOST_IMG)
+			// //console.log('getImageHost',_this.$api.HOST_IMG)
 			/* this.mill = {
 				zl: _this.$utils.fmoney(80000000, 0),
 				bw: _this.$utils.fmoney(8000000, 0),
@@ -676,8 +672,6 @@ $noticeHeight:40px;
 				_this.noticeList = JSON.parse(localStorage.getItem("noticeListLocal"));
 				if(_this.noticeList){
 					_this.lastNoticeItem = _this.noticeList[0];
-					//实在显示首页的最新公告弹窗
-					_this.isShowLastNotice = true;
 				}else{
 					_this.getNoticeList();
 				}
@@ -686,7 +680,7 @@ $noticeHeight:40px;
 			}
 			//轮播图存获取
 			if(_this.$cookies.isKey('hasNoticeList4Swipe')){
-				console.log('hasNoticeList4Swipe');
+				//console.log('hasNoticeList4Swipe');
 				_this.noticeList4Swipe = JSON.parse(localStorage.getItem("noticeList4Swipe"));
 				if(_this.noticeList4Swipe){
 				}else{
@@ -704,7 +698,7 @@ $noticeHeight:40px;
 			// _this.getCanCirculateMineralNum();
 			/* if(_this.$cookies.get("haveDealPageInfo")){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem("dealPageInfo"));
-				console.log("dealPageInfo",_this.dealPageInfo);
+				//console.log("dealPageInfo",_this.dealPageInfo);
 			} */
 			
 		},
@@ -715,7 +709,7 @@ $noticeHeight:40px;
 			getAssistQQFlock(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getAssistQQFlock, 'POST', null, function(res) {
-					console.log('res', res);
+					//console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.qqFlock = `官方QQ群：${res.data.qqFlock}`;
 						_this.$cookies.set('qqFlock',res.data.qqFlock,_this.$api.cookiesTime8h);
@@ -763,42 +757,85 @@ $noticeHeight:40px;
 			getUserInfo() {
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
-					console.log('getUserInfo');
+					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
 						_this.refreshAttendanceInfo();
-						console.log(_this.userInfo,"userInfo");
+						//console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
 					}
 				})
 			},
 			attendanceBtn(){
 				this.showAttendanceModel=true;
-				console.log('attendanceBtn');
+				//console.log('attendanceBtn');
 			},
 			sureAttendanceBtn(){
 				let _this = this;
-				_this.isLoading = true;
-				_this.isDisableAttendanceBtn = true;
-				_this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
-					_this.isLoading = false;
-					if (res.code == _this.$api.CODE_OK) {
-						_this.getUserInfo();
-						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
-					}else if(res.code==1003){
+				let userInfo = localStorage.getItem("_USERINFO_");
+				if(userInfo) {
+					let ui = JSON.parse(userInfo);
+					//昨天
+					let yestoday=new Date().getTime()-24*60*60*1000;
+					let yestodayYMD = _this.$utils.getDate(yestoday);
+					if(ui.beforeAttendanceDate<yestodayYMD){
 						Dialog.alert({
 						  title: '提示信息',
-						  confirmButtonText:'前去查看',
-						  message: res.message
+						  message: '该账号上次签到时间是' + ui.beforeAttendanceDate + '，已经漏签需重新签到'
 						}).then(() => {
 						  // on confirm
-						  _this.$router.push("mill");
+						  _this.isLoading = true;
+						  _this.isDisableAttendanceBtn = true;
+						  _this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
+						  	_this.isLoading = false;
+						  	if (res.code == _this.$api.CODE_OK) {
+						  		_this.getUserInfo();
+						  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
+						  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+						  	}else if(res.code==1003){
+						  		Dialog.alert({
+						  		  title: '提示信息',
+						  		  confirmButtonText:'前去查看',
+						  		  message: res.message
+						  		}).then(() => {
+						  		  // on confirm
+						  		  _this.$router.push("mill");
+						  		})
+						  	}else{
+						  		_this.$toast(res.message);
+						  	} 
+						  })
 						})
 					}else{
-						_this.$toast(res.message);
+						Dialog.alert({
+						  title: '提示信息',
+						  message: '该账号上次签到时间是' + ui.beforeAttendanceDate + '，可续签'
+						}).then(() => {
+						  // on confirm
+						  _this.isLoading = true;
+						  _this.isDisableAttendanceBtn = true;
+						  _this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
+						  	_this.isLoading = false;
+						  	if (res.code == _this.$api.CODE_OK) {
+						  		_this.getUserInfo();
+						  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
+						  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+						  	}else if(res.code==1003){
+						  		Dialog.alert({
+						  		  title: '提示信息',
+						  		  confirmButtonText:'前去查看',
+						  		  message: res.message
+						  		}).then(() => {
+						  		  // on confirm
+						  		  _this.$router.push("mill");
+						  		})
+						  	}else{
+						  		_this.$toast(res.message);
+						  	} 
+						  })
+						})
 					}
-				})
+				}
 			},
 			refreshEvent() {
 				/* alert("refresh"); */
@@ -858,7 +895,7 @@ $noticeHeight:40px;
 					type:1
 				}
 				_this.$ajax.ajax(_this.$api.getNoticePageList, 'GET', params, function(res) {
-					// console.log('res', res);
+					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.noticeList4Swipe = res.data.list;
 						localStorage.setItem('noticeList4Swipe',JSON.stringify(_this.noticeList4Swipe));
@@ -874,7 +911,7 @@ $noticeHeight:40px;
 					type:0
 				}
 				_this.$ajax.ajax(_this.$api.getNoticePageList, 'GET', params, function(res) {
-					// console.log('res', res);
+					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.noticeList = res.data.list;
 						_this.lastNoticeItem = _this.noticeList[0];
@@ -882,12 +919,16 @@ $noticeHeight:40px;
 						_this.isShowLastNotice = true;
 						localStorage.removeItem('noticeListLocal');
 						localStorage.setItem('noticeListLocal',JSON.stringify(res.data.list));
-						_this.$cookies.set('hasnoticeList',1,_this.$api.cookiesTime8h);
+						_this.$cookies.set('hasnoticeList',1,60*60*2);
+						//首页弹窗的缓存
+						//_this.$cookies.set('isShowLN',1,60*60);
+						//实在显示首页的最新公告弹窗
+						_this.isShowLastNotice = true;
 					}
 				})
 			},
 			noticeTap() {
-				console.log('you click me')
+				//console.log('you click me')
 			}
 		}
 	}

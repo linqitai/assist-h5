@@ -95,7 +95,7 @@
 					认证后可获得如下权益<br>
 					<!-- 1.赠送1台体验矿机<br> -->
 					1.增加1点贡献值<br>
-					2.获得一台产30个矿石的微型矿机<br>
+					2.获得一台微型矿机<br>
 					3.每次签到加相应贡献值，连续签到30天，可获得1台体验矿机
 				</div>
 			</div>
@@ -129,7 +129,7 @@
 				<div class="line text margT10">
 					分享10名会员完成基础任务<br>
 					达到后可获得如下奖励<br>
-					每分享1名有效会员可获得1点贡献值的同时，额外获得一台体验矿机
+					每分享1名有效会员可获得相应贡献值的同时，额外获得一台体验矿机
 				</div>
 			</div>
 			<div class="flexRight">
@@ -146,12 +146,17 @@
 				<div class="line text margT10">
 					建立帮扶链工会群<br>
 					需要：<br>
-					设立2名群管理<br>
-					所服务的帮扶链用户数量超过300名<br>
-					需省市代理审核群活跃度并引荐给客服<br>
+					设立3名群管理<br>
+					所服务的帮扶链用户数量超过300名(300有效直推且是群主和群管理4人有效直推之和)或群满500人群主加群管理有效直推满200人<br>
+					群里至少要有一半会员完成修改群昵称格式：HPC~自己昵称，达标后即可邀请讲师进群，下次讲课会有机器人转播。<br>
+					需省市代理审核群昵称及群活跃度并引荐给客服再审核一次<br>
 					达标后：<br>
-					群主和群管理获得一台小型矿机<br>
+					群主和群管理各获得一台半年的小型矿机<br>
+					该福利时刻有效，客服审核通过后，72小时内会发放该奖励<br>
 				</div>
+			</div>
+			<div class="flexRight">
+				<i class="iconfont iconfont-finished" v-show="isShowQunTaskOK"></i>
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
@@ -208,10 +213,10 @@
 				<div class="line text margT10">
 					成为青铜级工会会长<br>
 					需要：<br>
-					直推团队至少3人团队算力达到10或个人算力达到1<br>
+					有效直推至少3个团队算力达到10或个人算力达到1<br>
 					完成后:<br>
-					1.可获得二台微型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 12%<br>
+					1.可获得一台微型矿机<br>
+					2.每次租赁矿机所加贡献值比例提升至 1.5%<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -228,10 +233,10 @@
 				<div class="line text margT10">
 					成为白银级工会会长<br>
 					需要：<br>
-					直推团队至少20人团队算力达到100或个人算力达到9<br>
+					有效直推至少30个团队算力达到100或个人算力达到9<br>
 					完成后:<br>
 					1.可获得一台小型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 14%<br>
+					2.每次租赁矿机所加贡献值比例提升至 2.0%<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -248,10 +253,10 @@
 				<div class="line text margT10">
 					成为黄金级工会会长<br>
 					需要：<br>
-					直推团队至少50人团队算力达到500或个人算力达到34<br>
+					有效直推至少100个团队算力达到500或个人算力达到34<br>
 					完成后:<br>
 					1.可获得一台中型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 16%<br>
+					2.每次租赁矿机所加贡献值比例提升至 2.5%<br>
 					<!-- 2.平台3-5期权分红权限 -->
 				</div>
 			</div>
@@ -269,10 +274,10 @@
 				<div class="line text margT10">
 					成为铂金级工会会长<br>
 					需要：<br>
-					直推团队至少100人团队算力达到2000或个人算力达到114<br>
+					有效直推至少200个团队算力达到2000或个人算力达到114<br>
 					完成后:<br>
-					1.可获得一台大型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 18%<br>
+					1.可获得一台中型矿机+市代理名额<br>
+					2.每次租赁矿机所加贡献值比例提升至 3.0%<br>
 					<!-- 2.平台3-3期权分红权限 -->
 				</div>
 			</div>
@@ -288,12 +293,12 @@
 					升级任务5
 				</div>
 				<div class="line text margT10">
-					成为砖石级工会会长<br>
+					成为钻石级工会会长<br>
 					需要：<br>
-					直推团队至少300人团队算力达到10000或个人算力达到214<br>
+					有效直推至少300个团队算力达到10000或个人算力达到214<br>
 					完成后:<br>
-					1.可获得一台巨型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 20%<br>
+					1.可获得一台中型矿机+省代理名额<br>
+					2.每次租赁矿机所加贡献值比例提升至 4.0%<br>
 					<!-- 2.平台3-2期权分红权限 -->
 				</div>
 			</div>
@@ -366,7 +371,8 @@ export default {
 			isRealName:true,
 			isShare3:false,
 			isAgency:false,
-			userId:''
+			userId:'',
+			isShowQunTaskOK:false
 		}
 	},  
 	components:{
@@ -389,6 +395,7 @@ export default {
 		}else{
 			_this.isRealName = false;
 		}
+		_this.getAssistMyMachineCount4Task();
 		// console.log('_this.isRealName',_this.isRealName);
 	},
 	methods:{
@@ -488,7 +495,7 @@ export default {
 			console.log("_this.userInfo",_this.userInfo);
 			let teamCP = _this.userInfo.teamCalculationPower;
 			let myCP = _this.userInfo.myCalculationPower;
-			let teamNum = _this.userInfo.teamateNum;
+			let teamNum = _this.userInfo.realnameNum;
 			let levelNow = _this.userInfo.level;
 			if(level==1){
 				if((teamNum<3||teamCP<10||levelNow<=0) && (myCP<1)){
@@ -654,6 +661,23 @@ export default {
 					}
 				})
 			}
+		},
+		getAssistMyMachineCount4Task(){
+			let _this = this;
+			let params = {
+				type:2,
+				tag:4
+			}
+			_this.$ajax.ajax(_this.$api.getAssistMyMachineCount4Task, 'GET', params, function(res){
+				console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					if(res.data>0){
+						_this.isShowQunTaskOK = true;
+					}else{
+						_this.isShowQunTaskOK = false;
+					}
+				}
+			})
 		},
 		toRealName(){
 			let _this = this;

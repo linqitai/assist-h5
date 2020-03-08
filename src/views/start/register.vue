@@ -263,7 +263,7 @@
 			registerBtn(){
 				let _this = this;
 				console.log('form',this.form);
-				let phone = localStorage.getItem("mobilePhone");
+				/* let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
 						// _this.$toast("一机一号，切勿违规操作");
@@ -275,12 +275,12 @@
 						});
 						return;
 					}
-				}
+				} */
 				let params = {
-					telephone:_this.form.phone,
-					password:_this.form.password,
-					confirmPassword:_this.form.password2,
-					securityCode: _this.form.securityCode.toLowerCase(),
+					telephone:_this.form.phone.replace(/ /g,""),
+					password:_this.form.password.replace(/ /g,""),
+					confirmPassword:_this.form.password2.replace(/ /g,""),
+					securityCode: _this.form.securityCode.toLowerCase().replace(/ /g,""),
 					shareCode:_this.form.shareCode
 				}
 				if(_this.$utils.hasNull(params)){
@@ -318,19 +318,19 @@
 						_this.errorHint.phone = _this.$reg.phoneHint;
 					}
 				}else if(key == 'password'){
-					if(_this.$reg.password.test(_this.form.password)){
+					if(_this.$reg.password.test(_this.form.password.replace(/ /g,""))){
 						_this.errorHint.password = '';
 					}else{
 						_this.errorHint.password = _this.$reg.passwordHint;
 					}
 				}else if(key == 'password2'){
-					if(_this.form.password2 == _this.form.password){
+					if(_this.form.password2 == _this.form.password.replace(/ /g,"")){
 						_this.errorHint.password2 = '';
 					}else{
 						_this.errorHint.password2 = _this.placeholder.password2;
 					}
 				}else if(key == 'validateCode'){
-					if(_this.$reg.validateCode.test(_this.form.validateCode)){
+					if(_this.$reg.validateCode.test(_this.form.validateCode.replace(/ /g,""))){
 						_this.errorHint.validateCode = '';
 					}else{
 						_this.errorHint.validateCode = _this.$reg.validateCodeHint;
@@ -342,7 +342,7 @@
 						_this.errorHint.shareCode = _this.$reg.shareCodeHint;
 					}
 				}else if(key == 'securityCode'){
-					if(_this.$reg.securityCode.test(_this.form.securityCode)){
+					if(_this.$reg.securityCode.test(_this.form.securityCode.replace(/ /g,""))){
 						_this.errorHint.securityCode = '';
 					}else{
 						_this.errorHint.securityCode = _this.$reg.securityCodeHint;

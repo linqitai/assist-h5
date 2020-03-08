@@ -232,7 +232,7 @@
 		</van-sticky>
 		
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-			<div class="line1pxbgcolor"></div>
+			<!-- <div class="line1pxbgcolor"></div>
 			<div class="dealContent">
 				<div class="dealList">
 					<div class="item" v-for="item in list1" :key="item.id">
@@ -242,7 +242,7 @@
 						</div>
 						<div class="boxRight">
 							<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
-							<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">卖TA</van-button></div>
+							<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
 						</div>
 					</div>
 				</div>
@@ -262,8 +262,8 @@
 				<div class="placeholderLine"></div>
 				<div class="placeholderLine"></div>
 				<div class="placeholderLine"></div>
-			</div>
-			<!-- <van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			</div> -->
+			<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab title="平价市场" name="dealArea1">
 					<div class="line1pxbgcolor"></div>
@@ -276,7 +276,7 @@
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
-									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">卖TA</van-button></div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -309,7 +309,7 @@
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
-									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">卖TA</van-button></div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -331,7 +331,7 @@
 						<div class="placeholderLine"></div>
 					</div>
 				</van-tab>
-			</van-tabs>	 -->
+			</van-tabs>	
 		</van-pull-refresh>
 		
 		<van-action-sheet v-model="showPickSellModel" title="卖出">
@@ -371,7 +371,7 @@
 			  <van-field required v-model="form4pickSellBill.safePassword" type="password" clearable label="安全密码" @blur="validate4pickSellBill('safePassword')" :error-message="errorInfo4pickSellBill.safePassword" placeholder="请填写安全密码"/>
 		  </van-cell-group>
 		  <div class="sureAppointBtnBox">
-			  <div class="modelTipText">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div>
+			  <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div>
 			  <div class="placeholderLine10"></div>
 			  <van-button @click="sureHangPickedSellBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="sellBtnLoading" loading-type="spinner">确 认</van-button>
 		  </div>
@@ -384,16 +384,16 @@
 					价格涨幅规律：每当平台指导价的求购量超过10万{{pen}}，则涨0.1CNY。
 				</div> -->
 				<van-cell-group>
-				<van-field v-model="userInfo.canBuyNum" label="我的限购数量" disabled right-icon="question-o" @click-right-icon="alertTip(clickIconTip.buyAmount)"/>
-				<van-field v-model="form4BuyBill.buyAmount" required clearable label="想买数量" right-icon="question-o" placeholder="请填写想要买入的总数量"
+				<van-field v-model="userInfo.canBuyNum" label="我的限购数量" type="number" disabled right-icon="question-o" @click-right-icon="alertTip(clickIconTip.buyAmount)"/>
+				<van-field v-model="form4BuyBill.buyAmount" type="number" required clearable label="想买数量" right-icon="question-o" placeholder="请填写想要买入的总数量"
 				  @click-right-icon="alertTip(clickIconTip.buyAmount)"
 				  @blur="validate4BuyBill('buyAmount')"
 				  :error-message="errorInfo4BuyBill.buyAmount"/>
-				<van-field v-model="form4BuyBill.buyLowestAmount" required clearable label="最低匹配数量" right-icon="question-o" placeholder="请填写允许被匹配的最低数量"
+				<van-field v-model="form4BuyBill.buyLowestAmount" type="number" required clearable label="最低匹配数量" right-icon="question-o" placeholder="请填写允许被匹配的最低数量"
 				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
 				@blur="validate4BuyBill('buyLowestAmount')"
 				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
-				<van-field v-model="form4BuyBill.price" disabled clearable label="单价" right-icon="question-o" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" type="number" disabled clearable label="单价" right-icon="question-o" placeholder="请填写单价"
 				  @click-right-icon="alertTip(clickIconTip.platformUnivalence)"/>
 				<div class="inLine">
 					<span class="label">开溢价</span>
@@ -556,7 +556,7 @@ export default {
 	watch: {
 	    addPriceValue(val, oldVal) {
 			let _this = this;
-	        console.log("addPriceValue = " + val + " , oldValue = " + oldVal)
+	        //console.log("addPriceValue = " + val + " , oldValue = " + oldVal)
 			if(val == 0){
 				_this.form4BuyBill.price = _this.dealPageInfo.currentPlatformPrice;
 			}else{
@@ -582,7 +582,7 @@ export default {
 		},
 		remainPlateForm () {
 			let _this = this;
-			// console.log('_this.userInfo.platformTicket',_this.platformTicket);
+			// //console.log('_this.userInfo.platformTicket',_this.platformTicket);
 			let num = 0;//_this.userInfo.platformTicket
 			if(_this.form4pickSellBill.serviceCharge==0){
 				num = _this.platformTicket;
@@ -596,7 +596,7 @@ export default {
 					return num;
 				}
 			}
-			// console.log('num',num);
+			// //console.log('num',num);
 			return num.toFixed(2); 
 		}
 	},
@@ -627,7 +627,7 @@ export default {
 		  let _this = this;
 		  _this.serviceCharge = item.text;
 		  _this.form4pickSellBill.serviceCharge = item.id;
-		  // console.log("_this.form4pickSellBill.serviceCharge",item.id);
+		  // //console.log("_this.form4pickSellBill.serviceCharge",item.id);
 		  _this.showPicker4ServiceChargePopup = false;
 		  if(_this.form4pickSellBill.serviceCharge == 1){
 			  _this.maxBill = Math.floor(_this.maxBill*1.1);
@@ -637,11 +637,11 @@ export default {
 		  Toast(`当前值：${value}, 当前索引：${index}`);
 		},
 		onChange4slider(value){
-			console.log(value);
+			//console.log(value);
 			/* this.form4pickSellBill.sellAmountSliderValue = parseInt(parseFloat(value).toFixed(2)); */
 		},
 		onChange4sliderPrice(value){
-			console.log(value);
+			//console.log(value);
 			let _this = this;
 			if(value == 0){
 				_this.form4BuyBill.price = _this.dealPageInfo.currentPlatformPrice;
@@ -654,17 +654,17 @@ export default {
 			_this.$router.push('/myDeal4Deal');
 		},
 		refreshEvent() {
-			console.log("refresh")
+			//console.log("refresh")
 			let _this = this;
 			_this.getDealPageInfo();
 			if(_this.tabActiveName == 'dealArea1'){
-				console.log("refresh1");
+				//console.log("refresh1");
 				_this.currentPage1 = 1;
 				// _this.list1 = [];
 				_this.finished1 = false;
 				_this.getListGeneral();
 			}else if(_this.tabActiveName == 'dealArea2'){
-				console.log("refresh2");
+				//console.log("refresh2");
 				_this.currentPage2 = 1;
 				_this.list2 = [];
 				_this.finished2 = false;
@@ -676,14 +676,14 @@ export default {
 		},
 		tabChange(name,title){
 			let _this = this;
-			console.log(name,title);
+			//console.log(name,title);
 			this.$cookies.set("tabName4Deal", name, 60 * 60 * 1)
 			if(name == 'dealArea2'){
-				// console.log(localStorage.getItem("LIST2"),"list2")
+				// //console.log(localStorage.getItem("LIST2"),"list2")
 				if(_this.$cookies.get('totalItems2')){
 					_this.list2 = JSON.parse(localStorage.getItem("LIST2"));
 					_this.totalItems2 = parseInt(_this.$cookies.get('totalItems2'));
-					console.log('_this.totalItems2',_this.totalItems2);
+					//console.log('_this.totalItems2',_this.totalItems2);
 				}else{
 					_this.getListAddPrice();
 				}
@@ -691,7 +691,7 @@ export default {
 				if(_this.$cookies.get('totalItems1')){
 					_this.list1 = JSON.parse(localStorage.getItem("LIST1"));
 					_this.totalItems1 = parseInt(_this.$cookies.get('totalItems1'));
-					console.log('_this.totalItems1',_this.totalItems1);
+					//console.log('_this.totalItems1',_this.totalItems1);
 				}else{
 					_this.getListGeneral();
 				}
@@ -709,7 +709,7 @@ export default {
 				_this.$router.replace('login');
 				return;
 			}
-			console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
+			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
 			if(_this.$cookies.get('haveDealPageInfo')){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
 				_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`;
@@ -753,7 +753,7 @@ export default {
 		getDealPageInfo(){
 			let _this = this;
 			_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
-				console.log('getDealPageInfo', res);
+				//console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
 					_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`;
@@ -770,10 +770,10 @@ export default {
 				pageNo: _this.currentPage1,
 				pageSize: _this.pageSize,
 			}
-			console.log(params,'params')
+			//console.log(params,'params')
 			_this.loading1 = true;
 			_this.$ajax.ajax(_this.$api.getAssistBuyBillListGeneralPage, 'GET', params, function(res) {
-				// console.log('res', res);
+				// //console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.list1 = res.data.list;
 					_this.totalItems1 = res.data.total;
@@ -796,7 +796,7 @@ export default {
 			}
 			_this.loading2 = true;
 			_this.$ajax.ajax(_this.$api.getAssistBuyBillListAddPricePage, 'GET', params, function(res) {
-				// console.log('res', res);
+				// //console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.list2 = res.data.list;
 					_this.totalItems2 = res.data.total;
@@ -812,8 +812,8 @@ export default {
 			if(_this.$cookies.isKey("tabName4Deal")){
 				_this.tabActiveName = _this.$cookies.get("tabName4Deal");
 			}
-			console.log('tabActiveName==dealArea2');
-			console.log(_this.tabActiveName == "dealArea2")
+			//console.log('tabActiveName==dealArea2');
+			//console.log(_this.tabActiveName == "dealArea2")
 			if(_this.tabActiveName == "dealArea2"){
 				if(_this.$cookies.isKey("totalItems2")){
 					_this.totalItems2 = parseInt(_this.$cookies.get("totalItems2"));
@@ -846,10 +846,10 @@ export default {
 		showPickSellModelBtn(item){
 			let _this = this;
 			if(_this.tabActiveName == 'dealArea2'){
-				if(_this.userInfo.myCalculationPower<0.3){
+				if(_this.userInfo.myCalculationPower<1){
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '个人算力达到0.3G后即可开通溢价交易'
+					  message: '个人算力达到1G后即可开通溢价交易'
 					}).then(() => {
 					  // on close
 					});
@@ -871,9 +871,7 @@ export default {
 					myMaxCanSellNum = myMineralNum/(1.0 + ratio);
 				} */
 				myMaxCanSellNum = myMineralNum/(1.0 + ratio);
-				console.log(myMaxCanSellNum,'myMaxCanSellNum');
 			}else if(_this.form4pickSellBill.serviceCharge==1){
-				console.log('serviceCharge==1')
 				//卖出需要贡献值
 				/* if(myContributionValue<=myMineralNum/1.1){
 					myMaxCanSellNum = myContributionValue;
@@ -882,9 +880,7 @@ export default {
 					myMaxCanSellNum = myMineralNum/1.1;
 				} */
 				myMaxCanSellNum = myMineralNum/1.1;
-				console.log(myMaxCanSellNum,'myMaxCanSellNum');
 			}
-			console.log(myMaxCanSellNum,'myMaxCanSellNum');
 			if(myMaxCanSellNum>=item.minNumber&&myMaxCanSellNum<=item.maxNumber){
 				_this.maxBill = Math.floor(myMaxCanSellNum);
 			}
@@ -894,7 +890,7 @@ export default {
 			if(myMaxCanSellNum<item.minNumber){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: '您的最大可卖数量不够匹配该买单。每卖1个矿石需有1.2个矿石和1个贡献值。'
+				  message: '您的最大可卖数量不够匹配该买单。'
 				}).then(() => {
 				  // on close
 				});
@@ -904,14 +900,14 @@ export default {
 			_this.form4pickSellBill.price = item.price;
 			_this.form4pickSellBill.sellAmountSliderValue = item.minNumber;
 			_this.minBill = item.minNumber;
-			console.log('_this.maxBill',_this.maxBill);
+			//console.log('_this.maxBill',_this.maxBill);
 		},
 		//挂卖操作
 		sureHangPickedSellBillBtn(){
 			let _this = this;
-			console.log('sureHangPickedSellBillBtn');
+			//console.log('sureHangPickedSellBillBtn');
 			//挂卖之前先判断时间
-			/* if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
+			if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
 				Dialog.alert({
 				  title: '系统提示',
 				  message: '交易时间是9~21点，请明天再来'
@@ -919,7 +915,7 @@ export default {
 				  // on close
 				});
 				return;
-			} */
+			}
 			if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
 				Dialog.alert({
 				  title: '系统提示',
@@ -945,7 +941,7 @@ export default {
 				});
 				return;
 			}
-			console.log("params",params);
+			//console.log("params",params);
 			if(_this.$utils.hasNull(params)){
 				_this.$toast('请填写完整信息');
 				return;
@@ -955,7 +951,7 @@ export default {
 				return;
 			}
 			
-			console.log("_this.remainMineral",_this.remainMineral);
+			//console.log("_this.remainMineral",_this.remainMineral);
 			if(_this.remainMineral<2.0){
 				Dialog.alert({
 				  title: '系统提示',
@@ -979,10 +975,10 @@ export default {
 			} */
 			params.safePassword = _this.$JsEncrypt.encrypt(_this.form4pickSellBill.safePassword);
 			_this.sellBtnLoading = true;
-			console.log('可请求接口');
+			//console.log('可请求接口');
 			_this.$ajax.ajax(_this.$api.insertTransaction4PickBill, 'POST', params, function(res) {
-				/* console.log('insertTransaction4PickBill')
-				console.log('res', res); */
+				/* //console.log('insertTransaction4PickBill')
+				//console.log('res', res); */
 				if (res.code == _this.$api.CODE_OK) { // 200
 					_this.showSellModel = false;
 					_this.transactionVo4BuyerTip = res.data;
@@ -1025,7 +1021,7 @@ export default {
 				price: _this.dealPageInfo.currentPlatformPrice
 			}
 			_this.$ajax.ajax(_this.$api.getMinAndMaxBuyBillByUserId, 'GET', params, function(res) {
-				console.log('res', res);
+				//console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) { // 200
 					_this.minBill = res.data.minBill;
 					_this.maxBill = res.data.maxBill;
@@ -1035,7 +1031,7 @@ export default {
 				}
 			})
 			_this.$ajax.ajax(_this.$api.getAssistTransactionCountBySellerId, 'GET', null, function(res) {
-				// console.log('res', res);
+				// //console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) { // 200
 					_this.userIdSellBillCount = res.data;
 					if(_this.userIdSellBillCount>0){
@@ -1068,7 +1064,7 @@ export default {
 				price: _this.dealPageInfo.currentPlatformPrice
 			}
 			_this.$ajax.ajax(_this.$api.getAssistBuyBillListCountByUserId, 'GET', params, function(res) {
-				// console.log('res', res);
+				// //console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) { // 200
 					_this.userIdBuyBillCount = res.data;
 					/* if(_this.userIdBuyBillCount>0){
@@ -1119,15 +1115,15 @@ export default {
 				type:_this.addPriceValue==0?0:1,
 				safePassword:_this.form4BuyBill.safePassword
 			}
-			console.log('params',params);
-			console.log('_this.form4BuyBill.buyAmount',_this.form4BuyBill.buyAmount);
-			console.log('_this.form4BuyBill.buyLowestAmount',_this.form4BuyBill.buyLowestAmount);
-			console.log('_this.form4BuyBill.buyAmount<_this.form4BuyBill.buyLowestAmount',_this.form4BuyBill.buyAmount<_this.form4BuyBill.buyLowestAmount);
-			if(_this.form4BuyBill.buyAmount<_this.form4BuyBill.buyLowestAmount){
+			//console.log('params',params);
+			//console.log('_this.form4BuyBill.buyAmount',_this.form4BuyBill.buyAmount);
+			//console.log('_this.form4BuyBill.buyLowestAmount',_this.form4BuyBill.buyLowestAmount);
+			//console.log('_this.form4BuyBill.buyAmount<_this.form4BuyBill.buyLowestAmount',_this.form4BuyBill.buyAmount<_this.form4BuyBill.buyLowestAmount);
+			if(Number(params.maxNumber)<Number(params.minNumber)){
 				// _this.$toast('想买数量和最低匹配数量填写反了');
 				Dialog.alert({
 				  title: '系统提示',
-				  message: '想买数量和最低匹配数量填写反了'
+				  message: `想买数量:${params.maxNumber}？最低匹配数量:${params.minNumber}?是否填写反了？`
 				}).then(() => {
 				  // on close
 				});
@@ -1137,15 +1133,15 @@ export default {
 				_this.$toast('请填写完整信息');
 				return;
 			}
-			console.log('_this.errorInfo4BuyBill',_this.errorInfo4BuyBill);
+			//console.log('_this.errorInfo4BuyBill',_this.errorInfo4BuyBill);
 			if(_this.$utils.hasVal(_this.errorInfo4BuyBill)){
 				_this.$toast('请按要求填写信息');
 				return;
 			}else{
-				console.log('可请求接口');
+				//console.log('可请求接口');
 				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4BuyBill.safePassword);
 				_this.$ajax.ajax(_this.$api.insertBuyBill, 'POST', params, function(res) {
-					// console.log('res', res);
+					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						if(res.data == 1){
 							_this.showBuyModel = false;
@@ -1174,19 +1170,27 @@ export default {
 		},
 		validate4BuyBill(key){
 			let _this = this;
-			console.log(key,_this.form4BuyBill[key])
+			//console.log(key,_this.form4BuyBill[key])
 			if(key == 'buyAmount') {
-				console.log(_this.canBuyNum,'_this.canBuyNum');
-				if(_this.form4BuyBill[key]>=1&&_this.form4BuyBill[key]<=_this.canBuyNum){
-					_this.errorInfo4BuyBill.buyAmount = '';
+				//console.log(_this.canBuyNum,'_this.canBuyNum');
+				if(_this.$reg.positive_integer.test(_this.form4BuyBill[key])){
+					if(_this.form4BuyBill[key]>=1&&_this.form4BuyBill[key]<=_this.canBuyNum){
+						_this.errorInfo4BuyBill.buyAmount = '';
+					}else{
+						_this.errorInfo4BuyBill.buyAmount = `您当前的限购数量为${_this.canBuyNum}`;
+					}
 				}else{
-					_this.errorInfo4BuyBill.buyAmount = `您当前的限购数量为${_this.canBuyNum}`;
+					_this.errorInfo4BuyBill.buyAmount = `请填写正整数`;
 				}
 			}else if(key == 'buyLowestAmount') {
-				if(_this.form4BuyBill[key]>=1&&_this.form4BuyBill[key]<=_this.canBuyNum){
-					_this.errorInfo4BuyBill.buyLowestAmount = '';
+				if(_this.$reg.positive_integer.test(_this.form4BuyBill[key])){
+					if(_this.form4BuyBill[key]>=1&&_this.form4BuyBill[key]<=_this.canBuyNum){
+						_this.errorInfo4BuyBill.buyLowestAmount = '';
+					}else{
+						_this.errorInfo4BuyBill.buyLowestAmount = `您当前的限购数量为${_this.canBuyNum}`;
+					}
 				}else{
-					_this.errorInfo4BuyBill.buyLowestAmount = `您当前的限购数量为${_this.canBuyNum}`;
+					_this.errorInfo4BuyBill.buyAmount = `请填写正整数`;
 				}
 			}else if(key == 'safePassword') {
 				if(_this.$reg.safePassword.test(_this.form4BuyBill[key])){
@@ -1221,7 +1225,7 @@ export default {
 					_this.errorInfo4AppointDeal.sellAmount = _this.clickIconTip.sellAmount;
 				}
 			}else if(key == 'price'){
-				console.log('_this.platformUnivalence',_this.platformUnivalence)
+				//console.log('_this.platformUnivalence',_this.platformUnivalence)
 				if(parseFloat(_this.form4AppointDeal[key])>=_this.platformUnivalence&&parseFloat(_this.form4AppointDeal.price)<=(_this.platformUnivalence+3)){
 					_this.errorInfo4AppointDeal.price = '';
 				}else
@@ -1295,13 +1299,13 @@ export default {
 		},
 		changeCurrentPage1(val){
 			let _this = this;
-			console.log('val',val);
+			//console.log('val',val);
 			_this.currentPage1 = val;
 			_this.getListGeneral();
 		},
 		changeCurrentPage2(val){
 			let _this = this;
-			console.log('val',val);
+			//console.log('val',val);
 			_this.currentPage2 = val;
 			_this.getListAddPrice();
 		},

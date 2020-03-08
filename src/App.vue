@@ -190,6 +190,13 @@ b{font-weight: bold;}
 	line-height: 1.4em;
 	letter-spacing: 1px;
 }
+
+.tip4modelRedText{
+	color: red;
+	font-size: 0.75rem;
+	line-height: 1.4em;
+	letter-spacing: 1px;
+}
 	
 .van-pagination{
 	.van-pagination__item--active{

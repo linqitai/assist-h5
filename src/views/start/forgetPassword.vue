@@ -53,6 +53,7 @@
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="page">
+			
 			<div class="formBox">
 				<van-cell-group :border="isNo">
 					<div class="labelText">手机号</div>
@@ -81,9 +82,10 @@
 					Tip：由于客服好友数量可能已经满人，加客服微信不一定能通过，但TA会通过您加TA的时候所备注的手机号来查找您的微信，可以查找到且是同一个矿工的微信号，即可将您的登录密码和安全密码初始化为所注册的手机号。
 				</div>
 				<div class="placeholderLine10"></div>
-				<div class="logoBox">
+				<!-- <div><b class="textBold">客服微信号：tiger6878</b><span class="copy margL10" @click="handleCopy('tiger6878',$event)">复制</span></div> -->
+				<!-- <div class="logoBox">
 					<img src="../../assets/image/zjwx.png" alt="">
-				</div>
+				</div> -->
 				<div class="placeholderLine10"></div>
 			</div>
 		</div>
@@ -136,9 +138,9 @@
 					return;
 				}
 				let params = {
-					securityCode: _this.form.securityCode
+					securityCode: _this.form.securityCode.replace(/ /g,"")
 				}
-				if(_this.$utils.isNUll(_this.form.securityCode)){
+				if(_this.$utils.isNUll(_this.form.securityCode.replace(/ /g,""))){
 					_this.$toast('请先填写验证码');
 					return;
 				}
@@ -165,7 +167,7 @@
 						_this.errorHint.phone = _this.$reg.phoneHint;
 					}
 				}else if(key == 'securityCode'){
-					if(_this.$reg.securityCode.test(_this.form.securityCode)){
+					if(_this.$reg.securityCode.test(_this.form.securityCode.replace(/ /g,""))){
 						_this.errorHint.securityCode = '';
 					}else{
 						_this.errorHint.securityCode = _this.$reg.securityCodeHint;

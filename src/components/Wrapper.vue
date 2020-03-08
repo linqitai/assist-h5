@@ -78,6 +78,7 @@
 		<div class="wrapperIn">
 			<div class="header">
 				<div class="leftBox">
+					<i class="iconfont iconfont-record f-16" v-if="$route.meta.showMillRecordIcon" @click="toView('millRecord')"></i>
 					<i class="iconfont iconfont-record f-16" v-if="$route.meta.showRecordIcon" @click="toView('dealRecord')"></i>
 					<i class="iconfont iconfont-left-arrow f-12" v-if="$route.meta.back" @click="back"></i>
 				</div>
@@ -117,7 +118,7 @@
 			<van-dialog v-model="showMillTipModel" title="问题小帮手" confirmButtonText="好的">
 				<div class="paddingWing f-12 lineHeight tip4model2">
 					<div class="textIndent">
-						矿机商城里的矿机是限量的，每一批大型矿机被租赁完，就会减产，矿机商城中的矿机全部会换成新的一批减产后的矿机。
+						{{$api.tip4ReduceMill}}
 					</div>
 					<div class="placeholderLine10"></div>
 				</div>
@@ -180,6 +181,8 @@ export default {
 				// console.log("dealRecord");
 				_this.$router.push({path:"dealRecord"});
 				// _this.$router.push({path:"lookBook",query:{lookUserId:'50'}})
+			}else if(view == 'millRecord'){
+				_this.$router.push({path:"millRecord"});
 			}
 			//this.$router.push("lookBook");
 		},

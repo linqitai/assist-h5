@@ -35,7 +35,7 @@ export default {
 				// XMLHttpRequest.setRequestHeader("token", localStorage.getItem('token'));
 				// that.progressDialog = true;
 				let token = VueCookies.get('token');
-				console.log("cookie token in complete", token);
+				// //console.log("cookie token in complete", token);
 				if(token){
 					 XMLHttpRequest.setRequestHeader('token', token);
 				}else{
@@ -45,23 +45,24 @@ export default {
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},
 			complete: function(XMLHttpRequest,status) {
-				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON.message)
-				if(XMLHttpRequest.responseJSON.message=='登录已过期，请重新登录') {
+				console.log('status',status)
+				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code=='登录已过期，请重新登录') {
 					Dialog.alert({
 						title: '温馨提示',
 						message: XMLHttpRequest.responseJSON.message
 					}).then(() => {
 						router.replace('/login');
 					});
-				}
-				console.log('complete_status',status)
-				if(status=='timeout') {//超时,status还有success,error等值的情况
-					queryAjax.abort();
+				}else if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
 					Dialog.alert({
 						title: '温馨提示',
-						message: '哎呦,网络不稳定,请过会儿再试'
+						message: '系统维护,请过会儿再来'
 					}).then(() => {
-						
+						router.replace({
+							path: '/maintain'
+						});
 					});
 				}
 				if (typeof doComplete == "function") {
@@ -77,7 +78,7 @@ export default {
 				}
 			},
 			error: function(res) {
-				// console.log("errorInfo", res);
+				// //console.log("errorInfo", res);
 				if(res.status == 500){
 					// alert(res.responseJSON.message);
 					Dialog.alert({
@@ -85,6 +86,157 @@ export default {
 					  message: res.responseJSON.message
 					}).then(() => {
 					  // on close
+					  //router.replace('/login');
+					  //_this.$router.push('/login');
+					});
+					// router.replace({
+					// 	path: '/login'
+					// });
+				}
+			}
+		});
+	},
+	ajax4NotTime(url, method, params, doSuccess, doComplete) {
+		let _this = this;
+		let queryAjax = $.ajax({
+			url: url,
+			type: method,
+			// processData: true,
+			// contentType: 'application/json',
+			// dataType:'json',
+			// data : JSON.stringify(params), 
+			data: method == 'GET' ? qs.stringify(params) : qs.stringify(params),
+			beforeSend: function(XMLHttpRequest) {
+				// XMLHttpRequest.setRequestHeader("token", localStorage.getItem('token'));
+				// that.progressDialog = true;
+				let token = VueCookies.get('token');
+				// //console.log("cookie token in complete", token);
+				if(token){
+					 XMLHttpRequest.setRequestHeader('token', token);
+				}else{
+					// alert("登录状态已过期,请重新登录");
+					// router.replace('login');
+				}
+				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
+			},
+			complete: function(XMLHttpRequest,status) {
+				console.log('status',status)
+				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code=='登录已过期，请重新登录') {
+					Dialog.alert({
+						title: '温馨提示',
+						message: XMLHttpRequest.responseJSON.message
+					}).then(() => {
+						router.replace('/login');
+					});
+				}else if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.alert({
+						title: '温馨提示',
+						message: '网络不稳定或系统维护,请过会儿再试'
+					}).then(() => {
+						router.replace({
+							path: '/maintain'
+						});
+					});
+				}
+				if (typeof doComplete == "function") {
+					doComplete(status);
+				}
+			},
+			success: function(res) {
+				if (typeof res == 'string') {
+					res = JSON.parse(res);
+				}
+				if (typeof doSuccess == "function") {
+					doSuccess(res);
+				}
+			},
+			error: function(res) {
+				// //console.log("errorInfo", res);
+				if(res.status == 500){
+					// alert(res.responseJSON.message);
+					Dialog.alert({
+					  title: '温馨提示',
+					  message: res.responseJSON.message
+					}).then(() => {
+					  // on close
+					  //router.replace('/login');
+					  //_this.$router.push('/login');
+					});
+					// router.replace({
+					// 	path: '/login'
+					// });
+				}
+			}
+		});
+	},
+	ajax4GetCheckDetail(url, method, params, doSuccess, doComplete) {
+		let _this = this;
+		let queryAjax = $.ajax({
+			url: url,
+			type: method,
+			// processData: true,
+			// contentType: 'application/json',
+			// dataType:'json',
+			// data : JSON.stringify(params), 
+			data: method == 'GET' ? qs.stringify(params) : qs.stringify(params),
+			beforeSend: function(XMLHttpRequest) {
+				// XMLHttpRequest.setRequestHeader("token", localStorage.getItem('token'));
+				// that.progressDialog = true;
+				let token = VueCookies.get('token');
+				// //console.log("cookie token in complete", token);
+				if(token){
+					 XMLHttpRequest.setRequestHeader('token', token);
+				}else{
+					// alert("登录状态已过期,请重新登录");
+					// router.replace('login');
+				}
+				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
+			},
+			complete: function(XMLHttpRequest,status) {
+				console.log('status',status)
+				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code=='登录已过期，请重新登录') {
+					Dialog.alert({
+						title: '温馨提示',
+						message: XMLHttpRequest.responseJSON.message
+					}).then(() => {
+						router.replace('/login');
+					});
+				}else if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.alert({
+						title: '温馨提示',
+						message: '网络不稳定或系统维护,请过会儿再试'
+					}).then(() => {
+						router.replace({
+							path: '/maintain'
+						});
+					});
+				}
+				if (typeof doComplete == "function") {
+					doComplete(status);
+				}
+			},
+			success: function(res) {
+				if (typeof res == 'string') {
+					res = JSON.parse(res);
+				}
+				if (typeof doSuccess == "function") {
+					doSuccess(res);
+				}
+			},
+			error: function(res) {
+				// //console.log("errorInfo", res);
+				if(res.status == 500){
+					// alert(res.responseJSON.message);
+					Dialog.alert({
+					  title: '温馨提示',
+					  message: res.responseJSON.message
+					}).then(() => {
+					  // on close
+					  //router.replace('/login');
 					  //_this.$router.push('/login');
 					});
 					// router.replace({
@@ -109,7 +261,7 @@ export default {
 				// XMLHttpRequest.setRequestHeader("token", localStorage.getItem('token'));
 				// that.progressDialog = true;
 				let token = VueCookies.get('token');
-				// console.log("cookie token in complete", token);
+				// //console.log("cookie token in complete", token);
 				token ? XMLHttpRequest.setRequestHeader('token', token) : '';
 			},
 			complete: function(XMLHttpRequest,status) {
@@ -126,7 +278,7 @@ export default {
 				}
 			},
 			success: function(res) {
-				console.log(res, "====success====")
+				//console.log(res, "====success====")
 				if (typeof res == 'string') {
 					res = JSON.parse(res);
 				}
@@ -135,7 +287,7 @@ export default {
 				}
 			},
 			error: function(res) {
-				console.log("error", res);
+				//console.log("error", res);
 				if(res.status == 500){
 					alert(res.responseJSON.message);
 					// router.replace({

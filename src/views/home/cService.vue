@@ -47,7 +47,8 @@
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="cServiceContent">
-			<div class="title">官方QQ群：</div>
+			<div class="tip4model3">有问题请先联系自己的团队长，然后团队长再联系客服</div>
+			<!-- <div class="title">官方QQ群：</div>
 			<div class="placeholderLine10"></div>
 			<div>
 				<b class="textBold">{{qqFlock}}</b><span class="copy margL10" @click="handleCopy(qqFlock,$event)">复制</span>
@@ -64,7 +65,7 @@
 			<div v-for="item in serviceList" :key="item.id+20">
 				<b class="textBold">{{item.remark}}微信号：{{item.weiChart}}</b><span class="copy margL10" @click="handleCopy(item.weiChart,$event)">复制</span>
 				<div class="placeholderLine10"></div>
-			</div>
+			</div> -->
 			<!-- <div class="placeholderLine4"></div>
 			<van-row gutter="10">
 			  <van-col span="12">

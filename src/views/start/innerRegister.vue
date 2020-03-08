@@ -76,9 +76,8 @@
 			<div class="tip4model3">
 				Tip：<br>
 				1.内排注册功能专为预打造团队的用户开放。<br>
-				2.参与内排注册的用户系统赠送小型矿机一台，个人算力达到1G后方可启动该矿机。<br>
-				3.登录密码初始化为该注册手机号，未实名认证无修改密码权限，实名认证审核通过方可修改密码，请团队长们提醒到位。<br>
-				4.为了提高内排注册的质量，内排注册功能暂时只为个人算力达到9G的工会会长或省市代理开放。<br>
+				2.登录密码初始化为该注册手机号，未实名认证无修改密码权限，实名认证审核通过方可修改密码，请团队长们提醒到位。<br>
+				3.为了提高内排注册的质量，内排注册功能暂时只为个人算力达到9G的工会会长或省市代理开放。<br>
 			</div>
 		</div>
 	</div>
@@ -142,10 +141,25 @@
 			loginBtn(){
 				this.$router.push('login');
 			},
+			registerBtn2(){
+				Dialog.alert({
+					title: "系统提示",
+					confirmButtonText:'知道了',
+					message: "21号内排功能已暂停，请等22号的开放通知"
+				}).then(() => {
+				  // on confirm
+				})
+			},
 			registerBtn(){
-				console.log('form',this.form);
 				let _this = this;
-				if(_this.userInfo.myCalculationPower<9 && _this.userInfo.isAgent()<=0){
+				Dialog.alert({
+					title: "系统提示",
+					confirmButtonText:'好的',
+					message: "内排注册功能暂时关闭，如需开通，请联系客服"
+				}).then(() => {
+				  // on confirm
+				})
+				/* if(_this.userInfo.myCalculationPower<9 && _this.userInfo.isAgent<=0){
 					Dialog.alert({
 						title: "系统提示",
 						confirmButtonText:'知道了',
@@ -167,7 +181,6 @@
 				_this.$ajax.ajax(_this.$api.innerRegister, 'POST', params, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
-						/* localStorage.setItem("mobilePhone",_this.form.phone); */
 						_this.$toast('系统提示：注册成功');
 						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 					}else{
@@ -176,13 +189,11 @@
 							confirmButtonText:'哦哦',
 							message: res.message
 						}).then(() => {
-						  // on confirm
 						})
 					}
 				},function(res){
-					// console.log("complate",res);
 					_this.isLoading = false;
-				})
+				}) */
 			},
 			validate(key){
 				let _this = this;

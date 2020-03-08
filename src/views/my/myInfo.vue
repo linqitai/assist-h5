@@ -169,22 +169,23 @@
 				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 			</div>
 		</div>
-		<div class="my-cell">
+		<div class="my-cell" @click="update('wechartNum')">
 			<div class="flex1">
 				微信号
 			</div>
 			<div class="flex2">
 				<span class="ellipsis">{{userInfo.wechartNum}}</span>
-				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
+				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>
-		<div class="my-cell">
+		 <!-- @click="update('alipayNum')" -->
+		<div class="my-cell" @click="update('alipayNum')">
 			<div class="flex1">
 				支付宝号
 			</div>
 			<div class="flex2">
 				<span class="ellipsis">{{userInfo.alipayNum}}</span>
-				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
+				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>
 		<div class="my-cell">
@@ -236,10 +237,12 @@
 		</div>
 	</div>
 	<!-- <van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="logout">安 全 退 出</van-button> -->
-	<div class="fixedBottom">
+	<div class="fixedBottom paddingWing">
 		<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="logout">安全退出</van-button>
+		<div class="placeholderLine10"></div>
+		<!-- <van-button color="linear-gradient(to right, #73798a , #626876)" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户</van-button>
+		<div class="placeholderLine10"></div> -->
 	</div>
-	
 	<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
 		<div class="paddingWing f-12 lineHeight textJustify tip4model2 textIndent">
 			<div>
@@ -254,7 +257,7 @@
 		<van-action-sheet v-model="showUpdateModel" :title="titleName">
 			<div class="placeholderLine40"></div>
 		  <van-cell-group>
-		    <van-field v-model="form['idCard']" required clearable label="身份证号" right-icon="question-o" :placeholder="errorHint['idCard']" type="number"
+		    <van-field v-model="form['idCard']" required clearable label="身份证号" right-icon="question-o" :placeholder="errorHint['idCard']" type="text"
 		      maxlength="18" @click-right-icon="$toast(errorHint['idCard'])" @blur="validate('idCard')" :error-message="errorInfo['idCard']"/>
 			  
 			<van-field v-model="form[flag]" required clearable :label="label" right-icon="question-o" :placeholder="errorHint[flag]"
@@ -265,7 +268,7 @@
 		  </van-cell-group>
 		  <div class="placeholderLine10"></div>
 		  <div class="placeholderLine40"></div>
-		  <div class="modelTip">系统提示：修改昵称需使用1个帮扶券</div>
+		  <div class="modelTip">系统提示：修改信息需使用10个帮扶券</div>
 		  <div class="sureAppointBtnBox">
 			  <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="update1Loading" @click="sureUpdate('update1')">确 认</van-button>
 		  </div>
@@ -279,7 +282,7 @@
 			<!-- <van-field center clearable label="短信验证码" placeholder="请输入短信验证码">
 				<van-button slot="button" size="small" type="primary">发送验证码</van-button>
 			</van-field> -->
-			<van-field v-model="form['idCard']" required clearable label="身份证号" right-icon="question-o" :placeholder="errorHint['idCard']" type="number"
+			<van-field v-model="form['idCard']" required clearable label="身份证号" right-icon="question-o" :placeholder="errorHint['idCard']" type="text"
 			  maxlength="18" @click-right-icon="$toast(errorHint['idCard'])"
 			  @blur="validate('idCard')"
 			  :error-message="errorInfo['idCard']"/>
@@ -402,6 +405,9 @@ export default {
 			_this.userId = _this.userInfo.userId;
 			_this.mobilePhone = _this.userInfo.mobilePhone;
 		}else{
+			/* localStorage.removeItem('_USERINFO_');
+			_this.$cookies.remove('userId');
+			_this.$cookies.remove('token'); */
 			_this.$router.replace('login');
 			return;
 		}
@@ -411,6 +417,31 @@ export default {
 	methods:{
 		back(){
 			this.$router.go(-1);
+		},
+		cancelAccount(){
+			let _this = this;
+			Dialog.confirm({
+			  title: '注销确认',
+			  message: '你确定要注销[删除]这个账号？'
+			}).then(() => {
+			  // on confirm
+			  _this.$ajax.ajax(_this.$api.cancelAccount, 'GET', null, function(res){
+			  	if(res.code == _this.$api.CODE_OK){
+			  		_this.$toast("注销成功");
+			  		_this.$router.replace('login');
+			  	}else if(res.code == 1001){
+			  		Dialog.alert({
+			  		  title: '系统提示',
+			  		  confirmButtonText:'好的',
+			  		  message: res.message
+			  		}).then(() => {
+			  		  // on confirm
+			  		})
+			  	}
+			  })
+			}).catch(() => {
+			  // on cancel
+			});
 		},
 		getActiveStatus(val){
 			let _this = this;
@@ -431,10 +462,10 @@ export default {
 		},
 		logout(){
 			let _this = this;
-			
 			_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
 				if(res.code == _this.$api.CODE_OK){
 					_this.$toast(res.message);
+					localStorage.removeItem('_USERINFO_');
 					// localStorage.clear();//若不允许多账号登录，请把这个给去掉
 					// console.log("_this.$cookies.keys()",_this.$cookies.keys());
 					// _this.$cookies.remove('_USERINFO_');
@@ -565,13 +596,14 @@ export default {
 					_this.$toast('请按要求填写信息');
 					return;
 				}
-				if(_this.userInfo.platformTicket<=0){
-					_this.$toast('系统提示：您的帮扶券不足，修改信息要使用1张帮扶券');
+				if(_this.userInfo.platformTicket<10){
+					_this.$toast('系统提示：您的帮扶券不足，修改信息要使用10张帮扶券');
 					return;
 				}
 				params.securityPassword = _this.$JsEncrypt.encrypt(_this.form.safePassword);
-				_this.update1Loading = true;
-				_this.$ajax.ajax(_this.$api.updateAssistNickName, 'POST', params, function(res){
+				console.log('params',params);
+				_this.update1Loading = true;//updateAssistNickName
+				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo, 'POST', params, function(res){
 					// console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
 						_this.$toast('系统提示：修改成功');
@@ -652,20 +684,23 @@ export default {
 					_this.errorInfo.realName = _this.errorHint.realName;
 				}
 			}else if(key == 'alipayNum') {
-				if(_this.form.alipayNum==_this.mobilePhone){
+				if(_this.$reg.alipay.test(_this.form.alipayNum)){
+					_this.errorInfo.alipayNum = '';
+				}else{
+					_this.errorInfo.alipayNum = _this.$reg.alipayHint;
+				}
+				/* if(_this.form.alipayNum==_this.mobilePhone){
 					_this.errorInfo.alipayNum = '';
 				}else{
 					_this.errorInfo.alipayNum = _this.errorHint.alipayNum;
-				}
+				} */
 				/* if(_this.form.alipayNum.indexOf('@')==-1){
-					if(_this.$reg.phone.test(_this.form.alipayNum)){
-						_this.errorInfo.alipayNum = '';
-					}else{
-						_this.errorInfo.alipayNum = _this.$reg.alipayHint;
-					}
+					
+				}else{
+					
 				} */
 			}else if(key == 'wechartNum') {
-				if(_this.form.wechartNum==_this.mobilePhone){
+				if(_this.$reg.weichat.test(_this.form.wechartNum)){
 					_this.errorInfo.wechartNum = '';
 				}else{
 					_this.errorInfo.wechartNum = _this.errorHint.wechartNum;

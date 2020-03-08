@@ -77,7 +77,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				定向转让矿石
+				担保交易矿石
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>

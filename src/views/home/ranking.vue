@@ -148,9 +148,9 @@
 				<van-tab title="矿石" name="ranking1">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list" v-for="(item,index) in list1" :key='item.id'>
-							<div class="item">
+							<div class="item" @click="toBookView(2,item.userId)">
 								<div class="flexLeft">
-									<div class="name">{{item.rank}}</div>
+									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
 									<div class="line"> {{item.nickName}}</div>
@@ -162,7 +162,9 @@
 										</div>
 									</div> -->
 								</div>
-								<div class="flexRight">{{item.num}}</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
 							</div>
 						</div>
 					</van-list>
@@ -170,15 +172,17 @@
 				
 				<van-tab title="贡献值" name="ranking2">
 					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
-						<div class="list" v-for="item in list2" :key='item.id'>
-							<div class="item">
+						<div class="list" v-for="(item,index) in list2" :key='item.id'>
+							<div class="item" @click="toBookView(2,item.userId)">
 								<div class="flexLeft">
-									<div class="name">{{item.rank}}</div>
+									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
 									<div class="line"> {{item.nickName}}</div>
 								</div>
-								<div class="flexRight">{{item.num}}</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
 							</div>
 						</div>
 					</van-list>
@@ -186,15 +190,17 @@
 				
 				<van-tab title="帮扶券" name="ranking3">
 					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
-						<div class="list" v-for="item in list3" :key='item.id'>
-							<div class="item">
+						<div class="list" v-for="(item,index) in list3" :key='item.id'>
+							<div class="item" @click="toBookView(2,item.userId)">
 								<div class="flexLeft">
-									<div class="name">{{item.rank}}</div>
+									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
 									<div class="line"> {{item.nickName}}</div>
 								</div>
-								<div class="flexRight">{{item.num}}</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
 							</div>
 						</div>
 					</van-list>
@@ -202,15 +208,17 @@
 				
 				<van-tab title="个人算力" name="ranking6">
 					<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
-						<div class="list" v-for="item in list6" :key='item.id'>
-							<div class="item">
+						<div class="list" v-for="(item,index) in list6" :key='item.id'>
+							<div class="item" @click="toBookView(2,item.userId)">
 								<div class="flexLeft">
-									<div class="name">{{item.rank}}</div>
+									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
 									<div class="line"> {{item.nickName}}</div>
 								</div>
-								<div class="flexRight">{{item.num}}</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
 							</div>
 						</div>
 					</van-list>
@@ -218,15 +226,17 @@
 				
 				<van-tab title="团队算力" name="ranking4">
 					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
-						<div class="list" v-for="item in list4" :key='item.id'>
-							<div class="item">
+						<div class="list" v-for="(item,index) in list4" :key='item.id'>
+							<div class="item"  @click="toBookView(2,item.userId)">
 								<div class="flexLeft">
-									<div class="name">{{item.rank}}</div>
+									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
 									<div class="line"> {{item.nickName}}</div>
 								</div>
-								<div class="flexRight">{{item.num}}</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
 							</div>
 						</div>
 					</van-list>
@@ -234,15 +244,17 @@
 				
 				<van-tab title="有效直推" name="ranking5">
 					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
-						<div class="list" v-for="item in list5" :key='item.id'>
+						<div class="list" v-for="(item,index) in list5" v-index :key='item.id' @click="toBookView(2,item.userId)">
 							<div class="item">
 								<div class="flexLeft">
-									<div class="name">{{item.rank}}</div>
+									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
 									<div class="line"><!-- <i class="iconfont iconfont-name"></i> --> {{item.nickName}}</div>
 								</div>
-								<div class="flexRight">{{item.num}}</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
 							</div>
 						</div>
 					</van-list>
@@ -298,7 +310,7 @@
 		},
 		mounted() {
 			let _this = this;
-		
+			//_this.mobilePhone = localStorage.getItem("mobilePhone")
 		},
 		methods: {
 			back(){
@@ -306,6 +318,18 @@
 			},
 			showTip(){
 				this.showTipModel = true;
+			},
+			toBookView(val,userId){
+				let _this = this;
+				console.log('toBookView');
+				let name = 'mineral';
+				if(val==1){
+					name = 'ticket';
+				}else if(val==2){
+					name = 'mineral';
+				}
+				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
+				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
 			/* lookWeChartNumBtn(shareCode){
 				let _this = this;

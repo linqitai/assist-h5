@@ -87,7 +87,7 @@
 						}
 					}
 					.itemRight{
-						flex: 0 0 80px;
+						flex: 0 0 100px;
 						height: $itemLRHeight;
 						line-height: $itemLRHeight;
 						font-size: 1rem;
@@ -370,7 +370,7 @@
 							  // on close
 							});
 						}else{
-							_this.$toast('可能出错了，请联系平台');
+							_this.$toast(res.message);
 						}
 					}else{
 						Dialog.alert({

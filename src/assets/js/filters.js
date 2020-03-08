@@ -247,6 +247,20 @@ function accountStatus(val){
 	}
 }
 
+function activedStatus(val){
+	if(val==0){
+		return '待审核';
+	}else if(val==1){
+		return '已通过';
+	}else if(val==2){
+		return '被驳回';
+	}else if(val==-1){
+		return '未提交实名';
+	}else{
+		return val;
+	}
+}
+
 function canUnFreeze(val){
 	if(val==0){
 		return '需要给客服排查问题';
@@ -290,5 +304,6 @@ export {
 	agentType,
 	machineType4Pic,
 	accountStatus,
-	canUnFreeze
+	canUnFreeze,
+	activedStatus
 }

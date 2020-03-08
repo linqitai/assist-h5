@@ -27,8 +27,8 @@
  */
 
 export default{
-	securityCode:/^[A-Za-z0-9]{4,4}$/,
-	securityCodeHint:'请输入正确的验证码',
+	securityCode:/^[A-Za-z0-9 ]{4,10}$/,
+	securityCodeHint:'请输入正确的验证码,不能有空格,请检查输入法',
 	userId:/^[A-Za-z0-9]{1,20}$/,
 	positive_integerHint4BuyBill:'个人限购:2000+(卖出数量-买入数量)',
 	positive_integer:/^[0-9]\d{0,6}$/,

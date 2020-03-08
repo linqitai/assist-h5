@@ -39,23 +39,24 @@
 </style>
 <template>
 	<div class="maintain-page">
-		<div class="maintain-code">系统维护中</div>
+		<div class="maintain-code">系统维护中请稍后再来</div>
+		<div class="maintain-code">{{qqFlock}}</div>
 		<div class="placeholderLine"></div>
 		<div class="placeholderLine"></div>
-		<div class="maintain-desc">
+		<!-- <div class="maintain-desc">
 			预计<div class="flexCountTime inline">
 				<van-count-down :time="setCountDownTime4Maintain" />
 			</div>后维护好
-		</div>
+		</div> -->
 		<div class="placeholderLine"></div>
-		<div class="maintain-desc" v-html="maintainInfo.maintainContent"></div>
+		<!-- <div class="maintain-desc" v-html="maintainInfo.maintainContent"></div> -->
 		<div class="maintain-handle" v-if="isShow">
 			<van-button to="/home" type="info" size="normal" color="linear-gradient(to right, #00ffe4, #005db4)" :block="true">返回首页</van-button>
 			<div class="placeholderLine"></div>
 			<div class="placeholderLine"></div>
 			<van-button type="info" size="normal" color="linear-gradient(to right, #005db4, #00ffe4)" :block="true" @click="goBack">返回上一页</van-button>
 		</div>
-		<m-refresh @refreshEvent="getMaintainInfo"></m-refresh>
+		<!-- <m-refresh @refreshEvent="getMaintainInfo"></m-refresh> -->
 	</div>
 </template>
 
@@ -65,8 +66,9 @@
 		data() {
 			return {
 				isShow: false,
-				setCountDownTime4Maintain: 30 * 60 * 60 * 1000,
-				maintainInfo:""
+				setCountDownTime4Maintain: 60,
+				maintainInfo:"",
+				qqFlock:""
 			}
 		},
 		components: {
@@ -74,11 +76,26 @@
 		},
 		created() {
 			let _this = this;
-			_this.getMaintainInfo();
+			//_this.getMaintainInfo();
+			_this.getAssistQQFlock();
 		},
 		methods: {
 			goBack() {
 				this.$router.go(-1);
+			},
+			getAssistQQFlock() {
+				let _this = this;
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistQQFlock, 'POST', null, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						_this.qqFlock = `HPC工会QQ群：${res.data.qqFlock}`;
+						//localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
+						_this.$router.replace('/login');
+					}
+				},function(){
+					_this.loading = false;
+				})
 			},
 			getMaintainInfo(){
 				let _this = this;

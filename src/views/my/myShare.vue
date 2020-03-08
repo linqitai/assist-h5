@@ -25,7 +25,7 @@
 			}
 			.posterBG {
 				position: relative;
-				height: 440px;
+				height: 480px;
 				background-color: #323232;
 				overflow: hidden;
 				$widthBox1: 240px;
@@ -119,7 +119,7 @@
 
 				.registerCode {
 					position: absolute;
-					bottom: 52px;
+					bottom: 70px;
 					left: 0;
 					right: 0;
 					text-align: center;
@@ -135,7 +135,7 @@
 
 				.registerCodeText {
 					position: absolute;
-					bottom: 28px;
+					bottom: 48px;
 					left: 0;
 					right: 0;
 					text-align: center;
@@ -145,6 +145,19 @@
 					color: white;
 					left: 50%;
 					transform: translateX(-50%);
+				}
+				.registerCodeText2 {
+					position: absolute;
+					bottom: 30px;
+					left: 0;
+					right: 0;
+					text-align: center;
+					z-index: 101;
+					font-weight: bolder;
+					font-size: 14px;
+					color: white;
+					/* left: 50%;
+					transform: translateX(-50%); */
 				}
 			}
 		}
@@ -157,23 +170,24 @@
 			<div class="text">
 				我要分享
 			</div>
-			<i class="iconfont iconfont-question rightBox icon" @click="showTipModel=true"></i>
+			<i class="rightBox icon"></i>
+			<!-- <i class="iconfont iconfont-question rightBox icon" @click="showTipModel=true"></i> -->
 		</m-header>
 		<div class="poster" id="tree-containner">
 			<div class="posterBG" id="tree" ref="tree">
 				<div class="borderGlobal"></div>
-				<img class="logo" src="../../assets/image/LOGO.png">
+				<img class="logo" src="../../assets/image/LOGO4Share.png">
 				<div class="box1"></div>
 				<div class="box2"></div>
 				<div class="box3"></div>
 				<div class="box4"></div>
-				<!-- <div class="box5">早入场早有矿</div> -->
 				<!-- <div class="box5">
 					<img src="../../assets/image/poster/PostText1.png">
 				</div> -->
 				<!-- <img class="registerCode" src="../../assets/image/code.png"> -->
 				<div class="registerCode" id="qrcode" ref="qrcode"></div>
 				<div class="registerCodeText">扫码注册</div>
+				<div class="registerCodeText2">我为帮扶链代言：{{userInfo.nickName}}</div>
 			</div>
 			<div class="margT10">
 				<div class="myShareUrl">
@@ -182,9 +196,9 @@
 				<div class="placeholderLine10"></div>
 				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopy(registerUrl,$event)" :block="true">复制分享链接</van-button>
 				<div class="placeholderLine10"></div>
-				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="innerRegister" :block="true">内排注册</van-button>
-				<div class="placeholderLine10"></div>
-				<div class="tip4model3">
+				<!-- <van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="innerRegister" :block="true">内排注册</van-button>
+				<div class="placeholderLine10"></div> -->
+				<!-- <div class="tip4model3">
 					分享是快速提升团队算力的首选方案<br>
 					而想要管理好团队快速增长算力<br>
 					建议团队长们建立帮扶链工会群<br>
@@ -192,11 +206,11 @@
 					所服务的帮扶链用户数量超过300名<br>
 					需省市代理审核群活跃度并引荐给客服<br>
 					达标后群主和群管理获得一台小型矿机<br>
-				</div>
+				</div> -->
 				
 			</div>
 		</div>
-		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
+		<!-- <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
 			<div class="paddingWing f-12 lineHeight tip4model2">
 				<div class="line text margT10">
 					分享是快速提升团队算力的首选方案<br>
@@ -208,7 +222,7 @@
 					达标后群主和群管理获得一台小型矿机<br>
 				</div>
 			</div>
-		</van-dialog>
+		</van-dialog> -->
 	</div>
 </template>
 
@@ -228,7 +242,8 @@
 				showTipModel:false,
 				loading1: false,
 				finished1: false,
-				registerUrl:""
+				registerUrl:"",
+				userInfo:""
 			}
 		},
 		mounted() {

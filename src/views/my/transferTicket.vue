@@ -109,6 +109,7 @@
 </template>
 <script>
 	import mHeader from '@/components/Header.vue';
+	import { Dialog } from 'vant';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
 		data() {
@@ -212,7 +213,13 @@
 							path: `/myBook`
 						});
 					}else{
-						_this.$toast(res.message);
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				})
 			},

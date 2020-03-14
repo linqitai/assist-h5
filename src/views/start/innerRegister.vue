@@ -77,7 +77,7 @@
 				Tip：<br>
 				1.内排注册功能专为预打造团队的用户开放。<br>
 				2.登录密码初始化为该注册手机号，未实名认证无修改密码权限，实名认证审核通过方可修改密码，请团队长们提醒到位。<br>
-				3.为了提高内排注册的质量，内排注册功能暂时只为个人算力达到9G的工会会长或省市代理开放。<br>
+				<!-- 3.为了提高内排注册的质量，内排注册功能暂时只为个人算力达到9G的工会会长或省市代理开放。<br> -->
 			</div>
 		</div>
 	</div>
@@ -152,48 +152,51 @@
 			},
 			registerBtn(){
 				let _this = this;
-				Dialog.alert({
-					title: "系统提示",
-					confirmButtonText:'好的',
-					message: "内排注册功能暂时关闭，如需开通，请联系客服"
-				}).then(() => {
-				  // on confirm
-				})
-				/* if(_this.userInfo.myCalculationPower<9 && _this.userInfo.isAgent<=0){
+				//"内排注册功能暂时关闭，如需开通，请联系客服"
+				
+				//_this.userInfo.myCalculationPower<9 && 
+				if(_this.userInfo.isAgent<=0){
 					Dialog.alert({
 						title: "系统提示",
 						confirmButtonText:'知道了',
-						message: "内排注册功能暂时只为个人算力达到9G的工会会长或省市代理开放"
+						message: "内排注册功能暂时只为经过申请的省市代理开放"
 					}).then(() => {
 					  // on confirm
 					})
 					return;
 				}
-				let params = {
-					telephone:_this.form.phone,
-					shareCode:_this.form.shareCode
-				}
-				if(_this.$utils.hasNull(params)){
-					_this.$toast('系统提示：请填写完整信息');
-					return;
-				}
-				_this.isLoading = true;
-				_this.$ajax.ajax(_this.$api.innerRegister, 'POST', params, function(res) {
-					// console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) { // 200
-						_this.$toast('系统提示：注册成功');
-						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
-					}else{
-						Dialog.alert({
-							title: "系统提示",
-							confirmButtonText:'哦哦',
-							message: res.message
-						}).then(() => {
-						})
-					}
-				},function(res){
-					_this.isLoading = false;
-				}) */
+				Dialog.alert({
+					title: "系统提示",
+					confirmButtonText:'好的',
+					message: "内排注册功能专为预打造精准团队的省市代理开放，不得出现暗箱注册抢占会员的情况；若被投诉或被系统检测出违规操作，将会受到系统处罚"
+				}).then(() => {
+				  // on confirm
+				  let params = {
+				  	telephone:_this.form.phone,
+				  	shareCode:_this.form.shareCode
+				  }
+				  if(_this.$utils.hasNull(params)){
+				  	_this.$toast('系统提示：请填写完整信息');
+				  	return;
+				  }
+				  _this.isLoading = true;
+				  _this.$ajax.ajax(_this.$api.innerRegister, 'POST', params, function(res) {
+				  	// console.log('res', res);
+				  	if (res.code == _this.$api.CODE_OK) { // 200
+				  		_this.$toast('系统提示：注册成功');
+				  		_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+				  	}else{
+				  		Dialog.alert({
+				  			title: "系统提示",
+				  			confirmButtonText:'哦哦',
+				  			message: res.message
+				  		}).then(() => {
+				  		})
+				  	}
+				  },function(res){
+				  	_this.isLoading = false;
+				  })
+				})
 			},
 			validate(key){
 				let _this = this;

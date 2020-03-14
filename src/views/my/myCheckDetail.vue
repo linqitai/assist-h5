@@ -15,6 +15,8 @@
 .checkDetailBox{
 	@include pageWhiteBGHaveHeight();
 	.refuseReason{
+		font-size: 11px;
+		padding:6px;
 		.van-cell__value, .van-cell__value--alone, .van-field__control{
 			color: #323232 !important;
 		}
@@ -194,8 +196,35 @@
 	</div>
 	<van-dialog v-model="showRefuseReasonModel" title="驳回原因" :showConfirmButton="false" :close-on-click-overlay="true">
 		<div class="placeholderLine10"></div>
-		<div class="refuseReason">
-			<van-field v-model="form.remark" required placeholder="请填写驳回原因,以便系统做统计" @blur="validate('remark')" :error-message="errorInfo.remark"/>
+		<div class="refuseReason margT10">
+			<van-field v-model="remark" rows="2" autosize type="textarea" required placeholder="请填写驳回原因,以便系统做统计" @blur="validate('remark')" :error-message="errorInfo.remark"/>
+			<van-radio-group v-model="remark">
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="您的支付宝账号未实名。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">您的支付宝账号未实名</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="所填写的身份证号和证件照中不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="小纸条不合格，请按照模板要求来。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="怀疑存在P图，请重新拍照后再上传。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">怀疑存在P图，请重新拍照后再上传</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="纸条上写的手机号和注册手机号不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">纸条上写的手机号和注册手机号不一致</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="图一请上传支付宝个人主页截图。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">图一请上传支付宝个人主页截图</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="身份证里的名字与支付宝实名不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">身份证里的名字与支付宝实名不一致</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="支付宝里请先上传头像，不然容易给人感觉是小号，给他人印象不好。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">支付宝里请先上传头像，不然容易给人感觉是小号，给他人印象不好</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="每人只有3次实名机会,您的实名材料存在比较多的问题,请咨询上级按要求完成实名认证">您的实名材料存在比较多的问题,请咨询上级按要求完成实名认证</van-radio>
+			</van-radio-group>
+			<!-- <van-dropdown-menu>
+			  <van-dropdown-item v-model="remark" :options="option1"/>
+			</van-dropdown-menu> -->
 			<van-button size="normal" :block="true" @click="submit('refuse')">提 交</van-button>
 		</div>
 		<div class="placeholderLine10"></div>
@@ -203,7 +232,7 @@
 	<van-dialog v-model="showFreezeReasonModel" title="冻结原因" :showConfirmButton="false" :close-on-click-overlay="true">
 		<div class="placeholderLine10"></div>
 		<div class="refuseReason">
-			<van-field v-model="form.remark" rows="2" autosize required placeholder="请填写冻结原因,以便系统做统计" @blur="validate('remark')" :error-message="errorInfo.remark"/>
+			<van-field v-model="remark" rows="2" autosize required placeholder="请填写冻结原因,以便系统做统计" @blur="validate('remark')" :error-message="errorInfo.remark"/>
 			<van-button size="normal" :block="true" @click="freezeEvent">提 交</van-button>
 		</div>
 		<div class="placeholderLine10"></div>
@@ -234,6 +263,7 @@ export default {
 			titleName:'',
 			label:'---',
 			userInfo:{},
+			remark:'',
 			form:{
 				nickName:"",
 				telPhone:"",
@@ -290,7 +320,17 @@ export default {
 			projectName:'',
 			mobilePhone:'',
 			uploadType:'',
-			loginerUserId:''
+			loginerUserId:'',
+			option1: [
+				{ text: '您的支付宝账号未实名', value: 0 },
+				{ text: '怀疑存在P图，请重新拍照后再上传', value: 1 },
+				{ text: '纸条上写的手机号和注册手机号不一致', value: 2 },
+				{ text: '图一请上传支付宝个人主页截图', value: 3 },
+				{ text: '身份证里的名字与支付宝实名不一致', value: 4 },
+				{ text: '为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像', value: 5 },
+				{ text: '支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我', value: 6 },
+				{ text: '支付宝里请先上传头像，不然容易给人感觉是小号，给他人印象不好', value: 7 }
+			],
 		}
 	},  
 	components:{
@@ -304,8 +344,8 @@ export default {
 			_this.$router.replace('login');
 			return;
 		}
-		
 		_this.userId = _this.$route.query.userId;
+		
 		//console.log('userId', _this.userId);
 		_this.getAssistUserInfoPicByUserId();
 	},
@@ -378,7 +418,7 @@ export default {
 			
 			let params = {
 				userId: _this.form.userId,
-				reason: _this.form.remark, 
+				reason: _this.remark,
 				needTicket: 10,
 				canUnfreeze: 1
 			}
@@ -419,9 +459,9 @@ export default {
 				params.actived = 1;
 			}else if(type=='refuse'){
 				params.actived = 2;
-				params.remark = _this.form.remark;
+				params.remark = _this.remark;
 			}
-			//console.log('params',params)
+			console.log('params',params)
 			if(_this.$utils.hasVal(_this.errorInfo)||_this.$utils.hasNull(params)){
 				_this.$toast(`系统提示：请提交完整信息`);
 				return;

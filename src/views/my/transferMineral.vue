@@ -301,23 +301,17 @@
 				}
 				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.insertTransaction4AppointBill, 'POST', params, function(res) {
+				/* _this.$ajax.ajax(_this.$api.insertTransaction4AppointBill, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						// _this.$toast('转让成功');
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
-						/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
 						_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
-						// _this.$router.push('myDeal');
 						if(params.agentPhone == localStorage.getItem('mobilePhone')) {
 							_this.$router.push({path:'myDeal',query:{dealType:1,isSelf:1,mobilePhone:res.data.mobilePhone,num:params.num}});
 						}else{
 							_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
 						}
-						//_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
-						//_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:params.num}});
 						_this.$utils.formClear(_this.form4AppointDeal);
 					}else{
-						// _this.$toast(res.message);
 						Dialog.alert({
 						  title: '系统提示',
 						  message: res.message
@@ -327,7 +321,7 @@
 					}
 				},function(){
 					_this.loading = false;
-				})
+				}) */
 			},
 		}
 	}

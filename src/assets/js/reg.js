@@ -27,6 +27,7 @@
  */
 
 export default{
+	dsPassword:/^[A-Za-z]{4,4}$/,
 	securityCode:/^[A-Za-z0-9 ]{4,10}$/,
 	securityCodeHint:'请输入正确的验证码,不能有空格,请检查输入法',
 	userId:/^[A-Za-z0-9]{1,20}$/,

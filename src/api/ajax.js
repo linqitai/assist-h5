@@ -25,7 +25,7 @@ export default {
 		let queryAjax = $.ajax({
 			url: url,
 			type: method,
-			timeout: 10000,
+			timeout: 20000,
 			// processData: true,
 			// contentType: 'application/json',
 			// dataType:'json',
@@ -45,8 +45,8 @@ export default {
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},
 			complete: function(XMLHttpRequest,status) {
-				console.log('status',status)
-				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				//console.log('status',status)
+				//console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
 				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code=='登录已过期，请重新登录') {
 					Dialog.alert({
 						title: '温馨提示',
@@ -58,7 +58,7 @@ export default {
 					//queryAjax.abort();
 					Dialog.alert({
 						title: '温馨提示',
-						message: '系统维护,请过会儿再来'
+						message: '网络信号不稳定或系统维护,请过会儿再来'
 					}).then(() => {
 						router.replace({
 							path: '/maintain'
@@ -120,8 +120,8 @@ export default {
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},
 			complete: function(XMLHttpRequest,status) {
-				console.log('status',status)
-				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				//console.log('status',status)
+				//console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
 				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code=='登录已过期，请重新登录') {
 					Dialog.alert({
 						title: '温馨提示',
@@ -133,7 +133,7 @@ export default {
 					//queryAjax.abort();
 					Dialog.alert({
 						title: '温馨提示',
-						message: '网络不稳定或系统维护,请过会儿再试'
+						message: '网络信号不稳定或系统维护,请过会儿再试'
 					}).then(() => {
 						router.replace({
 							path: '/maintain'
@@ -195,8 +195,8 @@ export default {
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},
 			complete: function(XMLHttpRequest,status) {
-				console.log('status',status)
-				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				//console.log('status',status)
+				//console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
 				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code=='登录已过期，请重新登录') {
 					Dialog.alert({
 						title: '温馨提示',
@@ -208,7 +208,7 @@ export default {
 					//queryAjax.abort();
 					Dialog.alert({
 						title: '温馨提示',
-						message: '网络不稳定或系统维护,请过会儿再试'
+						message: '网络信号不稳定或系统维护,请过会儿再试'
 					}).then(() => {
 						router.replace({
 							path: '/maintain'
@@ -251,7 +251,7 @@ export default {
 		$.ajax({
 			url: url,
 			type: method,
-			timeout: 10000,
+			timeout: 20000,
 			// processData: true,
 			contentType: 'application/json',
 			dataType:'json',
@@ -268,7 +268,7 @@ export default {
 				if(status=='timeout') {//超时,status还有success,error等值的情况
 					Dialog.alert({
 						title: '温馨提示',
-						message: '哎呦网络不好,请过会儿再试'
+						message: '网络信号不稳定或系统维护,请过会儿再试'
 					}).then(() => {
 						
 					});

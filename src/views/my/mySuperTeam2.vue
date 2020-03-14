@@ -150,7 +150,7 @@
 					<div class="line">上级昵称：{{parentUserInfo.nickName}}</div>
 					<div class="line">上级微信：{{parentUserInfo.wechartNum}} <span class="copy" @click="handleCopy(parentUserInfo.wechartNum,$event)">复制</span></div>
 					<div class="line">二代总人数：{{teamNum}}</div>
-					<div class="line">(团队三代收益分红的功能正在研发中)</div>
+					<!-- <div class="line">(团队三代收益分红的功能正在研发中)</div> -->
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>

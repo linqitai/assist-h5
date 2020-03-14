@@ -72,6 +72,9 @@ export default {
 	getCountTeamNum: host + "assist/userInfo/getCountTeamNum",
 	insertAssistUserFreeze: host + "assist/userFreeze/insertAssistUserFreeze",
 	reduceRealNameTime: host + "assist/userInfo/reduceRealNameTime",
+	//服务商
+	getServiceUserList: host + "assist/user/getServiceUserList",
+	getServiceDsPassword: host + "assist/user/getServiceDsPassword",
 	//公告
 	getNoticeList: host + 'assist/notice/getNoticeList',
 	getNoticePageList: host + "assist/notice/getNoticePageList",
@@ -84,6 +87,7 @@ export default {
 	deleteAssistMessageBoard: host + 'assist/messageBoard/deleteAssistMessageBoard/',
 	//省市代理
 	getAssistProvinceAgentListByPage: host + "assist/provinceAgent/getAssistProvinceAgentListByPage",
+	getCityAgentListMoreInfo: host + "assist/cityAgent/getCityAgentListMoreInfo",
 	//vote
 	getAssistVoteList: host + "assist/assistVote/getAssistVoteList",
 	getAssistVote: host + "assist/assistVote/getAssistVote/",
@@ -152,6 +156,7 @@ export default {
 	getAssistTransactionList4AgentChecked: host + "assist/transaction/getAssistTransactionList4AgentChecked",
 	getAssistTransactionList4AgentComplate: host + "assist/transaction/getAssistTransactionList4AgentComplate",
 	getAssistTransactionList4AgentCancel: host + "assist/transaction/getAssistTransactionList4AgentCancel",
+	insertTransaction2ServiceBill: host + "assist/transaction/insertTransaction2ServiceBill",
 	//统计
 	getHomeMineralStaticInfo: host + "assist/statistics/getHomeMineralStaticInfo",
 	getCurrentBuyNum: host + "assist/statistics/getCurrentBuyNum",

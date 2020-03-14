@@ -3,7 +3,7 @@ function getUserType(val) {
 	if (val == -1) {
 		return '去实名得微矿';
 	} else if (val == 0) {
-		return '普通用户';
+		return '初级用户';
 	} else if (val == 1) {
 		return '青铜级工会会长';
 	} else if (val == 2) {

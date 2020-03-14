@@ -174,6 +174,12 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
+							path: '/transferMineral4F',
+							name: '转让矿石(服务商)',
+							component: resolve => require(['./views/my/transferMineral4F'],resolve),
+							meta:{footer:false},
+						},
+						{
 							path: '/unFreeze',
 							name: '解冻账号',
 							component: resolve => require(['./views/my/unFreeze'],resolve),
@@ -201,8 +207,14 @@ export default new Router({
 			children: [
 				{
 					path: '/cService',
-					name: '客服服务',
+					name: '客服',
 					component: resolve => require(['./views/home/cService'],resolve),
+					meta:{footer:false},
+				},
+				{
+					path: '/serviceDeal',
+					name: '服务商',
+					component: resolve => require(['./views/home/serviceDeal'],resolve),
 					meta:{footer:false},
 				},
 				{
@@ -281,8 +293,14 @@ export default new Router({
 				},
 				{
 					path: '/agency',
-					name: '省市代理',
+					name: '省代理',
 					component: resolve => require(['./views/home/agency'],resolve),
+					meta:{footer:false},
+				},
+				{
+					path: '/agency2',
+					name: '市代理',
+					component: resolve => require(['./views/home/agency2'],resolve),
 					meta:{footer:false},
 				},
 				{

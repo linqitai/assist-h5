@@ -17,7 +17,7 @@
 					align-content: center;
 					align-items: center;
 					justify-content: center;
-					padding: $boxPadding2;
+					padding: 6px;
 					background-color: $main-box-color;
 					border-top: 1px solid $main-bg-color;
 					border-bottom:1px solid $mainBorderColor;
@@ -66,9 +66,9 @@
 						}
 					}
 					.flexRight{
-						flex: 0 0 90px;
+						flex: 0 0 120px;
 						text-align: right;
-						font-size: $fs-12;
+						font-size: $fs-11;
 					}
 					.operatorBox{
 						flex: 0 0 100px;
@@ -163,32 +163,32 @@
 								</div>
 								<div class="flex">
 									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
-									<!-- <div class="placeholderLine10"></div> -->
-									<!-- <div class="line">
+									<div class="placeholderLine10"></div>
+									<div class="line">
 										<div>
 											<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}
 											<span class="margL1" @touchstart="handleCopy(item.wechartNum,$event)" @tap="handleCopy(item.wechartNum,$event)" @click="handleCopy(item.wechartNum,$event)">复制</span>
 										</div>
-									</div> -->
+									</div>
 								</div>
-								<div class="flexRight">{{item.provinceName}}</div>
+								<div class="flexRight" @click="toTeamView(item.id)">{{item.provinceName}} <i class="iconfont iconfont-right-arrow2"></i></div>
 							</div>
-							<div class="item" v-for="itemChild in item.assistCityAgentExtendList" :key='itemChild.id'>
+							<!-- <div class="item" v-for="itemChild in item.assistCityAgentExtendList" :key='itemChild.id'>
 								<div class="flexLeft">
 									<div class="nameChild">{{itemChild.realName | getLastName}}</div>
 								</div>
 								<div class="flex">
 									<div class="line"><i class="iconfont iconfont-name"></i> {{itemChild.nickName}}</div>
-									<!-- <div class="placeholderLine10"></div>
+									<div class="placeholderLine10"></div>
 									<div class="line">
 										<div>
 											<i class="iconfont iconfont-weichat"></i> {{itemChild.wechartNum}}
 											<span class="margL1" @touchstart="handleCopy(item.wechartNum,$event)" @tap="handleCopy(item.wechartNum,$event)" @click="handleCopy(itemChild.wechartNum,$event)">复制</span>
 										</div>
-									</div> -->
+									</div>
 								</div>
 								<div class="flexRight">{{itemChild.cityName}}</div>
-							</div>
+							</div> -->
 						</div>
 					</van-list>
 				</van-tab>
@@ -200,7 +200,8 @@
 				<!-- <div class="tip4model3">第一批省代理正在招募中，需通过现有代理或客服引荐。</div> -->
 				<div class="placeholderLine10"></div>
 				<div class="tip4model4">
-					<b class="textBold">省市代理的权限：</b><br>					1.拥有引荐受帮扶对象的权限。<br>					2.拥有给他人解冻账号的权限。<br>					3.拥有给他人实名审核的权限。<br>					4.拥有给他人内排注册的权限。<br>					5.省市代理拥有帮扶券的代理权。<br>					帮扶券的用处：可用于交易的时候当手续费(这是平台方唯一的盈利点)、可用于帮助平台上生活遇到困难的会员而获得贡献值等。<br>
+					<b class="textBold">省市代理的权限：</b><br>					1.拥有引荐受帮扶对象的权限。<br>					2.拥有给他人解冻账号的权限。<br>					3.拥有申请给他人内排注册的权限。<br>					4.省市代理拥有帮扶券的代理权。<br>
+					5.交易服务商会从代理中选择。<br>					帮扶券的用处：可用于交易的时候当手续费(这是平台方唯一的盈利点)、可用于帮助平台上生活遇到困难的会员而获得贡献值等。<br>
 					注：代理期限至少半年。每半年会重新竞选一次。优秀负责的代理可续任。
 					<div class="placeholderLine10"></div>
 					<b class="textBold">如何获得省市代理？</b><br>					方案一.前期福利：2020/3/31 21:00 之前对接团队长，送市代理名额，由现代理引荐，送完为止，先到先得。<br>					方案二.前期福利：2020/3/31 21:00 个人算力在【首页-排行榜】中的用户找现有代理或客服审核即赠送市代理名额。<br>					方案三.实力抵押：抵押10000个帮扶券成为省代理；抵押5000个帮扶券成为市代理。<br>					注：帮扶券1CNY一个，会员从市代理那儿购买，市代理从省代理那儿购买，省代理从亚太区总代理那儿购买。
@@ -216,6 +217,7 @@
 	import clip from '@/assets/js/clipboard';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
+		name:'agency',
 		data() {
 			return {
 				currentPage1: 1,
@@ -248,6 +250,15 @@
 				let _this = this;
 				clip(text,event,function(res){
 					_this.$toast(`复制${res.text}成功`);
+				});
+			},
+			toTeamView(id){
+				console.log('id',id);
+				this.$router.push({
+					path:'/agency2',
+					query:{
+					  id:id,
+					}
 				});
 			},
 			onLoad1(){

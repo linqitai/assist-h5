@@ -666,7 +666,7 @@ export default {
 		validate(key){
 			let _this = this;
 			if(key == 'nickName') {
-				if((_this.form.nickName.length)<=7&&(_this.form.nickName.length)>0){
+				if((_this.form.nickName.length)<=12&&(_this.form.nickName.length)>0){
 					_this.errorInfo.nickName = '';
 				}else{
 					_this.errorInfo.nickName = _this.errorHint.nickName;

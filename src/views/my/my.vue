@@ -234,7 +234,10 @@
 					</div>
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
-					<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
+					<!-- <div>=2000+(卖出数量-买入数量)=</div> getServiceDsPassword-->
+					<div class="line" v-if="userInfo.manType==2">
+						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
+					</div>
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
@@ -368,6 +371,18 @@
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
+			<div class="items">
+				<router-link to="transferMineral4F">
+					<div class="my-cell">
+						<div class="flex1">
+							转让矿石(服务商)
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+			</div>
 			<!-- <div class="items">
 				<router-link to="transferMineral">
 					<div class="my-cell">
@@ -413,16 +428,6 @@
 						</div>
 					</div>
 				</router-link>
-				<router-link to="reduceRNTimes" v-if="userInfo.submitActivedNum>2">
-					<div class="my-cell">
-						<div class="flex1">
-							销实名次数
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
 			</div>
 			<div class="items" v-if="userInfo.isAgent==3">
 				<router-link to="initPassword">
@@ -436,18 +441,19 @@
 					</div>
 				</router-link>
 			</div>
-			<!-- <div class="items" v-if="userInfo.isAgent>3">
-				<router-link to="transferTicket">
+			<div class="items" v-if="userInfo.innerRegister==1">
+				<router-link to="innerRegister">
+				<!-- @click="waitingInnerRegister" -->
 					<div class="my-cell">
 						<div class="flex1">
-							定向转让帮扶券
+							内排注册
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
 				</router-link>
-			</div> -->
+			</div>
 			<div class="items" v-if="userInfo.isAgent>2">
 				<router-link to="myCheck">
 					<div class="my-cell">
@@ -461,17 +467,6 @@
 				</router-link>
 			</div>
 			<div class="items" v-if="userInfo.isAgent>0">
-				<!-- <router-link to="innerRegister"> -->
-				<!-- @click="waitingInnerRegister" -->
-					<div class="my-cell" @click="waitingInnerRegister">
-						<div class="flex1">
-							内排注册
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				<!-- </router-link> -->
 				<!-- <router-link to="transferMineral">
 					<div class="my-cell">
 						<div class="flex1">
@@ -503,6 +498,18 @@
 					</div>
 				</router-link>
 			</div>
+			<div class="items">
+				<router-link to="reduceRNTimes">
+					<div class="my-cell">
+						<div class="flex1">
+							销实名次数
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+			</div>
 		</van-pull-refresh>
 		
 		<!-- <m-fullscreen></m-fullscreen> -->
@@ -524,6 +531,7 @@
 	import mHeader from '@/components/Header.vue';
 	//import mRefresh from '@/components/Refresh2.vue';
 	import { Dialog } from 'vant';
+	import clip from '@/assets/js/clipboard';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	/* import { Skeleton } from 'vant'; */
 	export default {
@@ -541,7 +549,8 @@
 					sellOutTime:0,
 				},
 				cookiesTime:60 * 60 * 24,
-				cityInfo:''
+				cityInfo:'',
+				dsPassword:''
 			}
 		},
 		components: {
@@ -590,6 +599,9 @@
 			if(_this.userInfo.isAgent==2){
 				_this.getAssistAgentInfo4City();
 			}
+			if(_this.userInfo.manType==2){
+				_this.getServiceDsPassword();
+			}
 		},
 		methods: {
 			getCityName(cityInfo){
@@ -615,6 +627,21 @@
 				  message: "此功能即将开放，请等通知"
 				}).then(() => {
 				  // on confirm
+				})
+			},
+			handleCopy(text, event) {
+				let _this = this;
+				_this.showSendSMSTipModel = false;
+				clip(text,event,function(res){
+					_this.$toast(`复制成功`);
+				});
+			},
+			getServiceDsPassword(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getServiceDsPassword, 'GET', null, function(res){
+					if(res.code == _this.$api.CODE_OK){
+						_this.dsPassword = res.data.dsPassword;
+					}
 				})
 			},
 			getAssistAgentInfo4Province(){
@@ -715,6 +742,9 @@
 						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 						//console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
+						if(_this.userInfo.manType==2){
+							_this.getServiceDsPassword();
+						}
 						if(_this.userInfo.accountStatus==1){
 							//退出登录
 							_this.logout();

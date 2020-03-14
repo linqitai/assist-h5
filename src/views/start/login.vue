@@ -139,7 +139,8 @@
 				isLoading:false,
 				cookiesTime: 60 * 60 * 24,
 				userFreezeInfo:'',
-				getInitCode:''
+				getInitCode:'',
+				userInfo:''
 			}
 		},
 		mounted() {
@@ -305,16 +306,13 @@
 					// console.log('res', res);
 					_this.isLoading = false;
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
-						let userInfo = res.data.assistUserInfoVo4Web;
-						/* alert("userInfo1:" + JSON.stringify(userInfo)); */
-						/* _this.getBuyAndSellInfo(userInfo.userId); */
-						_this.$cookies.set("userId", userInfo.userId);
+						_this.userInfo = res.data.assistUserInfoVo4Web;
+						_this.$cookies.set("userId", _this.userInfo.userId);
 						_this.$cookies.set('token',res.data.token);
 						//登录后手机号缓存到本地，每次登录免得继续输入手机号，提高用户体验
-						localStorage.setItem('_USERINFO_',JSON.stringify(userInfo));
-						/* alert("userInfo2:" + ); */
-						localStorage.setItem('mobilePhone',userInfo.mobilePhone);
-						if(userInfo.accountStatus == 1){
+						localStorage.setItem('_USERINFO_',JSON.stringify(_this.userInfo));
+						localStorage.setItem('mobilePhone',_this.userInfo.mobilePhone);
+						if(_this.userInfo.accountStatus == 1){
 							_this.getUserFreezeInfo();
 						}else{
 							_this.$router.replace("/home");

@@ -148,8 +148,9 @@
 					.copy{
 						font-size: $fs-12;
 						margin-right: 10px;
-						background-color: #E5E5E5;
+						/* background-color: #E5E5E5; */
 						padding: 1px 2px;
+						color: $main-adorn-color;
 					}
 					.iconfont-upload-pic{
 						font-size: 50px;
@@ -917,7 +918,7 @@
 				remark:"",
 				pen:"",
 				uploadPicBase64:"",
-				buyerHaveWord:"买方有话说：您好，我手头正有事情在忙，请稍等片刻。",
+				buyerHaveWord:"买方有话说：您好，我已锁定订单，请稍等片刻，我会尽快付款。",
 				tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待30分钟，若买方在30分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长30分钟交易时间，锁定交易后买方若在匹配后的1小时内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
 				tipText4AppointDeal: "",
 				activeName: "pay",
@@ -1359,6 +1360,8 @@
 							if(res.data==1){
 								_this.onLoad2();
 							}
+						}else{
+							_this.$toast(res.message);
 						}
 					})
 				}).catch(() => {
@@ -1905,7 +1908,7 @@
 				  		if(res.data==1){
 							//服务费类型(0:矿石 1:矿石+平台券 2平台券)
 							_this.showSendSMSTipModel = true;
-							if(_this.type == 0 || _this.type == 1){
+							if(_this.type == 0 || _this.type == 1 || _this.type == 3){
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个短信提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;

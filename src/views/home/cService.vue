@@ -47,25 +47,36 @@
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="cServiceContent">
-			<div class="tip4model3">有问题请先联系自己的团队长，然后团队长再联系客服</div>
-			<!-- <div class="title">官方QQ群：</div>
+			<div class="tip4model3 textBold">有问题请先联系自己的团队长，然后团队长再联系客服，尽量减少客服的压力，感恩您的配合</div>
+			<div class="placeholderLine10"></div>
+			<div class="title">工会QQ群(没群的会员请进)：</div>
 			<div class="placeholderLine10"></div>
 			<div>
 				<b class="textBold">{{qqFlock}}</b><span class="copy margL10" @click="handleCopy(qqFlock,$event)">复制</span>
 			</div>
 			<div class="placeholderLine10"></div>
+			<!-- <div class="title">工会微信群(没群的会员请进)：</div>
+			<div class="placeholderLine10"></div>
+			<div class="cateInfo">
+				<div class="infoBox">
+					<img class="ewmBox" src="../../assets/image/wechat.png" alt="">
+					<div class="text">扫码进微信群</div>
+				</div>
+			</div>
+			<div class="placeholderLine10"></div> -->
+			
+			<div class="title">微信客服：</div>
+			<div class="placeholderLine10"></div>
+			<div v-for="item in serviceList" :key="item.id+20" v-if="item.weiChart!='--'">
+				<b class="textBold">{{item.remark}}微信号：{{item.weiChart}}</b><span class="copy margL10" @click="handleCopy(item.weiChart,$event)">复制</span>
+				<div class="placeholderLine10"></div>
+			</div>
 			<div class="title">QQ客服：</div>
 			<div class="placeholderLine10"></div>
-			<div v-for="item in serviceList" :key="item.id">
+			<div v-for="item in serviceList" :key="item.id" v-if="item.qq!='--'">
 				<b class="textBold">{{item.remark}}QQ号：{{item.qq}}</b><span class="copy margL10" @click="handleCopy(item.qq,$event)">复制</span>
 				<div class="placeholderLine10"></div>
 			</div>
-			<div class="title">微信客服：</div>
-			<div class="placeholderLine10"></div>
-			<div v-for="item in serviceList" :key="item.id+20">
-				<b class="textBold">{{item.remark}}微信号：{{item.weiChart}}</b><span class="copy margL10" @click="handleCopy(item.weiChart,$event)">复制</span>
-				<div class="placeholderLine10"></div>
-			</div> -->
 			<!-- <div class="placeholderLine4"></div>
 			<van-row gutter="10">
 			  <van-col span="12">

@@ -483,6 +483,24 @@ $noticeHeight:40px;
 						<div class="margT6">销毁数量</div>
 					</div>
 				</div>
+				<div class="millInfo">
+					<div class="infoBox">
+						<div class="amount">{{ statistics.awardNum || 0 }}</div>
+						<div class="margT6">奖励分红出去的数量</div>
+					</div>
+					<div class="infoBox">
+						<div class="amount">{{ statistics.allMineralNum - statistics.beDigNum - statistics.awardNum - statistics.beDestroyNum  || 0}}</div>
+						<div class="margT6">最后所剩矿石数量</div>
+					</div>
+					<!-- <div class="infoBox">
+						<div class="amount">{{ statistics.canCirculateNum  || 0}}</div>
+						<div class="margT6">可流通数量</div>
+					</div>
+					<div class="infoBox">
+						<div class="amount">{{statistics.beDestroyNum || 0}}</div>
+						<div class="margT6">销毁数量</div>
+					</div> -->
+				</div>
 				<div class="cateInfo">
 					<div class="infoBox" @click="attendanceBtn">
 						<div class="iconBox">
@@ -531,7 +549,17 @@ $noticeHeight:40px;
 									<van-icon class-prefix="iconfont" name="cservice" />
 								</div>
 							</div>
-							<div class="text">客服服务</div>
+							<div class="text">客服</div>
+						</router-link>
+					</div>
+					<div class="infoBox">
+						<router-link to="/serviceDeal">
+							<div class="iconBox">
+								<div class="iconBackground iconBackground1">
+									<van-icon class-prefix="iconfont" name="merchant" />
+								</div>
+							</div>
+							<div class="text">服务商</div>
 						</router-link>
 					</div>
 					<div class="infoBox" @click="waiting">
@@ -549,14 +577,6 @@ $noticeHeight:40px;
 							</div>
 						</div>
 						<div class="text">水滴帮扶筹</div>
-					</div>
-					<div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="share3" />
-							</div>
-						</div>
-						<div class="text">资源共享</div>
 					</div>
 				</div>
 				<div class="noticeFlag paddingWing margT8">
@@ -586,7 +606,9 @@ $noticeHeight:40px;
 			</div>
 		</van-dialog>
 		<transition name="van-fade">
-		  <router-view></router-view>
+			<keep-alive include="agency">
+				<router-view></router-view>
+			</keep-alive>
 		</transition>
 	</div>
 </template>
@@ -727,6 +749,17 @@ $noticeHeight:40px;
 				  // on confirm
 				})
 			},
+			waiting2(){
+				let _this = this;
+				/* _this.$toast("此功能正在努力建设中"); */
+				Dialog.alert({
+				  title: '系统提示',
+				  confirmButtonText:'加油',
+				  message: "此模块即将开通"
+				}).then(() => {
+				  // on confirm
+				})
+			},
 			closeBtn(){
 				this.showAttendanceModel = false;
 			},
@@ -744,6 +777,10 @@ $noticeHeight:40px;
 				let nowDate = _this.$utils.getDate(new Date());
 				if(nowDate == _this.userInfo.beforeAttendanceDate) {
 					_this.todayIsAttendance = true;
+					_this.isDisableAttendanceBtn = true;
+				}else {
+					_this.todayIsAttendance = false;
+					_this.isDisableAttendanceBtn = false;
 				}
 			},
 			getAttendanceBgColor(val){
@@ -768,6 +805,7 @@ $noticeHeight:40px;
 			},
 			attendanceBtn(){
 				this.showAttendanceModel=true;
+				this.getUserInfo();
 				//console.log('attendanceBtn');
 			},
 			sureAttendanceBtn(){
@@ -778,62 +816,86 @@ $noticeHeight:40px;
 					//昨天
 					let yestoday=new Date().getTime()-24*60*60*1000;
 					let yestodayYMD = _this.$utils.getDate(yestoday);
-					if(ui.beforeAttendanceDate<yestodayYMD){
-						Dialog.alert({
-						  title: '提示信息',
-						  message: '该账号上次签到时间是' + ui.beforeAttendanceDate + '，已经漏签需重新签到'
-						}).then(() => {
-						  // on confirm
-						  _this.isLoading = true;
-						  _this.isDisableAttendanceBtn = true;
-						  _this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
-						  	_this.isLoading = false;
-						  	if (res.code == _this.$api.CODE_OK) {
-						  		_this.getUserInfo();
-						  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-						  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
-						  	}else if(res.code==1003){
-						  		Dialog.alert({
-						  		  title: '提示信息',
-						  		  confirmButtonText:'前去查看',
-						  		  message: res.message
-						  		}).then(() => {
-						  		  // on confirm
-						  		  _this.$router.push("mill");
-						  		})
-						  	}else{
-						  		_this.$toast(res.message);
-						  	} 
-						  })
+					if(ui.beforeAttendanceDate==''||ui.beforeAttendanceDate==null){
+						_this.isLoading = true;
+						_this.isDisableAttendanceBtn = true;
+						_this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
+							_this.isLoading = false;
+							if (res.code == _this.$api.CODE_OK) {
+								_this.getUserInfo();
+								// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
+								// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+							}else if(res.code==1003){
+								Dialog.alert({
+								  title: '提示信息',
+								  confirmButtonText:'前去查看',
+								  message: res.message
+								}).then(() => {
+								  // on confirm
+								  _this.$router.push("mill");
+								})
+							}else{
+								_this.$toast(res.message);
+							} 
 						})
 					}else{
-						Dialog.alert({
-						  title: '提示信息',
-						  message: '该账号上次签到时间是' + ui.beforeAttendanceDate + '，可续签'
-						}).then(() => {
-						  // on confirm
-						  _this.isLoading = true;
-						  _this.isDisableAttendanceBtn = true;
-						  _this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
-						  	_this.isLoading = false;
-						  	if (res.code == _this.$api.CODE_OK) {
-						  		_this.getUserInfo();
-						  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-						  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
-						  	}else if(res.code==1003){
-						  		Dialog.alert({
-						  		  title: '提示信息',
-						  		  confirmButtonText:'前去查看',
-						  		  message: res.message
-						  		}).then(() => {
-						  		  // on confirm
-						  		  _this.$router.push("mill");
-						  		})
-						  	}else{
-						  		_this.$toast(res.message);
-						  	} 
-						  })
-						})
+						if(ui.beforeAttendanceDate<yestodayYMD){
+							Dialog.alert({
+							  title: '提示信息',
+							  message: '该账号上次签到时间是' + ui.beforeAttendanceDate + '，已经漏签需重新签到'
+							}).then(() => {
+							  // on confirm
+							  _this.isLoading = true;
+							  _this.isDisableAttendanceBtn = true;
+							  _this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
+							  	_this.isLoading = false;
+							  	if (res.code == _this.$api.CODE_OK) {
+							  		_this.getUserInfo();
+							  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
+							  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+							  	}else if(res.code==1003){
+							  		Dialog.alert({
+							  		  title: '提示信息',
+							  		  confirmButtonText:'前去查看',
+							  		  message: res.message
+							  		}).then(() => {
+							  		  // on confirm
+							  		  _this.$router.push("mill");
+							  		})
+							  	}else{
+							  		_this.$toast(res.message);
+							  	} 
+							  })
+							})
+						}else{
+							Dialog.alert({
+							  title: '提示信息',
+							  message: '该账号上次签到时间是' + ui.beforeAttendanceDate + '，可续签'
+							}).then(() => {
+							  // on confirm
+							  _this.isLoading = true;
+							  _this.isDisableAttendanceBtn = true;
+							  _this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
+							  	_this.isLoading = false;
+							  	if (res.code == _this.$api.CODE_OK) {
+							  		_this.getUserInfo();
+							  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
+							  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+							  	}else if(res.code==1003){
+							  		Dialog.alert({
+							  		  title: '提示信息',
+							  		  confirmButtonText:'前去查看',
+							  		  message: res.message
+							  		}).then(() => {
+							  		  // on confirm
+							  		  _this.$router.push("mill");
+							  		})
+							  	}else{
+							  		_this.$toast(res.message);
+							  	} 
+							  })
+							})
+						}
 					}
 				}
 			},

@@ -97,9 +97,11 @@
 					pageSize: 20,
 				}
 				_this.$ajax.ajax(_this.$api.getServiceUserList, 'GET', null, function(res) {
-					console.log('res', res);
+					//console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
-						_this.serviceList = res.data;
+						let serviceList = res.data;
+						console.log('serviceList', _this.serviceList);
+						_this.serviceList = serviceList.filter((item) => item.isShow == 1);
 						// let qqList = [];
 						// let wxList = [];
 						// _this.serviceList.forEach((item)=>{

@@ -155,8 +155,10 @@
 						方案{{index + 1}}：{{item.questionTitle}}
 					</div>
 				</div>
+				<div class="placeholderLine10"></div>
+				<div class="placeholderLine10"></div>
+				<div class="tip4model3">参与投票之前个人算力至少要达到0.2G</div>
 			</div>
-			<div class="placeholderLine10"></div>
 			<div class="box2">
 				<div class="title" v-if="isDead==0">
 					目前投票结果：
@@ -218,7 +220,7 @@
 			<div class="paddingWing">
 				<div class="placeholderLine40"></div>
 				<div class="describe">
-					<b>尊敬的{{projectName}}用户们</b>，平台从建立之初始终本着<b>公平、公正、公开、透明</b>的原则，把大家的综合意愿放首位。平台在每一次重要决策上的预调整或预变动，会尽量让大家参加进来<b>共同做决策</b>。Tip:参与投票之前要先完成基础任务1。
+					<b>尊敬的{{projectName}}用户们</b>，平台从建立之初始终本着<b>公平、公正、公开、透明</b>的原则，把大家的综合意愿放首位。平台在每一次重要决策上的预调整或预变动，会尽量让大家参加进来<b>共同做决策</b>。
 				</div>
 				<div class="placeholderLine40"></div>
 				<div class="placeholderLine40"></div>

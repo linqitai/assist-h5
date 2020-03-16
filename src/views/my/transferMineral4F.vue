@@ -91,7 +91,7 @@
 				<van-field v-model="getGuidancePrice" required disabled label="指导总价"/>
 				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
 				<van-field v-model="getAssurePrice" required clearable label="转让总价" placeholder="请先填写转让单价" @blur="validate4AppointDeal('assurePrice')" :error-message="errorInfo4AppointDeal.assurePrice"/>
-				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请粘贴服务商的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
+				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请填写对方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
 				<!-- <van-field v-model="form4AppointDeal.agentPhone" required clearable label="担保代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone"> -->
 					<!-- <van-button slot="button" size="small" type="primary">自动分配</van-button> -->
 				</van-field>
@@ -105,7 +105,7 @@
 			<div class="paddingWing tip4model3">
 				<b class="textBold">转让矿石(服务商)交易规则：</b><br>
 				1.无论是会员转矿石给服务商还是服务商转矿石给会员，转让手续费都是只收交易总金额10%的帮扶券。比如：交易总金额是200CNY，收20CNY价值的帮扶券作为手续费。该手续费，将会用来做线下的公益事业(爱心帮扶活动)。等疫情过去后，将陆陆续续开展线下的公益事业，期待有您的参与!<br>
-				2.个人算力大于0.4G即可开通定向转让矿石给服务商的权限。<br>
+				2.个人算力达到0.4G即可开通定向转让矿石给服务商的权限。<br>
 				3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机。<br>
 			</div>
 			<!-- <div class="margT10 paddingWing tip4model3" v-html="tipText4AppointDeal"></div> -->

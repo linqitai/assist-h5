@@ -202,7 +202,7 @@
 			  <div class="placeholderLine4"></div>
 			  <van-radio name="您的支付宝账号未实名。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">您的支付宝账号未实名</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="所填写的身份证号和证件照中不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
+			  <van-radio name="所填写的身份证号和证件照中不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">所填写的身份证号和证件照中不一致</van-radio>
 			  <div class="placeholderLine4"></div>
 			  <van-radio name="小纸条不合格，请按照模板要求来。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
 			  <div class="placeholderLine4"></div>

@@ -30,7 +30,7 @@
 			font-size: 12px !important;
 		}
 		
-		.idcard{
+		/* .idcard{
 			.van-cell{
 				padding:0 16px !important;
 			}
@@ -39,7 +39,7 @@
 				letter-spacing: 1px;
 				padding-left: 10px;
 			}
-		}
+		} */
 		.line{
 			display: flex;
 			flex-direction: row;
@@ -165,8 +165,11 @@
 		<div class="idcard">
 			<van-field v-model="form.idCard" required clearable label="身份证号" disabled="true" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
 		</div>
+		<van-field v-model="form.mobilePhone" required clearable label="手机号" maxlength="11" disabled="true">
+			<van-button slot="button" size="small" type="primary" @click="handleCopy(form.mobilePhone,$event)">复制</van-button>
+		</van-field>
 		<div class="" v-if="form.remark">
-			<van-field v-model="form.remark" label="上次驳回原因" rows="2" autosize required disabled="true"/>
+			<van-field v-model="form.remark" label="上次驳回原因" rows="3" type="textarea" autosize required disabled="true"/>
 		</div>
 		<!-- <div class="items2">
 			<div class="my-cell">
@@ -215,6 +218,8 @@
 			  <van-radio name="身份证里的名字与支付宝实名不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">身份证里的名字与支付宝实名不一致</van-radio>
 			  <div class="placeholderLine4"></div>
 			  <van-radio name="为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像</van-radio>
+			  <div class="placeholderLine4"></div>
+			  <van-radio name="所搜索到的支付宝和所上传的照片不一样。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">所搜索到的支付宝和所上传的照片不一样</van-radio>
 			  <div class="placeholderLine4"></div>
 			  <van-radio name="支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我</van-radio>
 			  <div class="placeholderLine4"></div>

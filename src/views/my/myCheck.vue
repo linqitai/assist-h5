@@ -210,8 +210,6 @@
 			getcheckList() {
 				let _this = this;
 				let params = {
-					pageNo: _this.currentPage1,
-					pageSize: _this.pageSize,
 					mobilePhone: _this.searchValue
 				}
 				/* if((!_this.$utils.isNUll(params.mobilePhone))&&_this.$reg.phone.test(params.mobilePhone)){
@@ -221,7 +219,7 @@
 					_this.loading = false;
 					return;
 				} */
-				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList4Check, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistUserInfoList4Check, 'GET', params, function(res) {
 					/* console.log('res', res); */
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {

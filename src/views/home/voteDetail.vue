@@ -136,10 +136,12 @@
 		</m-header>
 		<div class="myVotePage">
 			<div class="placeholderLine10"></div>
-			<div class="box1">
+			<div class="box1" v-if="voteInfo.voteTitle">
 				<div class="title">
 					{{voteInfo.voteTitle}}
 				</div>
+				<div class="placeholderLine8"></div>
+				<div class="tip4model3">{{voteInfo.remark}}</div>
 				<div class="time">{{voteInfo.createTime|getDateTimeTOHM}} ~ {{voteInfo.deadTime|getDateTimeTOHM}}</div>
 				<div class="margT10">
 					<van-radio-group v-model="form.questionId" v-if="isDead==0" @change="radioChange">

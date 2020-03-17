@@ -681,7 +681,7 @@
 				}else if(val=='contribution'){
 					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：签到、推广、自己复投矿机、直推复投矿机、捐赠帮扶券。';
 				}else if(val=='teamCalculationPower'){
-					message = '团队算力：它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
+					message = '团队算力：个人算力+近代下级的个人算力。它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
 				}else if(val=='myCalculationPower'){
 					message = '我的算力：由个人所拥有的矿机所决定。';
 				}else if(val=='limitBuyNum'){

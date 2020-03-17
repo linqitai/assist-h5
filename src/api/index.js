@@ -72,6 +72,7 @@ export default {
 	getCountTeamNum: host + "assist/userInfo/getCountTeamNum",
 	insertAssistUserFreeze: host + "assist/userFreeze/insertAssistUserFreeze",
 	reduceRealNameTime: host + "assist/userInfo/reduceRealNameTime",
+	getAssistUserInfoList4Check: host + "assist/userInfo/getAssistUserInfoList4Check",
 	//服务商
 	getServiceUserList: host + "assist/user/getServiceUserList",
 	getServiceDsPassword: host + "assist/user/getServiceDsPassword",

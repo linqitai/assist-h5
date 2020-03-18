@@ -735,6 +735,8 @@ $noticeHeight:40px;
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.qqFlock = `官方QQ群：${res.data.qqFlock}`;
 						_this.$cookies.set('qqFlock',res.data.qqFlock,_this.$api.cookiesTime8h);
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -800,6 +802,8 @@ $noticeHeight:40px;
 						_this.refreshAttendanceInfo();
 						//console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -864,7 +868,7 @@ $noticeHeight:40px;
 							  		})
 							  	}else{
 							  		_this.$toast(res.message);
-							  	} 
+							  	}
 							  })
 							})
 						}else{
@@ -925,6 +929,8 @@ $noticeHeight:40px;
 						_this.loading = false;
 						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -936,6 +942,8 @@ $noticeHeight:40px;
 						_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime);
 						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -946,6 +954,8 @@ $noticeHeight:40px;
 						_this.canCirculateNum = res.data;
 						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -962,6 +972,8 @@ $noticeHeight:40px;
 						_this.noticeList4Swipe = res.data.list;
 						localStorage.setItem('noticeList4Swipe',JSON.stringify(_this.noticeList4Swipe));
 						_this.$cookies.set('hasNoticeList4Swipe',1,_this.$api.cookiesTime8h);
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -986,6 +998,8 @@ $noticeHeight:40px;
 						//_this.$cookies.set('isShowLN',1,60*60);
 						//实在显示首页的最新公告弹窗
 						_this.isShowLastNotice = true;
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},

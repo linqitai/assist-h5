@@ -165,6 +165,7 @@
 						_this.list1 = [];
 						_this.loading1 = false;
 						_this.finished1 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},

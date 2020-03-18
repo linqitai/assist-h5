@@ -222,7 +222,7 @@
 			return {
 				currentPage1: 1,
 				currentPage2: 1,
-				pageSize:10,
+				pageSize:16,
 				activeName:'agency2',
 				loading1:false,
 				finished1:false,
@@ -294,6 +294,7 @@
 					}else{
 						_this.loading2 = false;
 						_this.finished2 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},

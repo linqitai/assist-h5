@@ -296,6 +296,25 @@
 					return 0;
 				}
 			},
+			/* getAssistAnswer4Self(){
+				let _this = this;
+				let params = {
+					voteId:_this.voteId
+				}
+				_this.$ajax.ajax(_this.$api.getAssistAnswer, 'GET', params, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) { // 200
+						_this.myVoteInfo = res.data;
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+					}
+				})
+			}, */
 			getAssistAnswer4Self(){
 				let _this = this;
 				let params = {
@@ -308,6 +327,13 @@
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.myVoteInfo = res.data.list[0];
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				})
 			},
@@ -323,6 +349,13 @@
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.voteList = res.data.list;
 						_this.totalItems = res.data.total;
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				})
 			},
@@ -344,6 +377,13 @@
 						_this.isDead = _this.judgeTime4VoteStatus(_this.voteInfo.deadTime);
 						_this.getAssistAnswer4Self();
 						_this.getAssistAnswerListPage();
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				})
 			},

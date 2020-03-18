@@ -158,6 +158,8 @@
 						// })
 						// console.log('qqList',qqList);
 						// console.log('wxList',wxList);
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -167,6 +169,8 @@
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.qqFlock = res.data.qqFlock;
 						_this.$cookies.set('qqFlock',res.data.qqFlock,_this.$api.cookiesTime);
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},

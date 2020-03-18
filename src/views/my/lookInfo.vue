@@ -418,6 +418,8 @@
 						if(_this.thisUserInfo.accountStatus == 1){
 							_this.getUserFreezeInfo();
 						}
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},

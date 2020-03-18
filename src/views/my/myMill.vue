@@ -580,6 +580,8 @@
 						_this.$nextTick(function(){
 							_this.startCodeRain();
 						},300)
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -597,6 +599,8 @@
 						// localStorage.setItem("_millShopList_",JSON.stringify(_this.millShopList));
 						_this.loadingMillShop = false;
 						_this.finishedMillShop = true;
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},

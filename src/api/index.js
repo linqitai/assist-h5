@@ -95,6 +95,7 @@ export default {
 	//answer
 	insertAssistAnswer: host + "assist/answer/insertAssistAnswer",
 	getAssistAnswerListPage: host + "assist/answer/getAssistAnswerListPage",
+	getAssistAnswer: host + "assist/answer/getAssistAnswer",
 	//contributionValue
 	getAssistContributionValueListByUserId: host + "assist/contributionValue/getAssistContributionValueListByUserId",
 	getAssistContributionValueList: host + "assist/contributionValue/getAssistContributionValueList",
@@ -110,7 +111,7 @@ export default {
 	runMyMachineById: host + "assist/myMachine/runMyMachineById/",
 	getMyMachinesReceipt: host + "assist/myMachine/getMyMachinesReceipt",
 	getMyMachinesReceiptByOne: host + "assist/myMachine/getMyMachinesReceiptByOne/",
-	getAssistMyMachineCount4Task: host + "assist/myMachine/getAssistMyMachineCount4Task",
+	getAssistMyMachineCount4FlockTask: host + "assist/myMachine/getAssistMyMachineCount4FlockTask",
 	//算力账本列表
 	getCalculationPowerPageList: host + "assist/calculationPower/getCalculationPowerPageList",
 	//矿石账本列表

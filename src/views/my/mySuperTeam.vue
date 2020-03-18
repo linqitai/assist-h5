@@ -337,6 +337,8 @@
 						_this.parentUserInfo = res.data;
 						//localStorage.setItem('parentUserInfo',JSON.stringify(_this.parentUserInfo));
 						// console.log('_this.parentUserInfo',_this.parentUserInfo);
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -367,6 +369,10 @@
 							_this.currentPage = _this.currentPage + 1;
 						}
 						// console.log('_this.list1',_this.list1);
+					}else{
+						_this.loading1 = false;
+						_this.finished1 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -402,6 +408,10 @@
 						if(_this.userInfo.realnameNum!=res.data.total){
 							_this.updateRealNameNumByUserId();
 						}
+					}else{
+						_this.loading2 = false;
+						_this.finished2 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -412,6 +422,8 @@
 					if (res.code == _this.$api.CODE_OK) {
 						console.log("updateRealNameNumOK");
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -440,6 +452,10 @@
 							_this.currentPage3 = _this.currentPage3 + 1;
 						}
 						// console.log('_this.list3',_this.list3);
+					}else{
+						_this.loading3 = false;
+						_this.finished3 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},

@@ -761,6 +761,8 @@ export default {
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 					_this.$cookies.set("haveDealPageInfo",1, 60 * 30 * 1);
 					localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
+				}else{
+					_this.$toast(res.message);
 				}
 			})
 		},
@@ -785,6 +787,13 @@ export default {
 					}else{
 						localStorage.setItem("LIST1",JSON.stringify(_this.list1));
 					}
+				}else{
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
 				}
 			})
 		},
@@ -804,6 +813,13 @@ export default {
 					_this.loading2 = false;
 					_this.loading = false;
 					localStorage.setItem("LIST2",JSON.stringify(_this.list2));
+				}else{
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
 				}
 			})
 		},
@@ -1028,6 +1044,8 @@ export default {
 					_this.clickIconTip.sellAmount = `该单价单笔可挂卖量为${_this.minBill}~${_this.maxBill}`;
 					_this.sellAmountPlaceholder = `单笔可挂卖量为${_this.minBill}~${_this.maxBill}`;
 					_this.errorInfo4BuyBill.sellAmount = _this.clickIconTip.sellAmount;
+				}else{
+					_this.$toast(res.message);
 				}
 			})
 			_this.$ajax.ajax(_this.$api.getAssistTransactionCountBySellerId, 'GET', null, function(res) {

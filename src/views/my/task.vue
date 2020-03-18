@@ -638,6 +638,8 @@ export default {
 						  _this.$router.push('/myMill');
 						});
 					}
+				}else{
+					_this.$toast(res.message);
 				}
 			})
 		},
@@ -661,6 +663,8 @@ export default {
 							//奖励一台大型矿机
 							//此处调用接口
 						}
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			}
@@ -668,10 +672,9 @@ export default {
 		getAssistMyMachineCount4Task(){
 			let _this = this;
 			let params = {
-				type:2,
-				tag:4
+				type:2
 			}
-			_this.$ajax.ajax(_this.$api.getAssistMyMachineCount4Task, 'GET', params, function(res){
+			_this.$ajax.ajax(_this.$api.getAssistMyMachineCount4FlockTask, 'GET', params, function(res){
 				console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
 					if(res.data>0){
@@ -679,6 +682,8 @@ export default {
 					}else{
 						_this.isShowQunTaskOK = false;
 					}
+				}else{
+					_this.$toast(res.message);
 				}
 			})
 		},
@@ -716,6 +721,8 @@ export default {
 					}else{
 						_this.isRealName = false;
 					}
+				}else{
+					_this.$toast(res.message);
 				}
 				if(res.code == _this.$api.CODE_4003){
 					// _this.info = res.data.list;

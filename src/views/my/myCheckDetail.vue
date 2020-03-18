@@ -207,6 +207,8 @@
 			  <div class="placeholderLine4"></div>
 			  <van-radio name="所填写的身份证号和证件照中不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">所填写的身份证号和证件照中不一致</van-radio>
 			  <div class="placeholderLine4"></div>
+			  <van-radio name="您的纸条有P图嫌疑，请换一个稍微带有褶皱的纸条重新提交。(每人只有3次实名机会,请咨询上级按要求完成实名认证)"> 您的纸条有P图嫌疑</van-radio>
+			  <div class="placeholderLine4"></div>
 			  <van-radio name="小纸条不合格，请按照模板要求来。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
 			  <div class="placeholderLine4"></div>
 			  <van-radio name="怀疑存在P图，请重新拍照后再上传。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">怀疑存在P图，请重新拍照后再上传</van-radio>

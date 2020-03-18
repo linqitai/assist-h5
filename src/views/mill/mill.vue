@@ -440,6 +440,7 @@
 					_this.loading = false;
 					_this.loadingMillShop = false;
 					_this.finishedMillShop = true;
+					_this.$toast(res.message);
 				})
 			},
 			initializeTabActiveName() {

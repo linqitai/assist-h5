@@ -1254,6 +1254,8 @@
 						_this.list1 = res.data;
 						_this.loading1 = false;
 						_this.finished1 = true;
+					}else{
+						_this.$toast(res.message);
 					}
 					_this.loading = false;
 				})
@@ -1272,6 +1274,8 @@
 						_this.list2 = res.data;
 						_this.loading2 = false;
 						_this.finished2 = true;
+					}else{
+						_this.$toast(res.message);
 					}
 					_this.loading = false;
 				})
@@ -1289,6 +1293,8 @@
 						_this.list4 = res.data;
 						_this.loading4 = false;
 						_this.finished4 = true;
+					}else{
+						_this.$toast(res.message);
 					}
 					_this.loading = false;
 				})
@@ -1308,6 +1314,8 @@
 						_this.list3 = res.data;
 						_this.loading3 = false;
 						_this.finished3 = true;
+					}else{
+						_this.$toast(res.message);
 					}
 					_this.loading = false;
 				})
@@ -1324,6 +1332,8 @@
 						_this.list5 = res.data;
 						_this.loading5 = false;
 						_this.finished5 = true;
+					}else{
+						_this.$toast(res.message);
 					}
 					_this.loading = false;
 				})
@@ -1424,6 +1434,8 @@
 								_this.$toast("撤销成功");
 								_this.onLoad1();
 							}
+						}else{
+							_this.$toast(res.message);
 						}
 					 })
 				}).catch(() => {
@@ -1459,6 +1471,8 @@
 							_this.showBuyerDetailModel = false;
 							_this.showSellerUserInfoModel = false;
 						}
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -1537,6 +1551,8 @@
 						if(res.data){
 							_this.sellerUserInfo = res.data;
 						}
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -1586,6 +1602,8 @@
 							if (res.code == _this.$api.CODE_OK) {
 								// let list = res.data.list;
 								_this.appointDealDetail = res.data;
+							}else{
+								_this.$toast(res.message);
 							}
 						})
 					}else if(_this.activeName == 'pay'){//pay是买家
@@ -1621,6 +1639,8 @@
 									  //console.log('cancel');
 									});
 								}
+							}else{
+								_this.$toast(res.message);
 							}
 						})
 					}
@@ -1638,6 +1658,8 @@
 								}else{
 									_this.onLoad2();
 								}
+							}else{
+								_this.$toast(res.message);
 							}
 						})
 					}else if(bs=='buy'){
@@ -1689,6 +1711,8 @@
 								}else{
 									_this.onLoad2();
 								}
+							}else{
+								_this.$toast(res.message);
 							}
 						})
 					}
@@ -1726,6 +1750,8 @@
 						}else{
 							_this.onLoad2();
 						}
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -1748,6 +1774,8 @@
 							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 							_this.onLoad2();
 						}
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -1805,7 +1833,9 @@
 							_this.showBuyerDetailModel = false;
 							_this.onLoad4();
 						}
-				  	}
+				  	}else{
+						_this.$toast(res.message);
+					}
 				  })
 				}).catch(() => {
 				  // on cancel
@@ -1927,7 +1957,9 @@
 							}
 							_this.onLoad2();
 						}
-				  	}
+				  	}else{
+						_this.$toast(res.message);
+					}
 				  })
 				}).catch(() => {
 				  // on cancel

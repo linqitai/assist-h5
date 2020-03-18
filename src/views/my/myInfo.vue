@@ -437,7 +437,9 @@ export default {
 			  		}).then(() => {
 			  		  // on confirm
 			  		})
-			  	}
+			  	}else{
+					_this.$toast(res.message);
+				}
 			  })
 			}).catch(() => {
 			  // on cancel
@@ -473,6 +475,8 @@ export default {
 					_this.$cookies.remove('userId');
 					_this.$cookies.remove('token');
 					// console.log("_this.$cookies.keys()",_this.$cookies.keys());
+				}else{
+					_this.$toast(res.message);
 				}
 			},function(){
 				_this.$router.replace('login');
@@ -500,6 +504,8 @@ export default {
 					}else{
 						_this.isRealName = false;
 					}
+				}else{
+					_this.$toast(res.message);
 				}
 				if(res.code == _this.$api.CODE_4003){
 					// _this.info = res.data.list;

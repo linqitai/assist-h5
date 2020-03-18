@@ -289,11 +289,11 @@
 						}else{
 							_this.currentPage2 = _this.currentPage2 + 1;
 						}
-						// // console.log('_this.list1',_this.list1);
 					}else{
 						_this.list2 = _this.list;
 						_this.loading2 = false;
 						_this.finished2 = true;
+						_this.$toast(res.message);
 					}
 				})
 				// setTimeout(() => {
@@ -326,6 +326,7 @@
 						_this.list3 = _this.list;
 						_this.loading3 = false;
 						_this.finished3 = true;
+						_this.$toast(res.message);
 					}
 				})
 				// 异步更新数据
@@ -367,6 +368,7 @@
 						_this.list4 = _this.list;
 						_this.loading4 = false;
 						_this.finished4 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},

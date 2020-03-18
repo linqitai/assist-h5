@@ -209,28 +209,10 @@
 					_this.list1 = [];
 					_this.finished1 = false;
 					_this.onLoad1();
-				}else if(_this.activeName == 'calculation'){
-					console.log("refresh2");
-					_this.currentPage2 = 1;
-					_this.list2 = [];
-					_this.finished2 = false;
-					_this.onLoad2();
-				}else if(_this.activeName == 'contribution'){
-					_this.currentPage3 = 1;
-					_this.list3 = [];
-					_this.finished3 = false;
-					_this.onLoad3();
-				}else if(_this.activeName == 'ticket'){
-					_this.currentPage4 = 1;
-					_this.list4 = [];
-					_this.finished4 = false;
-					_this.onLoad4();
 				}
 			},
 			tabChange(name, title) {
 				let _this = this;
-				// console.log('name', name)
-				// _this.activeName = name;
 				this.$cookies.set("tab_name_dealRecord", name, _this.$api.cookiesTime)
 			},
 			onLoad1(){
@@ -240,7 +222,6 @@
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize
 				}
-				// console.log('params',params);
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getMineralBookList4SellType, 'GET', params, function(res) {
 					_this.loading = false;
@@ -254,122 +235,9 @@
 							_this.currentPage1 = _this.currentPage1 + 1;
 						}
 					}else{
-						_this.list1 = _this.list;
 						_this.loading1 = false;
 						_this.finished1 = true;
-					}
-				})
-				// 异步更新数据
-				// setTimeout(() => {
-				// 	// 加载状态结束
-				// 	_this.loading1 = false;
-				// 	_this.finished1 = true;
-				// }, 500);
-			},
-			onLoad2(){
-				console.log('load2')
-				let _this = this;
-				// 异步更新数据
-				let params = {
-					pageNo: _this.currentPage2,
-					pageSize: _this.pageSize,
-					userId: _this.userId
-				}
-				_this.loading2 = true;
-				_this.$ajax.ajax(_this.$api.getCalculationPowerPageList, 'GET', params, function(res) {
-					// // console.log('res', res);
-					_this.loading = false;
-					if (res.code == _this.$api.CODE_OK) {
-						// // console.log('_this.list1',_this.list1);
-						// // console.log('res.data.list',res.data.list)
-						let list = res.data.list;
-						_this.list2.push(...list);
-						_this.loading2 = false;
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
-						if(res.data.endRow == res.data.total){
-							_this.finished2 = true;
-							// console.log('res.data.endRow == res.data.total');
-						}else{
-							_this.currentPage2 = _this.currentPage2 + 1;
-						}
-						// // console.log('_this.list1',_this.list1);
-					}else{
-						_this.list2 = _this.list;
-						_this.loading2 = false;
-						_this.finished2 = true;
-					}
-				})
-				// setTimeout(() => {
-				// 	// 加载状态结束
-				// 	_this.loading2 = false;
-				// 	_this.finished2 = true;
-				// }, 500);
-			},
-			onLoad3(){
-				// console.log('load3',"getAssistContributionValueListByUserId")
-				let _this = this;
-				let params = {
-					pageNo: _this.currentPage3,
-					pageSize: _this.pageSize,
-					userId: _this.userId
-				}
-				_this.loading3 = true;
-				_this.$ajax.ajax(_this.$api.getAssistContributionValueList, 'GET', params, function(res) {
-					_this.loading = false;
-					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data.list;
-						_this.list3.push(...list);
-						_this.loading3 = false;
-						if(res.data.endRow == res.data.total){
-							_this.finished3 = true;
-						}else{
-							_this.currentPage3 = _this.currentPage3 + 1;
-						}
-					}else{
-						_this.list3 = _this.list;
-						_this.loading3 = false;
-						_this.finished3 = true;
-					}
-				})
-				// 异步更新数据
-				// setTimeout(() => {
-				// 	// 加载状态结束
-				// 	_this.loading3 = false;
-				// 	_this.finished3 = true;
-				// }, 500);
-				
-			},
-			onLoad4(){
-				// console.log('load4')
-				let _this = this;
-				// 异步更新数据getAssistPlateformTicketAccountBookList
-				let params = {
-					pageNo: _this.currentPage4,
-					pageSize: _this.pageSize,
-					userId: _this.userId
-				}
-				_this.loading4 = true;
-				_this.$ajax.ajax(_this.$api.getAssistPlateformTicketAccountBookList, 'GET', params, function(res) {
-					// // console.log('res', res);
-					_this.loading = false;
-					if (res.code == _this.$api.CODE_OK) {
-						// // console.log('_this.list1',_this.list1);
-						// // console.log('res.data.list',res.data.list)
-						let list = res.data.list;
-						_this.list4.push(...list);
-						_this.loading4 = false;
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
-						if(res.data.endRow == res.data.total){
-							_this.finished4 = true;
-							// console.log('res.data.endRow == res.data.total');
-						}else{
-							_this.currentPage4 = _this.currentPage4 + 1;
-						}
-						// // console.log('_this.list1',_this.list1);
-					}else{
-						_this.list4 = _this.list;
-						_this.loading4 = false;
-						_this.finished4 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},

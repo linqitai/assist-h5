@@ -79,6 +79,8 @@
 						_this.$cookies.set("hasKLData",1,_this.$cookies.cookiesTime8h);
 						localStorage.setItem("klineData",JSON.stringify(dataArr));
 						_this.getKLineDataArr(dataArr);
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},

@@ -427,14 +427,10 @@
 						_this.loading1 = false;
 						_this.loading1 = false;
 						_this.finished1 = true;
-						/* if(res.data.endRow == res.data.total){
-							_this.finished1 = true;
-						}else{
-							_this.currentPage1 = _this.currentPage1 + 1;
-						} */
 					}else{
 						_this.loading1 = false;
 						_this.finished1 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -457,14 +453,10 @@
 						_this.loading2 = false;
 						_this.loading2 = false;
 						_this.finished2 = true;
-						/* if(res.data.endRow == res.data.total){
-							_this.finished2 = true;
-						}else{
-							_this.currentPage2 = _this.currentPage2 + 1;
-						} */
 					}else{
 						_this.loading2 = false;
 						_this.finished2 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -488,14 +480,10 @@
 						_this.loading3 = false;
 						_this.loading3 = false;
 						_this.finished3 = true;
-						/* if(res.data.endRow == res.data.total){
-							_this.finished3 = true;
-						}else{
-							_this.currentPage3 = _this.currentPage3 + 1;
-						} */
 					}else{
 						_this.loading3 = false;
 						_this.finished3 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -519,14 +507,10 @@
 						_this.loading4 = false;
 						_this.loading4 = false;
 						_this.finished4 = true;
-						/* if(res.data.endRow == res.data.total){
-							_this.finished4 = true;
-						}else{
-							_this.currentPage4 = _this.currentPage4 + 1;
-						} */
 					}else{
 						_this.loading4 = false;
 						_this.finished4 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -558,6 +542,7 @@
 					}else{
 						_this.loading5 = false;
 						_this.finished5 = true;
+						_this.$toast(res.message);
 					}
 				})
 			},

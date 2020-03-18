@@ -114,6 +114,8 @@
 						// })
 						// console.log('qqList',qqList);
 						// console.log('wxList',wxList);
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},

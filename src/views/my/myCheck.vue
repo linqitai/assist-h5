@@ -145,7 +145,7 @@
 				loading1:false,
 				finished1:false,
 				currentPage1:1,
-				pageSize:8,
+				pageSize:10,
 				checkCount:0,
 			}
 		},
@@ -197,7 +197,7 @@
 				let _this = this;
 				_this.currentPage1 = 1;
 				_this.loading = true;
-				_this.getcheckList();
+				_this.getcheckList4Search();
 			},
 			getCount4Check(){
 				let _this = this;
@@ -207,9 +207,11 @@
 					}
 				})
 			},
-			getcheckList() {
+			getcheckList4Search() {
 				let _this = this;
 				let params = {
+					pageNo:_this.currentPage1,
+					pageSize:_this.pageSize,
 					mobilePhone: _this.searchValue
 				}
 				/* if((!_this.$utils.isNUll(params.mobilePhone))&&_this.$reg.phone.test(params.mobilePhone)){
@@ -219,7 +221,42 @@
 					_this.loading = false;
 					return;
 				} */
-				_this.$ajax.ajax(_this.$api.getAssistUserInfoList4Check, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList4Check, 'GET', params, function(res) {
+					/* console.log('res', res); */
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list1 = list;
+						_this.loading1 = false;
+						_this.finished1 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished1 = true;
+						}else{
+							_this.currentPage1 = _this.currentPage1 + 1;
+						} */
+					}else{
+						_this.list1 = [];
+						_this.loading1 = false;
+						_this.finished1 = true;
+						_this.$toast(res.message);
+					}
+				})
+			},
+			getcheckList() {
+				let _this = this;
+				let params = {
+					pageNo:_this.currentPage1,
+					pageSize:_this.pageSize,
+					mobilePhone: _this.searchValue
+				}
+				/* if((!_this.$utils.isNUll(params.mobilePhone))&&_this.$reg.phone.test(params.mobilePhone)){
+					
+				}else{
+					_this.$toast("请输入正确的手机号格式");
+					_this.loading = false;
+					return;
+				} */
+				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList4Check, 'GET', params, function(res) {
 					/* console.log('res', res); */
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {

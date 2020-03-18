@@ -89,6 +89,8 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.obj = res.data;
 						console.log("-------" + _this.obj.noticeContent);
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			}

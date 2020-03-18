@@ -641,6 +641,8 @@
 				_this.$ajax.ajax(_this.$api.getServiceDsPassword, 'GET', null, function(res){
 					if(res.code == _this.$api.CODE_OK){
 						_this.dsPassword = res.data.dsPassword;
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -649,6 +651,8 @@
 				_this.$ajax.ajax(_this.$api.getAssistAgentInfo4Province, 'GET', null, function(res){
 					if(res.code == _this.$api.CODE_OK){
 						_this.cityInfo = res.data;
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -657,6 +661,8 @@
 				_this.$ajax.ajax(_this.$api.getAssistAgentInfo4City, 'GET', null, function(res){
 					if(res.code == _this.$api.CODE_OK){
 						_this.cityInfo = res.data;
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},
@@ -727,6 +733,8 @@
 						_this.$cookies.remove('userId');
 						_this.$cookies.remove('token');
 						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+					}else{
+						_this.$toast(res.message);
 					}
 				},function(){
 					_this.$router.replace('login');
@@ -742,15 +750,15 @@
 						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 						//console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
-						if(_this.userInfo.manType==2){
-							_this.getServiceDsPassword();
-						}
+						// if(_this.userInfo.manType==2){
+						// 	_this.getServiceDsPassword();
+						// }
 						if(_this.userInfo.accountStatus==1){
 							//退出登录
 							_this.logout();
 						}
 					}else{
-						
+						_this.$toast(res.message);
 					}
 				},function(){
 					_this.loading = false;

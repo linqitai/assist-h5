@@ -324,6 +324,8 @@
 					// console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
 						_this.teamNum = res.data;
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},

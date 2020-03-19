@@ -49,6 +49,7 @@
 			</div>后维护好
 		</div> -->
 		<div class="placeholderLine"></div>
+		<van-button to="/login" type="info" size="normal" color="linear-gradient(to right, #00ffe4, #005db4)" :block="true">去重新登录</van-button>
 		<!-- <div class="maintain-desc" v-html="maintainInfo.maintainContent"></div> -->
 		<div class="maintain-handle" v-if="isShow">
 			<van-button to="/home" type="info" size="normal" color="linear-gradient(to right, #00ffe4, #005db4)" :block="true">返回首页</van-button>

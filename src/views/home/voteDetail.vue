@@ -296,10 +296,11 @@
 					return 0;
 				}
 			},
-			/* getAssistAnswer4Self(){
+			getAssistAnswer4Self(){
 				let _this = this;
 				let params = {
-					voteId:_this.voteId
+					voteId:_this.voteId,
+					userId:_this.userId
 				}
 				_this.$ajax.ajax(_this.$api.getAssistAnswer, 'GET', params, function(res) {
 					// console.log('res', res);
@@ -314,8 +315,8 @@
 						});
 					}
 				})
-			}, */
-			getAssistAnswer4Self(){
+			},
+			/* getAssistAnswer4Self(){
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage,
@@ -336,7 +337,7 @@
 						});
 					}
 				})
-			},
+			}, */
 			getAssistAnswerListPage(){
 				let _this = this;
 				let params = {

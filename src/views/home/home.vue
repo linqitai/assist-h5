@@ -907,8 +907,19 @@ $noticeHeight:40px;
 				/* alert("refresh"); */
 				let _this = this;
 				_this.getHomeMineralStaticInfo();
-				_this.getNoticeList4Swipe();
+				// _this.getNoticeList4Swipe();
 				_this.getNoticeList();
+				//轮播图存获取
+				if(_this.$cookies.isKey('hasNoticeList4Swipe')){
+					//console.log('hasNoticeList4Swipe');
+					_this.noticeList4Swipe = JSON.parse(localStorage.getItem("noticeList4Swipe"));
+					if(_this.noticeList4Swipe){
+					}else{
+						_this.getNoticeList4Swipe();
+					}
+				}else{
+					_this.getNoticeList4Swipe();
+				}
 			},
 			toNoticeDetail(item) {
 				let _this = this;
@@ -971,7 +982,7 @@ $noticeHeight:40px;
 					if (res.code == _this.$api.CODE_OK) {
 						_this.noticeList4Swipe = res.data.list;
 						localStorage.setItem('noticeList4Swipe',JSON.stringify(_this.noticeList4Swipe));
-						_this.$cookies.set('hasNoticeList4Swipe',1,_this.$api.cookiesTime8h);
+						_this.$cookies.set('hasNoticeList4Swipe',1,_this.$api.cookiesTime72h);
 					}else{
 						_this.$toast(res.message);
 					}

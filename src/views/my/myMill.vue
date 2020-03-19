@@ -557,6 +557,8 @@
 						  _this.onLoadMyMill();
 						  _this.onLoadMillShop();
 						});
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},

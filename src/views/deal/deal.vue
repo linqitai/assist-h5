@@ -368,6 +368,7 @@
 			      @confirm="onConfirm4ServiceCharge"
 			    />
 			  </van-popup>
+			  <van-field v-model="form4pickSellBill.idCard" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18" @blur="validate4pickSellBill('idCard')" :error-message="errorInfo4pickSellBill.idCard"/>
 			  <van-field required v-model="form4pickSellBill.safePassword" type="password" clearable label="安全密码" @blur="validate4pickSellBill('safePassword')" :error-message="errorInfo4pickSellBill.safePassword" placeholder="请填写安全密码"/>
 		  </van-cell-group>
 		  <div class="sureAppointBtnBox">
@@ -483,10 +484,12 @@ export default {
 				price:0.01,
 				serviceCharge:0,
 				safePassword:"",
+				idCard:""
 			},
 			errorInfo4pickSellBill:{
 				serviceCharge:"",
 				safePassword:"",
+				idCard:""
 			},
 			//定向交易
 			form4AppointDeal:{
@@ -921,7 +924,6 @@ export default {
 		//挂卖操作
 		sureHangPickedSellBillBtn(){
 			let _this = this;
-			//console.log('sureHangPickedSellBillBtn');
 			//挂卖之前先判断时间
 			if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
 				Dialog.alert({
@@ -946,7 +948,8 @@ export default {
 				serviceCharge:_this.form4pickSellBill.serviceCharge,
 				num:_this.form4pickSellBill.sellAmountSliderValue,
 				price:_this.form4pickSellBill.price,
-				safePassword:_this.form4pickSellBill.safePassword
+				safePassword:_this.form4pickSellBill.safePassword,
+				idCard:_this.form4pickSellBill.idCard
 			}
 			if(_this.userInfo.actived!=1 || _this.userInfo.buyMachineNum<2){
 				Dialog.alert({
@@ -1231,6 +1234,12 @@ export default {
 					_this.errorInfo4pickSellBill.serviceCharge = '';
 				}else{
 					_this.errorInfo4pickSellBill.serviceCharge = _this.clickIconTip.serviceCharge;
+				}
+			}else if(key == 'idCard'){
+				if(_this.$reg.idCard.test(_this.form4pickSellBill[key])){
+					_this.errorInfo4pickSellBill.idCard = '';
+				}else{
+					_this.errorInfo4pickSellBill.idCard = "请正确填写身份证号";
 				}
 			}
 		},

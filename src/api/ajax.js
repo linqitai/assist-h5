@@ -58,11 +58,9 @@ export default {
 					//queryAjax.abort();
 					Dialog.alert({
 						title: '温馨提示',
-						message: '网络信号不稳定或系统维护,请过会儿再来'
+						message: '网络信号不稳定,请过会儿再试'
 					}).then(() => {
-						router.replace({
-							path: '/maintain'
-						});
+						
 					});
 				}
 				if (typeof doComplete == "function") {
@@ -133,11 +131,11 @@ export default {
 					//queryAjax.abort();
 					Dialog.alert({
 						title: '温馨提示',
-						message: '网络信号不稳定或系统维护,请过会儿再试'
+						message: '网络信号不稳定,请过会儿再试'
 					}).then(() => {
-						router.replace({
+						/* router.replace({
 							path: '/maintain'
-						});
+						}); */
 					});
 				}
 				if (typeof doComplete == "function") {
@@ -208,11 +206,11 @@ export default {
 					//queryAjax.abort();
 					Dialog.alert({
 						title: '温馨提示',
-						message: '网络信号不稳定或系统维护,请过会儿再试'
+						message: '网络信号不稳定,请过会儿再试'
 					}).then(() => {
-						router.replace({
+						/* router.replace({
 							path: '/maintain'
-						});
+						}); */
 					});
 				}
 				if (typeof doComplete == "function") {
@@ -268,7 +266,7 @@ export default {
 				if(status=='timeout') {//超时,status还有success,error等值的情况
 					Dialog.alert({
 						title: '温馨提示',
-						message: '网络信号不稳定或系统维护,请过会儿再试'
+						message: '网络信号不稳定,请过会儿再试'
 					}).then(() => {
 						
 					});

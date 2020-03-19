@@ -184,6 +184,44 @@
 		<!-- <div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
+					活动任务1
+				</div>
+				<div class="line text margT10">
+					需要：<br>
+					A每直推10人完成基础任务1和2<br>
+					达到后：<br>
+					奖励A一台微型矿机（名额有限只送1000台，还剩999台，先到先得）<br>
+					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才算数。
+				</div>
+			</div>
+			<div class="flexRight">
+				<div>去领取</div>
+				<i class="iconfont iconfont-finished"></i>
+			</div>
+		</div>
+		<div class="placeholderLine10"></div>
+		<div class="box share">
+			<div class="flexLeft">
+				<div class="line title">
+					活动任务2
+				</div>
+				<div class="line text margT10">
+					需要：<br>
+					A每直推3人完成升级任务1<br>
+					达到后：<br>
+					奖励A一台小矿机（名额有限只送100台，还剩999台，先到先得）<br>
+					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才算数。
+				</div>
+			</div>
+			<div class="flexRight">
+				<div>去领取</div>
+				<i class="iconfont iconfont-finished"></i>
+			</div>
+		</div>
+		<div class="placeholderLine10"></div> -->
+		<!-- <div class="box share">
+			<div class="flexLeft">
+				<div class="line title">
 					购物任务
 				</div>
 				<div class="line text margT10">

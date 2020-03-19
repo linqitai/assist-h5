@@ -435,12 +435,13 @@
 						localStorage.setItem("millShopList",JSON.stringify(list));
 						_this.$cookies.set("HMSI",1,_this.$api.cookiesTime)
 						_this.millShopList = list;
+					}else{
+						_this.$toast(res.message);
 					}
 				},function(){
 					_this.loading = false;
 					_this.loadingMillShop = false;
 					_this.finishedMillShop = true;
-					_this.$toast(res.message);
 				})
 			},
 			initializeTabActiveName() {

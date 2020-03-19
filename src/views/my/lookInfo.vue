@@ -419,7 +419,12 @@
 							_this.getUserFreezeInfo();
 						}
 					}else{
-						_this.$toast(res.message);
+						if(res.code == 4003) {
+							_this.$toast('当前用户尚未注册');
+						}else{
+							_this.$toast(res.message);
+						}
+						
 					}
 				})
 			},

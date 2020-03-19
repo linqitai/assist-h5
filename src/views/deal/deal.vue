@@ -81,7 +81,7 @@
 		}
 		.buy,.sale{
 			position: fixed;
-			background: linear-gradient(to right, #ffae00 , #ff8400); /* 标准的语法 */
+			background: linear-gradient(to right, #ffae00 , #ff8400);
 			color: $main-box-fh-text-color;
 			width:$fixed-btn-width2;
 			height:$fixed-btn-width2;

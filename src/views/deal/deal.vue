@@ -468,7 +468,7 @@ export default {
 			//挂买单
 			form4BuyBill:{
 				buyAmount:"",
-				buyLowestAmount:"",
+				buyLowestAmount:1,
 				price:0.28,
 				safePassword:"",
 			},
@@ -750,6 +750,8 @@ export default {
 				if (res.code == _this.$api.CODE_OK) {
 					_this.statistics = res.data;
 					_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime);
+				}else{
+					_this.$toast(res.message);
 				}
 			})
 		},
@@ -783,8 +785,6 @@ export default {
 					_this.list1 = res.data.list;
 					_this.totalItems1 = res.data.total;
 					_this.$cookies.set("totalItems1", _this.totalItems1, 60 * 30 * 1)
-					_this.loading1 = false;
-					_this.loading = false;
 					if(_this.list1==[]){
 						
 					}else{
@@ -798,6 +798,9 @@ export default {
 					  // on close
 					});
 				}
+			},function(){
+				_this.loading1 = false;
+				_this.loading = false;
 			})
 		},
 		getListAddPrice(){
@@ -813,8 +816,6 @@ export default {
 					_this.list2 = res.data.list;
 					_this.totalItems2 = res.data.total;
 					_this.$cookies.set("totalItems2", _this.totalItems2, 60 * 30 * 1)
-					_this.loading2 = false;
-					_this.loading = false;
 					localStorage.setItem("LIST2",JSON.stringify(_this.list2));
 				}else{
 					Dialog.alert({
@@ -824,6 +825,9 @@ export default {
 					  // on close
 					});
 				}
+			},function(){
+				_this.loading2 = false;
+				_this.loading = false;
 			})
 		},
 		initializeTabActiveName(){

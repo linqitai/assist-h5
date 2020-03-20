@@ -246,7 +246,7 @@
 						}else{
 							Dialog.alert({
 							  title: '系统提示',
-							  message: '您的账号异常或暂时被冻结，原因：' + _this.userFreezeInfo.reason + '。需找省市代理或客服解除异常或解冻。',
+							  message: '您的账号异常或暂时被冻结，原因：' + _this.userFreezeInfo.reason + '。',
 							}).then(() => {
 							  // on close
 							});

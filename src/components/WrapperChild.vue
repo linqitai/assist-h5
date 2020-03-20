@@ -45,7 +45,7 @@ export default {
 		touchStart:function(ev) {
 			let _this = this;
 			ev = ev || event;
-			console.log(ev.targetTouches);
+			// console.log(ev.targetTouches);
 		},
 		//刷新
 		handleRefresh(){

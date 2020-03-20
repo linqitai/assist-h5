@@ -765,7 +765,7 @@
 		<!-- 取消交易提示 -->
 		<van-action-sheet v-model="showSureCancelTransactionModel4seller" title="温馨提示">
 			<div class="cancelSellTip">
-				<div class="tipText2">若买方在30分钟内没付款，且联系无果，卖方可取消交易。若买方正有事情在忙，锁定了交易，则交易时间延长30分钟。</div>
+				<div class="tipText2">若买方在120分钟内没付款，且联系无果，卖方可取消交易。若买方正有事情在忙，锁定了交易，则交易时间往后延长120分钟。</div>
 				<div class="countDownTimeBox margT20 clear hidden" v-if="cancelSellSureBtnText=='知道了'">
 					<div class="flexCountTime">可取消倒计时：</div>
 					<div class="flexCountTime">
@@ -857,7 +857,7 @@
 		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 			<div class="paddingWing f-12 lineHeight tip4model2 textJustify">
 				<div class="textIndent">
-					单子匹配后，请卖家耐心等待30分钟，若买方在30分钟内没付款，也没锁定交易，卖方可取消交易。单子匹配后，买家若当时在忙没时间付款，可先锁定交易，锁定交易后，可延长30分钟的交易时间，锁定交易后买方若在匹配后的1小时内没付款，卖方亦可取消交易。（注：买方若是要通过微信所绑定的手机号转账，请卖方在微信中的'<b>支付-支付管理</b>'中开通'<b>允许通过手机号向我转账</b>'的功能）。
+					单子匹配后，请卖家主动提示买家去查看订单信息，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。单子匹配后，买家若当时在忙没时间付款，可先锁定交易，锁定交易后，交易时间可往后延长120分钟，锁定交易后买方若在锁定后的120分钟内没付款，卖方亦可取消交易。（注：买方若是要通过微信所绑定的手机号转账，请卖方在微信中的'<b>支付-支付管理</b>'中开通'<b>允许通过手机号向我转账</b>'的功能）。
 				</div>
 			</div>
 		</van-dialog>
@@ -919,13 +919,13 @@
 				pen:"",
 				uploadPicBase64:"",
 				buyerHaveWord:"买方有话说：您好，我已锁定订单，请稍等片刻，我会尽快付款。",
-				tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待30分钟，若买方在30分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长30分钟交易时间，锁定交易后买方若在匹配后的1小时内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
+				tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长120分钟交易时间，锁定交易后买方若在匹配后的120分钟内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
 				tipText4AppointDeal: "",
 				activeName: "pay",
 				pageCount: 1000,
 				totalItems: 10000,
 				mcTime: '2019-10-16 15:30:12',
-				setCountDownTime4seller: 30 * 60 * 60 * 1000,
+				setCountDownTime4seller: 120 * 60 * 60 * 1000,
 				countDownTimeBoxIsShow: true,
 				showSureCancelTransactionModel4seller: false,
 				showSureCancelTransactionModel4buyer:false,
@@ -1353,7 +1353,7 @@
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
-				  message: '锁定交易可延长30分钟自动取消订单的时间，您是否确定要锁定交易？'
+				  message: '锁定交易可延长120分钟的交易时间，您是否确定要锁定交易？'
 				}).then(() => {
 					// on confirm
 					//console.log('sure');
@@ -1629,7 +1629,7 @@
 									Dialog.confirm({
 									  title: '提示信息',
 									  confirmButtonText:'需要',
-									  message: '由于卖家30分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
+									  message: '由于卖家120分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
 									}).then(() => {
 									  // on confirm
 									  //console.log('sure');
@@ -1663,10 +1663,10 @@
 							}
 						})
 					}else if(bs=='buy'){
-						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
 							_this.cancelDeal4OverTime();
 							return;
-						}
+						} */
 						let params = {
 							id: _this.id
 						}
@@ -1679,7 +1679,7 @@
 										Dialog.alert({
 										  title: '温馨提示',
 										  confirmButtonText:'锁定交易',
-										  message: '为了让交易顺利进行，查看详情之前需先锁定交易，锁定后可延长30分钟自动取消交易的时间！'
+										  message: '为了让交易顺利进行，查看详情之前需先锁定交易，锁定后可往后延长120分钟交易的时间！'
 										}).then(() => {
 											// on confirm
 											//console.log('sure');
@@ -1700,6 +1700,8 @@
 														_this.onLoad2();
 														_this.getSellerInfoByTransactionId();
 													}
+												}else{
+													_this.$toast(res.message);
 												}
 											})
 										}).catch(() => {
@@ -1737,7 +1739,7 @@
 								Dialog.confirm({
 								  title: '提示信息',
 								  confirmButtonText:'需要',
-								  message: '由于卖家30分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
+								  message: '由于卖家60分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
 								}).then(() => {
 								  // on confirm
 								  //console.log('sure');

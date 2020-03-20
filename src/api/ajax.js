@@ -11,6 +11,7 @@ import { Dialog } from 'vant'
 // import Vue from 'vue';
 // import VueCookies from 'vue-cookies';
 // Vue.use(VueCookies);
+let tip1 = '您的网络信号不稳定,可选择刷新浏览器或重新登录或过会儿再试'
 
 export default {
 	getJson(url, doSuccess) {
@@ -44,29 +45,6 @@ export default {
 				}
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},
-			complete: function(XMLHttpRequest,status) {
-				//console.log('status',status)
-				//console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
-				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code=='登录已过期，请重新登录') {
-					Dialog.alert({
-						title: '温馨提示',
-						message: XMLHttpRequest.responseJSON.message
-					}).then(() => {
-						router.replace('/login');
-					});
-				}else if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
-					//queryAjax.abort();
-					Dialog.alert({
-						title: '温馨提示',
-						message: '网络信号不稳定,请过会儿再试'
-					}).then(() => {
-						
-					});
-				}
-				if (typeof doComplete == "function") {
-					doComplete(status);
-				}
-			},
 			success: function(res) {
 				if (typeof res == 'string') {
 					res = JSON.parse(res);
@@ -75,21 +53,36 @@ export default {
 					doSuccess(res);
 				}
 			},
-			error: function(res) {
-				// //console.log("errorInfo", res);
-				if(res.status == 500){
-					// alert(res.responseJSON.message);
+			complete: function(XMLHttpRequest,status) {
+				console.log('status',status)
+				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code==500) {
 					Dialog.alert({
-					  title: '温馨提示',
-					  message: res.responseJSON.message
+						title: '温馨提示',
+						message: XMLHttpRequest.responseJSON.message
 					}).then(() => {
-					  // on close
-					  //router.replace('/login');
-					  //_this.$router.push('/login');
+						if(XMLHttpRequest.responseJSON.message=='登录已过期，请重新登录'){
+							router.replace('/login');
+						}
 					});
-					// router.replace({
-					// 	path: '/login'
-					// });
+				}
+				if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip1,
+					  confirmButtonText:'刷新浏览器',
+					  cancelButtonText:'重新登录'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					  router.replace('/login');
+					});
+				}
+				if (typeof doComplete == "function") {
+					doComplete(status);
 				}
 			}
 		});
@@ -117,31 +110,6 @@ export default {
 				}
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},
-			complete: function(XMLHttpRequest,status) {
-				//console.log('status',status)
-				//console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
-				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code=='登录已过期，请重新登录') {
-					Dialog.alert({
-						title: '温馨提示',
-						message: XMLHttpRequest.responseJSON.message
-					}).then(() => {
-						router.replace('/login');
-					});
-				}else if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
-					//queryAjax.abort();
-					Dialog.alert({
-						title: '温馨提示',
-						message: '网络信号不稳定,请过会儿再试'
-					}).then(() => {
-						/* router.replace({
-							path: '/maintain'
-						}); */
-					});
-				}
-				if (typeof doComplete == "function") {
-					doComplete(status);
-				}
-			},
 			success: function(res) {
 				if (typeof res == 'string') {
 					res = JSON.parse(res);
@@ -150,7 +118,39 @@ export default {
 					doSuccess(res);
 				}
 			},
-			error: function(res) {
+			complete: function(XMLHttpRequest,status) {
+				//console.log('status',status)
+				//console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code==500) {
+					Dialog.alert({
+						title: '温馨提示',
+						message: XMLHttpRequest.responseJSON.message
+					}).then(() => {
+						if(XMLHttpRequest.responseJSON.message=='登录已过期，请重新登录'){
+							router.replace('/login');
+						}
+					});
+				}
+				if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip1,
+					  confirmButtonText:'刷新浏览器',
+					  cancelButtonText:'重新登录'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					  router.replace('/login');
+					});
+				}
+				if (typeof doComplete == "function") {
+					doComplete(status);
+				}
+			}
+			/* error: function(res) {
 				// //console.log("errorInfo", res);
 				if(res.status == 500){
 					// alert(res.responseJSON.message);
@@ -159,14 +159,9 @@ export default {
 					  message: res.responseJSON.message
 					}).then(() => {
 					  // on close
-					  //router.replace('/login');
-					  //_this.$router.push('/login');
 					});
-					// router.replace({
-					// 	path: '/login'
-					// });
 				}
-			}
+			} */
 		});
 	},
 	ajax4GetCheckDetail(url, method, params, doSuccess, doComplete) {
@@ -192,31 +187,6 @@ export default {
 				}
 				// localStorage.getItem('token') ? XMLHttpRequest.setRequestHeader('token', localStorage.getItem('token')) : '';
 			},
-			complete: function(XMLHttpRequest,status) {
-				//console.log('status',status)
-				//console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
-				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code=='登录已过期，请重新登录') {
-					Dialog.alert({
-						title: '温馨提示',
-						message: XMLHttpRequest.responseJSON.message
-					}).then(() => {
-						router.replace('/login');
-					});
-				}else if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
-					//queryAjax.abort();
-					Dialog.alert({
-						title: '温馨提示',
-						message: '网络信号不稳定,请过会儿再试'
-					}).then(() => {
-						/* router.replace({
-							path: '/maintain'
-						}); */
-					});
-				}
-				if (typeof doComplete == "function") {
-					doComplete(status);
-				}
-			},
 			success: function(res) {
 				if (typeof res == 'string') {
 					res = JSON.parse(res);
@@ -225,21 +195,36 @@ export default {
 					doSuccess(res);
 				}
 			},
-			error: function(res) {
-				// //console.log("errorInfo", res);
-				if(res.status == 500){
-					// alert(res.responseJSON.message);
+			complete: function(XMLHttpRequest,status) {
+				//console.log('status',status)
+				//console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code==500) {
 					Dialog.alert({
-					  title: '温馨提示',
-					  message: res.responseJSON.message
+						title: '温馨提示',
+						message: XMLHttpRequest.responseJSON.message
 					}).then(() => {
-					  // on close
-					  //router.replace('/login');
-					  //_this.$router.push('/login');
+						if(XMLHttpRequest.responseJSON.message=='登录已过期，请重新登录'){
+							router.replace('/login');
+						}
 					});
-					// router.replace({
-					// 	path: '/login'
-					// });
+				}
+				if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip1,
+					  confirmButtonText:'刷新浏览器',
+					  cancelButtonText:'重新登录'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					  router.replace('/login');
+					});
+				}
+				if (typeof doComplete == "function") {
+					doComplete(status);
 				}
 			}
 		});
@@ -263,12 +248,29 @@ export default {
 				token ? XMLHttpRequest.setRequestHeader('token', token) : '';
 			},
 			complete: function(XMLHttpRequest,status) {
-				if(status=='timeout') {//超时,status还有success,error等值的情况
+				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code==500) {
 					Dialog.alert({
 						title: '温馨提示',
-						message: '网络信号不稳定,请过会儿再试'
+						message: XMLHttpRequest.responseJSON.message
 					}).then(() => {
-						
+						if(XMLHttpRequest.responseJSON.message=='登录已过期，请重新登录'){
+							router.replace('/login');
+						}
+					});
+				}
+				if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip1,
+					  confirmButtonText:'刷新浏览器',
+					  cancelButtonText:'重新登录'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					  router.replace('/login');
 					});
 				}
 				if (typeof doComplete == "function") {
@@ -282,15 +284,6 @@ export default {
 				}
 				if (typeof doSuccess == "function") {
 					doSuccess(res);
-				}
-			},
-			error: function(res) {
-				//console.log("error", res);
-				if(res.status == 500){
-					alert(res.responseJSON.message);
-					// router.replace({
-					// 	path: '/login'
-					// });
 				}
 			}
 		});

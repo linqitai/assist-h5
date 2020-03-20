@@ -73,6 +73,7 @@ export default {
 	insertAssistUserFreeze: host + "assist/userFreeze/insertAssistUserFreeze",
 	reduceRealNameTime: host + "assist/userInfo/reduceRealNameTime",
 	getAssistUserInfoList4Check: host + "assist/userInfo/getAssistUserInfoList4Check",
+	getBuyMachine2TeamNum:host + "assist/userInfo/getBuyMachine2TeamNum",
 	//服务商
 	getServiceUserList: host + "assist/user/getServiceUserList",
 	getServiceDsPassword: host + "assist/user/getServiceDsPassword",
@@ -131,6 +132,7 @@ export default {
 	getAssistRewardFiveLevelByUserId: host + "assist/reward/getAssistRewardFiveLevelByUserId/",
 	getAssistBuyMineralReward: host + "assist/reward/getAssistBuyMineralReward",
 	getShareReword: host + "assist/reward/getShareReword",
+	getActivity1Reward: host + "assist/reward/getActivity1Reward",
 	//deal
 	getAssistBuyBillListGeneralPage: host + "assist/buybill/getAssistBuyBillListGeneralPage",
 	getAssistBuyBillListAddPricePage: host + "assist/buybill/getAssistBuyBillListAddPricePage",

@@ -40,7 +40,7 @@ export default {
 		let _this = this;
 		let params = window.location.hash;
 		let hash = params.substr(2);
-		console.log("hash",hash);
+		// console.log("hash",hash);
 		switch(hash) {
 		    case 'home':
 		       _this.active = 0;

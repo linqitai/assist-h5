@@ -181,26 +181,26 @@
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
-		<!-- <div class="box share">
+		<div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
 					活动任务1
 				</div>
 				<div class="line text margT10">
 					需要：<br>
-					A每直推10人完成基础任务1和2<br>
+					A直推10人完成基础任务1和2<br>
 					达到后：<br>
 					奖励A一台微型矿机（名额有限只送1000台，还剩999台，先到先得）<br>
-					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才算数。
+					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才算数。从3月1号开始您已经直推{{teamBuyMachineNum}}人完成基础任务1和2
 				</div>
 			</div>
 			<div class="flexRight">
-				<div>去领取</div>
-				<i class="iconfont iconfont-finished"></i>
+				<div v-if="teamBuyMachineNum<10" @click="getTeamBuyMachineNumTask">去领取</div>
+				<!-- <i class="iconfont iconfont-finished" v-if="teamBuyMachineNum>=10"></i> -->
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
-		<div class="box share">
+		<!-- <div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
 					活动任务2
@@ -413,7 +413,8 @@ export default {
 			isShare3:false,
 			isAgency:false,
 			userId:'',
-			isShowQunTaskOK:false
+			isShowQunTaskOK:false,
+			teamBuyMachineNum:0
 		}
 	},  
 	components:{
@@ -437,6 +438,7 @@ export default {
 			_this.isRealName = false;
 		}
 		_this.getAssistMyMachineCount4Task();
+		_this.getBuyMachine2TeamNum();
 		// console.log('_this.isRealName',_this.isRealName);
 	},
 	methods:{
@@ -454,6 +456,45 @@ export default {
 			}else if(type=='deal'){
 				_this.$router.push('/deal');
 			}
+		},
+		getBuyMachine2TeamNum(){
+			let _this = this;
+			
+			_this.$ajax.ajax(_this.$api.getBuyMachine2TeamNum, 'GET', null, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					_this.teamBuyMachineNum = res.data;
+				}else{
+					_this.$toast(res.message);
+				}
+			})
+		},
+		getTeamBuyMachineNumTask(){
+			let _this = this;
+			if(_this.teamBuyMachineNum<10){
+				// _this.$toast("您已领取过该奖励");
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您尚未达到领取该奖励的标准'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			_this.$ajax.ajax(_this.$api.getActivity1Reward, 'POST', null, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					Dialog.alert({
+					  title: '温馨提示',
+					  message: '恭喜您，奖励领取成功！'
+					}).then(() => {
+					  // on close
+					  _this.$router.push('/myMill');
+					});
+				}else{
+					_this.$toast(res.message);
+				}
+			})
 		},
 		getShareReword1(){
 			let _this = this;

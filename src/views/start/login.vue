@@ -81,7 +81,7 @@
 		<!-- <div class="welcomeText">欢迎来到帮扶链</div> -->
 		<div class="formHeader">
 			<div class="logoBox">
-				<img src="../../assets/image/LOGO.png" alt="">
+				<img src="https://www.helpchain.online/image/LOGO.png" alt="">
 			</div>
 			<div class="welcomeText textIndent">{{welcomeText}}</div>
 		</div>
@@ -146,13 +146,16 @@
 		mounted() {
 			let _this = this;
 			localStorage.removeItem('_USERINFO_');
-			_this.form.phone = localStorage.getItem("mobilePhone");
+			_this.$cookies.remove("statistics");
+			_this.form.phone = localStorage.getItem("mobilePhone") || '';
 			// console.log(_this.form.phone,'_this.form.phone')
 			_this.welcomeText = _this.$api.welcomeText;
 			
-			if(_this.$cookies.get('token')){
-				//_this.$router.push("home");
-			}
+			//_this.$cookies.remove('_USERINFO_')
+			
+			/* if(_this.$cookies.get('token')){
+				_this.$router.push("home");
+			} */
 			_this.bsTip();
 			//_this.getAssistMaintainInfo();
 			_this.getSecurityCode();

@@ -135,7 +135,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				我的团队
+				我的工会
 			</div>
 			<i class="rightBox icon"></i>
 			<!-- <i class="iconfont iconfont-share rightBox icon" @click="toView('myShare')"></i> -->
@@ -149,7 +149,7 @@
 				<div class="flex flex2">
 					<div class="line">上级昵称：{{parentUserInfo.nickName}}</div>
 					<div class="line">上级微信：{{parentUserInfo.wechartNum}} <span class="copy" @click="handleCopy(parentUserInfo.wechartNum,$event)">复制</span></div>
-					<div class="line">二代总人数：{{teamNum}}</div>
+					<div class="line">我的二代总人数：{{teamNum}}</div>
 					<!-- <div class="line">因风控部门提供消息说三代奖励会有政策风险，团队上矿机三代贡献值收益分红的功能已终止研发，该奖励将会换成以全球分红的形式发放。</div> -->
 				</div>
 			</div>

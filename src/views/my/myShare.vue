@@ -176,7 +176,7 @@
 		<div class="poster" id="tree-containner">
 			<div class="posterBG" id="tree" ref="tree">
 				<div class="borderGlobal"></div>
-				<img class="logo" src="../../assets/image/LOGO4Share.png">
+				<img class="logo" src="https://www.helpchain.online/image/LOGO4Share.png">
 				<div class="box1"></div>
 				<div class="box2"></div>
 				<div class="box3"></div>

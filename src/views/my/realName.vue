@@ -208,7 +208,7 @@
 		  	</span>
 		  </div>
 		  <div class="line" v-if="!pic2">
-		  	<img style="width: 100%;" src="../../assets/image/alipay.png">
+		  	<img style="width: 100%;" src="https://www.helpchain.online/image/alipay.png">
 		  </div>
 		  <div class="line" v-if="pic2">
 		  	<img class="selectedImg" :src="pic2"/>
@@ -226,7 +226,7 @@
 			</span>
 		</div>
 		<div class="line" v-if="!form.idCardPic">
-			<img style="width: 100%;" src="../../assets/image/idCardPic.png">
+			<img style="width: 100%;" src="https://www.helpchain.online/image/idCardPic.png">
 		</div>
 		<div class="line">
 			<img class="selectedImg" :src="form.idCardPic"/>
@@ -248,7 +248,7 @@
 	  confirmButtonText="OK"
 	>
 		<div class="placeholderLine10"></div>
-		<img style="width: 100%;" src="../../assets/image/idCardPic.png">
+		<img style="width: 100%;" src="https://www.helpchain.online/image/idCardPic.png">
 	</van-dialog>
 	<van-dialog
 	  v-model="showIdCardPicExmple2"
@@ -257,7 +257,7 @@
 	  confirmButtonText="OK"
 	>
 		<div class="placeholderLine10"></div>
-		<img style="width: 100%;" src="../../assets/image/alipay.png">
+		<img style="width: 100%;" src="https://www.helpchain.online/image/alipay.png">
 	</van-dialog>
   </div>
 </template>

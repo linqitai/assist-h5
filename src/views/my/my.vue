@@ -345,7 +345,7 @@
 								<van-icon class-prefix="iconfont" name="team" />
 							</div>
 						</div>
-						<div class="text">我的团队</div>
+						<div class="text">我的工会</div>
 					</router-link>
 				</div>
 				<div class="infoBox">

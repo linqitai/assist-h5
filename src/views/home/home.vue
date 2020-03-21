@@ -711,12 +711,12 @@ $noticeHeight:40px;
 			}else{
 				_this.getNoticeList4Swipe();
 			}
-			let qqFlock = _this.$cookies.get('qqFlock');
+			/* let qqFlock = _this.$cookies.get('qqFlock');
 			if(qqFlock){
 				_this.qqFlock = `官方QQ群：${qqFlock}`;
 			}else{
 				_this.getAssistQQFlock();
-			}
+			} */
 			// _this.getCanCirculateMineralNum();
 			/* if(_this.$cookies.get("haveDealPageInfo")){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem("dealPageInfo"));

@@ -73,7 +73,8 @@
 <template>
 	<div class="register">
 		<div class="logoBox">
-			<img src="../../assets/image/LOGO.png" alt="">
+			<img src="https://www.helpchain.online/image/LOGO.png" alt="">
+			<!-- <img src="../../assets/image/LOGO.png" alt=""> -->
 		</div>
 		<div class="welcomeText textIndent">{{welcomeText}}</div>
 		<div class="formBox">

@@ -11,7 +11,7 @@ import { Dialog } from 'vant'
 // import Vue from 'vue';
 // import VueCookies from 'vue-cookies';
 // Vue.use(VueCookies);
-let tip1 = '您的网络信号不稳定,可选择刷新浏览器或重新登录或过会儿再试'
+let tip1 = '登录已过期或您的网络信号不稳定,请重新登录再试'
 
 export default {
 	getJson(url, doSuccess) {
@@ -54,8 +54,8 @@ export default {
 				}
 			},
 			complete: function(XMLHttpRequest,status) {
-				console.log('status',status)
-				console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
+				//console.log('status',status)
+				//console.log('complete_XMLHttpRequest',XMLHttpRequest.responseJSON)
 				if(XMLHttpRequest.responseJSON&&XMLHttpRequest.responseJSON.code==500) {
 					Dialog.alert({
 						title: '温馨提示',
@@ -71,14 +71,14 @@ export default {
 					Dialog.confirm({
 					  title: '温馨提示',
 					  message: tip1,
-					  confirmButtonText:'刷新浏览器',
-					  cancelButtonText:'重新登录'
+					  confirmButtonText:'重新登录',
+					  cancelButtonText:'取消并刷新'
 					}).then(() => {
 					  // on confirm
-					  window.location.reload();
+					  router.replace('/login');
 					}).catch(() => {
 					  // on cancel
-					  router.replace('/login');
+					  window.location.reload();
 					});
 				}
 				if (typeof doComplete == "function") {
@@ -136,14 +136,14 @@ export default {
 					Dialog.confirm({
 					  title: '温馨提示',
 					  message: tip1,
-					  confirmButtonText:'刷新浏览器',
-					  cancelButtonText:'重新登录'
+					  confirmButtonText:'重新登录',
+					  cancelButtonText:'取消并刷新'
 					}).then(() => {
 					  // on confirm
-					  window.location.reload();
+					  router.replace('/login');
 					}).catch(() => {
 					  // on cancel
-					  router.replace('/login');
+					  window.location.reload();
 					});
 				}
 				if (typeof doComplete == "function") {
@@ -213,14 +213,14 @@ export default {
 					Dialog.confirm({
 					  title: '温馨提示',
 					  message: tip1,
-					  confirmButtonText:'刷新浏览器',
-					  cancelButtonText:'重新登录'
+					  confirmButtonText:'重新登录',
+					  cancelButtonText:'取消并刷新'
 					}).then(() => {
 					  // on confirm
-					  window.location.reload();
+					  router.replace('/login');
 					}).catch(() => {
 					  // on cancel
-					  router.replace('/login');
+					  window.location.reload();
 					});
 				}
 				if (typeof doComplete == "function") {
@@ -263,14 +263,14 @@ export default {
 					Dialog.confirm({
 					  title: '温馨提示',
 					  message: tip1,
-					  confirmButtonText:'刷新浏览器',
-					  cancelButtonText:'重新登录'
+					  confirmButtonText:'重新登录',
+					  cancelButtonText:'取消并刷新'
 					}).then(() => {
 					  // on confirm
-					  window.location.reload();
+					  router.replace('/login');
 					}).catch(() => {
 					  // on cancel
-					  router.replace('/login');
+					  window.location.reload();
 					});
 				}
 				if (typeof doComplete == "function") {

@@ -103,15 +103,19 @@
 			<van-dialog v-model="showDealTipModel" title="提示小帮手" confirmButtonText="已晓得">
 				<div class="paddingWing f-12 lineHeight textJustify tip4model2">
 					<div>
-						1.交易前，需先去完成'我的--任务中心'里的基础任务。
+						1.在平价区交易前，需先去完成'我的--任务中心'里的2个基础任务。
 					</div>
 					<div class="placeholderLine4"></div>
-					<!-- <div>
-						2.个人算力达到0.3G后即可开通溢价交易。
-					</div>
-					<div class="placeholderLine4"></div> -->
 					<div>
-						2.交易后所剩矿石数不得少于2个，至少要保留注册所赠送的2个矿石，用来复投矿机。
+						2.个人算力达到0.4G后即可通过服务商来转出矿石。
+					</div>
+					<div class="placeholderLine4"></div>
+					<div>
+						3.个人算力达到1G后即可开通溢价交易。
+					</div>
+					<div class="placeholderLine4"></div>
+					<div>
+						4.交易后所剩矿石数不得少于2个，至少要保留注册所赠送的2个矿石，用来复投矿机。
 					</div>
 				</div>
 			</van-dialog>

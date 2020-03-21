@@ -135,7 +135,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				我的下级团队
+				我的下级工会
 			</div>
 			<i class="rightBox icon"></i>
 			<!-- <i class="iconfont iconfont-share rightBox icon" @click="toView('myShare')"></i> -->
@@ -149,7 +149,7 @@
 				<div class="flex flex2">
 					<div class="line">上级昵称：{{parentUserInfo.nickName}}</div>
 					<div class="line">上级微信：{{parentUserInfo.wechartNum}} <span class="copy" @click="handleCopy(parentUserInfo.wechartNum,$event)">复制</span></div>
-					<div class="line">二代总人数：{{teamNum}}</div>
+					<div class="line">他的二代总人数：{{teamNum}}</div>
 					<!-- <div class="line">(团队三代收益分红的功能正在研发中)</div> -->
 				</div>
 			</div>

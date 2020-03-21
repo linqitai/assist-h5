@@ -31,6 +31,9 @@
 			&.share{
 				background-color: $main-blue-color;
 			}
+			&.activity{
+				background-color: #5e008d;
+			}
 			&.level{
 				background-color: $main-green-color;
 			}
@@ -181,25 +184,25 @@
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
-		<div class="box share">
+		<div class="box activity">
 			<div class="flexLeft">
 				<div class="line title">
 					活动任务1
 				</div>
 				<div class="line text margT10">
 					需要：<br>
-					A直推10人完成基础任务1和2<br>
+					A直推10个会员完成基础任务1和2<br>
 					达到后：<br>
-					奖励A一台微型矿机（名额有限只送1000台，还剩999台，先到先得）<br>
-					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才算数。从3月1号开始您已经直推{{teamBuyMachineNum}}人完成基础任务1和2
+					奖励A一台微型矿机（名额有限只送1000台，还剩{{activity1MillInventory}}台，先到先得）<br>
+					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才能统计在内。从3月1号开始您已经直推{{teamBuyMachineNum}}人完成基础任务1和2
 				</div>
 			</div>
 			<div class="flexRight">
 				<div v-if="teamBuyMachineNum<10" @click="getTeamBuyMachineNumTask">去领取</div>
-				<!-- <i class="iconfont iconfont-finished" v-if="teamBuyMachineNum>=10"></i> -->
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
+		<!-- <div class="placeholderLine10"></div> -->
 		<!-- <div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
@@ -414,7 +417,8 @@ export default {
 			isAgency:false,
 			userId:'',
 			isShowQunTaskOK:false,
-			teamBuyMachineNum:0
+			teamBuyMachineNum:0,
+			activity1MillInventory:1000,
 		}
 	},  
 	components:{
@@ -464,6 +468,21 @@ export default {
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
 					_this.teamBuyMachineNum = res.data;
+				}else{
+					_this.$toast(res.message);
+				}
+			})
+		},
+		getSomeOneMachineInventory(){
+			let _this = this;
+			let params = {
+				tag: 6,
+				type: 1
+			}
+			_this.$ajax.ajax(_this.$api.getSomeOneMachineInventory, 'POST', params, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					_this.activity1MillInventory = res.data;
 				}else{
 					_this.$toast(res.message);
 				}

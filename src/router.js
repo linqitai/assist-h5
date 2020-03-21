@@ -123,19 +123,19 @@ export default new Router({
 						},
 						{
 							path: '/mySuperTeam',
-							name: '我的团队',
+							name: '我的工会',
 							component: resolve => require(['./views/my/mySuperTeam'],resolve),
 							meta:{footer:false},
 						},
 						{
 							path: '/mySuperTeam2',
-							name: '我的下级团队',
+							name: '我的下级工会',
 							component: resolve => require(['./views/my/mySuperTeam2'],resolve),
 							meta:{footer:false},
 						},
 						{
 							path: '/mySuperTeam3',
-							name: '我的下级团队',
+							name: '我的下下级工会',
 							component: resolve => require(['./views/my/mySuperTeam3'],resolve),
 							meta:{footer:false},
 						},

@@ -113,6 +113,7 @@ export default {
 	getMyMachinesReceipt: host + "assist/myMachine/getMyMachinesReceipt",
 	getMyMachinesReceiptByOne: host + "assist/myMachine/getMyMachinesReceiptByOne/",
 	getAssistMyMachineCount4FlockTask: host + "assist/myMachine/getAssistMyMachineCount4FlockTask",
+	getSomeOneMachineInventory: host + "assist/myMachine/getSomeOneMachineInventory",
 	//算力账本列表
 	getCalculationPowerPageList: host + "assist/calculationPower/getCalculationPowerPageList",
 	//矿石账本列表

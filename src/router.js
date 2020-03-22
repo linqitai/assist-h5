@@ -218,6 +218,12 @@ export default new Router({
 					meta:{footer:false},
 				},
 				{
+					path: '/auction',
+					name: '竞拍',
+					component: resolve => require(['./views/home/auction'],resolve),
+					meta:{footer:false},
+				},
+				{
 					path: '/forgetPassword',
 					name: '忘记密码',
 					component: resolve => require(['./views/start/forgetPassword'],resolve),
@@ -376,13 +382,21 @@ export default new Router({
 			path: '/dealRecord',
 			name: '交易记录',
 			component: resolve => require(['./views/deal/dealRecord'],resolve),
-			meta:{footer:false},
+			meta:{footer:false,keepAlive:true},
 		},
 		{
 			path: '/millRecord',
 			name: '购买矿机记录表',
 			component: resolve => require(['./views/mill/millRecord'],resolve),
-			meta:{footer:false},
+			meta:{footer:false,keepAlive:true},
+			/* children:[
+				{
+					path: '/merchantEnter',
+					name: '填写资料',
+					component: resolve => require(['./views/home/merchantEnter'],resolve),
+					meta:{footer:false,back:true,child1:0},
+				},
+			] */
 		},
 	]
 })

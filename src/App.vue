@@ -13,9 +13,22 @@ export default {
 	created() {
 		let _this = this;
 		let device = this.$utils.isIphoneOrAndroid();
-		console.log('device',device);
+		//console.log('device',device);
 		if(device=='pc'){
 			_this.$router.push('tip');
+		}
+		//防止微信中所设置的字体大小影响到了WEB
+		if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+			_this.handleFontSize();
+		} else {
+			document.addEventListener("WeixinJSBridgeReady", function(){
+				// 设置网页字体为默认大小
+				WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
+				// 重写设置网页字体大小的事件
+				WeixinJSBridge.on('menu:setfont', function() {
+				    WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
+				});
+			}, false);
 		}
 		//强制让内容超过   
 		//$('#app').css("height",window.innerHeight+100);   
@@ -32,6 +45,16 @@ export default {
 	mounted(){
 		// console.log('this.$refs.app.style.height',this.$refs.app.style.color)
 		// console.log('app height',$('#app').css("height")); 
+	},
+	methods:{
+		handleFontSize() {
+		    // 设置网页字体为默认大小
+		    WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
+		    // 重写设置网页字体大小的事件
+		    WeixinJSBridge.on('menu:setfont', function() {
+		        WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
+		    });
+		}
 	}
 }
 </script>
@@ -46,6 +69,7 @@ export default {
   min-height: 100%;
   background-color: $main-bg-color;
 }
+/* body * { max-height: 9999px; } */
 /* .van-pull-refresh,.van-pull-refresh__track,.van-list{
 	min-height: 100 !important;
 } */
@@ -133,8 +157,11 @@ b{font-weight: bold;}
 .paddingT20{padding-top: 30px;}
 .blueLight{color: #00e3e3;}
 .brown{color: #ba7c00;}
+.white{color: white;}
+.mainAdornColor{color: $main-adorn-color;}
 .blue{color: #409EFF;}
 .green{color: green;}
+.gray{color: gray;}
 .yellow{color: $main-adorn-color;}
 .warn_text{color: rgb(211, 0, 0);}
 .green_text{color: #07961f;}

@@ -99,7 +99,7 @@
 				})
 				let data = _this.$utils.splitData(dataList);
 				// _this.dataList = dataList;
-				console.log("data",data);
+				// console.log("data",data);
 				_this.myKLineEcharts(data);
 			},
 			myKLineEcharts(data){

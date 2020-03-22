@@ -16,7 +16,7 @@ export default {
 	ticketName:'帮扶券',
 	tip4ReduceMill:'矿机商城里的矿机是限量的，任何一种矿机被租赁完，就会减产，矿机商城中的矿机全部会换成新的一批减产后的矿机。',
 	tipText4Safe:"<b class='textBold'>担保交易的安全性：</b><br>每笔交易都由省市代理预先来审核双方账号是否正常、实名信息是否正确、区块账本数据是否对得上等，最大限度得维护了投资者的利益，保证了交易的安全性。<br>注:买卖双方交易前先检查自己的手机号是否已经绑定了自己的支付宝和微信号(即通过手机号可以搜索到自己的支付宝和微信号)，若审核出未绑定或者实名信息不一致,一律冻结账号处理。",
-	tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待30分钟，若买方在30分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长30分钟交易时间，锁定交易后买方若在匹配后的1小时内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
+	tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长120分钟交易时间，锁定交易后买方若在2小时内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
 	tipText4AppointDeal: "<b class='textBold'>担保交易流程：</b><br>1.卖方和买方或省市代理之间预先谈好价格，然后买方把自己的区块地址告诉卖方或代理。<br>2.卖方通过区块地址去匹配买方，同时选择该代理(一名代理)做担保。<br>3.订单匹配成功后，需要让担保代理审核。<br>4.审核通过后，买方先把担保总价支付给担保代理。<br>5.担保代理确认如实收到款后，再把担保金额打到卖方账户，并让卖方确认收款且释放矿石。<br>注1:该流程中若遇到问题，代理有权终止并取消交易，若是卖方账号有问题，担保代理亦有权冻结该账号<b class='textBold'>(该交易流程担保代理应收取担保服务辛苦费3%)</b>。<br>注2：若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能。",
 	checkTip:"实名信息已经提交成功,预计24小时内审核出结果",
 	welcomeText:"欢迎来到帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。",
@@ -114,6 +114,7 @@ export default {
 	getMyMachinesReceiptByOne: host + "assist/myMachine/getMyMachinesReceiptByOne/",
 	getAssistMyMachineCount4FlockTask: host + "assist/myMachine/getAssistMyMachineCount4FlockTask",
 	getSomeOneMachineInventory: host + "assist/myMachine/getSomeOneMachineInventory",
+	getAssistMyMachineNum: host + "assist/myMachine/getAssistMyMachineNum",
 	//算力账本列表
 	getCalculationPowerPageList: host + "assist/calculationPower/getCalculationPowerPageList",
 	//矿石账本列表

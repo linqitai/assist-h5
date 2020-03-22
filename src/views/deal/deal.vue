@@ -415,7 +415,7 @@
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
 					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
-					<div class="tip4model3">系统提示：卖单被匹配的方式是随机的，原则上，每天挂单后不需要撤单，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间，买家若没时间或者不知情而没查单所匹配的单子，单子被取消后，不再扣买家的0.5贡献值，反而只扣卖家的贡献值，因为通知不到位，没及时提醒买家查看订单。</div>
+					<div class="tip4model3">系统提示：卖单被匹配的方式是随机的，原则上，每天挂单后不需要撤单，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间，买家若因不知情而没查看所匹配的单子，单子被取消后，不再扣买家的0.5贡献值，只扣卖家的0.5贡献值--因为卖家通知不到位，没及时提醒买家查看订单。（同时，交易过程中若遇到问题，随时都可以点诉讼按钮，并联系客服让客服介入调查或协调）</div>
 					<div class="placeholderLine10"></div>
 				    <van-button @click="sureHangBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确 认</van-button>
 				</div>

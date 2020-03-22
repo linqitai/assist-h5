@@ -8,7 +8,6 @@
 			min-height: 100%;
 			position: absolute;
 			width: 100%;
-			color: $mainTextColor;
 			.van-list__finished-text{
 				color: inherit !important;
 			}
@@ -184,6 +183,7 @@
 			  <van-dropdown-item v-model="form.type" :options="option1" @change="refreshEvent"/>
 			</van-dropdown-menu>
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
+				 <!-- @load="onLoad1" -->
 				<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 					 <div class="millList">
 					 	<div class="item" v-for="item in list1" :key="item.id" @click="toBookView(2,item.userId)">
@@ -232,8 +232,11 @@
 				</van-tabs> -->
 			</van-pull-refresh>
 		</div>
+		<!-- <transition name="van-fade">
+		  <router-view></router-view>
+		</transition> -->
 		<!-- </van-pull-refresh> -->
-		<m-refresh @refreshEvent="refreshEvent"></m-refresh>
+		<!-- <m-refresh @refreshEvent="refreshEvent"></m-refresh> -->
 	</div>
 </template>
 
@@ -298,7 +301,7 @@
 			mHeader,mRefresh
 		},
 		create() {
-			this.toScrollTop();
+			/* this.toScrollTop(); */
 		},
 		mounted() {
 			let _this = this;
@@ -308,6 +311,7 @@
 			}else{
 				_this.activeName = "mill";
 			} */
+			/* _this.onLoad1(); */
 		},
 		methods: {
 			back(){

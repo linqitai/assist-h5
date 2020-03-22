@@ -198,7 +198,8 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="teamBuyMachineNum<10" @click="getTeamBuyMachineNumTask">去领取</div>
+				<div v-if="myActivity1MillNum<=0" @click="getTeamBuyMachineNumTask">去领取</div>
+				<i class="iconfont iconfont-finished" v-if="myActivity1MillNum>=1"></i>
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
@@ -419,6 +420,7 @@ export default {
 			isShowQunTaskOK:false,
 			teamBuyMachineNum:0,
 			activity1MillInventory:1000,
+			myActivity1MillNum:0
 		}
 	},  
 	components:{
@@ -468,6 +470,24 @@ export default {
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
 					_this.teamBuyMachineNum = res.data;
+					if(_this.teamBuyMachineNum>9){
+						_this.getAssistMyMachineNum();
+					}
+				}else{
+					_this.$toast(res.message);
+				}
+			})
+		},
+		getAssistMyMachineNum(){
+			let _this = this;
+			let params = {
+				tag: 6,
+				type: 1
+			}
+			_this.$ajax.ajax(_this.$api.getAssistMyMachineNum, 'GET', params, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					_this.myActivity1MillNum = res.data;
 				}else{
 					_this.$toast(res.message);
 				}

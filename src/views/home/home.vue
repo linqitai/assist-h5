@@ -687,7 +687,7 @@ $noticeHeight:40px;
 			if (_this.$cookies.get("statistics")) {
 				_this.statistics = _this.$cookies.get("statistics");
 			}else{
-				_this.refreshEvent();
+				_this.getHomeMineralStaticInfo();
 			}
 			//公告缓存获取
 			if(_this.$cookies.get('hasnoticeList')){

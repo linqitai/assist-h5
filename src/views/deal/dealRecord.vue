@@ -216,7 +216,7 @@
 				this.$cookies.set("tab_name_dealRecord", name, _this.$api.cookiesTime)
 			},
 			onLoad1(){
-				console.log('load1 getMineralBookList4SellType')
+				//console.log('load1 getMineralBookList4SellType')
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,

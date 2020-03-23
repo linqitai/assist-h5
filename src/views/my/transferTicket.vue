@@ -169,7 +169,7 @@
 						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在1~10000之间";
 					}
 				}else if(key == 'mobilePhone'){
-					if(_this.$reg.phone.test(_this.form4AppointDeal[key])){
+					if(_this.$reg.phone2.test(_this.form4AppointDeal[key])){
 						_this.errorInfo4AppointDeal.mobilePhone = '';
 					}else{
 						_this.errorInfo4AppointDeal.mobilePhone = "请正确粘贴对方的手机号";

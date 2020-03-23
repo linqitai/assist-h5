@@ -221,7 +221,7 @@
 			return {
 				currentPage1: 1,
 				currentPage2: 1,
-				pageSize:16,
+				pageSize:20,
 				activeName:'agency2',
 				loading1:false,
 				finished1:false,

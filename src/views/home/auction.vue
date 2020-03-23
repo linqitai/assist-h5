@@ -63,6 +63,9 @@
 							.iconfont{
 								color:$main-green-color;
 							}
+							.iconfont-arrow-to{
+								color:$main-box-fh-text-color;
+							}
 							.copy{
 								font-size: $fs-10;
 								margin-left: 3px;
@@ -124,7 +127,7 @@
 	<div class="auction">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
-			<div class="text">省市代理</div>
+			<div class="text">竞拍中心</div>
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
 		<div class="auctionPage">
@@ -139,6 +142,8 @@
 					<div class="flex">
 						<div class="line"><span>第十一个服务商</span> <span class="mainAdornColor">正在竞拍中</span></div>
 						<div class="placeholderLine10"></div>
+						<div class="line"><span>当前拍主 张三</span> <span class="mainAdornColor">出10000个帮扶券</span></div>
+						<div class="placeholderLine10"></div>
 						<div class="line white">
 							截止时间：2020/10/08 20:20:20
 						</div>
@@ -147,12 +152,13 @@
 				</div>
 			</div>
 			<div class="placeholderLine10"></div>
-			<div>我要加价：</div>
-			<div class="placeholderLine4"></div>
 			<div>
-				<van-button round type="info" @click="addTicket" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
+				我要加价：
+				<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
+				<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个券</van-button>
+				<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
 			</div>
-			<div class="placeholderLine10"></div>
+			<div class="placeholderLine4"></div>
 			<div>加价记录：</div>
 			<div class="placeholderLine4"></div>
 			<div class="list">
@@ -163,7 +169,7 @@
 						</div>
 					</div>
 					<div class="flex">
-						<div class="line"><span>张三</span> <span class="mainAdornColor">+3个帮扶券 目前最高价 12000券</span></div>
+						<div class="line"><span>张三</span> <span class="mainAdornColor">+3个帮扶券 <i class="iconfont iconfont-arrow-to"></i> 12000券</span></div>
 						<div class="placeholderLine10"></div>
 						<div class="line white">
 							加价时间：2020/10/08 20:20:20
@@ -194,6 +200,7 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	import clip from '@/assets/js/clipboard';
+	import { Dialog } from 'vant';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
 		name:'agency',
@@ -240,8 +247,16 @@
 					}
 				});
 			},
-			addTicket(){
-				console.log("addTicket");
+			addTicket(num){
+				Dialog.confirm({
+				  title: '确认弹窗',
+				  message: `您确定要加价${num}个券吗？`
+				}).then(() => {
+				  // on confirm
+				  
+				}).catch(() => {
+				  // on cancel
+				});
 			},
 			onLoad1(){
 				console.log('load1')

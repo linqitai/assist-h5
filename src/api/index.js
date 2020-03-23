@@ -2,9 +2,9 @@
 // export const host = '/web/assist';//阿广电脑
 export const hostImg = 'http://192.168.100.3:8088'; //阿广电脑
 // http://192.168.100.3:8001/admin/user/getAdminUserPageList
-const hostIPPort = 'http://www.helpchain.online';
+const hostIPPort = 'https://www.helpchain.online';
 const host = '/bflApp/'
-const domainName = 'http://www.helpchain.online';
+const domainName = 'https://www.helpchain.online';
 export default {
 	tabBgColor:'#298522',
 	tabTextColor:'#ffffff',
@@ -73,7 +73,8 @@ export default {
 	insertAssistUserFreeze: host + "assist/userFreeze/insertAssistUserFreeze",
 	reduceRealNameTime: host + "assist/userInfo/reduceRealNameTime",
 	getAssistUserInfoList4Check: host + "assist/userInfo/getAssistUserInfoList4Check",
-	getBuyMachine2TeamNum:host + "assist/userInfo/getBuyMachine2TeamNum",
+	getBuyMachine2TeamNum: host + "assist/userInfo/getBuyMachine2TeamNum",
+	getActivityCompleteInfo: host + "assist/userInfo/getActivityCompleteInfo",
 	//服务商
 	getServiceUserList: host + "assist/user/getServiceUserList",
 	getServiceDsPassword: host + "assist/user/getServiceDsPassword",
@@ -115,6 +116,8 @@ export default {
 	getAssistMyMachineCount4FlockTask: host + "assist/myMachine/getAssistMyMachineCount4FlockTask",
 	getSomeOneMachineInventory: host + "assist/myMachine/getSomeOneMachineInventory",
 	getAssistMyMachineNum: host + "assist/myMachine/getAssistMyMachineNum",
+	getActivityMachineInventory: host + "assist/myMachine/getActivityMachineInventory",
+	getMyActivityMachineNum: host + "assist/myMachine/getMyActivityMachineNum",
 	//算力账本列表
 	getCalculationPowerPageList: host + "assist/calculationPower/getCalculationPowerPageList",
 	//矿石账本列表
@@ -135,6 +138,7 @@ export default {
 	getAssistBuyMineralReward: host + "assist/reward/getAssistBuyMineralReward",
 	getShareReword: host + "assist/reward/getShareReword",
 	getActivity1Reward: host + "assist/reward/getActivity1Reward",
+	getActivity2Reward: host + "assist/reward/getActivity2Reward",
 	//deal
 	getAssistBuyBillListGeneralPage: host + "assist/buybill/getAssistBuyBillListGeneralPage",
 	getAssistBuyBillListAddPricePage: host + "assist/buybill/getAssistBuyBillListAddPricePage",

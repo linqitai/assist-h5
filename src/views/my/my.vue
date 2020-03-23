@@ -382,6 +382,16 @@
 						</div>
 					</div>
 				</router-link>
+				<router-link to="transferTicket">
+					<div class="my-cell">
+						<div class="flex1">
+							定向转让帮扶券
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
 			</div>
 			<!-- <div class="items">
 				<router-link to="transferMineral">
@@ -477,16 +487,6 @@
 						</div>
 					</div>
 				</router-link> -->
-				<router-link to="transferTicket">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让帮扶券
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
 				<router-link to="unFreeze">
 					<div class="my-cell">
 						<div class="flex1">

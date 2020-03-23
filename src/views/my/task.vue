@@ -156,7 +156,7 @@
 					需省市代理审核群昵称及群活跃度并引荐给客服再审核观察一周<br>
 					群管理必须是群主的下级团队成员，或者是群主的上级<br>
 					达标后：<br>
-					群主和群管理各获得一台半年的小型矿机，且可升级成官方工会群，并由客服和志愿者来协助管理<br>
+					群主和群管理各获得一台半年的小型矿机<span class="yellow">(第二次减产后，该奖励将会换成一个月的微型矿机)</span>，且可升级成官方工会群，并由客服和志愿者来协助管理<br>
 					该福利时刻有效，客服审核通过后，72小时内会发放该奖励<br>
 					若因违规操作而被他人投诉后该奖励将会被收回，同时奖励投诉者一台微型矿机<br>
 				</div>
@@ -193,13 +193,32 @@
 					需要：<br>
 					A直推10个会员完成基础任务1和2<br>
 					达到后：<br>
-					奖励A一台微型矿机（名额有限只送1000台，还剩{{activity1MillInventory}}台，先到先得）<br>
-					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才能统计在内。从3月1号开始您已经直推{{teamBuyMachineNum}}人完成基础任务1和2
+					奖励A一台微型矿机（名额有限只送1000台，还剩<span class="yellow">{{activity1MillInventory}}</span>台，先到先得）<br>
+					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才能统计在内。从3月1号开始您已经直推<span class="yellow">{{teamBuyMachineNum}}</span>个会员完成基础任务1和2
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="myActivity1MillNum<=0" @click="getTeamBuyMachineNumTask">去领取</div>
+				<div v-if="myActivity1MillNum<=0" @click="getActivity1Reward">去领取</div>
 				<i class="iconfont iconfont-finished" v-if="myActivity1MillNum>=1"></i>
+			</div>
+		</div>
+		<div class="placeholderLine10"></div>
+		<div class="box activity">
+			<div class="flexLeft">
+				<div class="line title">
+					活动任务2
+				</div>
+				<div class="line text margT10">
+					需要：<br>
+					A直推3个会员升级成为青铜会长<br>
+					达到后：<br>
+					奖励A一台半年的小型矿机（名额有限只送100台，还剩<span class="yellow">{{activity2MillInventory}}</span>台，先到先得）<br>
+					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才能统计在内。从3月1号开始您已经直推<span class="yellow">0</span>个会员成为青铜会长
+				</div>
+			</div>
+			<div class="flexRight">
+				<div v-if="myActivity2MillNum<=0" @click="getActivity2Reward">去领取</div>
+				<i class="iconfont iconfont-finished" v-if="myActivity2MillNum>=1"></i>
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
@@ -419,8 +438,11 @@ export default {
 			userId:'',
 			isShowQunTaskOK:false,
 			teamBuyMachineNum:0,
+			teamLevelAddNum:0,
 			activity1MillInventory:1000,
-			myActivity1MillNum:0
+			activity2MillInventory:100,
+			myActivity1MillNum:0,
+			myActivity2MillNum:0
 		}
 	},  
 	components:{
@@ -444,7 +466,8 @@ export default {
 			_this.isRealName = false;
 		}
 		_this.getAssistMyMachineCount4Task();
-		_this.getBuyMachine2TeamNum();
+		_this.getActivityCompleteInfo();
+		_this.getActivityMachineInventory();
 		// console.log('_this.isRealName',_this.isRealName);
 	},
 	methods:{
@@ -463,14 +486,17 @@ export default {
 				_this.$router.push('/deal');
 			}
 		},
-		getBuyMachine2TeamNum(){
+		getActivityCompleteInfo(){
 			let _this = this;
 			
-			_this.$ajax.ajax(_this.$api.getBuyMachine2TeamNum, 'GET', null, function(res){
+			_this.$ajax.ajax(_this.$api.getActivityCompleteInfo, 'GET', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
-					_this.teamBuyMachineNum = res.data;
+					_this.teamBuyMachineNum = res.data.teamBuyMachineNum;
+					_this.teamLevelAddNum = res.data.teamLevelAddNum;
 					if(_this.teamBuyMachineNum>9){
+						_this.getAssistMyMachineNum();
+					}else if(teamLevelAddNum>2){
 						_this.getAssistMyMachineNum();
 					}
 				}else{
@@ -484,31 +510,33 @@ export default {
 				tag: 6,
 				type: 1
 			}
-			_this.$ajax.ajax(_this.$api.getAssistMyMachineNum, 'GET', params, function(res){
+			_this.$ajax.ajax(_this.$api.getMyActivityMachineNum, 'GET', params, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
-					_this.myActivity1MillNum = res.data;
+					_this.myActivity1MillNum = res.data.myActivity1MillNum;
+					_this.myActivity2MillNum = res.data.myActivity2MillNum;
 				}else{
 					_this.$toast(res.message);
 				}
 			})
 		},
-		getSomeOneMachineInventory(){
+		getActivityMachineInventory(){
 			let _this = this;
-			let params = {
+			/* let params = {
 				tag: 6,
 				type: 1
-			}
-			_this.$ajax.ajax(_this.$api.getSomeOneMachineInventory, 'POST', params, function(res){
+			} */
+			_this.$ajax.ajax(_this.$api.getActivityMachineInventory, 'GET', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
-					_this.activity1MillInventory = res.data;
+					_this.activity1MillInventory = res.data.activity1MachineNum;
+					_this.activity2MillInventory = res.data.activity2MachineNum;
 				}else{
 					_this.$toast(res.message);
 				}
 			})
 		},
-		getTeamBuyMachineNumTask(){
+		getActivity1Reward(){
 			let _this = this;
 			if(_this.teamBuyMachineNum<10){
 				// _this.$toast("您已领取过该奖励");
@@ -521,6 +549,33 @@ export default {
 				return;
 			}
 			_this.$ajax.ajax(_this.$api.getActivity1Reward, 'POST', null, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					Dialog.alert({
+					  title: '温馨提示',
+					  message: '恭喜您，奖励领取成功！'
+					}).then(() => {
+					  // on close
+					  _this.$router.push('/myMill');
+					});
+				}else{
+					_this.$toast(res.message);
+				}
+			})
+		},
+		getActivity2Reward(){
+			let _this = this;
+			if(_this.teamLevelAddNum<3){
+				// _this.$toast("您已领取过该奖励");
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您尚未达到领取该奖励的标准'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			_this.$ajax.ajax(_this.$api.getActivity2Reward, 'POST', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
 					Dialog.alert({

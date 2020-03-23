@@ -28,7 +28,7 @@
 				text-align: center;
 				font-size: 14px;
 				.ewmBox{
-					width:100%;
+					width:60%;
 				}
 				.text {
 					margin-top: 0.375rem;
@@ -55,15 +55,15 @@
 				<b class="textBold">{{qqFlock}}</b><span class="copy margL10" @click="handleCopy(qqFlock,$event)">复制</span>
 			</div>
 			<div class="placeholderLine10"></div>
-			<!-- <div class="title">工会微信群(没群的会员请进)：</div>
+			<div class="title">工会微信群(没群的会员请进)：</div>
 			<div class="placeholderLine10"></div>
 			<div class="cateInfo">
 				<div class="infoBox">
-					<img class="ewmBox" src="../../assets/image/wechat.png" alt="">
+					<img class="ewmBox" src="https://www.helpchain.online/image/wechat.png" alt="">
 					<div class="text">扫码进微信群</div>
 				</div>
 			</div>
-			<div class="placeholderLine10"></div> -->
+			<div class="placeholderLine10"></div>
 			
 			<div class="title">微信客服：</div>
 			<div class="placeholderLine10"></div>

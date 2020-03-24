@@ -36,6 +36,9 @@
 				}
 			}
 		}
+		.fixedBottom{
+			@include fixedBottom();
+		}
 	}
 }
 </style>
@@ -55,6 +58,12 @@
 				<!-- <div class="textBold margT6">姓名：{{item.realName}}</div> -->
 				<div class="textBold margT6">微信号：{{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
 				<div class="placeholderLine10"></div>
+			</div>
+			<div class="fixedBottom paddingWing">
+				<van-button type="info" size="normal" to="auction" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">竞选服务商</van-button>
+				<div class="placeholderLine10"></div>
+				<!-- <van-button color="linear-gradient(to right, #73798a , #626876)" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户</van-button>
+				<div class="placeholderLine10"></div> -->
 			</div>
 		</div>
 	</div>

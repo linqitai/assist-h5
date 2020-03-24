@@ -69,9 +69,9 @@
 			},
 			getAssistStatisticsBookList4Num(){
 				let _this = this;
-				//获取最近30条价格信息
+				//获取最近N条价格信息
 				let params = {
-					num: 30
+					num: 365
 				}
 				_this.$ajax.ajax(_this.$api.getAssistStatisticsBookList4Num, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {

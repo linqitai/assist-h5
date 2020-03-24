@@ -157,7 +157,7 @@
 					群管理必须是群主的下级团队成员，或者是群主的上级<br>
 					达标后：<br>
 					群主和群管理各获得一台半年的小型矿机<span class="yellow">(第二次减产后，该奖励将会换成一个月的微型矿机)</span>，且可升级成官方工会群，并由客服和志愿者来协助管理<br>
-					该福利时刻有效，客服审核通过后，72小时内会发放该奖励<br>
+					该福利时刻有效，客服审核通过后，72小时内会发放该奖励，该小型矿机最后只剩下<span class="yellow">{{createFlockMillInventory}}</span>台<br>
 					若因违规操作而被他人投诉后该奖励将会被收回，同时奖励投诉者一台微型矿机<br>
 				</div>
 			</div>
@@ -213,7 +213,7 @@
 					A直推3个会员升级成为青铜会长<br>
 					达到后：<br>
 					奖励A一台半年的小型矿机（名额有限只送100台，还剩<span class="yellow">{{activity2MillInventory}}</span>台，先到先得）<br>
-					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才能统计在内。从3月1号开始您已经直推<span class="yellow">0</span>个会员成为青铜会长
+					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才能统计在内。从3月1号开始您已经直推<span class="yellow">{{teamLevelAddNum}}</span>个会员成为青铜会长
 				</div>
 			</div>
 			<div class="flexRight">
@@ -439,6 +439,7 @@ export default {
 			isShowQunTaskOK:false,
 			teamBuyMachineNum:0,
 			teamLevelAddNum:0,
+			createFlockMillInventory:100,
 			activity1MillInventory:1000,
 			activity2MillInventory:100,
 			myActivity1MillNum:0,
@@ -531,6 +532,7 @@ export default {
 				if(res.code == _this.$api.CODE_OK){
 					_this.activity1MillInventory = res.data.activity1MachineNum;
 					_this.activity2MillInventory = res.data.activity2MachineNum;
+					_this.createFlockMillInventory = res.data.createFlockMachineNum;
 				}else{
 					_this.$toast(res.message);
 				}

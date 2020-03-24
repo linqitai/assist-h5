@@ -140,12 +140,12 @@
 						</div>
 					</div>
 					<div class="flex">
-						<div class="line"><span>第十一个服务商</span> <span class="mainAdornColor">正在竞拍中</span></div>
+						<div class="line"><span>{{auction.title}}</span> <span class="mainAdornColor">{{auction.status == 0 ? '未开拍':'竞拍中'}}</span></div>
 						<div class="placeholderLine10"></div>
-						<div class="line"><span>当前拍主 张三</span> <span class="mainAdornColor">出10000个帮扶券</span></div>
+						<div class="line"><span>当前拍主 {{auction.nickName}}</span> <span class="mainAdornColor">出{{auction.auctionEndPrice}}个帮扶券</span></div>
 						<div class="placeholderLine10"></div>
 						<div class="line white">
-							截止时间：2020/10/08 20:20:20
+							截止时间：{{auction.endTime}}
 						</div>
 					</div>
 					<!-- <div class="flexRight"></div> -->
@@ -216,6 +216,7 @@
 				finished2:false,
 				list2:[],
 				showTipModel:false,
+				auction:'',
 			}
 		},
 		components: {
@@ -223,7 +224,7 @@
 		},
 		mounted() {
 			let _this = this;
-		
+			_this.getCurrentAuction();
 		},
 		methods: {
 			back(){
@@ -295,15 +296,15 @@
 					}
 				})
 			},
-			onLoad3(){
-				console.log('load3')
+			getCurrentAuction(){
 				let _this = this;
-				// 异步更新数据
-				setTimeout(() => {
-					// 加载状态结束
-					_this.loading3 = false;
-					_this.finished3 = true;
-				}, 500);
+				_this.$ajax.ajax(_this.$api.getCurrentAuction, 'GET', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.auction = res.data;
+					}else{
+						_this.$toast(res.message);
+					}
+				});
 			},
 			onLoad4(){
 				console.log('load4')

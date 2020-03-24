@@ -192,5 +192,7 @@ export default {
 	getSecurityCodeByPhone: host + "assist/securitycode/getSecurityCodeByPhone",
 	//parameterInfo
 	getAssistMaintainInfo: host + "assist/parameter/getAssistMaintainInfo",
-	getAssistQQFlock: host + "assist/parameter/getAssistQQFlock"
+	getAssistQQFlock: host + "assist/parameter/getAssistQQFlock",
+	//auction
+	getCurrentAuction: host + "assist/auction/getCurrentAuction"
 }

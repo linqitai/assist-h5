@@ -299,6 +299,7 @@ $noticeHeight:40px;
 				<div class="placeholderLine20"></div>
 				<div class="title">{{attendanceTitle}}</div>
 				<div class="tomorrowContribution">连续签到30天可获得体验矿机一台</div>
+				<div class="tomorrowContribution">该奖励截止到下次减产</div>
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">

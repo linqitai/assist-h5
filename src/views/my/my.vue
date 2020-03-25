@@ -375,7 +375,17 @@
 				<router-link to="transferMineral4F">
 					<div class="my-cell">
 						<div class="flex1">
-							转让矿石(服务商)
+							定向转让矿石(服务商)
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+				<router-link to="transferMineral4L">
+					<div class="my-cell">
+						<div class="flex1">
+							定向转让矿石(会长)
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>

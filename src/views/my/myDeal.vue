@@ -1608,10 +1608,10 @@
 						})
 					}else if(_this.activeName == 'pay'){//pay是买家
 						//console.log('pay是买家');
-						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
 							_this.cancelDeal4OverTime();
 							return;
-						}
+						} */
 						_this.showAgentDetailModel = true;
 						_this.$ajax.ajax(_this.$api.getAssistAppointDealDetailById, 'GET', params, function(res) {
 							if (res.code == _this.$api.CODE_OK) {

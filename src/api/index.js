@@ -167,6 +167,8 @@ export default {
 	getAssistTransactionList4AgentComplate: host + "assist/transaction/getAssistTransactionList4AgentComplate",
 	getAssistTransactionList4AgentCancel: host + "assist/transaction/getAssistTransactionList4AgentCancel",
 	insertTransaction2ServiceBill: host + "assist/transaction/insertTransaction2ServiceBill",
+	//上下级转矿石
+	insertTransaction4LevelTeamBill: host + "assist/transaction/insertTransaction4LevelTeamBill",
 	//统计
 	getHomeMineralStaticInfo: host + "assist/statistics/getHomeMineralStaticInfo",
 	getCurrentBuyNum: host + "assist/statistics/getCurrentBuyNum",

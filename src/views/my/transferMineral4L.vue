@@ -77,7 +77,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				转让矿石(服务商)
+				转让矿石(会长)
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
@@ -91,11 +91,11 @@
 				<van-field v-model="getGuidancePrice" required disabled label="指导总价"/>
 				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
 				<van-field v-model="getAssurePrice" required clearable label="转让总价" placeholder="请先填写转让单价" @blur="validate4AppointDeal('assurePrice')" :error-message="errorInfo4AppointDeal.assurePrice"/>
-				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请填写对方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
+				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请填写直推的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
 				<!-- <van-field v-model="form4AppointDeal.agentPhone" required clearable label="担保代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone"> -->
 					<!-- <van-button slot="button" size="small" type="primary">自动分配</van-button> -->
 				</van-field>
-				<van-field required v-model="form4AppointDeal.dsPassword" type="password" clearable label="动态密码" @blur="validate4AppointDeal('dsPassword')" :error-message="errorInfo4AppointDeal.dsPassword" placeholder="请填写服务商给的动态密码"/>
+				<!-- <van-field required v-model="form4AppointDeal.dsPassword" type="password" clearable label="动态密码" @blur="validate4AppointDeal('dsPassword')" :error-message="errorInfo4AppointDeal.dsPassword" placeholder="请填写服务商给的动态密码"/> -->
 				<van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写自己的安全密码"/>
 			</van-cell-group>
@@ -103,10 +103,11 @@
 			<!-- <div class="paddingWing tip4model3" v-html="$api.tipText4Safe"></div> -->
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing tip4model3">
-				<b class="textBold">定向转让矿石(服务商)交易规则：</b><br>
-				1.无论是会员转矿石给服务商还是服务商转矿石给会员，转让手续费都是只收交易总金额10%的帮扶券。比如：交易总金额是200CNY，收20CNY价值的帮扶券作为手续费。该手续费，将会用来做线下的公益事业(爱心帮扶活动)。等疫情过去后，将陆陆续续开展线下的公益事业，期待有您的参与!<br>
-				2.个人算力达到0.4G即可开通定向转让矿石给服务商的权限。<br>
-				3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机。<br>
+				<b class="textBold">定向转让矿石(会长)交易规则：</b><br>
+				1.青铜及以上级别的工会会长才有权限给自己的直推单向转让矿石（下次减产后可能只对白银及以上级别的工会会长开放该权限）。<br>
+				2.转让价格不得超过最高溢价×1.3，帮扶链平台会以实际行动以及时间证明矿石的价值，希望市场不要去发展黑市，那样对项目会造成不稳定的影响，希望会长们严格遵守，和平台一起携手打造一个养人脉的项目。<br>
+				3.转让手续费都是只收交易总金额10%的帮扶券。比如：交易总金额是200CNY，收20CNY价值的帮扶券作为手续费。该手续费，将会用来做线下的公益事业(爱心帮扶活动)。等疫情过去后，将陆陆续续开展线下的公益事业，期待有您的参与!<br>
+				4.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机。<br>
 			</div>
 			<!-- <div class="margT10 paddingWing tip4model3" v-html="tipText4AppointDeal"></div> -->
 			<div class="placeholderLine40"></div>
@@ -133,8 +134,7 @@
 					assurePrice:'',
 					blockAddress:'',
 					idCard:'',
-					safePassword:'',
-					dsPassword:''
+					safePassword:''
 				},
 				errorInfo4AppointDeal:{
 					transferAmount:'',
@@ -142,8 +142,7 @@
 					assurePrice:'',
 					blockAddress:'',
 					idCard:'',
-					safePassword:'',
-					dsPassword:''
+					safePassword:''
 				},
 				option1: [
 					{ text: '问题反馈', value: 0 },
@@ -263,7 +262,6 @@
 				}
 			},
 			submit(){
-				console.log("submit");
 				let _this = this;
 				/* if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
 					Dialog.alert({
@@ -293,7 +291,6 @@
 					});
 					return;
 				}
-				
 				let params = {
 					/* userId: _this.userId, */
 					num: _this.form4AppointDeal.transferAmount,
@@ -302,10 +299,10 @@
 					assurePrice: _this.form4AppointDeal.assurePrice,
 					blockAddress: _this.form4AppointDeal.blockAddress,
 					idCard: _this.form4AppointDeal.idCard,
-					dsPassword: _this.form4AppointDeal.dsPassword.replace(/ /g,""),
 					safePassword: _this.form4AppointDeal.safePassword.replace(/ /g,""),
 					// createTime:_this.$utils.getDateTime(new Date())
 				}
+				
 				if(params.price>_this.maxPrice){
 					_this.$toast(`交易最高价暂时为${_this.maxPrice}元`);
 					return;
@@ -333,7 +330,7 @@
 				}
 				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.insertTransaction2ServiceBill, 'POST', params, function(res) {
+				_this.$ajax.ajax(_this.$api.insertTransaction4LevelTeamBill, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						// _this.$toast('转让成功');
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);

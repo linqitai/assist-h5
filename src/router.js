@@ -180,6 +180,12 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
+							path: '/transferMineral4L',
+							name: '转让矿石(会长)',
+							component: resolve => require(['./views/my/transferMineral4L'],resolve),
+							meta:{footer:false},
+						},
+						{
 							path: '/unFreeze',
 							name: '解冻账号',
 							component: resolve => require(['./views/my/unFreeze'],resolve),

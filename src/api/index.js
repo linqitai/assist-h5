@@ -196,5 +196,7 @@ export default {
 	getAssistMaintainInfo: host + "assist/parameter/getAssistMaintainInfo",
 	getAssistQQFlock: host + "assist/parameter/getAssistQQFlock",
 	//auction
-	getCurrentAuction: host + "assist/auction/getCurrentAuction"
+	getCurrentAuction: host + "assist/auction/getCurrentAuction",
+	insertAuctionBook: host + "assist/auction/insertAuctionBook",
+	getAssistAuctionBookPageList: host + "assist/auction/getAssistAuctionBookPageList",
 }

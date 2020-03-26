@@ -743,6 +743,7 @@ export default {
 			}
 			if(_this.$cookies.get('isRefreshDealInfo')==1){
 				_this.refreshEvent();
+				_this.$cookies.remove('isRefreshDealInfo');
 				_this.$cookies.set('isRefreshDealInfo',0,_this.$api.cookiesTime);
 			}
 		},
@@ -752,6 +753,7 @@ export default {
 			_this.$ajax.ajax(_this.$api.getHomeMineralStaticInfo, 'GET', null, function(res) {
 				if (res.code == _this.$api.CODE_OK) {
 					_this.statistics = res.data;
+					_this.$cookies.remove('statistics');
 					_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime);
 				}else{
 					_this.$toast(res.message);
@@ -767,6 +769,7 @@ export default {
 					_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`;
 					_this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}];
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
+					_this.$cookies.remove('haveDealPageInfo');
 					_this.$cookies.set("haveDealPageInfo",1, 60 * 30 * 1);
 					localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
 				}else{

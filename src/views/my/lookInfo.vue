@@ -273,7 +273,7 @@
 					<div class="textCenter margT10" v-if="userFreezeInfo">
 						被冻结原因：{{userFreezeInfo.reason}}
 					</div>
-					<div class="textCenter margT10" v-if="userFreezeInfo.accountStatus == 1">
+					<div class="textCenter margT10" v-if="thisUserInfo.accountStatus == 1">
 						可否解冻：{{thisUserInfo.canUnfreeze | canUnFreeze}}
 					</div>
 					<div class="textCenter margT10" v-if="userFreezeInfo">

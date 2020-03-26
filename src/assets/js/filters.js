@@ -263,7 +263,7 @@ function activedStatus(val){
 
 function canUnFreeze(val){
 	if(val==0){
-		return '需要给客服排查问题';
+		return '需要给客服先排查问题';
 	}else if(val==1){
 		return '可以让省市代理解冻';
 	}else{

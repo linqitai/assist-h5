@@ -522,16 +522,6 @@ $noticeHeight:40px;
 						</router-link>
 					</div>
 					<div class="infoBox">
-						<router-link to="/agency">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground3">
-									<van-icon class-prefix="iconfont" name="crown" />
-								</div>
-							</div>
-							<div class="text">省市代理</div>
-						</router-link>
-					</div>
-					<div class="infoBox">
 						<router-link to="/voteList">
 							<div class="iconBox">
 								<div class="iconBackground iconBackground4">
@@ -541,16 +531,24 @@ $noticeHeight:40px;
 							<div class="text">投票中心</div>
 						</router-link>
 					</div>
+					<div class="infoBox" @click="waiting">
+						<div class="iconBox">
+							<div class="iconBackground iconBackground2">
+								<van-icon class-prefix="iconfont" name="merchant" />
+							</div>
+						</div>
+						<div class="text">商家入驻</div>
+					</div>
 				</div>
 				<div class="cateInfo">
 					<div class="infoBox">
-						<router-link to="/cService">
+						<router-link to="/agency">
 							<div class="iconBox">
-								<div class="iconBackground iconBackgroundCService">
-									<van-icon class-prefix="iconfont" name="cservice" />
+								<div class="iconBackground iconBackground3">
+									<van-icon class-prefix="iconfont" name="crown" />
 								</div>
 							</div>
-							<div class="text">客服</div>
+							<div class="text">省市代理</div>
 						</router-link>
 					</div>
 					<div class="infoBox">
@@ -563,13 +561,15 @@ $noticeHeight:40px;
 							<div class="text">服务商</div>
 						</router-link>
 					</div>
-					<div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground2">
-								<van-icon class-prefix="iconfont" name="merchant" />
+					<div class="infoBox">
+						<router-link to="/cService">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundCService">
+									<van-icon class-prefix="iconfont" name="cservice" />
+								</div>
 							</div>
-						</div>
-						<div class="text">商家入驻</div>
+							<div class="text">客服</div>
+						</router-link>
 					</div>
 					<div class="infoBox" @click="waiting">
 						<div class="iconBox">
@@ -975,7 +975,7 @@ $noticeHeight:40px;
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage,
-					pageSize: _this.pageSize,
+					pageSize: 6,
 					type:1
 				}
 				_this.$ajax.ajax(_this.$api.getNoticePageList, 'GET', params, function(res) {

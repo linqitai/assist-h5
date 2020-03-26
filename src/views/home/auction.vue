@@ -132,52 +132,54 @@
 		</m-header>
 		<div class="auctionPage">
 			<div class="placeholderLine10"></div>
-			<div class="list">
-				<div class="item">
-					<div class="flexLeft">
-						<div class="name">
-							<i class="iconleft iconfont iconfont-pai"></i>
+			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
+				<div class="list">
+					<div class="item">
+						<div class="flexLeft">
+							<div class="name">
+								<i class="iconleft iconfont iconfont-pai"></i>
+							</div>
 						</div>
-					</div>
-					<div class="flex">
-						<div class="line"><span>{{auction.title}}</span> <span class="mainAdornColor">{{auction.status == 0 ? '未开拍':'竞拍中'}}</span></div>
-						<div class="placeholderLine10"></div>
-						<div class="line"><span>当前拍主 {{auction.nickName}}</span> <span class="mainAdornColor">出{{auction.auctionEndPrice}}个帮扶券</span></div>
-						<div class="placeholderLine10"></div>
-						<div class="line white">
-							截止时间：{{auction.endTime}}
+						<div class="flex">
+							<div class="line"><span>{{auction.title}}</span> <span class="mainAdornColor">{{auction.status == 0 ? '未开拍':'竞拍中'}}</span></div>
+							<div class="placeholderLine10"></div>
+							<div class="line"><span>当前拍主 {{auction.nickName}}</span> <span class="mainAdornColor">出{{auction.auctionEndPrice}}个帮扶券</span></div>
+							<div class="placeholderLine10"></div>
+							<div class="line white">
+								截止时间：{{auction.endTime}}
+							</div>
 						</div>
+						<!-- <div class="flexRight"></div> -->
 					</div>
-					<!-- <div class="flexRight"></div> -->
 				</div>
-			</div>
-			<div class="placeholderLine10"></div>
-			<div>
-				我要加价：
-				<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
-				<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个券</van-button>
-				<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
-			</div>
-			<div class="placeholderLine4"></div>
-			<div>加价记录：</div>
-			<div class="placeholderLine4"></div>
-			<div class="list">
-				<div class="item">
-					<div class="flexLeft">
-						<div class="name">
-							<i class="iconleft iconfont iconfont-pai"></i>
-						</div>
-					</div>
-					<div class="flex">
-						<div class="line"><span>张三</span> <span class="mainAdornColor">+3个帮扶券 <i class="iconfont iconfont-arrow-to"></i> 12000券</span></div>
-						<div class="placeholderLine10"></div>
-						<div class="line white">
-							加价时间：2020/10/08 20:20:20
-						</div>
-					</div>
-					<!-- <div class="flexRight"></div> -->
+				<div class="placeholderLine10"></div>
+				<div>
+					我要加价：
+					<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
+					<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个券</van-button>
+					<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
 				</div>
-			</div>
+				<div class="placeholderLine4"></div>
+				<div>加价记录：</div>
+				<div class="placeholderLine4"></div>
+				<div class="list">
+					<div class="item" v-for="item in list1" :key="item.userId">
+						<div class="flexLeft">
+							<div class="name">
+								<i class="iconleft iconfont iconfont-pai"></i>
+							</div>
+						</div>
+						<div class="flex">
+							<div class="line"><span>{{item.nickName}}</span> <span class="mainAdornColor">+{{item.addPrice}}个帮扶券 <i class="iconfont iconfont-arrow-to"></i> {{item.currentAuctionPrice}}券</span></div>
+							<div class="placeholderLine10"></div>
+							<div class="line white">
+								加价时间：2020/10/08 20:20:20
+							</div>
+						</div>
+						<!-- <div class="flexRight"></div> -->
+					</div>
+				</div>
+			</van-pull-refresh>
 		</div>
 		<van-action-sheet v-model="showTipModel" title="问题小帮手">
 			<div class="paddingWing">
@@ -185,21 +187,25 @@
 				<!-- <div class="tip4model3">第一批省代理正在招募中，需通过现有代理或客服引荐。</div> -->
 				<div class="placeholderLine10"></div>
 				<div class="tip4model4">
-					<b class="textBold">省市代理的权限：</b><br>					1.拥有引荐受帮扶对象的权限。<br>					2.拥有给他人解冻账号的权限。<br>					3.拥有申请给他人内排注册的权限。<br>					4.省市代理拥有帮扶券的代理权。<br>
-					5.交易服务商会从代理中选择。<br>					帮扶券的用处：可用于交易的时候当手续费(这是平台方唯一的盈利点)、可用于帮助平台上生活遇到困难的会员而获得贡献值等。<br>
-					注：代理期限至少半年。每半年会重新竞选一次。优秀负责的代理可续任。
-					<div class="placeholderLine10"></div>
-					<b class="textBold">如何获得省市代理？</b><br>					方案一.前期福利：2020/3/31 21:00 之前对接团队长，送市代理名额，由现代理引荐，送完为止，先到先得。<br>					方案二.前期福利：2020/3/31 21:00 个人算力在【首页-排行榜】中的用户找现有代理或客服审核即赠送市代理名额。<br>					方案三.实力抵押：抵押10000个帮扶券成为省代理；抵押5000个帮扶券成为市代理。<br>					注：帮扶券1CNY一个，会员从市代理那儿购买，市代理从省代理那儿购买，省代理从客服那儿购买。
+					第二批服务商竞拍测试中，将会在28号晚上21点开始竞拍<br>
+					HPC帮扶链的服务商类似交易所的商人<br>
+					要具备以下几个条件<br>
+					1、是HPC省市代理或会长或团队算力、有效直推进入排行榜的团队长优先<br>
+					2、对HPC平台的帮扶事业绝对热爱<br>
+					3、有充裕时间做好服务（若服务时间经常不充裕，愿意把服务商职位让给更加符合条件的团队长）<br>
+					4、备有足够量的资金作保障（若缺少资金，通过群里会员众筹的方式来获取服务商的，会被驳回当服务商的资格）<br>
+					服务商权限大而尊贵，对控盘起关键作用，请团队长们参与竞拍之前，先考虑好
 				</div>
 				<div class="placeholderLine40"></div>
 			</div>
 		</van-action-sheet>
+		<m-refresh @refreshEvent="refreshEvent"></m-refresh>
 	</div>
 </template>
 
 <script>
 	import mHeader from '@/components/Header.vue';
-	import clip from '@/assets/js/clipboard';
+	import mRefresh from '@/components/Refresh2.vue';
 	import { Dialog } from 'vant';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
@@ -208,19 +214,21 @@
 			return {
 				currentPage1: 1,
 				currentPage2: 1,
-				pageSize:16,
+				pageSize:6,
 				activeName:'agency2',
 				loading1:false,
 				finished1:false,
 				loading2:false,
 				finished2:false,
+				list1:[],
 				list2:[],
 				showTipModel:false,
 				auction:'',
+				loading:false
 			}
 		},
 		components: {
-			mHeader
+			mHeader,mRefresh
 		},
 		mounted() {
 			let _this = this;
@@ -233,99 +241,78 @@
 			showTip(){
 				this.showTipModel = true;
 			},
-			handleCopy(text, event) {
+			refreshEvent(){
 				let _this = this;
-				clip(text,event,function(res){
-					_this.$toast(`复制${res.text}成功`);
-				});
-			},
-			toTeamView(id){
-				console.log('id',id);
-				this.$router.push({
-					path:'/agency2',
-					query:{
-					  id:id,
-					}
-				});
-			},
-			addTicket(num){
-				Dialog.confirm({
-				  title: '确认弹窗',
-				  message: `您确定要加价${num}个券吗？`
-				}).then(() => {
-				  // on confirm
-				  
-				}).catch(() => {
-				  // on cancel
-				});
-			},
-			onLoad1(){
-				console.log('load1')
-				let _this = this;
-				// 异步更新数据
-				setTimeout(() => {
-					// 加载状态结束
-					_this.loading1 = false;
-					_this.finished1 = true;
-				}, 500);
-			},
-			onLoad2(){
-				console.log('load2')
-				let _this = this;
-				var params = {
-					pageNo: this.currentPage2,
-					pageSize: this.pageSize,
-					status:2
-				}
-				_this.loading2 = true;
-				_this.finished2 = false;
-				_this.$ajax.ajax(_this.$api.getAssistProvinceAgentListByPage, 'GET', params, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data.list;
-						_this.list2.push(...list);
-						_this.loading2 = false;
-						if(res.data.endRow == res.data.total){
-							_this.finished2 = true;
-						}else{
-							_this.currentPage2 = _this.currentPage2 + 1;
-						}
-					}else{
-						_this.loading2 = false;
-						_this.finished2 = true;
-						_this.$toast(res.message);
-					}
-				})
+				_this.loading = true;
+				_this.getCurrentAuction();
 			},
 			getCurrentAuction(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getCurrentAuction, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.auction = res.data;
+						_this.onLoad(_this.auction.id);
 					}else{
 						_this.$toast(res.message);
 					}
 				});
 			},
-			onLoad4(){
-				console.log('load4')
+			onLoad(id){
 				let _this = this;
-				// 异步更新数据
-				setTimeout(() => {
-					// 加载状态结束
-					_this.loading4 = false;
-					_this.finished4 = true;
-				}, 500);
+				var params = {
+					pageNo: this.currentPage1,
+					pageSize: this.pageSize,
+					auctionId:id
+				}
+				_this.$ajax.ajax(_this.$api.getAssistAuctionBookPageList, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list1 = res.data.list;
+						_this.loading = false;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished1 = true;
+						}else{
+							_this.currentPage1 = _this.currentPage1 + 1;
+						} */
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.loading = false;
+				})
 			},
-			tabChange(res) {
+			addTicket(num){
 				let _this = this;
-				console.log('res', res)
-				/* if(res == 'agency2'){
-					_this.onLoad2();
-				} */
+				Dialog.confirm({
+				  title: '系统提示',
+				  confirmButtonText:'确认',
+				  closeOnClickOverlay:true,
+				  message: `您确定要加价${num}个券吗？`
+				}).then(() => {
+				  // on confirm
+				  let params = {
+					  auctionId: _this.auction.id,
+					  addPrice: num
+				  }
+				  console.log("p",params)
+				  _this.$ajax.ajax(_this.$api.insertAuctionBook, 'POST', params, function(res) {
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		_this.$toast("加价成功");
+						_this.getCurrentAuction();
+				  	}else{
+						Dialog.alert({
+							title: "系统提示",
+							message: res.message
+						}).then(() => {
+						  // on confirm
+						  _this.getCurrentAuction();
+						})
+				  	}
+				  })
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
+				});
 			},
-			onSearch(res){
-				console.log('res', res)
-			}
 		}
 	}
 </script>

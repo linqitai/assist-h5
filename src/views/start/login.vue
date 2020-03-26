@@ -310,8 +310,11 @@
 					_this.isLoading = false;
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						_this.userInfo = res.data.assistUserInfoVo4Web;
+						_this.$cookies.remove('userId');
 						_this.$cookies.set("userId", _this.userInfo.userId);
+						_this.$cookies.remove('token');
 						_this.$cookies.set('token',res.data.token);
+						_this.$cookies.remove('hasNoticeList4Swipe');
 						//登录后手机号缓存到本地，每次登录免得继续输入手机号，提高用户体验
 						localStorage.setItem('_USERINFO_',JSON.stringify(_this.userInfo));
 						localStorage.setItem('mobilePhone',_this.userInfo.mobilePhone);

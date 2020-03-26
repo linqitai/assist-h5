@@ -474,6 +474,10 @@ export default {
 					// _this.$cookies.remove('buyAndSellInfo');
 					_this.$cookies.remove('userId');
 					_this.$cookies.remove('token');
+					_this.$cookies.remove('isRefreshDealInfo');
+					_this.$cookies.remove('statistics');
+					_this.$cookies.remove('haveDealPageInfo');
+					_this.$cookies.remove('hasNoticeList4Swipe');
 					// console.log("_this.$cookies.keys()",_this.$cookies.keys());
 				}else{
 					_this.$toast(res.message);

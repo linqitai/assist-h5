@@ -1,17 +1,18 @@
 // import Vue from 'vue';
 // import $ from 'jquery'
 // import http from './public'
-import qs from 'qs'
-import router from '@/router.js'
+import qs from 'qs';
+import router from '@/router.js';
 import VueCookies from 'vue-cookies';
-import { Dialog } from 'vant'
+import { Dialog } from 'vant';
 // import { getCookie } from '../assets/js/utils.js'
 // import axios from 'axios'
 // import http from './service'
 // import Vue from 'vue';
 // import VueCookies from 'vue-cookies';
 // Vue.use(VueCookies);
-let tip1 = '登录已过期或您的网络信号不稳定,请重新登录再试'
+let tip4Login = '登录已过期,请重新登录再试';
+let tip4Refresh = '您的网络信号不稳定,请刷新后再试';
 
 export default {
 	getJson(url, doSuccess) {
@@ -66,21 +67,46 @@ export default {
 						}
 					});
 				}
-				if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+				if(status=='timeout') {//超时,status还有success,error等值的情况
 					//queryAjax.abort();
 					Dialog.confirm({
 					  title: '温馨提示',
-					  message: tip1,
+					  message: tip4Refresh,
+					  confirmButtonText:'刷新',
+					  cancelButtonText:'取消'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					});
+					/* Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip4Login,
 					  confirmButtonText:'重新登录',
-					  cancelButtonText:'取消并刷新'
+					  cancelButtonText:'取消'
 					}).then(() => {
 					  // on confirm
 					  router.replace('/login');
 					}).catch(() => {
 					  // on cancel
 					  window.location.reload();
-					});
+					}); */
 				}
+				/* if(status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip4Refresh,
+					  confirmButtonText:'刷新',
+					  cancelButtonText:'取消'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					});
+				} */
 				if (typeof doComplete == "function") {
 					doComplete(status);
 				}
@@ -131,21 +157,46 @@ export default {
 						}
 					});
 				}
-				if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+				if(status=='timeout') {//超时,status还有success,error等值的情况
 					//queryAjax.abort();
 					Dialog.confirm({
 					  title: '温馨提示',
-					  message: tip1,
+					  message: tip4Refresh,
+					  confirmButtonText:'刷新',
+					  cancelButtonText:'取消'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					});
+					/* Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip4Login,
 					  confirmButtonText:'重新登录',
-					  cancelButtonText:'取消并刷新'
+					  cancelButtonText:'取消'
 					}).then(() => {
 					  // on confirm
 					  router.replace('/login');
 					}).catch(() => {
 					  // on cancel
 					  window.location.reload();
-					});
+					}); */
 				}
+				/* if(status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip4Refresh,
+					  confirmButtonText:'刷新',
+					  cancelButtonText:'取消'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					});
+				} */
 				if (typeof doComplete == "function") {
 					doComplete(status);
 				}
@@ -208,21 +259,46 @@ export default {
 						}
 					});
 				}
-				if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+				if(status=='timeout') {//超时,status还有success,error等值的情况
 					//queryAjax.abort();
 					Dialog.confirm({
 					  title: '温馨提示',
-					  message: tip1,
+					  message: tip4Refresh,
+					  confirmButtonText:'刷新',
+					  cancelButtonText:'取消'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					});
+					/* Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip4Login,
 					  confirmButtonText:'重新登录',
-					  cancelButtonText:'取消并刷新'
+					  cancelButtonText:'取消'
 					}).then(() => {
 					  // on confirm
 					  router.replace('/login');
 					}).catch(() => {
 					  // on cancel
 					  window.location.reload();
-					});
+					}); */
 				}
+				/* if(status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip4Refresh,
+					  confirmButtonText:'刷新',
+					  cancelButtonText:'取消'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					});
+				} */
 				if (typeof doComplete == "function") {
 					doComplete(status);
 				}
@@ -258,21 +334,46 @@ export default {
 						}
 					});
 				}
-				if(status=='timeout' || status=='error') {//超时,status还有success,error等值的情况
+				if(status=='timeout') {//超时,status还有success,error等值的情况
 					//queryAjax.abort();
 					Dialog.confirm({
 					  title: '温馨提示',
-					  message: tip1,
+					  message: tip4Refresh,
+					  confirmButtonText:'刷新',
+					  cancelButtonText:'取消'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					});
+					/* Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip4Login,
 					  confirmButtonText:'重新登录',
-					  cancelButtonText:'取消并刷新'
+					  cancelButtonText:'取消'
 					}).then(() => {
 					  // on confirm
 					  router.replace('/login');
 					}).catch(() => {
 					  // on cancel
 					  window.location.reload();
-					});
+					}); */
 				}
+				/* if(status=='error') {//超时,status还有success,error等值的情况
+					//queryAjax.abort();
+					Dialog.confirm({
+					  title: '温馨提示',
+					  message: tip4Refresh,
+					  confirmButtonText:'刷新',
+					  cancelButtonText:'取消'
+					}).then(() => {
+					  // on confirm
+					  window.location.reload();
+					}).catch(() => {
+					  // on cancel
+					});
+				} */
 				if (typeof doComplete == "function") {
 					doComplete(status);
 				}

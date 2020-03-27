@@ -155,11 +155,12 @@ function getLastName(t) {
 //贡献值类型（实名认证、推广有效用户、买入、卖出、建议被采纳、发现有效BUG、购物、买矿机、交易权兑换）
 const contributeTypeOptions = config.contributeTypeOptions;
 function contributeType(id){
-	if(id==-1){
+	return contributeTypeOptions[id].value;
+	/* if(id==-1){
 		return '--'
 	}else{
 		return contributeTypeOptions[id].value;
-	}
+	} */
 }
 
 //算力类型（0:自己租赁矿机、1:直推租赁矿机）

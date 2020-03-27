@@ -134,9 +134,11 @@ b{font-weight: bold;}
 }
 .mlBox{margin-left:10px;}
 .line1pxbgcolor{height: 1px;background-color: $bottomLineColor;}
-.placeholderLine1{height: 1px;}
 .placeholderLine{height: 4px;}
+.placeholderLine1{height: 1px;}
+.placeholderLine2{height: 2px;}
 .placeholderLine4{height: 4px;}
+.placeholderLine6{height: 6px;}
 .placeholderLine8{height: 8px;}
 .placeholderLine10{height: 10px;}
 .placeholderLine20{height: 20px;}

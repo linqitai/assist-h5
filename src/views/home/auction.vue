@@ -142,9 +142,13 @@
 						</div>
 						<div class="flex">
 							<div class="line"><span>{{auction.title}}</span> <span class="mainAdornColor">{{auction.status == 0 ? '未开拍':'竞拍中'}}</span></div>
-							<div class="placeholderLine10"></div>
+							<div class="placeholderLine4"></div>
 							<div class="line"><span>当前拍主 {{auction.nickName}}</span> <span class="mainAdornColor">出{{auction.auctionEndPrice}}个帮扶券</span></div>
-							<div class="placeholderLine10"></div>
+							<div class="placeholderLine4"></div>
+							<div class="line white">
+								开始时间：{{auction.startTime}}
+							</div>
+							<div class="placeholderLine4"></div>
 							<div class="line white">
 								截止时间：{{auction.endTime}}
 							</div>
@@ -165,6 +169,7 @@
 				<div>加价记录：</div>
 				<div class="placeholderLine4"></div>
 				<div class="list">
+					<div v-if="total==0">尚未开拍</div>
 					<div class="item" v-for="item in list1" :key="item.userId">
 						<div class="flexLeft">
 							<div class="name">
@@ -227,7 +232,8 @@
 				showTipModel:false,
 				auction:'',
 				loading:false,
-				userInfo:''
+				userInfo:'',
+				total:0
 			}
 		},
 		components: {
@@ -282,6 +288,7 @@
 				_this.$ajax.ajax(_this.$api.getAssistAuctionBookPageList, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data.list;
+						_this.total = res.data.total;
 						_this.loading = false;
 						/* if(res.data.endRow == res.data.total){
 							_this.finished1 = true;

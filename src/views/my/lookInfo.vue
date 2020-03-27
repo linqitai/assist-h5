@@ -84,8 +84,8 @@
 				margin-top: 2px;
 				.flex {
 					&.flex1 {
-						flex: 0 0 70px;
-						$heightwidht:70px;
+						flex: 0 0 60px;
+						$heightwidht:60px;
 						.name{
 							width: $heightwidht;
 							height: $heightwidht;
@@ -120,7 +120,6 @@
 								font-size: 11px;
 								border-radius: 0 10px 10px 0;
 								padding: 0 8px 0 4px;
-								margin-left: 4px;
 							}
 						}
 						.line{
@@ -192,8 +191,12 @@
 					</div>
 					<div class="flex flex2">
 						<div class="line1">
-							<div class="nick_name left">{{thisUserInfo.nickName}}</div>
-							<div class="level left">{{thisUserInfo.level | getUserType}}+{{thisUserInfo.isAgent | agentType}}</div>
+							<div class="nick_name left">{{thisUserInfo.nickName}} </div>
+							<div class="level left margL6" v-if="thisUserInfo.manType == 2">服务商</div>
+						</div>
+						<div class="placeholderLine"></div>
+						<div class="line1">
+							<div class="level left" @click="toMyInfo">{{thisUserInfo.level | getUserType}}{{thisUserInfo.isAgent==1?'+省代理':thisUserInfo.isAgent==2?'+市代理':''}}</div>
 						</div>
 						<!-- <div class="line">
 							ID {{info.userId}}

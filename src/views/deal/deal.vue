@@ -988,6 +988,7 @@ export default {
 				}).then(() => {
 				  // on close
 				});
+				return;
 			}
 			/* if(_this.userInfo.thisWeekMineral - params.num){
 				_this.$toast('系统提示：您的矿石不够');

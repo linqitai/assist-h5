@@ -158,6 +158,8 @@
 					<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
 					<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个券</van-button>
 					<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
+					<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个券</van-button>
+					<!-- 增加自己填写数额 -->
 				</div>
 				<div class="placeholderLine4"></div>
 				<div>加价记录：</div>
@@ -173,7 +175,7 @@
 							<div class="line"><span>{{item.nickName}}</span> <span class="mainAdornColor">+{{item.addPrice}}个帮扶券 <i class="iconfont iconfont-arrow-to"></i> {{item.currentAuctionPrice}}券</span></div>
 							<div class="placeholderLine10"></div>
 							<div class="line white">
-								加价时间：2020/10/08 20:20:20
+								加价时间：{{item.createTime}}
 							</div>
 						</div>
 						<!-- <div class="flexRight"></div> -->
@@ -214,7 +216,7 @@
 			return {
 				currentPage1: 1,
 				currentPage2: 1,
-				pageSize:6,
+				pageSize:10,
 				activeName:'agency2',
 				loading1:false,
 				finished1:false,
@@ -224,7 +226,8 @@
 				list2:[],
 				showTipModel:false,
 				auction:'',
-				loading:false
+				loading:false,
+				userInfo:''
 			}
 		},
 		components: {
@@ -232,6 +235,18 @@
 		},
 		mounted() {
 			let _this = this;
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				////console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+			}else{
+				/* localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token'); */
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
+			}
 			_this.getCurrentAuction();
 		},
 		methods: {
@@ -282,36 +297,45 @@
 			},
 			addTicket(num){
 				let _this = this;
-				Dialog.confirm({
-				  title: '系统提示',
-				  confirmButtonText:'确认',
-				  closeOnClickOverlay:true,
-				  message: `您确定要加价${num}个券吗？`
-				}).then(() => {
-				  // on confirm
-				  let params = {
-					  auctionId: _this.auction.id,
-					  addPrice: num
-				  }
-				  console.log("p",params)
-				  _this.$ajax.ajax(_this.$api.insertAuctionBook, 'POST', params, function(res) {
-				  	if (res.code == _this.$api.CODE_OK) {
-				  		_this.$toast("加价成功");
-						_this.getCurrentAuction();
-				  	}else{
-						Dialog.alert({
-							title: "系统提示",
-							message: res.message
-						}).then(() => {
-						  // on confirm
-						  _this.getCurrentAuction();
-						})
-				  	}
-				  })
-				}).catch(() => {
-				  // on cancel
-				  //console.log('cancel');
-				});
+				if(_this.userInfo.isAgent<=0&&_this.userInfo.level<=0&&_this.userInfo.teamCalculationPower<=74.0&&_this.userInfo.realnameNum<=171){
+					Dialog.alert({
+						title: "系统提示",
+					message: "经系统检测，您没有权限参与竞拍，请查看右上角的竞拍详情"
+					}).then(() => {
+						// on confirm
+					})
+				}else{
+					Dialog.confirm({
+					  title: '系统提示',
+					  confirmButtonText:'确认',
+					  closeOnClickOverlay:true,
+					  message: `您确定要加价${num}个券吗？`
+					}).then(() => {
+					  // on confirm
+					  let params = {
+						  auctionId: _this.auction.id,
+						  addPrice: num
+					  }
+					  //console.log("p",params)
+					  _this.$ajax.ajax(_this.$api.insertAuctionBook, 'POST', params, function(res) {
+					  	if (res.code == _this.$api.CODE_OK) {
+					  		_this.$toast("加价成功");
+							_this.getCurrentAuction();
+					  	}else{
+							Dialog.alert({
+								title: "系统提示",
+								message: res.message
+							}).then(() => {
+							  // on confirm
+							  _this.getCurrentAuction();
+							})
+					  	}
+					  })
+					}).catch(() => {
+					  // on cancel
+					  //console.log('cancel');
+					});
+				}
 			},
 		}
 	}

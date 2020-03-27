@@ -68,13 +68,13 @@
 			<div class="title">微信客服：</div>
 			<div class="placeholderLine10"></div>
 			<div v-for="item in serviceList" :key="item.id+20" v-if="item.weiChart!='--'">
-				<b class="textBold">{{item.remark}}微信号：{{item.weiChart}}</b><span class="copy margL10" @click="handleCopy(item.weiChart,$event)">复制</span>
+				<b class="textBold">{{item.remark}}：{{item.weiChart}}</b><span class="copy margL10" @click="handleCopy(item.weiChart,$event)">复制</span>
 				<div class="placeholderLine10"></div>
 			</div>
 			<div class="title">QQ客服：</div>
 			<div class="placeholderLine10"></div>
 			<div v-for="item in serviceList" :key="item.id" v-if="item.qq!='--'">
-				<b class="textBold">{{item.remark}}QQ号：{{item.qq}}</b><span class="copy margL10" @click="handleCopy(item.qq,$event)">复制</span>
+				<b class="textBold">{{item.remark}}：{{item.qq}}</b><span class="copy margL10" @click="handleCopy(item.qq,$event)">复制</span>
 				<div class="placeholderLine10"></div>
 			</div>
 			<!-- <div class="placeholderLine4"></div>

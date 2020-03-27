@@ -193,7 +193,7 @@
 					<div class="flex flex2">
 						<div class="line1">
 							<div class="nick_name left">{{thisUserInfo.nickName}}</div>
-							<div class="level left">{{thisUserInfo.level | getUserType}}</div>
+							<div class="level left">{{thisUserInfo.level | getUserType}}+{{thisUserInfo.isAgent | agentType}}</div>
 						</div>
 						<!-- <div class="line">
 							ID {{info.userId}}

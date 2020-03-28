@@ -2,9 +2,12 @@
 // export const host = '/web/assist';//阿广电脑
 export const hostImg = 'http://192.168.100.3:8088'; //阿广电脑
 // http://192.168.100.3:8001/admin/user/getAdminUserPageList
-const hostIPPort = 'https://www.helpchain.online';
 const host = '/bflApp/'
-const domainName = 'https://www.helpchain.online';
+// const domainName = 'https://www.helpchain.online';
+// const hostIPPort = 'https://www.helpchain.online';
+const domainName = 'https://www.assist-china.com.cn';
+const hostIPPort = 'https://www.assist-china.com.cn';
+
 export default {
 	tabBgColor:'#298522',
 	tabTextColor:'#ffffff',

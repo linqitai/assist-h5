@@ -1,8 +1,10 @@
 .DS_Store
 node_modules
 /dist
+/assist
 /helpchain
 dist.zip
+assist.zip
 helpchain.zip
 
 # local env files

@@ -148,13 +148,13 @@
 						<div v-for="(item,index) in voteInfo.questionVoList" :key="item.id" class="margT6">
 							<van-radio :name="item.id" checked-color="#ffae00">
 								<!-- <div class="content" v-html="voteInfo.vote1"></div> -->
-								方案{{index + 1}}：{{item.questionTitle}} 
+								支持{{index + 1}}：{{item.questionTitle}} 
 							</van-radio>
 							<div class="f-12 lineHeight">{{item.questionContent}}</div>
 						</div>
 					</van-radio-group>
 					<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" v-if="isDead==1">
-						方案{{index + 1}}：{{item.questionTitle}}
+						支持{{index + 1}}：{{item.questionTitle}}
 					</div>
 				</div>
 				<div class="placeholderLine10"></div>
@@ -170,7 +170,7 @@
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id">
-					方案{{index+1}}：{{item.num}} 票
+					支持{{index+1}}：{{item.num}} 票
 				</div>
 			</div>
 			<div class="voteList" v-if="myVoteInfo">
@@ -362,14 +362,14 @@
 			},
 			changeCurrentPage(val){
 				let _this = this;
-				console.log('val',val);
+				//console.log('val',val);
 				_this.currentPage = val;
 				_this.getAssistAnswerListPage();
 			},
 			getVoteInfo(){
 				let _this = this;
 				_this.id = _this.$route.query.id;
-				console.log('_this.id',_this.id);
+				//console.log('_this.id',_this.id);
 				_this.$ajax.ajax(_this.$api.getAssistVote + _this.id, 'GET', null, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
@@ -389,14 +389,14 @@
 				})
 			},
 			submit(voteId){
-				console.log("submit");
+				//console.log("submit");
 				let _this = this;
 				let params = {
 					voteId:voteId,
 					questionId: _this.form.questionId,
 					/* userId: _this.userId */
 				}
-				console.log('params',params);
+				//console.log('params',params);
 				if(_this.form.questionId==0){
 					_this.$toast(`请先选择投票项后再点击${_this.btnText}`);
 					return;

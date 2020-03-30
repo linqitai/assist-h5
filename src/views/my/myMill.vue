@@ -35,6 +35,18 @@
 			.getMineral{
 				//margin-top: $marginTop2;
 			}
+			.statistics{
+				background-color: $main-box-fh-bg-color;
+				color: $main-box-fh-text-color;
+				padding: $boxPadding2;
+				// border-top: 1px solid $bottomLineColor;
+				border-bottom: 1px solid $bottomLineColor;
+				font-size: 0.75rem;
+				.line{
+					margin-top: 0.25rem;
+					overflow: hidden;
+				}
+			}
 			.millList{
 				// background-color: $main-box-fh-bg-color;
 				//margin-top: $marginTop2;
@@ -177,6 +189,19 @@
 		</m-header>
 		<canvas class="matrix" id="matrix"></canvas>
 		<div class="millContent" id="millContent">
+			<div class="statistics" v-if="remainCount">
+				<div class="line clearBoth flexCenter f-14">
+					<div class="left title">智能统计小助手</div>
+					<div class="right">总资产 {{(userInfo.thisWeekMineral+remainCount).toFixed(2)}}个</div>
+				</div>
+				<div class="line clearBoth">
+					<div class="left">背包中矿石 {{userInfo.thisWeekMineral.toFixed(2)}}个</div>
+					<div class="right">待产出矿石 {{remainCount.toFixed(2)}}个</div>
+				</div>
+				<!-- <div class="line clearBoth">
+					<div class="right">总资产 {{(userInfo.thisWeekMineral+remainCount).toFixed(2)}}个</div>
+				</div> -->
+			</div>
 			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab name="myMill">
@@ -321,7 +346,8 @@
 				isShowMineralNum:false,
 				receiptModelTile:"领取结果计算中",
 				isShowConfirmButton:false,
-				getRecieptLoading:false
+				getRecieptLoading:false,
+				remainCount:0
 			}
 		},
 		components: {
@@ -346,7 +372,7 @@
 				_this.$router.replace('login');
 				return;
 			}
-			console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
+			//console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
 		},
 		methods: {
 			back() {
@@ -360,7 +386,7 @@
 				let context = matrix.getContext("2d");
 				let matrixHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
 				matrix.height = matrixHeight - 50;
-				console.log("matrix.height",matrix.height);
+				//console.log("matrix.height",matrix.height);
 				matrix.width = window.innerWidth;
 				let drop = [];
 				let fontSize = 12; //字体
@@ -424,9 +450,9 @@
 					_this.isShowConfirmButton = true;
 					return;
 				} */
-				console.log('_this.userInfo.lastReceiptTime',_this.userInfo.lastReceiptTime);
+				//console.log('_this.userInfo.lastReceiptTime',_this.userInfo.lastReceiptTime);
 				let lastReceiptTimestamp = new Date(_this.userInfo.lastReceiptTime).getTime();
-				console.log('lastReceiptTimestamp',lastReceiptTimestamp);
+				//console.log('lastReceiptTimestamp',lastReceiptTimestamp);
 				//if(!lastReceiptTimestamp)
 				let timestamp = (nowTimestamp - lastReceiptTimestamp)/1000;
 				if(timestamp<24*60*60){
@@ -576,7 +602,13 @@
 							_this.isShowOneReciept = false;
 							_this.finishedMyMillText = '亲，您目前没有矿机';
 						}
-						// console.log("myMillList" + _this.myMillList);
+						let remainCount = 0;
+						_this.myMillList.forEach((item,index)=>{
+							remainCount = remainCount + (item.totalOutput - item.alreadyGet);
+						})
+						_this.remainCount = remainCount;
+						//console.log("remainCount" + _this.remainCount);
+						
 						_this.loadingMyMill = false;
 						_this.finishedMyMill = true;
 						_this.$nextTick(function(){
@@ -610,7 +642,7 @@
 				let _this = this;
 				_this.loadingPastMill = true;
 				_this.millShopCurrentPage = _this.millShopCurrentPage + 1;
-				console.log('_this.millShopCurrentPage', _this.millShopCurrentPage);
+				//console.log('_this.millShopCurrentPage', _this.millShopCurrentPage);
 				// 异步更新数据
 				setTimeout(() => {
 					// 加载状态结束
@@ -625,7 +657,7 @@
 				}
 			},
 			tabChange(name, title) {
-				console.log(name, title);
+				//console.log(name, title);
 				this.$cookies.set("mill_tab_name", name, 60 * 60 * 1)
 			}
 		}

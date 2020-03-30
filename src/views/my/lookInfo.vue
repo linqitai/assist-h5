@@ -176,17 +176,14 @@
 		</m-header>
 		<div class="unFreezePage">
 			<van-cell-group>
-				<van-field v-model="form4AppointDeal.mobilePhone" clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11">
+				<van-field v-model="mobilePhone" clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11">
 					<van-button slot="button" size="small" color="#ffae00"  @click="getUserInfo">查询</van-button>
 				</van-field>
-				<!-- <van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11"/> -->
-				<!-- <van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/> -->
 			</van-cell-group>
 			<div class="placeholderLine10"></div>
 			<div v-if="thisUserInfo">
 				<div class="box box1">
 					<div class="flex flex1">
-						<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 						<div class="name">{{thisUserInfo.realName | getLastName}}</div>
 					</div>
 					<div class="flex flex2">
@@ -290,56 +287,23 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="myCell">
-				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的留言标题" />
-			</div> -->
-			<!-- <div class="sureBtn">
-				<van-button color="#08abee" :loading="loading" size="large" @click="getUserInfo">查看该区块状态</van-button>
-			</div> -->
 			<div class="placeholderLine10"></div>
-			<!-- <div class="sureBtn" v-if="thisUserInfo">
-				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">给解冻</van-button>
-			</div> -->
 		</div>
-		<!-- <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
-			<div class="paddingWing f-12 lineHeight tip4model2">
-				<div class="line text margT10 textCenter">
-					省市代理拥有定向转让帮扶券的权限
-				</div>
-			</div>
-		</van-dialog> -->
 	</div>
 </template>
 <script>
 	import mHeader from '@/components/Header.vue';
 	import { Dialog } from 'vant';
-	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
 		data() {
 			return {
 				showTipModel:false,
-				//定向交易
-				form4AppointDeal:{
-					mobilePhone:'',
-					blockAddress:"",
-					safePassword:"",
-				},
-				errorInfo4AppointDeal:{
-					unFreezeAmount:"",
-					blockAddress:"",
-					safePassword:"",
-				},
-				option1: [
-					{ text: '问题反馈', value: 0 },
-					{ text: '意见建议', value: 1 },
-					{ text: '我要告状', value: 2 },
-					{ text: '其他类型', value: 3 }
-				],
 				currentPage: 1,
 				pageCount: 1000,
 				totalItems: 10000,
 				userId:"",
 				loading:false,
+				mobilePhone:'',
 				thisUserInfo:"",
 				userFreezeInfo:""
 			}
@@ -381,32 +345,10 @@
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
-			validate4AppointDeal(key){
-				let _this = this;
-				if(key == 'unFreezeAmount') {
-					if(_this.form4AppointDeal[key]>=1&&_this.form4AppointDeal[key]<=10000){//这里判断单次卖出的数量是否合法,由于
-						_this.errorInfo4AppointDeal.unFreezeAmount = '';
-					}else{
-						_this.errorInfo4AppointDeal.unFreezeAmount = "单次转让数量在1~10000之间";
-					}
-				}else if(key == 'blockAddress'){
-					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
-						_this.errorInfo4AppointDeal.blockAddress = '';
-					}else{
-						_this.errorInfo4AppointDeal.blockAddress = "请正确粘贴对方的区块地址";
-					}
-				}else if(key == 'safePassword') {
-					if(_this.$reg.safePassword.test(_this.form4AppointDeal[key])){
-						_this.errorInfo4AppointDeal.safePassword = '';
-					}else{
-						_this.errorInfo4AppointDeal.safePassword = "安全密码不超过20位，由'字母或数字或._'组成";
-					}
-				}
-			},
 			getUserInfo() {
 				let _this = this;
 				let params = {
-					mobilePhone: _this.form4AppointDeal.mobilePhone
+					mobilePhone: _this.mobilePhone
 				}
 				if(!_this.$reg.phone.test(params.mobilePhone)){
 					_this.$toast('手机号格式有误');
@@ -442,7 +384,6 @@
 				})
 			},
 			submit(){
-				console.log("submit");
 				let _this = this;
 				let params = {
 					unFreezeUserId: _this.thisUserInfo.userId

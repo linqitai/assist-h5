@@ -163,10 +163,10 @@
 			validate4AppointDeal(key){
 				let _this = this;
 				if(key == 'transferAmount') {
-					if(_this.form4AppointDeal[key]>=1&&_this.form4AppointDeal[key]<=10000){//这里判断单次卖出的数量是否合法,由于
+					if(_this.form4AppointDeal[key]>=1&&_this.form4AppointDeal[key]<=100000){//这里判断单次卖出的数量是否合法,由于
 						_this.errorInfo4AppointDeal.transferAmount = '';
 					}else{
-						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在1~10000之间";
+						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在1~100000之间";
 					}
 				}else if(key == 'mobilePhone'){
 					if(_this.$reg.phone2.test(_this.form4AppointDeal[key])){

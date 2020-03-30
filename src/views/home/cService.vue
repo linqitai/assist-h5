@@ -59,7 +59,8 @@
 			<div class="placeholderLine10"></div>
 			<div class="cateInfo">
 				<div class="infoBox">
-					<img class="ewmBox" src="https://www.helpchain.online/image/wechat.png" alt="">
+					<!-- <img class="ewmBox" src="https://www.helpchain.online/image/wechat.png" alt=""> -->
+					<img class="ewmBox" src="../../assets/image/wechat.png">
 					<div class="text">扫码进微信群</div>
 				</div>
 			</div>

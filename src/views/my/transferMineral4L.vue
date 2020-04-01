@@ -230,10 +230,11 @@
 						_this.errorInfo4AppointDeal.price = `定向交易价格暂时控制在${curerntPlatformPrice}~${_this.maxPrice}CNY`;
 					}
 				}else if(key == 'assurePrice') {
-					if(_this.form4AppointDeal[key]>=0.1&&_this.form4AppointDeal[key]<=1000000){
+					let totalPrice = parseFloat(_this.form4AppointDeal[key]);
+					if(totalPrice>=0.1&&totalPrice<=1000000){
 						_this.errorInfo4AppointDeal.assurePrice = '';
 					}else{
-						_this.errorInfo4AppointDeal.assurePrice = `担保金额暂时控制在0.1~1000000`;
+						_this.errorInfo4AppointDeal.assurePrice = `单次交易金额暂时控制在0.1~1000000`;
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){

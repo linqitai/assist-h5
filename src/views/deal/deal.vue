@@ -1300,7 +1300,6 @@ export default {
 					{
 						_this.errorInfo.univalence = '请填写高于平台价且小于1000000的单价';
 					}
-					
 				}else{
 					_this.errorInfo.univalence = _this.clickIconTip.univalence;
 				}

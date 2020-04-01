@@ -615,7 +615,12 @@
 		},
 		methods: {
 			getCityName(cityInfo){
-				return cityInfo.provinceName || cityInfo.cityName
+				if(cityInfo&&cityInfo.provinceName){
+					return cityInfo.provinceName
+				}else if(cityInfo&&cityInfo.cityName){
+					return cityInfo.cityName
+				}
+				
 			},
 			waitingInnerRegister(){
 				let _this = this;

@@ -1021,9 +1021,7 @@ export default {
 					_this.$cookies.set("tabName4MyDeal", "get", 60 * 60 * 1)
 					_this.$router.push({path:'myDeal',query:{dealType:0,mobilePhone:_this.transactionVo4BuyerTip.mobilePhone,num:_this.transactionVo4BuyerTip.num}});
 					
-					//_this.$toast(res.message);
 				}else{
-					// _this.$toast(res.message);
 					Dialog.alert({
 					  title: '系统提示',
 					  message: res.message

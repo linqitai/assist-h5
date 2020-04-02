@@ -239,12 +239,13 @@
 			<!-- <div class="tip4model3">华为或三星等个别手机若无法提交实名的，请截图一下证件照片然后用百度、UC等主流浏览器操作或借用身边其他牌子的手机进行提交实名即可</div>
 			</div> -->
 			<div class="tip4model3">
-				<b class="textBold">支付宝截图可以上传，证件照片却上传不了的解决办法：</b><br>
-				把拍照下来的证件照片重新截图一下用截图过来的照片上传<br>
+				<b class="textBold">若遇到支付宝截图可以上传，证件照片却上传不了的解决办法：</b><br>
+				1、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
 				<div class="placeholderLine4"></div>
-				<b class="textBold">无法提交实名？一直报错是怎么回事？</b><br>
-				1、更换浏览器，百度、谷歌、UC浏览器优先<br>
-				2、借用家人其他牌子的手机提交实名
+				<b class="textBold">若遇到无法提交实名的解决办法：</b><br>
+				1、更换浏览器，百度、谷歌、UC浏览器优先。<br>
+				2、把照片发到微信压缩小一点，或者自行把照片剪辑小一点。<br>
+				3、借用家人其他牌子的手机提交实名。<br>
 			</div>
 			<div class="placeholderLine4"></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitRealNameLoding" @click="submitRealNameBtn">提 交</van-button>

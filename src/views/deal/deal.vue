@@ -859,14 +859,14 @@ export default {
 			}else if(_this.tabActiveName == "dealArea1"){
 				if(_this.$cookies.isKey("totalItems1")){
 					_this.totalItems1 = parseInt(_this.$cookies.get("totalItems1"));
-				}else{
-					_this.getListGeneral();
-				}
-				//从缓存中获取list1,先立刻加载出页面，然后再从接口中获取数据list1，提高用户体验
-				if(localStorage.getItem("LIST1")){
-					_this.list1 = JSON.parse(localStorage.getItem("LIST1"))|| [];
-					_this.list2 = JSON.parse(localStorage.getItem("LIST2"))|| [];
-					_this.loading = false;
+					if(_this.totalItems1&&localStorage.getItem("LIST1")){
+						//从缓存中获取list1,先立刻加载出页面，然后再从接口中获取数据list1，提高用户体验
+						_this.list1 = JSON.parse(localStorage.getItem("LIST1"))|| [];
+						_this.list2 = JSON.parse(localStorage.getItem("LIST2"))|| [];
+						_this.loading = false;
+					}else{
+						_this.getListGeneral();
+					}
 				}else{
 					_this.getListGeneral();
 				}

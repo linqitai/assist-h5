@@ -78,6 +78,7 @@ export default {
 	getAssistUserInfoList4Check: host + "assist/userInfo/getAssistUserInfoList4Check",
 	getBuyMachine2TeamNum: host + "assist/userInfo/getBuyMachine2TeamNum",
 	getActivityCompleteInfo: host + "assist/userInfo/getActivityCompleteInfo",
+	getAssistUserInfoList4RealName: host + "assist/userInfo/getAssistUserInfoList4RealName",
 	//服务商
 	getServiceUserList: host + "assist/user/getServiceUserList",
 	getServiceDsPassword: host + "assist/user/getServiceDsPassword",
@@ -128,6 +129,7 @@ export default {
 	getMineralBookListByUserId: host + "assist/mineralBook/getMineralBookListByUserId",
 	transferMineral: host + "assist/userInfo/transferMineral",
 	getMineralBookList4SellType: host + "assist/mineralBook/getMineralBookList4SellType",
+	getMineralBookList4Type: host + "assist/mineralBook/getMineralBookList4Type",
 	//平台券账本
 	getAssistPlateformTicketAccountBookList: host + "assist/plateformTicketAccountBook/getAssistPlateformTicketAccountBookList",
 	transferPlatformTicket: host + "assist/userInfo/transferPlatformTicket",
@@ -142,6 +144,7 @@ export default {
 	getShareReword: host + "assist/reward/getShareReword",
 	getActivity1Reward: host + "assist/reward/getActivity1Reward",
 	getActivity2Reward: host + "assist/reward/getActivity2Reward",
+	getActivity3Reward: host + "assist/reward/getActivity3Reward",
 	//deal
 	getAssistBuyBillListGeneralPage: host + "assist/buybill/getAssistBuyBillListGeneralPage",
 	getAssistBuyBillListAddPricePage: host + "assist/buybill/getAssistBuyBillListAddPricePage",

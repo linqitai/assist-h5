@@ -155,7 +155,8 @@
 				totalItems: 10000,
 				userId:"",
 				loading:false,
-				maxPrice:'',
+				maxPrice:0,
+				maxAddPrice:0,
 				userInfo:'',
 				curerntPlatformPrice:'',
 				tipText4AppointDeal:'',
@@ -205,6 +206,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.curerntPlatformPrice = res.data.currentPlatformPrice;
 						_this.maxPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)*1.3).toFixed(2);
+						_this.maxAddPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
 					}
 				})
 			},
@@ -219,15 +221,13 @@
 				}else if(key == 'price') {
 					let price = parseFloat(_this.form4AppointDeal[key]);
 					let maxPrice = parseFloat(_this.maxPrice);
+					let maxAddPrice = parseFloat(_this.maxAddPrice);
 					let curerntPlatformPrice = parseFloat(_this.curerntPlatformPrice);
-					console.log('_this.maxPrice',_this.maxPrice);
-					console.log('_this.form4AppointDeal[key]',_this.form4AppointDeal[key]);
-					console.log('_this.form4AppointDeal[key]>_this.maxPrice',_this.form4AppointDeal[key]>_this.maxPrice)
-					if(price>=curerntPlatformPrice&&price<=maxPrice){
+					//alert(maxAddPrice);
+					if(price>=maxAddPrice&&price<=maxPrice){
 						_this.errorInfo4AppointDeal.price = '';
-					}else if(price>maxPrice || price<curerntPlatformPrice){
-						console.log('_this.form4AppointDeal[key]>_this.maxPrice',price>maxPrice)
-						_this.errorInfo4AppointDeal.price = `定向交易价格暂时控制在${curerntPlatformPrice}~${_this.maxPrice}CNY`;
+					}else if(price>maxPrice || price<maxAddPrice){
+						_this.errorInfo4AppointDeal.price = `定向交易价格暂时控制在${_this.maxAddPrice}~${_this.maxPrice}CNY`;
 					}
 				}else if(key == 'assurePrice') {
 					let totalPrice = parseFloat(_this.form4AppointDeal[key]);

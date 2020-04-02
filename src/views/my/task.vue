@@ -194,7 +194,7 @@
 					A直推10个会员完成基础任务1和2<br>
 					达到后：<br>
 					奖励A一台微型矿机（名额有限只送1000台，还剩<span class="yellow">{{activity1MillInventory}}</span>台，先到先得）<br>
-					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才能统计在内。从3月1号开始您已经直推<span class="yellow">{{teamBuyMachineNum}}</span>个会员完成基础任务1和2
+					注：该活动的统计从2020/03/01号开始。从3月1号开始您已经直推<span class="yellow">{{teamBuyMachineNum}}</span>个会员完成基础任务1和2
 				</div>
 			</div>
 			<div class="flexRight">
@@ -213,12 +213,30 @@
 					A直推3个会员升级成为青铜会长<br>
 					达到后：<br>
 					奖励A一台半年的小型矿机（名额有限只送100台，还剩<span class="yellow">{{activity2MillInventory}}</span>台，先到先得）<br>
-					注：该活动的统计从2020/03/01号开始，要从3月1号开始所新增的会员达到上面的要求才能统计在内。从3月1号开始您已经直推<span class="yellow">{{teamLevelAddNum}}</span>个会员成为青铜会长
+					注：该活动的统计从2020/03/01号开始。从3月1号开始您已经直推<span class="yellow">{{teamLevelAddNum}}</span>个会员成为青铜会长
 				</div>
 			</div>
 			<div class="flexRight">
 				<div v-if="myActivity2MillNum<=0" @click="getActivity2Reward">去领取</div>
 				<i class="iconfont iconfont-finished" v-if="myActivity2MillNum>=1"></i>
+			</div>
+		</div>
+		<div class="placeholderLine10"></div>
+		<div class="box activity">
+			<div class="flexLeft">
+				<div class="line title">
+					活动任务3
+				</div>
+				<div class="line text margT10">
+					累计直推100人实名，团队300人实名，扶持小矿机一台!<br>
+					累计直推300人实名，团队1000人实名，扶持小矿机二台!<br>
+					累计直推500人实名，团队5000人实名，扶持中矿机一台!<br>
+					注：该活动的统计从2020/03/31号开始。从3月31号开始您已经直推<span class="yellow">{{teamActivedNum1}}</span>个会员实名，团队<span class="yellow">{{teamActivedNum2}}</span>个会员实名。
+				</div>
+			</div>
+			<div class="flexRight">
+				<div @click="getActivity3Reward">去领取</div>
+				<!-- <i class="iconfont iconfont-finished" v-if="myActivity2MillNum>=1"></i> -->
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
@@ -443,7 +461,9 @@ export default {
 			activity1MillInventory:1000,
 			activity2MillInventory:100,
 			myActivity1MillNum:0,
-			myActivity2MillNum:0
+			myActivity2MillNum:0,
+			teamActivedNum1:0,
+			teamActivedNum2:0
 		}
 	},  
 	components:{
@@ -469,6 +489,7 @@ export default {
 		_this.getAssistMyMachineCount4Task();
 		_this.getActivityCompleteInfo();
 		_this.getActivityMachineInventory();
+		_this.getAssistUserInfoList4RealName();
 		// console.log('_this.isRealName',_this.isRealName);
 	},
 	methods:{
@@ -487,6 +508,18 @@ export default {
 				_this.$router.push('/deal');
 			}
 		},
+		getAssistUserInfoList4RealName(){
+			let _this = this;
+			_this.$ajax.ajax(_this.$api.getAssistUserInfoList4RealName, 'GET', null, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					_this.teamActivedNum1 = res.data.teamActivedNum1;
+					_this.teamActivedNum2 = res.data.teamActivedNum2;
+				}else{
+					_this.$toast(res.message);
+				}
+			})
+		},
 		getActivityCompleteInfo(){
 			let _this = this;
 			
@@ -497,7 +530,7 @@ export default {
 					_this.teamLevelAddNum = res.data.teamLevelAddNum;
 					if(_this.teamBuyMachineNum>9){
 						_this.getAssistMyMachineNum();
-					}else if(teamLevelAddNum>2){
+					}else if(_this.teamLevelAddNum>2){
 						_this.getAssistMyMachineNum();
 					}
 				}else{
@@ -589,6 +622,29 @@ export default {
 					});
 				}else{
 					_this.$toast(res.message);
+				}
+			})
+		},
+		getActivity3Reward(){
+			let _this = this;
+			_this.$ajax.ajax(_this.$api.getActivity3Reward, 'POST', null, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					//_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+					Dialog.alert({
+					  title: '温馨提示',
+					  message: '恭喜您，奖励领取成功！'
+					}).then(() => {
+					  // on close
+					  _this.$router.push('/myMill');
+					});
+				}else{
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
 				}
 			})
 		},

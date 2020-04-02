@@ -6,13 +6,12 @@
 		position: absolute;
 		min-height: 100%;
 		width: 100%;
-		// margin-top: $header-height;
 		// margin-bottom: $header-height;
 		$iconBgWidth:50px;
 		background-color: $main-box-fh-bg-color;
 		color: $main-box-fh-text-color;
-		.refreshBox{
-			top: 60px;
+		.pageContent{
+			margin-top: $header-height;
 		}
 		.cateInfo {
 			display: flex;
@@ -200,15 +199,14 @@
 </style>
 <template>
 	<div class="myPage">
-	<div v-if="$route.meta.footer==true">
 		<m-header>
-			<i class="leftBox"></i>
+			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				我的
+				TA的信息
 			</div>
-			<i class="iconfont iconfont-set rightBox icon" @click="toMyInfo"></i>
+			<i class="rightBox icon"></i>
 		</m-header>
-		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
+		<div class="pageContent">
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
@@ -216,10 +214,11 @@
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
-						<div class="nick_name left">{{userInfo.nickName}}</div>
+						<span class="nick_name">{{userInfo.nickName}} </span>
+						<span class="level margL6" v-if="userInfo.manType == 2">服务商</span>
 					</div>
 					<div class="line1 margT3">
-						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}+{{getCityName(cityInfo)}}{{userInfo.isAgent | agentType}}</div>
+						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}{{getCityName(cityInfo)}}{{userInfo.isAgent==1?'+省代理':userInfo.isAgent==2?'+市代理':''}}</div>
 					</div>
 					<div class="line margT3">
 						注册时间 {{userInfo.registerTime}}
@@ -234,21 +233,18 @@
 					</div>
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
-					<!-- <div>=2000+(卖出数量-买入数量)=</div> getServiceDsPassword-->
-					<div class="line" v-if="userInfo.manType==2">
-						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
-					</div>
+					
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
 			<div class="box box2">
 				<div class="flex flex1">
-					<div class="value" @click="toBookView('1')">{{userInfo.teamCalculationPower}}</div>
+					<div class="value" @click="toBookView('1',userInfo.userId)">{{userInfo.teamCalculationPower}}</div>
 					<div class="text" @click="showTip('teamCalculationPower')">团队算力 <i class="iconfont iconfont-question"/></div>
 				</div>
 				<div class="flex flex4">
 					<!-- <div>{{userInfo.platformTicket}}</div> -->
-					<div class="value" @click="toBookView('2')">{{userInfo.platformTicket}}</div>
+					<div class="value" @click="toBookView('2',userInfo.userId)">{{userInfo.platformTicket}}</div>
 					<div class="text" @click="showTip('platformTicket')">帮扶券 <i class="iconfont iconfont-question"/></div>
 				</div>
 				<!-- <div class="flex flex3">
@@ -257,7 +253,7 @@
 				</div> -->
 				<div class="flex flex2">
 					<!-- <div>{{userInfo.thisWeekMineral}}</div> -->
-					<div class="value" @click="toBookView('4')">{{userInfo.thisWeekMineral}}</div>
+					<div class="value" @click="toBookView('4',userInfo.userId)">{{userInfo.thisWeekMineral}}</div>
 					<div class="text" @click="showTip('mineral')">矿石 <i class="iconfont iconfont-question"/></div>
 				</div>
 			</div>
@@ -284,251 +280,10 @@
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
-			<div class="cateInfo">
-				<div class="infoBox">
-					<router-link to="/task">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="task2" />
-							</div>
-						</div>
-						<div class="text">任务中心</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/myMill">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundMill">
-								<van-icon class-prefix="iconfont" name="mill2" />
-							</div>
-						</div>
-						<div class="text">我的矿机</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/myDeal">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundDeal">
-								<van-icon class-prefix="iconfont" name="deal" />
-							</div>
-						</div>
-						<div class="text">我的交易</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/myBook">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundBook">
-								<van-icon class-prefix="iconfont" name="book" />
-							</div>
-						</div>
-						<div class="text">我的账本</div>
-					</router-link>
-				</div>
-			</div>
-			<div class="line1pxbgcolor"></div>
-			<div class="cateInfo">
-				<div class="infoBox">
-					<router-link to="/myInfo">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground4">
-								<van-icon class-prefix="iconfont" name="realname" />
-							</div>
-						</div>
-						<div class="text">我的实名</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/mySuperTeam">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground2">
-								<van-icon class-prefix="iconfont" name="team" />
-							</div>
-						</div>
-						<div class="text">我的工会</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					 <!-- @click="waiting" -->
-					<router-link to="/myShare">
-						<div class="iconBox" >
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="share2"/>
-							</div>
-						</div>
-						<div class="text">我要推广</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
-					<router-link to="/myWord">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundWord">
-								<van-icon class-prefix="iconfont" name="word" />
-							</div>
-						</div>
-						<div class="text">我要留言</div>
-					</router-link>
-				</div>
-			</div>
-			<div class="line1pxbgcolor"></div>
-			<div class="items">
-				<router-link to="transferMineral4F">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让矿石(服务商)
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-				<router-link to="transferMineral4L">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让矿石(会长)
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-				<router-link to="transferTicket">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让帮扶券
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-			<!-- <div class="items">
-				<router-link to="transferMineral">
-					<div class="my-cell">
-						<div class="flex1">
-							担保交易矿石
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-			<div class="items" v-if="userInfo.isAgent==1||userInfo.isAgent==2">
-				<router-link to="myDealCheck">
-					<div class="my-cell">
-						<div class="flex1">
-							担保交易审核
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div> -->
-			<!-- <div class="items">
-				<div class="my-cell" @click="cancelAccount">
-					<div class="flex1">
-						注销账户
-					</div>
-					<div class="flex2">
-						<i class="iconfont iconfont-right-arrow2"></i>
-					</div>
-				</div>
-			</div> -->
-			<div class="items">
-				<router-link to="lookInfo">
-					<div class="my-cell">
-						<div class="flex1">
-							查询他人信息
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-			<div class="items" v-if="userInfo.isAgent==3">
-				<router-link to="initPassword">
-					<div class="my-cell">
-						<div class="flex1">
-							给他人初始化密码
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-			<div class="items" v-if="userInfo.innerRegister==1">
-				<router-link to="innerRegister">
-				<!-- @click="waitingInnerRegister" -->
-					<div class="my-cell">
-						<div class="flex1">
-							内排注册
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-			<div class="items" v-if="userInfo.isAgent>2">
-				<router-link to="myCheck">
-					<div class="my-cell">
-						<div class="flex1">
-							实名审核
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-			<div class="items" v-if="userInfo.isAgent>0">
-				<!-- <router-link to="transferMineral">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让矿石
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
-				<router-link to="unFreeze">
-					<div class="my-cell">
-						<div class="flex1">
-							给他人解冻账号
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-			<div class="items">
-				<router-link to="reduceRNTimes">
-					<div class="my-cell">
-						<div class="flex1">
-							销实名次数
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-		</van-pull-refresh>
-		
-		<!-- <m-fullscreen></m-fullscreen> -->
-		<!-- <m-refresh @refreshEvent="refreshEvent"></m-refresh> -->
-		
-	</div>
-	<transition name="van-fade">
-	  <router-view></router-view>
-	</transition>
+		</div>
+		<!-- <transition name="van-fade">
+		  <router-view></router-view>
+		</transition> -->
 	</div>
 </template>
 
@@ -579,43 +334,19 @@
 		},
 		created() {
 			let _this = this;
-			
-			let userInfo = localStorage.getItem("_USERINFO_");
-			if(userInfo){
-				////console.log("userInfo_localStorage");
-				_this.userInfo = JSON.parse(userInfo);
-				_this.userId = _this.userInfo.userId;
-			}else{
-				/* localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('userId');
-				_this.$cookies.remove('token'); */
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			}
-			////console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
-			if(_this.$cookies.get('isRefreshUserInfo')==1){
-				_this.getUserInfo();
-				_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
-			}
-			if(_this.userInfo.isAgent==1){
-				_this.getAssistAgentInfo4Province();
-			}
-			if(_this.userInfo.isAgent==2){
-				_this.getAssistAgentInfo4City();
-			}
-			if(_this.userInfo.manType==2){
-				_this.getServiceDsPassword();
-			}
+			console.log('userId:',_this.$route.query.lookUserId)
+			_this.getUserInfo4Other();
 		},
 		methods: {
+			back(){
+				this.$router.go(-1);
+			},
 			getCityName(cityInfo){
 				if(cityInfo&&cityInfo.provinceName){
 					return cityInfo.provinceName
 				}else if(cityInfo&&cityInfo.cityName){
 					return cityInfo.cityName
 				}
-				
 			},
 			waitingInnerRegister(){
 				let _this = this;
@@ -712,7 +443,7 @@
 					//console.log('sure');
 				})
 			},
-			toBookView(val){
+			toBookView(val,userId){
 				let _this = this;
 				//console.log('toBookView');
 				let name = 'mineral';
@@ -726,7 +457,7 @@
 					name = 'mineral';
 				}
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
-				_this.$router.push('/myBook');
+				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
 			toMyInfo(){
 				this.$router.push('/myInfo');
@@ -750,6 +481,34 @@
 					_this.$router.replace('login');
 				})
 			},
+			getUserInfo4Other() {
+				let _this = this;
+				console.log('userId:',_this.$route.query.lookUserId)
+				let params = {
+					userId: _this.$route.query.lookUserId
+				}
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistUserInfoByObj, 'GET', params, function(res) {
+					console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						_this.userInfo = res.data;
+						_this.loading = false;
+						if(_this.userInfo.isAgent==1){
+							_this.getAssistAgentInfo4Province();
+						}
+						if(_this.userInfo.isAgent==2){
+							_this.getAssistAgentInfo4City();
+						}
+					}else{
+						if(res.code == 4003) {
+							_this.$toast('当前用户尚未注册');
+						}else{
+							_this.$toast(res.message);
+						}
+						
+					}
+				})
+			},
 			getUserInfo() {
 				let _this = this;
 				_this.loading = true;
@@ -757,15 +516,11 @@
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
-						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
-						//console.log(_this.userInfo,"userInfo");
-						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
-						// if(_this.userInfo.manType==2){
-						// 	_this.getServiceDsPassword();
-						// }
-						if(_this.userInfo.accountStatus==1){
-							//退出登录
-							_this.logout();
+						if(_this.userInfo.isAgent==1){
+							_this.getAssistAgentInfo4Province();
+						}
+						if(_this.userInfo.isAgent==2){
+							_this.getAssistAgentInfo4City();
 						}
 					}else{
 						_this.$toast(res.message);
@@ -774,11 +529,10 @@
 					_this.loading = false;
 				})
 			},
-			refreshEvent() {
-				//console.log("refresh")
+			/* refreshEvent() {
 				let _this = this;
 				_this.getUserInfo();
-			},
+			}, */
 		}
 	}
 </script>

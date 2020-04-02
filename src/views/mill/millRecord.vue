@@ -17,6 +17,18 @@
 				align-content: center;
 				justify-content: center;
 			}
+			.selectBox{
+				display: flex;
+				align-items: center;
+				align-content: center;
+				justify-content: center;
+				.selectLeft{
+					flex: 1;
+				}
+				.selectRight{
+					flex: 1;
+				}
+			}
 			.millList{
 				overflow: hidden;
 				height: 100%;
@@ -179,9 +191,19 @@
 			>
 			  <div slot="action" @click="onSearch">搜索</div>
 			</van-search> -->
-			<van-dropdown-menu>
-			  <van-dropdown-item v-model="form.type" :options="option1" @change="refreshEvent"/>
-			</van-dropdown-menu>
+			<div class="selectBox">
+				<div class="selectLeft">
+					<van-dropdown-menu>
+					  <van-dropdown-item v-model="form.type" :options="option1" @change="refreshEvent"/>
+					</van-dropdown-menu>
+				</div>
+				<div class="selectRight">
+					<van-dropdown-menu>
+					  <van-dropdown-item v-model="form.day" :options="option2" @change="refreshEvent"/>
+					</van-dropdown-menu>
+				</div>
+			</div>
+			
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 				 <!-- @load="onLoad1" -->
 				<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
@@ -277,16 +299,20 @@
 					contributionValue:'20'
 				}],
 				form:{
-					type:''
+					type:0,
+					day:7
 				},
 				option1: [
-					{ text: '全部', value: '' },
 					{ text: '体验矿机', value: 0 },
 					{ text: '微型矿机', value: 1 },
 					{ text: '小型矿机', value: 2 },
 					{ text: '中型矿机', value: 3 },
 					{ text: '大型矿机', value: 4 },
 					{ text: '巨型矿机', value: 5 }
+				],
+				option2: [
+					{ text: '最近7天', value: 7 },
+					{ text: '最近15天', value: 15 }
 				],
 				mineralList:[{
 					id:0,
@@ -374,7 +400,8 @@
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
 					tag:0,
-					type:_this.form.type
+					type:_this.form.type,
+					day:_this.form.day
 				}
 				// console.log('params',params);
 				_this.loading1 = true;

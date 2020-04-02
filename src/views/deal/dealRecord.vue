@@ -29,10 +29,31 @@
 							text-decoration: underline;
 						}
 					}
+					.nickName{
+						font-weight: bold;
+						font-size: 12px;
+						.iconfont-name{
+							font-size: 12px;
+						}
+						.textColor{
+							color: $main-adorn-color;
+						}
+					}
 					.flexRight{
 						flex: 0 0 50px;
 						text-align: right;
 						font-size: $fs-16;
+					}
+					.flexRight2{
+						flex: 0 0 100px;
+						text-align: right;
+						font-size: $fs-12;
+					}
+					.flexRight3{
+						flex: 0 0 16px;
+						text-align: right;
+						font-size: $fs-12;
+						color: #C7C7C7;
 					}
 					.operatorBox{
 						flex: 0 0 100px;
@@ -79,6 +100,24 @@
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 				<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 					 <div class="list">
+						<div class="item" v-for="item in list1" :key="item.id" @click="toMy4OtherView(item.fromUserId)">
+							<div class="flex">
+								<div class="line">{{item.createTime | getDateTime}}</div>
+								<div class="line margT6">
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.nickName}}</i></span>
+									{{item.type | mineralBookType}} {{item.number}}个
+								</div>
+								<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
+							</div>
+							<div class="flexRight2">所剩{{item.currentMineralNum}}个</div>
+							<div class="flexRight3">
+								<i class="iconfont iconfont-right-arrow2"></i>
+							</div>
+						</div>
+					 </div>
+				</van-list>
+				<!-- <van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
+					 <div class="list">
 						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex">
 								<div class="line">{{item.createTime | getDateTime}}</div>
@@ -91,7 +130,7 @@
 							<div class="flexRight">{{item.number}}</div>
 						</div>
 					 </div>
-				</van-list>
+				</van-list> -->
 				<!-- <van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
 				 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
 					<van-tab title="矿石" name="mineral">
@@ -122,6 +161,7 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	import mRefresh from '@/components/Refresh.vue';
+	import clip from '@/assets/js/clipboard';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
 		name: 'dealRecord',
@@ -188,9 +228,20 @@
 				document.body.scrollTop = 0;
 				document.documentElement.scrollTop = 0;
 			},
+			handleCopy(text, event) {
+				let _this = this;
+				_this.showSendSMSTipModel = false;
+				clip(text,event,function(res){
+					_this.$toast(`复制成功`);
+				});
+			},
+			toMy4OtherView(userId){
+				let _this = this;
+				console.log('userIdInDealRecolod:',userId);
+				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
+			},
 			toBookView(val,userId){
 				let _this = this;
-				console.log('toBookView');
 				let name = 'mineral';
 				if(val==1){
 					name = 'ticket';
@@ -220,10 +271,11 @@
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,
-					pageSize: _this.pageSize
+					pageSize: _this.pageSize,
+					type:3
 				}
 				_this.loading1 = true;
-				_this.$ajax.ajax(_this.$api.getMineralBookList4SellType, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getMineralBookList4Type, 'GET', params, function(res) {
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;

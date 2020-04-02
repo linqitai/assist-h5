@@ -385,6 +385,12 @@ export default new Router({
 			meta:{footer:false,keepAlive:true},
 		},
 		{
+			path: '/my4Other',
+			name: 'TA的信息',
+			component: resolve => require(['./views/my/my4Other'],resolve),
+			meta:{footer:false},
+		},
+		{
 			path: '/dealRecord',
 			name: '交易记录',
 			component: resolve => require(['./views/deal/dealRecord'],resolve),

@@ -79,6 +79,7 @@ export default {
 	getBuyMachine2TeamNum: host + "assist/userInfo/getBuyMachine2TeamNum",
 	getActivityCompleteInfo: host + "assist/userInfo/getActivityCompleteInfo",
 	getAssistUserInfoList4RealName: host + "assist/userInfo/getAssistUserInfoList4RealName",
+	get24BuyTimes2Service: host + "assist/userInfo/get24BuyTimes2Service",
 	//服务商
 	getServiceUserList: host + "assist/user/getServiceUserList",
 	getServiceDsPassword: host + "assist/user/getServiceDsPassword",

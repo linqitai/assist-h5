@@ -162,6 +162,7 @@
 				curerntPlatformPrice:'',
 				tipText4AppointDeal:'',
 				guidancePrice:'',
+				buyerBuyTimes:0
 			}
 		},
 		components: {
@@ -200,6 +201,30 @@
 			back(){
 				this.$router.go(-1);
 			},
+			get24BuyTimes2Service(){
+				let _this = this;
+				let params = {
+					blockAddress: _this.form4AppointDeal.blockAddress
+				}
+				_this.$ajax.ajax(_this.$api.get24BuyTimes2Service, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.buyerBuyTimes = res.data;
+						Dialog.alert({
+						  title: '系统提示',
+						  message: `该买家今日已向服务商购买:${_this.buyerBuyTimes}次`
+						}).then(() => {
+						  // on close
+						});
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+					}
+				})
+			},
 			getDealPageInfo(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
@@ -208,6 +233,13 @@
 						_this.curerntPlatformPrice = res.data.currentPlatformPrice;
 						_this.maxPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)*1.3).toFixed(2);
 						_this.maxAddPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				})
 			},
@@ -240,6 +272,7 @@
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
 						_this.errorInfo4AppointDeal.blockAddress = '';
+						_this.get24BuyTimes2Service();
 					}else{
 						_this.errorInfo4AppointDeal.blockAddress = "请正确粘贴对方的区块地址";
 					}

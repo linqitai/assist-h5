@@ -233,7 +233,7 @@
 						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
 					</div>
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
-					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
+					<div class="line"><span @click="toBookView('3',userInfo.userId)">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
 					
 				</div>
 			</div>

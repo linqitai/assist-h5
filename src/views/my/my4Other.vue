@@ -210,7 +210,7 @@
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
-					<div class="name" @click="toMyInfo">{{userInfo.realName | getLastName}}</div>
+					<div class="name">{{userInfo.realName | getLastName}}</div>
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
@@ -218,7 +218,8 @@
 						<span class="level margL6" v-if="userInfo.manType == 2">服务商</span>
 					</div>
 					<div class="line1 margT3">
-						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}{{getCityName(cityInfo)}}{{userInfo.isAgent==1?'+省代理':userInfo.isAgent==2?'+市代理':''}}</div>
+						<!-- {{getCityName(cityInfo)}} -->
+						<div class="level left">{{userInfo.level | getUserType}}{{userInfo.isAgent==1?'+省代理':userInfo.isAgent==2?'+市代理':''}}</div>
 					</div>
 					<div class="line margT3">
 						注册时间 {{userInfo.registerTime}}
@@ -493,12 +494,12 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
 						_this.loading = false;
-						if(_this.userInfo.isAgent==1){
+						/* if(_this.userInfo.isAgent==1){
 							_this.getAssistAgentInfo4Province();
 						}
 						if(_this.userInfo.isAgent==2){
 							_this.getAssistAgentInfo4City();
-						}
+						} */
 					}else{
 						if(res.code == 4003) {
 							_this.$toast('当前用户尚未注册');

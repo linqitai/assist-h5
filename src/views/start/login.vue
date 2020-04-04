@@ -184,7 +184,13 @@
 				let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
-						_this.$toast("请勿多账号操作，若经平台检测发现，冻结账号处理");
+						//_this.$toast(_this.$api.oneAccount);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: _this.$api.oneAccount
+						}).then(() => {
+						  // on close
+						});
 						return;
 					}
 				}
@@ -289,7 +295,13 @@
 				let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
-						_this.$toast("请勿多账号操作，若经平台检测发现，将冻结账号处理");
+						//_this.$toast(_this.$api.oneAccount);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: _this.$api.oneAccount
+						}).then(() => {
+						  // on close
+						});
 						return;
 					}
 				}

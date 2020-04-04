@@ -424,6 +424,10 @@
 					return 'tag2'
 				}else if(tag==6){
 					return 'tag2'
+				}else if(tag==7){
+					return 'tag2'
+				}else{
+					return 'tag2'
 				}
 			},
 			nextReceipt(value){

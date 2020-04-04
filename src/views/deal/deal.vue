@@ -547,7 +547,7 @@ export default {
 			platformTicket:0,
 			buyAndSellInfo:{},
 			dealPageInfo:{
-				currentBuyNum:100000,
+				currentBuyNum:'------',
 				currentPriceBuyNum:100000,
 				todayTransactionNum:100000,
 				initCanBuyNu:100000,

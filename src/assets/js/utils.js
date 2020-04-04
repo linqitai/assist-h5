@@ -281,7 +281,7 @@ function getSC(str){
 
 function isIphoneOrAndroid(){
 	var u = navigator.userAgent;
-	console.log("u",u);
+	//console.log("u",u);
 	/* alert(u); */
 	if (/(iPhone|iPad|iPod|iOS)/i.test(u)) { 
 		return 'i';

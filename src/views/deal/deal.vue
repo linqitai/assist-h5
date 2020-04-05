@@ -472,7 +472,7 @@ export default {
 			form4BuyBill:{
 				buyAmount:"",
 				buyLowestAmount:1,
-				price:0.28,
+				price:"",
 				safePassword:"",
 			},
 			errorInfo4BuyBill:{
@@ -564,9 +564,9 @@ export default {
 			let _this = this;
 	        //console.log("addPriceValue = " + val + " , oldValue = " + oldVal)
 			if(val == 0){
-				_this.form4BuyBill.price = _this.dealPageInfo.currentPlatformPrice;
+				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 			}else{
-				_this.form4BuyBill.price = (_this.dealPageInfo.currentPlatformPrice*1.3 + val).toFixed(2);
+				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + val).toFixed(2);
 			}
 	    }
 	},
@@ -650,9 +650,9 @@ export default {
 			//console.log(value);
 			let _this = this;
 			if(value == 0){
-				_this.form4BuyBill.price = _this.dealPageInfo.currentPlatformPrice;
+				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 			}else{
-				_this.form4BuyBill.price = (_this.dealPageInfo.currentPlatformPrice*1.3 + value).toFixed(2);
+				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + value).toFixed(2);
 			}
 		},
 		toMyDealPage(){
@@ -709,7 +709,7 @@ export default {
 			if(userInfo){
 				_this.userInfo = JSON.parse(userInfo);
 				_this.platformTicket = parseFloat(_this.userInfo.platformTicket);
-				_this.canBuyNum = _this.userInfo.canBuyNum;
+				_this.canBuyNum = parseFloat(_this.userInfo.canBuyNum);
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
@@ -1046,7 +1046,7 @@ export default {
 			let _this = this;
 			let params = {
 				userId:_this.userInfo.userId,
-				price: _this.dealPageInfo.currentPlatformPrice
+				price:parseFloat(_this.dealPageInfo.currentPlatformPrice)
 			}
 			_this.$ajax.ajax(_this.$api.getMinAndMaxBuyBillByUserId, 'GET', params, function(res) {
 				//console.log('res', res);
@@ -1084,20 +1084,24 @@ export default {
 		showBuyModelBtn(){
 			let _this = this;
 			_this.$utils.formClear(_this.errorInfo4BuyBill);
-			_this.showBuyModel = true;
-			_this.judgeMyBuyBill();
+			if(parseFloat(_this.form4BuyBill.price)>0.07) {
+				_this.showBuyModel = true;
+			}else{
+				window.location.reload();
+			}
+			//_this.judgeMyBuyBill();
 		},
 		judgeMyBuyBill(){
 			let _this = this;
 			let params = {
 				userId: _this.userInfo.userId,
-				price: _this.dealPageInfo.currentPlatformPrice
+				price: parseFloat(_this.dealPageInfo.currentPlatformPrice)
 			}
 			_this.$ajax.ajax(_this.$api.getAssistBuyBillListCountByUserId, 'GET', params, function(res) {
 				// //console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) { // 200
 					_this.userIdBuyBillCount = res.data;
-					/* if(_this.userIdBuyBillCount>0){
+					if(_this.userIdBuyBillCount>0){
 						Dialog.alert({
 						  title: '系统提示',
 						  message: '平台指导价每人只能挂一个买单，前去查看您所挂的买单？'
@@ -1108,7 +1112,7 @@ export default {
 						});
 					}else{
 						
-					} */
+					}
 				}else{
 					_this.$toast(res.message);
 				}
@@ -1203,8 +1207,9 @@ export default {
 			//console.log(key,_this.form4BuyBill[key])
 			if(key == 'buyAmount') {
 				//console.log(_this.canBuyNum,'_this.canBuyNum');
-				if(_this.$reg.positive_integer.test(_this.form4BuyBill[key])){
-					if(_this.form4BuyBill[key]>=1&&_this.form4BuyBill[key]<=_this.canBuyNum){
+				let buyAmount = Number(_this.form4BuyBill[key]);
+				if(_this.$reg.positive_integer.test(buyAmount)){
+					if(buyAmount>=1&&buyAmount<=_this.canBuyNum){
 						_this.errorInfo4BuyBill.buyAmount = '';
 					}else{
 						_this.errorInfo4BuyBill.buyAmount = `您当前的限购数量为${_this.canBuyNum}`;
@@ -1213,8 +1218,9 @@ export default {
 					_this.errorInfo4BuyBill.buyAmount = `请填写正整数`;
 				}
 			}else if(key == 'buyLowestAmount') {
-				if(_this.$reg.positive_integer.test(_this.form4BuyBill[key])){
-					if(_this.form4BuyBill[key]>=1&&_this.form4BuyBill[key]<=_this.canBuyNum){
+				let thisLowestNum = Number(_this.form4BuyBill[key]);
+				if(_this.$reg.positive_integer.test(thisLowestNum)){
+					if(thisLowestNum>=1&&thisLowestNum<=_this.canBuyNum){
 						_this.errorInfo4BuyBill.buyLowestAmount = '';
 					}else{
 						_this.errorInfo4BuyBill.buyLowestAmount = `您当前的限购数量为${_this.canBuyNum}`;

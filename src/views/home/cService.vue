@@ -49,12 +49,12 @@
 		<div class="cServiceContent">
 			<div class="tip4model3 textBold">有问题请先联系自己的团队长，然后团队长再联系客服，尽量减少客服的压力，感恩您的配合</div>
 			<div class="placeholderLine10"></div>
-			<div class="title">工会QQ群(没群的会员请进)：</div>
+			<!-- <div class="title">工会QQ群(没群的会员请进)：</div>
 			<div class="placeholderLine10"></div>
 			<div>
 				<b class="textBold">{{qqFlock}}</b><span class="copy margL10" @click="handleCopy(qqFlock,$event)">复制</span>
 			</div>
-			<div class="placeholderLine10"></div>
+			<div class="placeholderLine10"></div> -->
 			<div class="title">工会微信群(没群的会员请进)：</div>
 			<div class="placeholderLine10"></div>
 			<div class="cateInfo">

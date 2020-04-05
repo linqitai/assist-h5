@@ -100,7 +100,7 @@
 							<div class="item" v-for="item in list3" :key="item.id">
 								<div class="flex">
 									<div class="line">{{item.createTime | getDateTime}}</div>
-									<div class="line margT6">{{item.type | contributeType}}后拥有贡献值 {{item.currentContributionValue}}</div>
+									<div class="line margT6" :class="item.type==20?'red':item.type==15?'red2':''">{{item.type | contributeType}}后拥有贡献值 {{item.currentContributionValue}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.contributionValue}}</div>
 							</div>

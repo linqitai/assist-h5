@@ -166,6 +166,7 @@ b{font-weight: bold;}
 .gray{color: gray;}
 .yellow{color: $main-adorn-color;}
 .warn_text{color: rgb(211, 0, 0);}
+.red2{color: rgb(255, 135, 65);}
 .green_text{color: #07961f;}
 .inline{display: inline-block;}
 .lineHeight{line-height: 1.3em;}

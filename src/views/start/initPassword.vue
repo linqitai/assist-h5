@@ -144,7 +144,7 @@
 				let _this = this;
 				if(key == 'mobilePhone') {
 					console.log('_this.form.phone',_this.form.mobilePhone)
-					if(_this.$reg.mobilePhone.test(_this.form.mobilePhone)){
+					if(_this.$reg.phone.test(_this.form.mobilePhone)){
 						_this.errorHint.mobilePhone = '';
 					}else{
 						_this.errorHint.mobilePhone = _this.$reg.phoneHint;

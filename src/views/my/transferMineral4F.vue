@@ -29,7 +29,7 @@
 		.van-cell,.van-cell-group{
 			background-color: inherit !important;
 		} */
-		.transferPage{
+		.transferPageF{
 			.van-field__label{
 				width: 70px !important;
 			}
@@ -81,7 +81,7 @@
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
-		<div class="transferPage">
+		<div class="transferPageF">
 			<div class="placeholderLine10"></div>
 			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
 			<div class="paddingWing tip4model3">当前拥有<br>矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
@@ -272,7 +272,9 @@
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
 						_this.errorInfo4AppointDeal.blockAddress = '';
-						_this.get24BuyTimes2Service();
+						if(_this.userInfo.manType==2){
+							_this.get24BuyTimes2Service();
+						}
 					}else{
 						_this.errorInfo4AppointDeal.blockAddress = "请正确粘贴对方的区块地址";
 					}

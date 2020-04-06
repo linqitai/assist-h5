@@ -156,11 +156,6 @@ function getLastName(t) {
 const contributeTypeOptions = config.contributeTypeOptions;
 function contributeType(id){
 	return contributeTypeOptions[id].value;
-	/* if(id==-1){
-		return '--'
-	}else{
-		return contributeTypeOptions[id].value;
-	} */
 }
 
 //算力类型（0:自己租赁矿机、1:直推租赁矿机）

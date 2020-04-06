@@ -29,7 +29,7 @@
 		.van-cell,.van-cell-group{
 			background-color: inherit !important;
 		} */
-		.transferPage{
+		.transferPageL{
 			.van-field__label{
 				width: 70px !important;
 			}
@@ -81,7 +81,7 @@
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
-		<div class="transferPage">
+		<div class="transferPageL">
 			<div class="placeholderLine10"></div>
 			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
 			<div class="paddingWing tip4model3">当前拥有<br>矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>

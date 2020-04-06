@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/variable.scss';
 	$cellHeight:50px;
-	.transferT{
+	.transferCV{
 		font-size: 0.75rem;
 		position: fixed;
 		top: 0;
@@ -27,7 +27,7 @@
 		/* .van-cell,.van-cell-group{
 			background-color: inherit !important;
 		} */
-		.transferPageT{
+		.transferPageCV{
 			color: $mainTextColor;
 			margin-top: $headerHeight;
 			background-color: $main-box-color;
@@ -74,33 +74,27 @@
 	
 </style>
 <template>
-	<div class="transferT">
+	<div class="transferCV">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				定向转让帮扶券
+				定向转让贡献值
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
-		<div class="transferPageT">
+		<div class="transferPageCV">
 			<!-- <div class="line text margT10">
 				区块地址和手机号二选一
 			</div> -->
 			<van-cell-group>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
 				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
+				<van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
 			</van-cell-group>
 			<!-- <div class="myCell">
 				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的留言标题" />
 			</div> -->
-			<div class="placeholderLine10"></div>
-			<div class="paddingWing tip4model3">
-				<b class="textBold">定向转让帮扶券的规则：</b><br>
-				1.购买帮扶券请找【首页--省市代理】里的代理，或者自己的上级。<br>
-				2.转让帮扶券不收手续费。<br>
-				3.帮扶券恒价1CNY/个。<br>
-			</div>
 			<div class="sureBtn">
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
 			</div>
@@ -126,11 +120,13 @@
 				form4AppointDeal:{
 					transferAmount:'',
 					mobilePhone:"",
+					idCard:"",
 					safePassword:"",
 				},
 				errorInfo4AppointDeal:{
 					transferAmount:"",
 					mobilePhone:"",
+					idCard:"",
 					safePassword:"",
 				},
 				option1: [
@@ -181,6 +177,12 @@
 					}else{
 						_this.errorInfo4AppointDeal.mobilePhone = "请正确粘贴对方的手机号";
 					}
+				}else if(key == 'idCard'){
+					if(_this.$reg.idCard.test(_this.form4AppointDeal[key])){
+						_this.errorInfo4AppointDeal.idCard = '';
+					}else{
+						_this.errorInfo4AppointDeal.idCard = "请正确填写身份证号";
+					}
 				}else if(key == 'safePassword') {
 					if(_this.$reg.safePassword.test(_this.form4AppointDeal[key])){
 						_this.errorInfo4AppointDeal.safePassword = '';
@@ -195,6 +197,7 @@
 				let params = {
 					transferAmount: _this.form4AppointDeal.transferAmount,
 					mobilePhone: _this.form4AppointDeal.mobilePhone,
+					idCard: _this.form4AppointDeal.idCard,
 					safePassword: _this.form4AppointDeal.safePassword,
 				}
 				console.log('params',params);
@@ -209,7 +212,7 @@
 				}
 				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.transferPlatformTicket, 'POST', params, function(res) {
+				_this.$ajax.ajax(_this.$api.transferCV, 'POST', params, function(res) {
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast('转让成功');

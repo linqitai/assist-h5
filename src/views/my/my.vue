@@ -403,6 +403,18 @@
 					</div>
 				</router-link>
 			</div>
+			<div class="items" v-if="userInfo.manType==2 || userInfo.isAgent==3">
+				<router-link to="transferCV">
+					<div class="my-cell">
+						<div class="flex1">
+							定向转让贡献值
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+			</div>
 			<!-- <div class="items">
 				<router-link to="transferMineral">
 					<div class="my-cell">
@@ -487,16 +499,6 @@
 				</router-link>
 			</div>
 			<div class="items" v-if="userInfo.isAgent>0">
-				<!-- <router-link to="transferMineral">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让矿石
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link> -->
 				<router-link to="unFreeze">
 					<div class="my-cell">
 						<div class="flex1">

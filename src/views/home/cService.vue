@@ -72,12 +72,12 @@
 				<b class="textBold">{{item.remark}}：{{item.weiChart}}</b><span class="copy margL10" @click="handleCopy(item.weiChart,$event)">复制</span>
 				<div class="placeholderLine10"></div>
 			</div>
-			<div class="title">QQ客服：</div>
+			<!-- <div class="title">QQ客服：</div>
 			<div class="placeholderLine10"></div>
 			<div v-for="item in serviceList" :key="item.id" v-if="item.qq!='--'">
 				<b class="textBold">{{item.remark}}：{{item.qq}}</b><span class="copy margL10" @click="handleCopy(item.qq,$event)">复制</span>
 				<div class="placeholderLine10"></div>
-			</div>
+			</div> -->
 			<!-- <div class="placeholderLine4"></div>
 			<van-row gutter="10">
 			  <van-col span="12">

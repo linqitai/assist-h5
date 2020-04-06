@@ -168,6 +168,12 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
+							path: '/transferCV',
+							name: '定向转让贡献值',
+							component: resolve => require(['./views/my/transferCV'],resolve),
+							meta:{footer:false},
+						},
+						{
 							path: '/transferMineral',
 							name: '担保交易矿石',
 							component: resolve => require(['./views/my/transferMineral'],resolve),

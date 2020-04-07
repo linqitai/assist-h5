@@ -190,6 +190,7 @@ export default {
 	getTeamCalculationPowerRanking: host + "assist/statistics/getTeamCalculationPowerRanking",
 	getDealPageInfo: host + 'assist/statistics/getDealPageInfo',
 	getRanking: host + "assist/statistics/getRanking",
+	getServiceRanking: host + "assist/statistics/getServiceRanking",
 	getAssistStatisticsBookList4Num: host + "assist/statisticsbook/getAssistStatisticsBookList4Num",
 	//冻结
 	getAssistUserFreeze: host + "assist/userFreeze/getAssistUserFreeze/",

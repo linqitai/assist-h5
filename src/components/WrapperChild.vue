@@ -15,6 +15,9 @@
 <template>
   <transition name="van-fade">
     <router-view></router-view>
+	<!-- <keep-alive>
+		<router-view></router-view>
+	</keep-alive> -->
   </transition>
 </template>
 

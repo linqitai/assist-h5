@@ -72,9 +72,14 @@ export default new Router({
 					path: '/home',
 					name: '首页',
 					component: resolve => require(['./views/home/home'],resolve),
-					meta:{footer:true,back:false,question:false},
+					meta:{footer:true,back:false,question:false,keepAlive:true},
 					children:[
-						
+						{
+							path: '/rankingDeal',
+							name: '服务商排行榜',
+							component: resolve => require(['./views/home/rankingDeal'],resolve),
+							meta:{footer:false,keepAlive:true},
+						},
 					]
 				},
 				{
@@ -370,7 +375,6 @@ export default new Router({
 					name: '购物订单',
 					component: resolve => require(['./views/my/shopOrder'],resolve)
 				},
-				
 				{
 					path: '/raise',
 					name: 'raise',

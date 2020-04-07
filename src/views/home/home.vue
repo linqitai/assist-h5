@@ -453,7 +453,7 @@ $noticeHeight:40px;
 				<div class="swipe">
 					<van-swipe :autoplay="3000" style="height: 190px;">
 					  <van-swipe-item v-for="(item, index) in noticeList4Swipe" :key="index">
-						<img :src="item.imgUrl" />
+						<img :src="item.imgUrl" v-lazy="item.imgUrl"/>
 					  </van-swipe-item>
 					</van-swipe>
 					<!-- <van-swipe :autoplay="3000" style="height: 200px;" vertical>
@@ -552,13 +552,13 @@ $noticeHeight:40px;
 						</router-link>
 					</div>
 					<div class="infoBox">
-						<router-link to="/serviceDeal">
+						<router-link to="/rankingDeal">
 							<div class="iconBox">
 								<div class="iconBackground iconBackground1">
 									<van-icon class-prefix="iconfont" name="merchant" />
 								</div>
 							</div>
-							<div class="text">服务商</div>
+							<div class="text">服务商排行</div>
 						</router-link>
 					</div>
 					<div class="infoBox">

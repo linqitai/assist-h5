@@ -214,7 +214,7 @@
 		</div> -->
 		<!-- <div class="kline" id="kline"></div> -->
 		<van-button type="info" size="normal" to="kline" color="#ff8400" :block="true"><span class="letterSpacing">查看K线图</span></van-button>
-		<van-sticky>
+		<!-- <van-sticky>
 			<div class="statistics">
 				<div class="line clearBoth flexCenter f-14">
 					<div class="left title">智能统计小助手</div>
@@ -224,12 +224,18 @@
 					<div class="left">平台指导价 {{dealPageInfo.currentPlatformPrice}}CNY</div>
 					<div class="right">24小时成交量 {{dealPageInfo.transactionNum24}}</div>
 				</div>
-				<!-- <div class="line clearBoth">
-					<div class="right">今日目前成交量 {{dealPageInfo.todayTransactionNum}}</div>
-					<div class="right">平台指导价求购量 {{dealPageInfo.currentPriceBuyNum}}</div>
-				</div> -->
 			</div>
-		</van-sticky>
+		</van-sticky> -->
+		<div class="statistics">
+			<div class="line clearBoth flexCenter f-14">
+				<div class="left title">智能统计小助手</div>
+				<div class="right">求购总量 {{dealPageInfo.currentBuyNum}}</div>
+			</div>
+			<div class="line clearBoth">
+				<div class="left">平台指导价 {{dealPageInfo.currentPlatformPrice}}CNY</div>
+				<div class="right">24小时成交量 {{dealPageInfo.transactionNum24}}</div>
+			</div>
+		</div>
 		
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 			<!-- <div class="line1pxbgcolor"></div>
@@ -263,8 +269,13 @@
 				<div class="placeholderLine"></div>
 				<div class="placeholderLine"></div>
 			</div> -->
+			<!-- <van-tabs v-model="active">
+			  <van-tab title="团队长">团队长</van-tab>
+			  <van-tab title="服务商">服务商</van-tab>
+			</van-tabs> -->
+			<!-- sticky -->
 			<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
-			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
+			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
 				<van-tab title="平价市场" name="dealArea1">
 					<div class="line1pxbgcolor"></div>
 					<div class="dealContent">

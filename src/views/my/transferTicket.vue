@@ -89,6 +89,7 @@
 			<van-cell-group>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
 				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
+				<van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
 			</van-cell-group>
 			<!-- <div class="myCell">
@@ -126,11 +127,13 @@
 				form4AppointDeal:{
 					transferAmount:'',
 					mobilePhone:"",
+					idCard:"",
 					safePassword:"",
 				},
 				errorInfo4AppointDeal:{
 					transferAmount:"",
 					mobilePhone:"",
+					idCard:"",
 					safePassword:"",
 				},
 				option1: [
@@ -181,6 +184,12 @@
 					}else{
 						_this.errorInfo4AppointDeal.mobilePhone = "请正确粘贴对方的手机号";
 					}
+				}else if(key == 'idCard'){
+					if(_this.$reg.idCard.test(_this.form4AppointDeal[key])){
+						_this.errorInfo4AppointDeal.idCard = '';
+					}else{
+						_this.errorInfo4AppointDeal.idCard = "请正确填写身份证号";
+					}
 				}else if(key == 'safePassword') {
 					if(_this.$reg.safePassword.test(_this.form4AppointDeal[key])){
 						_this.errorInfo4AppointDeal.safePassword = '';
@@ -190,11 +199,12 @@
 				}
 			},
 			submit(){
-				console.log("submit");
+				//console.log("submit");
 				let _this = this;
 				let params = {
 					transferAmount: _this.form4AppointDeal.transferAmount,
 					mobilePhone: _this.form4AppointDeal.mobilePhone,
+					idCard: _this.form4AppointDeal.idCard,
 					safePassword: _this.form4AppointDeal.safePassword,
 				}
 				console.log('params',params);

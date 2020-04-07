@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
-	.ranking{
-		@include page4Home4Scroll();
+	.ranking4F{
+		@include page();
 		/* .van-sticky--fixed{
 			top: 47px !important;
 		} */
@@ -59,14 +59,20 @@
 					.flex{
 						flex: 1;
 						.line{
+							.iconfont{
+								color:$main-green-color;
+							}
 							.copy{
 								font-size: $fs-10;
 								margin-left: 3px;
-								background-color: #E5E5E5;
+								/* background-color: #E5E5E5; */
 								padding: 1px 2px;
-								color: #0E1935;
+								/* color: $main-green-color; */
 								border-radius: 2px;
 							}
+							/* .iconfont-weichat{
+								color: $main-green-color;
+							} */
 						}
 					}
 					.flexRight{
@@ -126,10 +132,10 @@
 	
 </style>
 <template>
-	<div class="ranking">
+	<div class="ranking4F">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
-			<div class="text">服务商</div>
+			<div class="text">服务商排行榜</div>
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="rankingTabs">
@@ -148,19 +154,13 @@
 				<van-tab title="矿石" name="ranking1">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list" v-for="(item,index) in list1" :key='item.id'>
-							<div class="item" @click="toBookView(2,item.userId)">
+							<div class="item" @click="toMy4OtherView(item.userId)">
 								<div class="flexLeft">
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
-									<!-- <div class="placeholderLine10"></div>
-									<div class="line">
-										<div>
-											<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}
-											<span class="margL1" @click="lookWeChartNumBtn(item.shareCode)">查看</span>
-										</div>
-									</div> -->
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -170,15 +170,16 @@
 					</van-list>
 				</van-tab>
 				
-				<van-tab title="贡献值" name="ranking2">
+				<van-tab title="买入次数" name="ranking2">
 					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 						<div class="list" v-for="(item,index) in list2" :key='item.id'>
-							<div class="item" @click="toBookView(2,item.userId)">
+							<div class="item" @click="toMy4OtherView(item.userId)">
 								<div class="flexLeft">
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -188,15 +189,16 @@
 					</van-list>
 				</van-tab>
 				
-				<van-tab title="帮扶券" name="ranking3">
+				<van-tab title="卖出次数" name="ranking3">
 					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
 						<div class="list" v-for="(item,index) in list3" :key='item.id'>
-							<div class="item" @click="toBookView(2,item.userId)">
+							<div class="item" @click="toBookView(item.userId)">
 								<div class="flexLeft">
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -205,34 +207,16 @@
 						</div>
 					</van-list>
 				</van-tab>
-				
-				<van-tab title="个人算力" name="ranking6">
-					<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
-						<div class="list" v-for="(item,index) in list6" :key='item.id'>
-							<div class="item" @click="toBookView(2,item.userId)">
-								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
-								</div>
-								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
-								</div>
-								<div class="flexRight">
-									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				
-				<van-tab title="团队算力" name="ranking4">
+				<van-tab title="买入数量" name="ranking4">
 					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 						<div class="list" v-for="(item,index) in list4" :key='item.id'>
-							<div class="item"  @click="toBookView(2,item.userId)">
+							<div class="item"  @click="toMy4OtherView(item.userId)">
 								<div class="flexLeft">
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -242,15 +226,16 @@
 					</van-list>
 				</van-tab>
 				
-				<van-tab title="有效直推" name="ranking5">
+				<van-tab title="卖出数量" name="ranking5">
 					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
-						<div class="list" v-for="(item,index) in list5" v-index :key='item.id' @click="toBookView(2,item.userId)">
+						<div class="list" v-for="(item,index) in list5" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
 							<div class="item">
 								<div class="flexLeft">
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"><!-- <i class="iconfont iconfont-name"></i> --> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name"></i> <span>{{item.nickName}}</span></div>
+									<div class="line margT6"><i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -259,6 +244,26 @@
 						</div>
 					</van-list>
 				</van-tab>
+				
+				<!-- <van-tab title="被投诉次数" name="ranking6">
+					<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
+						<div class="list" v-for="(item,index) in list6" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
+							<div class="item">
+								<div class="flexLeft">
+									<div class="name">{{index+1}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+								</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab> -->
+				
 			</van-tabs>
 		</div>
 	</div>
@@ -296,7 +301,7 @@
 				list6:[],
 				loading6:false,
 				finished6:false,
-				pageSize:20,
+				pageSize:30,
 				activeName:'ranking1',
 				showTipModel:false,
 				showTipModel4LookWeCharNum:false,
@@ -308,9 +313,16 @@
 		components: {
 			mHeader
 		},
+		create() {
+			this.toScrollTop();
+		},
 		mounted() {
 			let _this = this;
-			//_this.mobilePhone = localStorage.getItem("mobilePhone")
+			if (_this.$cookies.isKey("ranking_tab_name")) {
+				_this.activeName = _this.$cookies.get("ranking_tab_name");
+			}else{
+				_this.activeName = "ranking1";
+			}
 		},
 		methods: {
 			back(){
@@ -319,9 +331,19 @@
 			showTip(){
 				this.showTipModel = true;
 			},
+			toScrollTop(){
+				window.scrollTo(0,0);
+				document.body.scrollTop = 0;
+				document.documentElement.scrollTop = 0;
+			},
+			toMy4OtherView(userId){
+				let _this = this;
+				//console.log('userIdInDealRecolod:',userId);
+				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
+			},
 			toBookView(val,userId){
 				let _this = this;
-				console.log('toBookView');
+				//console.log('toBookView');
 				let name = 'mineral';
 				if(val==1){
 					name = 'ticket';
@@ -351,14 +373,33 @@
 			}, */
 			handleCopy(text, event) {
 				let _this = this;
+				//如果提供了事件对象，则这是一个非IE浏览器 
+				if ( event && event.stopPropagation ) {
+				    //因此它支持W3C的stopPropagation()方法 
+				    event.stopPropagation(); 
+				}else{
+				    //否则，我们需要使用IE的方式来取消事件冒泡 
+				    window.event.cancelBubble = true; 
+				}
+				//阻止默认浏览器动作(W3C) 
+				if ( event && event.preventDefault ) {
+					event.preventDefault(); 
+				}
+				//IE中阻止函数器默认动作的方式 
+				else {
+					window.event.returnValue = false;
+					return false; 
+				}
+				        
 				clip(text,event,function(res){
 					_this.$toast(`复制${res.text}成功`);
 				});
 			},
 			tabChange(res) {
 				let _this = this;
-				console.log('res', res)
+				//console.log('res', res);
 				_this.activeName = res;
+				_this.$cookies.set("ranking_tab_name", _this.activeName, _this.$api.cookiesTime)
 			},
 			searchEvent(){
 				let _this = this;
@@ -376,49 +417,17 @@
 					_this.onLoad6();
 				}
 			},
-			onLoad6(){
-				console.log('load6')
-				let _this = this;
-				// 异步更新数据
-				var params = {
-					pageNo: _this.currentPage6,
-					pageSize: _this.pageSize,
-					mobilePhone: _this.mobilePhone,
-					type:'my_calculation_power'
-				}
-				_this.loading6 = true;
-				_this.finished6 = false;
-				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						/* let list = res.data.list;
-						_this.list1.push(...list); */
-						_this.list6 = res.data.list;
-						_this.loading6 = false;
-						_this.finished6 = true;
-						/* if(res.data.endRow == res.data.total){
-							_this.finished1 = true;
-						}else{
-							_this.currentPage1 = _this.currentPage1 + 1;
-						} */
-					}else{
-						_this.loading6 = false;
-						_this.finished6 = true;
-					}
-				})
-			},
 			onLoad1(){
-				console.log('load1')
 				let _this = this;
 				// 异步更新数据
 				var params = {
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
-					mobilePhone: _this.mobilePhone,
 					type:'this_week_mineral'
 				}
 				_this.loading1 = true;
 				_this.finished1 = false;
-				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getServiceRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						/* let list = res.data.list;
 						_this.list1.push(...list); */
@@ -433,17 +442,15 @@
 				})
 			},
 			onLoad2(){
-				console.log('load2')
 				let _this = this;
 				var params = {
 					pageNo: this.currentPage2,
 					pageSize: this.pageSize,
-					mobilePhone: _this.mobilePhone,
-					type:'contribution_value'
+					type:'buy_times'
 				}
 				_this.loading2 = true;
 				_this.finished2 = false;
-				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getServiceRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						/* let list = res.data.list;
 						_this.list2.push(...list); */
@@ -458,18 +465,16 @@
 				})
 			},
 			onLoad3(){
-				console.log('load3')
 				let _this = this;
 				// 异步更新数据
 				var params = {
 					pageNo: this.currentPage3,
 					pageSize: this.pageSize,
-					mobilePhone: _this.mobilePhone,
-					type:'platform_ticket'
+					type:'sell_times'
 				}
 				_this.loading3 = true;
 				_this.finished3 = false;
-				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getServiceRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						/* let list = res.data.list;
 						_this.list3.push(...list); */
@@ -484,18 +489,16 @@
 				})
 			},
 			onLoad4(){
-				console.log('load4')
 				let _this = this;
 				// 异步更新数据
 				var params = {
 					pageNo: this.currentPage4,
 					pageSize: this.pageSize,
-					mobilePhone: _this.mobilePhone,
-					type:'team_calculation_power'
+					type:'buy_amount'
 				}
 				_this.loading4 = true;
 				_this.finished4 = false;
-				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getServiceRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						/* let list = res.data.list;
 						_this.list4.push(...list); */
@@ -510,18 +513,16 @@
 				})
 			},
 			onLoad5(){
-				console.log('load5')
 				let _this = this;
 				// 异步更新数据
 				var params = {
 					pageNo: this.currentPage5,
 					pageSize: this.pageSize,
-					mobilePhone: _this.mobilePhone,
-					type:'realname_num'
+					type:'sell_amount'
 				}
 				_this.loading5 = true;
 				_this.finished5 = false;
-				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getServiceRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						/* let list = res.data.list;
 						_this.list5.push(...list); */
@@ -540,8 +541,34 @@
 					}
 				})
 			},
-			onSearch(res){
-				console.log('res', res)
+			onLoad6(){
+				let _this = this;
+				// 异步更新数据
+				var params = {
+					pageNo: this.currentPage6,
+					pageSize: this.pageSize,
+					type:'be_complaint_times'
+				}
+				_this.loading6 = true;
+				_this.finished6 = false;
+				_this.$ajax.ajax(_this.$api.getServiceRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						/* let list = res.data.list;
+						_this.list5.push(...list); */
+						_this.list6 = res.data.list;
+						_this.loading6 = false;
+						_this.finished6 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished4 = true;
+						}else{
+							_this.currentPage4 = _this.currentPage4 + 1;
+						} */
+					}else{
+						_this.loading6 = false;
+						_this.finished6 = true;
+						_this.$toast(res.message);
+					}
+				})
 			}
 		}
 	}

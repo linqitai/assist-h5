@@ -198,9 +198,9 @@
 						<!-- <div class="line">
 							ID {{info.userId}}
 						</div> -->
-						<!-- <div class="line margT3">
+						<div class="line margT3">
 							注册时间 {{thisUserInfo.registerTime}}
-						</div> -->
+						</div>
 						<div class="line">
 							<div class="left">买入次数 {{thisUserInfo.buyTimes}}</div>
 							<div class="mlBox left">买入数量 {{thisUserInfo.buyAmount}}</div>

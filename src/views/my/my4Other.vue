@@ -484,13 +484,13 @@
 			},
 			getUserInfo4Other() {
 				let _this = this;
-				console.log('userId:',_this.$route.query.lookUserId)
+				//onsole.log('userId:',_this.$route.query.lookUserId)
 				let params = {
 					userId: _this.$route.query.lookUserId
 				}
 				_this.loading = true;
 				_this.$ajax.ajax(_this.$api.getAssistUserInfoByObj, 'GET', params, function(res) {
-					console.log('getUserInfo');
+					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
 						_this.loading = false;

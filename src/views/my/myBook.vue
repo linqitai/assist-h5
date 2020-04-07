@@ -227,7 +227,7 @@
 				let _this = this;
 				// console.log('name', name)
 				// _this.activeName = name;
-				this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
+				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 			},
 			onLoad1(){
 				console.log('load1 getAssistMineralAccountBookList')

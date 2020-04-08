@@ -754,7 +754,7 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardOneLevelByUserId;
 			}else if(level==2){
-				if((teamNum<10||teamCP<100||levelNow<=1) && (myCP<9)){
+				if((teamNum<10||teamCP<100||levelNow<=1) && (myCP<8.4)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
@@ -776,7 +776,7 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardTwoLevelByUserId;
 			}else if(level==3){
-				if((teamNum<50||teamCP<500||levelNow<=2) && (myCP<34)){
+				if((teamNum<50||teamCP<500||levelNow<=2) && (myCP<33.4)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
@@ -798,7 +798,7 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardThreeLevelByUserId;
 			}else if(level==4){
-				if((teamNum<100||teamCP<2000||levelNow<=3) && (myCP<114)){
+				if((teamNum<100||teamCP<2000||levelNow<=3) && (myCP<133.4)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
@@ -820,7 +820,7 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardFourLevelByUserId;
 			}else if(level==5){
-				if((teamNum<300||teamCP<10000||levelNow<=4) && (myCP<214)){
+				if((teamNum<300||teamCP<10000||levelNow<=4) && (teamNum<500||myCP<133.4)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',

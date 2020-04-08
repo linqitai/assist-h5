@@ -23,6 +23,9 @@
 							margin-left: 4px;
 							margin-right: 4px;
 						}
+						.iconfont-right-arrow2{
+							color: #C7C7C7;font-size: 11px;
+						}
 						.userIdSpan{
 							max-width: 100px;
 							display: inline-block;
@@ -100,19 +103,26 @@
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 				<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 					 <div class="list">
-						<div class="item" v-for="item in list1" :key="item.id" @click="toMy4OtherView(item.fromUserId)">
+						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex">
 								<div class="line">{{item.createTime | getDateTime}}</div>
+								<div class="line margT6" @click="toMy4OtherView(item.fromUserId)">
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.sellerNickName}}</i></span>
+									<i class="iconfont iconfont-right-arrow2"></i>
+								</div>
 								<div class="line margT6">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.nickName}}</i></span>
-									{{item.type | mineralBookType}} {{item.number}}个
+									{{item.type | mineralBookType}} {{item.number}}个 给
+								</div>
+								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)">
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.buyerNickName}}</i></span>
+									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
 								<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
 							</div>
 							<div class="flexRight2">所剩{{item.currentMineralNum}}个</div>
-							<div class="flexRight3">
-								<i class="iconfont iconfont-right-arrow2"></i>
-							</div>
+							<!-- <div class="flexRight3">
+								<i class="iconfont iconfont-right-arrow2"  @click="toMy4OtherView(item.fromUserId)"></i>
+							</div> -->
 						</div>
 					 </div>
 				</van-list>

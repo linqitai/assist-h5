@@ -151,6 +151,26 @@
 			</van-search> -->
 			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
+			 
+				<van-tab title="团队算力" name="ranking0">
+					<van-list v-model="loading0" :finished="finished0" finished-text="没有更多了" @load="onLoad0">
+						<div class="list" v-for="(item,index) in list0" :key='item.id'>
+							<div class="item" @click="toMy4OtherView(item.userId)">
+								<div class="flexLeft">
+									<div class="name">{{index+1}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+								</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				
 				<van-tab title="矿石" name="ranking1">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list" v-for="(item,index) in list1" :key='item.id'>
@@ -277,6 +297,10 @@
 	export default {
 		data() {
 			return {
+				currentPage0: 1,
+				list0:[],
+				loading0:false,
+				finished0:false,
 				currentPage1: 1,
 				list1:[],
 				loading1:false,
@@ -403,7 +427,9 @@
 			},
 			searchEvent(){
 				let _this = this;
-				if(_this.activeName == 'ranking1'){
+				if(_this.activeName == 'ranking0'){
+					_this.onLoad0();
+				}else if(_this.activeName == 'ranking1'){
 					_this.onLoad1();
 				}else if(_this.activeName == 'ranking2'){
 					_this.onLoad2();
@@ -416,6 +442,30 @@
 				}else if(_this.activeName == 'ranking6'){
 					_this.onLoad6();
 				}
+			},
+			onLoad0(){
+				let _this = this;
+				// 异步更新数据
+				var params = {
+					pageNo: _this.currentPage0,
+					pageSize: _this.pageSize,
+					type:'team_calculation_power'
+				}
+				_this.loading0 = true;
+				_this.finished0 = false;
+				_this.$ajax.ajax(_this.$api.getServiceRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						/* let list = res.data.list;
+						_this.list1.push(...list); */
+						_this.list0 = res.data.list;
+						_this.loading0 = false;
+						_this.finished0 = true;
+					}else{
+						_this.loading0 = false;
+						_this.finished0 = true;
+						_this.$toast(res.message);
+					}
+				})
 			},
 			onLoad1(){
 				let _this = this;

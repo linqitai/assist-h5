@@ -481,9 +481,9 @@
 									<div class="timeBox">
 										匹配时间 {{ item.machingTime }}
 									</div>
-									<div class="timeBox">
+									<!-- <div class="timeBox">
 										取消时间 {{ item.canCancelTime }}
-									</div>
+									</div> -->
 								</div>
 								<div class="operatorBox4complate">
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
@@ -733,6 +733,10 @@
 				<div class="line" v-if="detail4buyerInfo.status>-1">
 					<span class="label">状态</span>
 					<span class="value textAdornColor">{{detail4buyerInfo.status | dealStatusType}}</span>
+				</div>
+				<div class="line" v-if="detail4buyerInfo.remark">
+					<span class="label">诉讼</span>
+					<span class="value <red></red>">{{detail4buyerInfo.remark}}</span>
 				</div>
 				<div class="line" v-if="detail4buyerInfo.status==0 || detail4buyerInfo.status==1">
 					<span class="label">可取消倒计时</span>
@@ -1472,7 +1476,13 @@
 							_this.showSellerUserInfoModel = false;
 						}
 					}else{
-						_this.$toast(res.message);
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				})
 			},

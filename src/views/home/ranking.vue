@@ -129,7 +129,7 @@
 	<div class="ranking">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
-			<div class="text">服务商</div>
+			<div class="text">排行榜</div>
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="rankingTabs">

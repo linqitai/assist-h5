@@ -244,7 +244,7 @@
 				<div class="placeholderLine4"></div>
 				<b class="textBold">若遇到无法提交实名的解决办法：</b><br>
 				1、更换浏览器，百度、谷歌、UC浏览器优先。<br>
-				2、把照片发到微信压缩小一点，或者自行把照片剪辑小一点。<br>
+				2、把证件照片裁剪得尽可能小一点。<br>
 				3、借用家人其他牌子的手机提交实名。<br>
 			</div>
 			<div class="placeholderLine4"></div>

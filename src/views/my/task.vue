@@ -212,7 +212,7 @@
 					需要：<br>
 					A直推3个会员升级成为青铜会长<br>
 					达到后：<br>
-					奖励A一台半年的小型矿机（名额有限只送100台，还剩<span class="yellow">{{activity2MillInventory}}</span>台，先到先得）<br>
+					奖励A一台半年产50个矿石的小型矿机（名额有限只送100台，还剩<span class="yellow">{{activity2MillInventory}}</span>台，先到先得）<br>
 					注：该活动的统计从2020/03/01号开始。从3月1号开始您已经直推<span class="yellow">{{teamLevelAddNum}}</span>个会员成为青铜会长
 				</div>
 			</div>

@@ -176,7 +176,7 @@
 							_this.mineralNumTip = `未到领取收益的时间`;
 						}
 					}else{
-						_this.mineralNumTip = "距离上次收益未满24小时";
+						_this.mineralNumTip = res.message;
 					}
 				},function(){
 					_this.receiptModelTile = "系统提示";

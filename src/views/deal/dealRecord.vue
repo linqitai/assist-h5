@@ -37,6 +37,7 @@
 						font-size: 12px;
 						.iconfont-name{
 							font-size: 12px;
+							color: $main-adorn-color;
 						}
 						.textColor{
 							color: $main-adorn-color;
@@ -111,7 +112,7 @@
 									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
 								<div class="line margT6">
-									{{item.type | mineralBookType}} {{item.number}}个 给
+									{{item.type | mineralBookType}} <i class="textAdornColor">{{item.number}}</i>个 给
 								</div>
 								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)">
 									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.buyerNickName}}</i></span>
@@ -119,7 +120,7 @@
 								</div>
 								<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
 							</div>
-							<div class="flexRight2">所剩{{item.currentMineralNum}}个</div>
+							<div class="flexRight2">所剩<span class="textAdornColor">{{item.currentMineralNum}}</span>个</div>
 							<!-- <div class="flexRight3">
 								<i class="iconfont iconfont-right-arrow2"  @click="toMy4OtherView(item.fromUserId)"></i>
 							</div> -->

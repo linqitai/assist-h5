@@ -179,7 +179,7 @@
 			</div>
 		</div>
 		 <!-- @click="update('alipayNum')" -->
-		<div class="my-cell" @click="update('alipayNum')">
+		<div class="my-cell">
 			<div class="flex1">
 				支付宝号
 			</div>

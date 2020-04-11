@@ -83,9 +83,10 @@
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="transferPageCV">
-			<!-- <div class="line text margT10">
-				区块地址和手机号二选一
-			</div> -->
+			<div class="placeholderLine10"></div>
+			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
+			<div class="paddingWing tip4model3">当前拥有 贡献值 {{userInfo.contributionValue.toFixed(2)}} 个</div>
+			<div class="placeholderLine10"></div>
 			<van-cell-group>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
 				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
@@ -95,6 +96,12 @@
 			<!-- <div class="myCell">
 				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的留言标题" />
 			</div> -->
+			<div class="placeholderLine10"></div>
+			<div class="paddingWing tip4model3">
+				<b class="textBold">定向转让贡献值的规则：</b><br>
+				1.定向转让贡献值暂时只对服务商开放。<br>
+				2.转让贡献值暂时不收手续费。<br>
+			</div>
 			<div class="sureBtn">
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
 			</div>
@@ -138,7 +145,7 @@
 				currentPage: 1,
 				pageCount: 1000,
 				totalItems: 10000,
-				userId:"",
+				userInfo:"",
 				loading:false,
 			}
 		},
@@ -147,10 +154,14 @@
 		},
 		mounted() {
 			let _this = this;
-			_this.userId = _this.$cookies.get('userId');
-			if(_this.$utils.isNUll(_this.userId)){
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				//console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
+				return;
 			}
 		},
 		methods: {
@@ -192,46 +203,53 @@
 				}
 			},
 			submit(){
-				console.log("submit");
 				let _this = this;
-				let params = {
-					transferAmount: _this.form4AppointDeal.transferAmount,
-					mobilePhone: _this.form4AppointDeal.mobilePhone,
-					idCard: _this.form4AppointDeal.idCard,
-					safePassword: _this.form4AppointDeal.safePassword,
-				}
-				console.log('params',params);
-				if(_this.$utils.hasNull(params)){
-					_this.$toast('请填写完整信息');
-					return;
-				}
-				console.log('_this.errorInfo4BuyBill',_this.errorInfo4BuyBill);
-				if(_this.$utils.hasVal(_this.errorInfo4AppointDeal)){
-					_this.$toast('请按要求填写信息');
-					return;
-				}
-				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
-				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.transferCV, 'POST', params, function(res) {
-					_this.loading = false;
-					if (res.code == _this.$api.CODE_OK) {
-						_this.$toast('转让成功');
-						_this.$utils.formClear(_this.form4AppointDeal);
-						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
-						_this.$cookies.set("tab_name_book","ticket",_this.$api.cookiesTime);
-						_this.$router.push({
-							path: `/myBook`
-						});
-					}else{
-						//_this.$toast(res.message);
-						Dialog.alert({
-						  title: '系统提示',
-						  message: res.message
-						}).then(() => {
-						  // on close
-						});
-					}
-				})
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  message: `请确定是否要给对方转${_this.form4AppointDeal.transferAmount}个贡献值？`
+				}).then(() => {
+				  // on confirm
+				  let params = {
+				  	transferAmount: _this.form4AppointDeal.transferAmount,
+				  	mobilePhone: _this.form4AppointDeal.mobilePhone,
+				  	idCard: _this.form4AppointDeal.idCard,
+				  	safePassword: _this.form4AppointDeal.safePassword,
+				  }
+				  if(_this.$utils.hasNull(params)){
+				  	_this.$toast('请填写完整信息');
+				  	return;
+				  }
+				  if(_this.$utils.hasVal(_this.errorInfo4AppointDeal)){
+				  	_this.$toast('请按要求填写信息');
+				  	return;
+				  }
+				  params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
+				  _this.loading = true;
+				  _this.$ajax.ajax(_this.$api.transferCV, 'POST', params, function(res) {
+				  	_this.loading = false;
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		_this.$toast('转让成功');
+				  		_this.$utils.formClear(_this.form4AppointDeal);
+				  		_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
+				  		_this.$cookies.set("tab_name_book","contribution",_this.$api.cookiesTime);
+				  		_this.$router.push({
+				  			path: `/myBook`
+				  		});
+				  	}else{
+				  		//_this.$toast(res.message);
+				  		Dialog.alert({
+				  		  title: '系统提示',
+				  		  message: res.message
+				  		}).then(() => {
+				  		  // on close
+				  		});
+				  	}
+				  })
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
+				});
 			},
 		}
 	}

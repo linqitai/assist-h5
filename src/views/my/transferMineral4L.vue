@@ -292,72 +292,82 @@
 					});
 					return;
 				}
-				let params = {
-					/* userId: _this.userId, */
-					num: _this.form4AppointDeal.transferAmount,
-					curerntPlatformPrice:_this.curerntPlatformPrice,
-					price: _this.form4AppointDeal.price,
-					assurePrice: _this.form4AppointDeal.assurePrice,
-					blockAddress: _this.form4AppointDeal.blockAddress,
-					idCard: _this.form4AppointDeal.idCard,
-					safePassword: _this.form4AppointDeal.safePassword.replace(/ /g,""),
-					// createTime:_this.$utils.getDateTime(new Date())
-				}
-				
-				if(params.price>_this.maxPrice){
-					_this.$toast(`交易最高价暂时为${_this.maxPrice}元`);
-					return;
-				}
-				if(_this.userInfo.thisWeekMineral<params.num){
-					_this.$toast('您的矿石不够');
-					return;
-				}
-				/* if(_this.userInfo.contributionValue<params.num){
-					_this.$toast('您的贡献值不够');
-					return;
-				} */
-				/* if(_this.userInfo.platformTicket<1){
-					_this.$toast('您的帮扶券不够');
-					return;
-				} */
-				if(_this.$utils.hasNull(params)){
-					_this.$toast('请填写完整信息');
-					return;
-				}
-				console.log('_this.errorInfo4BuyBill',_this.errorInfo4BuyBill);
-				if(_this.$utils.hasVal(_this.errorInfo4AppointDeal)){
-					_this.$toast('请按要求填写信息');
-					return;
-				}
-				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
-				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.insertTransaction4LevelTeamBill, 'POST', params, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						// _this.$toast('转让成功');
-						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
-						/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
-						_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
-						// _this.$router.push('myDeal');
-						if(params.agentPhone == localStorage.getItem('mobilePhone')) {
-							_this.$router.push({path:'myDeal',query:{dealType:1,isSelf:1,mobilePhone:res.data.mobilePhone,num:params.num}});
-						}else{
-							_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
-						}
-						//_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
-						//_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:params.num}});
-						_this.$utils.formClear(_this.form4AppointDeal);
-					}else{
-						// _this.$toast(res.message);
-						Dialog.alert({
-						  title: '系统提示',
-						  message: res.message
-						}).then(() => {
-						  // on close
-						});
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  message: `请确定是否要给对方转${_this.form4AppointDeal.transferAmount}个矿石？`
+				}).then(() => {
+				  // on confirm
+					let params = {
+						/* userId: _this.userId, */
+						num: _this.form4AppointDeal.transferAmount,
+						curerntPlatformPrice:_this.curerntPlatformPrice,
+						price: _this.form4AppointDeal.price,
+						assurePrice: _this.form4AppointDeal.assurePrice,
+						blockAddress: _this.form4AppointDeal.blockAddress,
+						idCard: _this.form4AppointDeal.idCard,
+						safePassword: _this.form4AppointDeal.safePassword.replace(/ /g,""),
+						// createTime:_this.$utils.getDateTime(new Date())
 					}
-				},function(){
-					_this.loading = false;
-				})
+					
+					if(params.price>_this.maxPrice){
+						_this.$toast(`交易最高价暂时为${_this.maxPrice}元`);
+						return;
+					}
+					if(_this.userInfo.thisWeekMineral<params.num){
+						_this.$toast('您的矿石不够');
+						return;
+					}
+					/* if(_this.userInfo.contributionValue<params.num){
+						_this.$toast('您的贡献值不够');
+						return;
+					} */
+					/* if(_this.userInfo.platformTicket<1){
+						_this.$toast('您的帮扶券不够');
+						return;
+					} */
+					if(_this.$utils.hasNull(params)){
+						_this.$toast('请填写完整信息');
+						return;
+					}
+					console.log('_this.errorInfo4BuyBill',_this.errorInfo4BuyBill);
+					if(_this.$utils.hasVal(_this.errorInfo4AppointDeal)){
+						_this.$toast('请按要求填写信息');
+						return;
+					}
+					params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
+					_this.loading = true;
+					_this.$ajax.ajax(_this.$api.insertTransaction4LevelTeamBill, 'POST', params, function(res) {
+						if (res.code == _this.$api.CODE_OK) {
+							// _this.$toast('转让成功');
+							_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
+							/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
+							_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
+							// _this.$router.push('myDeal');
+							if(params.agentPhone == localStorage.getItem('mobilePhone')) {
+								_this.$router.push({path:'myDeal',query:{dealType:1,isSelf:1,mobilePhone:res.data.mobilePhone,num:params.num}});
+							}else{
+								_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
+							}
+							//_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
+							//_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:params.num}});
+							_this.$utils.formClear(_this.form4AppointDeal);
+						}else{
+							// _this.$toast(res.message);
+							Dialog.alert({
+							  title: '系统提示',
+							  message: res.message
+							}).then(() => {
+							  // on close
+							});
+						}
+					},function(){
+						_this.loading = false;
+					})
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
+				});
 			},
 		}
 	}

@@ -53,7 +53,7 @@ export default{
 	alipay:/^(?:\w+\.?)*\w+@(?:\w+\.)+\w+|\d$/,
 	alipayHint:'请正确填写支付宝号',
 	weichat:/^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$/,
-	weichatHint:'请正确填写微信号',
+	weichatHint:'请正确填写以字母开头的微信号',
 	idCard:/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
 	idCardHint:'请填写正确的身份证号',
 	bankCard:/\d{15,19}/,

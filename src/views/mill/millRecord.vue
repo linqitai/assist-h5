@@ -208,7 +208,7 @@
 				 <!-- @load="onLoad1" -->
 				<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 					 <div class="millList">
-					 	<div class="item" v-for="item in list1" :key="item.id" @click="toBookView(2,item.userId)">
+					 	<div class="item" v-for="item in list1" :key="item.id" @click="toMy4OtherView(item.userId)">
 					 		<!-- <div class="flex flex1">
 					 			<div class="machingBox">
 					 				<div class="name">{{item.type | machineType4Pic}}</div>
@@ -327,17 +327,15 @@
 			mHeader,mRefresh
 		},
 		create() {
-			/* this.toScrollTop(); */
+			this.toScrollTop();
 		},
 		mounted() {
 			let _this = this;
-			// _this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
-			/* if (_this.$cookies.isKey("tab_name_dealRecord")) {
+			if (_this.$cookies.isKey("tab_name_dealRecord")) {
 				_this.activeName = _this.$cookies.get("tab_name_dealRecord");
 			}else{
-				_this.activeName = "mill";
-			} */
-			/* _this.onLoad1(); */
+				_this.activeName = "mineral";
+			}
 		},
 		methods: {
 			back(){
@@ -348,9 +346,14 @@
 				document.body.scrollTop = 0;
 				document.documentElement.scrollTop = 0;
 			},
+			toMy4OtherView(userId){
+				let _this = this;
+				////console.log('userIdInDealRecolod:',userId);
+				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
+			},
 			toBookView(val,userId){
 				let _this = this;
-				console.log('toBookView');
+				////console.log('toBookView');
 				let name = 'mineral';
 				if(val==1){
 					name = 'ticket';
@@ -361,16 +364,16 @@
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
 			refreshEvent() {
-				// console.log("refresh1")
+				// //console.log("refresh1")
 				let _this = this;
 				if(_this.activeName == 'mill'){
-					console.log("refresh1");
+					//console.log("refresh1");
 					_this.currentPage1 = 1;
 					_this.list1 = [];
 					_this.finished1 = false;
 					_this.onLoad1();
 				}else if(_this.activeName == 'calculation'){
-					console.log("refresh2");
+					//console.log("refresh2");
 					_this.currentPage2 = 1;
 					_this.list2 = [];
 					_this.finished2 = false;
@@ -389,12 +392,12 @@
 			},
 			tabChange(name, title) {
 				let _this = this;
-				// console.log('name', name)
+				// //console.log('name', name)
 				// _this.activeName = name;
 				this.$cookies.set("tab_name_dealRecord", name, _this.$api.cookiesTime)
 			},
 			onLoad1(){
-				console.log('load1 getMineralBookList4SellType')
+				//console.log('load1 getMineralBookList4SellType')
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,
@@ -403,7 +406,7 @@
 					type:_this.form.type,
 					day:_this.form.day
 				}
-				// console.log('params',params);
+				// //console.log('params',params);
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getAssistMyMachineList4Tag, 'GET', params, function(res) {
 					_this.loading = false;
@@ -431,7 +434,7 @@
 				// }, 500);
 			},
 			onLoad2(){
-				console.log('load2')
+				//console.log('load2')
 				let _this = this;
 				// 异步更新数据
 				let params = {
@@ -441,22 +444,22 @@
 				}
 				_this.loading2 = true;
 				_this.$ajax.ajax(_this.$api.getCalculationPowerPageList, 'GET', params, function(res) {
-					// // console.log('res', res);
+					// // //console.log('res', res);
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
-						// // console.log('_this.list1',_this.list1);
-						// // console.log('res.data.list',res.data.list)
+						// // //console.log('_this.list1',_this.list1);
+						// // //console.log('res.data.list',res.data.list)
 						let list = res.data.list;
 						_this.list2.push(...list);
 						_this.loading2 = false;
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
+						// //console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished2 = true;
-							// console.log('res.data.endRow == res.data.total');
+							// //console.log('res.data.endRow == res.data.total');
 						}else{
 							_this.currentPage2 = _this.currentPage2 + 1;
 						}
-						// // console.log('_this.list1',_this.list1);
+						// // //console.log('_this.list1',_this.list1);
 					}else{
 						_this.list2 = _this.list;
 						_this.loading2 = false;
@@ -471,7 +474,7 @@
 				// }, 500);
 			},
 			onLoad3(){
-				// console.log('load3',"getAssistContributionValueListByUserId")
+				// //console.log('load3',"getAssistContributionValueListByUserId")
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage3,
@@ -506,7 +509,7 @@
 				
 			},
 			onLoad4(){
-				// console.log('load4')
+				// //console.log('load4')
 				let _this = this;
 				// 异步更新数据getAssistPlateformTicketAccountBookList
 				let params = {
@@ -516,22 +519,22 @@
 				}
 				_this.loading4 = true;
 				_this.$ajax.ajax(_this.$api.getAssistPlateformTicketAccountBookList, 'GET', params, function(res) {
-					// // console.log('res', res);
+					// // //console.log('res', res);
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
-						// // console.log('_this.list1',_this.list1);
-						// // console.log('res.data.list',res.data.list)
+						// // //console.log('_this.list1',_this.list1);
+						// // //console.log('res.data.list',res.data.list)
 						let list = res.data.list;
 						_this.list4.push(...list);
 						_this.loading4 = false;
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
+						// //console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished4 = true;
-							// console.log('res.data.endRow == res.data.total');
+							// //console.log('res.data.endRow == res.data.total');
 						}else{
 							_this.currentPage4 = _this.currentPage4 + 1;
 						}
-						// // console.log('_this.list1',_this.list1);
+						// // //console.log('_this.list1',_this.list1);
 					}else{
 						_this.list4 = _this.list;
 						_this.loading4 = false;

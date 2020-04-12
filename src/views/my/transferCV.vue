@@ -100,7 +100,7 @@
 			<div class="paddingWing tip4model3">
 				<b class="textBold">定向转让贡献值的规则：</b><br>
 				1.定向转让贡献值暂时只对服务商开放。<br>
-				2.转让贡献值暂时不收手续费。<br>
+				2.定向转让贡献值暂时不收手续费。<br>
 			</div>
 			<div class="sureBtn">
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>

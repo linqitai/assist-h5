@@ -185,7 +185,7 @@
 			</div>
 			<div class="flex2">
 				<span class="ellipsis">{{userInfo.alipayNum}}</span>
-				<i class="iconfont iconfont-right-arrow2"></i>
+				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 			</div>
 		</div>
 		<div class="my-cell">

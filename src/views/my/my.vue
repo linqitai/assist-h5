@@ -402,8 +402,6 @@
 						</div>
 					</div>
 				</router-link>
-			</div>
-			<div class="items" v-if="userInfo.manType==2 || userInfo.isAgent==3">
 				<router-link to="transferCV">
 					<div class="my-cell">
 						<div class="flex1">

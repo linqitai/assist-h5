@@ -235,14 +235,21 @@
 				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>
+		<div class="placeholderLine10"></div>
+		<div class="flex2">
+			<van-button color="linear-gradient(to right, #73798a , #626876)" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户</van-button>
+		</div>
+		<div class="placeholderLine10"></div>
+		<div class="flex2">
+			<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="logout">安全退出</van-button>
+		</div>
+		<div class="placeholderLine10"></div>
 	</div>
 	<!-- <van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="logout">安 全 退 出</van-button> -->
-	<div class="fixedBottom paddingWing">
+	<!-- <div class="fixedBottom paddingWing">
 		<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="logout">安全退出</van-button>
 		<div class="placeholderLine10"></div>
-		<!-- <van-button color="linear-gradient(to right, #73798a , #626876)" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户</van-button>
-		<div class="placeholderLine10"></div> -->
-	</div>
+	</div> -->
 	<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
 		<div class="paddingWing f-12 lineHeight textJustify tip4model2 textIndent">
 			<div>
@@ -422,14 +429,20 @@ export default {
 			let _this = this;
 			Dialog.confirm({
 			  title: '注销确认',
-			  message: '你确定要注销[删除]这个账号？'
+			  message: '你确定要注销/删除/重新注册这个账号？'
 			}).then(() => {
 			  // on confirm
 			  _this.$ajax.ajax(_this.$api.cancelAccount, 'GET', null, function(res){
 			  	if(res.code == _this.$api.CODE_OK){
-			  		_this.$toast("注销成功");
-			  		_this.$router.replace('login');
-			  	}else if(res.code == 1001){
+					Dialog.alert({
+					  title: '系统提示',
+					  confirmButtonText:'好的',
+					  message: "注销成功，可重新注册"
+					}).then(() => {
+					  // on confirm
+					  _this.$router.replace('login');
+					})
+			  	}else{
 			  		Dialog.alert({
 			  		  title: '系统提示',
 			  		  confirmButtonText:'好的',
@@ -437,9 +450,7 @@ export default {
 			  		}).then(() => {
 			  		  // on confirm
 			  		})
-			  	}else{
-					_this.$toast(res.message);
-				}
+			  	}
 			  })
 			}).catch(() => {
 			  // on cancel

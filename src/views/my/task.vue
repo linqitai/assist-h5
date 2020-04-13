@@ -231,7 +231,7 @@
 					累计直推100人实名，该团队300人实名，扶持小矿机一台!<br>
 					累计直推300人实名，该团队1000人实名，扶持小矿机二台!<br>
 					累计直推500人实名，该团队5000人实名，扶持中矿机一台!<br>
-					注：该活动的统计从2020/03/31号开始。从3月31号开始您已经直推<span class="yellow">{{teamActivedNum1}}</span>个会员实名，新注册团队<span class="yellow">{{teamActivedNum2}}</span>个会员实名。
+					注：该活动的统计从2020/03/31号开始。从3月31号开始您已经直推<span class="yellow">{{teamActivedNum1}}</span>个会员实名，新注册团队<span class="yellow">{{teamActivedNum2}}</span>个会员实名(团队：和我的工会里一样只累计到2代团队)。
 				</div>
 			</div>
 			<div class="flexRight">

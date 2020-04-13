@@ -437,16 +437,6 @@
 					</div>
 				</router-link>
 			</div> -->
-			<!-- <div class="items">
-				<div class="my-cell" @click="cancelAccount">
-					<div class="flex1">
-						注销账户
-					</div>
-					<div class="flex2">
-						<i class="iconfont iconfont-right-arrow2"></i>
-					</div>
-				</div>
-			</div> -->
 			<div class="items">
 				<router-link to="lookInfo">
 					<div class="my-cell">
@@ -520,6 +510,16 @@
 					</div>
 				</router-link>
 			</div>
+			<!-- <div class="items">
+				<div class="my-cell" @click="cancelAccount">
+					<div class="flex1">
+						注销账户
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+			</div> -->
 		</van-pull-refresh>
 		
 		<!-- <m-fullscreen></m-fullscreen> -->

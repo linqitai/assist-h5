@@ -510,6 +510,10 @@
 					</div>
 				</router-link>
 			</div>
+			<div class="paddingAll">
+				<van-button color="#c7c7c7" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户(暂对尚未实名的用户开放)</van-button>
+			</div>
+			
 			<!-- <div class="items">
 				<div class="my-cell" @click="cancelAccount">
 					<div class="flex1">
@@ -686,6 +690,47 @@
 				window.scrollTo(0,0);
 				document.body.scrollTop = 0;
 				document.documentElement.scrollTop = 0;
+			},
+			cancelAccount(){
+				let _this = this;
+				Dialog.confirm({
+				  title: '注销确认',
+				  message: '你确定要注销/删除/重新注册这个账号？'
+				}).then(() => {
+				  // on confirm
+				  if(_this.userInfo.teamateNum>0){
+					  Dialog.alert({
+					    title: '系统提示',
+					    confirmButtonText:'好的',
+					    message: "您已有直推，暂时无法注销账号"
+					  }).then(() => {
+					    // on confirm
+					  })
+					  return;
+				  }
+				  _this.$ajax.ajax(_this.$api.cancelAccount, 'GET', null, function(res){
+				  	if(res.code == _this.$api.CODE_OK){
+						Dialog.alert({
+						  title: '系统提示',
+						  confirmButtonText:'好的',
+						  message: "注销成功，可重新注册"
+						}).then(() => {
+						  // on confirm
+						  _this.$router.replace('login');
+						})
+				  	}else{
+				  		Dialog.alert({
+				  		  title: '系统提示',
+				  		  confirmButtonText:'好的',
+				  		  message: res.message
+				  		}).then(() => {
+				  		  // on confirm
+				  		})
+				  	}
+				  })
+				}).catch(() => {
+				  // on cancel
+				});
 			},
 			showTip(val){
 				//console.log(val);

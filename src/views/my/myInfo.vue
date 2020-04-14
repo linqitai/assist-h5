@@ -235,10 +235,10 @@
 				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>
-		<div class="placeholderLine10"></div>
+		<!-- <div class="placeholderLine10"></div>
 		<div class="flex2">
 			<van-button color="linear-gradient(to right, #73798a , #626876)" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户</van-button>
-		</div>
+		</div> -->
 		<div class="placeholderLine10"></div>
 		<div class="flex2">
 			<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="logout">安全退出</van-button>
@@ -432,6 +432,16 @@ export default {
 			  message: '你确定要注销/删除/重新注册这个账号？'
 			}).then(() => {
 			  // on confirm
+			  if(_this.userInfo.teamateNum>0){
+				  Dialog.alert({
+				    title: '系统提示',
+				    confirmButtonText:'好的',
+				    message: "您已有直推，暂时无法注销账号"
+				  }).then(() => {
+				    // on confirm
+				  })
+				  return;
+			  }
 			  _this.$ajax.ajax(_this.$api.cancelAccount, 'GET', null, function(res){
 			  	if(res.code == _this.$api.CODE_OK){
 					Dialog.alert({

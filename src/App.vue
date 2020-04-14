@@ -149,6 +149,9 @@ b{font-weight: bold;}
 	padding-left: $boxPadding2;
 	padding-right: $boxPadding2;
 }
+.paddingAll{
+	padding: $boxPadding2;
+}
 .width80{width: 80px !important;}.width100{width: 100px !important;}.width120{width: 120px !important;}.width140{width: 140px !important;}.width160{width: 160px !important;}.width200 {width: 200px !important;}.width220{width: 220px;}.width240{width: 240px;}.width260{width: 260px;}.width280{width: 280px;}.width300 {width: 300px !important;}.width400 {width: 400px !important;}
 .margint{margin-top: 6px;}.marginb{margin-bottom: 6px;}
 .margL6{margin-left: 6;}.margL10{margin-left: 10;}

@@ -226,7 +226,12 @@
 				</div>
 			</div>
 		</van-sticky> -->
-		<div class="statistics">
+		<div v-if="!dealPageInfo.currentBuyNum">
+			<div class="placeholderLine10"></div>
+			<van-skeleton :row="2"/>
+			<div class="placeholderLine10"></div>
+		</div>
+		<div class="statistics" v-if="dealPageInfo.currentBuyNum">
 			<div class="line clearBoth flexCenter f-14">
 				<div class="left title">智能统计小助手</div>
 				<div class="right">求购总量 {{dealPageInfo.currentBuyNum}}</div>
@@ -558,7 +563,7 @@ export default {
 			platformTicket:0,
 			buyAndSellInfo:{},
 			dealPageInfo:{
-				currentBuyNum:'------',
+				currentBuyNum:'',
 				currentPriceBuyNum:100000,
 				todayTransactionNum:100000,
 				initCanBuyNu:100000,

@@ -264,16 +264,15 @@
 								<div class="flex flex2">
 									<div class="line1">
 										<div class="millName inline">{{item.type | machineTypeType}}</div>
-										<div class="status inline">{{item.status | machineStatus}}</div>
-										<div class="calcullatePower inline">算力 {{item.calculationPower}}GH/s</div>
+										<div class="status inline">总运行 {{item.allRuntime}}小时</div>
+										<!-- <div class="status inline">{{item.status | machineStatus}}</div>
+										<div class="calcullatePower inline">算力 {{item.calculationPower}}GH/s</div> -->
 									</div>
-									<div class="line">租金 {{item.price}}矿石</div>
-									<div class="line">总产 {{item.totalOutput}}矿石</div>
-									<div class="line">已产 {{item.alreadyGet}}矿石</div>
-									<div class="line">总运行时长 {{item.allRuntime}}小时</div>
-									<div class="line" v-if="item.turnOnTime">开机时间 {{item.turnOnTime}}</div>
+									<div class="line">租金{{item.price}}矿石 总产{{item.totalOutput}}矿石 已产{{item.alreadyGet}}矿石</div>
+									<!-- <div class="line">总运行时长 {{item.allRuntime}}小时</div> -->
+									<!-- <div class="line" v-if="item.turnOnTime">开机时间 {{item.turnOnTime}}</div> -->
 									<div class="line" v-if="item.turnOffTime">到期时间 {{item.turnOffTime}}</div>
-									<div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div>
+									<!-- <div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div> -->
 								</div>
 								<!-- <div class="flex flex3">
 									<div class="line">算力 {{item.calculationPower}}</div>
@@ -300,7 +299,7 @@
 	  <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 	  	<div class="paddingWing f-12 lineHeight tip4model2">
 	  		<div class="textIndent">
-	  			完成【我的--任务中心】里的任务后所奖励(赠送)的矿机不加算力，只有从矿机商城中所租赁的矿机才加算力。
+	  			奖励(赠送)型的矿机不加算力，从矿机商城中所租赁的矿机才加算力。
 	  		</div>
 	  	</div>
 	  </van-dialog>

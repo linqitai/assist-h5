@@ -382,6 +382,17 @@
 						_this.buyMillLoading = false;return;
 					}
 				}
+				if(_this.userInfo.manType==1){
+					if(_this.userInfo.realnameNum<30||_this.userInfo.teamCalculationPower<30||_this.userInfo.buyAmount<300){
+						Dialog.alert({
+						  title: '系统提示',
+						  message: _this.$api.manType1Tip
+						}).then(() => {
+						  // on close
+						});
+						return;
+					}
+				}
 				let params = {
 					/* userId:_this.userInfo.userId, */
 					machineId:_this.machineId,

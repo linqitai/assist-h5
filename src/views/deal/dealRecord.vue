@@ -212,7 +212,8 @@
 					from:'矿机产出',
 					addOrReduce:'+',
 					number:'20'
-				}]
+				}],
+				manTypeList:['l1582p59551N0O6058L4','15483b1u5523T21d1u77','Z15L873r23p6082t1665','15M8n39064y6G10y4067','1Iu5783Zs1564L891731','158L2o9e5A79D504N753','Z1583E14d6E7A5j71o29']
 			}
 		},
 		components: {
@@ -220,6 +221,7 @@
 		},
 		create() {
 			this.toScrollTop();
+			//console.log("inArray:",_this.utils.inArray('a',['a','b']));
 		},
 		mounted() {
 			let _this = this;
@@ -229,6 +231,7 @@
 			}else{
 				_this.activeName = "mineral";
 			}
+			//console.log("inArray:",_this.$utils.inArray('c',['a','b']));
 		},
 		methods: {
 			back(){
@@ -290,6 +293,13 @@
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
+						list = list.filter((item)=>{
+							let b = _this.$utils.inArray(item.fromUserId,_this.manTypeList);
+							if(b==false){
+								b = _this.$utils.inArray(item.toUserId,_this.manTypeList);
+							}
+							return b==false;
+						});
 						_this.list1.push(...list);
 						_this.loading1 = false;
 						if(res.data.endRow == res.data.total){

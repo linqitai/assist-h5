@@ -28,7 +28,7 @@
 				text-align: center;
 				font-size: 14px;
 				.ewmBox{
-					width:60%;
+					width:70%;
 				}
 				.text {
 					margin-top: 0.375rem;
@@ -47,6 +47,16 @@
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="cServiceContent">
+			<div class="cateInfo" v-if="isShowChekers">
+				<div class="infoBox">
+					<img class="ewmBox" src="../../assets/image/chekers.png">
+					<div class="text">扫码进督察组微信群</div>
+				</div>
+			</div>
+			<div>
+				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="addInCheck">申请加入HPC督察组</van-button>
+			</div>
+			<div class="placeholderLine10"></div>
 			<div class="tip4model3 textBold">有问题请先联系自己的团队长，然后团队长再联系客服，尽量减少客服的压力，感恩您的配合</div>
 			<div class="placeholderLine10"></div>
 			<!-- <div class="title">工会QQ群(没群的会员请进)：</div>
@@ -104,7 +114,7 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	import clip from '@/assets/js/clipboard';
-	// import { Dialog } from 'vant';
+	import { Dialog } from 'vant';
 	export default {
 		components: {
 			mHeader
@@ -114,18 +124,33 @@
 				serviceList:[],
 				qqList:[],
 				wxList:[],
-				qqFlock:''
+				qqFlock:'',
+				userInfo:'',
+				isShowChekers:false
 			}
 		},
 		mounted() {
 			let _this = this;
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				////console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+				_this.userId = _this.userInfo.userId;
+			}else{
+				/* localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token'); */
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
+			}
 			_this.getAdminUserPageList();
-			let qqFlock = _this.$cookies.get('qqFlock');
+			/* let qqFlock = _this.$cookies.get('qqFlock');
 			if(qqFlock){
 				_this.qqFlock = qqFlock;
 			}else{
 				_this.getAssistQQFlock();
-			}
+			} */
 		},
 		methods: {
 			back(){
@@ -135,6 +160,27 @@
 				let _this = this;
 				clip(text,event,function(res){
 					_this.$toast(`复制成功`);
+				});
+			},
+			addInCheck(){
+				let _this = this;
+				Dialog.confirm({
+				  title: '申请需知',
+				  message: '加入督查组需要个人算力大于等于1G。督察规则：若发现有会员账号异常，比如数据异常，矿石来源有出路，平台哪里有问题等，都可以上报给客服，审核有效后即可得到20个帮扶券+一台体验矿机(2个贡献值)的奖励。'
+				}).then(() => {
+				  // on confirm
+				  if(_this.userInfo.myCalculationPower>1){
+					  _this.isShowChekers = true;
+				  }else{
+					  Dialog.alert({
+					    title: '系统提示',
+					    message: '请在个人算力达到1G后再加入督察组'
+					  }).then(() => {
+					    // on close
+					  });
+				  }
+				}).catch(() => {
+				  // on cancel
 				});
 			},
 			getAdminUserPageList(){

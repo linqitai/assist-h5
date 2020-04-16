@@ -182,6 +182,7 @@
 		},
 		created() {
 			let _this = this;
+			//console.log("number:",(Number(7.12) - Number(6.11)).toFixed(2));
 			_this.tipText4AppointDeal = _this.$api.tipText4AppointDeal;
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
@@ -282,7 +283,7 @@
 					});
 					return;
 				} */
-				let leaveNum = _this.userInfo.thisWeekMineral - _this.form4AppointDeal.transferAmount;
+				let leaveNum = (Number(_this.userInfo.thisWeekMineral) - Number(_this.form4AppointDeal.transferAmount)).toFixed(2);
 				if(leaveNum<2){
 					Dialog.alert({
 					  title: '系统提示',
@@ -310,11 +311,17 @@
 						// createTime:_this.$utils.getDateTime(new Date())
 					}
 					
-					if(params.price>_this.maxPrice){
-						_this.$toast(`交易最高价暂时为${_this.maxPrice}元`);
+					if(Number(params.price)>Number(_this.maxPrice)){
+						//_this.$toast(`交易最高价暂时为${_this.maxPrice}元`);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: `交易最高价暂时为${_this.maxPrice}元`
+						}).then(() => {
+						  // on close
+						});
 						return;
 					}
-					if(_this.userInfo.thisWeekMineral<params.num){
+					if(Number(_this.userInfo.thisWeekMineral)<Number(params.num)){
 						_this.$toast('您的矿石不够');
 						return;
 					}

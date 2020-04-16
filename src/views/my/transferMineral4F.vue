@@ -318,7 +318,7 @@
 					});
 					return;
 				} */
-				let leaveNum = _this.userInfo.thisWeekMineral - _this.form4AppointDeal.transferAmount;
+				let leaveNum = (Number(_this.userInfo.thisWeekMineral) - Number(_this.form4AppointDeal.transferAmount)).toFixed(2);
 				if(leaveNum<2){
 					Dialog.alert({
 					  title: '系统提示',
@@ -347,11 +347,11 @@
 						safePassword: _this.form4AppointDeal.safePassword.replace(/ /g,""),
 						// createTime:_this.$utils.getDateTime(new Date())
 					}
-					if(params.price>_this.maxPrice){
-						_this.$toast(`交易最高价暂时为${_this.maxPrice}元`);
+					if(Number(params.price)>Number(_this.maxPrice)){
+						_this.$toast(`交易最高价暂时为${_this.maxPrice}CNY`);
 						return;
 					}
-					if(_this.userInfo.thisWeekMineral<params.num){
+					if(_this.userInfo.thisWeekMineral<Number(params.num)){
 						_this.$toast('您的矿石不够');
 						return;
 					}

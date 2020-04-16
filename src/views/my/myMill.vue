@@ -16,7 +16,8 @@
 		}
 		.millContent{
 			color: $main-box-fh-text-color;
-			min-height: 100%;
+			//min-height: 100%;
+			min-height: 1600px;
 			position: absolute;
 			top:0;
 			width: 100%;

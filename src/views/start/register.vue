@@ -288,6 +288,10 @@
 					_this.$toast('请填写完整信息');
 					return;
 				}
+				if(_this.$utils.hasVal(_this.errorHint)){
+					_this.$toast('请按要求填写信息');
+					return;
+				}
 				if(params.password != params.confirmPassword){
 					_this.$toast('2次密码不一致');
 					return;

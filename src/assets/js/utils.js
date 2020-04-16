@@ -442,6 +442,17 @@ function nextReceipt(value) {
 	return result;
 }
 
+function inArray(stringToSearch, arrayToSearch) {
+	let thisEntry;
+	for (var s = 0; s < arrayToSearch.length; s++) {
+		thisEntry = arrayToSearch[s].toString();
+		if (thisEntry == stringToSearch) {
+			return true;
+		}
+	}
+	return false;
+}
+
 export default {
 	fmoney,
 	getLetterLength,
@@ -474,4 +485,5 @@ export default {
 	splitData,
 	calculateMA,
 	nextReceipt,
+	inArray
 }

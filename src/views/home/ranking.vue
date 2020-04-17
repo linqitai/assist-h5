@@ -153,7 +153,7 @@
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
 									<!-- <div class="placeholderLine10"></div>
 									<div class="line">
 										<div>
@@ -178,7 +178,7 @@
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -196,7 +196,7 @@
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -214,7 +214,7 @@
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -232,7 +232,7 @@
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -250,7 +250,25 @@
 									<div class="name">{{index+1}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"><!-- <i class="iconfont iconfont-name"></i> --> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+								</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				
+				<van-tab title="被告次数" name="ranking7">
+					<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
+						<div class="list" v-for="(item,index) in list7" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
+							<div class="item">
+								<div class="flexLeft">
+									<div class="name">{{index+1}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
 								</div>
 								<div class="flexRight">
 									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -296,6 +314,10 @@
 				list6:[],
 				loading6:false,
 				finished6:false,
+				currentPage7: 1,
+				list7:[],
+				loading7:false,
+				finished7:false,
 				pageSize:20,
 				activeName:'ranking1',
 				showTipModel:false,
@@ -408,6 +430,39 @@
 					}else{
 						_this.loading6 = false;
 						_this.finished6 = true;
+					}
+				})
+			},
+			onLoad7(){
+				console.log('load7')
+				let _this = this;
+				// 异步更新数据
+				var params = {
+					pageNo: _this.currentPage7,
+					pageSize: _this.pageSize,
+					mobilePhone: _this.mobilePhone,
+					type:'be_complaint_times'
+				}
+				_this.loading7 = true;
+				_this.finished7 = false;
+				_this.$ajax.ajax(_this.$api.getRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						/* let list = res.data.list;
+						_this.list1.push(...list); */
+						_this.list7 = res.data.list;
+						/* _this.list7 = list7.filter((item)=>{
+							return item.actived == 1;
+						}) */
+						_this.loading7 = false;
+						_this.finished7 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished1 = true;
+						}else{
+							_this.currentPage1 = _this.currentPage1 + 1;
+						} */
+					}else{
+						_this.loading7 = false;
+						_this.finished7 = true;
 					}
 				})
 			},

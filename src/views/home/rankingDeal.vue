@@ -265,7 +265,26 @@
 					</van-list>
 				</van-tab>
 				
-				<!-- <van-tab title="被投诉次数" name="ranking6">
+				<van-tab title="个人算力" name="ranking7">
+					<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
+						<div class="list" v-for="(item,index) in list7" :key='item.id'>
+							<div class="item" @click="toMy4OtherView(item.userId)">
+								<div class="flexLeft">
+									<div class="name">{{index+1}}</div>
+								</div>
+								<div class="flex">
+									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+								</div>
+								<div class="flexRight">
+									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+								</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
+				
+				<van-tab title="被告次数" name="ranking6">
 					<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
 						<div class="list" v-for="(item,index) in list6" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
 							<div class="item">
@@ -282,7 +301,7 @@
 							</div>
 						</div>
 					</van-list>
-				</van-tab> -->
+				</van-tab>
 				
 			</van-tabs>
 		</div>
@@ -325,6 +344,10 @@
 				list6:[],
 				loading6:false,
 				finished6:false,
+				currentPage7: 1,
+				list7:[],
+				loading7:false,
+				finished7:false,
 				pageSize:30,
 				activeName:'ranking1',
 				showTipModel:false,
@@ -441,6 +464,8 @@
 					_this.onLoad5();
 				}else if(_this.activeName == 'ranking6'){
 					_this.onLoad6();
+				}else if(_this.activeName == 'ranking7'){
+					_this.onLoad7();
 				}
 			},
 			onLoad0(){
@@ -616,6 +641,35 @@
 					}else{
 						_this.loading6 = false;
 						_this.finished6 = true;
+						_this.$toast(res.message);
+					}
+				})
+			},
+			onLoad7(){
+				let _this = this;
+				// 异步更新数据
+				var params = {
+					pageNo: this.currentPage7,
+					pageSize: this.pageSize,
+					type:'my_calculation_power'
+				}
+				_this.loading7 = true;
+				_this.finished7 = false;
+				_this.$ajax.ajax(_this.$api.getServiceRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						/* let list = res.data.list;
+						_this.list5.push(...list); */
+						_this.list7 = res.data.list;
+						_this.loading7 = false;
+						_this.finished7 = true;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished4 = true;
+						}else{
+							_this.currentPage4 = _this.currentPage4 + 1;
+						} */
+					}else{
+						_this.loading7 = false;
+						_this.finished7 = true;
 						_this.$toast(res.message);
 					}
 				})

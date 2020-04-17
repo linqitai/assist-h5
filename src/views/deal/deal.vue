@@ -33,7 +33,7 @@
 		.statistics{
 			background-color: $main-box-fh-bg-color;
 			color: $main-box-fh-text-color;
-			padding: $boxPadding2;
+			padding: 0.5625rem 0.75rem;
 			// border-top: 1px solid $bottomLineColor;
 			border-bottom: 1px solid $bottomLineColor;
 			font-size: 0.75rem;

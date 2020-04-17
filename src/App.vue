@@ -180,6 +180,7 @@ b{font-weight: bold;}
 .f-14{font-size: 14px !important;}
 .f-15{font-size: 15px !important;}
 .f-16{font-size: 16px !important;}
+.f-18{font-size: 18px !important;}
 .flex-1{flex: 1;}
 .letterSpacing{letter-spacing: 1px;}
 .textIndent{text-indent: 2em;}

@@ -83,6 +83,8 @@ export default {
 	get24BuyTimes2Service: host + "assist/userInfo/get24BuyTimes2Service",
 	transferCV: host + "assist/userInfo/transferCV",
 	cancelAccount: host + "assist/userInfo/cancelAccount",
+	getUserIdByObj: host + "assist/userInfo/getUserIdByObj",
+	update4Complain: host + "assist/userInfo/update4Complain",
 	//服务商
 	getServiceUserList: host + "assist/user/getServiceUserList",
 	getServiceDsPassword: host + "assist/user/getServiceDsPassword",

@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	$cellHeight:50px;
-	.unFreeze{
+	.lookInfo{
 		font-size: 0.75rem;
 		position: fixed;
 		top: 0;
@@ -27,7 +27,7 @@
 		.van-cell,.van-cell-group{
 			background-color: inherit !important;
 		} */
-		.unFreezePage{
+		.lookInfoPage{
 			color: $mainTextColor;
 			margin-top: $headerHeight;
 			background-color: $main-box-color;
@@ -166,7 +166,7 @@
 	
 </style>
 <template>
-	<div class="unFreeze">
+	<div class="lookInfo">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
@@ -174,119 +174,12 @@
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
-		<div class="unFreezePage">
+		<div class="lookInfoPage">
 			<van-cell-group>
 				<van-field v-model="mobilePhone" clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11">
-					<van-button slot="button" size="small" color="#ffae00"  @click="getUserInfo">查询</van-button>
+					<van-button slot="button" size="small" color="#ffae00" :loading="loading" @click="getUserInfo">查询</van-button>
 				</van-field>
 			</van-cell-group>
-			<div class="placeholderLine10"></div>
-			<div v-if="thisUserInfo">
-				<div class="box box1">
-					<div class="flex flex1">
-						<div class="name">{{thisUserInfo.realName | getLastName}}</div>
-					</div>
-					<div class="flex flex2">
-						<div class="line1">
-							<div class="nick_name left">{{thisUserInfo.nickName}} </div>
-							<div class="level left margL6" v-if="thisUserInfo.manType == 2">服务商</div>
-						</div>
-						<div class="placeholderLine"></div>
-						<div class="line1">
-							<div class="level left" @click="toMyInfo">{{thisUserInfo.level | getUserType}}{{thisUserInfo.isAgent==1?'+省代理':thisUserInfo.isAgent==2?'+市代理':''}}</div>
-						</div>
-						<!-- <div class="line">
-							ID {{info.userId}}
-						</div> -->
-						<!-- <div class="line margT3">
-							注册时间 {{thisUserInfo.registerTime}}
-						</div> -->
-						<div class="line">
-							<div class="left">买入次数 {{thisUserInfo.buyTimes}}</div>
-							<div class="mlBox left">买入数量 {{thisUserInfo.buyAmount}}</div>
-						</div>
-						<div class="line">
-							<div class="left">卖出次数 {{thisUserInfo.sellTimes}}</div>
-							<div class="mlBox left">卖出数量 {{thisUserInfo.sellAmount}}</div>
-						</div>
-						<div class="line">个人限购数量 {{thisUserInfo.canBuyNum}}</div>
-						<div class="line">
-							<div class="left">直推人数 {{thisUserInfo.teamateNum}}</div>
-							<div class="mlBox left">实名人数 {{thisUserInfo.realnameNum}}</div>
-						</div>
-						<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
-					</div>
-				</div>
-				<!-- <div class="box">
-					<div class="line">
-						<div class="f-11">区块地址 {{thisUserInfo.blockAddress}}</div>
-					</div>
-				</div> -->
-				<div class="box box2">
-					<div class="flex flex1">
-						<div class="value" @click="toBookView('1',thisUserInfo.userId)">{{thisUserInfo.teamCalculationPower}}</div>
-						<div class="text">团队算力</div>
-					</div>
-					<div class="flex flex4">
-						<!-- <div>{{thisUserInfo.platformTicket}}</div> -->
-						<div class="value" @click="toBookView('2',thisUserInfo.userId)">{{thisUserInfo.platformTicket}}</div>
-						<div class="text">帮扶券</div>
-					</div>
-					<div class="flex flex3">
-						<!-- <div>{{thisUserInfo.contributionValue}}</div> -->
-						<div class="value" @click="toBookView('3',thisUserInfo.userId)">{{thisUserInfo.contributionValue}}</div>
-						<div class="text">贡献值</div>
-					</div>
-					<div class="flex flex2">
-						<!-- <div>{{thisUserInfo.thisWeekMineral}}</div> -->
-						<div class="value" @click="toBookView('4',thisUserInfo.userId)">{{thisUserInfo.thisWeekMineral}}</div>
-						<div class="text">矿石</div>
-					</div>
-				</div>
-				<div class="box box3">
-					<div class="flex flex1">
-						<div>{{thisUserInfo.myCalculationPower}}</div>
-						<!-- <NumberGrow :value="userInfo.myCalculationPower"></NumberGrow> -->
-						<div class="text">TA的算力</div>
-					</div>
-					<div class="flex flex4">
-						<div>{{thisUserInfo.temporaryFreezePlatformTicket}}</div>
-						<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
-						<div class="text">交易中<br>帮扶券</div>
-					</div>
-					<div class="flex flex3">
-						<div>{{thisUserInfo.temporaryFreezeContribution}}</div>
-						<!-- <NumberGrow :value="userInfo.temporaryFreezeContribution"></NumberGrow> -->
-						<div class="text">交易中<br>贡献值</div>
-					</div>
-					<div class="flex flex2">
-						<div>{{thisUserInfo.temporaryFreezeMineral}}</div>
-						<!-- <NumberGrow :value="userInfo.temporaryFreezeMineral"></NumberGrow> -->
-						<div class="text">交易中<br>矿石</div>
-					</div>
-				</div>
-				<div class="paddingWing">
-					<div class="placeholderLine10"></div>
-					<div class="textCenter">
-						该账户状态：{{thisUserInfo.accountStatus | accountStatus}}
-					</div>
-					<div class="textCenter margT10" v-if="userFreezeInfo">
-						被冻结原因：{{userFreezeInfo.reason}}
-					</div>
-					<div class="textCenter margT10" v-if="thisUserInfo.accountStatus == 1">
-						可否解冻：{{thisUserInfo.canUnfreeze | canUnFreeze}}
-					</div>
-					<div class="textCenter margT10" v-if="userFreezeInfo">
-						解冻所需帮扶券：{{userFreezeInfo.needTicket}}
-					</div>
-					<div class="textCenter margT10">
-						审核结果：{{thisUserInfo.actived | activedStatus}}
-					</div>
-					<div class="textCenter margT10" v-if="thisUserInfo.remark">
-						上次审核被驳回原因：{{thisUserInfo.remark}}
-					</div>
-				</div>
-			</div>
 			<div class="placeholderLine10"></div>
 		</div>
 	</div>
@@ -355,22 +248,16 @@
 					return;
 				}
 				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.getAssistUserInfoByObj, 'GET', params, function(res) {
-					console.log('getUserInfo');
+				_this.$ajax.ajax(_this.$api.getUserIdByObj, 'GET', params, function(res) {
+					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
-						_this.thisUserInfo = res.data;
-						_this.loading = false;
-						if(_this.thisUserInfo.accountStatus == 1){
-							_this.getUserFreezeInfo();
-						}
+						//_this.thisUserInfo = res.data;
+						_this.$router.push({path:"my4Other",query:{lookUserId:res.data}});
 					}else{
-						if(res.code == 4003) {
-							_this.$toast('当前用户尚未注册');
-						}else{
-							_this.$toast(res.message);
-						}
-						
+						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			getUserFreezeInfo(){

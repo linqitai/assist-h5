@@ -87,7 +87,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				交易记录
+				区块浏览器
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
@@ -251,7 +251,7 @@
 			},
 			toMy4OtherView(userId){
 				let _this = this;
-				console.log('userIdInDealRecolod:',userId);
+				//console.log('userIdInDealRecolod:',userId);
 				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
 			},
 			toBookView(val,userId){

@@ -206,11 +206,23 @@
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
-		<div class="pageContent">
+		<div v-if="!userInfo.realName">
+			<div class="placeholderLine10"></div>
+			<van-skeleton :row="20"/>
+			<div class="placeholderLine10"></div>
+		</div>
+		<div class="pageContent" v-if="userInfo.realName">
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 					<div class="name">{{userInfo.realName | getLastName}}</div>
+					<!-- <span>点赞</span> -->
+					<!-- <div class="textCenter margT10 f-18">
+						<i class="iconfont iconfont-good"></i>
+					</div> -->
+					<div class="textCenter margT10">
+						<i class="iconfont iconfont-complaint f-18" @click="complainBtn"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
+					</div>
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
@@ -285,6 +297,24 @@
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
+			<div class="paddingWing f-11">
+				<div class="placeholderLine10"></div>
+				<div class="textCenter">
+					该账户状态：{{userInfo.accountStatus | accountStatus}}
+				</div>
+				<div class="textCenter margT10" v-if="userFreezeInfo">
+					被冻结原因：{{userInfo.reason}}
+				</div>
+				<div class="textCenter margT10" v-if="userInfo.accountStatus == 1">
+					可否解冻：{{userInfo.canUnfreeze | canUnFreeze}}
+				</div>
+				<div class="textCenter margT10">
+					审核结果：{{userInfo.actived | activedStatus}}
+				</div>
+				<div class="textCenter margT10" v-if="userInfo.accountStatus==1">
+					上次审核被驳回原因：{{userInfo.remark}}
+				</div>
+			</div>
 		</div>
 		<!-- <transition name="van-fade">
 		  <router-view></router-view>
@@ -315,7 +345,8 @@
 				},
 				cookiesTime:60 * 60 * 24,
 				cityInfo:'',
-				dsPassword:''
+				dsPassword:'',
+				userFreezeInfo:''
 			}
 		},
 		components: {
@@ -337,9 +368,9 @@
 				}
 			}, */
 		},
-		created() {
+		mounted() {
 			let _this = this;
-			console.log('userId:',_this.$route.query.lookUserId)
+			//console.log('userId:',_this.$route.query.lookUserId)
 			_this.getUserInfo4Other();
 		},
 		methods: {
@@ -380,6 +411,35 @@
 				_this.showSendSMSTipModel = false;
 				clip(text,event,function(res){
 					_this.$toast(`复制成功`);
+				});
+			},
+			complainBtn(){
+				let _this = this;
+				// _this.showBuyDetailModel = false;
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  message: '为了提高告发他人的质量，告发他人的时候原告的个人算力需达到0.4G，且需花0.2个帮扶券，请确认是否真的要告发TA？'
+				}).then(() => {
+				  // on confirm
+				  //这里调用让对方上传截图接口
+				  let params = {
+					/* userId:  _this.userId, */
+					otherUserId: _this.userInfo.userId
+				  }
+				  //console.log('params',params)
+				  _this.$ajax.ajax(_this.$api.update4Complain, 'POST', params, function(res) {
+				  	// //console.log('res', res);
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		_this.$toast('告发成功');
+						_this.getUserInfo4Other();
+				  	}else{
+						_this.$toast(res.message);
+					}
+				  })
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
 				});
 			},
 			getServiceDsPassword(){
@@ -504,6 +564,9 @@
 						if(_this.userInfo.isAgent==2){
 							_this.getAssistAgentInfo4City();
 						} */
+						if(_this.userInfo.accountStatus == 1){
+							_this.getUserFreezeInfo();
+						}
 					}else{
 						if(res.code == 4003) {
 							_this.$toast('当前用户尚未注册');
@@ -511,6 +574,16 @@
 							_this.$toast(res.message);
 						}
 						
+					}
+				})
+			},
+			getUserFreezeInfo(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getAssistUserFreeze + _this.userInfo.userId, 'GET', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
+						_this.userFreezeInfo = res.data;
+					}else{
+						_this.$toast(res.message);
 					}
 				})
 			},

@@ -79,14 +79,14 @@
 			<div class="header">
 				<div class="leftBox">
 					<i class="iconfont iconfont-record f-16" v-if="$route.meta.showMillRecordIcon" @click="toView('millRecord')"></i>
-					<i class="iconfont iconfont-record f-16" v-if="$route.meta.showRecordIcon" @click="toView('dealRecord')"></i>
+					<i class="iconfont iconfont-lookDealRecord f-16" v-if="$route.meta.showRecordIcon" @click="toView('dealRecord')"></i>
 					<i class="iconfont iconfont-left-arrow f-12" v-if="$route.meta.back" @click="back"></i>
 				</div>
 				<div class="centerBox">
 					{{$route.name}}
 				</div>
 				<div class="rightBox">
-					<i class="iconfont iconfont-question icon" v-if="$route.meta.question" @click="showTip($route.meta.questionName)"></i>
+					<i class="iconfont iconfont-question f-18" v-if="$route.meta.question" @click="showTip($route.meta.questionName)"></i>
 				</div>
 			</div>
 			<div class="body">

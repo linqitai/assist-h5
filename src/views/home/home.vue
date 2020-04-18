@@ -466,7 +466,12 @@ $noticeHeight:40px;
 					<van-notice-bar :text="lastNoticeItem.noticeTitle" left-icon="volume-o" @click="toNoticeDetail(lastNoticeItem)" />
 					<!-- <van-notice-bar :text="qqFlock" left-icon="volume-o" @click="toServicePage"/> -->
 				</div>
-				<div class="millInfo">
+				<div class="millInfo" v-if="!statistics.allMineralNum">
+					<div class="placeholderLine10"></div>
+					<van-skeleton :row="4"/>
+					<div class="placeholderLine10"></div>
+				</div>
+				<div class="millInfo" v-if="statistics.allMineralNum">
 					<div class="infoBox">
 						<div class="amount">{{ statistics.allMineralNum || 0 }}</div>
 						<div class="margT6">矿石总量</div>
@@ -484,7 +489,7 @@ $noticeHeight:40px;
 						<div class="margT6">销毁数量</div>
 					</div>
 				</div>
-				<div class="millInfo">
+				<div class="millInfo" v-if="statistics.allMineralNum">
 					<div class="infoBox">
 						<div class="amount">{{ statistics.awardNum || 0 }}</div>
 						<div class="margT6">奖励分红出去的数量</div>

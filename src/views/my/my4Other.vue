@@ -220,9 +220,9 @@
 					<!-- <div class="textCenter margT10 f-18">
 						<i class="iconfont iconfont-good"></i>
 					</div> -->
-					<div class="textCenter margT10">
+					<!-- <div class="textCenter margT10">
 						<i class="iconfont iconfont-complaint f-18" @click="complainBtn"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
-					</div>
+					</div> -->
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
@@ -311,7 +311,7 @@
 				<div class="textCenter margT10">
 					审核结果：{{userInfo.actived | activedStatus}}
 				</div>
-				<div class="textCenter margT10" v-if="userInfo.accountStatus==1">
+				<div class="textCenter margT10" v-if="userInfo.actived==2">
 					上次审核被驳回原因：{{userInfo.remark}}
 				</div>
 			</div>

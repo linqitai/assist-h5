@@ -342,17 +342,17 @@
 						_this.$toast('请按要求填写信息');
 						return;
 					}
-					if(_this.userInfo.manType==1){
-						if(_this.userInfo.realnameNum<30||_this.userInfo.teamCalculationPower<30||_this.userInfo.buyAmount<300){
-							Dialog.alert({
-							  title: '系统提示',
-							  message: _this.$api.manType1Tip
-							}).then(() => {
-							  // on close
-							});
-							return;
-						}
-					}
+					// if(_this.userInfo.manType==1){
+					// 	if(_this.userInfo.realnameNum<30||_this.userInfo.teamCalculationPower<30||_this.userInfo.buyAmount<300){
+					// 		Dialog.alert({
+					// 		  title: '系统提示',
+					// 		  message: _this.$api.manType1Tip
+					// 		}).then(() => {
+					// 		  // on close
+					// 		});
+					// 		return;
+					// 	}
+					// }
 					params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 					_this.loading = true;
 					_this.$ajax.ajax(_this.$api.insertTransaction4LevelTeamBill, 'POST', params, function(res) {

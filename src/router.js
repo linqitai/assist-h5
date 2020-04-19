@@ -151,6 +151,17 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
+							path: '/myComplain',
+							name: '我要诉讼',
+							component: resolve => require(['./views/my/myComplain'],resolve),
+							meta:{footer:false},
+						},
+						{
+							path: '/lookComplainList',
+							name: '控告列表',
+							component: resolve => require(['./views/my/lookComplainList'],resolve),
+						},
+						{
 							path: '/myWord',
 							name: '我要留言',
 							component: resolve => require(['./views/my/myWord'],resolve),

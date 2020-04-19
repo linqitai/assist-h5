@@ -284,7 +284,7 @@
 					</van-list>
 				</van-tab>
 				
-				<!-- <van-tab title="被告次数" name="ranking6">
+				<van-tab title="被告次数" name="ranking6">
 					<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
 						<div class="list" v-for="(item,index) in list6" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
 							<div class="item">
@@ -301,7 +301,7 @@
 							</div>
 						</div>
 					</van-list>
-				</van-tab> -->
+				</van-tab>
 				
 			</van-tabs>
 		</div>

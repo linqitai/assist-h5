@@ -11,7 +11,7 @@
 		.title{
 			font-size: $fs-title;
 			text-align: center;
-			line-height: 2em;
+			line-height: 1.3em;
 			font-weight:bold;
 		}
 		.line{

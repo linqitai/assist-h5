@@ -25,14 +25,18 @@
 					.title{
 						width: 100%;
 						font-size: 14px;
-						line-height:1.3em;
 						color: $mainTextColor2;
+					}
+					.remark{
+						width: 100%;
+						font-size: 12px;
+						color: $mainTextColor;
+						line-height: 1.3em;
 					}
 					.time{
 						font-size: 0.875rem;
 						color: $grayDarker;
 						// margin-top: 0.5rem;
-						line-height:1.3em;
 					}
 					.iconfont-right-arrow{
 						font-size: 10px !important;
@@ -67,19 +71,17 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				留言列表
+				诉讼列表
 			</div>
-			<i class="rightBox icon"></i>
+			<i class="iconfont iconfont-edit rightBox icon" @click="toComplainView"></i>
 		</m-header>
-		<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="getWordList">
+		<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了">
 			<div class="wordList">
-				<div class="item" v-for="item in list1" :key="item.id" @click="toWordDetail(item)">
+				<div class="item" v-for="item in list1" :key="item.id">
 					<div class="itemLeft">
-						<div class="title">{{item.messageTitle}}</div>
-						<div class="time">{{item.createTime}}</div>
-					</div>
-					<div class="itemRight">
-						<span class="statusText" :class="getColor(item.status)">{{item.status | filterStatus}}</span><i class="iconfont iconfont-right-arrow2"></i>
+						<div class="title">匿名 <span :class="item.type==0?'red':'green'">{{item.type==0?'控告':'辩护'}}</span></div>
+						<div class="remark margT3">{{item.remark}}</div>
+						<div class="time margT3">{{item.createTime}}</div>
 					</div>
 				</div>
 			</div>
@@ -115,7 +117,7 @@
 				return result;
 			}
 		},
-		mounted() {
+		created() {
 			let _this = this;
 			_this.userId = _this.$cookies.get('userId');
 			if(_this.$utils.isNUll(_this.userId)){
@@ -123,7 +125,7 @@
 				_this.$router.replace('login');
 				return;
 			}
-			// _this.getWordList();
+			_this.getAssistComplainListPage();
 		},
 		methods: {
 			back(){
@@ -132,24 +134,24 @@
 			getColor(status) {
 				return status == "0" ? "" : status == "1" ? "green_text" : "";
 			},
-			toWordDetail(item) {
+			toComplainView(){
 				let _this = this;
 				_this.$router.push({
-					path: `/myWordDetail`,
-					query: {
-						id: item.id
+					path: `/myComplain`,
+					query:{
+						targetUserId:_this.$route.query.targetUserId
 					}
 				});
 			},
-			getWordList() {
+			getAssistComplainListPage() {
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
-					// userId: _this.userId
+					targetUserId: _this.$route.query.targetUserId
 				}
-				_this.$ajax.ajax(_this.$api.getAssistMessageBoardPageList, 'GET', params, function(res) {
-					console.log('res', res);
+				_this.$ajax.ajax(_this.$api.getAssistComplainListPage, 'GET', params, function(res) {
+					//console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list1.push(...list);

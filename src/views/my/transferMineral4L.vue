@@ -90,7 +90,7 @@
 				<van-field v-model="curerntPlatformPrice" required disabled label="指导单价"/>
 				<van-field v-model="getGuidancePrice" required disabled label="指导总价"/>
 				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
-				<van-field v-model="getAssurePrice" required clearable label="转让总价" placeholder="请先填写转让单价" @blur="validate4AppointDeal('assurePrice')" :error-message="errorInfo4AppointDeal.assurePrice"/>
+				<van-field v-model="getAssurePrice" required clearable label="转让总价" placeholder="请先填写转让单价"/>
 				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请填写直推的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
 				<!-- <van-field v-model="form4AppointDeal.agentPhone" required clearable label="担保代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone"> -->
 					<!-- <van-button slot="button" size="small" type="primary">自动分配</van-button> -->
@@ -175,7 +175,7 @@
 			},
 			getAssurePrice () {
 				let _this = this;
-				let assurePrice = _this.form4AppointDeal.transferAmount * _this.form4AppointDeal.price;
+				let assurePrice = Number(_this.form4AppointDeal.transferAmount) * Number(_this.form4AppointDeal.price);
 				_this.form4AppointDeal.assurePrice = assurePrice.toFixed(2);
 				return _this.form4AppointDeal.assurePrice;
 			},

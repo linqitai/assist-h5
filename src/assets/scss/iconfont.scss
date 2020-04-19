@@ -1,17 +1,21 @@
 /* 引入第三方或自定义的字体图标样式 */
 @font-face {
   font-family: 'iconfont';  /* project id 1410914 */
-  src: url('//at.alicdn.com/t/font_1410914_lnwqu0kl5am.eot');
-  src: url('//at.alicdn.com/t/font_1410914_lnwqu0kl5am.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1410914_lnwqu0kl5am.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1410914_lnwqu0kl5am.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1410914_lnwqu0kl5am.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1410914_lnwqu0kl5am.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_1410914_9cfrzzxk5s.eot');
+  src: url('//at.alicdn.com/t/font_1410914_9cfrzzxk5s.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1410914_9cfrzzxk5s.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1410914_9cfrzzxk5s.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1410914_9cfrzzxk5s.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1410914_9cfrzzxk5s.svg#iconfont') format('svg');
 }
 
 .iconfont {
   font-family: 'iconfont';
   font-style: normal !important;
+}
+
+.iconfont-edit::before {
+  content: '\e61b';
 }
 
 .iconfont-complaint::before {

@@ -206,12 +206,12 @@
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
-		<div v-if="!userInfo.realName">
+		<div v-if="!userInfo.userId">
 			<div class="placeholderLine10"></div>
 			<van-skeleton :row="20"/>
 			<div class="placeholderLine10"></div>
 		</div>
-		<div class="pageContent" v-if="userInfo.realName">
+		<div class="pageContent" v-if="userInfo.userId">
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
@@ -220,9 +220,9 @@
 					<!-- <div class="textCenter margT10 f-18">
 						<i class="iconfont iconfont-good"></i>
 					</div> -->
-					<!-- <div class="textCenter margT10">
-						<i class="iconfont iconfont-complaint f-18" @click="complainBtn"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
-					</div> -->
+					<div class="textCenter margT10">
+						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
+					</div>
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
@@ -413,25 +413,30 @@
 					_this.$toast(`复制成功`);
 				});
 			},
+			toComplainView(userId){
+				let _this = this;
+				////console.log('userIdInDealRecolod:',userId);
+				_this.$router.push({path:"lookComplainList",query:{targetUserId:userId}});
+			},
 			complainBtn(){
 				let _this = this;
 				// _this.showBuyDetailModel = false;
 				Dialog.confirm({
 				  title: '提示信息',
 				  confirmButtonText:'确定',
-				  message: '为了提高告发他人的质量，告发他人的时候原告的个人算力需达到0.4G，且需花0.2个帮扶券，请确认是否真的要告发TA？'
+				  message: '为了提高告发他人的质量，控告他人的时候原告的个人算力需达到0.4G，且需花0.2个帮扶券，请确认是否真的要控告TA？'
 				}).then(() => {
 				  // on confirm
 				  //这里调用让对方上传截图接口
 				  let params = {
 					/* userId:  _this.userId, */
-					otherUserId: _this.userInfo.userId
+					targetUserId:_this.$route.query.targetUserId
 				  }
 				  //console.log('params',params)
 				  _this.$ajax.ajax(_this.$api.update4Complain, 'POST', params, function(res) {
 				  	// //console.log('res', res);
 				  	if (res.code == _this.$api.CODE_OK) {
-				  		_this.$toast('告发成功');
+				  		_this.$toast('控告成功');
 						_this.getUserInfo4Other();
 				  	}else{
 						_this.$toast(res.message);

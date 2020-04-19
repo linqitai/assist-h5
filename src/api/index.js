@@ -208,8 +208,12 @@ export default {
 	//parameterInfo
 	getAssistMaintainInfo: host + "assist/parameter/getAssistMaintainInfo",
 	getAssistQQFlock: host + "assist/parameter/getAssistQQFlock",
+	getAssistParameter4Web: host + "assist/parameter/getAssistParameter4Web",
 	//auction
 	getCurrentAuction: host + "assist/auction/getCurrentAuction",
 	insertAuctionBook: host + "assist/auction/insertAuctionBook",
 	getAssistAuctionBookPageList: host + "assist/auction/getAssistAuctionBookPageList",
+	//complain
+	insertAssistComplain: host + "assist/complain/insertAssistComplain",
+	getAssistComplainListPage: host + "assist/complain/getAssistComplainListPage"
 }

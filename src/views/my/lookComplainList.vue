@@ -75,7 +75,7 @@
 			</div>
 			<i class="iconfont iconfont-edit rightBox icon" @click="toComplainView"></i>
 		</m-header>
-		<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了">
+		<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="getAssistComplainListPage">
 			<div class="wordList">
 				<div class="item" v-for="item in list1" :key="item.id">
 					<div class="itemLeft">
@@ -125,7 +125,7 @@
 				_this.$router.replace('login');
 				return;
 			}
-			_this.getAssistComplainListPage();
+			//_this.getAssistComplainListPage();
 		},
 		methods: {
 			back(){

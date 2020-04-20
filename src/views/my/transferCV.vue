@@ -118,12 +118,10 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	import { Dialog } from 'vant';
-	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
 		data() {
 			return {
 				showTipModel:false,
-				//定向交易
 				form4AppointDeal:{
 					transferAmount:'',
 					mobilePhone:"",

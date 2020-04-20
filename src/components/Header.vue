@@ -30,7 +30,7 @@
 	  // height: $header-height;
 	  // line-height: $header-height;
 	  .leftBox{
-			flex: 0 0 70px;
+			flex: 0 0 40px;
 			color: $main-box-fh-text-color;
 			font-size: 0.75rem;
 	  }
@@ -41,7 +41,7 @@
 		  color:$main-box-fh-text-color;
 	  }
 	  .rightBox{
-			flex: 0 0 70px;
+			flex: 0 0 40px;
 			text-align: right;
 			&.text{
 				color: $main-adorn-color;

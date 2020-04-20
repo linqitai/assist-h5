@@ -583,7 +583,7 @@
 		},
 		created() {
 			let _this = this;
-			
+			//console.log("addNum:" + (7%10)/20);
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				////console.log("userInfo_localStorage");

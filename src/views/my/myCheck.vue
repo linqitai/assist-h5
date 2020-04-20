@@ -76,7 +76,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				待审核数 {{checkCount}}
+				目前有{{checkCount}}人尚未被审核
 			</div>
 			<i class="iconfont iconfont-question rightBox icon" @click="showTipModel = true"></i>
 		</m-header>

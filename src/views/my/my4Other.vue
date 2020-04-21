@@ -302,17 +302,20 @@
 				<div class="textCenter">
 					该账户状态：{{userInfo.accountStatus | accountStatus}}
 				</div>
-				<div class="textCenter margT10" v-if="userFreezeInfo">
-					被冻结原因：{{userInfo.reason}}
+				<div class="textCenter margT6 em13" v-if="userFreezeInfo">
+					被冻结原因：{{userFreezeInfo.reason}}
 				</div>
-				<div class="textCenter margT10" v-if="userInfo.accountStatus == 1">
+				<div class="textCenter margT6" v-if="userInfo.accountStatus == 1">
 					可否解冻：{{userInfo.canUnfreeze | canUnFreeze}}
 				</div>
-				<div class="textCenter margT10">
+				<div class="textCenter margT6">
 					审核结果：{{userInfo.actived | activedStatus}}
 				</div>
-				<div class="textCenter margT10" v-if="userInfo.actived==2">
-					上次审核被驳回原因：{{userInfo.remark}}
+				<div class="textCenter margT6 em13" v-if="userInfo.actived==2">
+					上次审核被驳回原因：{{userInfo.remark}}<br>
+				</div>
+				<div class="textCenter margT6" v-if="cheker">
+					审核者：{{cheker}}
 				</div>
 			</div>
 		</div>
@@ -346,7 +349,8 @@
 				cookiesTime:60 * 60 * 24,
 				cityInfo:'',
 				dsPassword:'',
-				userFreezeInfo:''
+				userFreezeInfo:'',
+				cheker:''
 			}
 		},
 		components: {
@@ -572,6 +576,9 @@
 						if(_this.userInfo.accountStatus == 1){
 							_this.getUserFreezeInfo();
 						}
+						if(_this.userInfo.actived == 2){
+							_this.getNickNameByUserId();
+						}
 					}else{
 						if(res.code == 4003) {
 							_this.$toast('当前用户尚未注册');
@@ -587,6 +594,20 @@
 				_this.$ajax.ajax(_this.$api.getAssistUserFreeze + _this.userInfo.userId, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						_this.userFreezeInfo = res.data;
+					}else{
+						_this.$toast(res.message);
+					}
+				})
+			},
+			getNickNameByUserId(){
+				let _this = this;
+				let params = {
+					lookUserId: _this.userInfo.checkerId
+				}
+				console.log("params",params);
+				_this.$ajax.ajax(_this.$api.getNickNameByUserId, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
+						_this.cheker = res.data;
 					}else{
 						_this.$toast(res.message);
 					}

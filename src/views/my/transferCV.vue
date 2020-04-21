@@ -82,7 +82,7 @@
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
-		<div class="transferPageCV">
+		<div class="transferPageCV" v-if="userInfo.contributionValue">
 			<div class="placeholderLine10"></div>
 			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
 			<div class="paddingWing tip4model3">当前拥有 贡献值 {{userInfo.contributionValue.toFixed(2)}} 个</div>
@@ -221,6 +221,15 @@
 				  if(_this.$utils.hasVal(_this.errorInfo4AppointDeal)){
 				  	_this.$toast('请按要求填写信息');
 				  	return;
+				  }
+				  if(_this.userInfo.myCalculationPower<3.0||_this.userInfo.teamCalculationPower<30.0||_this.userInfo.buyAmount<100.0){
+					  Dialog.alert({
+					    title: '系统提示',
+					    message: '代理转让贡献值需要满足个人算力大于等于3G，团队算力大于等于30G，且买入矿石数量大于等于100个'
+					  }).then(() => {
+					    // on close
+					  });
+					  return;
 				  }
 				  params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 				  _this.loading = true;

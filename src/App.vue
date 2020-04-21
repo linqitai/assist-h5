@@ -115,6 +115,7 @@ b{font-weight: bold;}
 .borderBottom{border-bottom: 1px solid $mainBorderColor;}
 .unSelect{user-select: none;}
 .justify{text-align: justify;}
+.em13{line-height: 1.3em;}
 .red{color: red;}
 .ellipsis{
   overflow: hidden;  /*溢出隐藏*/

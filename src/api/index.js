@@ -50,6 +50,7 @@ export default {
 	register: host + 'assist/register/register',
 	innerRegister: host + 'assist/register/innerRegister',
 	//用户信息
+	getNickNameByUserId: host + 'assist/userInfo/getNickNameByUserId',
 	getAssistAgentInfo4Province: host + 'assist/userInfo/getAssistAgentInfo4Province',
 	getAssistAgentInfo4City: host + 'assist/userInfo/getAssistAgentInfo4City',
 	getAssistUserInfo: host + 'assist/userInfo/getAssistUserInfo',

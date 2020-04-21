@@ -66,7 +66,7 @@
 						}
 					}
 					.flexRight{
-						flex: 0 0 120px;
+						flex: 0 0 100px;
 						text-align: right;
 						font-size: $fs-11;
 					}

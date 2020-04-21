@@ -271,19 +271,19 @@
 						该账户状态：{{thisUserInfo.accountStatus | accountStatus}}
 						<!-- 可否解冻：{{thisUserInfo.canUnfreeze | canUnFreeze}} -->
 					</div>
-					<div class="textCenter margT10" v-if="userFreezeInfo">
+					<div class="textCenter margT6 em13" v-if="userFreezeInfo">
 						被冻结原因：{{userFreezeInfo.reason}}
 					</div>
-					<div class="textCenter margT10" v-if="thisUserInfo.accountStatus == 1">
+					<div class="textCenter margT6" v-if="thisUserInfo.accountStatus == 1">
 						可否解冻：{{thisUserInfo.canUnfreeze | canUnFreeze}}
 					</div>
-					<div class="textCenter margT10" v-if="userFreezeInfo">
+					<div class="textCenter margT6" v-if="userFreezeInfo">
 						解冻所需帮扶券：{{userFreezeInfo.needTicket}}
 					</div>
-					<div class="textCenter margT10">
+					<div class="textCenter margT6">
 						审核结果：{{thisUserInfo.actived | activedStatus}}
 					</div>
-					<div class="textCenter margT10" v-if="thisUserInfo.remark">
+					<div class="textCenter margT6 em13" v-if="thisUserInfo.remark">
 						上次审核被驳回原因：{{thisUserInfo.remark}}
 					</div>
 				</div>
@@ -433,27 +433,36 @@
 				})
 			},
 			submit(){
-				console.log("submit");
 				let _this = this;
-				let params = {
-					unFreezeUserId: _this.thisUserInfo.userId
-				}
-				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.unFreeze, 'POST', params, function(res) {
-					_this.loading = false;
-					if (res.code == _this.$api.CODE_OK) {
-						_this.$toast('解冻成功');
-						_this.getUserInfo();
-						_this.userFreezeInfo = "";
-					}else{
-						Dialog.alert({
-						  title: '系统提示',
-						  message: res.message
-						}).then(() => {
-						  // on close
-						});
-					}
-				})
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  message: `请确认是否要给对方解冻？`
+				}).then(() => {
+				  // on confirm
+				  let params = {
+				  	unFreezeUserId: _this.thisUserInfo.userId
+				  }
+				  _this.loading = true;
+				  _this.$ajax.ajax(_this.$api.unFreeze, 'POST', params, function(res) {
+				  	_this.loading = false;
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		_this.$toast('解冻成功');
+				  		_this.getUserInfo();
+				  		_this.userFreezeInfo = "";
+				  	}else{
+				  		Dialog.alert({
+				  		  title: '系统提示',
+				  		  message: res.message
+				  		}).then(() => {
+				  		  // on close
+				  		});
+				  	}
+				  })
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
+				});
 			},
 		}
 	}

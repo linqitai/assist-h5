@@ -576,14 +576,24 @@ $noticeHeight:40px;
 							<div class="text">客服</div>
 						</router-link>
 					</div>
-					<div class="infoBox" @click="waiting">
+					<div class="infoBox">
+						<router-link to="/raise">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundRaise">
+									<van-icon class-prefix="iconfont" name="love2" />
+								</div>
+							</div>
+							<div class="text">水滴帮扶筹</div>
+						</router-link>
+					</div>
+					<!-- <div class="infoBox" @click="waiting">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundRaise">
 								<van-icon class-prefix="iconfont" name="love2" />
 							</div>
 						</div>
 						<div class="text">水滴帮扶筹</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="noticeFlag paddingWing margT8">
 					<div class="title">历史公告</div>

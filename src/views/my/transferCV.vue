@@ -100,7 +100,8 @@
 			<div class="paddingWing tip4model3">
 				<b class="textBold">定向转让贡献值的规则：</b><br>
 				1.定向转让贡献值暂时只对服务商和代理开放。<br>
-				2.定向转让贡献值暂时不收手续费。<br>
+				2.代理转让贡献值的条件：个人算力需要大于等于3G，团队算力大于等于30G，买入矿石数量大于等于100个。<br>
+				3.定向转让贡献值暂时不收手续费。<br>
 			</div>
 			<div class="sureBtn">
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>

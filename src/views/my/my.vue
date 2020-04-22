@@ -510,9 +510,9 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="paddingAll">
+			<!-- <div class="paddingAll">
 				<van-button color="#c7c7c7" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户(暂对尚未实名的用户开放)</van-button>
-			</div>
+			</div> -->
 			
 			<!-- <div class="items">
 				<div class="my-cell" @click="cancelAccount">

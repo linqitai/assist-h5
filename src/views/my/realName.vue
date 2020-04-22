@@ -214,7 +214,7 @@
 		  	<img class="selectedImg" :src="pic2"/>
 		  </div>
 		<div class="line tip4modelRedText">
-			注意：1.若提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。2.年龄范围需在18~70周岁，否者实名审核可能通过不了。
+			注意：1.若提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。2.年龄范围需在18~70岁，否者实名审核可能通过不了。
 		</div> 
 		<div class="line">
 			<span class="label">身份证正面照片</span>
@@ -242,10 +242,10 @@
 				<b class="textBold">若遇到支付宝截图可以上传，证件照片却上传不了的解决办法：</b><br>
 				1、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
 				<div class="placeholderLine4"></div>
-				<b class="textBold">若遇到无法提交实名的解决办法：</b><br>
+				<b class="textBold">若遇到无法提交实名或提示区块拥堵的解决办法：</b><br>
 				1、更换浏览器，谷歌、UC浏览器优先。<br>
 				2、把证件照片裁剪得尽可能小一点。<br>
-				3、借用家人其他牌子的手机提交实名。<br>
+				3、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
 			</div>
 			<div class="placeholderLine4"></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitRealNameLoding" @click="submitRealNameBtn">提 交</van-button>
@@ -410,7 +410,6 @@ export default {
 				}
 			})
 		},
-		
 		uploadIMG(e) {
 			let _this = this;
 			
@@ -444,11 +443,11 @@ export default {
 			//判断支不支持FileReader
 			if (!file || !window.FileReader) return false;
 			if (/^image/.test(file.type)) {
-			  //创建一个reader
-			  EXIF.getData(file, function() {
-			      EXIF.getAllTags(this);   
-			      Orientation = EXIF.getTag(this, 'Orientation');  
-			  });  
+				EXIF.getData(file, function() {
+					EXIF.getAllTags(this);   
+					Orientation = EXIF.getTag(this, 'Orientation');  
+				});  
+			  //创建一个reader  
 			  let reader = new FileReader();
 			  //将图片转成base64格式
 			  reader.readAsDataURL(file);
@@ -466,37 +465,37 @@ export default {
 				    let ctx = canvas.getContext("2d");
 				    canvas.width = expectWidth;
 				    canvas.height = expectHeight;
-				    //如果方向角不为1，都需要进行旋转 
-				    if(Orientation && Orientation != "" && Orientation != 1){  
-				        let degree=0;
-				        switch(Orientation){
-				            case 6://需要顺时针（向左）90度旋转  
-				                degree=90;
-				                canvas.width = expectHeight;
-				                canvas.height = expectWidth;
-				                ctx.translate(expectHeight / 2,expectWidth / 2);
-				                ctx.rotate(degree * Math.PI / 180);
-				                ctx.translate(-expectWidth / 2,-expectHeight / 2);
-				                ctx.drawImage(image,0,0,expectWidth,expectHeight);
-				                break;
-				            case 8://需要逆时针（向右）90度旋转
-				                degree=-90;
-				                canvas.width = expectHeight;
-				                canvas.height = expectWidth;
-				                ctx.translate(expectHeight / 2,expectWidth / 2);
-				                ctx.rotate(degree * Math.PI / 180);
-				                ctx.translate(-expectWidth / 2,-expectHeight / 2);
-				                ctx.drawImage(image,0,0,expectWidth,expectHeight);
-				                break;
-				            case 3://需要180度旋转  
-				                degree=-180;
-				                ctx.rotate(degree * Math.PI / 180);
-				                ctx.drawImage(image,-expectWidth,-expectHeight,expectWidth,expectHeight);
-				                break;
-				        }         
-				    }else{
-				        ctx.drawImage(image,0,0,expectWidth,expectHeight);
-				    }
+					//如果方向角不为1，都需要进行旋转
+					if(Orientation && Orientation != "" && Orientation != 1){  
+					    let degree=0;
+					    switch(Orientation){
+					        case 6://需要顺时针（向左）90度旋转  
+					            degree=90;
+					            canvas.width = expectHeight;
+					            canvas.height = expectWidth;
+					            ctx.translate(expectHeight / 2,expectWidth / 2);
+					            ctx.rotate(degree * Math.PI / 180);
+					            ctx.translate(-expectWidth / 2,-expectHeight / 2);
+					            ctx.drawImage(image,0,0,expectWidth,expectHeight);
+					            break;
+					        case 8://需要逆时针（向右）90度旋转
+					            degree=-90;
+					            canvas.width = expectHeight;
+					            canvas.height = expectWidth;
+					            ctx.translate(expectHeight / 2,expectWidth / 2);
+					            ctx.rotate(degree * Math.PI / 180);
+					            ctx.translate(-expectWidth / 2,-expectHeight / 2);
+					            ctx.drawImage(image,0,0,expectWidth,expectHeight);
+					            break;
+					        case 3://需要180度旋转  
+					            degree=-180;
+					            ctx.rotate(degree * Math.PI / 180);
+					            ctx.drawImage(image,-expectWidth,-expectHeight,expectWidth,expectHeight);
+					            break;
+					    }         
+					}else{
+					    ctx.drawImage(image,0,0,expectWidth,expectHeight);
+					}
 				    let dataOri = canvas.toDataURL("image/png");
 					let img = new Image();
 					img.src = dataOri;//base64

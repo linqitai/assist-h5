@@ -343,7 +343,7 @@
 			<!-- <div class="rightBox unSelect"><van-tag plain type="success">个人求助</van-tag></div> -->
 		</div>
 		<div class="content1">
-			<div class="title">爱心接力! 救救孩子，太可伶了！这是测试数据！</div>
+			<div class="title">爱心接力! 救救孩子，太可怜了！这是测试数据！</div>
 			<div class="box box2">
 				<van-skeleton :row="2" :loading="loading">
 				<div class="flexC flex1">
@@ -538,12 +538,12 @@
 			},
 			onLoadRecordsList() {
 				let _this = this;
-			  // 异步更新数据
-			  setTimeout(() => {
-				// 加载状态结束
-				_this.loadingRecordsList = false;
-				_this.finishedRecordsList = true;
-			  }, 500);
+				// 异步更新数据
+				setTimeout(() => {
+					// 加载状态结束
+					_this.loadingRecordsList = false;
+					_this.finishedRecordsList = true;
+				}, 500);
 			},
 			imagePreviewEvent(index){
 				this.showImagePreview = true;
@@ -555,7 +555,7 @@
 			messageAlert(){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: '为了保证赠与人的每一个帮扶券都能全额给付求助者，HPC帮扶链平台不收取任何手续费。帮扶券的成本价为0.7CNY一张，筹到多少，兑现多少，不让任何一份爱心流失。帮扶券：平台到客服0.7CNY，客服到省代理或服务商0.8CNY，省代理到市代理0.9CNY，市代理到会员1CNY。'
+				  message: '为了保证赠与人的每一个帮扶券都能全额给付求助者，HPC帮扶链平台不收取任何手续费。帮扶券的成本价为0.7CNY一张，筹到多少，兑现多少，不让任何一份爱心流失。帮扶券：成本价0.7CNY，求助者筹到多少，就平台就以0.7CNY的价格向TA购买。'
 				}).then(() => {
 				  // on close
 				});

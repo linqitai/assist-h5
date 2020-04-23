@@ -223,10 +223,10 @@
 				  	_this.$toast('请按要求填写信息');
 				  	return;
 				  }
-				  if(_this.userInfo.myCalculationPower<3.0||_this.userInfo.teamCalculationPower<30.0||_this.userInfo.buyAmount<100.0){
+				  if(_this.userInfo.isAgent<=0&&_this.userInfo.manType<2){
 					  Dialog.alert({
 					    title: '系统提示',
-					    message: '代理转让贡献值需要满足个人算力大于等于3G，团队算力大于等于30G，且买入矿石数量大于等于100个'
+					    message: '您暂无转让贡献值的权限'
 					  }).then(() => {
 					    // on close
 					  });

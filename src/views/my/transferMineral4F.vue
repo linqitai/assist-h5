@@ -162,7 +162,8 @@
 				curerntPlatformPrice:'',
 				tipText4AppointDeal:'',
 				guidancePrice:'',
-				buyerBuyTimes:0
+				buyerBuyTimes:0,
+				buyerBuyCount:0
 			}
 		},
 		components: {
@@ -208,10 +209,11 @@
 				}
 				_this.$ajax.ajax(_this.$api.get24BuyTimes2Service, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						_this.buyerBuyTimes = res.data;
+						_this.buyerBuyTimes = res.data.times;
+						_this.buyerBuyCount = res.data.count || 0;
 						Dialog.alert({
 						  title: '系统提示',
-						  message: `该买家今日已向服务商购买:${_this.buyerBuyTimes}次`
+						  message: `该买家今日已向服务商购买:${_this.buyerBuyTimes}次,总量${_this.buyerBuyCount}个`
 						}).then(() => {
 						  // on close
 						});

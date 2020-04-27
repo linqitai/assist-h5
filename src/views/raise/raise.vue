@@ -85,7 +85,7 @@
 			.textInfo{
 				flex: 1;
 				font-size: 0.812rem;
-				padding-left: 0.375rem;
+				/* padding-left: 0.375rem; */
 				height: 1em;
 				display: table-cell;
 				.text1{font-weight: bold;}
@@ -321,11 +321,11 @@
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
-		<div class="helpBox">
+		<!-- <div class="helpBox">
 			<i class="iconfont iconfont-love leftBox"></i>
 			<span class="centerBox">紧急求助！1岁宝宝急需移植骨髓，等钱救命！</span>
 			<i class="iconfont iconfont-right-arrow2 rightBox icon"></i>
-		</div>
+		</div> -->
 		<div class="raiseHeader borderBottom">
 			<div class="iconTextBox">
 				<i class="iconfont iconfont-love2 leftIcon"></i>
@@ -336,26 +336,26 @@
 			</div>
 		</div>
 		<div class="whoAreYou">
-			<div class="avator">
+			<!-- <div class="avator">
 				<van-image round width="20" height="20" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-			</div>
-			<div class="textInfo"><span class="text1 unSelect">张三</span><span class="text2 unSelect">发起筹款</span></div>
+			</div> -->
+			<div class="textInfo"><span class="text1 unSelect">{{list1.realName}}</span><span class="text2 unSelect">发起筹款</span></div>
 			<!-- <div class="rightBox unSelect"><van-tag plain type="success">个人求助</van-tag></div> -->
 		</div>
 		<div class="content1">
-			<div class="title">爱心接力! 救救孩子，太可怜了！这是测试数据！</div>
+			<div class="title">{{list1.title}}</div>
 			<div class="box box2">
 				<van-skeleton :row="2" :loading="loading">
 				<div class="flexC flex1">
-					<div class="digit">150000</div>
+					<div class="digit">{{list1.needTicket}}</div>
 					<div class="text">需要帮扶券</div>
 				</div>
 				<div class="flexC flex2">
-					<div class="digit">82167</div>
+					<div class="digit">{{list1.getedTicket}}</div>
 					<div class="text">已筹到帮扶券</div>
 				</div>
 				<div class="flexC flex3">
-					<div class="digit">8123</div>
+					<div class="digit">{{list1.beHelpTimes}}</div>
 					<div class="text">被帮扶次数</div>
 				</div>
 				</van-skeleton>
@@ -377,12 +377,13 @@
 				</div> -->
 			</div>
 			<div class="content unSelect justify">
-各位好心人，你们好，感谢你们打开我的求助信.我叫张三，今年42岁，前几年我女儿得了白血病，花光了所有的积蓄，家里负债累累，但还是没有留住女儿的生命，生活的打击和过度的劳累，使我多年的肾小球肾炎恶化，刚被确诊为尿毒症.因为无医疗保险，住院的费用全都是自费，每天血液透析及用药价格昂贵，面对病魔我感受到了从未有过的压力，只能竭尽所能的治疗.但是积蓄不多，加上亲戚朋友凑来的钱也还是杯水车薪，此次也是万般无奈才向各位好心人求助，我的儿子今年8岁，孩子还小，还需要妈妈，所以我恳求大家帮帮我！在此谢谢大家！恳请各位好心人士伸手相助，多多转发，您的每一次转发对我们都至关重要，每一次转发对我们来说都是莫大的帮助!
+				{{list1.story}}
 			</div>
-			<div class="imageList flex">
-				<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(1)"/>
+			<div class="imageList flex" v-if="list1">
+				<img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/>
+				<!-- <img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(1)"/>
 				<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(2)"/>
-				<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(3)"/>
+				<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(3)"/> -->
 			</div>
 			<van-image-preview
 			  v-model="showImagePreview"
@@ -415,7 +416,11 @@
 					<div class="contentText1 justify">
 						发起人已承诺所提交的文字与图片资料完全真实，无任何虚构事实及隐瞒真相的情况，如有不实，发起人愿承担全部法律责任。
 					</div>
-					<div class="title2">发起人微信：XX00XX00XX</div>
+					<div class="title2">发起人昵称：{{list1.nickName}} <span @click="handleCopy(list1.nickName,$event)">复制</span></div>
+					<div class="title2">发起人姓名：{{list1.realName}} <span @click="handleCopy(list1.realName,$event)">复制</span></div>
+					<div class="title2">发起人手机号：{{list1.mobilePhone}} <span @click="handleCopy(list1.mobilePhone,$event)">复制</span></div>
+					<div class="title2">发起人微信：{{list1.wechartNum}} <span @click="handleCopy(list1.wechartNum,$event)">复制</span></div>
+					<div class="title2">发起人支付宝：{{list1.alipayNum}} <span @click="handleCopy(list1.alipayNum,$event)">复制</span></div>
 					<div class="contentText1 justify">
 						该求助信息不属于慈善公开募捐，真实性由信息发布者个人负责，帮扶筹提示您加求助者微信了解详情后再进行帮助。
 					</div>
@@ -499,10 +504,16 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	import { Dialog,ImagePreview } from 'vant';
+	import clip from '@/assets/js/clipboard';
 	export default {
 		data() {
 			return {
 				loading:false,
+				pageSize:1,
+				currentPage1: 1,
+				loading1:false,
+				finished1:false,
+				list1:[],
 				showImagePreview: false,
 				imageIndex: 0,
 				images: [
@@ -522,6 +533,7 @@
 		// },
 		mounted() {
 			let _this = this;
+			_this.getAssistRaiseListPage();
 			// _this.initializeerrorHint();
 			// _this.initializeTabActiveName();
 			// ImagePreview({
@@ -538,6 +550,29 @@
 		methods:{
 			back(){
 				this.$router.go(-1);
+			},
+			handleCopy(text, event) {
+				let _this = this;
+				clip(text,event,function(res){
+					_this.$toast(`复制成功`);
+				});
+			},
+			getAssistRaiseListPage(){
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage1,
+					pageSize: _this.pageSize,
+				}
+				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list1 = res.data.list[0];
+						_this.images = _this.list1.pic.split('|');
+						console.log('_this.images',_this.images);
+					}else{
+						_this.$toast(res.message);
+					}
+				})
 			},
 			onLoadRecordsList() {
 				let _this = this;
@@ -563,11 +598,6 @@
 				}).then(() => {
 				  // on close
 				});
-				// Dialog.alert({
-				//   message: '为了保证赠与人的每一分钱都能全额给付患者治疗，帮扶链不收取任何手续费。筹到多少，兑现多少，不让任何一份爱心流失。'
-				// }).then(() => {
-				//   // on close
-				// });
 			}
 		}
 	}

@@ -98,11 +98,11 @@
 			<div class="text" style="z-index: 100;">
 				帮扶筹申请
 			</div>
-			<i class="iconfont iconfont-question rightBox icon"></i>
+			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="raiseApplyPage">
 			<div class="myCell">
-				<van-field label="标题" required clearable @blur="validate('title')" v-model="form.title" maxlength="20" placeholder="请填写20字内的筹款标题" />
+				<van-field label="标题" required clearable @blur="validate('title')" v-model="form.title" maxlength="30" placeholder="请填写30字内的筹款标题" />
 			</div>
 			<div class="myCell">
 				<van-field label="故事"
@@ -110,13 +110,13 @@
 				  rows="2" required
 				  autosize clearable
 				  type="textarea"
-				  maxlength="100"
+				  maxlength="500"
 				  placeholder="请填写发起筹款的理由或故事"
 				  show-word-limit
 				/>
 			</div>
 			<div class="myCell">
-				<van-field label="需要帮扶券" required clearable @blur="validate('needTicket')" v-model="form.needTicket" maxlength="10" placeholder="请填写您所需要的帮扶券" />
+				<van-field label="需要帮扶券" required clearable @blur="validate('needTicket')" v-model="form.needTicket" type="number" placeholder="请填写您所需要的帮扶券" />
 			</div>
 			<div class="tip4model3 paddingAll myCell">
 				{{raiseTip}}
@@ -151,7 +151,7 @@
 			</div> -->
 			<div class="sureBtn">
 				<!-- <div class="tip">点击登录即表示您同意<span class="agreement">《服务协议》</span></div> -->
-				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="large" @click="submit">提交</van-button>
+				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="large" :loading="loading" @click="submit">提交</van-button>
 			</div>
 		</div>
 	</div>
@@ -177,7 +177,8 @@
 					{ text: '商家入驻', value: 2 },
 					{ text: '其他', value: 3 }
 				],
-				raiseTip:''
+				raiseTip:'',
+				loading:false
 			}
 		},
 		components: {
@@ -266,13 +267,16 @@
 				if(_this.$utils.hasNull(params)){
 					_this.$toast(`请填写完整信息`);
 				}else{
-					console.log('可提交信息');
+					_this.loading = true;
 					_this.$ajax.ajax(_this.$api.insertAssistRaise, 'POST', params, function(res){
-						console.log('res',res);
+						//console.log('res',res);
 						if(res.code == _this.$api.CODE_OK){
-							
+							_this.$toast(`提交成功`);
+							//这里需要页面跳转
 						}
-					})
+					},function(){
+						_this.loading = false;
+					});
 				}
 			},
 		}

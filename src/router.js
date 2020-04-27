@@ -388,10 +388,23 @@ export default new Router({
 				},
 				{
 					path: '/raise',
-					name: 'raise',
-					component: resolve => require(['./views/raise/raise'],resolve)
+					name: '帮扶筹',
+					component: resolve => require(['./views/raise/raise'],resolve),
+					meta:{footer:false,back:true},
+					/* children:[
+						{
+							path: '/raiseApply',
+							name: '帮扶筹申请',
+							component: resolve => require(['./views/raise/raiseApply'],resolve)
+						},
+					] */
 				},
 			]
+		},
+		{
+			path: '/raiseApply',
+			name: '帮扶筹申请',
+			component: resolve => require(['./views/raise/raiseApply'],resolve)
 		},
 		{
 			path: '/kline',

@@ -81,6 +81,9 @@
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>
 				<van-field v-model="form.phone" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
+				<div class="tip4model3 margT6">
+					重点提示：注册账号一定要填写已经绑定了本人支付宝和微信的手机号，否者可能会被平台冻结账号处理。
+				</div>
 				<div class="labelText">登录密码</div>
 				<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
 				<div class="labelText">确认密码</div>
@@ -108,9 +111,6 @@
 			<div class="placeholderLine10"></div>
 			<van-button color="inherit" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>
 			<div class="placeholderLine10"></div>
-			<div class="tip4model3">
-				Tip：您若已经参与了内排注册，登录密码初始化为所注册的手机号，实名认证审核通过后方可修改登录密码，请团队长们传达到位。
-			</div>
 		</div>
 		<!-- <van-dialog v-model="showTipModel" title="系统提示" :show-confirm-button="false">
 			<div class="placeholderLine10"></div>
@@ -263,7 +263,7 @@
 			},
 			registerBtn(){
 				let _this = this;
-				console.log('form',this.form);
+				//console.log('form',this.form);
 				/* let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){

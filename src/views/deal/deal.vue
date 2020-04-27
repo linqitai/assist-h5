@@ -783,6 +783,7 @@ export default {
 				//console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
+					_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 					_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`;
 					_this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}];
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);

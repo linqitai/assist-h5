@@ -317,7 +317,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				帮扶筹 争取五一后开放
+				帮扶筹 争取5月上旬开放
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
@@ -329,9 +329,9 @@
 		<div class="raiseHeader borderBottom">
 			<div class="iconTextBox">
 				<i class="iconfont iconfont-love2 leftIcon"></i>
-				<div class="iconText">爱心·帮扶筹·研发中</div>
+				<div class="iconText">水滴·帮扶筹·研发中</div>
 				<div class="rightBox unSelect">
-					<van-button type="primary" size="small" :block="true">申请求助款</van-button>
+					<van-button type="primary" size="small" :block="true" to="raiseApply">申请帮扶筹</van-button>
 				</div>
 			</div>
 		</div>
@@ -356,7 +356,7 @@
 				</div>
 				<div class="flexC flex3">
 					<div class="digit">8123</div>
-					<div class="text">帮助次数</div>
+					<div class="text">被帮扶次数</div>
 				</div>
 				</van-skeleton>
 			</div>
@@ -364,20 +364,20 @@
 				<div class="flexLeft">
 					<i class="iconfont iconfont-ticket ticket"></i>
 				</div>
-				<div class="flexCenter f-10">求助者所筹到的是帮扶券，这帮扶券是直接筹到求助者账户里不经过平台，然后让平台向求助者购买帮扶券，从而使求助者得到求助费用。</div>
+				<div class="flexCenter f-10 letterSpacing">求助者所筹到的是帮扶券，这帮扶券是直接筹到求助者账户里不经过平台，然后让平台向求助者购买帮扶券，从而使求助者得到求助费用。</div>
 				<div class="flexRight"><i class="iconfont iconfont-i" @click="messageAlert"></i></div>
 			</div>
 		</div>
-		<div class="story">
+		<div class="story borderBottom">
 			<div class="flex">
 				<div class="title flexMedial">求助者的故事</div>
-				<div class="flexCenter textRight">
+				<!-- <div class="flexCenter textRight">
 					<i class="iconfont iconfont-tanhao"></i>
 					<span class="margL1 unSelect">质疑</span>
-				</div>
+				</div> -->
 			</div>
 			<div class="content unSelect justify">
-各位好心人，你们好，感谢你们打开我的求助信.我叫张金梅，今年42岁,前几年我女儿得了白血病，花光了所有的积蓄，家里负债累累，但还是没有留住女儿的生命，生活的打击和过度的劳累，使我多年的肾小球肾炎恶化，刚被确诊为尿毒症.因为无医疗保险，住院的费用全都是自费，每天血液透析及用药价格昂贵，面对病魔我感受到了从未有过的压力，只能竭尽所能的治疗.但是积蓄不多，加上亲戚朋友凑来的钱也还是杯水车薪，此次也是万般无奈才向各位好心人求助，我的儿子今年8岁，孩子还小，还需要妈妈，所以我恳求大家帮帮我！在此谢谢大家！恳请各位好心人士伸手相助，多多转发，您的每一次转发对我们都至关重要，每一次转发对我们来说都是莫大的帮助!
+各位好心人，你们好，感谢你们打开我的求助信.我叫张三，今年42岁，前几年我女儿得了白血病，花光了所有的积蓄，家里负债累累，但还是没有留住女儿的生命，生活的打击和过度的劳累，使我多年的肾小球肾炎恶化，刚被确诊为尿毒症.因为无医疗保险，住院的费用全都是自费，每天血液透析及用药价格昂贵，面对病魔我感受到了从未有过的压力，只能竭尽所能的治疗.但是积蓄不多，加上亲戚朋友凑来的钱也还是杯水车薪，此次也是万般无奈才向各位好心人求助，我的儿子今年8岁，孩子还小，还需要妈妈，所以我恳求大家帮帮我！在此谢谢大家！恳请各位好心人士伸手相助，多多转发，您的每一次转发对我们都至关重要，每一次转发对我们来说都是莫大的帮助!
 			</div>
 			<div class="imageList flex">
 				<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(1)"/>
@@ -392,8 +392,8 @@
 			  <template v-slot:index>第{{ imageIndex }}页</template>
 			</van-image-preview>
 		</div>
-		<div class="placeholderLine placeholderLineBGC"></div>
-		<div class="materialProve">
+		<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
+		<div class="materialProve borderBottom">
 			<div class="flex">
 				<div class="title flexMedial">材料证明</div>
 				<div class="flexCenter textRight">
@@ -415,9 +415,9 @@
 					<div class="contentText1 justify">
 						发起人已承诺所提交的文字与图片资料完全真实，无任何虚构事实及隐瞒真相的情况，如有不实，发起人愿承担全部法律责任。
 					</div>
-					<div class="title2">平台声明：</div>
+					<div class="title2">发起人微信：XX00XX00XX</div>
 					<div class="contentText1 justify">
-						该求助信息不属于慈善公开募捐，真实性由信息发布者个人负责，帮扶筹提示您了解详情后再进行帮助。
+						该求助信息不属于慈善公开募捐，真实性由信息发布者个人负责，帮扶筹提示您加求助者微信了解详情后再进行帮助。
 					</div>
 				</div>
 				<!-- <div class="knowMore">
@@ -449,7 +449,7 @@
 			</div> -->
 			<div class="placeholderLine10"></div>
 		</div>
-		<div class="placeholderLine placeholderLineBGC"></div>
+		<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
 		<van-list
 		  v-model="loadingRecordsList"
 		  :finished="finishedRecordsList"
@@ -457,7 +457,7 @@
 		  @load="onLoadRecordsList"
 		>
 			<div class="records">
-				<div class="title">爱心帮助记录</div>
+				<div class="title">爱心帮扶记录</div>
 				<div class="item flexsBox row">
 					<div class="flexLeft1">
 						<van-image round width="44" height="44" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
@@ -490,6 +490,9 @@
 				</div>
 			</div>
 		</van-list>
+		<!-- <transition name="van-fade">
+		  <router-view></router-view>
+		</transition> -->
 	</div>
 </template>
 
@@ -553,9 +556,10 @@
 			  this.imageIndex = index;
 			},
 			messageAlert(){
+				let _this = this;
 				Dialog.alert({
 				  title: '系统提示',
-				  message: '为了保证赠与人的每一个帮扶券都能全额给付求助者，HPC帮扶链平台不收取任何手续费。帮扶券的成本价为0.7CNY一张，筹到多少，兑现多少，不让任何一份爱心流失。帮扶券：成本价0.7CNY，求助者筹到多少，就平台就以0.7CNY的价格向TA购买。'
+				  message: _this.$api.raiseTip
 				}).then(() => {
 				  // on close
 				});

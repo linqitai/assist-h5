@@ -29,11 +29,20 @@
 			font-size: 12px !important;
 		}
 		.line{
+			position: relative;
 			display: flex;
 			flex-direction: row;
 			align-content: center;
 			align-items: center;
 			padding: 12px;
+			.selectPicInput2{
+				position: absolute;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 1;
+			}
 			.label{
 				flex: 0 0 120px;
 				margin-left: 4px;
@@ -66,6 +75,7 @@
 					top: 0;
 					width: 50px;
 					height: 50px;
+					z-index: 1;
 				}
 			}
 			.selectedImg{
@@ -201,24 +211,30 @@
 		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
 		  <div class="line">
 		  	<span class="label">支付宝个人主页</span>
-		  	<span class="text" @click="showExamplePic2">点击查看模板</span>
+			<span class="text"></span>
+		  	<!-- <span class="text" @click="showExamplePic2">点击查看模板</span> -->
 		  	<span class="value">
 		  		<i class="iconfont iconfont-upload-pic"></i>
 		  		<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
 		  	</span>
 		  </div>
 		  <div class="line" v-if="!pic2">
-		  	<img style="width: 100%;" src="https://www.helpchain.online/image/alipay.png">
+			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
+		  	<img style="width: 100%;" src="https://www.helpchain.online/image/alipayTemplate.png">
 		  </div>
 		  <div class="line" v-if="pic2">
+			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
 		  	<img class="selectedImg" :src="pic2"/>
 		  </div>
 		<div class="line tip4modelRedText">
-			注意：1.若提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。2.年龄范围需在18~70岁，否者实名审核可能通过不了。
+			注意：<br>
+			1.为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像。<br>
+			2.若提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。<br>
+			3.年龄范围需在18~70岁，否者实名审核可能通过不了。
 		</div> 
 		<div class="line">
 			<span class="label">身份证正面照片</span>
-			<span class="text" @click="showExamplePic">点击查看模板</span>
+			<span class="text" @click="showExamplePic">点我查看模板</span>
 			<span class="value">
 				<i class="iconfont iconfont-upload-pic"></i>
 				<!-- <input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="selectFileImage($event)"/> -->
@@ -226,26 +242,30 @@
 			</span>
 		</div>
 		<div class="line" v-if="!form.idCardPic">
-			<img style="width: 100%;" src="https://www.helpchain.online/image/idCardPic.png">
+			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
+			<img style="width: 100%;" src="https://www.helpchain.online/image/idCardPicTemplate.png">
 		</div>
 		<div class="line">
+			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 			<img class="selectedImg" :src="form.idCardPic"/>
 		</div>
 		
 		<van-field v-model="form.securityPassword" required clearable label="设置安全密码" type="password" :placeholder="errorHint.securityPassword" maxlength="20" @blur="validate('securityPassword')" :error-message="errorInfo.securityPassword"/>
 		<van-field v-model="form.securityPassword2" required clearable label="确认安全密码"  type="password" :placeholder="errorHint.securityPassword2" maxlength="20" @blur="validate('securityPassword2')" :error-message="errorInfo.securityPassword2"/>
+		<div class="line tip4modelRedText">
+			安全密码就是交易时所用到的密码
+		</div> 
 		<div class="placeholderLine40"></div>
 		<div class="sureAppointBtnBox">
-			<!-- <div class="tip4model3">华为或三星等个别手机若无法提交实名的，请截图一下证件照片然后用百度、UC等主流浏览器操作或借用身边其他牌子的手机进行提交实名即可</div>
-			</div> -->
 			<div class="tip4model3">
 				<b class="textBold">若遇到支付宝截图可以上传，证件照片却上传不了的解决办法：</b><br>
 				1、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
 				<div class="placeholderLine4"></div>
 				<b class="textBold">若遇到无法提交实名或提示区块拥堵的解决办法：</b><br>
-				1、更换浏览器，谷歌、UC浏览器优先。<br>
-				2、把证件照片裁剪得尽可能小一点。<br>
-				3、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
+				1、检查网络信号是否良好。<br>
+				2、更换浏览器，QQ、谷歌、UC浏览器优先。<br>
+				3、把证件照片裁剪得尽可能小一点。<br>
+				4、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
 			</div>
 			<div class="placeholderLine4"></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitRealNameLoding" @click="submitRealNameBtn">提 交</van-button>
@@ -261,7 +281,7 @@
 		<div class="placeholderLine10"></div>
 		<img style="width: 100%;" src="https://www.helpchain.online/image/idCardPic.png">
 	</van-dialog>
-	<van-dialog
+	<!-- <van-dialog
 	  v-model="showIdCardPicExmple2"
 	  title="照片模板"
 	  :showConfirmButton="true"
@@ -269,7 +289,7 @@
 	>
 		<div class="placeholderLine10"></div>
 		<img style="width: 100%;" src="https://www.helpchain.online/image/alipay.png">
-	</van-dialog>
+	</van-dialog> -->
   </div>
 </template>
 
@@ -279,7 +299,7 @@
 // import { getTestUser,ERR_OK } from "@/api/index";
 import mHeader from '@/components/Header.vue';
 import clip from '@/assets/js/clipboard';
-import EXIF from 'exif-js';
+/* import EXIF from 'exif-js'; */
 import { Dialog } from 'vant';
 import { Toast } from 'vant';
 import { ImagePreview } from 'vant';
@@ -421,11 +441,11 @@ export default {
 			let files = e.target.files || e.dataTransfer.files;
 			if (!files.length) return;
 			//console.log("pic_size(MB)", files[0].size / 1024 / 1024);
-			if (files[0].size / 1024 / 1024 > 5) {
+			if (files[0].size / 1024 / 1024 > 8) {
 			   // _this.$toast('上传图片大小不能超过 8MB');
 			   Dialog.alert({
 			     title: '系统提示',
-			     message: '上传图片大小不能超过 5MB，请先进行压缩'
+			     message: '上传图片大小不能超过 8MB，请先进行压缩'
 			   }).then(() => {
 			     // on close
 			   });
@@ -443,10 +463,10 @@ export default {
 			//判断支不支持FileReader
 			if (!file || !window.FileReader) return false;
 			if (/^image/.test(file.type)) {
-				EXIF.getData(file, function() {
+				/* EXIF.getData(file, function() {
 					EXIF.getAllTags(this);   
 					Orientation = EXIF.getTag(this, 'Orientation');  
-				});  
+				}); */
 			  //创建一个reader  
 			  let reader = new FileReader();
 			  //将图片转成base64格式
@@ -466,36 +486,7 @@ export default {
 				    canvas.width = expectWidth;
 				    canvas.height = expectHeight;
 					//如果方向角不为1，都需要进行旋转
-					if(Orientation && Orientation != "" && Orientation != 1){  
-					    let degree=0;
-					    switch(Orientation){
-					        case 6://需要顺时针（向左）90度旋转  
-					            degree=90;
-					            canvas.width = expectHeight;
-					            canvas.height = expectWidth;
-					            ctx.translate(expectHeight / 2,expectWidth / 2);
-					            ctx.rotate(degree * Math.PI / 180);
-					            ctx.translate(-expectWidth / 2,-expectHeight / 2);
-					            ctx.drawImage(image,0,0,expectWidth,expectHeight);
-					            break;
-					        case 8://需要逆时针（向右）90度旋转
-					            degree=-90;
-					            canvas.width = expectHeight;
-					            canvas.height = expectWidth;
-					            ctx.translate(expectHeight / 2,expectWidth / 2);
-					            ctx.rotate(degree * Math.PI / 180);
-					            ctx.translate(-expectWidth / 2,-expectHeight / 2);
-					            ctx.drawImage(image,0,0,expectWidth,expectHeight);
-					            break;
-					        case 3://需要180度旋转  
-					            degree=-180;
-					            ctx.rotate(degree * Math.PI / 180);
-					            ctx.drawImage(image,-expectWidth,-expectHeight,expectWidth,expectHeight);
-					            break;
-					    }         
-					}else{
-					    ctx.drawImage(image,0,0,expectWidth,expectHeight);
-					}
+					ctx.drawImage(image,0,0,expectWidth,expectHeight);
 				    let dataOri = canvas.toDataURL("image/png");
 					let img = new Image();
 					img.src = dataOri;//base64
@@ -522,11 +513,11 @@ export default {
 			let files = e.target.files || e.dataTransfer.files;
 			if (!files.length) return;
 			//console.log("pic_size(MB)", files[0].size / 1024 / 1024);
-			if (files[0].size / 1024 / 1024 > 5) {
+			if (files[0].size / 1024 / 1024 > 8) {
 			   // _this.$toast('上传图片大小不能超过 8MB');
 			   Dialog.alert({
 			     title: '系统提示',
-			     message: '上传图片大小不能超过 5MB，请先进行压缩'
+			     message: '上传图片大小不能超过 8MB，请先进行压缩'
 			   }).then(() => {
 			     // on close
 			   });
@@ -544,10 +535,10 @@ export default {
 			if (!file || !window.FileReader) return false;
 			if (/^image/.test(file.type)) {
 			  //创建一个reader
-			  EXIF.getData(file, function() {
+			  /* EXIF.getData(file, function() {
 			      EXIF.getAllTags(this);   
 			      Orientation = EXIF.getTag(this, 'Orientation');  
-			  });  
+			  });  */
 			  let reader = new FileReader();
 			  //将图片转成base64格式
 			  reader.readAsDataURL(file);
@@ -566,7 +557,7 @@ export default {
 				    canvas.width = expectWidth;
 				    canvas.height = expectHeight;
 				    //如果方向角不为1，都需要进行旋转 
-				    if(Orientation && Orientation != "" && Orientation != 1){  
+				    /* if(Orientation && Orientation != "" && Orientation != 1){  
 				        let degree=0;
 				        switch(Orientation){
 				            case 6://需要顺时针（向左）90度旋转  
@@ -595,7 +586,8 @@ export default {
 				        }         
 				    }else{
 				        ctx.drawImage(image,0,0,expectWidth,expectHeight);
-				    }
+				    } */
+					ctx.drawImage(image,0,0,expectWidth,expectHeight);
 				    let dataOri = canvas.toDataURL("image/png");
 					let img = new Image();
 					img.src = dataOri;//base64
@@ -640,16 +632,16 @@ export default {
 		},
 		submitRealNameBtn(){
 			let _this = this;
-			let SRNTimes = localStorage.getItem('SRNTimes');
-			if(SRNTimes) {
+			//let SRNTimes = localStorage.getItem('SRNTimes');
+			/* if(SRNTimes) {
 				let tip = '';
 				if(SRNTimes==2){
 					tip = '您只剩下最后1次实名机会，请认真核实资料，按模板上传照片';
 				}
 				if(SRNTimes>=4){
 					tip = '实名次数已用完';
-				}
-			}
+				} 
+			}*/
 			let params = {
 				id:_this.userInfo.id,
 				nickName:_this.form.nickName,
@@ -681,11 +673,11 @@ export default {
 				_this.$ajax.ajax4NotTime(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
 					//console.log('res.code',res.code);
 					//标记该设备已经提交过实名认证
-					if(SRNTimes){
+					/* if(SRNTimes){
 						localStorage.setItem('SRNTimes',(parseInt(SRNTimes)+1));
 					}else{
 						localStorage.setItem('SRNTimes',1);
-					}
+					} */
 					
 					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 					if(res.code == _this.$api.CODE_OK){

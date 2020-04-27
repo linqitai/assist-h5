@@ -23,8 +23,9 @@ export default {
 	tipText4AppointDeal: "<b class='textBold'>担保交易流程：</b><br>1.卖方和买方或省市代理之间预先谈好价格，然后买方把自己的区块地址告诉卖方或代理。<br>2.卖方通过区块地址去匹配买方，同时选择该代理(一名代理)做担保。<br>3.订单匹配成功后，需要让担保代理审核。<br>4.审核通过后，买方先把担保总价支付给担保代理。<br>5.担保代理确认如实收到款后，再把担保金额打到卖方账户，并让卖方确认收款且释放矿石。<br>注1:该流程中若遇到问题，代理有权终止并取消交易，若是卖方账号有问题，担保代理亦有权冻结该账号<b class='textBold'>(该交易流程担保代理应收取担保服务辛苦费3%)</b>。<br>注2：若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能。",
 	checkTip:"实名信息已经提交成功,预计24小时内审核出结果",
 	welcomeText:"欢迎来到帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。",
-	bsTip:'为了提高用户体验，在提交实名与交易的时候，建议用谷歌、UC或QQ浏览器中打开HPC。',
-	manType1Tip:'经系统检测，您的账号数据异常(没买入量也没怎么发展团队为何刚开始就有那么高的产量?)。若是第一批对接的团队长，得了中型而没去发展团队的，请直推实名超过30名且团队算力大于30G且买入个数大于300个，才能进行该操作.',
+	bsTip:'您若是在微信中打开帮扶链，在提交实名与交易的时候，建议使用谷歌、UC、QQ等主流浏览器打开平台页面。',
+	manType1Tip:'经系统检测，您的账号数据异常(没买入量也没怎么发展团队为何刚开始就有那么高的产量?)。若是第一批对接的团队长，得了中型而没去发展团队的，请直推实名超过30名且团队算力大于30G且买入个数大于300个，才能进行该操作。',
+	raiseTip:'为了保证赠与人的每一个帮扶券都能全额给付求助者，HPC帮扶链平台不收取任何手续费。求助者筹到多少兑现多少，不让任何一份爱心流失。帮扶券：成本价0.7CNY，求助者筹到多少，平台就以0.7CNY的价格向求助者购买多少。',
 	HOST_IMG: hostImg,
 	cookiesTime: 60 * 60 * 72,
 	cookiesTime8h: 60 * 60 * 8,
@@ -216,5 +217,8 @@ export default {
 	getAssistAuctionBookPageList: host + "assist/auction/getAssistAuctionBookPageList",
 	//complain
 	insertAssistComplain: host + "assist/complain/insertAssistComplain",
-	getAssistComplainListPage: host + "assist/complain/getAssistComplainListPage"
+	getAssistComplainListPage: host + "assist/complain/getAssistComplainListPage",
+	//raise
+	getAssistRaiseListPage: host + "assist/raise/getAssistRaiseListPage",
+	insertAssistRaise: host + "assist/raise/insertAssistRaise",
 }

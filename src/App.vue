@@ -112,7 +112,7 @@ b{font-weight: bold;}
 .textBold{font-weight: bold;}
 .title{font-weight: bold;}
 .textRight{text-align: right;}
-.borderBottom{border-bottom: 1px solid $mainBorderColor;}
+.borderBottom{border-bottom: 1px solid $bottomLineColor;}
 .unSelect{user-select: none;}
 .justify{text-align: justify;}
 .em13{line-height: 1.3em;}

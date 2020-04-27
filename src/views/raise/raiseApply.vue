@@ -1,12 +1,12 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	$cellHeight:50px;
-	.merchantEnter{
+	.raiseApply{
 		font-size: 0.75rem;
-		color: $main-box-fh-text-color;
 		box-sizing: border-box;
-		@include page();
-		z-index: 3;
+		@include pageHaveHeight4Scroll();
+		color: $main-box-fh-text-color;
+		background-color: $main-box-fh-bg-color;
 		.van-dropdown-menu{
 			height: $cellHeight !important;
 			background-color: inherit !important;
@@ -38,9 +38,8 @@
 		input,textarea{
 			font-size: $fs-content !important;
 		}
-		.merchantEnterPage{
+		.raiseApplyPage{
 			margin-bottom: $header-height;
-			background-color: $main-box-fh-bg-color;
 			.myCell{
 				border-bottom: 1px solid $bottomLineColor;
 				.van-cell__value, .van-cell__value--alone, .van-field__control{
@@ -93,36 +92,36 @@
 	
 </style>
 <template>
-	<div class="merchantEnter">
+	<div class="raiseApply">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
-			<div class="text">
-				填写资料
+			<div class="text" style="z-index: 100;">
+				帮扶筹申请
 			</div>
 			<i class="iconfont iconfont-question rightBox icon"></i>
 		</m-header>
-		<div class="merchantEnterPage">
+		<div class="raiseApplyPage">
 			<div class="myCell">
-				<van-field label="商品名称" required clearable @blur="validate('name')" v-model="form.name" maxlength="20" placeholder="请输入20字内的商品名称" />
+				<van-field label="标题" required clearable @blur="validate('title')" v-model="form.title" maxlength="20" placeholder="请填写20字内的筹款标题" />
 			</div>
 			<div class="myCell">
-				<van-field label="商品简介"
-				  v-model="form.introduce" @blur="validate('introduce')"
+				<van-field label="故事"
+				  v-model="form.story" @blur="validate('story')"
 				  rows="2" required
 				  autosize clearable
 				  type="textarea"
 				  maxlength="100"
-				  placeholder="请输入商品简介(不超过100字)"
+				  placeholder="请填写发起筹款的理由或故事"
 				  show-word-limit
 				/>
 			</div>
 			<div class="myCell">
-				<van-field label="市场价格" required clearable @blur="validate('marketPrice')" v-model="form.marketPrice" maxlength="10" placeholder="请填写商品的市场价格" />
+				<van-field label="需要帮扶券" required clearable @blur="validate('needTicket')" v-model="form.needTicket" maxlength="10" placeholder="请填写您所需要的帮扶券" />
 			</div>
-			<div class="myCell">
-				<van-field label="优惠后价格" required clearable @blur="validate('discountsPrice')" v-model="form.discountsPrice" maxlength="10" placeholder="请填写商品优惠后的价格" />
+			<div class="tip4model3 paddingAll myCell">
+				{{raiseTip}}
 			</div>
-			<div class="label">
+			<!-- <div class="label">
 				<span class="star">*</span>
 				<span class="text">商品展示图(最多传1张)</span>
 			</div>
@@ -130,14 +129,14 @@
 				<div class="margT10">
 					<van-uploader v-model="form.fileShowList" multiple image-fit='cover' :max-count="1"  :before-read="beforeRead"/>
 				</div>
-			</div>
+			</div> -->
 			<div class="label">
 				<span class="star">*</span>
-				<span class="text">商品详情图(最多传10张)</span>
+				<span class="text">证明详情图(最多传3张)</span>
 			</div>
 			<div class="uploadPic paddingWing">
 				<div class="margT10">
-					<van-uploader v-model="form.fileDetailList" multiple image-fit='cover' :max-count="10"  :before-read="beforeRead"/>
+					<van-uploader v-model="form.fileDetailList" multiple image-fit='cover' :max-count="3"  :before-read="beforeRead"/>
 				</div>
 				<div class="placeholderLine10"></div>
 			</div>
@@ -159,20 +158,17 @@
 </template>
 <script>
 	import mHeader from '@/components/Header.vue';
-	import QRCode from 'qrcodejs2';
 	import clip from '@/assets/js/clipboard';
+	import { Dialog } from 'vant';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
 		data() {
 			return {
 				form:{
-					name:'',
-					introduce:'',
-					marketPrice:'',
-					discountsPrice:'',
-					fileShowList:[],
-					fileDetailList:[],
-					// filePaymentList:[]
+					title:'',
+					story:'',
+					needTicket:'',
+					fileDetailList:[]
 				},
 				registerUrl:'',
 				option1: [
@@ -181,6 +177,7 @@
 					{ text: '商家入驻', value: 2 },
 					{ text: '其他', value: 3 }
 				],
+				raiseTip:''
 			}
 		},
 		components: {
@@ -188,6 +185,7 @@
 		},
 		mounted() {
 			let _this = this;
+			_this.raiseTip = _this.$api.raiseTip;
 			// _this.handleGenerator();
 			this.$nextTick(function () {
 			      
@@ -199,8 +197,19 @@
 			},
 			beforeRead(file) {
 				let _this = this;
+				console.log("fileSize:",file.size);
 				if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
 					_this.$toast('请上传 jpg/png 格式图片');
+					return false;
+				}
+				if (file.size/1024>300) {
+					// _this.$toast('所上传图片大小超过了300KB，请先压缩后再上传');
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '所上传图片大小超过了300KB，请先压缩后再上传(微信转发后再保存，用保存后的照片上传试试)'
+					}).then(() => {
+					  // on close
+					});
 					return false;
 				}
 				return true;
@@ -213,24 +222,19 @@
 			},
 			validate(flag){
 				let _this = this;
-				if(flag == 'name'){
-					if(_this.form.name==''){
-						_this.$toast('请填写商品名称');
+				if(flag == 'title'){
+					if(_this.form.title==''){
+						_this.$toast('请填写申请帮扶的标题');
 						return;
 					}
-				}else if(flag == 'introduce'){
-					if(_this.form.introduce==''){
-						_this.$toast('请填写商品简介');
+				}else if(flag == 'story'){
+					if(_this.form.story==''){
+						_this.$toast('请填写您的自我介绍或故事');
 						return;
 					}
-				}else if(flag == 'marketPrice'){
-					if(_this.form.marketPrice==''){
-						_this.$toast('请填写市场价格');
-						return;
-					}
-				}else if(flag == 'discountsPrice'){
-					if(_this.form.discountsPrice==''){
-						_this.$toast('请填写优惠后价格');
+				}else if(flag == 'needTicket'){
+					if(_this.form.needTicket==''){
+						_this.$toast('请填写所需要帮扶券');
 						return;
 					}
 				}
@@ -242,34 +246,33 @@
 				});
 			},
 			submit(){
-				console.log("submit");
 				let _this = this;
-				// if(_this.form.fileShowList.length==0){
-				// 	_this.$toast('请上传商品展示图');
-				// 	return;
-				// }
-				// if(_this.form.fileDetailList.length==0){
-				// 	_this.$toast('请上传商品详情图');
-				// 	return;
-				// }
-				// if(_this.form.filePaymentList.length==0){
-				// 	_this.$toast('请上传商家收款码');
-				// 	return;
-				// }
+				//_this.$toast(`五一过后开放`);
+				// console.log('_this.form.fileDetailList',_this.form.fileDetailList[0].content);
+				/* let a = [];
+				a.push('111');
+				console.log('a',a.join('|')); */
+				let pic=[];
+				_this.form.fileDetailList.forEach((item,index)=>{
+					pic.push(item.content);
+				})
 				let params = {
+					title:_this.form.title,
+					needTicket:_this.form.needTicket,
+					story:_this.form.story,
+					pic:pic.join('|'),
 				}
-				params = _this.form;
 				console.log('params',params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast(`请填写完整信息`);
 				}else{
 					console.log('可提交信息');
-					// _this.$ajax.ajax(_this.$api.updateAssistUsrInfo, 'POST', params, function(res){
-					// 	console.log('res',res);
-					// 	if(res.code == _this.$api.CODE_OK){
+					_this.$ajax.ajax(_this.$api.insertAssistRaise, 'POST', params, function(res){
+						console.log('res',res);
+						if(res.code == _this.$api.CODE_OK){
 							
-					// 	}
-					// })
+						}
+					})
 				}
 			},
 		}

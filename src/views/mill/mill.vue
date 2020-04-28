@@ -413,7 +413,7 @@
 						  // on close
 						  if(res.data==1){
 							  _this.onLoadMillShop();
-							  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+							  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime8h);
 							  _this.$router.push('myMill');
 						  }
 						});

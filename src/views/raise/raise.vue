@@ -14,6 +14,9 @@
 		.van-list__finished-text{
 			color:$main-box-fh-text-color;
 		}
+		.van-field__label{
+			width: 66px !important;
+		}
 		.helpBox{
 			position:relative;
 			display: flex;
@@ -276,7 +279,7 @@
 				.flexThis{
 					flex:1;
 					text-align: left;
-					padding-left: 8px;
+					/* padding-left: 8px; */
 					margin-top: 6px;
 					padding-bottom: 6px;
 					&.column{
@@ -397,10 +400,10 @@
 		<div class="materialProve borderBottom">
 			<div class="flex">
 				<div class="title flexMedial">材料证明</div>
-				<div class="flexCenter textRight">
+				<!-- <div class="flexCenter textRight">
 					<i class="iconfont iconfont-safety"></i>
 					<span class="margL1 unSelect">安心保障</span>
-				</div>
+				</div> -->
 			</div>
 			<div class="proveContent">
 				<div class="flex borderBottom">
@@ -408,26 +411,27 @@
 						<i class="iconfont iconfont-pass"></i>
 					</div>
 					<div class="flexMedial proveText1">
-						发起人/患者身份及基本医疗信息已通过平台初步审核，平台还会继续跟进，保证整个治疗过程属实。
+						求助者身份及基本求助信息已通过平台初步审核，帮扶者也可加求助者好友，表示关心、慰问以及进一步了解求助者，以确保整个过程属实。
 					</div>
 				</div>
 				<div class="contentBox">
-					<div class="title2">发起人承诺：</div>
+					<div class="title2">求助者承诺：</div>
 					<div class="contentText1 justify">
-						发起人已承诺所提交的文字与图片资料完全真实，无任何虚构事实及隐瞒真相的情况，如有不实，发起人愿承担全部法律责任。
+						求助者已承诺所提交的文字与图片资料完全真实，无任何虚构事实及隐瞒真相的情况，如有不实，求助者愿承担全部法律责任。
 					</div>
-					<div class="title2">发起人昵称：{{list1.nickName}} <span @click="handleCopy(list1.nickName,$event)">复制</span></div>
-					<div class="title2">发起人姓名：{{list1.realName}} <span @click="handleCopy(list1.realName,$event)">复制</span></div>
-					<div class="title2">发起人手机号：{{list1.mobilePhone}} <span @click="handleCopy(list1.mobilePhone,$event)">复制</span></div>
-					<div class="title2">发起人微信：{{list1.wechartNum}} <span @click="handleCopy(list1.wechartNum,$event)">复制</span></div>
-					<div class="title2">发起人支付宝：{{list1.alipayNum}} <span @click="handleCopy(list1.alipayNum,$event)">复制</span></div>
+					<div class="title2">求助者昵称：{{list1.nickName}} <span @click="handleCopy(list1.nickName,$event)">复制</span></div>
+					<div class="title2">求助者姓名：{{list1.realName}} <span @click="handleCopy(list1.realName,$event)">复制</span></div>
+					<div class="title2">求助者手机号：{{list1.mobilePhone}} <span @click="handleCopy(list1.mobilePhone,$event)">复制</span></div>
+					<div class="title2">求助者微信：{{list1.wechartNum}} <span @click="handleCopy(list1.wechartNum,$event)">复制</span></div>
+					<div class="title2">求助者支付宝：{{list1.alipayNum}} <span @click="handleCopy(list1.alipayNum,$event)">复制</span></div>
 					<div class="contentText1 justify">
-						该求助信息不属于慈善公开募捐，真实性由信息发布者个人负责，帮扶筹提示您加求助者微信了解详情后再进行帮助。
+						该求助信息不属于慈善公开募捐，真实性由求助者个人负责，帮扶筹提示您加求助者微信了解详情后再进行帮扶。
 					</div>
 				</div>
 				<!-- <div class="knowMore">
 					了解更多求助人信息
 				</div> -->
+				
 			</div>
 			<!-- <div class="proverList">
 				<div class="flex">
@@ -454,43 +458,54 @@
 			</div> -->
 			<div class="placeholderLine10"></div>
 		</div>
+		<div class="materialProve borderBottom">
+			<div class="flex">
+				<div class="title flexMedial">我要捐赠</div>
+			</div>
+			<div>
+				<van-field label="爱心问候"
+				  v-model="word"
+				  rows="2"
+				  autosize clearable
+				  type="textarea"
+				  maxlength="100"
+				  placeholder="顺便给求助者捎一句问候/慰问,送人玫瑰,手留余香,感恩有你"
+				  show-word-limit
+				/>
+			</div>
+			<div class="placeholderLine10"></div>
+			<div>
+				<van-button round type="info" @click="addTicket(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个券</van-button>
+				<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
+				<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个券</van-button>
+				<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
+				<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个券</van-button>
+				<!-- 增加自己填写数额 -->
+			</div>
+			<div class="placeholderLine10"></div>
+		</div>
 		<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
 		<van-list
-		  v-model="loadingRecordsList"
-		  :finished="finishedRecordsList"
+		  v-model="loading2"
+		  :finished="finished2"
 		  finished-text="没有更多了"
-		  @load="onLoadRecordsList"
+		  @load="getAssistRaiseRecordListPage"
 		>
 			<div class="records">
 				<div class="title">爱心帮扶记录</div>
-				<div class="item flexsBox row">
-					<div class="flexLeft1">
+				<div class="item flexsBox row" v-for="item in list2" :key="item.id">
+					<!-- <div class="flexLeft1">
 						<van-image round width="44" height="44" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-					</div>
+					</div> -->
 					<div class="flexThis column">
 						<div class="line1">
-							<div class="left">昵称</div>
-							<div class="left margL10">帮助了 <span>10</span> 个帮扶券</div>
+							<div class="left yellow">{{item.nickName}}</div>
+							<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
 						</div>
 						<div class="line2">
-							苦心人天不负，健康身子终属你！苦心人天不负，健康身子终属你！苦心人天不负，健康身子终属你！
+							{{item.word}}
 						</div>
-						<div class="line3">2019-10-03 12:12:15</div>
-					</div>
-				</div>
-				<div class="item flexsBox row">
-					<div class="flexLeft1">
-						<van-image round width="44" height="44" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-					</div>
-					<div class="flexThis column">
-						<div class="line1">
-							<div class="left">昵称</div>
-							<div class="left margL10">帮助了 <span>10</span> 个帮扶券</div>
-						</div>
-						<div class="line2">
-							苦心人天不负，健康身子终属你！苦心人天不负，健康身子终属你！苦心人天不负，健康身子终属你！
-						</div>
-						<div class="line3">2019-10-03 12:12:15</div>
+						<div class="line3">{{item.createTime}}</div>
 					</div>
 				</div>
 			</div>
@@ -514,15 +529,22 @@
 				loading1:false,
 				finished1:false,
 				list1:[],
+				currentPage2: 1,
+				pageSize2:6,
+				loading2:false,
+				finished2:false,
+				list2:[],
 				showImagePreview: false,
 				imageIndex: 0,
 				images: [
-				'https://img.yzcdn.cn/2.jpg',
-				'https://img.yzcdn.cn/2.jpg',
-				'https://img.yzcdn.cn/2.jpg'
+					'https://img.yzcdn.cn/2.jpg',
+					'https://img.yzcdn.cn/2.jpg',
+					'https://img.yzcdn.cn/2.jpg'
 				],
 				loadingRecordsList:false,
-				finishedRecordsList:false
+				finishedRecordsList:false,
+				num:0,
+				word:'',
 			}
 		},
 		components: {
@@ -557,21 +579,84 @@
 					_this.$toast(`复制成功`);
 				});
 			},
+			addTicket(num){
+				let _this = this;
+				_this.num = num;
+				/* if(_this.word){
+					
+				}else{
+					_this.$toast(`请`);
+				} */
+				Dialog.confirm({
+				  title: '系统提示',
+				  confirmButtonText:'确认',
+				  closeOnClickOverlay:true,
+				  message: `您是否要捐赠${num}个给求助者？`
+				}).then(() => {
+				  // on confirm
+				  _this.addTicketRequest();
+				})
+				
+			},
+			addTicketRequest(){
+				let _this = this;
+				let params = {
+				  raiseId: _this.list1.id,
+				  raiseNum: _this.num,
+				  word: _this.word
+				}
+				console.log("p",params)
+				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.$toast("捐赠成功");
+						_this.word = '';
+						//_this.getCurrentAuction();
+					}else{
+						Dialog.alert({
+							title: "系统提示",
+							message: res.message
+						}).then(() => {
+						  // on confirm
+						  //_this.getCurrentAuction();
+						})
+					}
+				})
+			},
+			getAssistRaiseRecordListPage(){
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage2,
+					pageSize: _this.pageSize2,
+				}
+				_this.loading2 = true;
+				_this.$ajax.ajax(_this.$api.getAssistRaiseRecordListPage, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list2 = res.data.list;
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.finished2 = true;
+					_this.loading2 = false;
+				})
+			},
 			getAssistRaiseListPage(){
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
 				}
+				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {
-					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data.list[0];
 						_this.images = _this.list1.pic.split('|');
-						console.log('_this.images',_this.images);
+						_this.getAssistRaiseRecordListPage();
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading1 = false;
 				})
 			},
 			onLoadRecordsList() {

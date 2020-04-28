@@ -206,7 +206,8 @@
 		@click-right-icon="$toast(errorHint.bankCard)"
 		@blur="validate('bankCard')"
 		:error-message="errorInfo.bankCard"/> -->
-		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
+		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" type="password" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
+		<van-field v-model="form.idCardSure" required clearable label="确认身份证号" maxlength="18" type="password" :placeholder="errorHint.idCardSure" @blur="validate('idCardSure')" :error-message="errorInfo.idCardSure"/>
 		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="20"
 		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
 		  <div class="line">
@@ -330,6 +331,7 @@ export default {
 				verificationCode:"",
 				bankCard:"",
 				idCard:"",
+				idCardSure:"",
 				idCardPic:"",
 			},
 			pic2:'',
@@ -346,7 +348,8 @@ export default {
 				sureNewPassword:"",
 				verificationCode:"",
 				bankCard:"",
-				idCard:""
+				idCard:"",
+				idCardSure:"",
 			},
 			errorInfo:{
 				nickName:"",
@@ -361,7 +364,8 @@ export default {
 				sureNewPassword:"",
 				verificationCode:"",
 				bankCard:"",
-				idCard:""
+				idCard:"",
+				idCardSure:"",
 			},
 			updateValidate:true,
 			flag:'',
@@ -613,7 +617,6 @@ export default {
 		},
 		initializeHintInfo(){
 			let _this = this;
-			
 			_this.errorHint = {
 				nickName:"请填写1~7位昵称",
 				// telPhone:"请填写与微信绑定的手机号",
@@ -628,6 +631,7 @@ export default {
 				verificationCode:"请填写验证码",
 				bankCard:"请填写银行卡号",
 				idCard:"请填写身份证号",
+				idCardSure:"请再次填写身份证号",
 			}
 		},
 		submitRealNameBtn(){
@@ -778,7 +782,7 @@ export default {
 				if(_this.form.securityPassword2==_this.form.securityPassword){
 					_this.errorInfo.securityPassword2 = '';
 				}else{
-					_this.errorInfo.securityPassword2 = "2次密码不一样"
+					_this.errorInfo.securityPassword2 = "2次密码不一致";
 				}
 			}else if(key == 'bankCard') {
 				if(_this.$reg.bankCard.test(_this.form.bankCard)){
@@ -791,6 +795,12 @@ export default {
 					_this.errorInfo.idCard = '';
 				}else{
 					_this.errorInfo.idCard = _this.$reg.idCardHint;
+				}
+			}else if(key == 'idCardSure'){
+				if(_this.form.idCard == _this.form.idCardSure){
+					_this.errorInfo.idCardSure = '';
+				}else{
+					_this.errorInfo.idCardSure = "2次证件号不一致";
 				}
 			}
 		},

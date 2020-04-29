@@ -329,187 +329,194 @@
 			<span class="centerBox">紧急求助！1岁宝宝急需移植骨髓，等钱救命！</span>
 			<i class="iconfont iconfont-right-arrow2 rightBox icon"></i>
 		</div> -->
-		<div class="raiseHeader borderBottom">
-			<div class="iconTextBox">
-				<i class="iconfont iconfont-love2 leftIcon"></i>
-				<div class="iconText">水滴·帮扶筹·研发中</div>
-				<div class="rightBox unSelect">
-					<van-button type="primary" size="small" :block="true" to="raiseApply">申请帮扶筹</van-button>
+		<div v-if="!list1">
+			<div class="placeholderLine10"></div>
+			<van-skeleton :row="16"/>
+			<div class="placeholderLine10"></div>
+		</div>
+		<div v-if="list1">
+			<div class="raiseHeader borderBottom">
+				<div class="iconTextBox">
+					<i class="iconfont iconfont-love2 leftIcon"></i>
+					<div class="iconText">水滴·帮扶筹·研发中</div>
+					<div class="rightBox unSelect">
+						<van-button type="primary" size="small" :block="true" to="raiseApply">申请帮扶筹</van-button>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="whoAreYou">
-			<!-- <div class="avator">
-				<van-image round width="20" height="20" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-			</div> -->
-			<div class="textInfo"><span class="text1 unSelect">{{list1.realName}}</span><span class="text2 unSelect">发起筹款</span></div>
-			<!-- <div class="rightBox unSelect"><van-tag plain type="success">个人求助</van-tag></div> -->
-		</div>
-		<div class="content1">
-			<div class="title">{{list1.title}}</div>
-			<div class="box box2">
-				<van-skeleton :row="2" :loading="loading">
-				<div class="flexC flex1">
-					<div class="digit">{{list1.needTicket}}</div>
-					<div class="text">需要帮扶券</div>
-				</div>
-				<div class="flexC flex2">
-					<div class="digit">{{list1.getedTicket}}</div>
-					<div class="text">已筹到帮扶券</div>
-				</div>
-				<div class="flexC flex3">
-					<div class="digit">{{list1.beHelpTimes}}</div>
-					<div class="text">被帮扶次数</div>
-				</div>
-				</van-skeleton>
-			</div>
-			<div class="flex borderBottom">
-				<div class="flexLeft">
-					<i class="iconfont iconfont-ticket ticket"></i>
-				</div>
-				<div class="flexCenter f-10 letterSpacing">求助者所筹到的是帮扶券，这帮扶券是直接筹到求助者账户里不经过平台，然后让平台向求助者购买帮扶券，从而使求助者得到求助费用。</div>
-				<div class="flexRight"><i class="iconfont iconfont-i" @click="messageAlert"></i></div>
-			</div>
-		</div>
-		<div class="story borderBottom">
-			<div class="flex">
-				<div class="title flexMedial">求助者的故事</div>
-				<!-- <div class="flexCenter textRight">
-					<i class="iconfont iconfont-tanhao"></i>
-					<span class="margL1 unSelect">质疑</span>
+			<div class="whoAreYou">
+				<!-- <div class="avator">
+					<van-image round width="20" height="20" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
 				</div> -->
+				<div class="textInfo"><span class="text1 unSelect">{{list1.realName}}</span><span class="text2 unSelect">发起筹款</span></div>
+				<!-- <div class="rightBox unSelect"><van-tag plain type="success">个人求助</van-tag></div> -->
 			</div>
-			<div class="content unSelect justify">
-				{{list1.story}}
-			</div>
-			<div class="imageList flex" v-if="list1">
-				<img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/>
-				<!-- <img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(1)"/>
-				<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(2)"/>
-				<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(3)"/> -->
-			</div>
-			<van-image-preview
-			  v-model="showImagePreview"
-			  :images="images"
-			  @change="onChangeImageIndex"
-			>
-			  <template v-slot:index>第{{ imageIndex }}页</template>
-			</van-image-preview>
-		</div>
-		<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
-		<div class="materialProve borderBottom">
-			<div class="flex">
-				<div class="title flexMedial">材料证明</div>
-				<!-- <div class="flexCenter textRight">
-					<i class="iconfont iconfont-safety"></i>
-					<span class="margL1 unSelect">安心保障</span>
-				</div> -->
-			</div>
-			<div class="proveContent">
+			<div class="content1">
+				<div class="title">{{list1.title}}</div>
+				<div class="box box2">
+					<van-skeleton :row="2" :loading="loading">
+					<div class="flexC flex1">
+						<div class="digit">{{list1.needTicket}}</div>
+						<div class="text">需要帮扶券</div>
+					</div>
+					<div class="flexC flex2">
+						<div class="digit">{{list1.getedTicket}}</div>
+						<div class="text">已筹到帮扶券</div>
+					</div>
+					<div class="flexC flex3">
+						<div class="digit">{{list1.beHelpTimes}}</div>
+						<div class="text">被帮扶次数</div>
+					</div>
+					</van-skeleton>
+				</div>
 				<div class="flex borderBottom">
-					<div class="flexProveLeft">
-						<i class="iconfont iconfont-pass"></i>
+					<div class="flexLeft">
+						<i class="iconfont iconfont-ticket ticket"></i>
 					</div>
-					<div class="flexMedial proveText1">
-						求助者身份及基本求助信息已通过平台初步审核，帮扶者也可加求助者好友，表示关心、慰问以及进一步了解求助者，以确保整个过程属实。
-					</div>
+					<div class="flexCenter f-10 letterSpacing">求助者所筹到的是帮扶券，这帮扶券是直接筹到求助者账户里不经过平台，然后让平台向求助者购买帮扶券，从而使求助者得到求助费用。</div>
+					<div class="flexRight"><i class="iconfont iconfont-i" @click="messageAlert"></i></div>
 				</div>
-				<div class="contentBox">
-					<div class="title2">求助者承诺：</div>
-					<div class="contentText1 justify">
-						求助者已承诺所提交的文字与图片资料完全真实，无任何虚构事实及隐瞒真相的情况，如有不实，求助者愿承担全部法律责任。
-					</div>
-					<div class="title2">求助者昵称：{{list1.nickName}} <span @click="handleCopy(list1.nickName,$event)">复制</span></div>
-					<div class="title2">求助者姓名：{{list1.realName}} <span @click="handleCopy(list1.realName,$event)">复制</span></div>
-					<div class="title2">求助者手机号：{{list1.mobilePhone}} <span @click="handleCopy(list1.mobilePhone,$event)">复制</span></div>
-					<div class="title2">求助者微信：{{list1.wechartNum}} <span @click="handleCopy(list1.wechartNum,$event)">复制</span></div>
-					<div class="title2">求助者支付宝：{{list1.alipayNum}} <span @click="handleCopy(list1.alipayNum,$event)">复制</span></div>
-					<div class="contentText1 justify">
-						该求助信息不属于慈善公开募捐，真实性由求助者个人负责，帮扶筹提示您加求助者微信了解详情后再进行帮扶。
-					</div>
-				</div>
-				<!-- <div class="knowMore">
-					了解更多求助人信息
-				</div> -->
-				
 			</div>
-			<!-- <div class="proverList">
+			<div class="story borderBottom">
 				<div class="flex">
-					<div class="flexMedial proveLabel">已有<span>38</span>人证明情况属实</div>
-					<div class="iDo">我也来证明</div>
-				</div>
-				<div class="flex">
-					<div class="flexMedial">
-						<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-					</div>
-					<div class="flexMedial">
-						<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-					</div>
-					<div class="flexMedial">
-						<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-					</div>
-					<div class="flexMedial">
-						<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-					</div>
-					<div class="flexProveMore">
-						<i class="iconfont-right-arrow iconfont"></i>
-					</div>
-				</div>
-			</div> -->
-			<div class="placeholderLine10"></div>
-		</div>
-		<div class="materialProve borderBottom">
-			<div class="flex">
-				<div class="title flexMedial">我要捐赠</div>
-			</div>
-			<div>
-				<van-field label="爱心问候"
-				  v-model="word"
-				  rows="2"
-				  autosize clearable
-				  type="textarea"
-				  maxlength="100"
-				  placeholder="顺便给求助者捎一句问候/慰问,送人玫瑰,手留余香,感恩有你"
-				  show-word-limit
-				/>
-			</div>
-			<div class="placeholderLine10"></div>
-			<div>
-				<van-button round type="info" @click="addTicket(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个券</van-button>
-				<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
-				<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个券</van-button>
-				<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
-				<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个券</van-button>
-				<!-- 增加自己填写数额 -->
-			</div>
-			<div class="placeholderLine10"></div>
-		</div>
-		<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
-		<van-list
-		  v-model="loading2"
-		  :finished="finished2"
-		  finished-text="没有更多了"
-		  @load="getAssistRaiseRecordListPage"
-		>
-			<div class="records">
-				<div class="title">爱心帮扶记录</div>
-				<div class="item flexsBox row" v-for="item in list2" :key="item.id">
-					<!-- <div class="flexLeft1">
-						<van-image round width="44" height="44" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
+					<div class="title flexMedial">求助者的故事</div>
+					<!-- <div class="flexCenter textRight">
+						<i class="iconfont iconfont-tanhao"></i>
+						<span class="margL1 unSelect">质疑</span>
 					</div> -->
-					<div class="flexThis column">
-						<div class="line1">
-							<div class="left yellow">{{item.nickName}}</div>
-							<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
+				</div>
+				<div class="content unSelect justify">
+					{{list1.story}}
+				</div>
+				<div class="imageList flex" v-if="list1">
+					<img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/>
+					<!-- <img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(1)"/>
+					<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(2)"/>
+					<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(3)"/> -->
+				</div>
+				<van-image-preview
+				  v-model="showImagePreview"
+				  :images="images"
+				  @change="onChangeImageIndex"
+				>
+				  <template v-slot:index>第{{ imageIndex }}页</template>
+				</van-image-preview>
+			</div>
+			<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
+			<div class="materialProve borderBottom">
+				<div class="flex">
+					<div class="title flexMedial">材料证明</div>
+					<!-- <div class="flexCenter textRight">
+						<i class="iconfont iconfont-safety"></i>
+						<span class="margL1 unSelect">安心保障</span>
+					</div> -->
+				</div>
+				<div class="proveContent">
+					<div class="flex borderBottom">
+						<div class="flexProveLeft">
+							<i class="iconfont iconfont-pass"></i>
 						</div>
-						<div class="line2">
-							{{item.word}}
+						<div class="flexMedial proveText1">
+							求助者身份及基本求助信息已通过平台初步审核，帮扶者也可加求助者好友，表示关心、慰问以及进一步了解求助者，以确保整个过程属实。
 						</div>
-						<div class="line3">{{item.createTime}}</div>
+					</div>
+					<div class="contentBox">
+						<div class="title2">求助者承诺：</div>
+						<div class="contentText1 justify">
+							求助者已承诺所提交的文字与图片资料完全真实，无任何虚构事实及隐瞒真相的情况，如有不实，求助者愿承担全部法律责任。
+						</div>
+						<div class="title2">求助者昵称：{{list1.nickName}} <span @click="handleCopy(list1.nickName,$event)">复制</span></div>
+						<div class="title2">求助者姓名：{{list1.realName}} <span @click="handleCopy(list1.realName,$event)">复制</span></div>
+						<div class="title2">求助者手机号：{{list1.mobilePhone}} <span @click="handleCopy(list1.mobilePhone,$event)">复制</span></div>
+						<div class="title2">求助者微信：{{list1.wechartNum}} <span @click="handleCopy(list1.wechartNum,$event)">复制</span></div>
+						<div class="title2">求助者支付宝：{{list1.alipayNum}} <span @click="handleCopy(list1.alipayNum,$event)">复制</span></div>
+						<div class="contentText1 justify">
+							该求助信息不属于慈善公开募捐，真实性由求助者个人负责，帮扶筹提示您加求助者微信了解详情后再进行帮扶。
+						</div>
+					</div>
+					<!-- <div class="knowMore">
+						了解更多求助人信息
+					</div> -->
+					
+				</div>
+				<!-- <div class="proverList">
+					<div class="flex">
+						<div class="flexMedial proveLabel">已有<span>38</span>人证明情况属实</div>
+						<div class="iDo">我也来证明</div>
+					</div>
+					<div class="flex">
+						<div class="flexMedial">
+							<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
+						</div>
+						<div class="flexMedial">
+							<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
+						</div>
+						<div class="flexMedial">
+							<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
+						</div>
+						<div class="flexMedial">
+							<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
+						</div>
+						<div class="flexProveMore">
+							<i class="iconfont-right-arrow iconfont"></i>
+						</div>
+					</div>
+				</div> -->
+				<div class="placeholderLine10"></div>
+			</div>
+			<div class="materialProve borderBottom">
+				<div class="flex">
+					<div class="title flexMedial">我要捐赠</div>
+				</div>
+				<div>
+					<van-field label="爱心问候"
+					  v-model="word"
+					  rows="2"
+					  autosize clearable
+					  type="textarea"
+					  maxlength="100"
+					  placeholder="顺便给求助者捎一句问候/慰问,送人玫瑰,手留余香,感恩有你"
+					  show-word-limit
+					/>
+				</div>
+				<div class="placeholderLine10"></div>
+				<div>
+					<van-button round type="info" @click="addTicket(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个券</van-button>
+					<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
+					<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个券</van-button>
+					<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
+					<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个券</van-button>
+					<!-- 增加自己填写数额 -->
+				</div>
+				<div class="placeholderLine10"></div>
+			</div>
+			<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
+			<van-list
+			  v-model="loading2"
+			  :finished="finished2"
+			  finished-text="没有更多了"
+			  @load="getAssistRaiseRecordListPage"
+			>
+				<div class="records">
+					<div class="title">爱心帮扶记录</div>
+					<div class="item flexsBox row" v-for="item in list2" :key="item.id">
+						<!-- <div class="flexLeft1">
+							<van-image round width="44" height="44" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
+						</div> -->
+						<div class="flexThis column">
+							<div class="line1">
+								<div class="left yellow">{{item.nickName}}</div>
+								<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
+							</div>
+							<div class="line2">
+								{{item.word}}
+							</div>
+							<div class="line3">{{item.createTime}}</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</van-list>
+			</van-list>
+		</div>
 		<!-- <transition name="van-fade">
 		  <router-view></router-view>
 		</transition> -->
@@ -528,7 +535,7 @@
 				currentPage1: 1,
 				loading1:false,
 				finished1:false,
-				list1:[],
+				list1:'',
 				currentPage2: 1,
 				pageSize2:6,
 				loading2:false,
@@ -594,7 +601,7 @@
 				  message: `您是否要捐赠${num}个给求助者？`
 				}).then(() => {
 				  // on confirm
-				  _this.addTicketRequest();
+				  //_this.addTicketRequest();
 				})
 				
 			},

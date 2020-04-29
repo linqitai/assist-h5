@@ -106,7 +106,7 @@
 					 <div class="list">
 						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex">
-								<div class="line">{{item.createTime | getDateTime}}</div>
+								<div class="line">{{item.createTime}}</div>
 								<div class="line margT6" @click="toMy4OtherView(item.fromUserId)">
 									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.sellerNickName}}</i></span>
 									<i class="iconfont iconfont-right-arrow2"></i>

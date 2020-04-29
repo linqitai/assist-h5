@@ -73,7 +73,7 @@
 						<div class="list">
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="flex">
-									<div class="line">{{item.createTime | getDateTime}}</div>
+									<div class="line">{{item.createTime}}</div>
 									<div class="line margT6">{{item.type | calculationType}}后拥有算力 {{item.currentCalculationNum}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.calculation}}</div>
@@ -86,7 +86,7 @@
 						<div class="list">
 							<div class="item" v-for="item in list4" :key="item.id">
 								<div class="flex">
-									<div class="line">{{item.createTime | getDateTime}}</div>
+									<div class="line">{{item.createTime}}</div>
 									<div class="line margT6">{{item.type | platformBookType}}后拥有帮扶券数 {{item.currentTicketNum}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.platformTicket}}</div>
@@ -96,15 +96,15 @@
 					</van-tab>
 					<van-tab title="贡献值" name="contribution">
 						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
-						<div class="list">
-							<div class="item" v-for="item in list3" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime | getDateTime}}</div>
-									<div class="line margT6" :class="item.type==20?'red':item.type==15?'red2':item.type==22?'green':''">{{item.type | contributeType}}后拥有贡献值 {{item.currentContributionValue}}</div>
+							<div class="list">
+								<div class="item" v-for="item in list3" :key="item.id">
+									<div class="flex">
+										<div class="line">{{item.createTime}}</div>
+										<div class="line margT6" :class="item.type==20?'red':item.type==15?'red2':item.type==22?'green':''">{{item.type | contributeType}}后拥有贡献值 {{item.currentContributionValue}}</div>
+									</div>
+									<div class="flexRight">{{item.addOrReduce}} {{item.contributionValue}}</div>
 								</div>
-								<div class="flexRight">{{item.addOrReduce}} {{item.contributionValue}}</div>
 							</div>
-						</div>
 						</van-list>
 					</van-tab>
 					<van-tab title="矿石" name="mineral">
@@ -112,7 +112,7 @@
 						<div class="list">
 							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="flex">
-									<div class="line">{{item.createTime | getDateTime}}</div>
+									<div class="line">{{item.createTime}}</div>
 									<div class="line margT6">{{item.type | mineralBookType}}后拥有矿石数 {{item.currentMineralNum}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.number}}</div>

@@ -248,12 +248,9 @@
 			},
 			submit(){
 				let _this = this;
-				//_this.$toast(`五一过后开放`);
-				// console.log('_this.form.fileDetailList',_this.form.fileDetailList[0].content);
-				/* let a = [];
-				a.push('111');
-				console.log('a',a.join('|')); */
-				let pic=[];
+				_this.$toast(`五一过后开放`);
+				
+				/* let pic=[];
 				_this.form.fileDetailList.forEach((item,index)=>{
 					pic.push(item.content);
 				})
@@ -277,7 +274,7 @@
 					},function(){
 						_this.loading = false;
 					});
-				}
+				} */
 			},
 		}
 	}

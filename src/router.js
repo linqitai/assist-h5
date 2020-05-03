@@ -208,6 +208,12 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
+							path: '/updateIdCard',
+							name: '帮他人修改身份证号',
+							component: resolve => require(['./views/my/updateIdCard'],resolve),
+							meta:{footer:false},
+						},
+						{
 							path: '/unFreeze',
 							name: '解冻账号',
 							component: resolve => require(['./views/my/unFreeze'],resolve),

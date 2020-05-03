@@ -83,6 +83,19 @@
 		</m-header>
 		<div class="transferPageF">
 			<div class="placeholderLine10"></div>
+			<div class="paddingWing tip4model3">
+				<b class="textBold">定向转让矿石(服务商)交易规则：</b><br>
+				1.无论是会员转矿石给服务商还是服务商转矿石给会员，转让手续费减半都是只收交易总金额10%的帮扶券。比如：交易总金额是200CNY，收20CNY价值的帮扶券作为手续费。该手续费，将会用来做线下的公益事业(爱心帮扶活动)。等疫情过去后，将陆陆续续开展线下的公益事业，期待有您的参与!<br>
+				2.个人算力达到0.4G即可开通定向转让矿石给服务商的权限。<br>
+				3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机。<br>
+				<div class="placeholderLine10"></div>
+				<b class="textBold">还有请再次阅读基础规则</b><br>
+				【1】注册后微信号和支付宝号是您的注册手机号，若您的支付宝和微信未绑定该手机号，请先去支付宝和微信绑定。<br>
+				【2】平台为保证交易的顺利进行，您在平台上预留的真实姓名与支付宝号里的不一致永久冻结账号处理。<br>
+				【3】如果支付宝帐号设置隐私导致买方无法通过手机号查找而无法完成交易的，客服介入调查取消交易且永久冻结卖方账号。请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
+				 <b class="textBold">发起交易后，即代表您已认真阅读并同意以上规则</b>
+			</div>
+			<div class="placeholderLine10"></div>
 			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
 			<div class="paddingWing tip4model3">当前拥有<br>矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
 			<van-cell-group>
@@ -101,13 +114,7 @@
 			</van-cell-group>
 			<div class="placeholderLine10"></div>
 			<!-- <div class="paddingWing tip4model3" v-html="$api.tipText4Safe"></div> -->
-			<div class="placeholderLine10"></div>
-			<div class="paddingWing tip4model3">
-				<b class="textBold">定向转让矿石(服务商)交易规则：</b><br>
-				1.无论是会员转矿石给服务商还是服务商转矿石给会员，转让手续费减半都是只收交易总金额10%的帮扶券。比如：交易总金额是200CNY，收20CNY价值的帮扶券作为手续费。该手续费，将会用来做线下的公益事业(爱心帮扶活动)。等疫情过去后，将陆陆续续开展线下的公益事业，期待有您的参与!<br>
-				2.个人算力达到0.4G即可开通定向转让矿石给服务商的权限。<br>
-				3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机。<br>
-			</div>
+			
 			<!-- <div class="margT10 paddingWing tip4model3" v-html="tipText4AppointDeal"></div> -->
 			<div class="placeholderLine40"></div>
 			<div class="placeholderLine40"></div>

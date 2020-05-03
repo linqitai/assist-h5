@@ -315,6 +315,8 @@
 			},
 			validate(key){
 				let _this = this;
+				//TSBK1taWQTpNjOkisQDHio8Vdiv94nvYRCE2JgEKbck=
+				//Wu8v/5SEYcEBR/YGGLYAwGR4HkBmXB5P+Tf4W7CzXeA=
 				if(key == 'phone') {
 					console.log('_this.form.phone',_this.form.phone)
 					if(_this.$reg.phone.test(_this.form.phone)){
@@ -325,6 +327,9 @@
 				}else if(key == 'password'){
 					if(_this.$reg.password.test(_this.form.password.replace(/ /g,""))){
 						_this.errorHint.password = '';
+						/* if(_this.form.password.replace(/ /g,"").length>16){
+							_this.errorHint.password = _this.$reg.passwordHint;
+						} */
 					}else{
 						_this.errorHint.password = _this.$reg.passwordHint;
 					}

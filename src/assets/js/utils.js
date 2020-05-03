@@ -437,8 +437,8 @@ function calculateMA(dayCount, data) {
 }
 
 function nextReceipt(value) {
-	let dateTime = new Date(value).getTime()/1000 + 24*60*60;
-	let result = getDateTime(dateTime*1000);
+	let dateTime = Date.parse(new Date(value)) + 24*60*60*1000;
+	let result = getDateTime(dateTime);
 	return result;
 }
 

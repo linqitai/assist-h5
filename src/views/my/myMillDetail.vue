@@ -74,8 +74,8 @@
 				<div class="">开机时间 {{millInfo.turnOnTime}}</div>
 				<div class="">到期时间 {{millInfo.turnOffTime}}</div>
 				<div class="" v-if="millInfo.beforeReceipt">上次领取 {{millInfo.beforeReceipt}}</div>
-				<div class="line" v-if="millInfo.beforeReceipt">下次领取 {{ $utils.nextReceipt(millInfo.beforeReceipt) }} 之后</div>
-				<div class="line" v-if="!millInfo.beforeReceipt"><span v-if="millInfo.turnOnTime">下次领取 {{ $utils.nextReceipt(millInfo.turnOnTime) }} 之后</span></div>
+				<!-- <div class="line" v-if="millInfo.beforeReceipt">下次领取 {{ $utils.nextReceipt(millInfo.beforeReceipt) }} 之后</div>
+				<div class="line" v-if="!millInfo.beforeReceipt"><span v-if="millInfo.turnOnTime">下次领取 {{ $utils.nextReceipt(millInfo.turnOnTime) }} 之后</span></div> -->
 				<!-- <div>全网算力：{{millInfo.calculationPower}}GH/s</div> -->
 			</div>
 		</div>

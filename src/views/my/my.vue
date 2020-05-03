@@ -460,6 +460,16 @@
 						</div>
 					</div>
 				</router-link>
+				<router-link to="updateIdCard">
+					<div class="my-cell">
+						<div class="flex1">
+							帮他人修改身份证号
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
 			</div>
 			<div class="items" v-if="userInfo.innerRegister==1">
 				<router-link to="innerRegister">
@@ -583,7 +593,7 @@
 		},
 		created() {
 			let _this = this;
-			//console.log("addNum:" + (7%10)/20);
+			console.log("getTime:" + Date.parse(new Date('2020/04/30 09:45:12:123')));
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				////console.log("userInfo_localStorage");

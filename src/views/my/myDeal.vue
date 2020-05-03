@@ -588,6 +588,7 @@
 				<div v-if="detail4sellerInfo.status==4 || detail4sellerInfo.status==5">
 					<img class="selectedImg" :src="detail4sellerInfo.imgUrl"/>
 				</div>
+				<div class="margT10 tip4model3" v-html="$api.tip4Complain"></div>
 				<div class="margT10">
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4sellerInfo)" size="normal" :block="true">诉讼</van-button>
 				</div>

@@ -17,6 +17,7 @@ export default {
 	numUnit:'个',
 	coinUnit:'矿石',
 	ticketName:'帮扶券',
+	tip4Complain:'买家付款后，卖家若在1小时内没给确认，1小时后买家可以帮卖家确认，若是此种情况不需要点诉讼。',
 	tip4ReduceMill:'矿机商城里的矿机是限量的，任何一种矿机被租赁完，全体矿机将会被更新，第二天就会换上新的一批减产后的矿机。',
 	tipText4Safe:"<b class='textBold'>担保交易的安全性：</b><br>每笔交易都由省市代理预先来审核双方账号是否正常、实名信息是否正确、区块账本数据是否对得上等，最大限度得维护了投资者的利益，保证了交易的安全性。<br>注:买卖双方交易前先检查自己的手机号是否已经绑定了自己的支付宝和微信号(即通过手机号可以搜索到自己的支付宝和微信号)，若审核出未绑定或者实名信息不一致,一律冻结账号处理。",
 	tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长120分钟交易时间，锁定交易后买方若在2小时内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
@@ -87,6 +88,7 @@ export default {
 	cancelAccount: host + "assist/userInfo/cancelAccount",
 	getUserIdByObj: host + "assist/userInfo/getUserIdByObj",
 	update4Complain: host + "assist/userInfo/update4Complain",
+	updateUserIdCard: host + "assist/userInfo/updateUserIdCard",
 	//服务商
 	getServiceUserList: host + "assist/user/getServiceUserList",
 	getServiceDsPassword: host + "assist/user/getServiceDsPassword",

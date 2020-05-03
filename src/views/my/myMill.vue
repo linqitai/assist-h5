@@ -233,9 +233,9 @@
 									<div class="line">已产 {{item.alreadyGet}}矿石</div>
 									<div class="line">总运行时长 {{item.allRuntime}}小时</div>
 									<!-- <div class="line" v-if="item.turnOnTime">开机 {{item.turnOnTime}}</div> -->
-									<!-- <div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div> -->
-									<div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
-									<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div>
+									<div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt || '--'}}</div>
+									<!-- <div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
+									<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div> -->
 								</div>
 								<div class="flex flex3">
 									<div class="status line">{{item.status | machineStatus}}</div>
@@ -432,9 +432,9 @@
 			},
 			nextReceipt(value){
 				let _this = this;
-				let dateTime = new Date(value).getTime()/1000 + 24*60*60;
+				let dateTime = Date.parse(new Date(value)) + 24*60*60*1000;
 				// console.log("dateTime",dateTime);
-				let result = _this.$utils.getDateTime(dateTime*1000);
+				let result = _this.$utils.getDateTime(dateTime);
 				// console.log("result",result);
 				return result;
 				// _this.$nextTick(()=>{
@@ -445,7 +445,7 @@
 				let _this = this;
 				_this.getRecieptLoading = true;
 				_this.showReceiptTip = true;
-				let nowTimestamp = new Date().getTime();
+				let nowTimestamp = Number(new Date().getTime());
 				/* if(_this.userInfo.lastReceiptTime==null || _this.userInfo.lastReceiptTime==""){
 					_this.receiptModelTile = "系统提示";
 					_this.isShowReceiptLoading = false;
@@ -455,7 +455,7 @@
 					return;
 				} */
 				//console.log('_this.userInfo.lastReceiptTime',_this.userInfo.lastReceiptTime);
-				let lastReceiptTimestamp = new Date(_this.userInfo.lastReceiptTime).getTime();
+				let lastReceiptTimestamp = Number(new Date(_this.userInfo.lastReceiptTime).getTime());
 				//console.log('lastReceiptTimestamp',lastReceiptTimestamp);
 				//if(!lastReceiptTimestamp)
 				let timestamp = (nowTimestamp - lastReceiptTimestamp)/1000;

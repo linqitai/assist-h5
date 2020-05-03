@@ -164,7 +164,7 @@
 									<div class="name">{{item.realName | getLastName}}</div>
 								</div>
 								<div class="flex flex2">
-									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime | getDateYMD}}</div>
+									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
 									<div class="line2"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
 									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div>
 									<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>
@@ -188,7 +188,7 @@
 									<div class="name">{{item.realName | getLastName}}</div>
 								</div>
 								<div class="flex flex2">
-									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime | getDateYMD}}</div>
+									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
 									<div class="line2"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
 									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div>
 									<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>
@@ -213,7 +213,7 @@
 									<div class="name">{{item.realName | getLastName}}</div>
 								</div>
 								<div class="flex flex2">
-									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime | getDateYMD}}</div>
+									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
 									<div class="line2"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
 									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div>
 									<!-- <div class="line3"><i class="iconfont iconfont-mill"></i> X台矿机正在运行</div> -->

@@ -256,7 +256,7 @@
 							//'您的账号异常或暂时被冻结，原因：' + _this.userFreezeInfo.reason + '。need_ticket',
 							Dialog.alert({
 							  title: '系统提示',
-							  message: `您的账号异常或被冻结，原因：${_this.userFreezeInfo.reason}。解冻需${_this.userFreezeInfo.needTicket}个帮扶券`
+							  message: `您的账号异常或被冻结，原因：${_this.userFreezeInfo.reason}。`
 							}).then(() => {
 							  // on close
 							});

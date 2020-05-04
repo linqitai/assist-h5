@@ -240,7 +240,6 @@
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
-		<!-- <div class="placeholderLine10"></div> -->
 		<!-- <div class="box share">
 			<div class="flexLeft">
 				<div class="line title">

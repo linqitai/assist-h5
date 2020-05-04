@@ -89,8 +89,8 @@
 			<div class="placeholderLine10"></div> -->
 			<van-cell-group>
 				<!-- <van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/> -->
-				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请填写对方的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
-				<van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
+				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请填写他人的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
+				<van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写他人的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
 				<!-- <van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/> -->
 			</van-cell-group>
 			<!-- <div class="myCell">

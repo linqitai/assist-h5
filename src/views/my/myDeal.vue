@@ -809,50 +809,37 @@
 			</div>	  
 		  <!-- <van-field v-model="remark" required clearable placeholder="写点内容,让平台好找到线索"/> -->
 		</van-dialog>
-		<van-action-sheet v-model="showSellerUserInfoModel" title="卖家信息">
-			<div class="box box2">
+		<van-action-sheet v-model="showSellerUserInfoModel" title="去了解卖家信息或诉讼">
+			<!-- <div class="box box2">
 				<div class="flex flex1">
 					<div class="value" @click="toBookView('1',sellerUserInfo.userId)">{{sellerUserInfo.teamCalculationPower}}</div>
 					<div class="text">团队算力</div>
 				</div>
 				<div class="flex flex4">
-					<!-- <div>{{sellerUserInfo.platformTicket}}</div> -->
 					<div class="value" @click="toBookView('2',sellerUserInfo.userId)">{{sellerUserInfo.platformTicket}}</div>
 					<div class="text">帮扶券</div>
 				</div>
-				<!-- <div class="flex flex3">
-					<div class="value" @click="toBookView('3',sellerUserInfo.userId)">{{sellerUserInfo.contributionValue}}</div>
-					<div class="text">贡献值</div>
-				</div> -->
 				<div class="flex flex2">
-					<!-- <div>{{sellerUserInfo.thisWeekMineral}}</div> -->
 					<div class="value" @click="toBookView('4',sellerUserInfo.userId)">{{sellerUserInfo.thisWeekMineral}}</div>
 					<div class="text">矿石</div>
 				</div>
-			</div>
-			<div class="box box3">
+			</div> -->
+			<!-- <div class="box box3">
 				<div class="flex flex1">
 					<div>{{sellerUserInfo.myCalculationPower}}</div>
-					<!-- <NumberGrow :value="userInfo.myCalculationPower"></NumberGrow> -->
 					<div class="text">TA的算力</div>
 				</div>
 				<div class="flex flex4">
 					<div>{{sellerUserInfo.temporaryFreezePlatformTicket}}</div>
-					<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
 					<div class="text">交易中<br>帮扶券</div>
 				</div>
-				<!-- <div class="flex flex3">
-					<div>{{sellerUserInfo.temporaryFreezeContribution}}</div>
-					<div class="text">交易中<br>贡献值</div>
-				</div> -->
 				<div class="flex flex2">
 					<div>{{sellerUserInfo.temporaryFreezeMineral}}</div>
-					<!-- <NumberGrow :value="userInfo.temporaryFreezeMineral"></NumberGrow> -->
 					<div class="text">交易中<br>矿石</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="margT10">
-				<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="lookThisBook(sellerUserInfo.userId)">查看对方账本</van-button>
+				<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="toMy4OtherView(sellerUserInfo.userId)">查看对方信息，若异常就控告或诉讼</van-button>
 			</div>
 			<div class="margT10">
 				<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" size="normal" @click="complain(sellerUserInfo)" :block="true">诉讼</van-button>
@@ -1549,6 +1536,11 @@
 						_this.$toast(res.message);
 					}
 				})
+			},
+			toMy4OtherView(userId){
+				let _this = this;
+				//console.log('userIdInDealRecolod:',userId);
+				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
 			},
 			showSellerInfoBtn(item){
 				let _this = this;

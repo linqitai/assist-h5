@@ -298,8 +298,8 @@ $noticeHeight:40px;
 				</div>
 				<div class="placeholderLine20"></div>
 				<div class="title">{{attendanceTitle}}</div>
-				<div class="tomorrowContribution">连续签到30天可获得体验矿机一台</div>
-				<div class="tomorrowContribution">该奖励可能截止到下次减产</div>
+				<div class="tomorrowContribution">连续签到30天可额外获得1个贡献值</div>
+				<div class="tomorrowContribution">随着矿石价值的增加，签到所得贡献值会不定期做调整</div>
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
@@ -357,81 +357,81 @@ $noticeHeight:40px;
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(13)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(13)">0.03</div>
 						<div class="day">13天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(14)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(14)">0.03</div>
 						<div class="day">14天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(15)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(15)">0.03</div>
 						<div class="day">15天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(16)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(16)">0.03</div>
 						<div class="day">16天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(17)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(17)">0.03</div>
 						<div class="day">17天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(18)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(18)">0.03</div>
 						<div class="day">18天</div>
 					</div>
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(19)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(19)">0.04</div>
 						<div class="day">19天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(20)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(20)">0.04</div>
 						<div class="day">20天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(21)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(21)">0.04</div>
 						<div class="day">21天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(22)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(22)">0.04</div>
 						<div class="day">22天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(23)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(23)">0.04</div>
 						<div class="day">23天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(24)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(24)">0.04</div>
 						<div class="day">24天</div>
 					</div>
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(25)">0.16</div>
+						<div class="circle" :class="getAttendanceBgColor(25)">0.05</div>
 						<div class="day">25天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(26)">0.16</div>
+						<div class="circle" :class="getAttendanceBgColor(26)">0.05</div>
 						<div class="day">26天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(27)">0.16</div>
+						<div class="circle" :class="getAttendanceBgColor(27)">0.05</div>
 						<div class="day">27天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(28)">0.16</div>
+						<div class="circle" :class="getAttendanceBgColor(28)">0.05</div>
 						<div class="day">28天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(29)">0.16</div>
+						<div class="circle" :class="getAttendanceBgColor(29)">0.05</div>
 						<div class="day">29天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(30)">0.16</div>
+						<div class="circle" :class="getAttendanceBgColor(30)">0.05</div>
 						<div class="day">30天</div>
 					</div>
 				</div>
@@ -443,7 +443,8 @@ $noticeHeight:40px;
 				<div v-if="todayIsAttendance">
 					<div class="textCenter red f-13">今日签到已领取{{getTodayAttendanceValue}}贡献值</div>
 					<div class="tomorrowContribution" v-if="dayNum<30">明日签到可领取{{getTomorrowContributionValue}}贡献值</div>
-					<div class="tomorrowContribution" v-if="dayNum==30">恭喜您：今日已成功获取一台体验矿机，明日将重置签到</div>
+					<!-- <div class="tomorrowContribution" v-if="dayNum==30">恭喜您：今日已成功获取一台体验矿机，明日将重置签到</div> -->
+					<div class="tomorrowContribution" v-if="dayNum==30">恭喜您：签到满30天，已成功额外领得1个贡献值奖励，明日将重置签到</div>
 					<div class="placeholderLine20"></div>
 				</div>
 			</div>
@@ -747,7 +748,6 @@ $noticeHeight:40px;
 			getAssistQQFlock(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getAssistQQFlock, 'POST', null, function(res) {
-					//console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.qqFlock = `官方QQ群：${res.data.qqFlock}`;
 						_this.$cookies.set('qqFlock',res.data.qqFlock,_this.$api.cookiesTime8h);
@@ -852,7 +852,8 @@ $noticeHeight:40px;
 								  message: res.message
 								}).then(() => {
 								  // on confirm
-								  _this.$router.push("mill");
+								  _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+								  _this.$router.push('/myBook');
 								})
 							}else{
 								_this.$toast(res.message);
@@ -880,7 +881,8 @@ $noticeHeight:40px;
 							  		  message: res.message
 							  		}).then(() => {
 							  		  // on confirm
-							  		  _this.$router.push("mill");
+							  		  _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+							  		  _this.$router.push('/myBook');
 							  		})
 							  	}else{
 							  		_this.$toast(res.message);
@@ -908,7 +910,9 @@ $noticeHeight:40px;
 							  		  message: res.message
 							  		}).then(() => {
 							  		  // on confirm
-							  		  _this.$router.push("mill");
+							  		  //_this.$router.push("mill");
+									  _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+									  _this.$router.push('/myBook');
 							  		})
 							  	}else{
 							  		_this.$toast(res.message);

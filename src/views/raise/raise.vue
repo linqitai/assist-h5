@@ -601,7 +601,7 @@
 				  message: `您是否要捐赠${num}个给求助者？`
 				}).then(() => {
 				  // on confirm
-				  //_this.addTicketRequest();
+				  _this.addTicketRequest();
 				})
 				
 			},
@@ -612,12 +612,17 @@
 				  raiseNum: _this.num,
 				  word: _this.word
 				}
+				if(_this.$utils.hasNull(params)){
+					_this.$toast('请填写完整信息');
+					return;
+				}
 				console.log("p",params)
 				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast("捐赠成功");
 						_this.word = '';
-						//_this.getCurrentAuction();
+						_this.getAssistRaiseListPage();
+						_this.getAssistRaiseRecordListPage();
 					}else{
 						Dialog.alert({
 							title: "系统提示",
@@ -634,6 +639,7 @@
 				let params = {
 					pageNo: _this.currentPage2,
 					pageSize: _this.pageSize2,
+					raiseId:_this.list1.id
 				}
 				_this.loading2 = true;
 				_this.$ajax.ajax(_this.$api.getAssistRaiseRecordListPage, 'GET', params, function(res) {

@@ -12,7 +12,7 @@ import { Dialog } from 'vant';
 // import VueCookies from 'vue-cookies';
 // Vue.use(VueCookies);
 let tip4Login = '登录已过期,请重新登录再试';
-let tip4Refresh = '您的网络信号不稳定,请刷新后再试';
+let tip4Refresh = '当前网络信号不稳定,请稍后再试';
 
 export default {
 	getJson(url, doSuccess) {

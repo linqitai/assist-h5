@@ -332,6 +332,11 @@
 		},
 		mounted() {
 			let _this = this;
+			if (_this.$cookies.isKey("tab_name_book")) {
+				_this.activeName = _this.$cookies.get("tab_name_book");
+			}else{
+				_this.activeName = "mineral";
+			}
 			//_this.mobilePhone = localStorage.getItem("mobilePhone")
 		},
 		methods: {
@@ -384,8 +389,9 @@
 			},
 			tabChange(res) {
 				let _this = this;
-				console.log('res', res)
+				//console.log('res', res)
 				_this.activeName = res;
+				_this.$cookies.set("tab_name_book", res, _this.$api.cookiesTime)
 			},
 			searchEvent(){
 				let _this = this;

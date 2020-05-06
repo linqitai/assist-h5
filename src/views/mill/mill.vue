@@ -297,6 +297,10 @@
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				_this.userInfo = JSON.parse(userInfo);
+				if(_this.userInfo.accountStatus==1){
+					//退出登录
+					_this.logout();
+				}
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
@@ -334,6 +338,25 @@
 				}else if(tag==4){
 					return 'tag2'
 				}
+			},
+			logout(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
+					if(res.code == _this.$api.CODE_OK){
+						_this.$toast('账户异常且退出登录');
+						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+						// _this.$cookies.remove('_USERINFO_');
+						// _this.$cookies.remove('buyAndSellInfo');
+						_this.$cookies.remove('userId');
+						_this.$cookies.remove('token');
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.$router.replace('login');
+				})
 			},
 			selectRadioChange(value){
 				//console.log(value);

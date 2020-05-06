@@ -248,7 +248,7 @@
 			},
 			submit(){
 				let _this = this;
-				_this.$toast(`五一过后开放`);
+				_this.$toast(`即将开放`);
 				
 				/* let pic=[];
 				_this.form.fileDetailList.forEach((item,index)=>{

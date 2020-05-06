@@ -958,7 +958,8 @@
 				toast:'',
 				phoneType:'',
 				type:2,
-				guidancePrice:''
+				guidancePrice:'',
+				userInfo:''
 			}
 		},
 		components: {
@@ -982,6 +983,23 @@
 			if(_this.$utils.isNUll(_this.userId)){
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
+			}
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				////console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+				//_this.userId = _this.userInfo.userId;
+				if(_this.userInfo.accountStatus==1){
+					//退出登录
+					_this.logout();
+				}
+			}else{
+				/* localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token'); */
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
 			}
 			_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 			// _this.initializeHintInfo();
@@ -1235,6 +1253,25 @@
 				if (_this.$cookies.isKey("tabName4MyDeal")) {
 					_this.activeName = _this.$cookies.get("tabName4MyDeal");
 				}
+			},
+			logout(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
+					if(res.code == _this.$api.CODE_OK){
+						_this.$toast('账户异常且退出登录');
+						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+						// _this.$cookies.remove('_USERINFO_');
+						// _this.$cookies.remove('buyAndSellInfo');
+						_this.$cookies.remove('userId');
+						_this.$cookies.remove('token');
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.$router.replace('login');
+				})
 			},
 			onLoad1(){
 				//console.log('load1')
@@ -1611,10 +1648,10 @@
 						})
 					}else if(_this.activeName == 'pay'){//pay是买家
 						//console.log('pay是买家');
-						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
 							_this.cancelDeal4OverTime();
 							return;
-						} */
+						}
 						_this.showAgentDetailModel = true;
 						_this.$ajax.ajax(_this.$api.getAssistAppointDealDetailById, 'GET', params, function(res) {
 							if (res.code == _this.$api.CODE_OK) {
@@ -1666,10 +1703,10 @@
 							}
 						})
 					}else if(bs=='buy'){
-						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
 							_this.cancelDeal4OverTime();
 							return;
-						} */
+						}
 						let params = {
 							id: _this.id
 						}

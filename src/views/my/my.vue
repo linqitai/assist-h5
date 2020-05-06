@@ -593,12 +593,16 @@
 		},
 		created() {
 			let _this = this;
-			console.log("getTime:" + Date.parse(new Date('2020/04/30 09:45:12:123')));
+			//console.log("getTime:" + Date.parse(new Date('2020/04/30 09:45:12:123')));
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				////console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
 				_this.userId = _this.userInfo.userId;
+				if(_this.userInfo.accountStatus==1){
+					//退出登录
+					_this.logout();
+				}
 			}else{
 				/* localStorage.removeItem('_USERINFO_');
 				_this.$cookies.remove('userId');

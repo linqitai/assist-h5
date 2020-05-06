@@ -686,6 +686,10 @@ $noticeHeight:40px;
 			if(userInfo){
 				_this.userInfo = JSON.parse(userInfo);
 				_this.userId = _this.userInfo.userId;
+				if(_this.userInfo.accountStatus==1){
+					//退出登录
+					_this.logout();
+				}
 				_this.refreshAttendanceInfo();
 			}else{
 				localStorage.removeItem('_USERINFO_');
@@ -754,6 +758,25 @@ $noticeHeight:40px;
 					}else{
 						_this.$toast(res.message);
 					}
+				})
+			},
+			logout(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
+					if(res.code == _this.$api.CODE_OK){
+						_this.$toast('账户异常且退出登录');
+						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+						// _this.$cookies.remove('_USERINFO_');
+						// _this.$cookies.remove('buyAndSellInfo');
+						_this.$cookies.remove('userId');
+						_this.$cookies.remove('token');
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.$router.replace('login');
 				})
 			},
 			waiting(){

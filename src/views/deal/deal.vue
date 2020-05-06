@@ -442,7 +442,7 @@
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
 					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
-					<div class="tip4model3">系统提示：卖单被匹配的方式是随机的，原则上，每天挂单后不需要撤单，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间，买家若因不知情而没查看所匹配的单子，单子被取消后，不再扣买家的0.5贡献值，只扣卖家的0.5贡献值--因为卖家通知不到位，没及时提醒买家查看订单。（同时，交易过程中若遇到问题，随时都可以点诉讼按钮，并联系客服让客服介入调查或协调）</div>
+					<div class="tip4model3">系统提示：卖单被匹配的方式是随机的，最新挂的单子被匹配的概率会高一些，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间，买家若因不知情而没查看所匹配的单子，单子被取消后，不再扣买家的0.5贡献值，只扣卖家的0.5贡献值--因为卖家通知不到位，没及时提醒买家查看订单。（同时，交易过程中若遇到问题，随时都可以点诉讼按钮，并联系客服让客服介入调查或协调）</div>
 					<div class="placeholderLine10"></div>
 				    <van-button @click="sureHangBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Buy" :block="true">确 认</van-button>
 				</div>
@@ -731,6 +731,25 @@ export default {
 				}
 			}
 		},
+		logout(){
+			let _this = this;
+			_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
+				if(res.code == _this.$api.CODE_OK){
+					_this.$toast('账户异常且退出登录');
+					// localStorage.clear();//若不允许多账号登录，请把这个给去掉
+					// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+					// _this.$cookies.remove('_USERINFO_');
+					// _this.$cookies.remove('buyAndSellInfo');
+					_this.$cookies.remove('userId');
+					_this.$cookies.remove('token');
+					// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+				}else{
+					_this.$toast(res.message);
+				}
+			},function(){
+				_this.$router.replace('login');
+			})
+		},
 		initializeData(){
 			let _this = this;
 			let userInfo = localStorage.getItem("_USERINFO_");
@@ -738,6 +757,10 @@ export default {
 				_this.userInfo = JSON.parse(userInfo);
 				_this.platformTicket = parseFloat(_this.userInfo.platformTicket);
 				_this.canBuyNum = parseFloat(_this.userInfo.canBuyNum);
+				if(_this.userInfo.accountStatus==1){
+					//退出登录
+					_this.logout();
+				}
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');

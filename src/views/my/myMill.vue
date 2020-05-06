@@ -608,7 +608,7 @@
 						}
 						let remainCount = 0;
 						_this.myMillList.forEach((item,index)=>{
-							remainCount = remainCount + (item.totalOutput - item.alreadyGet);
+							remainCount = remainCount + (item.totalOutput - (item.alreadyGet||0));
 						})
 						_this.remainCount = remainCount;
 						//console.log("remainCount" + _this.remainCount);

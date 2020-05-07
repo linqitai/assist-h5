@@ -560,9 +560,6 @@
 		components: {
 			mHeader
 		},
-		// components: {
-		// 	[Dialog.Component.name]: Dialog.Component
-		// },
 		created() {
 			let _this = this;
 			_this.getAssistRaiseListPage();
@@ -570,18 +567,6 @@
 		mounted() {
 			let _this = this;
 			
-			// _this.initializeerrorHint();
-			// _this.initializeTabActiveName();
-			// ImagePreview({
-			//   images: [
-			//     'https://img.yzcdn.cn/2.jpg',
-			//     'https://img.yzcdn.cn/2.jpg'
-			//   ],
-			//   startPosition: 1,
-			//   onClose() {
-			//     // do something
-			//   }
-			// });
 		},
 		methods:{
 			back(){

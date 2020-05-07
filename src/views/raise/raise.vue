@@ -319,7 +319,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				帮扶筹 争取5月上旬开放
+				帮扶筹
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
@@ -333,9 +333,10 @@
 			<div class="raiseHeader borderBottom">
 				<div class="iconTextBox">
 					<i class="iconfont iconfont-love2 leftIcon"></i>
-					<div class="iconText">水滴·帮扶筹·研发中</div>
+					<div class="iconText">帮扶筹</div>
 					<div class="rightBox unSelect">
-						<van-button type="primary" size="small" :block="true" to="raiseApply">申请帮扶筹</van-button>
+						<!-- to="raiseApplyList" -->
+						<van-button type="primary" size="small" :block="true" to="raiseApplyList">申请帮扶筹</van-button>
 					</div>
 				</div>
 			</div>
@@ -523,9 +524,9 @@
 				</van-list>
 			</div>
 		</div>
-		<!-- <transition name="van-fade">
+		<transition name="van-fade">
 		  <router-view></router-view>
-		</transition> -->
+		</transition>
 	</div>
 </template>
 
@@ -549,11 +550,7 @@
 				list2:[],
 				showImagePreview: false,
 				imageIndex: 0,
-				images: [
-					'https://img.yzcdn.cn/2.jpg',
-					'https://img.yzcdn.cn/2.jpg',
-					'https://img.yzcdn.cn/2.jpg'
-				],
+				images: [],
 				loadingRecordsList:false,
 				finishedRecordsList:false,
 				num:0,
@@ -566,9 +563,13 @@
 		// components: {
 		// 	[Dialog.Component.name]: Dialog.Component
 		// },
-		mounted() {
+		created() {
 			let _this = this;
 			_this.getAssistRaiseListPage();
+		},
+		mounted() {
+			let _this = this;
+			
 			// _this.initializeerrorHint();
 			// _this.initializeTabActiveName();
 			// ImagePreview({
@@ -592,6 +593,9 @@
 					_this.$toast(`复制成功`);
 				});
 			},
+			waiting(){
+				this.$toast(`即将开放`);
+			},
 			addTicket(num){
 				let _this = this;
 				_this.num = num;
@@ -607,6 +611,7 @@
 				  message: `您是否要捐赠${num}个给求助者？`
 				}).then(() => {
 				  // on confirm
+				  //_this.$toast(`即将开放`);
 				  _this.addTicketRequest();
 				})
 				
@@ -664,13 +669,18 @@
 				let params = {
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
+					isShow:1
 				}
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data.list[0];
-						_this.images = _this.list1.pic.split('|');
-						_this.getAssistRaiseRecordListPage();
+						if(_this.list1){
+							_this.images = _this.list1.pic.split('|');
+							_this.getAssistRaiseRecordListPage();
+						}else{
+							_this.list1 = '';
+						}
 					}else{
 						_this.$toast(res.message);
 					}

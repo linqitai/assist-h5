@@ -454,10 +454,7 @@
 					_this.isShowConfirmButton = true;
 					return;
 				} */
-				//console.log('_this.userInfo.lastReceiptTime',_this.userInfo.lastReceiptTime);
 				let lastReceiptTimestamp = Number(new Date(_this.userInfo.lastReceiptTime).getTime());
-				//console.log('lastReceiptTimestamp',lastReceiptTimestamp);
-				//if(!lastReceiptTimestamp)
 				let timestamp = (nowTimestamp - lastReceiptTimestamp)/1000;
 				if(timestamp<24*60*60){
 					_this.receiptModelTile = "系统提示";

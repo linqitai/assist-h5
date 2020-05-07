@@ -452,16 +452,16 @@ $noticeHeight:40px;
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent" v-if="$route.meta.footer">
 			<div class="HomeContent">
 				<div class="swipe">
-					<van-swipe :autoplay="3000" style="height: 190px;">
+					<!-- <van-swipe :autoplay="3000" style="height: 190px;">
 					  <van-swipe-item v-for="(item, index) in noticeList4Swipe" :key="index">
 						<img :src="item.imgUrl" v-lazy="item.imgUrl"/>
 					  </van-swipe-item>
-					</van-swipe>
-					<!-- <van-swipe :autoplay="3000" style="height: 200px;" vertical>
+					</van-swipe> -->
+					<van-swipe :autoplay="3000" style="height: 190px;" vertical>
 					  <van-swipe-item v-for="(image, index) in images" :key="index">
 						<img v-lazy="image" />
 					  </van-swipe-item>
-					</van-swipe> -->
+					</van-swipe>
 				</div>
 				<div class="notice">
 					<van-notice-bar :text="lastNoticeItem.noticeTitle" left-icon="volume-o" @click="toNoticeDetail(lastNoticeItem)" />
@@ -658,7 +658,12 @@ $noticeHeight:40px;
 				attendanceTitle:"",
 				currentPage:1,
 				pageSize:3,
-				images: [],
+				images: [
+					'https://www.helpchain.online/image/banner1.jpg',
+					'https://www.helpchain.online/image/banner2.jpg',
+					'https://www.helpchain.online/image/banner3.jpg',
+					'https://www.helpchain.online/image/banner4.jpg',
+				],
 				mill: {
 					zl: "",
 					bw: "",
@@ -722,7 +727,7 @@ $noticeHeight:40px;
 				_this.getNoticeList();
 			}
 			//轮播图存获取
-			if(_this.$cookies.isKey('hasNoticeList4Swipe')){
+			/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
 				//console.log('hasNoticeList4Swipe');
 				_this.noticeList4Swipe = JSON.parse(localStorage.getItem("noticeList4Swipe"));
 				if(_this.noticeList4Swipe){
@@ -731,7 +736,7 @@ $noticeHeight:40px;
 				}
 			}else{
 				_this.getNoticeList4Swipe();
-			}
+			} */
 			/* let qqFlock = _this.$cookies.get('qqFlock');
 			if(qqFlock){
 				_this.qqFlock = `官方QQ群：${qqFlock}`;
@@ -953,7 +958,7 @@ $noticeHeight:40px;
 				// _this.getNoticeList4Swipe();
 				_this.getNoticeList();
 				//轮播图存获取
-				if(_this.$cookies.isKey('hasNoticeList4Swipe')){
+				/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
 					//console.log('hasNoticeList4Swipe');
 					_this.noticeList4Swipe = JSON.parse(localStorage.getItem("noticeList4Swipe"));
 					if(_this.noticeList4Swipe){
@@ -962,7 +967,7 @@ $noticeHeight:40px;
 					}
 				}else{
 					_this.getNoticeList4Swipe();
-				}
+				} */
 			},
 			toNoticeDetail(item) {
 				let _this = this;
@@ -1013,7 +1018,7 @@ $noticeHeight:40px;
 					}
 				})
 			},
-			getNoticeList4Swipe() {
+			/* getNoticeList4Swipe() {
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage,
@@ -1030,7 +1035,7 @@ $noticeHeight:40px;
 						_this.$toast(res.message);
 					}
 				})
-			},
+			}, */
 			getNoticeList() {
 				let _this = this;
 				let params = {

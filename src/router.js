@@ -408,6 +408,11 @@ export default new Router({
 			]
 		},
 		{
+			path: '/raiseApplyList',
+			name: '申请列表',
+			component: resolve => require(['./views/raise/raiseApplyList'],resolve)
+		},
+		{
 			path: '/raiseApply',
 			name: '帮扶筹申请',
 			component: resolve => require(['./views/raise/raiseApply'],resolve)

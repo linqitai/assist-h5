@@ -7,6 +7,7 @@
 		@include pageHaveHeight4Scroll();
 		color: $main-box-fh-text-color;
 		background-color: $main-box-fh-bg-color;
+		z-index: 100;
 		.van-dropdown-menu{
 			height: $cellHeight !important;
 			background-color: inherit !important;
@@ -248,9 +249,9 @@
 			},
 			submit(){
 				let _this = this;
-				_this.$toast(`即将开放`);
+				// _this.$toast(`即将开放`);
 				
-				/* let pic=[];
+				let pic=[];
 				_this.form.fileDetailList.forEach((item,index)=>{
 					pic.push(item.content);
 				})
@@ -260,7 +261,7 @@
 					story:_this.form.story,
 					pic:pic.join('|'),
 				}
-				console.log('params',params);
+				//console.log('params',params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast(`请填写完整信息`);
 				}else{
@@ -268,13 +269,19 @@
 					_this.$ajax.ajax(_this.$api.insertAssistRaise, 'POST', params, function(res){
 						//console.log('res',res);
 						if(res.code == _this.$api.CODE_OK){
-							_this.$toast(`提交成功`);
-							//这里需要页面跳转
+							//_this.$toast(`提交成功，请等待审核`);
+							Dialog.alert({
+								title: "系统提示",
+								message: "提交成功，请等待审核"
+							}).then(() => {
+							  // on confirm
+							  _this.back();
+							})
 						}
 					},function(){
 						_this.loading = false;
 					});
-				} */
+				}
 			},
 		}
 	}

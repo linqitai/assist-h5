@@ -85,14 +85,15 @@
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing tip4model3">
 				<b class="textBold">定向转让矿石(服务商)交易规则：</b><br>
-				1.无论是会员转矿石给服务商还是服务商转矿石给会员，转让手续费减半都是只收交易总金额10%的帮扶券。比如：交易总金额是200CNY，收20CNY价值的帮扶券作为手续费。该手续费，将会用来做线下的公益事业(爱心帮扶活动)。等疫情过去后，将陆陆续续开展线下的公益事业，期待有您的参与!<br>
-				2.个人算力达到0.4G即可开通定向转让矿石给服务商的权限。<br>
-				3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机。<br>
+				1.服务在转矿石上的主要职责是帮工会会长中转矿石。<br>
+				2.只有工会会长才有权限找服务商中转矿石。<br>
+				3.无论是会员转矿石给服务商还是服务商转矿石给会员，转让手续费减半都是只收交易总金额10%的帮扶券。比如：交易总金额是200CNY，收20CNY价值的帮扶券作为手续费。该手续费，将会用来做线下的公益事业(爱心帮扶活动)。等疫情过去后，将陆陆续续开展线下的公益事业，期待有您的参与!<br>
+				4.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机。<br>
 				<div class="placeholderLine10"></div>
 				<b class="textBold">还有请再次阅读基础规则</b><br>
 				【1】注册后微信号和支付宝号是您的注册手机号，若您的支付宝和微信未绑定该手机号，请先去支付宝和微信绑定。<br>
-				【2】平台为保证交易的顺利进行，您在平台上预留的真实姓名与支付宝号里的不一致永久冻结账号处理。<br>
-				【3】如果支付宝帐号设置隐私导致买方无法通过手机号查找而无法完成交易的，客服介入调查取消交易且永久冻结卖方账号。请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
+				【2】平台为保证交易的顺利进行，您在平台上预留的真实姓名与支付宝号里的不一致且不主动找客服修改而给买家造成困扰的将冻结账号处理。<br>
+				【3】如果支付宝帐号设置隐私导致买方无法通过手机号查找而无法完成交易的，客服介入调查将取消交易且冻结卖方账号处理。请矿工们交易前预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
 				 <b class="textBold">发起交易后，即代表您已认真阅读并同意以上规则</b>
 			</div>
 			<div class="placeholderLine10"></div>
@@ -102,7 +103,7 @@
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
 				<van-field v-model="curerntPlatformPrice" required disabled label="指导单价"/>
 				<van-field v-model="getGuidancePrice" required disabled label="指导总价"/>
-				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
+				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写转让单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
 				<van-field v-model="getAssurePrice" required clearable label="转让总价" placeholder="请先填写转让单价"/>
 				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请填写对方的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
 				<!-- <van-field v-model="form4AppointDeal.agentPhone" required clearable label="担保代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone"> -->
@@ -236,12 +237,24 @@
 			},
 			getDealPageInfo(){
 				let _this = this;
+				let targetPrice = Number(13.0);
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
-					console.log('getDealPageInfo', res);
 					if (res.code == _this.$api.CODE_OK) {
-						_this.curerntPlatformPrice = res.data.currentPlatformPrice;
-						_this.maxPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)*1.3).toFixed(2);
-						_this.maxAddPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
+						_this.curerntPlatformPrice = Number(res.data.currentPlatformPrice);
+						_this.maxPrice = (Number((res.data.currentPlatformPrice)*1.3+3)+3).toFixed(2);
+						_this.maxAddPrice = (Number((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
+						console.log('_this.maxAddPrice',_this.maxAddPrice);
+						console.log('_this.maxPrice',_this.maxPrice);
+						console.log('_this.targetPrice',targetPrice);
+						if(_this.maxAddPrice<targetPrice&&_this.maxPrice>=targetPrice){
+							_this.maxPrice = targetPrice;
+							console.log('_this.maxPrice',_this.maxPrice);
+						}else{
+							_this.maxPrice = _this.maxAddPrice;
+							console.log('_this.maxPrice',_this.maxPrice);
+							_this.form4AppointDeal.price = _this.maxPrice;
+							_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${_this.maxPrice}CNY`;
+						}
 					}else{
 						Dialog.alert({
 						  title: '系统提示',
@@ -261,15 +274,16 @@
 						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在1~10000之间";
 					}
 				}else if(key == 'price') {
-					let price = parseFloat(_this.form4AppointDeal[key]);
-					let maxPrice = parseFloat(_this.maxPrice);
-					let maxAddPrice = parseFloat(_this.maxAddPrice);
-					let curerntPlatformPrice = parseFloat(_this.curerntPlatformPrice);
+					let price = Number(_this.form4AppointDeal[key]);
+					let maxPrice = Number(_this.maxPrice);
+					console.log("maxPrice",maxPrice);
+					let maxAddPrice = Number(_this.maxAddPrice);
+					let curerntPlatformPrice = Number(_this.curerntPlatformPrice);
 					//alert(maxAddPrice);
 					if(price>=maxAddPrice&&price<=maxPrice){
 						_this.errorInfo4AppointDeal.price = '';
-					}else if(price>maxPrice || price<maxAddPrice){
-						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${_this.maxAddPrice}~${_this.maxPrice}CNY`;
+					}else{
+						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${_this.maxAddPrice}~${maxPrice}CNY`;
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){

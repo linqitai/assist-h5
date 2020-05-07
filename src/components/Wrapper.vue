@@ -107,15 +107,11 @@
 					</div>
 					<div class="placeholderLine4"></div>
 					<div>
-						2.个人算力达到0.4G后即可通过服务商来转出矿石。
+						2.个人算力达到1G后即可开通溢价交易。
 					</div>
 					<div class="placeholderLine4"></div>
 					<div>
-						3.个人算力达到1G后即可开通溢价交易。
-					</div>
-					<div class="placeholderLine4"></div>
-					<div>
-						4.交易后所剩矿石数不得少于2个，至少要保留注册所赠送的2个矿石，用来复投矿机。
+						3.交易后所剩矿石数不得少于2个，至少要保留注册所赠送的2个矿石，用来复投矿机。
 					</div>
 				</div>
 			</van-dialog>

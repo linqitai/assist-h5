@@ -149,7 +149,7 @@
 					// userId: _this.userId
 				}
 				_this.$ajax.ajax(_this.$api.getAssistMessageBoardPageList, 'GET', params, function(res) {
-					console.log('res', res);
+					//console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list1.push(...list);

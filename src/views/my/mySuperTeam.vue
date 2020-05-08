@@ -266,7 +266,6 @@
 		},
 		created() {
 			let _this = this;
-			console.log(_this.$route.meta.footer,'footer');
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				_this.userInfo = JSON.parse(userInfo);
@@ -293,13 +292,11 @@
 				this.$router.replace('my');
 			},
 			toScrollTop(){
-				console.log('toScrollTop');
 				window.scrollTo(0,0);
 				document.body.scrollTop = 0;
 				document.documentElement.scrollTop = 0;
 			},
 			toTeamView(parentId,realnameNum){
-				console.log('parentId',parentId);
 				this.$router.push({
 					path:'/mySuperTeam2',
 					query:{
@@ -345,7 +342,6 @@
 				})
 			},
 			onLoad1() {
-				console.log('load1')
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage,
@@ -379,7 +375,6 @@
 				})
 			},
 			onLoad2() {
-				console.log('load2')
 				let _this = this;
 				// 异步更新数据
 				let params = {
@@ -422,7 +417,6 @@
 				_this.$ajax.ajax(_this.$api.updateRealNameNumByUserId, 'GET', null, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
-						console.log("updateRealNameNumOK");
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
 					}else{
 						_this.$toast(res.message);
@@ -430,7 +424,6 @@
 				})
 			},
 			onLoad3() {
-				console.log('load3')
 				let _this = this;
 				// 异步更新数据
 				let params = {
@@ -449,7 +442,6 @@
 						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished3 = true;
-							console.log('res.data.endRow == res.data.total');
 						}else{
 							_this.currentPage3 = _this.currentPage3 + 1;
 						}
@@ -468,7 +460,6 @@
 				// }
 			},
 			tabChange(name, title) {
-				console.log(name, title);
 				// this.$cookies.set("tab_name", name, 60 * 60 * 1)
 			},
 		}

@@ -246,10 +246,16 @@
 						console.log('_this.maxAddPrice',_this.maxAddPrice);
 						console.log('_this.maxPrice',_this.maxPrice);
 						console.log('_this.targetPrice',targetPrice);
-						if(_this.maxAddPrice<targetPrice&&_this.maxPrice>=targetPrice){
+						//price>=maxAddPrice&&price<=13.0
+						/* if(_this.maxAddPrice<targetPrice){
+							_this.maxPrice = _this.maxPrice;
+							console.log('_this.maxPrice',_this.maxPrice);
+						} */
+						if(_this.maxPrice>=targetPrice){
 							_this.maxPrice = targetPrice;
 							console.log('_this.maxPrice',_this.maxPrice);
-						}else{
+						}
+						if(_this.maxAddPrice>=targetPrice){
 							_this.maxPrice = _this.maxAddPrice;
 							console.log('_this.maxPrice',_this.maxPrice);
 							_this.form4AppointDeal.price = _this.maxPrice;
@@ -276,11 +282,11 @@
 				}else if(key == 'price') {
 					let price = Number(_this.form4AppointDeal[key]);
 					let maxPrice = Number(_this.maxPrice);
-					console.log("maxPrice",maxPrice);
+					console.log("maxPrice——key",maxPrice);
 					let maxAddPrice = Number(_this.maxAddPrice);
 					let curerntPlatformPrice = Number(_this.curerntPlatformPrice);
 					//alert(maxAddPrice);
-					if(price>=maxAddPrice&&price<=maxPrice){
+					if(price>=maxAddPrice&&price<=13.0){
 						_this.errorInfo4AppointDeal.price = '';
 					}else{
 						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${_this.maxAddPrice}~${maxPrice}CNY`;

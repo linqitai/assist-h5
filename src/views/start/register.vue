@@ -90,7 +90,7 @@
 				<div class="labelText">确认密码</div>
 				<van-field v-model="form.password2" type="password" clearable :placeholder="placeholder.password2" @blur="validate('password2')" :error-message="errorHint.password2"/>
 				<div class="labelText">验证码</div>
-				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码"  @blur="validate('securityCode')" :error-message="errorHint.securityCode">
+				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @focus="getSecurityCode" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
 					<van-button slot="button" size="small" type="primary" :loading="getSCLoading" @click="getSecurityCode">{{securityCode}}</van-button>
 				</van-field>
 				<!-- <div class="labelText">短信验证码</div>
@@ -103,7 +103,7 @@
 					</van-button>
 				</van-field> -->
 				<div class="labelText">推荐码</div>
-				<van-field v-model="form.shareCode" clearable :placeholder="placeholder.shareCode" @blur="validate('shareCode')" :error-message="errorHint.shareCode" />
+				<van-field v-model="form.shareCode" clearable :disabled="true" :placeholder="placeholder.shareCode" @blur="validate('shareCode')" :error-message="errorHint.shareCode" />
 			</van-cell-group>
 		</div>
 		<div class="sureBox">
@@ -128,6 +128,7 @@
 </template>
 
 <script>
+	import { Dialog } from 'vant';
 	export default {
 		data() {
 			return {
@@ -177,7 +178,7 @@
 			let _this = this;
 			_this.welcomeText = _this.$api.welcomeText;
 			_this.form.shareCode = _this.$route.query.id;
-			_this.getSecurityCode();
+			
 		},
 		//倒计时方法
 		countDown4Time(){
@@ -210,15 +211,33 @@
 			},
 			getSecurityCode(){
 				let _this = this;
+				let params = {
+					mobilePhone:_this.form.phone
+				}
+				if(_this.$utils.hasNull(params)){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '请先填写注册手机号'
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				_this.getSCLoading = true;
-				_this.$ajax.ajax(_this.$api.getSecurityCode, 'POST', null, function(res) {
+				_this.$ajax.ajax(_this.$api.getSecurityCode, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						// console.log('securityCode4Web',res.data);
 						_this.getInitCode = res.data;
 						let initCode = _this.$JsEncrypt.decrypt(_this.getInitCode.initCode);
 						_this.securityCode = _this.$utils.getSC(initCode);
 					}else{
-						_this.$toast(res.message);
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				},function(res){
 					_this.getSCLoading = false;
@@ -243,7 +262,7 @@
 					_this.$toast('请正确填写图形验证码');
 					return;
 				}
-				console.log('params',params);
+				//console.log('params',params);
 				_this.$ajax.ajax(_this.$api.verifySecurityCode, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						console.log("OK");
@@ -253,7 +272,7 @@
 						_this.setTimeInterval();
 						let now = _this.$utils.getDateTime(new Date());
 						_this.$cookies.set('lastGetShortMessageCode',now,60*3);
-						console.log('lastGetShortMessageCode',_this.$cookies.get('lastGetShortMessageCode'));
+						//console.log('lastGetShortMessageCode',_this.$cookies.get('lastGetShortMessageCode'));
 						//这里请求短信验证码
 					}else{
 						_this.$toast(res.message);
@@ -319,9 +338,10 @@
 				//TSBK1taWQTpNjOkisQDHio8Vdiv94nvYRCE2JgEKbck=
 				//Wu8v/5SEYcEBR/YGGLYAwGR4HkBmXB5P+Tf4W7CzXeA=
 				if(key == 'phone') {
-					console.log('_this.form.phone',_this.form.phone)
+					//console.log('_this.form.phone',_this.form.phone)
 					if(_this.$reg.phone.test(_this.form.phone)){
 						_this.errorHint.phone = '';
+						// _this.getSecurityCode();
 					}else{
 						_this.errorHint.phone = _this.$reg.phoneHint;
 					}

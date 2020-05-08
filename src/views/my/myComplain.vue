@@ -82,7 +82,7 @@
 			<div class="text">
 				我要诉讼
 			</div>
-			<i class="iconfont iconfont-message rightBox icon" @click="toListView"></i>
+			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="myWordPage">
 			<div class="myCell">

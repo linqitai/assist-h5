@@ -849,7 +849,7 @@
 		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 			<div class="paddingWing f-12 lineHeight tip4model2 textJustify">
 				<div class="textIndent">
-					单子匹配后，请卖家主动提示买家去查看订单信息，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。单子匹配后，买家若当时在忙没时间付款，可先锁定交易，锁定交易后，交易时间可往后延长120分钟，锁定交易后买方若在锁定后的120分钟内没付款，卖方亦可取消交易。（注：买方若是要通过微信所绑定的手机号转账，请卖方在微信中的'<b>支付-支付管理</b>'中开通'<b>允许通过手机号向我转账</b>'的功能）。
+					单子匹配后，请卖家主动提示买家去查看订单信息，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。单子匹配后，买家若当时在忙没时间付款，可先锁定交易，锁定交易后，交易时间可往后延长120分钟。（注：买方若是要通过微信所绑定的手机号转账，请卖方在微信中的'<b>支付-支付管理</b>'中开通'<b>允许通过手机号向我转账</b>'的功能）。
 				</div>
 			</div>
 		</van-dialog>
@@ -986,7 +986,7 @@
 			}
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
-				////console.log("userInfo_localStorage");
+				//////console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
 				//_this.userId = _this.userInfo.userId;
 				if(_this.userInfo.accountStatus==1){
@@ -1008,8 +1008,8 @@
 			if(_this.$route.query.mobilePhone){
 				//发送短信提示start
 				_this.mobilePhone = _this.$route.query.mobilePhone;
-				//console.log('_this.mobilePhone',_this.mobilePhone);
-				//console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
+				////console.log('_this.mobilePhone',_this.mobilePhone);
+				////console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
 				if(_this.$route.query.dealType==1){
 					if(_this.$route.query.isSelf) {
 						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家0.5贡献值";
@@ -1036,7 +1036,7 @@
 			// 	count = count + all*r;
 			// 	all = all-all*r;
 			// 	if(count>8500){
-			// 		//console.log('天数',i); // 天数 353
+			// 		////console.log('天数',i); // 天数 353
 			// 		break;
 			// 	}
 			// }
@@ -1065,7 +1065,7 @@
 			},
 			toBookView(val,userId){
 				let _this = this;
-				//console.log('toBookView');
+				////console.log('toBookView');
 				let name = 'mineral';
 				if(val==1){
 					name = 'calculation';
@@ -1101,18 +1101,18 @@
 				  message: '您确定上传以上付款凭证么？'
 				}).then(() => {
 				  // on confirm
-				  //console.log('sure',_this.imagesList);
+				  ////console.log('sure',_this.imagesList);
 				  _this.showBuyDetailModel = false;
 				  //这里调用确认付款接口
 				  //.....
 				}).catch(() => {
 				  // on cancel
-				  //console.log('cancel');
+				  ////console.log('cancel');
 				});
 			},
 			uploadIMG(e) {
 				let _this = this;
-				//console.log('正在解析图片');
+				////console.log('正在解析图片');
 				// Toast.clear();
 				_this.toast = Toast.loading({
 				  duration: 3000, // 持续展示 toast
@@ -1121,11 +1121,11 @@
 				});
 				let files = e.target.files || e.dataTransfer.files;
 				if (!files.length) return;
-				//console.log("pic_size(MB)", files[0].size / 1024 / 1024);
+				////console.log("pic_size(MB)", files[0].size / 1024 / 1024);
 				if (files[0].size / 1024 / 1024 > 7) {
 				   _this.$toast('上传图片大小不能超过 7MB');
 				} else {
-				  //console.log('正在获取图片');
+				  ////console.log('正在获取图片');
 				  _this.toast.message = `正在获取图片`;
 				  _this.imgPreview(files[0]);
 				}
@@ -1194,9 +1194,9 @@
 					    let dataOri = canvas.toDataURL("image/png");
 						let img = new Image();
 						img.src = dataOri;//base64
-						// //console.log("dataOri",dataOri);
-						//console.log('********未压缩前的图片大小(KB)********');
-						//console.log(dataOri.length / 1024);
+						// ////console.log("dataOri",dataOri);
+						////console.log('********未压缩前的图片大小(KB)********');
+						////console.log(dataOri.length / 1024);
 						img.onload = function() {
 							let data = _this.$utils.compress(img, 0.4);//调整压缩比例
 							let params = {
@@ -1260,12 +1260,12 @@
 					if(res.code == _this.$api.CODE_OK){
 						_this.$toast('账户异常且退出登录');
 						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+						// ////console.log("_this.$cookies.keys()",_this.$cookies.keys());
 						// _this.$cookies.remove('_USERINFO_');
 						// _this.$cookies.remove('buyAndSellInfo');
 						_this.$cookies.remove('userId');
 						_this.$cookies.remove('token');
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+						// ////console.log("_this.$cookies.keys()",_this.$cookies.keys());
 					}else{
 						_this.$toast(res.message);
 					}
@@ -1274,11 +1274,11 @@
 				})
 			},
 			onLoad1(){
-				//console.log('load1')
+				////console.log('load1')
 				let _this = this;
 				// 异步更新数据
 				_this.$ajax.ajax(_this.$api.getAssistBuyBillListByBuyerId, 'GET', null, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data;
 						_this.loading1 = false;
@@ -1290,7 +1290,7 @@
 				})
 			},
 			onLoad2(){
-				//console.log('load2')
+				////console.log('load2')
 				let _this = this;
 				_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 				// 异步更新数据
@@ -1298,7 +1298,7 @@
 					userId: _this.userId
 				} */
 				_this.$ajax.ajax(_this.$api.getAssistTransactionList4buyer, 'GET', null, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list2 = res.data;
 						_this.loading2 = false;
@@ -1310,14 +1310,14 @@
 				})
 			},
 			onLoad4(){
-				//console.log('load4')
+				////console.log('load4')
 				let _this = this;
 				// 异步更新数据
 				/* let params = {
 					userId: _this.userId
 				} */
 				_this.$ajax.ajax(_this.$api.getAssistTransactionList4sellerByUserId, 'GET', null, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list4 = res.data;
 						_this.loading4 = false;
@@ -1329,7 +1329,7 @@
 				})
 			},
 			onLoad3(){
-				//console.log('load3')
+				////console.log('load3')
 				let _this = this;
 				_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 				// 异步更新数据
@@ -1337,7 +1337,7 @@
 					userId: _this.userId
 				} */
 				_this.$ajax.ajax(_this.$api.getAssistTransactionList4ComplateByUserId, 'GET', null, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
 						_this.list3 = res.data;
@@ -1350,7 +1350,7 @@
 				})
 			},
 			onLoad5(){
-				//console.log('load5')
+				////console.log('load5')
 				let _this = this;
 				// 异步更新数据
 				/* let params = {
@@ -1377,7 +1377,7 @@
 			lockTransactionBtn(item){
 				let _this = this;
 				_this.id = item.id;
-				//console.log('lockTransactionBtn');
+				////console.log('lockTransactionBtn');
 				
 				Dialog.confirm({
 				  title: '确认信息',
@@ -1385,15 +1385,15 @@
 				  message: '锁定交易可延长120分钟的交易时间，您是否确定要锁定交易？'
 				}).then(() => {
 					// on confirm
-					//console.log('sure');
+					////console.log('sure');
 					let params = {
 						/* userId:  _this.userId, */
 						status:1,
 						id: _this.id
 					}
-					//console.log('params',params)
+					////console.log('params',params)
 					_this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-						// //console.log('res', res);
+						// ////console.log('res', res);
 						if (res.code == _this.$api.CODE_OK) {
 							// let list = res.data.list;
 							if(res.data==1){
@@ -1405,7 +1405,7 @@
 					})
 				}).catch(() => {
 				  // on cancel
-				  //console.log('cancel');
+				  ////console.log('cancel');
 				});
 			},
 			cancelDeal4OverTime(){
@@ -1414,7 +1414,7 @@
 					id: _this.id,
 				}
 				_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data == 1){
 							Dialog.alert({
@@ -1423,11 +1423,11 @@
 							  message: '由于您超时未付款，已超过付款时间，该买单已被系统自动取消！'
 							}).then(() => {
 							  // on confirm
-							  //console.log('sure');
+							  ////console.log('sure');
 							  
 							}).catch(() => {
 							  // on cancel
-							  //console.log('cancel');
+							  ////console.log('cancel');
 							});
 							_this.onLoad2();
 						}
@@ -1449,14 +1449,14 @@
 				  message: '买家您是否确定要撤销此买单？'
 				}).then(() => {
 					// on confirm
-					//console.log('sure');
+					////console.log('sure');
 					 let params = {
 						id: _this.id,
 						// userId: _this.userId
 					 }
-					 //console.log('params',params)
+					 ////console.log('params',params)
 					 _this.$ajax.ajax(_this.$api.deleteBuyBillById, 'POST', params, function(res) {
-						// //console.log('res', res);
+						// ////console.log('res', res);
 						if (res.code == _this.$api.CODE_OK) {
 							// let list = res.data.list;
 							if(res.data == 1){
@@ -1469,7 +1469,7 @@
 					 })
 				}).catch(() => {
 				  // on cancel
-				  //console.log('cancel');
+				  ////console.log('cancel');
 				});
 			},
 			complain(){
@@ -1482,14 +1482,14 @@
 					remark:_this.remark,
 					id:_this.id,
 				}
-				//console.log('params',params);
+				////console.log('params',params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写理由');
 					return;
 				}
 				//调用申诉接口
 				_this.$ajax.ajax(_this.$api.updateTransactionStatus5ById, 'POST', params, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
 						if(res.data == 1){
@@ -1534,7 +1534,7 @@
 					}
 					_this.sureCancelBtnLoading = true;
 					_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
-						// //console.log('res', res);
+						// ////console.log('res', res);
 						_this.sureCancelBtnLoading = false;
 						if (res.code == _this.$api.CODE_OK) {
 							if(res.data == 1){
@@ -1559,7 +1559,7 @@
 				}
 				_this.sureCancelBtnLoading = true;
 				_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					_this.sureCancelBtnLoading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data == 1){
@@ -1576,7 +1576,7 @@
 			},
 			toMy4OtherView(userId){
 				let _this = this;
-				//console.log('userIdInDealRecolod:',userId);
+				////console.log('userIdInDealRecolod:',userId);
 				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
 			},
 			showSellerInfoBtn(item){
@@ -1597,7 +1597,7 @@
 				})
 			},
 			refreshEvent() {
-				//console.log("refresh")
+				////console.log("refresh")
 				let _this = this;
 				_this.loading = true;
 				if(_this.activeName == "buy"){
@@ -1613,7 +1613,7 @@
 				}
 			},
 			tabChange(name, title) {
-				//console.log(name, title);
+				////console.log(name, title);
 				let _this = this;
 				this.$cookies.set("tabName4MyDeal", name, 60 * 60 * 1);
 				if(name == 'pay' || name == 'complated'){
@@ -1631,6 +1631,7 @@
 				//console.log('_this.type',_this.type);
 				_this.id = item.id;
 				let bs = _this.buyOrSell(item);
+				//console.log('bs',bs);
 				let params = {
 					id: _this.id
 				}
@@ -1647,7 +1648,7 @@
 							}
 						})
 					}else if(_this.activeName == 'pay'){//pay是买家
-						//console.log('pay是买家');
+						////console.log('pay是买家');
 						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
 							_this.cancelDeal4OverTime();
 							return;
@@ -1672,11 +1673,11 @@
 									  message: '由于卖家120分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
 									}).then(() => {
 									  // on confirm
-									  //console.log('sure');
+									  ////console.log('sure');
 									  _this.letSureByBuyer();
 									}).catch(() => {
 									  // on cancel
-									  //console.log('cancel');
+									  ////console.log('cancel');
 									});
 								}
 							}else{
@@ -1685,7 +1686,7 @@
 						})
 					}
 				}else{
-					//console.log('else?')
+					////console.log('else?')
 					if(bs=='sell'){
 						let params = {
 							id: _this.id
@@ -1703,10 +1704,10 @@
 							}
 						})
 					}else if(bs=='buy'){
-						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
 							_this.cancelDeal4OverTime();
 							return;
-						}
+						} */
 						let params = {
 							id: _this.id
 						}
@@ -1722,7 +1723,7 @@
 										  message: '为了让交易顺利进行，查看详情之前需先锁定交易，锁定后可往后延长120分钟交易的时间！'
 										}).then(() => {
 											// on confirm
-											//console.log('sure');
+											////console.log('sure');
 											let params = {
 												status:1,
 												id: _this.id
@@ -1732,7 +1733,7 @@
 											  forbidClick: true,
 											  loadingType: 'spinner'
 											});
-											//console.log('params',params)
+											////console.log('params',params)
 											_this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
 												Toast.clear();
 												if (res.code == _this.$api.CODE_OK) {
@@ -1745,7 +1746,7 @@
 												}
 											})
 										}).catch(() => {
-										  //console.log('cancel');
+										  ////console.log('cancel');
 										});
 									}else{
 										_this.getSellerInfoByTransactionId();
@@ -1761,14 +1762,14 @@
 				}
 			},
 			getSellerInfoByTransactionId(){
-				//console.log('==getSellerInfoByTransactionId==')
+				////console.log('==getSellerInfoByTransactionId==')
 				let _this = this;
 				let params = {
 					id: _this.id
 				}
 				_this.showSellerDetailModel = true;
 				_this.$ajax.ajax(_this.$api.getAssistSellerInfoByTransactionId, 'GET', params, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					// Toast.clear();
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
@@ -1782,11 +1783,11 @@
 								  message: '由于卖家60分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
 								}).then(() => {
 								  // on confirm
-								  //console.log('sure');
+								  ////console.log('sure');
 								  _this.letSureByBuyer();
 								}).catch(() => {
 								  // on cancel
-								  //console.log('cancel');
+								  ////console.log('cancel');
 								});
 							}
 						}else{
@@ -1803,9 +1804,9 @@
 					status:8,
 					id: _this.id,
 				}
-				//console.log('params',params)
+				////console.log('params',params)
 				_this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
 						if(res.data==1){
@@ -1826,9 +1827,9 @@
 				let params = {
 					id: _this.id,
 				}
-				//console.log('params',params)
+				////console.log('params',params)
 				_this.$ajax.ajax(_this.$api.updateTransactionStatus84buyerById, 'POST', params, function(res) {
-					// //console.log('res', res);
+					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
 						if(res.data==1){
@@ -1850,7 +1851,7 @@
 				  message: '请先去支付宝或微信确认是否收到款，您确定没收到款？'
 				}).then(() => {
 				  // on confirm
-				  //console.log('sure');
+				  ////console.log('sure');
 				  _this.showSellerDetailModel = false;
 				  //这里调用让对方上传截图接口
 				  let params = {
@@ -1858,9 +1859,9 @@
 					status:3,
 				  	id: _this.id
 				  }
-				  //console.log('params',params)
+				  ////console.log('params',params)
 				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-				  	// //console.log('res', res);
+				  	// ////console.log('res', res);
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
 				  		if(res.data==1){
@@ -1881,7 +1882,7 @@
 				  })
 				}).catch(() => {
 				  // on cancel
-				  //console.log('cancel');
+				  ////console.log('cancel');
 				});
 			},
 			letMineralBtn(){
@@ -1894,16 +1895,16 @@
 				  confirmButtonText:'确认已收到'
 				}).then(() => {
 				  // on confirm
-				  //console.log('sure');
+				  ////console.log('sure');
 				  //这里调用确认付款接口
 				  let params = {
 					// userId:  _this.userId,
 					status:8,
 				  	id: _this.id
 				  }
-				  //console.log('params',params)
+				  ////console.log('params',params)
 				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-				  	// //console.log('res', res);
+				  	// ////console.log('res', res);
 					_this.showBuyerDetailModel = false;
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
@@ -1912,8 +1913,8 @@
 							//发送短信提示start
 							_this.sendSmsTipText = "交易已经顺利完成！请最后告知对方您已经确认收款并释放矿石。";
 							if(_this.type==2){
-								//console.log('_this.mobilePhone',_this.mobilePhone);
-								//console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
+								////console.log('_this.mobilePhone',_this.mobilePhone);
+								////console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
 								_this.mobilePhone = _this.appointDealDetail.assistAppointDealBuyerInfo.mobilePhone || _this.appointDealDetail.assistAppointAgentInfo.mobilePhone;
 								//_this.smsContent = `【${_this.$api.projectName}】我已确认并释放矿石，谢谢。`;
 							}else{
@@ -1931,19 +1932,16 @@
 				  })
 				}).catch(() => {
 				  // on cancel
-				  //console.log('cancel');
 				});
 			},
 			setSendSmsHref(mobilePhone,smsContent){
 				let _this = this;
 				let phoneType = _this.$utils.isIphoneOrAndroid();
-				//console.log("=======phoneType================",phoneType);
 				if(phoneType=='a'){
 					_this.sendSmsHref = `sms:${mobilePhone}?body=${smsContent}`;
 				}else if(phoneType=='i'){
 					// let tempUrl = encodeURI(_this.smsContent);
 					let encodeUrl = encodeURI(smsContent);
-					// //console.log("encodeUrl",encodeUrl);
 					// let encodeUrl = "HPC"
 					_this.sendSmsHref = `sms:${mobilePhone}&body=${encodeUrl}`;
 				}else{
@@ -1965,16 +1963,16 @@
 				  message: '您确定已经付款？若没付款，对方可以驳回并要求上传付款凭证！'
 				}).then((res) => {
 				  // on confirm
-				  //console.log('sure',res);
+				  ////console.log('sure',res);
 				  //这里调用确认付款接口
 				  let params = {
 					/* userId:  _this.userId, */
 					status:2,
 				  	id: _this.id
 				  }
-				  //console.log('params',params)
+				  ////console.log('params',params)
 				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-				  	// //console.log('res', res);
+				  	// ////console.log('res', res);
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
 				  		if(res.data==1){
@@ -2005,7 +2003,7 @@
 				  })
 				}).catch(() => {
 				  // on cancel
-				  //console.log('cancel');
+				  ////console.log('cancel');
 				});
 			},
 			setCountDownTime(canCancelTime) {

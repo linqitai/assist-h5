@@ -267,7 +267,7 @@
 		},
 		created() {
 			let _this = this;
-			/* console.log(_this.$route.meta.footer,'footer');
+			/* //console.log(_this.$route.meta.footer,'footer');
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				_this.userInfo = JSON.parse(userInfo);
@@ -276,12 +276,12 @@
 				_this.$router.replace('login');
 				return;
 			} */
-			// console.log('_this.userInfo',_this.userInfo);
+			// //console.log('_this.userInfo',_this.userInfo);
 			_this.realnameNum = _this.$route.query.realnameNum;
-			console.log('realnameNum',_this.realnameNum);
+			//console.log('realnameNum',_this.realnameNum);
 			_this.activedText = '已实名' + ' ' + _this.realnameNum;
 			_this.parentId = _this.$route.query.parentId;
-			console.log('parentId',_this.parentId);
+			//console.log('parentId',_this.parentId);
 			_this.getParentUserInfo(_this.parentId);
 			_this.getCountTeamNum();
 		},
@@ -299,13 +299,13 @@
 				this.$router.go(-1);
 			},
 			toScrollTop(){
-				console.log('toScrollTop');
+				//console.log('toScrollTop');
 				window.scrollTo(0,0);
 				document.body.scrollTop = 0;
 				document.documentElement.scrollTop = 0;
 			},
 			toTeamView(parentId,realnameNum){
-				console.log('parentId',parentId);
+				//console.log('parentId',parentId);
 				this.$router.push({
 					path:'/mySuperTeam3',
 					query:{
@@ -330,7 +330,7 @@
 					userId: _this.parentId
 				}
 				_this.$ajax.ajax(_this.$api.getCountTeamNum, 'GET', params, function(res){
-					// console.log('res',res);
+					// //console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
 						_this.teamNum = res.data;
 					}else{
@@ -342,7 +342,7 @@
 				let _this = this;
 				_this.loading = true;
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo4Path + parentId, 'GET', null, function(res){
-					// console.log('res',res);
+					// //console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
 						_this.parentUserInfo = res.data;
 					}else{
@@ -351,7 +351,7 @@
 				})
 			},
 			onLoad1() {
-				console.log('load1')
+				//console.log('load1')
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage,
@@ -359,24 +359,24 @@
 					parentId: _this.parentId
 				}
 				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList, 'GET', params, function(res) {
-					// console.log('res', res);
+					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
-						// console.log('_this.list1',_this.list1);
-						// console.log('res.data.list',res.data.list)
+						// //console.log('_this.list1',_this.list1);
+						// //console.log('res.data.list',res.data.list)
 						let list = res.data.list;
 						_this.list1.push(...list);
 						_this.totalNum = res.data.total;
 						_this.myShareText = '直推' + ' ' + res.data.total;//团队注册人数
 						_this.unactivedText = '未实名' + ' ' + (res.data.total - _this.realnameNum);
 						_this.loading1 = false;
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
+						// //console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished1 = true;
-							// console.log('res.data.endRow == res.data.total');
+							// //console.log('res.data.endRow == res.data.total');
 						}else{
 							_this.currentPage = _this.currentPage + 1;
 						}
-						// console.log('_this.list1',_this.list1);
+						// //console.log('_this.list1',_this.list1);
 					}else{
 						_this.loading1 = false;
 						_this.finished1 = true;
@@ -385,7 +385,7 @@
 				})
 			},
 			onLoad2() {
-				console.log('load2')
+				//console.log('load2')
 				let _this = this;
 				// 异步更新数据
 				let params = {
@@ -395,7 +395,7 @@
 					actived:1
 				}
 				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList, 'GET', params, function(res) {
-					// console.log('res', res);
+					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list2.push(...list);
@@ -403,14 +403,14 @@
 						_this.realnameNum = res.data.total;
 						_this.activedText = '已实名 ' + _this.realnameNum;
 						_this.unactivedText = '未实名 ' + (_this.totalNum - _this.realnameNum);
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
+						// //console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished2 = true;
-							// console.log('res.data.endRow == res.data.total');
+							// //console.log('res.data.endRow == res.data.total');
 						}else{
 							_this.currentPage2 = _this.currentPage2 + 1;
 						}
-						// console.log('_this.list2',_this.list2);
+						// //console.log('_this.list2',_this.list2);
 
 						//如果realnameNum不符，则修改用户信息中的realnameNum,还是报账号异常比较好
 						if(_this.userInfo.realnameNum!=res.data.total){
@@ -426,9 +426,9 @@
 			updateRealNameNumByUserId(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.updateRealNameNumByUserId, 'GET', null, function(res) {
-					// console.log('res', res);
+					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
-						console.log("updateRealNameNumOK");
+						//console.log("updateRealNameNumOK");
 						_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
 					}else{
 						_this.$toast(res.message);
@@ -436,7 +436,7 @@
 				})
 			},
 			onLoad3() {
-				console.log('load3')
+				//console.log('load3')
 				let _this = this;
 				// 异步更新数据
 				let params = {
@@ -446,20 +446,20 @@
 					actived:-1
 				}
 				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList, 'GET', params, function(res) {
-					// console.log('res', res);
+					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list3.push(...list);
 						_this.loading3 = false;
 						_this.unactivedText = '未实名 ' + res.data.total;
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
+						// //console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished3 = true;
-							console.log('res.data.endRow == res.data.total');
+							//console.log('res.data.endRow == res.data.total');
 						}else{
 							_this.currentPage3 = _this.currentPage3 + 1;
 						}
-						// console.log('_this.list3',_this.list3);
+						// //console.log('_this.list3',_this.list3);
 					}else{
 						_this.loading3 = false;
 						_this.finished3 = true;
@@ -474,7 +474,7 @@
 				// }
 			},
 			tabChange(name, title) {
-				console.log(name, title);
+				//console.log(name, title);
 				// this.$cookies.set("tab_name", name, 60 * 60 * 1)
 			},
 		}

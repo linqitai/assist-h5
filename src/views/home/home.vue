@@ -991,6 +991,8 @@ $noticeHeight:40px;
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			getMineralStatic() {

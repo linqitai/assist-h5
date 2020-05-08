@@ -92,8 +92,8 @@
 				<div class="labelText">密码</div>
 				<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
 				<div class="labelText">验证码</div>
-				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
-					<van-button slot="button" size="small" type="primary" @click="getSecurityCode">{{securityCode}}</van-button>
+				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @focus="getSecurityCode" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
+					<van-button slot="button" size="small" type="primary" :loading="getSCLoading" @click="getSecurityCode">{{securityCode}}</van-button>
 				</van-field>
 			</van-cell-group>
 		</div>
@@ -137,6 +137,7 @@
 				},
 				loginValidate:true,
 				isLoading:false,
+				getSCLoading:false,
 				cookiesTime: 60 * 60 * 24,
 				userFreezeInfo:'',
 				getInitCode:'',
@@ -158,7 +159,6 @@
 			} */
 			_this.bsTip();
 			//_this.getAssistMaintainInfo();
-			_this.getSecurityCode();
 		},
 		methods:{
 			getECBTN(){
@@ -229,15 +229,36 @@
 			},
 			getSecurityCode(){
 				let _this = this;
-				_this.$ajax.ajax(_this.$api.getSecurityCode, 'POST', null, function(res) {
+				let params = {
+					mobilePhone:_this.form.phone
+				}
+				if(_this.$utils.hasNull(params)){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '请先填写手机号'
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+				_this.getSCLoading = true;
+				_this.$ajax.ajax(_this.$api.getSecurityCode, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						// console.log('securityCode4Web',res.data);
 						_this.getInitCode = res.data;
 						let initCode = _this.$JsEncrypt.decrypt(_this.getInitCode.initCode);
 						_this.securityCode = _this.$utils.getSC(initCode);
 					}else{
-						_this.$toast(res.message);
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
+				},function(res){
+					_this.getSCLoading = false;
 				})
 			},
 			getUserFreezeInfo(){
@@ -296,7 +317,6 @@
 				let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
-						//_this.$toast(_this.$api.oneAccount);
 						Dialog.alert({
 						  title: '系统提示',
 						  message: _this.$api.oneAccount
@@ -355,6 +375,7 @@
 				if(key == 'phone') {
 					if(_this.$reg.phone.test(_this.form.phone)){
 						_this.errorHint.phone = '';
+						//_this.getSecurityCode();
 					}else{
 						_this.errorHint.phone = _this.$reg.phoneHint;
 					}

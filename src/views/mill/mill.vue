@@ -470,7 +470,13 @@
 						_this.$cookies.set("HMSI",1,_this.$api.cookiesTime)
 						_this.millShopList = list;
 					}else{
-						_this.$toast(res.message);
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				},function(){
 					_this.loading = false;

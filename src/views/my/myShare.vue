@@ -264,7 +264,7 @@
 				return;
 			}
 			this.$nextTick(function () {
-			      _this.getQrcode2()
+			    _this.getQrcode2()
 			})
 		},
 		methods: {
@@ -288,10 +288,10 @@
 				let registerUrl = ''
 				if (process.env.NODE_ENV === "development") {
 					registerUrl = _this.$api.hostIPPort + '/#/register?id=' + id;
-					console.log('registerUrl', registerUrl);
+					//console.log('registerUrl', registerUrl);
 				}else {
 					registerUrl = _this.$api.domainName + '/#/register?id=' + id;
-					console.log('registerUrl',registerUrl);
+					//console.log('registerUrl', registerUrl);
 				}
 				
 				let qrcode = new QRCode('qrcode', {
@@ -304,7 +304,7 @@
 			getQrcode () {
 			  let _this = this;
 			  _this.$ajax.ajax(_this.$api.getQrCodeUrl, 'GET', null, function(res) {
-				  console.log('res',res);
+				//console.log('res',res);
 			  	if (res.code == _this.$api.CODE_OK) {
 			  		let qrcode = new QRCode('qrcode', {
 						width: 120, // 设置宽度，单位像素

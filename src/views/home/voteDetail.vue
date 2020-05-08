@@ -159,7 +159,7 @@
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="placeholderLine10"></div>
-				<div class="tip4model3">参与投票之前个人算力至少要达到0.2G</div>
+				<!-- <div class="tip4model3">参与投票之前个人算力至少要达到0.2G</div> -->
 			</div>
 			<div class="box2">
 				<div class="title" v-if="isDead==0">

@@ -17,6 +17,9 @@
 			    color: $mainTextColor2 !important;
 			}
 		}
+		.fixedBottom{
+			@include fixedBottom();
+		}
 		.rankingTabs {
 			color: $mainTextColor;
 			.list{
@@ -302,8 +305,11 @@
 						</div>
 					</van-list>
 				</van-tab>
-				
 			</van-tabs>
+		</div>
+		<div class="fixedBottom paddingWing">
+			<van-button type="info" size="normal" to="auction" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">竞拍服务商入口</van-button>
+			<div class="placeholderLine10"></div>
 		</div>
 	</div>
 </template>

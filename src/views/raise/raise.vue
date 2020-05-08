@@ -395,9 +395,9 @@
 					</div>
 					<div class="imageList flex" v-if="list1">
 						<img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/>
-						<!-- <img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(1)"/>
-						<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(2)"/>
-						<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(3)"/> -->
+						<!-- <img class="" src="" @click="imagePreviewEvent(1)"/>
+						<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(2)"/> -->
+						<!-- <img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(3)"/> -->
 					</div>
 					<van-image-preview
 					  v-model="showImagePreview"
@@ -550,7 +550,10 @@
 				list2:[],
 				showImagePreview: false,
 				imageIndex: 0,
-				images: [],
+				images: [
+					'https://www.helpchain.online/image/raise001.jpg',
+					'https://www.helpchain.online/image/raise002.jpg'
+				],
 				loadingRecordsList:false,
 				finishedRecordsList:false,
 				num:0,
@@ -618,7 +621,7 @@
 						_this.$toast("捐赠成功");
 						_this.word = '';
 						_this.getAssistRaiseListPage();
-						//_this.getAssistRaiseRecordListPage();
+						_this.getAssistRaiseRecordListPage();
 					}else{
 						Dialog.alert({
 							title: "系统提示",
@@ -662,7 +665,7 @@
 						_this.list1 = res.data.list[0];
 						if(_this.list1){
 							_this.images = _this.list1.pic.split('|');
-							_this.getAssistRaiseRecordListPage();
+							//_this.getAssistRaiseRecordListPage();
 						}else{
 							_this.list1 = '';
 						}

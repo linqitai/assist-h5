@@ -319,7 +319,7 @@
 				loading7:false,
 				finished7:false,
 				pageSize:20,
-				activeName:'ranking1',
+				activeName:'',
 				showTipModel:false,
 				showTipModel4LookWeCharNum:false,
 				shareCode:"",
@@ -335,7 +335,7 @@
 			if (_this.$cookies.isKey("tab_name_book")) {
 				_this.activeName = _this.$cookies.get("tab_name_book");
 			}else{
-				_this.activeName = "mineral";
+				_this.activeName = "ranking1";
 			}
 			//_this.mobilePhone = localStorage.getItem("mobilePhone")
 		},
@@ -389,7 +389,7 @@
 			},
 			tabChange(res) {
 				let _this = this;
-				//console.log('res', res)
+				console.log('res', res)
 				_this.activeName = res;
 				_this.$cookies.set("tab_name_book", res, _this.$api.cookiesTime)
 			},

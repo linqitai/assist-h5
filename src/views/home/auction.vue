@@ -143,7 +143,7 @@
 						<div class="flex">
 							<div class="line"><span>{{auction.title}}</span> <span class="mainAdornColor">{{auction.status == 0 ? '未开拍':auction.status == 1?'竞拍中':'已截止'}}</span></div>
 							<div class="placeholderLine4"></div>
-							<div class="line"><span>当前拍主 {{auction.nickName}}</span> <span class="mainAdornColor">出{{auction.auctionEndPrice}}个帮扶券</span></div>
+							<div class="line"><span>当前拍主 {{auction.nickName}}</span> <span class="mainAdornColor">出{{auction.auctionEndPrice}}个矿石</span></div>
 							<div class="placeholderLine4"></div>
 							<div class="line white">
 								开始时间：{{auction.startTime}}
@@ -159,10 +159,10 @@
 				<div class="placeholderLine10"></div>
 				<div>
 					我要加价：
-					<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
-					<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个券</van-button>
-					<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
-					<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个券</van-button>
+					<van-button round type="info" @click="addTicket(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个</van-button>
+					<van-button round type="info" @click="addTicket(3)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">3个</van-button>
+					<van-button round type="info" @click="addTicket(5)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">5个</van-button>
+					<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个</van-button>
 					<!-- 增加自己填写数额 -->
 				</div>
 				<div class="placeholderLine4"></div>
@@ -177,7 +177,7 @@
 							</div>
 						</div>
 						<div class="flex">
-							<div class="line"><span>{{item.nickName}}</span> <span class="mainAdornColor">+{{item.addPrice}}个帮扶券 <i class="iconfont iconfont-arrow-to"></i> {{item.currentAuctionPrice}}券</span></div>
+							<div class="line"><span>{{item.nickName}}</span> <span class="mainAdornColor"><!-- +{{item.addPrice}}个矿石<i class="iconfont iconfont-arrow-to"></i> -->出 {{item.currentAuctionPrice}}矿石</span></div>
 							<div class="placeholderLine10"></div>
 							<div class="line white">
 								加价时间：{{item.createTime}}
@@ -194,17 +194,10 @@
 				<!-- <div class="tip4model3">第一批省代理正在招募中，需通过现有代理或客服引荐。</div> -->
 				<div class="placeholderLine10"></div>
 				<div class="tip4model4">
-					<b class="textBold">竞拍第二批服务商规则：</b><br>
-					从28号开始，将会在每晚21:00~22:00进行竞拍，每次竞拍将从加价记录中选取1~3名团队长作为服务商<br>
-					HPC帮扶链的服务商类似交易所的商人<br>
-					要具备以下几个条件<br>
-					1、省市代理或会长或团队算力、有效直推进入排行榜的团队长优先<br>
-					2、对HPC平台的帮扶事业绝对热爱<br>
-					3、有充裕时间做好服务（若服务时间经常不充裕，愿意把服务商职位让给更加符合条件的团队长）<br>
-					4、备有足够量的资金作保障<br>
-					服务商权限大而尊贵，对控盘起关键作用，请团队长们在参与竞拍之前，先考虑好以上条件，若有任何一点不达标，都会被平台劝退且让出权限给他人。<br>
-					<b class="textBold">竞拍须知：</b><br>
-					竞拍的时候只加价，加价不需要花帮扶券，每次截止竞拍后，加价记录中所胜出的选手将会在首页的投票中进行公布与投票，最后选择1~3个投票胜出的团队长作为本次竞拍的服务商且最后缴纳帮扶券，该帮扶券需从省代理或现有服务商那儿购买。
+					<b class="textBold">本次服务商竞拍规则：</b><br>
+					5月9号晚21:00~22:00进行竞拍一名服务商，竞拍结束后第二天将从加价记录中的团队长名单中投票产生1名团队长作为服务商<br>
+					投票参与人员：个人算力大于13G的会员。
+					投票规则：每人最多投一票，
 				</div>
 				<div class="placeholderLine40"></div>
 			</div>
@@ -307,10 +300,10 @@
 			},
 			addTicket(num){
 				let _this = this;
-				if(_this.userInfo.isAgent<=0&&_this.userInfo.level<=0&&_this.userInfo.teamCalculationPower<=74.0&&_this.userInfo.realnameNum<=171){
+				if(_this.userInfo.teamCalculationPower<=268.0){
 					Dialog.alert({
 						title: "系统提示",
-					message: "经系统检测，您没有权限参与竞拍，请查看右上角的竞拍详情"
+						message: "经系统检测，您没有权限参与竞拍，请查看右上角的此次竞拍规则"
 					}).then(() => {
 						// on confirm
 					})
@@ -319,7 +312,7 @@
 					  title: '系统提示',
 					  confirmButtonText:'确认',
 					  closeOnClickOverlay:true,
-					  message: `您确定要加价${num}个券吗？`
+					  message: `您确定要加价${num}个矿石吗？`
 					}).then(() => {
 					  // on confirm
 					  let params = {

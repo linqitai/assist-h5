@@ -485,6 +485,12 @@
 					_this.getRecieptLoading = false;
 				})
 			},
+			getMyPastMachinesReceipt(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getMyPastMachinesReceipt, 'POST', null, function(res) {
+					console.log("res.code",res.code);
+				})
+			},
 			getThisMachineReceipt(item){
 				if(item.beforeReceipt){
 					

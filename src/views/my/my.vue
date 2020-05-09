@@ -6,8 +6,6 @@
 		position: absolute;
 		min-height: 100%;
 		width: 100%;
-		// margin-top: $header-height;
-		// margin-bottom: $header-height;
 		$iconBgWidth:50px;
 		background-color: $main-box-fh-bg-color;
 		color: $main-box-fh-text-color;
@@ -17,8 +15,6 @@
 		.cateInfo {
 			display: flex;
 			width: 100%;
-			// margin-left: $marginLeft;
-			// border-radius: $borderRadius;
 			padding: 10px 0;
 			.infoBox {
 				flex: 1;

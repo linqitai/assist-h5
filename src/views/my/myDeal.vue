@@ -355,6 +355,9 @@
 									<div class="timeBox">
 										匹配时间 {{ item.machingTime }}
 									</div>
+									<div class="timeBox">
+										订单编号 <span class="copy" @click="handleCopy(item.id,$event)">{{ item.id }}</span>
+									</div>
 								</div>
 								<div class="operatorBox">
 									<div>
@@ -401,6 +404,9 @@
 									</div>
 									<div class="timeBox">
 										匹配时间 {{ item.machingTime }}
+									</div>
+									<div class="timeBox">
+										订单编号 <span class="copy" @click="handleCopy(item.id,$event)">{{ item.id }}</span>
 									</div>
 								</div>
 								<div class="operatorBox">
@@ -510,7 +516,7 @@
 			</div>
 			<div class="detailBox" v-if="detail4sellerInfo">
 				<div class="tip4model3">
-					平台为保证交易的顺利进行，真实姓名与支付宝不一致永久冻结账号处理，交易的时候若遇到此问题欢迎向平台诉讼，情况属实买方会得到奖励。
+					平台为保证交易的顺利进行，卖方的真实姓名若与支付宝里的不一致将冻结账号处理，交易的时候买方若遇到此问题欢迎向平台诉讼，情况属实买方会得到贡献值奖励。
 				</div>
 				<div class="line">
 					<span class="label">卖方</span>
@@ -1628,7 +1634,7 @@
 				//   forbidClick: true
 				// });
 				_this.type = item.type;
-				//console.log('_this.type',_this.type);
+				console.log('_this.type',_this.type);
 				_this.id = item.id;
 				let bs = _this.buyOrSell(item);
 				//console.log('bs',bs);
@@ -1686,7 +1692,7 @@
 						})
 					}
 				}else{
-					////console.log('else?')
+					console.log('else bs',bs)
 					if(bs=='sell'){
 						let params = {
 							id: _this.id
@@ -1704,10 +1710,14 @@
 							}
 						})
 					}else if(bs=='buy'){
-						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+						console.log('item.canCancelTime',item.canCancelTime)
+						console.log('_this.$utils.getDateTime(new Date())',_this.$utils.getDateTime(new Date()))
+						console.log('item.status',item.status)
+						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
 							_this.cancelDeal4OverTime();
 							return;
-						} */
+						}
+						console.log('buy')
 						let params = {
 							id: _this.id
 						}
@@ -1716,6 +1726,7 @@
 							if (res.code == _this.$api.CODE_OK) {
 								if(res.data){
 									_this.detail4sellerInfo = res.data;
+									console.log("_this.detail4sellerInfo.status",_this.detail4sellerInfo.status);
 									if(_this.detail4sellerInfo.status == 0){
 										Dialog.alert({
 										  title: '温馨提示',
@@ -1749,7 +1760,26 @@
 										  ////console.log('cancel');
 										});
 									}else{
-										_this.getSellerInfoByTransactionId();
+										//_this.getSellerInfoByTransactionId();
+										if(_this.detail4sellerInfo.status == 2){
+											let now = _this.$utils.getDateTime(new Date());
+											console.log('_this.detail4sellerInfo.letSureTime',_this.detail4sellerInfo.letSureTime)
+											console.log('now', now);
+											if(_this.detail4sellerInfo.letSureTime&&_this.detail4sellerInfo.letSureTime<now){
+												Dialog.confirm({
+												  title: '提示信息',
+												  confirmButtonText:'需要',
+												  message: '由于卖家60分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
+												}).then(() => {
+												  // on confirm
+												  ////console.log('sure');
+												  _this.letSureByBuyer();
+												}).catch(() => {
+												  // on cancel
+												  ////console.log('cancel');
+												});
+											}
+										}
 									}
 								}else{
 									_this.onLoad2();

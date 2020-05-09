@@ -126,6 +126,7 @@ export default {
 	insertAssistMyMachine: host + "assist/myMachine/insertAssistMyMachine",
 	runMyMachineById: host + "assist/myMachine/runMyMachineById/",
 	getMyMachinesReceipt: host + "assist/myMachine/getMyMachinesReceipt",
+	getMyPastMachinesReceipt: host + "assist/myMachine/getMyPastMachinesReceipt",
 	getMyMachinesReceiptByOne: host + "assist/myMachine/getMyMachinesReceiptByOne/",
 	getAssistMyMachineCount4FlockTask: host + "assist/myMachine/getAssistMyMachineCount4FlockTask",
 	getSomeOneMachineInventory: host + "assist/myMachine/getSomeOneMachineInventory",

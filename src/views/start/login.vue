@@ -209,6 +209,12 @@
 				let province = _this.$utils.getProvince(address);
 				//alert(province);
 			},
+			getMyPastMachinesReceipt(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getMyPastMachinesReceipt, 'POST', null, function(res) {
+					console.log("res.code",res.code);
+				})
+			},
 			getAssistMaintainInfo(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getAssistMaintainInfo, 'POST', null, function(res) {
@@ -356,6 +362,7 @@
 						}else{
 							_this.$router.replace("/home");
 						}
+						_this.getMyPastMachinesReceipt();
 					}else{
 						Dialog.alert({
 						  title: '系统提示',

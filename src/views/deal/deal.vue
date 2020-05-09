@@ -349,7 +349,6 @@
 				</van-tab>
 			</van-tabs>	
 		</van-pull-refresh>
-		
 		<van-action-sheet v-model="showPickSellModel" title="卖出">
 		  <van-cell-group>
 			  <div class="pickSellContent">

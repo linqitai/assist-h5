@@ -186,9 +186,12 @@
 					flex: 0 0 70px;
 					width: 70px;
 					height: 70px;
-					padding-right: 6px;
+					padding: 3px;
 					&::last-child{
 						padding-right: 0;
+					}
+					&::first-child{
+						padding-left: 0;
 					}
 				}
 			}
@@ -258,6 +261,7 @@
 		}
 		.records{
 			padding: $boxPadding2;
+			padding-top: 3px;
 			.title{
 				font-size: 0.937rem;
 			}
@@ -266,7 +270,7 @@
 				// background-color: $main-box-color;
 				box-sizing:border-box !important;
 				color:$main-box-fh-text-color;
-				margin-top: 12px;
+				/* margin-top: 12px; */
 				border-bottom: 1px solid $bottomLineColor;
 				&.row{
 					flex-direction: row;
@@ -404,7 +408,7 @@
 					  :images="images"
 					  @change="onChangeImageIndex"
 					>
-					  <template v-slot:index>第{{ imageIndex }}页</template>
+					  <template v-slot:index><span class="bg_black padding4Text">第{{ imageIndex+1 }}页</span></template>
 					</van-image-preview>
 				</div>
 				<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
@@ -497,7 +501,7 @@
 					<div class="placeholderLine10"></div>
 				</div>
 				<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
-				<van-list
+				<!-- <van-list
 				  v-model="loading2"
 				  :finished="finished2"
 				  finished-text="没有更多了"
@@ -506,9 +510,6 @@
 					<div class="records">
 						<div class="title">爱心帮扶记录</div>
 						<div class="item flexsBox row" v-for="item in list2" :key="item.id">
-							<!-- <div class="flexLeft1">
-								<van-image round width="44" height="44" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-							</div> -->
 							<div class="flexThis column">
 								<div class="line1">
 									<div class="left yellow">{{item.nickName}}</div>
@@ -521,7 +522,87 @@
 							</div>
 						</div>
 					</div>
-				</van-list>
+				</van-list> -->
+				<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
+					<van-tab title="爱心帮扶记录" name="raiseRecord1">
+						<div class="records" v-if="list2">
+							<div class="item flexsBox row" v-for="item in list2" :key="item.id">
+								<div class="flexThis column">
+									<div class="line1">
+										<div class="left yellow">{{item.nickName}}</div>
+										<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
+									</div>
+									<div class="line2">
+										{{item.word}}
+									</div>
+									<div class="line3">{{item.createTime}}</div>
+								</div>
+							</div>
+							<div v-if="totalItems>0">
+								<van-pagination 
+								  v-model="currentPage2" 
+								  :total-items="totalItems" 
+								  :items-per-page="pageSize2"
+								  :show-page-size="3" 
+								  force-ellipses
+								  @change="getAssistRaiseRecordListPage"
+								/>
+							</div>
+						</div>
+					</van-tab>
+					<van-tab title="爱心帮扶排行榜" name="raiseRecord2">
+						<div class="records" v-if="list3">
+							<div class="item flexsBox row" v-for="item in list3" :key="item.id">
+								<div class="flexThis column">
+									<div class="line1">
+										<div class="left yellow">{{item.nickName}}</div>
+										<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
+									</div>
+									<div class="line2">
+										{{item.word}}
+									</div>
+									<div class="line3">{{item.createTime}}</div>
+								</div>
+							</div>
+							<div v-if="totalItems3>0">
+								<van-pagination 
+								  v-model="currentPage3" 
+								  :total-items="totalItems3" 
+								  :items-per-page="pageSize3"
+								  :show-page-size="3" 
+								  force-ellipses
+								  @change="getAssistRaiseRecordListPage3"
+								/>
+							</div>
+						</div>
+					</van-tab>
+				</van-tabs>	
+				<!-- <div class="records" v-if="list2">
+					<div class="title">爱心帮扶记录</div>
+					<div class="item flexsBox row" v-for="item in list2" :key="item.id">
+						<div class="flexThis column">
+							<div class="line1">
+								<div class="left yellow">{{item.nickName}}</div>
+								<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
+							</div>
+							<div class="line2">
+								{{item.word}}
+							</div>
+							<div class="line3">{{item.createTime}}</div>
+						</div>
+					</div>
+					<div v-if="totalItems>0">
+						<van-pagination 
+						  v-model="currentPage2" 
+						  :total-items="totalItems" 
+						  :items-per-page="pageSize2"
+						  :show-page-size="3" 
+						  force-ellipses
+						  @change="getAssistRaiseRecordListPage"
+						/>
+					</div>
+				</div> -->
 			</div>
 		</div>
 		<transition name="van-fade">
@@ -548,16 +629,27 @@
 				loading2:false,
 				finished2:false,
 				list2:[],
+				currentPage3: 1,
+				pageSize3:6,
+				loading3:false,
+				finished3:false,
+				list3:[],
+				totalItems:0,
+				totalItems3:0,
 				showImagePreview: false,
-				imageIndex: 0,
+				imageIndex: '',
 				images: [
-					'https://www.helpchain.online/image/raise001.jpg',
-					'https://www.helpchain.online/image/raise002.jpg'
+					'https://www.assist-china.com.cn/image/raise001.jpg',
+					'https://www.assist-china.com.cn/image/raise002.jpg',
+					'https://www.assist-china.com.cn/image/raise003.png',
+					'https://www.assist-china.com.cn/image/raise004.jpg',
+					'https://www.assist-china.com.cn/image/raise005.jpg'
 				],
 				loadingRecordsList:false,
 				finishedRecordsList:false,
 				num:0,
 				word:'',
+				tabActiveName:"raiseRecord1",
 			}
 		},
 		components: {
@@ -583,6 +675,28 @@
 			},
 			waiting(){
 				this.$toast(`即将开放`);
+			},
+			tabChange(name,title){
+				let _this = this;
+				//console.log(name,title);
+				this.$cookies.set("tabName4Record", name, 60 * 60 * 1)
+				if(name == 'raiseRecord1'){
+					_this.getAssistRaiseRecordListPage();
+					/* if(_this.$cookies.get('totalItems2')){
+						_this.list2 = JSON.parse(localStorage.getItem("LIST2"));
+						_this.totalItems2 = parseInt(_this.$cookies.get('totalItems2'));
+					}else{
+						_this.getListAddPrice();
+					} */
+				}else if(name == 'raiseRecord2'){
+					_this.getAssistRaiseRecordListPage3();
+					/* if(_this.$cookies.get('totalItems1')){
+						_this.list3 = JSON.parse(localStorage.getItem("LIST1"));
+						_this.totalItems3 = parseInt(_this.$cookies.get('totalItems1'));
+					}else{
+						_this.getListGeneral();
+					} */
+				}
 			},
 			addTicket(num){
 				let _this = this;
@@ -621,7 +735,7 @@
 						_this.$toast("捐赠成功");
 						_this.word = '';
 						_this.getAssistRaiseListPage();
-						_this.getAssistRaiseRecordListPage();
+						//_this.getAssistRaiseRecordListPage();
 					}else{
 						Dialog.alert({
 							title: "系统提示",
@@ -644,12 +758,33 @@
 				_this.$ajax.ajax(_this.$api.getAssistRaiseRecordListPage, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list2 = res.data.list;
+						_this.totalItems = res.data.total;
 					}else{
 						_this.$toast(res.message);
 					}
 				},function(){
 					_this.finished2 = true;
 					_this.loading2 = false;
+				})
+			},
+			getAssistRaiseRecordListPage3(){
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage3,
+					pageSize: _this.pageSize3,
+					raiseId:_this.list1.id
+				}
+				_this.loading3 = true;
+				_this.$ajax.ajax(_this.$api.getAssistRaiseRecordRanking, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list3 = res.data.list;
+						_this.totalItems3 = res.data.total;
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.finished3 = true;
+					_this.loading3 = false;
 				})
 			},
 			getAssistRaiseListPage(){
@@ -664,8 +799,8 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data.list[0];
 						if(_this.list1){
-							_this.images = _this.list1.pic.split('|');
-							//_this.getAssistRaiseRecordListPage();
+							//_this.images = _this.list1.pic.split('|');
+							_this.getAssistRaiseRecordListPage();
 						}else{
 							_this.list1 = '';
 						}
@@ -687,6 +822,7 @@
 			},
 			imagePreviewEvent(index){
 				this.showImagePreview = true;
+				console.log("index",index);
 				this.imageIndex = index;
 			},
 			onChangeImageIndex(index) {

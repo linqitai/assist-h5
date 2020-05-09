@@ -277,6 +277,13 @@
 							  // on confirm
 							  _this.back();
 							})
+						}else{
+							Dialog.alert({
+								title: "系统提示",
+								message: res.message
+							}).then(() => {
+							  // on confirm
+							})
 						}
 					},function(){
 						_this.loading = false;

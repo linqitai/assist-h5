@@ -226,4 +226,5 @@ export default {
 	//raiseRecord
 	insertAssistRaiseRecord: host + "assist/raise/insertAssistRaiseRecord",
 	getAssistRaiseRecordListPage: host + "assist/raise/getAssistRaiseRecordListPage",
+	getAssistRaiseRecordRanking: host + "assist/raise/getAssistRaiseRecordRanking",
 }

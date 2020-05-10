@@ -1,9 +1,7 @@
 <style scoped lang="scss">
 @import '~@/assets/scss/variable.scss';
-// @import '@/assets/scss/variable.scss';
 $noticeHeight:40px;
 .homePage{
-	// margin-top: $header-height;
 	[class*=van-hairline]::after {
 	    border: 0px solid transparent !important;
 	}
@@ -36,7 +34,6 @@ $noticeHeight:40px;
 	}
 	.HomeContent{
 		position: relative;
-		// margin-top: $headerHeight;
 		.swipe {
 			.van-swipe-item {
 				img {
@@ -50,10 +47,8 @@ $noticeHeight:40px;
 			margin-left: $marginLeft;
 			background-color: white;
 			border-radius: $borderRadius;
-			// margin-top:6px;
 			margin-top: -18px;
 			position: relative;
-			// z-index: 2;
 		}
 		
 		.van-notice-bar {

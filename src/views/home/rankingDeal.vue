@@ -152,160 +152,162 @@
 			>
 			  <div slot="action" @click="searchEvent">搜索</div>
 			</van-search> -->
-			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
-			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
-			 
-				<van-tab title="团队算力" name="ranking0">
-					<van-list v-model="loading0" :finished="finished0" finished-text="没有更多了" @load="onLoad0">
-						<div class="list" v-for="(item,index) in list0" :key='item.id'>
-							<div class="item" @click="toMy4OtherView(item.userId)">
-								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
-								</div>
-								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
-								</div>
-								<div class="flexRight">
-									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				
-				<van-tab title="矿石" name="ranking1">
-					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
-						<div class="list" v-for="(item,index) in list1" :key='item.id'>
-							<div class="item" @click="toMy4OtherView(item.userId)">
-								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
-								</div>
-								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
-								</div>
-								<div class="flexRight">
-									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
+				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
+				 
+					<van-tab title="团队算力" name="ranking0">
+						<van-list v-model="loading0" :finished="finished0" finished-text="没有更多了" @load="onLoad0">
+							<div class="list" v-for="(item,index) in list0" :key='item.id'>
+								<div class="item" @click="toMy4OtherView(item.userId)">
+									<div class="flexLeft">
+										<div class="name">{{index+1}}</div>
+									</div>
+									<div class="flex">
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+									</div>
+									<div class="flexRight">
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									</div>
 								</div>
 							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				
-				<van-tab title="买入次数" name="ranking2">
-					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
-						<div class="list" v-for="(item,index) in list2" :key='item.id'>
-							<div class="item" @click="toMy4OtherView(item.userId)">
-								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
-								</div>
-								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
-								</div>
-								<div class="flexRight">
-									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				
-				<van-tab title="卖出次数" name="ranking3">
-					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
-						<div class="list" v-for="(item,index) in list3" :key='item.id'>
-							<div class="item" @click="toBookView(item.userId)">
-								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
-								</div>
-								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
-								</div>
-								<div class="flexRight">
-									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+						</van-list>
+					</van-tab>
+					
+					<van-tab title="矿石" name="ranking1">
+						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
+							<div class="list" v-for="(item,index) in list1" :key='item.id'>
+								<div class="item" @click="toMy4OtherView(item.userId)">
+									<div class="flexLeft">
+										<div class="name">{{index+1}}</div>
+									</div>
+									<div class="flex">
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+									</div>
+									<div class="flexRight">
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									</div>
 								</div>
 							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				<van-tab title="买入数量" name="ranking4">
-					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
-						<div class="list" v-for="(item,index) in list4" :key='item.id'>
-							<div class="item"  @click="toMy4OtherView(item.userId)">
-								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
-								</div>
-								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
-								</div>
-								<div class="flexRight">
-									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				
-				<van-tab title="卖出数量" name="ranking5">
-					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
-						<div class="list" v-for="(item,index) in list5" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
-							<div class="item">
-								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
-								</div>
-								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name"></i> <span>{{item.nickName}}</span></div>
-									<div class="line margT6"><i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
-								</div>
-								<div class="flexRight">
-									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+						</van-list>
+					</van-tab>
+					
+					<van-tab title="买入次数" name="ranking2">
+						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
+							<div class="list" v-for="(item,index) in list2" :key='item.id'>
+								<div class="item" @click="toMy4OtherView(item.userId)">
+									<div class="flexLeft">
+										<div class="name">{{index+1}}</div>
+									</div>
+									<div class="flex">
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+									</div>
+									<div class="flexRight">
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									</div>
 								</div>
 							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				
-				<van-tab title="个人算力" name="ranking7">
-					<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
-						<div class="list" v-for="(item,index) in list7" :key='item.id'>
-							<div class="item" @click="toMy4OtherView(item.userId)">
-								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
-								</div>
-								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
-								</div>
-								<div class="flexRight">
-									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				
-				<van-tab title="被告次数" name="ranking6">
-					<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
-						<div class="list" v-for="(item,index) in list6" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
-							<div class="item">
-								<div class="flexLeft">
-									<div class="name">{{index+1}}</div>
-								</div>
-								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-									<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
-								</div>
-								<div class="flexRight">
-									{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+						</van-list>
+					</van-tab>
+					
+					<van-tab title="卖出次数" name="ranking3">
+						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
+							<div class="list" v-for="(item,index) in list3" :key='item.id'>
+								<div class="item" @click="toBookView(item.userId)">
+									<div class="flexLeft">
+										<div class="name">{{index+1}}</div>
+									</div>
+									<div class="flex">
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+									</div>
+									<div class="flexRight">
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									</div>
 								</div>
 							</div>
-						</div>
-					</van-list>
-				</van-tab>
-			</van-tabs>
+						</van-list>
+					</van-tab>
+					<van-tab title="买入数量" name="ranking4">
+						<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
+							<div class="list" v-for="(item,index) in list4" :key='item.id'>
+								<div class="item"  @click="toMy4OtherView(item.userId)">
+									<div class="flexLeft">
+										<div class="name">{{index+1}}</div>
+									</div>
+									<div class="flex">
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+									</div>
+									<div class="flexRight">
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									</div>
+								</div>
+							</div>
+						</van-list>
+					</van-tab>
+					
+					<van-tab title="卖出数量" name="ranking5">
+						<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
+							<div class="list" v-for="(item,index) in list5" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
+								<div class="item">
+									<div class="flexLeft">
+										<div class="name">{{index+1}}</div>
+									</div>
+									<div class="flex">
+										<div class="line"><i class="iconfont iconfont-name"></i> <span>{{item.nickName}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+									</div>
+									<div class="flexRight">
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									</div>
+								</div>
+							</div>
+						</van-list>
+					</van-tab>
+					
+					<van-tab title="个人算力" name="ranking7">
+						<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
+							<div class="list" v-for="(item,index) in list7" :key='item.id'>
+								<div class="item" @click="toMy4OtherView(item.userId)">
+									<div class="flexLeft">
+										<div class="name">{{index+1}}</div>
+									</div>
+									<div class="flex">
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+									</div>
+									<div class="flexRight">
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									</div>
+								</div>
+							</div>
+						</van-list>
+					</van-tab>
+					
+					<van-tab title="被告次数" name="ranking6">
+						<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
+							<div class="list" v-for="(item,index) in list6" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
+								<div class="item">
+									<div class="flexLeft">
+										<div class="name">{{index+1}}</div>
+									</div>
+									<div class="flex">
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+									</div>
+									<div class="flexRight">
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									</div>
+								</div>
+							</div>
+						</van-list>
+					</van-tab>
+				</van-tabs>
+			</van-pull-refresh>
 		</div>
 		<div class="fixedBottom paddingWing">
 			<van-button type="info" size="normal" to="auction" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">竞拍服务商入口</van-button>
@@ -322,6 +324,7 @@
 	export default {
 		data() {
 			return {
+				loading:false,
 				currentPage0: 1,
 				list0:[],
 				loading0:false,
@@ -406,6 +409,54 @@
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
+			refreshEvent() {
+				// console.log("refresh1")
+				let _this = this;
+				if(_this.activeName == 'ranking0'){
+					console.log("refresh0");
+					_this.currentPage0 = 1;
+					_this.list0 = [];
+					_this.finished0 = false;
+					_this.onLoad0();
+				}else if(_this.activeName == 'ranking1'){
+					console.log("refresh1");
+					_this.currentPage1 = 1;
+					_this.list1 = [];
+					_this.finished1 = false;
+					_this.onLoad1();
+				}else if(_this.activeName == 'ranking2'){
+					console.log("refresh2");
+					_this.currentPage2 = 1;
+					_this.list2 = [];
+					_this.finished2 = false;
+					_this.onLoad2();
+				}else if(_this.activeName == 'ranking3'){
+					_this.currentPage3 = 1;
+					_this.list3 = [];
+					_this.finished3 = false;
+					_this.onLoad3();
+				}else if(_this.activeName == 'ranking4'){
+					_this.currentPage4 = 1;
+					_this.list4 = [];
+					_this.finished4 = false;
+					_this.onLoad4();
+				}else if(_this.activeName == 'ranking5'){
+					_this.currentPage5 = 1;
+					_this.list5 = [];
+					_this.finished5 = false;
+					_this.onLoad5();
+				}else if(_this.activeName == 'ranking6'){
+					_this.currentPage6 = 1;
+					_this.list6 = [];
+					_this.finished6 = false;
+					_this.onLoad6();
+				}else if(_this.activeName == 'ranking7'){
+					_this.currentPage7 = 1;
+					_this.list7 = [];
+					_this.finished7 = false;
+					_this.onLoad7();
+				}
+			},
 			/* lookWeChartNumBtn(shareCode){
 				let _this = this;
 				_this.showTipModel4LookWeCharNum = true;
@@ -457,20 +508,44 @@
 			searchEvent(){
 				let _this = this;
 				if(_this.activeName == 'ranking0'){
+					_this.currentPage0 = 1;
+					_this.list0 = [];
+					_this.finished0 = false;
 					_this.onLoad0();
 				}else if(_this.activeName == 'ranking1'){
+					_this.currentPage1 = 1;
+					_this.list1 = [];
+					_this.finished1 = false;
 					_this.onLoad1();
 				}else if(_this.activeName == 'ranking2'){
+					_this.currentPage2 = 1;
+					_this.list2 = [];
+					_this.finished2 = false;
 					_this.onLoad2();
 				}else if(_this.activeName == 'ranking3'){
+					_this.currentPage3 = 1;
+					_this.list3 = [];
+					_this.finished3 = false;
 					_this.onLoad3();
 				}else if(_this.activeName == 'ranking4'){
+					_this.currentPage4 = 1;
+					_this.list4 = [];
+					_this.finished4 = false;
 					_this.onLoad4();
 				}else if(_this.activeName == 'ranking5'){
+					_this.currentPage5 = 1;
+					_this.list5 = [];
+					_this.finished5 = false;
 					_this.onLoad5();
 				}else if(_this.activeName == 'ranking6'){
+					_this.currentPage6 = 1;
+					_this.list6 = [];
+					_this.finished6 = false;
 					_this.onLoad6();
 				}else if(_this.activeName == 'ranking7'){
+					_this.currentPage7 = 1;
+					_this.list7 = [];
+					_this.finished7 = false;
 					_this.onLoad7();
 				}
 			},
@@ -496,6 +571,8 @@
 						_this.finished0 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			onLoad1(){
@@ -520,6 +597,8 @@
 						_this.finished1 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			onLoad2(){
@@ -543,6 +622,8 @@
 						_this.finished2 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			onLoad3(){
@@ -567,6 +648,8 @@
 						_this.finished3 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			onLoad4(){
@@ -591,6 +674,8 @@
 						_this.finished4 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			onLoad5(){
@@ -620,6 +705,8 @@
 						_this.finished5 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			onLoad6(){
@@ -649,6 +736,8 @@
 						_this.finished6 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			},
 			onLoad7(){
@@ -678,6 +767,8 @@
 						_this.finished7 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
 				})
 			}
 		}

@@ -201,7 +201,9 @@
 					投票选举成功后，该服务商获得1台中型+服务商职位。<br>
 					其他竞拍日程<br>
 					5月10号晚21:00~22:00进行竞拍2名服务商<br>
-					5月11号晚21:00~22:00进行竞拍2名服务商
+					需团队算力大于100G<br>
+					5月11号晚21:00~22:00进行竞拍2名服务商<br>
+					需团队算力大于100G<br>
 				</div>
 				<div class="placeholderLine40"></div>
 			</div>
@@ -304,7 +306,7 @@
 			},
 			addTicket(num){
 				let _this = this;
-				if(_this.userInfo.teamCalculationPower<=268.0){
+				if(_this.userInfo.teamCalculationPower<100){
 					Dialog.alert({
 						title: "系统提示",
 						message: "经系统检测，您没有权限参与竞拍，请查看右上角的此次竞拍规则"

@@ -417,9 +417,9 @@
 									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
-									<div class="margT6" v-if="buyOrSell(item)=='sell'&&(item.status==0||item.status==1)">
+									<!-- <div class="margT6" v-if="buyOrSell(item)=='sell'&&(item.status==0||item.status==1)">
 										<span class="cancelBtn" @click="cancelDealBtn(item)">取消交易</span>
-									</div>
+									</div> -->
 								</div>
 								<i class="tagIcon iconfont iconfont-tag tag4Sell"></i>
 								<i class="tagIconText">卖</i>
@@ -1533,10 +1533,17 @@
 				if(_this.cancelSellSureBtnText=="知道了"){
 					_this.showSureCancelTransactionModel4seller = false;
 				}else{
+					//_this.$toast("卖方取消单子功能已经被下线，若有问题请点诉讼");
+					Dialog.alert({
+						title: "系统提示",
+						message: "卖方取消单子功能已经被撤销，若有问题请点诉讼"
+					}).then(() => {
+					  // on confirm
+					  
+					})
 					//调用取消接口
-					let params = {
+					/* let params = {
 						id: _this.id,
-						/* userId: _this.userId */
 					}
 					_this.sureCancelBtnLoading = true;
 					_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
@@ -1553,7 +1560,7 @@
 						}else{
 							_this.$toast(res.message);
 						}
-					})
+					}) */
 				}
 			},
 			cancel4buyer(){

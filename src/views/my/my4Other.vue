@@ -227,11 +227,12 @@
 				<div class="flex flex2">
 					<div class="line1">
 						<span class="nick_name">{{userInfo.nickName}} </span>
-						<span class="level margL6" v-if="userInfo.manType == 2">服务商</span>
+						<!-- <span class="level margL6" v-if="userInfo.manType == 2">服务商</span> -->
 					</div>
-					<div class="line1 margT3">
+					<div class="line1">
 						<!-- {{getCityName(cityInfo)}} -->
-						<div class="level left">{{userInfo.level | getUserType}}{{userInfo.isAgent==1?'+省代理':userInfo.isAgent==2?'+市代理':''}}</div>
+						<!-- <div class="level left">{{userInfo.level | getUserType}}{{userInfo.isAgent==1?'+省代理':userInfo.isAgent==2?'+市代理':''}}</div> -->
+						<!-- <div class="level left">{{userInfo.level | getUserType}}</div> -->
 					</div>
 					<div class="line margT3">
 						注册时间 {{userInfo.registerTime}}

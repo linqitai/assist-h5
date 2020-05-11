@@ -216,7 +216,6 @@
 						messageType: _this.form.wordTypleValue1,
 						messageTitle: _this.$utils.clearSpecialRelax(_this.form.wordTitle),
 						messageContent: _this.$utils.clearSpecialRelax(_this.form.wordContent),
-						// createTime:_this.$utils.getDateTime(new Date())
 					}
 					_this.loading = true;
 					_this.$ajax.ajax(_this.$api.insertAssistMessageBoard, 'POST', params, function(res) {

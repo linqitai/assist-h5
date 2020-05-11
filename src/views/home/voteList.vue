@@ -98,7 +98,7 @@
 		data() {
 			return {
 				pageIndex:1,
-				pageSize:10,
+				pageSize:16,
 				voteList: [],
 				loading1:false,
 				finished1:false
@@ -143,8 +143,11 @@
 							_this.pageIndex = _this.pageIndex + 1;
 						}
 					}else{
+						_this.loading1 = false;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading1 = false;
 				})
 				// 异步更新数据
 				// setTimeout(() => {

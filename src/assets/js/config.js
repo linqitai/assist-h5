@@ -13,7 +13,7 @@ export default{
 	agencyStatusOptions:[{id: 0,value: "未开拍"},{id: 1,value: "竞拍中"},{id: 2,value: "已截止"}],
 	wordStatusOptions:[{id: "0",value: "待回复"},{id: "1",value: "已处理"}],
 	calculationOptions:[{id:0,value:'自己租赁矿机'},{id:1,value:'下级租赁矿机'},{id:2,value:'自己矿机过期'},{id:3,value:'下级矿机过期'},{id:4,value:'自己获得矿机'},{id:5,value:'下级获得矿机'},{id:6,value:'自己或下级实名通过'},{id:7,value:'直推注销账号'}],
-	agentOptions:[{id:0,value:''},{id:1,value:'省代理'},{id:2,value:'市代理'},{id:3,value:'客服'},{id:4,value:'团队长'}],
+	agentOptions:[{id:0,value:''},{id:1,value:'省代理'},{id:2,value:'市代理'},{id:3,value:'客服'},{id:4,value:'团队长'},{id:5,value:'志愿者'},{id:6,value:'其他'}],
 	provinceOptions:[{
 		"ProID": 1,
 		"name": "北京市",

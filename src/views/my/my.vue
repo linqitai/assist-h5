@@ -209,6 +209,9 @@
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 					<div class="name" @click="toMyInfo">{{userInfo.realName | getLastName}}</div>
+					<div class="textCenter margT10">
+						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
+					</div>
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
@@ -230,7 +233,7 @@
 					</div>
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
-					<!-- <div>=2000+(卖出数量-买入数量)=</div> getServiceDsPassword-->
+					
 					<div class="line" v-if="userInfo.manType==2">
 						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
 					</div>
@@ -480,7 +483,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent>2">
+			<div class="items" v-if="userInfo.isAgent==3&&userInfo.isAgent==4">
 				<router-link to="myCheck">
 					<div class="my-cell">
 						<div class="flex1">
@@ -652,6 +655,10 @@
 				}).then(() => {
 				  // on confirm
 				})
+			},
+			toComplainView(userId){
+				let _this = this;
+				_this.$router.push({path:"lookComplainList",query:{targetUserId:userId}});
 			},
 			handleCopy(text, event) {
 				let _this = this;

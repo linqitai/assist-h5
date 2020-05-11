@@ -112,7 +112,7 @@
 				</van-cell-group>
 			</div>
 			<div class="sureBtn">
-				<div class="tip">为了提高留言质量，提交留言需使用1个帮扶券</div>
+				<div class="tip4model1">为了提高留言质量，提交留言需使用0.1个帮扶券</div>
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提交</van-button>
 			</div>
 		</div>
@@ -186,11 +186,11 @@
 				// console.log("submit");
 				let _this = this;
 				// console.log("_this.userInfo.platformTicket",_this.userInfo.platformTicket);
-				if(_this.userInfo.platformTicket<1){
+				if(_this.userInfo.platformTicket<0.1){
 					Dialog.alert({
 						title: "系统提示",
 						confirmButtonText:'知道了',
-						message: "您的帮扶券不足1个，无法留言"
+						message: "您的帮扶券不足0.1个，无法留言"
 					}).then(() => {
 					  // on confirm
 					})
@@ -211,7 +211,6 @@
 				  message: '您是否确定要留言？'
 				}).then(() => {
 					// on confirm
-					console.log('sure');
 					let params = {
 						/* userId: _this.userId, */
 						messageType: _this.form.wordTypleValue1,
@@ -220,7 +219,6 @@
 						// createTime:_this.$utils.getDateTime(new Date())
 					}
 					_this.loading = true;
-					console.log('params',params);
 					_this.$ajax.ajax(_this.$api.insertAssistMessageBoard, 'POST', params, function(res) {
 						_this.loading = false;
 						if (res.code == _this.$api.CODE_OK) {

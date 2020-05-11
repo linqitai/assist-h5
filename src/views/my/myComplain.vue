@@ -199,7 +199,7 @@
 				Dialog.confirm({
 				  title: '提示信息',
 				  confirmButtonText:'确定',
-				  message: `请再次确认是否真的要提交诉讼?`
+				  message: `请再次确认是否真的要提交?`
 				}).then(() => {
 					// on confirm
 					let params = {

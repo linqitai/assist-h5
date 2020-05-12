@@ -10,23 +10,6 @@
 		bottom: 0;
 		background-color: $main-box-color;
 		z-index: 2;
-		/* .van-dropdown-menu{
-			height: $cellHeight !important;
-			background-color: inherit !important;
-		}
-		.van-dropdown-menu__title{
-			color: $mainTextColor;
-			font-size: 0.75rem !important;
-		}
-		[class*=van-hairline]::after{
-			border: none !important;
-		}
-		.van-field__control{
-			color: $mainTextColor;
-		}
-		.van-cell,.van-cell-group{
-			background-color: inherit !important;
-		} */
 		.unFreezePage{
 			color: $mainTextColor;
 			margin-top: $headerHeight;

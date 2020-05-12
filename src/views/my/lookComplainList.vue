@@ -71,7 +71,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				诉讼列表
+				互动列表
 			</div>
 			<i class="iconfont iconfont-edit rightBox icon" @click="toComplainView"></i>
 		</m-header>

@@ -158,7 +158,7 @@ export default new Router({
 						},
 						{
 							path: '/lookComplainList',
-							name: '控告列表',
+							name: '互动列表',
 							component: resolve => require(['./views/my/lookComplainList'],resolve),
 						},
 						{

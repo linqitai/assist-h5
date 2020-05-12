@@ -309,10 +309,10 @@
 				</van-tabs>
 			</van-pull-refresh>
 		</div>
-		<div class="fixedBottom paddingWing">
+		<!-- <div class="fixedBottom paddingWing">
 			<van-button type="info" size="normal" to="auction" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">竞拍服务商入口</van-button>
 			<div class="placeholderLine10"></div>
-		</div>
+		</div> -->
 	</div>
 </template>
 

@@ -483,7 +483,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3&&userInfo.isAgent==4">
+			<div class="items" v-if="userInfo.isAgent==3||userInfo.isAgent==4">
 				<router-link to="myCheck">
 					<div class="my-cell">
 						<div class="flex1">

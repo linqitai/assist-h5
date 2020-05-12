@@ -1032,6 +1032,11 @@ export default {
 				});
 				return;
 			}
+			if(!_this.$reg.positive_integer.test(params.num)){
+				//卖出数量请填写成整数
+				_this.$toast('卖出数量请选择一个正整数');
+				return;
+			}
 			//console.log("params",params);
 			if(_this.$utils.hasNull(params)){
 				_this.$toast('请填写完整信息');

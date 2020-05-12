@@ -146,6 +146,23 @@
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
+					<!-- <van-tab title="当日买入个数" name="ranking3">
+						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
+							<div class="list" v-for="(item,index) in list3" :key='item.id'>
+								<div class="item" @click="toMy4OtherView(item.userId)">
+									<div class="flexLeft">
+										<div class="name">{{index+1}}</div>
+									</div>
+									<div class="flex">
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+									</div>
+									<div class="flexRight">
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									</div>
+								</div>
+							</div>
+						</van-list>
+					</van-tab> -->
 					<van-tab title="矿石" name="ranking1">
 						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 							<div class="list" v-for="(item,index) in list1" :key='item.id'>
@@ -174,24 +191,6 @@
 					<van-tab title="贡献值" name="ranking2">
 						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 							<div class="list" v-for="(item,index) in list2" :key='item.id'>
-								<div class="item" @click="toMy4OtherView(item.userId)">
-									<div class="flexLeft">
-										<div class="name">{{index+1}}</div>
-									</div>
-									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
-									</div>
-									<div class="flexRight">
-										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
-									</div>
-								</div>
-							</div>
-						</van-list>
-					</van-tab>
-					
-					<van-tab title="帮扶券" name="ranking3">
-						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
-							<div class="list" v-for="(item,index) in list3" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
 									<div class="flexLeft">
 										<div class="name">{{index+1}}</div>

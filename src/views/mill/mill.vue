@@ -467,7 +467,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data;
 						localStorage.setItem("millShopList",JSON.stringify(list));
-						_this.$cookies.set("HMSI",1,_this.$api.cookiesTime)
+						_this.$cookies.set("HMSI",1,_this.$api.cookiesTime);
 						_this.millShopList = list;
 					}else{
 						//_this.$toast(res.message);

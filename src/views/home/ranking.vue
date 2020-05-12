@@ -334,6 +334,7 @@
 		},
 		mounted() {
 			let _this = this;
+			//console.log("tab_name_book",_this.$cookies.get("tab_name_book"));
 			if (_this.$cookies.isKey("tab_name_book")) {
 				_this.activeName = _this.$cookies.get("tab_name_book");
 			}else{
@@ -350,12 +351,12 @@
 			},
 			toMy4OtherView(userId){
 				let _this = this;
-				//console.log('userIdInDealRecolod:',userId);
+				////console.log('userIdInDealRecolod:',userId);
 				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
 			},
 			toBookView(val,userId){
 				let _this = this;
-				//console.log('toBookView');
+				////console.log('toBookView');
 				let name = 'mineral';
 				if(val==1){
 					name = 'ticket';
@@ -366,16 +367,16 @@
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
 			refreshEvent() {
-				// console.log("refresh1")
+				// //console.log("refresh1")
 				let _this = this;
 				if(_this.activeName == 'ranking1'){
-					console.log("refresh1");
+					//console.log("refresh1");
 					_this.currentPage1 = 1;
 					_this.list1 = [];
 					_this.finished1 = false;
 					_this.onLoad1();
 				}else if(_this.activeName == 'ranking2'){
-					console.log("refresh2");
+					//console.log("refresh2");
 					_this.currentPage2 = 1;
 					_this.list2 = [];
 					_this.finished2 = false;
@@ -417,7 +418,7 @@
 				return new Promise((resolve, reject) => {
 					_this.$ajax.ajax(_this.$api.getAssistWeChartNumByShareCode + _this.shareCode, 'GET', null, function(res) {
 						if (res.code == _this.$api.CODE_OK) {
-							console.log("res.data",res.data)
+							//console.log("res.data",res.data)
 							resolve(res.data);
 						}else{
 							reject(false)
@@ -433,7 +434,7 @@
 			},
 			tabChange(res) {
 				let _this = this;
-				console.log('res', res)
+				//console.log('res', res)
 				_this.activeName = res;
 				_this.$cookies.set("tab_name_book", res, _this.$api.cookiesTime)
 			},
@@ -454,7 +455,7 @@
 				}
 			},
 			onLoad6(){
-				console.log('load6')
+				//console.log('load6')
 				let _this = this;
 				// 异步更新数据
 				var params = {
@@ -488,7 +489,7 @@
 				})
 			},
 			onLoad7(){
-				console.log('load7')
+				//console.log('load7')
 				let _this = this;
 				// 异步更新数据
 				var params = {
@@ -525,7 +526,7 @@
 				})
 			},
 			onLoad1(){
-				console.log('load1')
+				//console.log('load1')
 				let _this = this;
 				// 异步更新数据
 				var params = {
@@ -554,7 +555,7 @@
 				})
 			},
 			onLoad2(){
-				console.log('load2')
+				//console.log('load2')
 				let _this = this;
 				var params = {
 					pageNo: this.currentPage2,
@@ -582,7 +583,7 @@
 				})
 			},
 			onLoad3(){
-				console.log('load3')
+				//console.log('load3')
 				let _this = this;
 				// 异步更新数据
 				var params = {
@@ -611,7 +612,7 @@
 				})
 			},
 			onLoad4(){
-				console.log('load4')
+				//console.log('load4')
 				let _this = this;
 				// 异步更新数据
 				var params = {
@@ -640,7 +641,7 @@
 				})
 			},
 			onLoad5(){
-				console.log('load5')
+				//console.log('load5')
 				let _this = this;
 				// 异步更新数据
 				var params = {
@@ -674,7 +675,7 @@
 				})
 			},
 			onSearch(res){
-				console.log('res', res)
+				//console.log('res', res)
 			}
 		}
 	}

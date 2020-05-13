@@ -357,7 +357,11 @@
 					<!-- <div class="avator">
 						<van-image round width="20" height="20" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
 					</div> -->
-					<div class="textInfo"><span class="text1 unSelect">{{list1.realName}}</span><span class="text2 unSelect">发起筹款</span></div>
+					<div class="textInfo">
+						<span class="text1 unSelect">{{list1.realName}}</span>
+						<span class="text2 unSelect">发起筹款</span>
+						<span class="text2 unSelect">{{list1.createTime}}</span>
+					</div>
 					<!-- <div class="rightBox unSelect"><van-tag plain type="success">个人求助</van-tag></div> -->
 				</div>
 				<div class="content1">

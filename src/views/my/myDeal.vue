@@ -94,6 +94,9 @@
 						.cancelBtn,.showDetailBtn{
 							text-decoration: underline;
 						}
+						.cancelReason{
+							text-decoration: underline;
+						}
 					}
 					.operatorBox{
 						flex: 0 0 100px;
@@ -452,6 +455,9 @@
 									<div class="timeBox">
 										完成时间 {{ item.coinReleaseTime }}
 									</div>
+									<div class="timeBox">
+										订单编号 <span class="copy" @click="handleCopy(item.id,$event)">{{ item.id }}</span>
+									</div>
 								</div>
 								<div class="operatorBox4complate">
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
@@ -487,6 +493,9 @@
 									<div class="timeBox">
 										匹配时间 {{ item.machingTime }}
 									</div>
+									<div class="timeBox">
+										订单编号 <span class="copy" @click="handleCopy(item.id,$event)">{{ item.id }}</span>
+									</div>
 									<!-- <div class="timeBox">
 										取消时间 {{ item.canCancelTime }}
 									</div> -->
@@ -495,6 +504,9 @@
 									<!-- <div class="margT6 lineHeight">{{buyOrSell(item) | dealBuyOrSellText}}</div> -->
 									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
+									</div>
+									<div class="margT6 lineHeight red cancelReason" @click="cancelDetail(item)">
+										取消原因
 									</div>
 								</div>
 								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item)"></i>
@@ -517,6 +529,10 @@
 			<div class="detailBox" v-if="detail4sellerInfo">
 				<div class="tip4model3">
 					平台为保证交易的顺利进行，卖方的真实姓名若与支付宝里的不一致将冻结账号处理，交易的时候买方若遇到此问题欢迎向平台诉讼，情况属实买方会得到贡献值奖励。
+				</div>
+				<div class="line" v-if="detail4sellerInfo.id">
+					<span class="label">订单编号</span>
+					<span class="value">{{detail4sellerInfo.id}}</span>
 				</div>
 				<div class="line">
 					<span class="label">卖方</span>
@@ -611,6 +627,10 @@
 			<div class="detailBox" v-if="appointDealDetail">
 				<div class="tip4model3" v-html="$api.tipText4Safe"></div>
 				<div class="margT10 tip4model3" v-html="$api.tipText4AppointDeal"></div>
+				<div class="line" v-if="appointDealDetail.id">
+					<span class="label">订单编号</span>
+					<span class="value">{{appointDealDetail.id}}</span>
+				</div>
 				<div class="line">
 					<span class="label">数量</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.num}} {{$api.numUnit}}</span>
@@ -709,6 +729,10 @@
 				<div class="placeholderLine20"></div>
 			</div>
 			<div class="detailBox" v-if="detail4buyerInfo">
+				<div class="line" v-if="detail4buyerInfo.id">
+					<span class="label">订单编号</span>
+					<span class="value">{{detail4buyerInfo.id}}</span>
+				</div>
 				<div class="line">
 					<span class="label">买方</span>
 					<span class="value">{{detail4buyerInfo.realName}}</span>
@@ -794,6 +818,14 @@
 			</div>
 			<div class="sureAppointBtnBox">
 				<van-button @click="cancel4buyer" :loading="sureCancelBtnLoading" loading-type="spinner" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确认取消</van-button>
+			</div>
+		</van-action-sheet>
+		<van-action-sheet v-model="showCancelDetailBox" title="取消原因">
+			<div class="cancelSellTip">
+				<div class="tipText2">{{cancelDetailText}}</div>
+			</div>
+			<div class="sureAppointBtnBox">
+				<van-button @click="sureCancelReason" loading-type="spinner" size="normal" :block="true">好的</van-button>
 			</div>
 		</van-action-sheet>
 		<van-dialog
@@ -965,7 +997,9 @@
 				phoneType:'',
 				type:2,
 				guidancePrice:'',
-				userInfo:''
+				userInfo:'',
+				cancelDetailText:'',
+				showCancelDetailBox:false
 			}
 		},
 		components: {
@@ -1633,6 +1667,23 @@
 					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 				}
 				_this.activeName = name;
+			},
+			cancelDetail(item){
+				let _this = this;
+				console.log("item.remark",item.remark);
+				Dialog.alert({
+				  title: '提示信息',
+				  message: item.remark||'暂无诉讼信息',
+				  closeOnClickOverlay:true
+				}).then(() => {
+				  // on confirm
+				  ////console.log('sure');
+				  //_this.letSureByBuyer();
+				})
+			},
+			sureCancelReason(){
+				let _this = this;
+				_this.showCancelDetailBox = false;
 			},
 			showDetailBtn(item) {
 				let _this = this;

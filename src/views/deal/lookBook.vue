@@ -229,7 +229,6 @@
 				this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 			},
 			onLoad1(){
-				console.log('load1 getAssistMineralAccountBookList')
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,
@@ -254,6 +253,10 @@
 						_this.finished1 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
+					_this.loading1 = false;
+					_this.finished1 = true;
 				})
 				// 异步更新数据
 				// setTimeout(() => {
@@ -263,7 +266,6 @@
 				// }, 500);
 			},
 			onLoad2(){
-				console.log('load2')
 				let _this = this;
 				// 异步更新数据
 				let params = {
@@ -294,6 +296,10 @@
 						_this.finished2 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
+					_this.loading2 = false;
+					_this.finished2 = true;
 				})
 				// setTimeout(() => {
 				// 	// 加载状态结束
@@ -302,7 +308,6 @@
 				// }, 500);
 			},
 			onLoad3(){
-				// console.log('load3',"getAssistContributionValueListByUserId")
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage3,
@@ -326,6 +331,10 @@
 						_this.finished3 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
+					_this.loading3 = false;
+					_this.finished3 = true;
 				})
 				// 异步更新数据
 				// setTimeout(() => {
@@ -336,9 +345,7 @@
 				
 			},
 			onLoad4(){
-				// console.log('load4')
 				let _this = this;
-				// 异步更新数据getAssistPlateformTicketAccountBookList
 				let params = {
 					pageNo: _this.currentPage4,
 					pageSize: _this.pageSize,
@@ -367,6 +374,10 @@
 						_this.finished4 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
+					_this.loading4 = false;
+					_this.finished4 = true;
 				})
 			},
 		}

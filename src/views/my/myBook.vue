@@ -254,7 +254,12 @@
 						_this.list1 = _this.list;
 						_this.loading1 = false;
 						_this.finished1 = true;
+						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
+					_this.loading1 = false;
+					_this.finished1 = true;
 				})
 				// 异步更新数据
 				// setTimeout(() => {
@@ -295,6 +300,10 @@
 						_this.finished2 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
+					_this.loading2 = false;
+					_this.finished2 = true;
 				})
 				// setTimeout(() => {
 				// 	// 加载状态结束
@@ -328,6 +337,10 @@
 						_this.finished3 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
+					_this.loading3 = false;
+					_this.finished3 = true;
 				})
 				// 异步更新数据
 				// setTimeout(() => {
@@ -370,6 +383,10 @@
 						_this.finished4 = true;
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading = false;
+					_this.loading4 = false;
+					_this.finished4 = true;
 				})
 			},
 		}

@@ -52,7 +52,7 @@
 					.flex{
 						flex: 1;
 						.line{
-							.iconfont{
+							.iconfont-name,.iconfont-weichat,.iconfont-book{
 								color:$main-green-color;
 							}
 							.copy{
@@ -159,17 +159,28 @@
 						<div class="list" v-for="item in list2" :key='item.id'>
 							<div class="item">
 								<div class="flexLeft">
-									<div class="name">{{item.realName | getLastName}}</div>
+									<div class="name">{{item.realName | getLastName}} </div>
 								</div>
 								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+									<div class="line">
+										<i class="iconfont iconfont-name"></i> {{item.nickName}}  
+									</div>
+									<div class="placeholderLine10"></div>
+									<div class="line">
+										<div @click="toMy4OtherView(item.userId)">
+											<i class="iconfont iconfont-book"></i> 
+											<i class="yellow"> 团队算力 {{item.teamCalculationPower}}G</i> 
+											<i class="iconfont iconfont-right-arrow2 yellow f-11"></i>
+										</div>
+									</div>
 									<div class="placeholderLine10"></div>
 									<div class="line">
 										<div>
-											<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}
+											<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}} 
 											<span class="margL1" @touchstart="handleCopy(item.wechartNum,$event)" @tap="handleCopy(item.wechartNum,$event)" @click="handleCopy(item.wechartNum,$event)">复制</span>
 										</div>
 									</div>
+									
 								</div>
 								<div class="flexRight" @click="toTeamView(item.id)">{{item.provinceName}} <i class="iconfont iconfont-right-arrow2"></i></div>
 							</div>
@@ -251,6 +262,11 @@
 				clip(text,event,function(res){
 					_this.$toast(`复制${res.text}成功`);
 				});
+			},
+			toMy4OtherView(userId){
+				let _this = this;
+				//console.log('userIdInDealRecolod:',userId);
+				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
 			},
 			toTeamView(id){
 				console.log('id',id);

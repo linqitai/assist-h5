@@ -137,17 +137,16 @@
 			},
 			getReceipt(){
 				let _this = this;
+				/* Dialog.alert({
+					title: "系统提示",
+					message: '矿机收益正在优化更新中，请晚点再来领取'
+				}).then(() => {
+				  // on confirm
+				  // _this.$router.push("task");
+				}) */
 				_this.getRecieptLoading = true;
 				_this.showReceiptTip = true;
 				let nowTimestamp = new Date().getTime();
-				/* if(_this.userInfo.lastReceiptTime==null || _this.userInfo.lastReceiptTime==""){
-					_this.receiptModelTile = "系统提示";
-					_this.isShowReceiptLoading = false;
-					_this.mineralNumTip = "矿机启动后过24小时才能领取收益";
-					_this.isShowMineralNum = true;
-					_this.isShowConfirmButton = true;
-					return;
-				} */
 				let lastReceiptTimestamp = new Date(_this.millInfo.turnOnTime).getTime();
 				if(_this.millInfo.beforeReceipt==null || _this.millInfo.beforeReceipt==''){
 					lastReceiptTimestamp = new Date(_this.millInfo.turnOnTime).getTime();
@@ -166,6 +165,7 @@
 					_this.getRecieptLoading = false;
 					return;
 				}
+				
 				_this.$ajax.ajax(_this.$api.getMyMachinesReceiptByOne + _this.millInfo.id, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data){

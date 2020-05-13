@@ -52,7 +52,7 @@
 					.flex{
 						flex: 1;
 						.line{
-							.iconfont{
+							.iconfont-name,.iconfont-weichat,.iconfont-book{
 								color:$main-green-color;
 							}
 							.copy{
@@ -165,6 +165,14 @@
 									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
 									<div class="placeholderLine10"></div>
 									<div class="line">
+										<div @click="toMy4OtherView(item.userId)">
+											<i class="iconfont iconfont-book"></i> 
+											<i class="yellow"> 团队算力 {{item.teamCalculationPower}}G</i> 
+											<i class="iconfont iconfont-right-arrow2 yellow f-11"></i>
+										</div>
+									</div>
+									<div class="placeholderLine10"></div>
+									<div class="line">
 										<div>
 											<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}
 											<span class="margL1" @touchstart="handleCopy(item.wechartNum,$event)" @tap="handleCopy(item.wechartNum,$event)" @click="handleCopy(item.wechartNum,$event)">复制</span>
@@ -258,6 +266,11 @@
 				clip(text,event,function(res){
 					_this.$toast(`复制${res.text}成功`);
 				});
+			},
+			toMy4OtherView(userId){
+				let _this = this;
+				//console.log('userIdInDealRecolod:',userId);
+				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
 			},
 			onLoad1(){
 				console.log('load1')

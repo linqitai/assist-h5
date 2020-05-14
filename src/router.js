@@ -89,6 +89,19 @@ export default new Router({
 					meta:{footer:true}
 				},
 				{
+					path: '/raise',
+					name: '帮扶筹',
+					component: resolve => require(['./views/raise/raise'],resolve),
+					meta:{footer:true,keepAlive:true},
+					/* children:[
+						{
+							path: '/raiseApply',
+							name: '帮扶筹申请',
+							component: resolve => require(['./views/raise/raiseApply'],resolve)
+						},
+					] */
+				},
+				{
 					path: '/mill',
 					name: '矿机商城',
 					component: resolve => require(['./views/mill/mill'],resolve),
@@ -391,19 +404,6 @@ export default new Router({
 					path: '/shopOrder',
 					name: '购物订单',
 					component: resolve => require(['./views/my/shopOrder'],resolve)
-				},
-				{
-					path: '/raise',
-					name: '帮扶筹',
-					component: resolve => require(['./views/raise/raise'],resolve),
-					meta:{footer:false,back:true},
-					/* children:[
-						{
-							path: '/raiseApply',
-							name: '帮扶筹申请',
-							component: resolve => require(['./views/raise/raiseApply'],resolve)
-						},
-					] */
 				},
 			]
 		},

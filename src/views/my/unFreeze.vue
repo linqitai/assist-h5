@@ -3,16 +3,12 @@
 	$cellHeight:50px;
 	.unFreeze{
 		font-size: 0.75rem;
-		position: fixed;
-		top: 0;
-		right: 0;
-		left: 0;
-		bottom: 0;
+		@include pageNoHeight4Scroll();
 		background-color: $main-box-color;
 		z-index: 2;
 		.unFreezePage{
+			min-height: 700px;
 			color: $mainTextColor;
-			margin-top: $headerHeight;
 			background-color: $main-box-color;
 			.van-field__label{
 				width: 70px !important;

@@ -208,7 +208,7 @@
 		:error-message="errorInfo.bankCard"/> -->
 		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" type="password" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
 		<van-field v-model="form.idCardSure" required clearable label="确认身份证号" maxlength="18" type="password" :placeholder="errorHint.idCardSure" @blur="validate('idCardSure')" :error-message="errorInfo.idCardSure"/>
-		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="20"
+		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="10"
 		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
 		  <div class="line">
 		  	<span class="label">支付宝个人主页</span>
@@ -742,7 +742,7 @@ export default {
 					_this.errorInfo.telPhone = _this.errorHint.telPhone;
 				}
 			}else if(key == 'realName'){
-				if((_this.form.realName.length)<=20&&(_this.form.realName.length)>1){
+				if((_this.form.realName.length)<=10&&(_this.form.realName.length)>1){
 					_this.errorInfo.realName = '';
 				}else{
 					_this.errorInfo.realName = _this.errorHint.realName;

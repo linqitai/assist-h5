@@ -511,7 +511,7 @@ $noticeHeight:40px;
 									<van-icon class-prefix="iconfont" name="love2" />
 								</div>
 							</div>
-							<div class="text">水滴帮扶筹</div>
+							<div class="text">帮扶筹</div>
 						</router-link>
 					</div>
 					<div class="infoBox" @click="attendanceBtn">
@@ -879,7 +879,15 @@ $noticeHeight:40px;
 								  _this.$router.push('/myBook');
 								})
 							}else{
-								_this.$toast(res.message);
+								_this.showAttendanceModel=false;
+								//_this.$toast(res.message);
+								Dialog.alert({
+								  title: '提示信息',
+								  message: res.message
+								}).then(() => {
+								  // on confirm
+								  
+								})
 							} 
 						})
 					}else{

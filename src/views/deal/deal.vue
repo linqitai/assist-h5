@@ -332,7 +332,10 @@
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
-						<div class="paddingWing" v-if="totalItems2>0">
+						<div class="paddingWing tip4model3">
+							系统提示：当前溢价{{pages}}页，为了使大家更注重帮扶筹以及后面帮扶基金板块的价值，而不是一味关注价格，故现将溢价详情页隐藏，愿大家更加注重市场的发展。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行。
+						</div>
+						<!-- <div class="paddingWing" v-if="totalItems2>0">
 							<van-pagination 
 							  v-model="currentPage2" 
 							  :total-items="totalItems2" 
@@ -341,7 +344,7 @@
 							  force-ellipses
 							  @change="changeCurrentPage2"
 							/>
-						</div>
+						</div> -->
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
@@ -482,7 +485,7 @@ export default {
 			pageSize:8,
 			pageCount:0,
 			totalItems1:0,
-			totalItems2:0,
+			totalItems2:3,
 			showAppointDealModel:false,//定向交易模型
 			showBuyModel:false,//挂买单模型
 			showSellModel:false,//挂卖单模型
@@ -578,7 +581,8 @@ export default {
 				currentPlatformPrice:100000
 			},
 			transactionVo4BuyerTip:"",
-			loading4Buy:false
+			loading4Buy:false,
+			pages:0,
 		}
 	},  
 	components:{
@@ -714,6 +718,7 @@ export default {
 				if(_this.$cookies.get('totalItems2')){
 					_this.list2 = JSON.parse(localStorage.getItem("LIST2"));
 					_this.totalItems2 = parseInt(_this.$cookies.get('totalItems2'));
+					_this.pages = parseInt(_this.$cookies.get('pages'));
 					//console.log('_this.totalItems2',_this.totalItems2);
 				}else{
 					_this.getListAddPrice();
@@ -763,6 +768,7 @@ export default {
 				_this.$router.replace('login');
 				return;
 			}
+			_this.pages = parseInt(_this.$cookies.get('pages')) || 0;
 			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
 			if(_this.$cookies.get('haveDealPageInfo')){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
@@ -869,7 +875,9 @@ export default {
 				// //console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.list2 = res.data.list;
-					_this.totalItems2 = res.data.total;
+					//_this.totalItems2 = res.data.total;
+					_this.pages = res.data.pages;
+					_this.$cookies.set("pages", _this.pages, 60 * 30 * 1)
 					_this.$cookies.set("totalItems2", _this.totalItems2, 60 * 30 * 1)
 					localStorage.setItem("LIST2",JSON.stringify(_this.list2));
 				}else{

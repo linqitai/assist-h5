@@ -1,15 +1,10 @@
 <style lang="scss">
-	@import '~@/assets/scss/variable.scss';
+	@import '~@/assets/scss/index.scss';
 	.raise{
 		// padding: $boxPadding1;
-		color: $main-box-fh-text-color;
-		background-color: $main-box-fh-bg-color;
-		position: absolute;
-		top: $header-height;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		overflow-y: scroll;
+		@include pageNoHeight4Scroll();
+		color: $main-box-fh-text-color !important;
+		background-color: $main-box-fh-bg-color !important;
 		.van-list__finished-text{
 			color:$main-box-fh-text-color;
 		}
@@ -58,11 +53,14 @@
 			align-content: center;
 			align-items: center;
 			.leftIcon{
-				flex: 0 0 16px;
+				flex: 0 0 20px;
+				font-size: 20px;
+				color: red;
 				color: linear-gradient(left right, #ffae00 , #e10000) !important;
 			}
 			.iconText{
 				flex: 1;
+				font-size: 16px;
 				margin-left: 6px;
 			}
 			.rightBox{
@@ -118,6 +116,7 @@
 				.flexC{
 					flex:1;
 					.digit{
+						font-size: 16px;
 						color: $main-adorn-color;
 					}
 					.text{
@@ -321,7 +320,8 @@
 <template>
 	<div class="raise">
 		<m-header>
-			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
+			<!-- <i class="leftBox iconfont iconfont-left-arrow" @click="back"></i> -->
+			<i class="leftBox iconfont"></i>
 			<div class="text">
 				帮扶筹
 			</div>
@@ -337,7 +337,7 @@
 			<div class="raiseHeader borderBottom">
 				<div class="iconTextBox">
 					<i class="iconfont iconfont-love2 leftIcon"></i>
-					<div class="iconText">帮扶筹</div>
+					<div class="iconText">爱心·水滴·帮扶筹</div>
 					<div class="rightBox unSelect">
 						<!-- to="raiseApplyList" -->
 						<van-button type="primary" size="small" :block="true" to="raiseApplyList">申请帮扶筹</van-button>
@@ -561,12 +561,12 @@
 								<div class="flexThis column">
 									<div class="line1">
 										<div class="left yellow">{{item.nickName}}</div>
-										<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
+										<div class="left margL10">捐赠了 <span>{{item.total}}</span> 个帮扶券</div>
 									</div>
 									<div class="line2">
 										{{item.word}}
 									</div>
-									<div class="line3">{{item.createTime}}</div>
+									<!-- <div class="line3">{{item.createTime}}</div> -->
 								</div>
 							</div>
 							<div v-if="totalItems3>0">
@@ -669,7 +669,9 @@
 		},
 		methods:{
 			back(){
-				this.$router.go(-1);
+				let _this = this;
+				//_this.$router.go(-1);
+				_this.$router.push("/raise")
 			},
 			handleCopy(text, event) {
 				let _this = this;

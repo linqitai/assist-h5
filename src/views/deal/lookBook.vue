@@ -140,7 +140,7 @@
 				currentPage2: 1,
 				currentPage3: 1,
 				currentPage4: 1,
-				pageSize:16,
+				pageSize:20,
 				activeName:'mineral',
 				loading1:false,
 				finished1:false,
@@ -235,10 +235,10 @@
 					pageSize: _this.pageSize,
 					userId: _this.userId
 				}
-				// console.log('params',params);
+				//console.log('onLoad1');
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getMineralBookList, 'GET', params, function(res) {
-					_this.loading = false;
+					//_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list1.push(...list);
@@ -254,9 +254,9 @@
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.loading = false;
+					//_this.loading = false;
 					_this.loading1 = false;
-					_this.finished1 = true;
+					//_this.finished1 = true;
 				})
 				// 异步更新数据
 				// setTimeout(() => {
@@ -297,9 +297,9 @@
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.loading = false;
+					//_this.loading = false;
 					_this.loading2 = false;
-					_this.finished2 = true;
+					//_this.finished2 = true;
 				})
 				// setTimeout(() => {
 				// 	// 加载状态结束
@@ -332,9 +332,9 @@
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.loading = false;
+					//_this.loading = false;
 					_this.loading3 = false;
-					_this.finished3 = true;
+					//_this.finished3 = true;
 				})
 				// 异步更新数据
 				// setTimeout(() => {
@@ -375,9 +375,9 @@
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.loading = false;
+					//_this.loading = false;
 					_this.loading4 = false;
-					_this.finished4 = true;
+					//_this.finished4 = true;
 				})
 			},
 		}

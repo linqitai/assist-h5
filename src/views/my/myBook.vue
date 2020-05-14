@@ -140,7 +140,7 @@
 				currentPage2: 1,
 				currentPage3: 1,
 				currentPage4: 1,
-				pageSize:16,
+				pageSize:20,
 				activeName:'mineral',
 				loading1:false,
 				finished1:false,
@@ -230,7 +230,7 @@
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 			},
 			onLoad1(){
-				console.log('load1 getAssistMineralAccountBookList')
+				//console.log('load1')
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,
@@ -240,7 +240,7 @@
 				// console.log('params',params);
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getMineralBookList, 'GET', params, function(res) {
-					_this.loading = false;
+					//_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list1.push(...list);
@@ -249,6 +249,7 @@
 							_this.finished1 = true;
 						}else{
 							_this.currentPage1 = _this.currentPage1 + 1;
+							//console.log('_this.currentPage1',_this.currentPage1);
 						}
 					}else{
 						_this.list1 = _this.list;
@@ -257,10 +258,15 @@
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.loading = false;
+					//_this.loading = false;
+					_this.loading1 = false;
+					//_this.finished1 = true;
+				})
+				/* ,function(){
+					//_this.loading = false;
 					_this.loading1 = false;
 					_this.finished1 = true;
-				})
+				} */
 				// 异步更新数据
 				// setTimeout(() => {
 				// 	// 加载状态结束
@@ -280,7 +286,7 @@
 				_this.loading2 = true;
 				_this.$ajax.ajax(_this.$api.getCalculationPowerPageList, 'GET', params, function(res) {
 					// // console.log('res', res);
-					_this.loading = false;
+					//_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						// // console.log('_this.list1',_this.list1);
 						// // console.log('res.data.list',res.data.list)
@@ -303,7 +309,7 @@
 				},function(){
 					_this.loading = false;
 					_this.loading2 = false;
-					_this.finished2 = true;
+					//_this.finished2 = true;
 				})
 				// setTimeout(() => {
 				// 	// 加载状态结束
@@ -321,7 +327,7 @@
 				}
 				_this.loading3 = true;
 				_this.$ajax.ajax(_this.$api.getAssistContributionValueList, 'GET', params, function(res) {
-					_this.loading = false;
+					//_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list3.push(...list);
@@ -340,7 +346,7 @@
 				},function(){
 					_this.loading = false;
 					_this.loading3 = false;
-					_this.finished3 = true;
+					//_this.finished3 = true;
 				})
 				// 异步更新数据
 				// setTimeout(() => {
@@ -362,7 +368,7 @@
 				_this.loading4 = true;
 				_this.$ajax.ajax(_this.$api.getAssistPlateformTicketAccountBookList, 'GET', params, function(res) {
 					// // console.log('res', res);
-					_this.loading = false;
+					//_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						// // console.log('_this.list1',_this.list1);
 						// // console.log('res.data.list',res.data.list)
@@ -386,7 +392,7 @@
 				},function(){
 					_this.loading = false;
 					_this.loading4 = false;
-					_this.finished4 = true;
+					//_this.finished4 = true;
 				})
 			},
 		}

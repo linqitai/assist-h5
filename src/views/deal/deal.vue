@@ -420,19 +420,16 @@
 				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
 				@blur="validate4BuyBill('buyLowestAmount')"
 				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
-				<van-field v-model="form4BuyBill.price" type="number" disabled clearable label="单价" right-icon="question-o" placeholder="请填写单价"
-				  @click-right-icon="alertTip(clickIconTip.platformUnivalence)"/>
-				<div class="inLine">
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" clearable label="单价" right-icon="question-o" placeholder="请填写单价"
+				  @click-right-icon="alertTip(clickIconTip.platformUnivalence)" :error-message="errorInfo4BuyBill.price"/>
+				<!-- <div class="inLine">
 					<span class="label">开溢价</span>
 					<span class="value">
 						<span class="valueRight">
 							<van-slider v-model="addPriceValue" @change="onChange4sliderPrice" :min="min4Price" :max="max4Price"/>
 						</span>
-						<!-- <span class="valueRight">
-							<van-slider @change="onChange4sliderPrice" v-model="form4BuyBill.price" :min="form4BuyBill.price" :max="max4Price" active-color="#ffae00"/>
-						</span> -->
 					</span>
-				</div>
+				</div> -->
 				<van-field v-model="form4BuyBill.safePassword" type="password" required clearable label="安全密码" right-icon="question-o" placeholder="请填写安全密码"
 				  @click-right-icon="alertTip(clickIconTip.safePassword)"
 				  @blur="validate4BuyBill('safePassword')"
@@ -504,6 +501,7 @@ export default {
 			errorInfo4BuyBill:{
 				buyAmount:"",
 				buyLowestAmount:"",
+				price:"",
 				safePassword:"",
 			},
 			serviceCharge:'',
@@ -1037,6 +1035,15 @@ export default {
 				_this.$toast('卖出数量请选择一个正整数');
 				return;
 			}
+			if(params.price<_this.dealPageInfo.maxPrice){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: `目前最高价为${_this.dealPageInfo.maxPrice}CNY,无法低于这个价卖出`
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
 			//console.log("params",params);
 			if(_this.$utils.hasNull(params)){
 				_this.$toast('请填写完整信息');
@@ -1071,11 +1078,9 @@ export default {
 				return;
 			} */
 			params.safePassword = _this.$JsEncrypt.encrypt(_this.form4pickSellBill.safePassword);
-			_this.sellBtnLoading = true;
-			//console.log('可请求接口');
+			/* _this.sellBtnLoading = true;
 			_this.$ajax.ajax(_this.$api.insertTransaction4PickBill, 'POST', params, function(res) {
-				/* //console.log('insertTransaction4PickBill')
-				//console.log('res', res); */
+				
 				if (res.code == _this.$api.CODE_OK) { // 200
 					_this.showSellModel = false;
 					_this.transactionVo4BuyerTip = res.data;
@@ -1098,7 +1103,7 @@ export default {
 				}
 			},function(){
 				_this.sellBtnLoading = false;
-			})
+			}) */
 		},
 		sendShortMessageBtn(){
 			_this.sellBtnLoading = false;
@@ -1296,6 +1301,15 @@ export default {
 					}
 				}else{
 					_this.errorInfo4BuyBill.buyAmount = `请填写正整数`;
+				}
+			}else if(key == 'price') {
+				let price = (Number(_this.form4BuyBill[key])).toFixed(2);
+				let currentPlatformPrice = (Number(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
+				let maxPrice = (Number(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
+				if(price<currentPlatformPrice||price>maxPrice){
+					_this.errorInfo4BuyBill.price = `买单价格暂时控制在${currentPlatformPrice}~${maxPrice}CNY`;
+				}else{
+					_this.errorInfo4BuyBill.price = "";
 				}
 			}else if(key == 'safePassword') {
 				if(_this.$reg.safePassword.test(_this.form4BuyBill[key])){

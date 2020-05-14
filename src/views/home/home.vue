@@ -504,6 +504,16 @@ $noticeHeight:40px;
 					</div> -->
 				</div>
 				<div class="cateInfo">
+					<div class="infoBox">
+						<router-link to="/raise">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundRaise">
+									<van-icon class-prefix="iconfont" name="love2" />
+								</div>
+							</div>
+							<div class="text">水滴帮扶筹</div>
+						</router-link>
+					</div>
 					<div class="infoBox" @click="attendanceBtn">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundAttendance">
@@ -532,14 +542,6 @@ $noticeHeight:40px;
 							<div class="text">投票中心</div>
 						</router-link>
 					</div>
-					<div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground2">
-								<van-icon class-prefix="iconfont" name="merchant" />
-							</div>
-						</div>
-						<div class="text">商家入驻</div>
-					</div>
 				</div>
 				<div class="cateInfo">
 					<div class="infoBox">
@@ -559,8 +561,16 @@ $noticeHeight:40px;
 									<van-icon class-prefix="iconfont" name="merchant" />
 								</div>
 							</div>
-							<div class="text">服务商排行</div>
+							<div class="text">服务商</div>
 						</router-link>
+					</div>
+					<div class="infoBox" @click="waiting">
+						<div class="iconBox">
+							<div class="iconBackground iconBackground2">
+								<van-icon class-prefix="iconfont" name="merchant" />
+							</div>
+						</div>
+						<div class="text">工会会长</div>
 					</div>
 					<div class="infoBox">
 						<router-link to="/cService">
@@ -570,16 +580,6 @@ $noticeHeight:40px;
 								</div>
 							</div>
 							<div class="text">客服</div>
-						</router-link>
-					</div>
-					<div class="infoBox">
-						<router-link to="/raise">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundRaise">
-									<van-icon class-prefix="iconfont" name="love2" />
-								</div>
-							</div>
-							<div class="text">水滴帮扶筹</div>
 						</router-link>
 					</div>
 					<!-- <div class="infoBox" @click="waiting">

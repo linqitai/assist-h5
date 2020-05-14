@@ -359,7 +359,7 @@
 				})
 			},
 			selectRadioChange(value){
-				//console.log(value);
+				////console.log(value);
 			},
 			validate(key){
 				let _this = this;

@@ -16,7 +16,7 @@
     <van-tabbar-item icon="home-o" replace to="/home">首页</van-tabbar-item>
     <van-tabbar-item icon="coupon-o" replace to="/mill">矿机商城</van-tabbar-item>
     <van-tabbar-item icon="after-sale" replace to="/deal">交易市场</van-tabbar-item>
-    <van-tabbar-item icon="contact" replace to="/my">我的</van-tabbar-item>
+    <van-tabbar-item icon="contact" replace to="/my">个人中心</van-tabbar-item>
 	<van-tabbar-item icon="good-job-o" replace to="/raise">帮扶筹</van-tabbar-item>
   </van-tabbar>
 </template>

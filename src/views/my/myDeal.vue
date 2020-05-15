@@ -1052,7 +1052,7 @@
 				////console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
 				if(_this.$route.query.dealType==1){
 					if(_this.$route.query.isSelf) {
-						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家0.5贡献值";
+						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家0.5~1个贡献值";
 						_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
 					}else{
 						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请提醒代理审核单子。";

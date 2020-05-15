@@ -286,10 +286,10 @@
 					let maxAddPrice = Number(_this.maxAddPrice);
 					let curerntPlatformPrice = Number(_this.curerntPlatformPrice);
 					//alert(maxAddPrice);
-					if(price>=maxAddPrice&&price<=13.0){
+					if(parseFloat(price)>parseFloat(curerntPlatformPrice)&&parseFloat(price)<=parseFloat(13.0)){
 						_this.errorInfo4AppointDeal.price = '';
 					}else{
-						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${_this.maxAddPrice}~${maxPrice}CNY`;
+						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${parseFloat(curerntPlatformPrice)+parseFloat(0.01)}~${maxPrice}CNY`;
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){

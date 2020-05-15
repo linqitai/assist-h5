@@ -200,7 +200,7 @@
 		<m-header>
 			<i class="leftBox"></i>
 			<div class="text">
-				我的
+				个人中心
 			</div>
 			<i class="iconfont iconfont-set rightBox icon" @click="toMyInfo"></i>
 		</m-header>
@@ -215,7 +215,9 @@
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
-						<div class="nick_name left">{{userInfo.nickName}}</div>
+						<div class="nick_name left">
+							{{userInfo.nickName}}
+						</div>
 					</div>
 					<div class="line1 margT3">
 						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}+{{getCityName(cityInfo)}}{{userInfo.isAgent | agentType}}</div>
@@ -233,7 +235,7 @@
 					</div>
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
-					
+					<div class="line"><span>爱心值 {{userInfo.raiseNum}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
 					<div class="line" v-if="userInfo.manType==2">
 						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
 					</div>
@@ -764,6 +766,8 @@
 					message = '我的算力：由个人所拥有的矿机所决定。';
 				}else if(val=='limitBuyNum'){
 					message = '个人限购数量=2000+(卖出数量-买入数量)';
+				}else if(val=='raise'){
+					message = '爱心值就是您捐赠帮扶券的数量，爱心值越大，在平价区被优先匹配到的概率也就越大';
 				}
 				Dialog.alert({
 				  title: '温馨提示',

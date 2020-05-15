@@ -60,7 +60,7 @@
 			<div class="tip4model3 textBold">有问题请先联系自己的团队长，然后团队长再联系客服，尽量减少客服的压力，感恩您的配合</div>
 			<div class="placeholderLine10"></div>
 			<div class="title">+++++++++++++++++++++++++</div>
-			<div class="title">问题解决群(专门解决账号问题)：</div>
+			<div class="title">问题解决群(让上级邀请进群)：</div>
 			<div class="title">+++++++++++++++++++++++++</div>
 			<div class="placeholderLine10"></div>
 			<div class="cateInfo">

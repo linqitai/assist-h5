@@ -594,6 +594,9 @@
 		},
 		created() {
 			let _this = this;
+			/* setTimeout(function(){
+				console.log("123200000")
+			},2000) */
 			//console.log("getTime:" + Date.parse(new Date('2020/04/30 09:45:12:123')));
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
@@ -771,7 +774,7 @@
 				}
 				Dialog.alert({
 				  title: '温馨提示',
-				  confirmButtonText:'知道了',
+				  confirmButtonText:'好的',
 				  message: message
 				}).then(() => {
 					// on confirm

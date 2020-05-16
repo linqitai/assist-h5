@@ -547,7 +547,7 @@ export default {
 				// telPhone:"请填写与微信绑定的手机号",
 				realName:"请填写2~20位真实姓名",
 				alipayNum:"请填写绑定了支付宝的登录手机号",
-				wechartNum:"请填写绑定了微信的登录手机号",
+				wechartNum:"请填写正确的微信号",
 				address:"",
 				originalPassowrd:"请填写原来的密码",
 				loginPassword:"请填写新登录密码",

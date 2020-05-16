@@ -298,6 +298,11 @@
 						</div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
+						<div class="paddingWing tip4model3">
+							<!-- 当前溢价{{pages}}页， -->
+							系统提示：当前平价共{{pagesPlatPrice}}页，希望大家更注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！同时，也请广大会员更加支持平台的理念，帮扶链是真的想做事情，想为社会、为民生做一份贡献的平台，请不要把平台当作"跑路盘、韭菜盘"来看待，HPC真的不一样，平台绝不做有愧会员的事情，一切数据公开透明，每笔交易可查看，矿石数量有排行榜，不存在平台放矿石的现象。总之平台会与广大会员一直同在，也十分感谢有您的支持！
+						</div>
+						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 						<div class="paddingWing" v-if="totalItems1>0">
 							<van-pagination 
@@ -330,30 +335,22 @@
 							</div>
 						</div>
 						<div class="placeholderLine"></div>
-						<div class="placeholderLine"></div>
-						<div class="placeholderLine"></div>
-						<div class="paddingWing textCenter" v-if="pages>5">
-							<!-- <van-pagination 
-							  v-model="currentPage2" 
-							  :total-items="totalItems2" 
-							  :items-per-page="pageSize"
-							  :show-page-size="5"
-							  force-ellipses
-							  @change="changeCurrentPage2"
-							/> -->
+						<!-- <div class="paddingWing textCenter" v-if="pages>5">
 							<van-button round type="info" @click="changeCurrentPage2(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1</van-button>
 							<van-button round type="info" @click="changeCurrentPage2(2)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">2</van-button>
 							<van-button round type="info" @click="changeCurrentPage2(3)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">3</van-button>
 							<van-button round type="info" @click="changeCurrentPage2(4)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">4</van-button>
 							<van-button round type="info" @click="changeCurrentPage2(5)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">5</van-button>
-						</div>
+						</div> -->
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 						<div class="paddingWing tip4model3">
 							<!-- 当前溢价{{pages}}页， -->
-							系统提示：为了使大家更注重帮扶筹以及后面帮扶基金板块的价值，而不是一味关注价格，故溢价单只显示5页。愿广大市场领导们更加专心于市场的宣传和推广：真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！
+							系统提示：当前溢价共{{pages}}页，希望大家更注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！同时，也请广大会员更加支持平台的理念，帮扶链是真的想做事情，想为社会、为民生做一份贡献的平台，请不要把平台当作"跑路盘、韭菜盘"来看待，HPC真的不一样，平台绝不做有愧会员的事情，一切数据公开透明，每笔交易可查看，矿石数量有排行榜，不存在平台放矿石的现象。总之平台会与广大会员一直同在，也十分感谢有您的支持！
 						</div>
-						<!-- <div class="paddingWing" v-if="totalItems2>0">
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+						<div class="paddingWing" v-if="totalItems2>0">
 							<van-pagination 
 							  v-model="currentPage2" 
 							  :total-items="totalItems2" 
@@ -362,7 +359,7 @@
 							  force-ellipses
 							  @change="changeCurrentPage2"
 							/>
-						</div> -->
+						</div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
@@ -602,6 +599,7 @@ export default {
 			transactionVo4BuyerTip:"",
 			loading4Buy:false,
 			pages:0,
+			pagesPlatPrice:0
 		}
 	},  
 	components:{
@@ -746,6 +744,7 @@ export default {
 				if(_this.$cookies.get('totalItems1')){
 					_this.list1 = JSON.parse(localStorage.getItem("LIST1"));
 					_this.totalItems1 = parseInt(_this.$cookies.get('totalItems1'));
+					_this.pagesPlatPrice = parseInt(_this.$cookies.get('pagesPlatPrice'));
 					//console.log('_this.totalItems1',_this.totalItems1);
 				}else{
 					_this.getListGeneral();
@@ -788,6 +787,7 @@ export default {
 				return;
 			}
 			_this.pages = parseInt(_this.$cookies.get('pages')) || 0;
+			_this.pagesPlatPrice = parseInt(_this.$cookies.get('pagesPlatPrice')) || 0;
 			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
 			if(_this.$cookies.get('haveDealPageInfo')){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
@@ -865,6 +865,8 @@ export default {
 				if (res.code == _this.$api.CODE_OK) {
 					_this.list1 = res.data.list;
 					_this.totalItems1 = res.data.total;
+					_this.pagesPlatPrice = res.data.pages;
+					_this.$cookies.set("pagesPlatPrice", _this.pagesPlatPrice, 60 * 30 * 1);
 					_this.$cookies.set("totalItems1", _this.totalItems1, 60 * 30 * 1)
 					if(_this.list1==[]){
 						
@@ -897,8 +899,8 @@ export default {
 					_this.list2 = res.data.list;
 					_this.totalItems2 = res.data.total;
 					_this.pages = res.data.pages;
-					_this.$cookies.set("pages", _this.pages, 60 * 30 * 1)
-					_this.$cookies.set("totalItems2", _this.totalItems2, 60 * 30 * 1)
+					_this.$cookies.set("pages", _this.pages, 60 * 30 * 1);
+					_this.$cookies.set("totalItems2", _this.totalItems2, 60 * 30 * 1);
 					localStorage.setItem("LIST2",JSON.stringify(_this.list2));
 				}else{
 					Dialog.alert({

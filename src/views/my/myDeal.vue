@@ -1808,7 +1808,7 @@
 												if (res.code == _this.$api.CODE_OK) {
 													if(res.data==1){
 														_this.onLoad2();
-														_this.getSellerInfoByTransactionId();
+														//_this.getSellerInfoByTransactionId();
 													}
 												}else{
 													_this.$toast(res.message);

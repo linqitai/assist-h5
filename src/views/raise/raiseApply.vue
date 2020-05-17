@@ -205,7 +205,6 @@
 					return false;
 				}
 				if (file.size/1024>300) {
-					// _this.$toast('所上传图片大小超过了300KB，请先压缩后再上传');
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '所上传图片大小超过了300KB，请先压缩后再上传(微信转发后再保存，用保存后的照片上传试试)'

@@ -513,7 +513,7 @@
 				}
 				Dialog.alert({
 				  title: '温馨提示',
-				  confirmButtonText:'知道了',
+				  confirmButtonText:'好的',
 				  message: message
 				}).then(() => {
 					// on confirm

@@ -298,9 +298,9 @@
 						</div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
-						<div class="paddingWing tip4model3">
+						<div class="paddingWing tip4model3 justify">
 							<!-- 当前溢价{{pages}}页， -->
-							系统提示：当前平价共{{pagesPlatPrice}}页，希望大家更注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！同时，也请广大会员更加支持平台的理念，帮扶链是真的想做事情，想为社会、为民生做一份贡献的平台，请不要把平台当作"跑路盘、韭菜盘"来看待，HPC真的不一样，平台绝不做有愧会员的事情，一切数据公开透明，每笔交易可查看，矿石数量有排行榜，不存在平台放矿石的现象。总之平台会与广大会员一直同在，也十分感谢有您的支持！
+							系统提示：当前平价共{{pagesPlatPrice}}页，希望广大会员更多得去注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！
 						</div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
@@ -344,9 +344,9 @@
 						</div> -->
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
-						<div class="paddingWing tip4model3">
+						<div class="paddingWing tip4model3 justify">
 							<!-- 当前溢价{{pages}}页， -->
-							系统提示：当前溢价共{{pages}}页，希望大家更注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！同时，也请广大会员更加支持平台的理念，帮扶链是真的想做事情，想为社会、为民生做一份贡献的平台，请不要把平台当作"跑路盘、韭菜盘"来看待，HPC真的不一样，平台绝不做有愧会员的事情，一切数据公开透明，每笔交易可查看，矿石数量有排行榜，不存在平台放矿石的现象。总之平台会与广大会员一直同在，也十分感谢有您的支持！
+							系统提示：当前溢价共{{pages}}页，希望广大会员更多得去注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！
 						</div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
@@ -497,7 +497,7 @@ export default {
 			tabActiveName:"dealArea1",
 			currentPage1:1,
 			currentPage2:1,
-			pageSize:10,
+			pageSize:7,
 			pageCount:0,
 			totalItems1:0,
 			totalItems2:100,
@@ -1083,7 +1083,7 @@ export default {
 				});
 				return;
 			}
-			if(parseFloat(params.price)>parseFloat(_this.dealPageInfo.currentPlatformPrice)&&parseFloat(params.price)<parseFloat(_this.dealPageInfo.maxPrice)){
+			/* if(parseFloat(params.price)>parseFloat(_this.dealPageInfo.currentPlatformPrice)&&parseFloat(params.price)<parseFloat(_this.dealPageInfo.maxPrice)){
 				Dialog.alert({
 				  title: '系统提示',
 				  message: `目前所挂单子中，最高单价为${_this.dealPageInfo.maxPrice}CNY，为了防止溢价区的点对点定向交易，请不要低于这个价卖出`
@@ -1091,7 +1091,7 @@ export default {
 				  // on close
 				});
 				return;
-			}
+			} */
 			//console.log("params",params);
 			if(_this.$utils.hasNull(params)){
 				_this.$toast('请填写完整信息');
@@ -1374,10 +1374,10 @@ export default {
 			}else if(key == 'buyLowestAmount') {
 				let thisLowestNum = Number(_this.form4BuyBill[key]);
 				if(_this.$reg.positive_integer.test(thisLowestNum)){
-					if(thisLowestNum>=1&&thisLowestNum<=_this.canBuyNum){
+					if(thisLowestNum>=1&&thisLowestNum<=100){
 						_this.errorInfo4BuyBill.buyLowestAmount = '';
 					}else{
-						_this.errorInfo4BuyBill.buyLowestAmount = `您当前的限购数量为${_this.canBuyNum}`;
+						_this.errorInfo4BuyBill.buyLowestAmount = `最低匹配数量请填写1~100之间`;
 					}
 				}else{
 					_this.errorInfo4BuyBill.buyAmount = `请填写正整数`;

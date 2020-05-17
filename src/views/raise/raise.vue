@@ -654,6 +654,7 @@
 				num:0,
 				word:'',
 				tabActiveName:"raiseRecord1",
+				userInfo:"",
 			}
 		},
 		components: {
@@ -661,6 +662,18 @@
 		},
 		created() {
 			let _this = this;
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				////console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+			}else{
+				/* localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token'); */
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
+			}
 			_this.getAssistRaiseListPage();
 		},
 		mounted() {
@@ -735,6 +748,10 @@
 					_this.$toast('请填写完整信息');
 					return;
 				}
+				if(_this.userInfo.platformTicket<_this.num){
+					_this.$toast(`您所拥有的帮扶券不够${_this.num}个`);
+					return;
+				}
 				//console.log("p",params)
 				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
@@ -755,6 +772,7 @@
 			},
 			getAssistRaiseRecordListPage(){
 				let _this = this;
+				
 				let params = {
 					pageNo: _this.currentPage2,
 					pageSize: _this.pageSize2,

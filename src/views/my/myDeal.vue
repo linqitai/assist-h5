@@ -373,9 +373,9 @@
 									<div class="margT6 lineHeight yellow">
 										{{item.status | dealStatusType}}
 									</div>
-									<div class="margT6" v-if="buyOrSell(item)=='sell'&&item.status==0">
+									<!-- <div class="margT6" v-if="buyOrSell(item)=='sell'&&item.status==0">
 										<span class="cancelBtn" @click="cancelDealBtn(item)">取消交易</span>
-									</div>
+									</div> -->
 									<div class="margT6" v-if="buyOrSell(item)=='buy'&&item.status==0&&item.type!=2">
 										<span class="cancelBtn" @click="lockTransactionBtn(item)">锁定交易</span>
 									</div>
@@ -583,7 +583,7 @@
 				<div v-if="detail4sellerInfo.status==0||detail4sellerInfo.status==1">
 					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn">我已付款 让卖家确认</van-button>
 					<div class="placeholderLine10"></div>
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(detail4sellerInfo)" size="normal" :block="true">取消交易</van-button>
+					<!-- <van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(detail4sellerInfo)" size="normal" :block="true">取消交易</van-button> -->
 				</div>
 				<div class="line" v-if="detail4sellerInfo.status==2 || detail4sellerInfo.status==4">
 					<span class="label">卖方确认倒计时</span>
@@ -1454,7 +1454,6 @@
 					id: _this.id,
 				}
 				_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
-					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data == 1){
 							Dialog.alert({
@@ -1463,11 +1462,8 @@
 							  message: '由于您超时未付款，已超过付款时间，该买单已被系统自动取消！'
 							}).then(() => {
 							  // on confirm
-							  ////console.log('sure');
-							  
 							}).catch(() => {
 							  // on cancel
-							  ////console.log('cancel');
 							});
 							_this.onLoad2();
 						}
@@ -1479,10 +1475,7 @@
 			cancelBuyBillBtn(item){
 				let _this = this;
 				_this.id = item.id;
-				if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
-					_this.cancelDeal4OverTime();
-					return;
-				}
+				
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
@@ -1599,10 +1592,10 @@
 			},
 			cancel4buyer(){
 				let _this = this;
+				_this.$toast('取消交易请点诉讼按钮，让客服取消');
 				//调用取消接口
-				let params = {
+				/*let params = {
 					id: _this.id,
-					/* userId: _this.userId */
 				}
 				_this.sureCancelBtnLoading = true;
 				_this.$ajax.ajax(_this.$api.cancelAssistTransactionById, 'POST', params, function(res) {
@@ -1619,7 +1612,7 @@
 					}else{
 						_this.$toast(res.message);
 					}
-				})
+				}) */
 			},
 			toMy4OtherView(userId){
 				let _this = this;
@@ -1714,7 +1707,7 @@
 					}else if(_this.activeName == 'pay'){//pay是买家
 						////console.log('pay是买家');
 						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
-							_this.cancelDeal4OverTime();
+							_this.$toast("交易已经超时，请点诉讼让客服取消交易");
 							return;
 						}
 						_this.showAgentDetailModel = true;
@@ -1768,10 +1761,10 @@
 							}
 						})
 					}else if(bs=='buy'){
-						console.log('item.canCancelTime',item.canCancelTime)
+						/* console.log('item.canCancelTime',item.canCancelTime)
 						console.log('_this.$utils.getDateTime(new Date())',_this.$utils.getDateTime(new Date()))
-						console.log('item.status',item.status)
-						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+						console.log('item.status',item.status) */
+						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0)){
 							_this.cancelDeal4OverTime();
 							return;
 						}
@@ -1821,13 +1814,13 @@
 										//_this.getSellerInfoByTransactionId();
 										if(_this.detail4sellerInfo.status == 2){
 											let now = _this.$utils.getDateTime(new Date());
-											console.log('_this.detail4sellerInfo.letSureTime',_this.detail4sellerInfo.letSureTime)
-											console.log('now', now);
+											/* console.log('_this.detail4sellerInfo.letSureTime',_this.detail4sellerInfo.letSureTime)
+											console.log('now', now); */
 											if(_this.detail4sellerInfo.letSureTime&&_this.detail4sellerInfo.letSureTime<now){
 												Dialog.confirm({
 												  title: '提示信息',
 												  confirmButtonText:'需要',
-												  message: '由于卖家60分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
+												  message: '由于卖家120分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
 												}).then(() => {
 												  // on confirm
 												  ////console.log('sure');
@@ -1868,7 +1861,7 @@
 								Dialog.confirm({
 								  title: '提示信息',
 								  confirmButtonText:'需要',
-								  message: '由于卖家60分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
+								  message: '由于卖家120分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
 								}).then(() => {
 								  // on confirm
 								  ////console.log('sure');

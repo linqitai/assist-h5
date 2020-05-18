@@ -643,11 +643,13 @@
 				showImagePreview: false,
 				imageIndex: '',
 				images: [
-					'https://www.assist-china.com.cn/image/raise001.jpg',
-					'https://www.assist-china.com.cn/image/raise002.jpg',
-					'https://www.assist-china.com.cn/image/raise003.png',
-					'https://www.assist-china.com.cn/image/raise004.jpg',
-					'https://www.assist-china.com.cn/image/raise005.jpg'
+					'https://www.assist-china.com.cn/image/raise101.jpg',
+					'https://www.assist-china.com.cn/image/raise102.jpg',
+					'https://www.assist-china.com.cn/image/raise103.jpg',
+					'https://www.assist-china.com.cn/image/raise104.jpg',
+					'https://www.assist-china.com.cn/image/raise1051.jpg',
+					'https://www.assist-china.com.cn/image/raise106.jpg',
+					'https://www.assist-china.com.cn/image/raise107.jpg'
 				],
 				loadingRecordsList:false,
 				finishedRecordsList:false,

@@ -62,7 +62,7 @@
 						flex: 1;
 					}
 					.boxRight{
-						flex: 1;
+						flex: 0 0 120px;
 						text-align: right;
 						font-size: 0.75rem
 					}
@@ -288,7 +288,7 @@
 							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="boxLeft">
 									<div class="">单价 {{item.price}}CNY</div>
-									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
+									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}} {{item.createTime}}</div>
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
@@ -326,7 +326,7 @@
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="boxLeft">
 									<div class="">单价 {{item.price}}CNY</div>
-									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
+									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}} {{item.createTime}}</div>
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>

@@ -2001,7 +2001,7 @@
 							}else{
 								_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
 							}
-							_this.smsContent = `【${_this.$api.projectName}】我已经确认收款并释放矿石，谢谢。`;
+							_this.smsContent = `【${_this.$api.projectName}】我已经确认收款并释放矿石，谢谢你。`;
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							//发送短信提示end
 							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
@@ -2063,7 +2063,7 @@
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个短信提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-								_this.smsContent = `【${_this.$api.projectName}】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收款并释放矿石，谢谢。`;
+								_this.smsContent = `【${_this.$api.projectName}】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收款并释放矿石，谢谢。---真情感动世界，帮扶成就你我。`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								//发送短信提示end
 								_this.showSellerDetailModel = false;
@@ -2071,7 +2071,7 @@
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个信息提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.appointDealDetail.assistAppointAgentInfo.mobilePhone;
-								_this.smsContent = `【${_this.$api.projectName}】我已付款，请确认收款并释放矿石，谢谢。`;
+								_this.smsContent = `【${_this.$api.projectName}】我已付款，请确认收款并释放矿石，谢谢你。`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								//发送短信提示end
 								_this.showAgentDetailModel = false;

@@ -649,7 +649,8 @@
 					'https://www.assist-china.com.cn/image/raise104.jpg',
 					'https://www.assist-china.com.cn/image/raise1051.jpg',
 					'https://www.assist-china.com.cn/image/raise106.jpg',
-					'https://www.assist-china.com.cn/image/raise107.jpg'
+					'https://www.assist-china.com.cn/image/raise107.jpg',
+					'https://www.assist-china.com.cn/image/raise108.jpg'
 				],
 				loadingRecordsList:false,
 				finishedRecordsList:false,

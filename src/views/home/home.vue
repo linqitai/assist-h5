@@ -494,14 +494,11 @@ $noticeHeight:40px;
 						<div class="amount">{{ statistics.allMineralNum - statistics.beDigNum - statistics.awardNum - statistics.beDestroyNum  || 0}}</div>
 						<div class="margT6">最后所剩矿石数量</div>
 					</div>
-					<!-- <div class="infoBox">
-						<div class="amount">{{ statistics.canCirculateNum  || 0}}</div>
-						<div class="margT6">可流通数量</div>
-					</div>
+				</div>
+				<div class="millInfo">
 					<div class="infoBox">
-						<div class="amount">{{statistics.beDestroyNum || 0}}</div>
-						<div class="margT6">销毁数量</div>
-					</div> -->
+						<div>帮扶基金池 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/></div>
+					</div>
 				</div>
 				<div class="cateInfo">
 					<div class="infoBox">
@@ -758,6 +755,21 @@ $noticeHeight:40px;
 					}else{
 						_this.$toast(res.message);
 					}
+				})
+			},
+			showTip(val){
+				//console.log(val);
+				let message = '';
+				if(val=='fundPool'){
+					message = '该板块正在努力建设中，初步方案为：交易手续费中，有一半的帮扶券进入帮扶基金，这基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的朋友';
+				}
+				Dialog.alert({
+				  title: '温馨提示',
+				  confirmButtonText:'好的',
+				  message: message
+				}).then(() => {
+					// on confirm
+					//console.log('sure');
 				})
 			},
 			logout(){

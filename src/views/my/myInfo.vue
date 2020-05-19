@@ -275,7 +275,7 @@
 		  </van-cell-group>
 		  <div class="placeholderLine10"></div>
 		  <div class="placeholderLine40"></div>
-		  <div class="modelTip">系统提示：修改信息需使用10个帮扶券，修改微信号免费</div>
+		  <div class="modelTip">系统提示：除了修改微信号免费，修改其他信息需使用2个矿石价格的帮扶券人工费</div>
 		  <div class="sureAppointBtnBox">
 			  <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="update1Loading" @click="sureUpdate('update1')">确 认</van-button>
 		  </div>

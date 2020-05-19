@@ -132,12 +132,31 @@
 				<div class="line text margT10">
 					分享10名会员完成基础任务1<br>
 					领取奖励者本人要先完成基础任务2<br>
-					达到后可获得一台体验矿机
+					达到后:<br>
+					可额外获得一台体验矿机
 				</div>
 			</div>
 			<div class="flexRight">
 				<div v-if="userInfo.isGetShareTask==0" @click="getShareReword1">去领取</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask==1"></i>
+			</div>
+		</div>
+		<div class="placeholderLine10"></div>
+		<div class="box share">
+			<div class="flexLeft" @click="toView('deal')">
+				<div class="line title">
+					进阶任务3 收购矿石
+				</div>
+				<div class="line text margT10">
+					需要：<br>
+					累计收购10个矿石<br>
+					达到后：<br>
+					可额外获得一台体验矿机<br>
+				</div>
+			</div>
+			<div class="flexRight">
+				<div v-if="userInfo.isGetBuyTask==0" @click="getBuyIn10MineralReword">去领取</div>
+				<i class="iconfont iconfont-finished" v-if="userInfo.isGetBuyTask==1"></i>
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
@@ -162,24 +181,6 @@
 			</div>
 			<div class="flexRight">
 				<i class="iconfont iconfont-finished" v-show="isShowQunTaskOK"></i>
-			</div>
-		</div>
-		<div class="placeholderLine10"></div>
-		<div class="box share">
-			<div class="flexLeft" @click="toView('deal')">
-				<div class="line title">
-					进阶任务3 收购矿石
-				</div>
-				<div class="line text margT10">
-					需要：<br>
-					累计收购10个矿石<br>
-					达到后：<br>
-					可额外获得一台体验矿机<br>
-				</div>
-			</div>
-			<div class="flexRight">
-				<div v-if="userInfo.isGetBuyTask==0" @click="getBuyIn10MineralReword">去领取</div>
-				<i class="iconfont iconfont-finished" v-if="userInfo.isGetBuyTask==1"></i>
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>

@@ -288,7 +288,7 @@
 							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="boxLeft">
 									<div class="">单价 {{item.price}}CNY</div>
-									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}} {{item.createTime}}</div>
+									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
@@ -326,7 +326,7 @@
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="boxLeft">
 									<div class="">单价 {{item.price}}CNY</div>
-									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}} {{item.createTime}}</div>
+									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
@@ -1374,10 +1374,10 @@ export default {
 			}else if(key == 'buyLowestAmount') {
 				let thisLowestNum = Number(_this.form4BuyBill[key]);
 				if(_this.$reg.positive_integer.test(thisLowestNum)){
-					if(thisLowestNum>=1&&thisLowestNum<=100){
+					if(thisLowestNum>=1&&thisLowestNum<=200){
 						_this.errorInfo4BuyBill.buyLowestAmount = '';
 					}else{
-						_this.errorInfo4BuyBill.buyLowestAmount = `最低匹配数量请填写1~100之间`;
+						_this.errorInfo4BuyBill.buyLowestAmount = `最低匹配数量请填写1~200之间`;
 					}
 				}else{
 					_this.errorInfo4BuyBill.buyAmount = `请填写正整数`;

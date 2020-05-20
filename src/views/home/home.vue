@@ -497,7 +497,11 @@ $noticeHeight:40px;
 				</div>
 				<div class="millInfo">
 					<div class="infoBox">
-						<div>帮扶基金池 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/></div>
+						<div>
+							<!-- @click="toFundPoolRecordView" -->
+							<span>帮扶基金池</span> <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
+							<!-- <span class="margL10 underline" @click="addFundPool">我要捐赠</span> -->
+						</div>
 					</div>
 				</div>
 				<div class="cateInfo">
@@ -757,11 +761,15 @@ $noticeHeight:40px;
 					}
 				})
 			},
+			toFundPoolRecordView(){
+				let _this = this;
+				_this.$router.push('fundPoolRecord');
+			},
 			showTip(val){
 				//console.log(val);
 				let message = '';
 				if(val=='fundPool'){
-					message = '该板块正在努力建设中，初步方案为：交易手续费中，有一半的帮扶券进入帮扶基金，这基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的朋友';
+					message = '该板块正在努力建设中，初步方案为：交易手续费中，有一半的帮扶券进入帮扶基金，这基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的朋友';
 				}
 				Dialog.alert({
 				  title: '温馨提示',
@@ -815,6 +823,9 @@ $noticeHeight:40px;
 			},
 			closeBtn(){
 				this.showAttendanceModel = false;
+			},
+			addFundPool(){
+				
 			},
 			refreshAttendanceInfo(){
 				let _this = this;

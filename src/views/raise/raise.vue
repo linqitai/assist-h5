@@ -20,8 +20,6 @@
 			background: linear-gradient(left top, #ffae00 , #ffae00) !important;
 			height: 30px;
 			line-height: 30px;
-			// height: $header-height;
-			// line-height: $header-height;
 			.leftBox{
 				flex: 0 0 24px;
 				color: red;
@@ -31,7 +29,6 @@
 			  flex: 1;
 			  text-align: center;
 			  font-size: 0.75rem;
-			  // color:$mainTextColor;
 			}
 			.rightBox{
 				flex: 0 0 24px;
@@ -39,7 +36,6 @@
 				&.text{
 					color: $main-adorn-color;
 					font-size: 0.75rem;
-					// color: $mainTextColor;
 				}
 				&.icon{
 					color: linear-gradient(left right, #ffae00 , #ffae00);
@@ -85,7 +81,6 @@
 			.textInfo{
 				flex: 1;
 				font-size: 0.812rem;
-				/* padding-left: 0.375rem; */
 				height: 1em;
 				display: table-cell;
 				.text1{font-weight: bold;}
@@ -108,7 +103,6 @@
 				background-color: inherit;
 				padding:$boxPadding2 0;
 				box-sizing:border-box !important;
-				// color:$mainTextColor;
 			}
 			.box2{
 				margin-top: $marginTop2;
@@ -667,12 +661,8 @@
 			let _this = this;
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
-				////console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
 			}else{
-				/* localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('userId');
-				_this.$cookies.remove('token'); */
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;
@@ -686,7 +676,6 @@
 		methods:{
 			back(){
 				let _this = this;
-				//_this.$router.go(-1);
 				_this.$router.push("/raise")
 			},
 			handleCopy(text, event) {

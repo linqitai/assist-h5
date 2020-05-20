@@ -80,6 +80,12 @@ export default new Router({
 							component: resolve => require(['./views/home/rankingDeal'],resolve),
 							meta:{footer:false,keepAlive:true},
 						},
+						{
+							path: '/fundPoolRecord',
+							name: '帮扶基金池账本',
+							component: resolve => require(['./views/home/fundPoolRecord'],resolve),
+							meta:{footer:false,keepAlive:true},
+						},
 					]
 				},
 				{

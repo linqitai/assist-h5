@@ -13,7 +13,7 @@ export default {
 	created() {
 		let _this = this;
 		let device = this.$utils.isIphoneOrAndroid();
-		//console.log('device',device);
+		console.log('device',device);
 		if(device=='pc'){
 			_this.$router.push('tip');
 		}
@@ -30,6 +30,7 @@ export default {
 				});
 			}, false);
 		}
+		//_this.getDealPageInfo();
 		//强制让内容超过   
 		//$('#app').css("height",window.innerHeight+100);   
 		//window.scrollTo(0, 1);   
@@ -54,7 +55,25 @@ export default {
 		    WeixinJSBridge.on('menu:setfont', function() {
 		        WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
 		    });
-		}
+		},
+		getDealPageInfo(){
+			let _this = this;
+			_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
+				//console.log('getDealPageInfo', res);
+				if (res.code == _this.$api.CODE_OK) {
+					let dealPageInfo = res.data;
+					let currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
+					let serviceCharge = `${dealPageInfo.dealRatio*100}%矿石`;
+					/* _this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}];
+					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice); */
+					/* _this.$cookies.remove('haveDealPageInfo');
+					_this.$cookies.set("haveDealPageInfo",1, 60 * 30 * 1); */
+					localStorage.setItem("dealPageInfo",JSON.stringify(dealPageInfo))
+				}else{
+					_this.$toast(res.message);
+				}
+			})
+		},
 	}
 }
 </script>

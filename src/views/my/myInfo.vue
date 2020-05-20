@@ -627,10 +627,10 @@ export default {
 					_this.$toast('请按要求填写信息');
 					return;
 				}
-				if(_this.userInfo.platformTicket<10){
+				/* if(_this.userInfo.platformTicket<10){
 					_this.$toast('系统提示：您的帮扶券不足，修改信息要使用10张帮扶券');
 					return;
-				}
+				} */
 				params.securityPassword = _this.$JsEncrypt.encrypt(_this.form.safePassword);
 				console.log('params',params);
 				_this.update1Loading = true;//updateAssistNickName

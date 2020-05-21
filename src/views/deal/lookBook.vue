@@ -238,7 +238,7 @@
 				//console.log('onLoad1');
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getMineralBookList, 'GET', params, function(res) {
-					//_this.loading = false;
+					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list1.push(...list);

@@ -240,7 +240,7 @@
 				// console.log('params',params);
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getMineralBookList, 'GET', params, function(res) {
-					//_this.loading = false;
+					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list1.push(...list);
@@ -286,7 +286,7 @@
 				_this.loading2 = true;
 				_this.$ajax.ajax(_this.$api.getCalculationPowerPageList, 'GET', params, function(res) {
 					// // console.log('res', res);
-					//_this.loading = false;
+					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						// // console.log('_this.list1',_this.list1);
 						// // console.log('res.data.list',res.data.list)
@@ -327,7 +327,7 @@
 				}
 				_this.loading3 = true;
 				_this.$ajax.ajax(_this.$api.getAssistContributionValueList, 'GET', params, function(res) {
-					//_this.loading = false;
+					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list3.push(...list);
@@ -368,7 +368,7 @@
 				_this.loading4 = true;
 				_this.$ajax.ajax(_this.$api.getAssistPlateformTicketAccountBookList, 'GET', params, function(res) {
 					// // console.log('res', res);
-					//_this.loading = false;
+					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						// // console.log('_this.list1',_this.list1);
 						// // console.log('res.data.list',res.data.list)

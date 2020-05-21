@@ -124,10 +124,10 @@
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
-		<div class="box share">
+		<div class="box blueLight">
 			<div class="flexLeft">
 				<div class="line title">
-					进阶任务1 分享
+					分享任务1
 				</div>
 				<div class="line text margT10">
 					分享10名会员完成基础任务1<br>
@@ -138,14 +138,32 @@
 			</div>
 			<div class="flexRight">
 				<div v-if="userInfo.isGetShareTask==0" @click="getShareReword1">去领取</div>
-				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask==1"></i>
+				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask>=1"></i>
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
+		<div class="box blueLight" v-if="userInfo.registerTime>'2020/05/22'">
+			<div class="flexLeft">
+				<div class="line title">
+					分享任务2
+				</div>
+				<div class="line text margT10">
+					分享20名会员完成基础任务1<br>
+					领取奖励者本人要先完成基础任务2<br>
+					达到后:<br>
+					可额外获得一台微型矿机
+				</div>
+			</div>
+			<div class="flexRight">
+				<div v-if="userInfo.isGetShareTask<2" @click="getShareReword2">去领取</div>
+				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask==2"></i>
+			</div>
+		</div>
+		<div class="placeholderLine10" v-if="userInfo.registerTime>'2020/05/22'"></div>
 		<div class="box share">
 			<div class="flexLeft" @click="toView('deal')">
 				<div class="line title">
-					进阶任务3 收购矿石
+					进阶任务1 收购矿石
 				</div>
 				<div class="line text margT10">
 					需要：<br>
@@ -174,7 +192,7 @@
 					需省市代理审核群昵称及群活跃度并引荐给客服再审核观察一周<br>
 					群管理必须是群主的下级团队成员，或者是群主的上级，群主的团队算力不得低于10G<br>
 					达标后：<br>
-					群主和群管理各获得<span class="yellow">一台半年产50个矿石的小型矿机</span>，且可升级成官方工会群，并由客服和志愿者来协助管理<br>
+					群主和群管理各获得<span class="yellow">一台半年产50个矿石的小型矿机</span>，申请该奖励需要写纸质版的申请书，群主和群管理4个人各一份<br>
 					该福利时刻有效，客服审核通过后，72小时内会发放该奖励，名额有限，该小型矿机最后只剩下<span class="yellow">{{createFlockMillInventory}}</span>台<br>
 					若因违规操作而被他人投诉后该奖励将会被收回，同时奖励投诉者一台微型矿机<br>
 				</div>
@@ -193,7 +211,7 @@
 					需要：<br>
 					A直推10个会员完成基础任务1和2<br>
 					达到后：<br>
-					奖励A一台微型矿机（名额有限，还剩<span class="yellow">{{activity1MillInventory}}</span>台，先到先得）<br>
+					奖励A一台微型矿机（名额有限，还剩<span class="yellow">{{activity1MillInventory}}</span>台）<br>
 					注：该活动的统计从2020/03/01号开始。从3月1号开始您已经直推<span class="yellow">{{teamBuyMachineNum}}</span>个会员完成基础任务1和2
 				</div>
 			</div>
@@ -212,7 +230,7 @@
 					需要：<br>
 					A直推3个会员升级成为青铜会长<br>
 					达到后：<br>
-					奖励A一台半年产50个矿石的小型矿机（名额有限，还剩<span class="yellow">{{activity2MillInventory}}</span>台，先到先得）<br>
+					奖励A一台半年产50个矿石的小型矿机（名额有限，还剩<span class="yellow">{{activity2MillInventory}}</span>台）<br>
 					注：该活动的统计从2020/03/01号开始。从3月1号开始您已经直推<span class="yellow">{{teamLevelAddNum}}</span>个会员成为青铜会长
 				</div>
 			</div>
@@ -299,7 +317,7 @@
 					或团队算力达到10G并个人算力达到1G<br>
 					完成后:<br>
 					1.可获得一台微型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 1.5%<br>
+					2.获得直推租赁矿机所需矿石1.5%比例的贡献值<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -320,7 +338,7 @@
 					或团队算力达到100G并个人算力达到8.4G<br>
 					完成后:<br>
 					1.可获得一台小型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 2.0%<br>
+					2.获得直推租赁矿机所需矿石2%比例的贡献值<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -341,7 +359,7 @@
 					或团队算力达到500G并个人算力达到33.4G<br>
 					完成后:<br>
 					1.可获得一台中型矿机<br>
-					2.每次租赁矿机所加贡献值比例提升至 2.5%<br>
+					2.获得直推租赁矿机所需矿石2.5%比例的贡献值<br>
 					<!-- 2.平台3-5期权分红权限 -->
 				</div>
 			</div>
@@ -363,7 +381,7 @@
 					或团队算力达到2000G并个人算力达到133.4G<br>
 					完成后:<br>
 					1.可获得一台中型矿机+市代理名额<br>
-					2.每次租赁矿机所加贡献值比例提升至 3.0%<br>
+					2.获得直推租赁矿机所需矿石3%比例的贡献值<br>
 					<!-- 2.平台3-3期权分红权限 -->
 				</div>
 			</div>
@@ -385,7 +403,7 @@
 					或团队算力达到10000G并个人算力达到133.4G<br>
 					完成后:<br>
 					1.可获得一台中型矿机+省代理名额<br>
-					2.每次租赁矿机所加贡献值比例提升至 4.0%<br>
+					2.获得直推租赁矿机所需矿石4%比例的贡献值<br>
 					<!-- 2.平台3-2期权分红权限 -->
 				</div>
 			</div>
@@ -684,11 +702,59 @@ export default {
 					  message: '恭喜您，奖励领取成功！'
 					}).then(() => {
 					  // on close
-					  _this.$cookies.set("tab_name_book", "contribution", _this.$api.cookiesTime)
-					  _this.$router.push('/myBook');
+					  _this.$router.push('/mill');
 					});
 				}else{
-					_this.$toast(res.message);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
+				}
+			})
+		},
+		getShareReword2(){
+			let _this = this;
+			if(_this.userInfo.isGetShareTask==2){
+				// _this.$toast("您已领取过该奖励");
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您已领取过该奖励'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			if(_this.userInfo.realnameNum<20){
+				// _this.$toast("您尚未达到领取该奖励的标准");
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您尚未达到领取该奖励的标准'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			_this.$ajax.ajax(_this.$api.getShareReword, 'POST', null, function(res){
+				// console.log('res',res);
+				if(res.code == _this.$api.CODE_OK){
+					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+					Dialog.alert({
+					  title: '温馨提示',
+					  message: '恭喜您，奖励领取成功！'
+					}).then(() => {
+					  // on close
+					  _this.$router.push('/mill');
+					});
+				}else{
+					//_this.$toast(res.message);
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
 				}
 			})
 		},
@@ -731,7 +797,7 @@ export default {
 		getAssistReward4Level(level){
 			let _this = this;
 			let url = "";
-			console.log("_this.userInfo",_this.userInfo);
+			//console.log("_this.userInfo",_this.userInfo);
 			let teamCP = _this.userInfo.teamCalculationPower;
 			let myCP = _this.userInfo.myCalculationPower;
 			let teamNum = _this.userInfo.realnameNum;

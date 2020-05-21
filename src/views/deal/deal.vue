@@ -643,7 +643,7 @@ export default {
 			}else if(_this.form4pickSellBill.serviceCharge==1){
 				num = _this.platformTicket - _this.form4pickSellBill.sellAmountSliderValue*price*0.1;
 				if(num<0){
-					alert('系统提示：对不起，您的帮扶券不够，请先找省市代理购买');
+					//alert('系统提示：对不起，您的帮扶券不够，请先找省市代理购买');
 					/* alert('系统提示：对不起，您的帮扶券不够，请选择矿石做服务费'); */
 					/* _this.form4pickSellBill.serviceCharge = 0;
 					_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`; */
@@ -1303,12 +1303,26 @@ export default {
 			if(parseFloat(params.price)<parseFloat(currentPlatformPrice)||parseFloat(params.price)>parseFloat(maxPrice)){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: `目前买单价格暂时控制在${currentPlatformPrice}~${maxPrice}之间，请重新填写`
+				  message: `今日买单价格控制在${currentPlatformPrice}~${maxPrice}之间，请重新填写`
 				}).then(() => {
 				  // on close
 				});
 				return;
 			}
+			//最低溢价为平价×1.3
+			console.log('parseFloat(params.price):',parseFloat(params.price));
+			console.log('parseFloat(currentPlatformPrice):',parseFloat(currentPlatformPrice));
+			console.log('parseFloat(currentPlatformPrice)*1.3',parseFloat(currentPlatformPrice)*1.3);
+			if(parseFloat(params.price)>parseFloat(currentPlatformPrice)&&parseFloat(params.price)<parseFloat(currentPlatformPrice)*1.3){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: `今日最低溢价为${parseFloat(currentPlatformPrice)*1.3}，请重新填写`
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			
 			//console.log('params',params);
 			//console.log('_this.form4BuyBill.buyAmount',_this.form4BuyBill.buyAmount);
 			//console.log('_this.form4BuyBill.buyLowestAmount',_this.form4BuyBill.buyLowestAmount);

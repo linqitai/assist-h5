@@ -49,7 +49,7 @@
 						font-size: $fs-16;
 					}
 					.flexRight2{
-						flex: 0 0 100px;
+						flex: 0 0 140px;
 						text-align: right;
 						font-size: $fs-12;
 					}
@@ -107,20 +107,22 @@
 						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex">
 								<div class="line">{{item.createTime}}</div>
-								<div class="line margT6" @click="toMy4OtherView(item.fromUserId)">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromUserId}}</i></span>
-									<i class="iconfont iconfont-right-arrow2"></i>
+								 <!-- @click="toMy4OtherView(item.fromUserId)" -->
+								<div class="line margT6">
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromNickName}}</i></span>
+									<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 								</div>
 								<div class="line margT6">
-									<i class="textAdornColor">{{item.num>0?'+'+item.num:item.num}}</i>个 {{item.type==0?'转入':'转出'}}给
+									<!-- >0?'+'+item.num:item.num -->
+									<i class="textAdornColor">{{item.remark}}</i><i :class="item.type==0?'green':'red'">{{item.type==0?'存入':'转出'}}</i><i class="textAdornColor">{{item.num}}个</i>
 								</div>
-								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toUserId}}</i></span>
-									<i class="iconfont iconfont-right-arrow2"></i>
-								</div>
+								<!-- @click="toMy4OtherView(item.toUserId)" -->
+								<!-- <div class="line margT6">
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toNickName}}</i></span>
+								</div> -->
 								<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
 							</div>
-							<div class="flexRight2">所剩<span class="textAdornColor">{{item.num}}</span>个</div>
+							<div class="flexRight2">当前基金池<span class="textAdornColor">{{item.currentNum}}</span>个券</div>
 							<!-- <div class="flexRight3">
 								<i class="iconfont iconfont-right-arrow2"  @click="toMy4OtherView(item.fromUserId)"></i>
 							</div> -->
@@ -268,13 +270,10 @@
 			refreshEvent() {
 				// console.log("refresh1")
 				let _this = this;
-				if(_this.activeName == 'mineral'){
-					console.log("refresh1");
-					_this.currentPage1 = 1;
-					_this.list1 = [];
-					_this.finished1 = false;
-					_this.onLoad1();
-				}
+				_this.currentPage1 = 1;
+				_this.list1 = [];
+				_this.finished1 = false;
+				_this.onLoad1();
 			},
 			tabChange(name, title) {
 				let _this = this;
@@ -290,12 +289,8 @@
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getAssistFundPoolRecord, 'GET', params, function(res) {
 					_this.loading = false;
-					console.log("res.code",res.code);
-					let list = res.data.list;
-					console.log("list",list);
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
-						console.log("list",list);
 						/* list = list.filter((item)=>{
 							let b = _this.$utils.inArray(item.fromUserId,_this.manTypeList);
 							if(b==false){
@@ -313,7 +308,8 @@
 					}else{
 						_this.loading1 = false;
 						_this.finished1 = true;
-						//_this.$toast(res.message);
+						_this.list1 = [];
+						_this.$toast(res.message);
 					}
 				})
 			},

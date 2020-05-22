@@ -18,7 +18,7 @@
 						
 					}
 					.flexRight{
-						flex: 0 0 80px;
+						flex: 0 0 60px;
 						text-align: right;
 						font-size: $fs-16;
 					}

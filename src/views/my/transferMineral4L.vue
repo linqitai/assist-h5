@@ -207,7 +207,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.curerntPlatformPrice = res.data.currentPlatformPrice;
 						_this.maxPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)*1.3).toFixed(2);
-						_this.maxAddPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
+						_this.maxAddPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+1)).toFixed(2);
 					}
 				})
 			},

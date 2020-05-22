@@ -495,6 +495,10 @@
 						<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
 						<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个券</van-button>
 						<!-- 增加自己填写数额 -->
+						<div class="placeholderLine10"></div>
+						<van-field v-model="number" center clearable placeholder="自定义捐赠帮扶券数量">
+							<van-button slot="button" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getNumberLoading" @click="addTicket(number)">确认</van-button>
+						</van-field>
 					</div>
 					<div class="placeholderLine10"></div>
 				</div>
@@ -652,6 +656,8 @@
 				word:'',
 				tabActiveName:"raiseRecord1",
 				userInfo:"",
+				number:"",
+				getNumberLoading: false
 			}
 		},
 		components: {
@@ -740,15 +746,21 @@
 					_this.$toast('请填写完整信息');
 					return;
 				}
+				if(!_this.$reg.positive_integer.test(_this.num)){
+					_this.$toast(`请填写正整数的帮扶券`);
+					return;
+				}
 				if(_this.userInfo.platformTicket<_this.num){
 					_this.$toast(`您所拥有的帮扶券不够${_this.num}个`);
 					return;
 				}
+				_this.getNumberLoading = true;
 				//console.log("p",params)
 				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast("捐赠成功");
 						_this.word = '';
+						_this.number = '';
 						_this.getAssistRaiseListPage();
 						//_this.getAssistRaiseRecordListPage();
 					}else{
@@ -760,6 +772,8 @@
 						  //_this.getCurrentAuction();
 						})
 					}
+				},function(){
+					_this.getNumberLoading = false;
 				})
 			},
 			getAssistRaiseRecordListPage(){

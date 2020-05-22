@@ -5,6 +5,13 @@ $noticeHeight:40px;
 	[class*=van-hairline]::after {
 	    border: 0px solid transparent !important;
 	}
+	.popRaiseContent{
+		.popTitle{
+			width: 100%;
+			text-align: center;
+			line-height: 3.75rem;
+		}
+	}
 	.noticeDetail{
 		padding: 0 $boxPadding2;
 		box-sizing: border-box;
@@ -444,6 +451,28 @@ $noticeHeight:40px;
 				</div>
 			</div>
 		</van-popup>
+		<van-popup v-model="showRaiseModel" :style="{ width: '92%' }" :round="true">
+			<div class="popRaiseContent">
+				<div class="popTitle">
+					捐赠给基金池
+				</div>
+				<van-cell-group>
+					<van-field v-model="form4FundPool.raiseNum" :border="true" label="捐赠数量" type="number" placeholder="请填写捐赠帮扶券数量"/>
+					
+					<!-- <van-field v-model="form4BuyBill.safePassword" type="password" required clearable label="安全密码" right-icon="question-o" placeholder="请填写安全密码"
+					  @click-right-icon="alertTip(clickIconTip.safePassword)"
+					  @blur="validate4BuyBill('safePassword')"
+					  :error-message="errorInfo4BuyBill.safePassword"
+					  /> -->
+				</van-cell-group>
+				<div class="sureAppointBtnBox">
+					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
+					<!-- <div class="tip4model3">系统提示：卖单被匹配的方式是随机的，最新挂的单子被匹配的概率会高一些，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间，买家若因不知情而没查看所匹配的单子，单子被取消后，只扣卖家的0.5~1.0个贡献值--因卖家通知不到位，没及时提醒买家查看订单。（同时，交易过程中若遇到问题，随时都可以点诉讼按钮，并联系客服让客服介入调查或协调）</div>
+					<div class="placeholderLine10"></div> -->
+				    <van-button @click="submit4Raise" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Raise" :block="true">确 认</van-button>
+				</div>
+			</div>
+		</van-popup>
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent" v-if="$route.meta.footer">
 			<div class="HomeContent">
 				<div class="swipe">
@@ -499,9 +528,11 @@ $noticeHeight:40px;
 					<div class="infoBox">
 						<div>
 							<!-- @click="toFundPoolRecordView" -->
-							<span>帮扶基金池</span> <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
-							<!-- <span class="margL10 underline" @click="addFundPool">我要捐赠</span> -->
+							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童帮扶基金池</span><span class="yellow"> {{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
+							<!-- <span class="margL10 underline" @click="addFundPoolBtn">我要捐赠</span> -->
 						</div>
+						<div class="placeholderLine10"></div>
+						<div><span class="underline" @click="addFundPoolBtn">我要捐赠</span></div>
 					</div>
 				</div>
 				<div class="cateInfo">
@@ -676,7 +707,13 @@ $noticeHeight:40px;
 				canCirculateNum:0,
 				loading: true,
 				qqFlock:'',
-				dealPageInfo: ''
+				dealPageInfo: '',
+				showRaiseModel:false,
+				loading4Raise:false,
+				form4FundPool:{
+					raiseNum:""
+				}
+				
 			}
 		},
 		mounted() {
@@ -769,7 +806,7 @@ $noticeHeight:40px;
 				//console.log(val);
 				let message = '';
 				if(val=='fundPool'){
-					message = '该板块正在努力建设中，初步方案为：平价区的交易手续费中，有一半的帮扶券进入帮扶基金，这基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的朋友';
+					message = '少年儿童帮扶基金池：平价区的交易手续费中，有一半的帮扶券进入帮扶基金池；溢价区的交易手续费中，有20%的帮扶券进入帮扶基金池。这基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的朋友';
 				}
 				Dialog.alert({
 				  title: '温馨提示',
@@ -824,8 +861,47 @@ $noticeHeight:40px;
 			closeBtn(){
 				this.showAttendanceModel = false;
 			},
-			addFundPool(){
-				
+			submit4Raise(){
+				let _this = this;
+				let params = {
+				  num: _this.form4FundPool.raiseNum
+				}
+				if(_this.$utils.hasNull(params)){
+					_this.$toast('请填写完整信息');
+					return;
+				}
+				if(!_this.$reg.positive_integer.test(params.num)){
+					_this.$toast(`请填写正整数的帮扶券`);
+					return;
+				}
+				if(Number(_this.userInfo.platformTicket)<Number(params.num)){
+					_this.$toast(`您所拥有的帮扶券不够${params.num}个`);
+					return;
+				}
+				_this.loading4Raise = true;
+				//console.log("p",params)
+				_this.$ajax.ajax(_this.$api.insertFundPoolRecord, 'POST', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.$toast("捐赠成功");
+						_this.form4FundPool.raiseNum = "";
+						_this.showRaiseModel = false;
+						_this.getHomeMineralStaticInfo();
+					}else{
+						Dialog.alert({
+							title: "系统提示",
+							message: res.message
+						}).then(() => {
+						  // on confirm
+						  //_this.getCurrentAuction();
+						})
+					}
+				},function(){
+					_this.loading4Raise = false;
+				})
+			},
+			addFundPoolBtn(){
+				let _this = this;
+				_this.showRaiseModel = true;
 			},
 			refreshAttendanceInfo(){
 				let _this = this;

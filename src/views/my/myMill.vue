@@ -190,14 +190,14 @@
 		</m-header>
 		<canvas class="matrix" id="matrix"></canvas>
 		<div class="millContent" id="millContent">
-			<div class="statistics" v-if="remainCount">
+			<div class="statistics" v-if="totalCount">
 				<div class="line clearBoth flexCenter f-14">
 					<div class="left title">智能统计小助手</div>
-					<div class="right">总资产 {{(userInfo.thisWeekMineral+remainCount).toFixed(2)}}个</div>
+					<div class="right">总资产 {{(totalCount).toFixed(2)}}个</div>
 				</div>
 				<div class="line clearBoth">
 					<div class="left">背包中矿石 {{userInfo.thisWeekMineral.toFixed(2)}}个</div>
-					<div class="right">待产出矿石 {{remainCount.toFixed(2)}}个</div>
+					<div class="right">待产出矿石 {{(totalCount-Number(userInfo.thisWeekMineral)).toFixed(2)}}个</div>
 				</div>
 				<!-- <div class="line clearBoth">
 					<div class="right">总资产 {{(userInfo.thisWeekMineral+remainCount).toFixed(2)}}个</div>
@@ -347,7 +347,8 @@
 				receiptModelTile:"领取结果计算中",
 				isShowConfirmButton:false,
 				getRecieptLoading:false,
-				remainCount:0
+				remainCount:0,
+				totalCount:0
 			}
 		},
 		components: {
@@ -609,11 +610,17 @@
 							_this.isShowOneReciept = false;
 							_this.finishedMyMillText = '亲，您目前没有矿机';
 						}
-						let remainCount = 0;
+						/* let remainCount = 0;
 						_this.myMillList.forEach((item,index)=>{
 							remainCount = remainCount + (item.totalOutput - (item.alreadyGet||0));
 						})
-						_this.remainCount = remainCount;
+						_this.remainCount = remainCount; */
+						
+						let totalCount = 0;
+						_this.myMillList.forEach((item,index)=>{
+							totalCount = totalCount + Number(item.totalOutput);
+						})
+						_this.totalCount = totalCount;
 						//console.log("remainCount" + _this.remainCount);
 						
 						_this.loadingMyMill = false;

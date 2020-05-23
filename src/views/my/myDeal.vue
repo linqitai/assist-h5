@@ -1743,7 +1743,7 @@
 						})
 					}
 				}else{
-					console.log('else bs',bs)
+					//console.log('else bs',bs)
 					if(bs=='sell'){
 						let params = {
 							id: _this.id
@@ -1765,10 +1765,11 @@
 						console.log('_this.$utils.getDateTime(new Date())',_this.$utils.getDateTime(new Date()))
 						console.log('item.status',item.status) */
 						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0)){
-							_this.cancelDeal4OverTime();
+							//_this.cancelDeal4OverTime();
+							_this.$toast("交易已经超时，请点诉讼让客服取消交易");
 							return;
 						}
-						console.log('buy')
+						//console.log('buy')
 						let params = {
 							id: _this.id
 						}
@@ -1777,7 +1778,6 @@
 							if (res.code == _this.$api.CODE_OK) {
 								if(res.data){
 									_this.detail4sellerInfo = res.data;
-									console.log("_this.detail4sellerInfo.status",_this.detail4sellerInfo.status);
 									if(_this.detail4sellerInfo.status == 0){
 										Dialog.alert({
 										  title: '温馨提示',

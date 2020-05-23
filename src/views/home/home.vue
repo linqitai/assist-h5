@@ -528,7 +528,7 @@ $noticeHeight:40px;
 					<div class="infoBox">
 						<div>
 							<!-- @click="toFundPoolRecordView" -->
-							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童帮扶基金池</span><span class="yellow"> {{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
+							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童帮扶基金池</span><span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
 							<!-- <span class="margL10 underline" @click="addFundPoolBtn">我要捐赠</span> -->
 						</div>
 						<div class="placeholderLine10"></div>
@@ -1091,7 +1091,7 @@ $noticeHeight:40px;
 						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
 					}else{
-						_this.$toast(res.message);
+						//_this.$toast(res.message);
 					}
 				},function(){
 					_this.loading = false;
@@ -1162,7 +1162,7 @@ $noticeHeight:40px;
 						//实在显示首页的最新公告弹窗
 						_this.isShowLastNotice = true;
 					}else{
-						_this.$toast(res.message);
+						//_this.$toast(res.message);
 					}
 				})
 			},

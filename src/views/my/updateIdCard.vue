@@ -32,7 +32,7 @@
 			margin-top: $headerHeight;
 			background-color: $main-box-color;
 			.van-field__label{
-				width: 70px !important;
+				width: 100px !important;
 			}
 			/* .van-cell,.van-cell__value, .van-cell__value--alone, .van-field__control,.van-cell {
 			    color: $mainTextColor !important;
@@ -87,10 +87,15 @@
 			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
 			<!-- <div class="paddingWing tip4model3">当前拥有 帮扶券 {{userInfo.platformTicket.toFixed(2)}} 个</div>
 			<div class="placeholderLine10"></div> -->
+			
 			<van-cell-group>
+				<div v-if="thisUserInfo">
+					<van-field v-model="thisUserInfo.realName" label="姓名" />
+					<van-field v-model="thisUserInfo.idCard" label="旧的身份证号" />
+				</div>
 				<!-- <van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/> -->
 				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请填写他人的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
-				<van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写他人的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
+				<van-field v-model="form4AppointDeal.idCard" required clearable label="新的身份证号" placeholder="请填写他人的正确身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
 				<!-- <van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/> -->
 			</van-cell-group>
 			<!-- <div class="myCell">
@@ -143,6 +148,7 @@
 				totalItems: 10000,
 				userInfo:"",
 				loading:false,
+				thisUserInfo:''
 			}
 		},
 		components: {
@@ -181,6 +187,7 @@
 				}else if(key == 'mobilePhone'){
 					if(_this.$reg.phone2.test(_this.form4AppointDeal[key])){
 						_this.errorInfo4AppointDeal.mobilePhone = '';
+						_this.getUserInfo();
 					}else{
 						_this.errorInfo4AppointDeal.mobilePhone = "请正确粘贴对方的手机号";
 					}
@@ -197,6 +204,28 @@
 						_this.errorInfo4AppointDeal.safePassword = "安全密码不超过20位，由'字母或数字或._'组成";
 					}
 				}
+			},
+			getUserInfo() {
+				let _this = this;
+				let params = {
+					mobilePhone: _this.form4AppointDeal.mobilePhone
+				}
+				if(!_this.$reg.phone.test(params.mobilePhone)){
+					_this.$toast('手机号格式有误');
+					return;
+				}
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistUserInfoByPhone4Service, 'GET', params, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						_this.thisUserInfo = res.data;
+						//_this.$router.push({path:"my4Other",query:{lookUserId:res.data}});
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.loading = false;
+				})
 			},
 			submit(){
 				//console.log("submit");

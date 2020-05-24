@@ -108,6 +108,12 @@ export default new Router({
 					] */
 				},
 				{
+					path: '/raise4Other',
+					name: '帮扶筹',
+					component: resolve => require(['./views/raise/raise4Other'],resolve),
+					meta:{footer:true,keepAlive:true},
+				},
+				{
 					path: '/mill',
 					name: '矿机商城',
 					component: resolve => require(['./views/mill/mill'],resolve),
@@ -348,6 +354,12 @@ export default new Router({
 					path: '/ranking',
 					name: '排行榜',
 					component: resolve => require(['./views/home/ranking'],resolve),
+					meta:{footer:false},
+				},
+				{
+					path: '/ranking4Level',
+					name: '会长排行榜',
+					component: resolve => require(['./views/home/ranking4Level'],resolve),
 					meta:{footer:false},
 				},
 				{

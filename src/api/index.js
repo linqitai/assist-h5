@@ -52,6 +52,8 @@ export default {
 	register: host + 'assist/register/register',
 	innerRegister: host + 'assist/register/innerRegister',
 	//用户信息
+	getLevelRanking: host + "assist/statistics/getLevelRanking",
+	getAssistUserInfoByPhone4Service: host + "assist/userInfo/getAssistUserInfoByPhone4Service",
 	getNickNameByUserId: host + 'assist/userInfo/getNickNameByUserId',
 	getAssistAgentInfo4Province: host + 'assist/userInfo/getAssistAgentInfo4Province',
 	getAssistAgentInfo4City: host + 'assist/userInfo/getAssistAgentInfo4City',
@@ -229,6 +231,7 @@ export default {
 	getAssistRaiseRecordListPage: host + "assist/raise/getAssistRaiseRecordListPage",
 	getAssistRaiseRecordRanking: host + "assist/raise/getAssistRaiseRecordRanking",
 	getRaiseRanking: host + "assist/statistics/getRaiseRanking",
+	getAssistRaise: host + "assist/raise/getAssistRaise",
 	//fundPoolRecord
 	getAssistFundPoolRecord: host + "assist/fundpoolrecord/getAssistFundPoolRecord",
 	insertFundPoolRecord: host + "assist/fundpoolrecord/insertFundPoolRecord"

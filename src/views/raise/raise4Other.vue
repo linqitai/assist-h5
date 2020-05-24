@@ -675,7 +675,7 @@
 				_this.$router.replace('login');
 				return;
 			}
-			_this.getAssistRaiseListPage();
+			_this.getAssistRaise();
 		},
 		mounted() {
 			let _this = this;
@@ -763,7 +763,7 @@
 						_this.$toast("捐赠成功");
 						_this.word = '';
 						_this.number = '';
-						_this.getAssistRaiseListPage();
+						_this.getAssistRaise();
 						//_this.getAssistRaiseRecordListPage();
 					}else{
 						Dialog.alert({
@@ -819,17 +819,15 @@
 					_this.loading3 = false;
 				})
 			},
-			getAssistRaiseListPage(){
+			getAssistRaise(){
 				let _this = this;
 				let params = {
-					pageNo: _this.currentPage1,
-					pageSize: _this.pageSize,
-					isShow:1
+					id:_this.$route.query.id
 				}
 				_this.loading1 = true;
-				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistRaise, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						_this.list1 = res.data.list[0];
+						_this.list1 = res.data;
 						if(_this.list1){
 							//_this.images = _this.list1.pic.split('|');
 							_this.getAssistRaiseRecordListPage();

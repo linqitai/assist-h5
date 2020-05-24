@@ -596,13 +596,15 @@ $noticeHeight:40px;
 							<div class="text">服务商</div>
 						</router-link>
 					</div>
-					<div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground2">
-								<van-icon class-prefix="iconfont" name="merchant" />
+					<div class="infoBox">
+						<router-link to="/ranking4Level">
+							<div class="iconBox">
+								<div class="iconBackground iconBackground2">
+									<van-icon class-prefix="iconfont" name="merchant" />
+								</div>
 							</div>
-						</div>
-						<div class="text">工会会长</div>
+							<div class="text">工会会长</div>
+						</router-link>
 					</div>
 					<div class="infoBox">
 						<router-link to="/cService">

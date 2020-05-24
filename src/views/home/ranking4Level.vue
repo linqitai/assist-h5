@@ -619,9 +619,7 @@
 				})
 			},
 			onLoad5(){
-				//console.log('load5')
 				let _this = this;
-				// 异步更新数据
 				var params = {
 					pageNo: this.currentPage5,
 					pageSize: this.pageSize,

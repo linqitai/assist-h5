@@ -918,7 +918,7 @@ export default {
 				/* userId: _this.userInfo.userId, */
 				level: level
 			}
-			console.log('params',params);
+			//console.log('params',params);
 			_this.$ajax.ajax(url, 'POST', params, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){

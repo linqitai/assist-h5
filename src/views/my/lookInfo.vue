@@ -176,8 +176,11 @@
 		</m-header>
 		<div class="lookInfoPage">
 			<van-cell-group>
-				<van-field v-model="mobilePhone" clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11">
+				<van-field v-model="mobilePhone" clearable label="手机号" placeholder="请填写对方的手机号" maxlength="11">
 					<van-button slot="button" size="small" color="#ffae00" :loading="loading" @click="getUserInfo">查询</van-button>
+				</van-field>
+				<van-field v-model="nickName" clearable label="昵称" placeholder="请填写对方的昵称" maxlength="11">
+					<van-button slot="button" size="small" color="#ffae00" :loading="loading" @click="getUserInfoByNickName">查询</van-button>
 				</van-field>
 			</van-cell-group>
 			<div class="placeholderLine10"></div>
@@ -197,6 +200,7 @@
 				userId:"",
 				loading:false,
 				mobilePhone:'',
+				nickName:'',
 				thisUserInfo:"",
 				userFreezeInfo:""
 			}
@@ -237,6 +241,24 @@
 				}
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
+			},
+			getUserInfoByNickName(){
+				let _this = this;
+				let params = {
+					nickName: _this.nickName
+				}
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getUserIdByObj, 'GET', params, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						//_this.thisUserInfo = res.data;
+						_this.$router.push({path:"my4Other",query:{lookUserId:res.data}});
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.loading = false;
+				})
 			},
 			getUserInfo() {
 				let _this = this;

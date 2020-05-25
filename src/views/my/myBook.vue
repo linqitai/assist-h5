@@ -87,7 +87,8 @@
 							<div class="item" v-for="item in list4" :key="item.id">
 								<div class="flex">
 									<div class="line">{{item.createTime}}</div>
-									<div class="line margT6">{{item.type | platformBookType}}后拥有帮扶券数 {{item.currentTicketNum}}</div>
+									<!-- <div class="line margT6">从<i class="mainAdornColor">{{item.fromUserName}}</i>到<i class="mainAdornColor">{{item.toUserName}}</i></div> -->
+									<div class="line margT6">{{item.type | platformBookType}}<i class="mainAdornColor" v-if="item.type==7">给{{item.toUserName}}</i>后剩余 {{item.currentTicketNum}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.platformTicket}}</div>
 							</div>
@@ -113,6 +114,7 @@
 							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="flex">
 									<div class="line">{{item.createTime}}</div>
+									<div class="line margT6" v-if="item.type==2||item.type==3">从<i class="mainAdornColor">{{item.fromUserName}}</i>到<i class="mainAdornColor">{{item.toUserName}}</i></div>
 									<div class="line margT6">{{item.type | mineralBookType}}后拥有矿石数 {{item.currentMineralNum}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.number}}</div>

@@ -102,6 +102,9 @@
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="raiseApplyPage">
+			<div class="tip4model3 paddingAll myCell">
+				申请帮扶筹需要0.41G的个人算力，且少年儿童的求助会优先获得帮助，所提交申请的求助者且需要先经过线下家访，让志愿者与代理先去考察后才能公开求助信息。
+			</div>
 			<div class="myCell">
 				<van-field label="标题" required clearable @blur="validate('title')" v-model="form.title" maxlength="30" placeholder="请填写30字内的筹款标题" />
 			</div>

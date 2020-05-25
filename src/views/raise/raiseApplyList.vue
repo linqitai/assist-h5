@@ -71,7 +71,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				已审核通过 待帮扶列表
+				申请列表
 			</div>
 			<i class="iconfont iconfont-edit rightBox icon" @click="toApplyList"></i>
 		</m-header>
@@ -85,10 +85,10 @@
 						<div class="wordList">
 							<div class="item" v-for="item in list1" :key="item.id">
 								<!-- @click="toRaise4OtherView(item.id)" -->
-								<div class="itemLeft">
+								<div class="itemLeft" @click="toRaise4OtherView(item.id)">
 									<div class="title">
 										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}}</span>
-										<!-- <i class="iconfont iconfont-right-arrow2 f-11"></i> -->
+										<i class="iconfont iconfont-right-arrow2 f-11"></i>
 									</div>
 									<div class="remark margT3">{{item.title}}</div>
 									<div class="time margT3">{{item.createTime}}<i class="f-10 right">团队算力{{item.teamCalculationPower}}G</i></div>
@@ -97,7 +97,7 @@
 						</div>
 					</van-list>
 				</van-tab>
-				<van-tab title="排队中" name="onLoad2">
+				<van-tab title="拜访中" name="onLoad2">
 					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 						<div class="wordList">
 							<div class="item" v-for="item in list2" :key="item.id">
@@ -113,7 +113,7 @@
 						</div>
 					</van-list>
 				</van-tab>
-				<van-tab title="审核已通过" name="onLoad3">
+				<van-tab title="已审核" name="onLoad3">
 					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
 						<div class="wordList">
 							<div class="item" v-for="item in list3" :key="item.id">

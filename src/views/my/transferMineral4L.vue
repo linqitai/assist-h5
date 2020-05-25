@@ -207,7 +207,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.curerntPlatformPrice = res.data.currentPlatformPrice;
 						_this.maxPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)*1.3).toFixed(2);
-						_this.maxAddPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+1)).toFixed(2);
+						_this.maxAddPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+2)).toFixed(2);
 					}
 				})
 			},
@@ -228,7 +228,7 @@
 					if(price>=maxAddPrice&&price<=maxPrice){
 						_this.errorInfo4AppointDeal.price = '';
 					}else if(price>maxPrice || price<maxAddPrice){
-						_this.errorInfo4AppointDeal.price = `定向交易价格暂时控制在${_this.maxAddPrice}~${_this.maxPrice}CNY`;
+						_this.errorInfo4AppointDeal.price = `今日定向交易价格暂时控制在${_this.maxAddPrice}~${_this.maxPrice}CNY`;
 					}
 				}else if(key == 'assurePrice') {
 					let totalPrice = parseFloat(_this.form4AppointDeal[key]);

@@ -642,16 +642,7 @@
 				totalItems3:0,
 				showImagePreview: false,
 				imageIndex: 0,
-				images: [
-					'https://www.assist-china.com.cn/image/raise101.jpg',
-					'https://www.assist-china.com.cn/image/raise102.jpg',
-					'https://www.assist-china.com.cn/image/raise103.jpg',
-					'https://www.assist-china.com.cn/image/raise104.jpg',
-					'https://www.assist-china.com.cn/image/raise1051.jpg',
-					'https://www.assist-china.com.cn/image/raise106.jpg',
-					'https://www.assist-china.com.cn/image/raise107.jpg',
-					'https://www.assist-china.com.cn/image/raise108.jpg'
-				],
+				images: [],
 				loadingRecordsList:false,
 				finishedRecordsList:false,
 				num:0,
@@ -829,6 +820,14 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data;
 						if(_this.list1){
+							_this.images=[
+								'https://www.helpchain.online/image/raise/' + _this.list1.id + '001.jpg',
+								'https://www.helpchain.online/image/raise/' + _this.list1.id + '002.jpg',
+								'https://www.helpchain.online/image/raise/' + _this.list1.id + '003.jpg',
+								'https://www.helpchain.online/image/raise/' + _this.list1.id + '004.jpg',
+								'https://www.helpchain.online/image/raise/' + _this.list1.id + '005.jpg',
+								'https://www.helpchain.online/image/raise/' + _this.list1.id + '006.jpg'
+							];
 							//_this.images = _this.list1.pic.split('|');
 							_this.getAssistRaiseRecordListPage();
 						}else{

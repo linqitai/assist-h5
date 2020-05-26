@@ -135,6 +135,7 @@ export default {
 	getAssistMyMachineNum: host + "assist/myMachine/getAssistMyMachineNum",
 	getActivityMachineInventory: host + "assist/myMachine/getActivityMachineInventory",
 	getMyActivityMachineNum: host + "assist/myMachine/getMyActivityMachineNum",
+	let48HMachinesStop: host + "assist/myMachine/let48HMachinesStop",
 	//算力账本列表
 	getCalculationPowerPageList: host + "assist/calculationPower/getCalculationPowerPageList",
 	//矿石账本列表

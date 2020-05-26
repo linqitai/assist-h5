@@ -215,6 +215,25 @@
 					console.log("res.code",res.code);
 				})
 			},
+			let48HMachinesStop(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.let48HMachinesStop, 'POST', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
+						if(res.data == 1){
+							//_this.$toast(res.message);
+							Dialog.alert({
+							  title: '系统提示',
+							  message: '您有矿机超过48小时未领取，上次领取时间已经被系统自动设置成[当前时间]，且矿机的开启时间和截止时间都自动延后了[当前时间-上次领取时间或开机时间]，超过48小时没领取的矿机需再过24~48小时才能领取，请及时关注HPC帮扶链的发展，且下次及时领取，谢谢。'
+							}).then(() => {
+							  // on close
+							  _this.$router.replace("/home");
+							});
+						}else{
+							_this.$router.replace("/home");
+						}
+					}
+				})
+			},
 			getAssistMaintainInfo(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getAssistMaintainInfo, 'POST', null, function(res) {
@@ -357,12 +376,12 @@
 						//登录后手机号缓存到本地，每次登录免得继续输入手机号，提高用户体验
 						localStorage.setItem('_USERINFO_',JSON.stringify(_this.userInfo));
 						localStorage.setItem('mobilePhone',_this.userInfo.mobilePhone);
+						_this.getMyPastMachinesReceipt();
 						if(_this.userInfo.accountStatus == 1){
 							_this.getUserFreezeInfo();
 						}else{
-							_this.$router.replace("/home");
+							_this.let48HMachinesStop();
 						}
-						_this.getMyPastMachinesReceipt();
 					}else{
 						Dialog.alert({
 						  title: '系统提示',

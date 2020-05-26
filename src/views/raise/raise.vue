@@ -439,9 +439,9 @@
 							<div class="title2">求助者手机号：{{list1.mobilePhone}} <span @click="handleCopy(list1.mobilePhone,$event)">复制</span></div>
 							<div class="title2">求助者微信：{{list1.wechartNum}} <span @click="handleCopy(list1.wechartNum,$event)">复制</span></div>
 							<div class="title2">求助者支付宝：{{list1.alipayNum}} <span @click="handleCopy(list1.alipayNum,$event)">复制</span></div>
-							<div class="contentText1 justify">
+							<!-- <div class="contentText1 justify">
 								该求助信息不属于慈善公开募捐，真实性由求助者个人负责，帮扶筹提示您加求助者微信了解详情后再进行帮扶。
-							</div>
+							</div> -->
 						</div>
 						<!-- <div class="knowMore">
 							了解更多求助人信息

@@ -434,7 +434,7 @@
 				  @click-right-icon="alertTip(clickIconTip.buyAmount)"
 				  @blur="validate4BuyBill('buyAmount')"
 				  :error-message="errorInfo4BuyBill.buyAmount"/>
-				<van-field v-model="form4BuyBill.buyLowestAmount" type="number" required clearable label="最低匹配数量" right-icon="question-o" placeholder="请填写允许被匹配的最低数量"
+				<van-field v-model="form4BuyBill.buyLowestAmount" type="number" required clearable label="最低匹配数量" right-icon="question-o" :placeholder="buyLowestAmountText"
 				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
 				@blur="validate4BuyBill('buyLowestAmount')"
 				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
@@ -512,7 +512,7 @@ export default {
 			//挂买单
 			form4BuyBill:{
 				buyAmount:"",
-				buyLowestAmount:1,
+				buyLowestAmount:"",
 				price:"",
 				safePassword:"",
 			},
@@ -599,7 +599,8 @@ export default {
 			transactionVo4BuyerTip:"",
 			loading4Buy:false,
 			pages:0,
-			pagesPlatPrice:0
+			pagesPlatPrice:0,
+			buyLowestAmountText:"最低匹配数量请填写1~300之间"
 		}
 	},  
 	components:{
@@ -815,7 +816,7 @@ export default {
 				univalence:_this.$reg.univalenceHint,
 				blockAddress:_this.$reg.block_addressHint,
 				buyAmount:_this.$reg.positive_integerHint4BuyBill,
-				buyLowestAmount:"允许被他人匹配的最低数量",
+				buyLowestAmount:"最低匹配数量请填写1~500之间",
 				price:"请填写想要买入的单价",
 				platformUnivalence:"请按平台指导价挂单",
 				serviceCharge:"请先选择服务费",
@@ -1331,7 +1332,7 @@ export default {
 				// _this.$toast('想买数量和最低匹配数量填写反了');
 				Dialog.alert({
 				  title: '系统提示',
-				  message: `想买数量:${params.maxNumber}？最低匹配数量:${params.minNumber}?是否填写反了？`
+				  message: `想买数量${params.maxNumber},最低匹配数量${params.minNumber}?请检查是否填写反了，需修正。`
 				}).then(() => {
 				  // on close
 				});
@@ -1396,10 +1397,10 @@ export default {
 			}else if(key == 'buyLowestAmount') {
 				let thisLowestNum = Number(_this.form4BuyBill[key]);
 				if(_this.$reg.positive_integer.test(thisLowestNum)){
-					if(thisLowestNum>=1&&thisLowestNum<=200){
+					if(thisLowestNum>=1&&thisLowestNum<=300){
 						_this.errorInfo4BuyBill.buyLowestAmount = '';
 					}else{
-						_this.errorInfo4BuyBill.buyLowestAmount = `最低匹配数量请填写1~200之间`;
+						_this.errorInfo4BuyBill.buyLowestAmount = _this.buyLowestAmountText;
 					}
 				}else{
 					_this.errorInfo4BuyBill.buyAmount = `请填写正整数`;

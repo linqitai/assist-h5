@@ -89,7 +89,8 @@
 			<div class="text">
 				帮扶基金池账本
 			</div>
-			<i class="rightBox icon"></i>
+			<i class="rightBox icon" v-if="userInfo.userId != 'en15079AQ107o91Y7217'"></i>
+			<i class="iconfont iconfont-transfer-out rightBox icon" v-if="userInfo.userId == 'en15079AQ107o91Y7217'" @click="toTransferView"></i>
 		</m-header>
 		<div class="myBookTabs">
 			<!-- <van-search
@@ -102,68 +103,75 @@
 			  <div slot="action" @click="onSearch">搜索</div>
 			</van-search> -->
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-				<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
-					 <div class="list">
-						<div class="item" v-for="item in list1" :key="item.id">
-							<div class="flex">
-								<div class="line">{{item.createTime}}</div>
-								 <!-- @click="toMy4OtherView(item.fromUserId)" -->
-								<div class="line margT6">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromNickName}}</i></span>
-									<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
-								</div>
-								<div class="line margT6">
-									<!-- >0?'+'+item.num:item.num -->
-									<i class="textAdornColor">{{item.remark}}</i><i :class="item.type==0?'green':'red'">{{item.type==0?'存入':'转出'}}</i><i class="textAdornColor">{{item.num}}个</i>
-								</div>
-								<!-- @click="toMy4OtherView(item.toUserId)" -->
-								<!-- <div class="line margT6">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toNickName}}</i></span>
-								</div> -->
-								<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
-							</div>
-							<div class="flexRight2">当前基金池<span class="textAdornColor">{{item.currentNum}}</span>个券</div>
-							<!-- <div class="flexRight3">
-								<i class="iconfont iconfont-right-arrow2"  @click="toMy4OtherView(item.fromUserId)"></i>
-							</div> -->
-						</div>
-					 </div>
-				</van-list>
-				<!-- <van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
-					 <div class="list">
-						<div class="item" v-for="item in list1" :key="item.id">
-							<div class="flex">
-								<div class="line">{{item.createTime | getDateTime}}</div>
-								<div class="line margT6">
-									<span class="ellipsis userIdSpan" @click="toBookView(2,item.fromUserId)">{{item.fromUserId}}</span>
-									<i class="iconfont iconfont-arrow-to"></i>
-									<span class="ellipsis userIdSpan" @click="toBookView(2,item.toUserId)">{{item.toUserId}}</span>
-								</div>
-							</div>
-							<div class="flexRight">{{item.number}}</div>
-						</div>
-					 </div>
-				</van-list> -->
-				<!-- <van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-				 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
-					<van-tab title="矿石" name="mineral">
+				<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
+					<van-tab title="存入" name="in">
 						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
-						<div class="list">
-							<div class="item" v-for="item in list1" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime | getDateTime}}</div>
-									<div class="line margT6">
-										<span class="ellipsis userIdSpan" @click="toBookView(2,item.fromUserId)">{{item.fromUserId}}</span>
-										<i class="iconfont iconfont-arrow-to"></i>
-										<span class="ellipsis userIdSpan" @click="toBookView(2,item.toUserId)">{{item.toUserId}}</span>
+							 <div class="list">
+								<div class="item" v-for="item in list1" :key="item.id">
+									<div class="flex">
+										<div class="line">{{item.createTime}}</div>
+										 <!-- @click="toMy4OtherView(item.fromUserId)" -->
+										<div class="line margT6">
+											<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromNickName}}</i></span>
+											<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
+										</div>
+										<div class="line margT6">
+											<!-- >0?'+'+item.num:item.num -->
+											<i class="textAdornColor">{{item.remark}}</i><i :class="item.type==0?'green':'red'">{{item.type==0?'存入':'转出'}}</i><i class="textAdornColor">{{item.num}}个</i>
+										</div>
+										<!-- @click="toMy4OtherView(item.toUserId)" -->
+										<!-- <div class="line margT6">
+											<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toNickName}}</i></span>
+										</div> -->
+										<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
 									</div>
+									<div class="flexRight2">
+										<div>当前基金池</div>
+										<div class="margT10">
+											<span class="textAdornColor">{{item.currentNum}}</span>个券
+										</div>
+									</div>
+									<!-- <div class="flexRight3">
+										<i class="iconfont iconfont-right-arrow2"  @click="toMy4OtherView(item.fromUserId)"></i>
+									</div> -->
 								</div>
-								<div class="flexRight">{{item.number}}</div>
-							</div>
-						</div>
+							 </div>
 						</van-list>
 					</van-tab>
-				</van-tabs> -->
+					<van-tab title="转出" name="out">
+						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
+							 <div class="list">
+								<div class="item" v-for="item in list2" :key="item.id">
+									<div class="flex">
+										<div class="line">{{item.createTime}}</div>
+										 <!-- @click="toMy4OtherView(item.fromUserId)" -->
+										<div class="line margT6">
+											<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromNickName}}</i></span>
+											<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
+										</div>
+										<div class="line margT6">
+											<!-- >0?'+'+item.num:item.num -->
+											<i class="textAdornColor">{{item.remark}}</i><i :class="item.type==0?'green':'red'">{{item.type==0?'存入':'转出'}}</i><i class="textAdornColor">{{item.num}}个</i>给											
+										</div>
+										<!-- @click="toMy4OtherView(item.toUserId)" -->
+										<div class="line margT6">
+											<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toNickName}}</i></span>
+										</div>
+										<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
+									</div>
+									<div class="flexRight2">
+										<div>此刻转出后基金池</div>
+										<div class="margT10">存有<span class="textAdornColor">{{item.currentNum}}</span>个券</div>
+									</div>
+									<!-- <div class="flexRight3">
+										<i class="iconfont iconfont-right-arrow2"  @click="toMy4OtherView(item.fromUserId)"></i>
+									</div> -->
+								</div>
+							 </div>
+						</van-list>
+					</van-tab>
+				</van-tabs>
 			</van-pull-refresh>
 		</div>
 		<!-- </van-pull-refresh> -->
@@ -215,25 +223,32 @@
 					addOrReduce:'+',
 					number:'20'
 				}],
-				manTypeList:['158Xy2r123W5140Z5n28','l1582p59551N0O6058L4','15483b1u5523T21d1u77','Z15L873r23p6082t1665','15M8n39064y6G10y4067','1Iu5783Zs1564L891731','158L2o9e5A79D504N753','Z1583E14d6E7A5j71o29']
+				userInfo:''
 			}
 		},
 		components: {
 			mHeader,mRefresh
 		},
-		create() {
+		created() {
 			this.toScrollTop();
-			//console.log("inArray:",_this.utils.inArray('a',['a','b']));
-		},
-		mounted() {
 			let _this = this;
-			// _this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
-			if (_this.$cookies.isKey("tab_name_dealRecord")) {
-				_this.activeName = _this.$cookies.get("tab_name_dealRecord");
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				_this.userInfo = JSON.parse(userInfo);
+				_this.userId = _this.userInfo.userId;
+				if(_this.userInfo.accountStatus==1){
+					//退出登录
+					_this.logout();
+				}
 			}else{
-				_this.activeName = "mineral";
+				/* localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token'); */
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
 			}
-			//console.log("inArray:",_this.$utils.inArray('c',['a','b']));
+			//console.log("inArray:",_this.utils.inArray('a',['a','b']));
 		},
 		methods: {
 			back(){
@@ -256,6 +271,11 @@
 				//console.log('userIdInDealRecolod:',userId);
 				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
 			},
+			toTransferView(userId){
+				let _this = this;
+				//console.log('userIdInDealRecolod:',userId);
+				_this.$router.push('transferFundPoolTicket');
+			},
 			toBookView(val,userId){
 				let _this = this;
 				let name = 'mineral';
@@ -277,14 +297,15 @@
 			},
 			tabChange(name, title) {
 				let _this = this;
-				this.$cookies.set("tab_name_dealRecord", name, _this.$api.cookiesTime)
+				//this.$cookies.set("tab_name_dealRecord", name, _this.$api.cookiesTime)
 			},
 			onLoad1(){
 				//console.log('load1 getMineralBookList4SellType')
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,
-					pageSize: _this.pageSize
+					pageSize: _this.pageSize,
+					type:0
 				}
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getAssistFundPoolRecord, 'GET', params, function(res) {
@@ -309,6 +330,41 @@
 						_this.loading1 = false;
 						_this.finished1 = true;
 						_this.list1 = [];
+						_this.$toast(res.message);
+					}
+				})
+			},
+			onLoad2(){
+				//console.log('load1 getMineralBookList4SellType')
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage2,
+					pageSize: _this.pageSize,
+					type:1
+				}
+				_this.loading2 = true;
+				_this.$ajax.ajax(_this.$api.getAssistFundPoolRecord, 'GET', params, function(res) {
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						/* list = list.filter((item)=>{
+							let b = _this.$utils.inArray(item.fromUserId,_this.manTypeList);
+							if(b==false){
+								b = _this.$utils.inArray(item.toUserId,_this.manTypeList);
+							}
+							return b==false;
+						}); */
+						_this.list2.push(...list);
+						_this.loading1 = false;
+						if(res.data.endRow == res.data.total){
+							_this.finished2 = true;
+						}else{
+							_this.currentPage2 = _this.currentPage2 + 1;
+						}
+					}else{
+						_this.loading2 = false;
+						_this.finished2 = true;
+						_this.list2 = [];
 						_this.$toast(res.message);
 					}
 				})

@@ -302,7 +302,7 @@
 					{ text: '小型矿机', value: 2 },
 					{ text: '中型矿机', value: 3 },
 					{ text: '大型矿机', value: 4 },
-					{ text: '巨型矿机', value: 5 }
+					{ text: '晋级矿机', value: 6 }
 				],
 				option2: [
 					{ text: '最近7天', value: 7 },

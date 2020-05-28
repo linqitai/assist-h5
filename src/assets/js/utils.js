@@ -43,6 +43,9 @@ function hasNull(params) {
 	for (var i = 0; i < keys.length; i++) {
 		var obj = params[keys[i]];
 		// console.log(keys[i],obj,obj == "")
+		if(obj===0){
+			return false;
+		}
 		if (obj == null || obj === "" || obj == undefined) {
 			return true;
 		}

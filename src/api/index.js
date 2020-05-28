@@ -136,6 +136,7 @@ export default {
 	getActivityMachineInventory: host + "assist/myMachine/getActivityMachineInventory",
 	getMyActivityMachineNum: host + "assist/myMachine/getMyActivityMachineNum",
 	let48HMachinesStop: host + "assist/myMachine/let48HMachinesStop",
+	getAssistOtherMachine: host + "assist/myMachine/getAssistOtherMachine",
 	//算力账本列表
 	getCalculationPowerPageList: host + "assist/calculationPower/getCalculationPowerPageList",
 	//矿石账本列表
@@ -235,5 +236,6 @@ export default {
 	getAssistRaise: host + "assist/raise/getAssistRaise",
 	//fundPoolRecord
 	getAssistFundPoolRecord: host + "assist/fundpoolrecord/getAssistFundPoolRecord",
-	insertFundPoolRecord: host + "assist/fundpoolrecord/insertFundPoolRecord"
+	insertFundPoolRecord: host + "assist/fundpoolrecord/insertFundPoolRecord",
+	outFundPoolRecord: host + "assist/fundpoolrecord/outFundPoolRecord"
 }

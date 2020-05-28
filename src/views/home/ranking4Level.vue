@@ -147,7 +147,7 @@
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 					
-					<van-tab title="青铜会长" name="ranking1">
+					<van-tab :title="'青铜'+total1" name="ranking1">
 						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 							<div class="list" v-for="(item,index) in list1" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -172,7 +172,7 @@
 						</van-list>
 					</van-tab>
 					
-					<van-tab title="白银会长" name="ranking2">
+					<van-tab :title="'白银'+total2" name="ranking2">
 						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 							<div class="list" v-for="(item,index) in list2" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -190,7 +190,7 @@
 						</van-list>
 					</van-tab>
 				
-					<van-tab title="黄金会长" name="ranking3">
+					<van-tab :title="'黄金'+total3" name="ranking3">
 						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
 							<div class="list" v-for="(item,index) in list3" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -208,7 +208,7 @@
 						</van-list>
 					</van-tab>
 					
-					<van-tab title="铂金会长" name="ranking4">
+					<van-tab :title="'铂金'+total4" name="ranking4">
 						<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 							<div class="list" v-for="(item,index) in list4" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -226,7 +226,7 @@
 						</van-list>
 					</van-tab>
 					
-					<van-tab title="钻石会长" name="ranking5">
+					<van-tab :title="'钻石'+total5" name="ranking5">
 						<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
 							<div class="list" v-for="(item,index) in list5" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -257,6 +257,11 @@
 	export default {
 		data() {
 			return {
+				total1:'',
+				total2:'',
+				total3:'',
+				total4:'',
+				total5:'',
 				loading:false,
 				currentPage1: 1,
 				list1:[],
@@ -505,6 +510,7 @@
 				_this.$ajax.ajax(_this.$api.getLevelRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
+						_this.total1 = res.data.total;
 						_this.list1.push(...list);
 						/* _this.list1 = res.data.list; */
 						_this.loading1 = false;
@@ -536,6 +542,7 @@
 				_this.$ajax.ajax(_this.$api.getLevelRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
+						_this.total2 = res.data.total;
 						_this.list2.push(...list);
 						/* _this.list2 = res.data.list; */
 						_this.loading2 = false;
@@ -568,6 +575,7 @@
 				_this.$ajax.ajax(_this.$api.getLevelRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
+						_this.total3 = res.data.total;
 						_this.list3.push(...list);
 						/* _this.list3 = res.data.list; */
 						_this.loading3 = false;
@@ -600,6 +608,7 @@
 				_this.$ajax.ajax(_this.$api.getLevelRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
+						_this.total4 = res.data.total;
 						_this.list4.push(...list);
 						/* _this.list4 = res.data.list; */
 						_this.loading4 = false;
@@ -630,6 +639,7 @@
 				_this.$ajax.ajax(_this.$api.getLevelRanking, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
+						_this.total5 = res.data.total;
 						_this.list5.push(...list);
 						// _this.list5 = res.data.list;
 						_this.loading5 = false;

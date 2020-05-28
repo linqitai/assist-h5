@@ -147,9 +147,10 @@
 					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
 						<div class="wordList">
 							<div class="item" v-for="item in list5" :key="item.id">
-								<div class="itemLeft">
+								<div class="itemLeft" @click="toRaise4OtherView(item.id)">
 									<div class="title">
 										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}}</span>
+										<i class="iconfont iconfont-right-arrow2 f-11"></i>
 									</div>
 									<div class="remark margT3">{{item.title}}</div>
 									<div class="time margT3">{{item.createTime}}<i class="f-10 right">团队算力{{item.teamCalculationPower}}G</i></div>
@@ -179,7 +180,7 @@
 				currentPage2: 1,
 				currentPage3: 1,
 				currentPage4: 1,
-				currentPage5: 5,
+				currentPage5: 1,
 				activeName:'onLoad1',
 				loading1:false,
 				finished1:false,

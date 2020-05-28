@@ -314,7 +314,7 @@
 <template>
 	<div class="raise">
 		<m-header>
-			<!-- <i class="leftBox iconfont iconfont-left-arrow" @click="back"></i> -->
+			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<i class="leftBox iconfont"></i>
 			<div class="text">
 				帮扶筹
@@ -332,10 +332,9 @@
 				<div class="iconTextBox">
 					<i class="iconfont iconfont-love2 leftIcon"></i>
 					<div class="iconText">爱心·水滴·帮扶筹</div>
-					<div class="rightBox unSelect">
-						<!-- to="raiseApplyList" -->
+					<!-- <div class="rightBox unSelect">
 						<van-button type="primary" size="small" :block="true" to="raiseApplyList">申请帮扶筹</van-button>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<!-- <div v-if="!list1">
@@ -363,7 +362,7 @@
 					<div class="box box2">
 						<van-skeleton :row="2" :loading="loading">
 						<div class="flexC flex1">
-							<div class="digit">{{list1.needTicket}}</div>
+							<div class="digit">{{list1.needTicket}}+</div>
 							<div class="text">需要帮扶券</div>
 						</div>
 						<div class="flexC flex2">
@@ -675,7 +674,8 @@
 		methods:{
 			back(){
 				let _this = this;
-				_this.$router.push("/raise")
+				_this.$router.go(-1);
+				//_this.$router.push("/raise")
 			},
 			handleCopy(text, event) {
 				let _this = this;
@@ -775,7 +775,8 @@
 				let params = {
 					pageNo: _this.currentPage2,
 					pageSize: _this.pageSize2,
-					raiseId:_this.list1.id
+					raiseId:_this.list1.id,
+					type:1
 				}
 				_this.loading2 = true;
 				_this.$ajax.ajax(_this.$api.getAssistRaiseRecordListPage, 'GET', params, function(res) {
@@ -820,14 +821,14 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data;
 						if(_this.list1){
-							_this.images=[
-								'https://www.helpchain.online/image/raise/' + _this.list1.id + '001.jpg',
-								'https://www.helpchain.online/image/raise/' + _this.list1.id + '002.jpg',
-								'https://www.helpchain.online/image/raise/' + _this.list1.id + '003.jpg',
-								'https://www.helpchain.online/image/raise/' + _this.list1.id + '004.jpg',
-								'https://www.helpchain.online/image/raise/' + _this.list1.id + '005.jpg',
-								'https://www.helpchain.online/image/raise/' + _this.list1.id + '006.jpg'
-							];
+							let picNum = _this.list1.picNum;
+							let id = _this.list1.id;
+							let images = [];
+							for(let i=0;i<picNum;i++){
+								let item = 'https://www.helpchain.online/image/raise/' + id + '00'+ (i+1) +'.jpg';
+								images.push(item);
+							}
+							_this.images=images;
 							//_this.images = _this.list1.pic.split('|');
 							_this.getAssistRaiseRecordListPage();
 						}else{

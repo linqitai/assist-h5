@@ -252,6 +252,9 @@
 					</div>
 					<div class="line"><span @click="toBookView('3',userInfo.userId)">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
 					<div class="line"><span>爱心值 {{userInfo.raiseNum}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
+					<div class="line">
+						<i class="underline" @click="toMachineView(userInfo.userId)">查看TA的矿机</i>
+					</div>
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
@@ -536,8 +539,9 @@
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
-			toMyInfo(){
-				this.$router.push('/myInfo');
+			toMachineView(userId){
+				let _this = this;
+				_this.$router.push({path:"myMill4Other",query:{lookUserId:userId}})
 			},
 			logout(){
 				let _this = this;

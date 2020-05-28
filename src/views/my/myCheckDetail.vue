@@ -215,7 +215,7 @@
 			  <div class="placeholderLine4"></div>
 			  <van-radio name="纸条上写的手机号和注册手机号不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">纸条上写的手机号和注册手机号不一致</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="图一请上传支付宝个人主页截图。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">图一请上传支付宝个人主页截图</van-radio>
+			  <van-radio name="图一请上传支付宝个人信息页面或个人主页的截图。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">图一请上传支付宝个人信息页面或个人主页的截图</van-radio>
 			  <div class="placeholderLine4"></div>
 			  <van-radio name="身份证里的名字与支付宝实名不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">身份证里的名字与支付宝实名不一致</van-radio>
 			  <div class="placeholderLine4"></div>

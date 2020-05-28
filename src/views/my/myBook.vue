@@ -88,7 +88,7 @@
 								<div class="flex">
 									<div class="line">{{item.createTime}}</div>
 									<!-- <div class="line margT6">从<i class="mainAdornColor">{{item.fromUserName}}</i>到<i class="mainAdornColor">{{item.toUserName}}</i></div> -->
-									<div class="line margT6">{{item.type | platformBookType}}<i class="mainAdornColor" v-if="item.type==7">给{{item.toUserName}}</i>后剩余 {{item.currentTicketNum}}</div>
+									<div class="line margT6">{{item.type | platformBookType}}<i class="mainAdornColor" v-if="item.type==7">给{{item.toUserName}}</i>后拥有券 {{item.currentTicketNum}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.platformTicket}}</div>
 							</div>

@@ -86,6 +86,12 @@ export default new Router({
 							component: resolve => require(['./views/home/fundPoolRecord'],resolve),
 							meta:{footer:false,keepAlive:true},
 						},
+						{
+							path: '/transferFundPoolTicket',
+							name: '帮扶基金池转出操作',
+							component: resolve => require(['./views/home/transferFundPoolTicket'],resolve),
+							meta:{footer:false,keepAlive:true},
+						}
 					]
 				},
 				{
@@ -310,6 +316,12 @@ export default new Router({
 					path: '/myMill',
 					name: '我的矿机',
 					component: resolve => require(['./views/my/myMill'],resolve),
+					meta:{footer:false},
+				},
+				{
+					path: '/myMill4Other',
+					name: 'TA的矿机',
+					component: resolve => require(['./views/my/myMill4Other'],resolve),
 					meta:{footer:false},
 				},
 				{

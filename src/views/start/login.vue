@@ -223,7 +223,7 @@
 							//_this.$toast(res.message);
 							Dialog.alert({
 							  title: '系统提示',
-							  message: '您有矿机超过48小时未领取，上次领取时间已经被系统自动设置成[当前时间]，且矿机的开启时间和截止时间都自动延后了[当前时间-上次领取时间或开机时间]，超过48小时没领取的矿机需再过24~48小时才能领取。'
+							  message: '您有矿机超过48小时未领取，上次领取时间已经被系统自动设置成[当前时间]，且矿机的开启时间和截止时间都自动延后了[当前时间-上次领取时间或开机时间]，但总产不变，再过24小时后48小时内再领取又会有收益。请广大会员们在24~48小时内领取一次收益，感谢您的配合。'
 							}).then(() => {
 							  // on close
 							  _this.$router.replace("/home");
@@ -380,8 +380,8 @@
 						if(_this.userInfo.accountStatus == 1){
 							_this.getUserFreezeInfo();
 						}else{
-							_this.$router.replace("/home");
-							//_this.let48HMachinesStop();
+							//_this.$router.replace("/home");
+							_this.let48HMachinesStop();
 						}
 					}else{
 						Dialog.alert({

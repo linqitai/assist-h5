@@ -16,11 +16,12 @@
 		}
 		.millContent{
 			color: $main-box-fh-text-color;
-			//min-height: 100%;
-			min-height: 1600px;
+			min-height: 100%;
+			//min-height: 1600px;
 			position: absolute;
 			top:0;
 			width: 100%;
+			background-color: $main-box-fh-bg-color;
 			.van-list__finished-text{
 				color: inherit !important;
 			}
@@ -49,7 +50,7 @@
 				}
 			}
 			.millList{
-				// background-color: $main-box-fh-bg-color;
+				background-color: $main-box-fh-bg-color;
 				//margin-top: $marginTop2;
 				overflow: hidden;
 				height: 100%;
@@ -61,6 +62,7 @@
 					align-items: center;
 					align-content: center;
 					justify-content: center;
+					background-color: $main-box-fh-bg-color;
 					&::last-child{
 						border-bottom:1px solid transparent;
 					}

@@ -476,15 +476,20 @@ $noticeHeight:40px;
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent" v-if="$route.meta.footer">
 			<div class="HomeContent">
 				<div class="swipe">
-					<!-- <van-swipe :autoplay="3000" style="height: 190px;">
+					<!-- <van-swipe :autoplay="3000" style="height: 190px;" @change="onChange4Swipe">
 					  <van-swipe-item v-for="(item, index) in noticeList4Swipe" :key="index">
 						<img :src="item.imgUrl" v-lazy="item.imgUrl"/>
 					  </van-swipe-item>
 					</van-swipe> -->
-					<van-swipe :autoplay="3000" style="height: 190px;" vertical>
+					<van-swipe :autoplay="3000" style="height: 190px;" :lazy-render="true">
 					  <van-swipe-item v-for="(image, index) in images" :key="index">
 						<img v-lazy="image" />
 					  </van-swipe-item>
+					  <!-- <template #indicator>
+					      <div class="custom-indicator">
+					        {{ currentImage + 1 }}/4
+					      </div>
+					    </template> -->
 					</van-swipe>
 				</div>
 				<div class="notice">
@@ -688,10 +693,16 @@ $noticeHeight:40px;
 				currentPage:1,
 				pageSize:3,
 				images: [
-					'https://www.helpchain.online/image/banner1.jpg',
-					'https://www.helpchain.online/image/banner2.jpg',
-					'https://www.helpchain.online/image/banner3.jpg',
-					'https://www.helpchain.online/image/banner4.jpg',
+					'https://www.helpchain.online/image/banner/banner1.jpg',
+					'https://www.helpchain.online/image/banner/banner001.jpg',
+					'https://www.helpchain.online/image/banner/banner2.jpg',
+					'https://www.helpchain.online/image/banner/banner002.jpg',
+					'https://www.helpchain.online/image/banner/banner3.jpg',
+					'https://www.helpchain.online/image/banner/banner003.jpg',
+					'https://www.helpchain.online/image/banner/banner4.jpg',
+					'https://www.helpchain.online/image/banner/banner004.jpg',
+					'https://www.helpchain.online/image/banner/banner005.jpg',
+					'https://www.helpchain.online/image/banner/banner006.jpg',
 				],
 				mill: {
 					zl: "",
@@ -714,8 +725,8 @@ $noticeHeight:40px;
 				loading4Raise:false,
 				form4FundPool:{
 					raiseNum:""
-				}
-				
+				},
+				currentImage:0
 			}
 		},
 		mounted() {
@@ -788,6 +799,9 @@ $noticeHeight:40px;
 		methods: {
 			toServicePage(){
 				this.$router.push('cService');
+			},
+			onChange4Swipe(index){
+				this.currentImage = index;
 			},
 			getAssistQQFlock(){
 				let _this = this;

@@ -800,8 +800,8 @@
 					_this.$toast(`请填写正整数的矿石`);
 					return;
 				}
-				if(_this.userInfo.thisWeekMineral<_this.num*1.1){
-					_this.$toast(`您所拥有的矿石扣除10%手续费后不够${_this.num}个，请调整数量`);
+				if(_this.userInfo.thisWeekMineral<_this.num){
+					_this.$toast(`您所拥有的矿石扣不够${_this.num}个，请调整数量`);
 					return;
 				}
 				_this.getNumberLoading = true;

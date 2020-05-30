@@ -393,6 +393,12 @@ export default new Router({
 					meta:{footer:false,back:true,question:false},
 				},
 				{
+					path: '/votePublish',
+					name: '发布投票',
+					component: resolve => require(['./views/home/votePublish'],resolve),
+					meta:{footer:false,back:true,question:false},
+				},
+				{
 					path: '/voteDetail',
 					name: '投票详情',
 					component: resolve => require(['./views/home/voteDetail'],resolve),

@@ -703,7 +703,7 @@ export default {
 					_this.errorInfo.nickName = _this.errorHint.nickName;
 				}
 			}else if(key == 'telPhone'){
-				if(_this.$reg.phone.test(_this.form.telPhone)){
+				if(_this.$reg.phone2.test(_this.form.telPhone)){
 					_this.errorInfo.telPhone = ''
 				}else{
 					_this.errorInfo.telPhone = _this.errorHint.telPhone;

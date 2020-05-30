@@ -212,7 +212,7 @@
 			getMyPastMachinesReceipt(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getMyPastMachinesReceipt, 'POST', null, function(res) {
-					console.log("res.code",res.code);
+					//console.log("res.code",res.code);
 				})
 			},
 			let48HMachinesStop(){
@@ -226,9 +226,11 @@
 							  message: '您有矿机超过48小时未领取，上次领取时间已经被系统自动设置成[当前时间]，且矿机的开启时间和截止时间都自动延后了[当前时间-上次领取时间或开机时间]，但总产不变，再过24小时后48小时内再领取又会有收益。请广大会员们在24~48小时内领取一次收益，感谢您的配合。'
 							}).then(() => {
 							  // on close
+							  //_this.getMyPastMachinesReceipt();
 							  _this.$router.replace("/home");
 							});
 						}else{
+							_this.getMyPastMachinesReceipt();
 							_this.$router.replace("/home");
 						}
 					}
@@ -376,7 +378,6 @@
 						//登录后手机号缓存到本地，每次登录免得继续输入手机号，提高用户体验
 						localStorage.setItem('_USERINFO_',JSON.stringify(_this.userInfo));
 						localStorage.setItem('mobilePhone',_this.userInfo.mobilePhone);
-						_this.getMyPastMachinesReceipt();
 						if(_this.userInfo.accountStatus == 1){
 							_this.getUserFreezeInfo();
 						}else{
@@ -400,7 +401,7 @@
 			validate(key){
 				let _this = this;
 				if(key == 'phone') {
-					if(_this.$reg.phone.test(_this.form.phone)){
+					if(_this.$reg.phone2.test(_this.form.phone)){
 						_this.errorHint.phone = '';
 						//_this.getSecurityCode();
 					}else{

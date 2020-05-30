@@ -370,7 +370,11 @@
 							<div class="digit">{{list1.getedTicket}}</div>
 							<div class="text">已筹到帮扶券</div>
 						</div>
-						<div class="flexC flex3">
+						<div class="flexC flex3" v-if="raiseMineralSum">
+							<div class="digit">{{raiseMineralSum}}</div>
+							<div class="text">已筹到矿石</div>
+						</div>
+						<div class="flexC flex4">
 							<div class="digit">{{list1.beHelpTimes}}</div>
 							<div class="text">被帮扶次数</div>
 						</div>
@@ -714,7 +718,8 @@
 				number:"",
 				number4Mineral:"",
 				getNumberLoading: false,
-				word4Mineral:""
+				word4Mineral:"",
+				raiseMineralSum:0
 			}
 		},
 		components: {
@@ -749,6 +754,19 @@
 			},
 			waiting(){
 				this.$toast(`即将开放`);
+			},
+			getRaiseMineralNum(raiseId){
+				let _this = this;
+				let params = {
+					raiseId:raiseId
+				}
+				_this.$ajax.ajax(_this.$api.getRaiseMineralNum, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.raiseMineralSum = res.data;
+					}else{
+						_this.$toast(res.message);
+					}
+				})
 			},
 			tabChange(name,title){
 				let _this = this;
@@ -976,6 +994,7 @@
 							_this.images=images;
 							//_this.images = _this.list1.pic.split('|');
 							_this.getAssistRaiseRecordListPage();
+							_this.getRaiseMineralNum(_this.list1.id);
 						}else{
 							_this.list1 = '';
 						}

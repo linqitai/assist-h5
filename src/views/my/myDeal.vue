@@ -2063,7 +2063,7 @@
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个短信提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-								_this.smsContent = `【${_this.$api.projectName}】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收款并释放矿石。让真情感动世界，帮扶成就你我，谢谢。`;
+								_this.smsContent = `【${_this.$api.projectName}】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收款并释放矿石。让真情感动世界，帮扶成就你我，HPC帮扶链感恩有您的支持，谢谢。`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								//发送短信提示end
 								_this.showSellerDetailModel = false;

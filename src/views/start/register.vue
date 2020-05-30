@@ -82,7 +82,7 @@
 				<div class="labelText">账号</div>
 				<van-field v-model="form.phone" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
 				<div class="tip4model3 margT6">
-					重点提示：注册账号一定要填写已经绑定了本人支付宝和微信的手机号，否者可能会被平台冻结账号处理。
+					重点提示：注册账号务必填写已经绑定了本人支付宝和微信的手机号。
 					<!-- 2.若不是看好帮扶的理念，而是单纯想撸羊毛的用户请不要注册，因为每次交易的数据都公开透明，纯撸者会被会员控告并冻结账号。 -->
 				</div>
 				<div class="labelText">登录密码</div>
@@ -147,7 +147,7 @@
 					shareCode:''
 				},
 				placeholder:{
-					phone:'请填写11位登录手机号',
+					phone:'请填写登录手机号',
 					password:'请填写6~16位登录密码',
 					password2:'请填写与上面一致的登录密码',
 					validateCode:'请输入短信验证码',
@@ -339,7 +339,7 @@
 				//Wu8v/5SEYcEBR/YGGLYAwGR4HkBmXB5P+Tf4W7CzXeA=
 				if(key == 'phone') {
 					//console.log('_this.form.phone',_this.form.phone)
-					if(_this.$reg.phone.test(_this.form.phone)){
+					if(_this.$reg.phone2.test(_this.form.phone)){
 						_this.errorHint.phone = '';
 						// _this.getSecurityCode();
 					}else{

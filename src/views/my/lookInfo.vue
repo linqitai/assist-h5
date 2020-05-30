@@ -179,7 +179,7 @@
 				<van-field v-model="mobilePhone" clearable label="手机号" placeholder="请填写对方的手机号" maxlength="11">
 					<van-button slot="button" size="small" color="#ffae00" :loading="loading" @click="getUserInfo">查询</van-button>
 				</van-field>
-				<van-field v-model="nickName" clearable label="昵称" placeholder="请填写对方的昵称" maxlength="11">
+				<van-field v-model="nickName" clearable label="昵称" placeholder="请填写对方的昵称" maxlength="12">
 					<van-button slot="button" size="small" color="#ffae00" :loading="loading" @click="getUserInfoByNickName">查询</van-button>
 				</van-field>
 			</van-cell-group>
@@ -265,7 +265,7 @@
 				let params = {
 					mobilePhone: _this.mobilePhone
 				}
-				if(!_this.$reg.phone.test(params.mobilePhone)){
+				if(!_this.$reg.phone2.test(params.mobilePhone)){
 					_this.$toast('手机号格式有误');
 					return;
 				}

@@ -110,6 +110,8 @@ export default {
 	//vote
 	getAssistVoteList: host + "assist/assistVote/getAssistVoteList",
 	getAssistVote: host + "assist/assistVote/getAssistVote/",
+	//question
+	insertAssistQuestion: host + "assist/question/insertAssistQuestion",
 	//answer
 	insertAssistAnswer: host + "assist/answer/insertAssistAnswer",
 	getAssistAnswerListPage: host + "assist/answer/getAssistAnswerListPage",
@@ -228,6 +230,7 @@ export default {
 	//raise
 	getAssistRaiseListPage: host + "assist/raise/getAssistRaiseListPage",
 	insertAssistRaise: host + "assist/raise/insertAssistRaise",
+	getRaiseMineralNum: host + "assist/raise/getRaiseMineralNum",
 	//raiseRecord
 	insertAssistRaiseRecord: host + "assist/raise/insertAssistRaiseRecord",
 	getAssistRaiseRecordListPage: host + "assist/raise/getAssistRaiseRecordListPage",

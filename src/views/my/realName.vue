@@ -185,11 +185,11 @@
 			<b class="textBold">温馨提示：</b>
 			<br>
 			尊敬的原始矿工实名前请认真阅读以下规则：<br>
-			【1】以下资料是用户之间交换矿石时的凭据信息，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
-			【2】年龄范围18~70岁，不用上传手持照片，微信号和支付宝号会自动填写为所注册的手机号，若您的支付宝和微信未绑定该手机号，请先去支付宝和微信绑定。<br>
-			【3】平台为保证交易的顺利进行，真实姓名与支付宝不一致永久冻结账号处理，交易的时候若遇到此问题欢迎向平台诉讼该问题，情况属实买方会得到贡献值奖励。<br>
-			【4】如果支付宝帐号设置隐私导致买方无法通过手机号查找而无法完成交易的，客服介入调查取消交易且永久冻结卖方账号。请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
-			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现。零门槛、零投资、零风险、可继承。另外，对于有经验的矿工，挂单交易每人限购2000个矿石。<br>
+			【1】实名认证年龄范围为18~70岁，若不在该范围内，需找客服特殊申请。<br>
+			【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
+			【3】平台为保证交易的顺利进行，真实姓名与支付宝不一致会被冻结账号处理，交易的时候若遇到此问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
+			【4】请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否者交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查会取消交易且冻结卖方账号。<br>
+			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现端口。挂单交易每人限购2000个矿石，若有特殊需要，可额外找客服申请限购额度。<br>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
 			<!-- 注：<br>
 			<b class="textBold">身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，{{$api.projectEnglishName}}认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i> -->
@@ -200,8 +200,8 @@
 		@click-right-icon="$toast(errorHint.telPhone)"
 		@blur="validate('telPhone')"
 		:error-message="errorInfo.telPhone"/> -->
-		<van-field v-model="form.wechartNum" required disabled clearable label="微信号" maxlength="11" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
-		<van-field v-model="form.alipayNum" required disabled clearable label="支付宝" maxlength="11" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
+		<van-field v-model="form.wechartNum" required clearable label="微信号" maxlength="20" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
+		<van-field v-model="form.alipayNum" required clearable label="支付宝" maxlength="20" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
 		<!-- <van-field v-model="form.bankCard" required clearable label="银行卡号" right-icon="question-o" :placeholder="errorHint.bankCard"
 		@click-right-icon="$toast(errorHint.bankCard)"
 		@blur="validate('bankCard')"
@@ -392,8 +392,8 @@ export default {
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
 			_this.mobilePhone = _this.userInfo.mobilePhone;
-			_this.form.wechartNum = _this.userInfo.mobilePhone;
-			_this.form.alipayNum = _this.userInfo.mobilePhone;
+			/* _this.form.wechartNum = _this.userInfo.mobilePhone;
+			_this.form.alipayNum = _this.userInfo.mobilePhone; */
 			//console.log(_this.mobilePhone,_this.form.wechartNum,_this.form.alipayNum);
 			if(_this.userInfo.actived==2){
 				_this.form = _this.userInfo;
@@ -621,8 +621,8 @@ export default {
 				nickName:"请填写1~7位昵称",
 				// telPhone:"请填写与微信绑定的手机号",
 				realName:"请填写2~20位真实姓名",
-				alipayNum:"请填写绑定了支付宝的登录手机号",
-				wechartNum:"请填写绑定了微信的登录手机号",
+				alipayNum:"请填写自己的支付宝账号",
+				wechartNum:"请填写绑定了登录手机号的微信号",
 				address:"",
 				loginPassword:"请填写新登录密码",
 				securityPassword:"请填写安全密码",
@@ -672,60 +672,54 @@ export default {
 			}
 			params.securityPassword = _this.$JsEncrypt.encrypt(_this.form.securityPassword);
 			_this.submitRealNameLoding = true;
-			if(params.alipayNum == params.wechartNum && params.wechartNum == _this.mobilePhone){
-				//console.log('系统提示：可提交信息');
-				_this.$ajax.ajax4NotTime(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
-					//console.log('res.code',res.code);
-					//标记该设备已经提交过实名认证
-					/* if(SRNTimes){
-						localStorage.setItem('SRNTimes',(parseInt(SRNTimes)+1));
-					}else{
-						localStorage.setItem('SRNTimes',1);
-					} */
-					
-					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
-					if(res.code == _this.$api.CODE_OK){
-						Dialog.alert({
-						  title: '系统提示',
-						  message: _this.$api.checkTip
-						}).then(() => {
-						  // on close
-						  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
-						  _this.$router.replace("my");
-						});
-					}else{
-						//'请按照提交按钮上方的提示操作'
-						Dialog.alert({
-						  title: '系统提示',
-						  message: res.message
-						}).then(() => {
-						  // on close
-						});
-					}
-				},function(){
-					_this.submitRealNameLoding = false;
-				})
+			_this.$ajax.ajax4NotTime(_this.$api.updateAssistUsrInfo4RealName, 'POST', params, function(res){
+				//console.log('res.code',res.code);
+				//标记该设备已经提交过实名认证
+				/* if(SRNTimes){
+					localStorage.setItem('SRNTimes',(parseInt(SRNTimes)+1));
+				}else{
+					localStorage.setItem('SRNTimes',1);
+				} */
+				
+				_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+				if(res.code == _this.$api.CODE_OK){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.checkTip
+					}).then(() => {
+					  // on close
+					  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+					  _this.$router.replace("my");
+					});
+				}else{
+					//'请按照提交按钮上方的提示操作'
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
+				}
+			},function(){
+				_this.submitRealNameLoding = false;
+			})
+			/* if(params.alipayNum == params.wechartNum && params.wechartNum == _this.mobilePhone){
 			}else{
 				if(params.alipayNum != _this.mobilePhone){
-					//_this.$toast(`系统提示:请填写和支付宝绑定的手机号作为支付宝号。`);
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '请填写和支付宝绑定的手机号作为支付宝号且与登录手机号保持一致'
 					}).then(() => {
-					  // on close
 					});
 				}
 				if(params.wechartNum != _this.mobilePhone){
-					// _this.$toast(`系统提示:请填写和微信绑定的手机号作为微信号。`);
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '请填写和微信绑定的手机号作为微信号且与登录手机号保持一致'
 					}).then(() => {
-					  // on close
 					});
 				}
-				/* _this.$toast(`系统提示：注册手机号、微信号、支付宝号，三者需要一致。`); */
-			}
+			} */
 		},
 		validate(key){
 			let _this = this;
@@ -736,7 +730,7 @@ export default {
 					_this.errorInfo.nickName = _this.errorHint.nickName;
 				}
 			}else if(key == 'telPhone'){
-				if(_this.$reg.phone.test(_this.form.telPhone)){
+				if(_this.$reg.phone2.test(_this.form.telPhone)){
 					_this.errorInfo.telPhone = ''
 				}else{
 					_this.errorInfo.telPhone = _this.errorHint.telPhone;
@@ -748,7 +742,7 @@ export default {
 					_this.errorInfo.realName = _this.errorHint.realName;
 				}
 			}else if(key == 'alipayNum') {
-				if(_this.form.alipayNum==_this.mobilePhone){
+				if(_this.$reg.alipay.test(_this.form.alipayNum)){
 					_this.errorInfo.alipayNum = '';
 				}else{
 					_this.errorInfo.alipayNum = _this.errorHint.alipayNum;
@@ -761,7 +755,7 @@ export default {
 					}
 				} */
 			}else if(key == 'wechartNum') {
-				if(_this.form.wechartNum==_this.mobilePhone){
+				if(_this.$reg.weichat.test(_this.form.wechartNum)){
 					_this.errorInfo.wechartNum = '';
 				}else{
 					_this.errorInfo.wechartNum = _this.errorHint.wechartNum;

@@ -768,7 +768,7 @@
 				}else if(val=='myCalculationPower'){
 					message = '我的算力：由个人所拥有的矿机所决定。';
 				}else if(val=='limitBuyNum'){
-					message = '个人限购数量=个人额度+(卖出数量-买入数量)，个人额度可申请提升';
+					message = '个人限购数量=个人额度+(卖出数量-买入数量)，若有特殊需要，个人限购数量可找客服申请提升';
 				}else if(val=='raise'){
 					message = '爱心值就是您捐赠帮扶券的数量';
 				}

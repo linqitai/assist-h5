@@ -143,8 +143,8 @@
 				<div class="placeholderLine8"></div>
 				<div class="tip4model3">{{voteInfo.remark}}</div>
 				<div class="time">{{voteInfo.createTime|getDateTimeTOHM}} ~ {{voteInfo.deadTime|getDateTimeTOHM}}</div>
-				<div class="margT10">
-					<van-radio-group v-model="form.questionId" v-if="isDead==0" @change="radioChange">
+				<div class="margT10" v-if="isDead==0">
+					<van-radio-group v-model="form.questionId" @change="radioChange">
 						<div v-for="(item,index) in voteInfo.questionVoList" :key="item.id" class="margT6">
 							<van-radio :name="item.id" checked-color="#ffae00">
 								<!-- <div class="content" v-html="voteInfo.vote1"></div> -->
@@ -299,8 +299,7 @@
 			getAssistAnswer4Self(){
 				let _this = this;
 				let params = {
-					voteId:_this.voteId,
-					userId:_this.userId
+					voteId:_this.voteId
 				}
 				_this.$ajax.ajax(_this.$api.getAssistAnswer, 'GET', params, function(res) {
 					// console.log('res', res);

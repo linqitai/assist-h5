@@ -294,9 +294,9 @@
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
 						_this.errorInfo4AppointDeal.blockAddress = '';
-						if(_this.userInfo.manType==2){
+						/* if(_this.userInfo.manType==2){
 							_this.get24BuyTimes2Service();
-						}
+						} */
 					}else{
 						_this.errorInfo4AppointDeal.blockAddress = "请正确粘贴对方的区块地址";
 					}

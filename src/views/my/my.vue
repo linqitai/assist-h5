@@ -372,6 +372,18 @@
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
+			<!-- <div class="items">
+				<router-link to="innerRegister">
+					<div class="my-cell">
+						<div class="flex1">
+							第二轮内排注册(6月6号~7月6号)
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+			</div> -->
 			<div class="items">
 				<router-link to="transferMineral4F">
 					<div class="my-cell">
@@ -465,19 +477,6 @@
 					<div class="my-cell">
 						<div class="flex1">
 							帮他人修改身份证号
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-			<div class="items" v-if="userInfo.innerRegister==1">
-				<router-link to="innerRegister">
-				<!-- @click="waitingInnerRegister" -->
-					<div class="my-cell">
-						<div class="flex1">
-							内排注册
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>

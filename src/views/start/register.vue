@@ -80,9 +80,11 @@
 		<div class="formBox">
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>
-				<van-field v-model="form.phone" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
+				<van-field v-model="form.phone" type="password" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
+				<div class="labelText">确认账号</div>
+				<van-field v-model="form.phone2" type="password" clearable :placeholder="placeholder.phone2" @blur="validate('phone2')" :error-message="errorHint.phone2" maxlength="11"/>
 				<div class="tip4model3 margT6">
-					重点提示：注册账号务必填写已经绑定了本人支付宝和微信的手机号。
+					温馨提示：注册账号即是本人的手机号。若是港澳台及海外用户，只要有自己的支付宝和微信号即可注册并实名。
 					<!-- 2.若不是看好帮扶的理念，而是单纯想撸羊毛的用户请不要注册，因为每次交易的数据都公开透明，纯撸者会被会员控告并冻结账号。 -->
 				</div>
 				<div class="labelText">登录密码</div>
@@ -140,6 +142,7 @@
 				securityCode:'love',
 				form:{
 					phone:'',
+					phone2:'',
 					password:'',
 					password2:'',
 					validateCode:'',
@@ -147,7 +150,8 @@
 					shareCode:''
 				},
 				placeholder:{
-					phone:'请填写登录手机号',
+					phone:'请填写注册手机号',
+					phone2:'请填写与上面一致的注册手机号',
 					password:'请填写6~16位登录密码',
 					password2:'请填写与上面一致的登录密码',
 					validateCode:'请输入短信验证码',
@@ -156,6 +160,7 @@
 				},
 				errorHint:{
 					phone:'',
+					phone2:'',
 					password:'',
 					password2:'',
 					validateCode:'',
@@ -203,7 +208,7 @@
 			shortMessageBtn(){
 				let _this = this;
 				if(_this.$utils.isNUll(_this.form.phone)){
-					_this.$toast('请先填写登录手机号');
+					_this.$toast('请先填写注册手机号');
 				}else{
 					_this.showTipModel = true;
 					_this.getSecurityCode();
@@ -214,6 +219,7 @@
 				let params = {
 					mobilePhone:_this.form.phone
 				}
+				console.log('params',params);
 				if(_this.$utils.hasNull(params)){
 					Dialog.alert({
 					  title: '系统提示',
@@ -304,10 +310,12 @@
 					securityCode: _this.form.securityCode.toLowerCase().replace(/ /g,""),
 					shareCode:_this.form.shareCode
 				}
+				console.log("params",params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');
 					return;
 				}
+				console.log("_this.errorHin",_this.errorHint);
 				if(_this.$utils.hasVal(_this.errorHint)){
 					_this.$toast('请按要求填写信息');
 					return;
@@ -344,6 +352,14 @@
 						// _this.getSecurityCode();
 					}else{
 						_this.errorHint.phone = _this.$reg.phoneHint;
+					}
+				}else if(key == 'phone2') {
+					//console.log('_this.form.phone',_this.form.phone)
+					if(_this.form.phone==_this.form.phone2){
+						_this.errorHint.phone2 = '';
+						// _this.getSecurityCode();
+					}else{
+						_this.errorHint.phone2 = _this.placeholder.phone2;
 					}
 				}else if(key == 'password'){
 					if(_this.$reg.password.test(_this.form.password.replace(/ /g,""))){

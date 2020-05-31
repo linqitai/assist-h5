@@ -341,7 +341,7 @@
 				}
 				//请不要操作多账号
 				//_this.judgeMoreAccount();
-				let phone = localStorage.getItem("mobilePhone");
+				/* let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
 						Dialog.alert({
@@ -352,7 +352,7 @@
 						});
 						return;
 					}
-				}
+				} */
 				
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('系统提示:请填写完成信息');

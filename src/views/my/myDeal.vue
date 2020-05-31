@@ -1727,11 +1727,11 @@
 									Dialog.confirm({
 									  title: '提示信息',
 									  confirmButtonText:'需要',
-									  message: '由于卖家120分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
+									  message: _this.$api.tip4Sure
 									}).then(() => {
 									  // on confirm
 									  ////console.log('sure');
-									  _this.letSureByBuyer();
+									  //_this.letSureByBuyer();
 									}).catch(() => {
 									  // on cancel
 									  ////console.log('cancel');
@@ -1817,18 +1817,15 @@
 											/* console.log('_this.detail4sellerInfo.letSureTime',_this.detail4sellerInfo.letSureTime)
 											console.log('now', now); */
 											if(_this.detail4sellerInfo.letSureTime&&_this.detail4sellerInfo.letSureTime<now){
-												Dialog.confirm({
+												Dialog.alert({
 												  title: '提示信息',
-												  confirmButtonText:'需要',
-												  message: '由于卖家120分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
+												  confirmButtonText:'好的',
+												  message: _this.$api.tip4Sure
 												}).then(() => {
 												  // on confirm
 												  ////console.log('sure');
-												  _this.letSureByBuyer();
-												}).catch(() => {
-												  // on cancel
-												  ////console.log('cancel');
-												});
+												  //_this.letSureByBuyer();
+												})
 											}
 										}
 									}
@@ -1861,11 +1858,11 @@
 								Dialog.confirm({
 								  title: '提示信息',
 								  confirmButtonText:'需要',
-								  message: '由于卖家120分钟内没确认，已经超过确认时间，请问需要系统此刻帮您确认吗？'
+								  message: _this.$api.tip4Sure
 								}).then(() => {
 								  // on confirm
 								  ////console.log('sure');
-								  _this.letSureByBuyer();
+								  //_this.letSureByBuyer();
 								}).catch(() => {
 								  // on cancel
 								  ////console.log('cancel');

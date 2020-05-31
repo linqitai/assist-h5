@@ -187,14 +187,14 @@
 			尊敬的原始矿工实名前请认真阅读以下规则：<br>
 			【1】实名认证年龄范围为18~70岁，若不在该范围内，需找客服特殊申请。<br>
 			【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
-			【3】平台为保证交易的顺利进行，真实姓名与支付宝不一致会被冻结账号处理，交易的时候若遇到此问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
-			【4】请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否者交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查会取消交易且冻结卖方账号。<br>
+			【3】平台为保证交易的顺利进行，真实姓名要和支付宝、微信中的实名信息一致，交易的时候若遇到实名信息不一致的问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
+			【4】请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否者交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。<br>
 			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现端口。挂单交易每人限购2000个矿石，若有特殊需要，可额外找客服申请限购额度。<br>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
 			<!-- 注：<br>
 			<b class="textBold">身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，{{$api.projectEnglishName}}认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i> -->
 		</div>
-		
+		<van-field v-model="mobilePhone" disabled clearable label="手机号"/>
 		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
 		<!-- <van-field v-model="form.telPhone" required clearable label="手机号" right-icon="question-o" :placeholder="errorHint.telPhone" maxlength="11"
 		@click-right-icon="$toast(errorHint.telPhone)"

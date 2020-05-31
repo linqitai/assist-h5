@@ -68,15 +68,15 @@
 		</van-cell-group>
 		<div class="sureBox">
 			<!-- <div class="tip">点击注册即表示您同意<span class="agreement">《服务协议》</span></div> -->
-			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" @click="registerBtn" :loading="isLoading" loading-type="spinner">注  册</van-button>
+			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" @click="registerBtn" :loading="isLoading" loading-type="spinner">帮他注册</van-button>
 			<div class="placeholderLine"></div>
 			<div class="placeholderLine"></div>
 			<div class="placeholderLine"></div>
 			<!-- <van-button color="inherit" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button> -->
 			<div class="tip4model3">
 				Tip：<br>
-				1.内排注册功能专为预打造团队的用户开放。<br>
-				2.登录密码初始化为该注册手机号，未实名认证无修改密码权限，实名认证审核通过方可修改密码，请团队长们提醒到位。<br>
+				1.内排注册功能专为预打造团队的用户开放，助力团队长打造自己的专业团队。<br>
+				2.登录密码初始化为该注册手机号，未实名认证无修改密码权限，实名认证审核通过后方可修改密码，请团队长们知晓。<br>
 				<!-- 3.为了提高内排注册的质量，内排注册功能暂时只为个人算力达到9G的工会会长或省市代理开放。<br> -->
 			</div>
 		</div>

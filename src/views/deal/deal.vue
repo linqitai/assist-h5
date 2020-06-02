@@ -238,7 +238,7 @@
 			</div>
 			<div class="line clearBoth">
 				<div class="left">平台指导价 {{dealPageInfo.currentPlatformPrice}}CNY</div>
-				<div class="right">24小时成交量 {{dealPageInfo.transactionNum24}}</div>
+				<div class="right">24小时交易量 {{dealPageInfo.transactionNum24}}</div>
 			</div>
 		</div>
 		
@@ -298,10 +298,9 @@
 						</div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
-						<div class="paddingWing tip4model3 justify">
-							<!-- 当前溢价{{pages}}页， -->
+						<!-- <div class="paddingWing tip4model3 justify">
 							系统提示：当前平价共{{pagesPlatPrice}}页，希望广大会员更多得去注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！
-						</div>
+						</div> -->
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 						<div class="paddingWing" v-if="totalItems1>0">
@@ -344,10 +343,9 @@
 						</div> -->
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
-						<div class="paddingWing tip4model3 justify">
-							<!-- 当前溢价{{pages}}页， -->
+						<!-- <div class="paddingWing tip4model3 justify">
 							系统提示：当前溢价共{{pages}}页，希望广大会员更多得去注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！
-						</div>
+						</div> -->
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 						<div class="paddingWing" v-if="totalItems2>0">
@@ -497,7 +495,7 @@ export default {
 			tabActiveName:"dealArea1",
 			currentPage1:1,
 			currentPage2:1,
-			pageSize:7,
+			pageSize:20,
 			pageCount:0,
 			totalItems1:0,
 			totalItems2:100,
@@ -600,7 +598,7 @@ export default {
 			loading4Buy:false,
 			pages:0,
 			pagesPlatPrice:0,
-			buyLowestAmountText:"最低匹配数量请填写1~300之间"
+			buyLowestAmountText:"最低匹配数量请填写1~500之间"
 		}
 	},  
 	components:{
@@ -801,6 +799,10 @@ export default {
 				/* _this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}]; */
 				_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'}];
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
+				/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
+				_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
+				_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
+				_this.buyLowestAmountText = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
 			}else{
 				_this.getDealPageInfo();
 			}
@@ -853,6 +855,10 @@ export default {
 					/* _this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}]; */
 					_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'}];
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
+					/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
+					_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
+					_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
+					_this.buyLowestAmountText = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
 					_this.$cookies.remove('haveDealPageInfo');
 					_this.$cookies.set("haveDealPageInfo",1, 60 * 30 * 1);
 					localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
@@ -1397,7 +1403,10 @@ export default {
 			}else if(key == 'buyLowestAmount') {
 				let thisLowestNum = Number(_this.form4BuyBill[key]);
 				if(_this.$reg.positive_integer.test(thisLowestNum)){
-					if(thisLowestNum>=1&&thisLowestNum<=300){
+					/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
+					_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`;
+					Number(_this.dealPageInfo.minBuyBillNum) */
+					if(thisLowestNum>=1&&thisLowestNum<=Number(_this.dealPageInfo.minBuyBillNum)){
 						_this.errorInfo4BuyBill.buyLowestAmount = '';
 					}else{
 						_this.errorInfo4BuyBill.buyLowestAmount = _this.buyLowestAmountText;

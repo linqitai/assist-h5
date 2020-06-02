@@ -242,7 +242,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.curerntPlatformPrice = Number(res.data.currentPlatformPrice);
 						_this.maxPrice = (Number((res.data.currentPlatformPrice)*1.3+3)+3).toFixed(2);
-						_this.maxAddPrice = (Number((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
+						_this.maxAddPrice = (Number((res.data.currentPlatformPrice)*1.3+1)).toFixed(2);
 						console.log('_this.maxAddPrice',_this.maxAddPrice);
 						console.log('_this.maxPrice',_this.maxPrice);
 						console.log('_this.targetPrice',targetPrice);
@@ -274,10 +274,10 @@
 			validate4AppointDeal(key){
 				let _this = this;
 				if(key == 'transferAmount') {
-					if(_this.form4AppointDeal[key]>=1&&_this.form4AppointDeal[key]<=10000){
+					if(_this.form4AppointDeal[key]>=0.1&&_this.form4AppointDeal[key]<=10000){
 						_this.errorInfo4AppointDeal.transferAmount = '';
 					}else{
-						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在1~10000之间";
+						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在0.1~10000之间";
 					}
 				}else if(key == 'price') {
 					let price = Number(_this.form4AppointDeal[key]);
@@ -286,10 +286,10 @@
 					let maxAddPrice = Number(_this.maxAddPrice);
 					let curerntPlatformPrice = Number(_this.curerntPlatformPrice);
 					//alert(maxAddPrice);
-					if(parseFloat(price)>parseFloat(curerntPlatformPrice)&&parseFloat(price)<=parseFloat(13.0)){
+					if(parseFloat(price)>parseFloat(maxAddPrice)&&parseFloat(price)<=parseFloat(13.0)){
 						_this.errorInfo4AppointDeal.price = '';
 					}else{
-						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${parseFloat(curerntPlatformPrice)+parseFloat(0.01)}~${maxPrice}CNY`;
+						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${parseFloat(maxAddPrice)+parseFloat(0.01)}~${maxPrice}CNY`;
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){

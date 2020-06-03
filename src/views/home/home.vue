@@ -965,7 +965,7 @@ $noticeHeight:40px;
 				Dialog.alert({
 				  title: '提示信息',
 				  confirmButtonText:'好的',
-				  message: '由于会员量上升，经过精算师计算，若继续签到加贡献值，会产生不可控的泡沫。故老版的签到功能取消，即将升级成通过签到来释放爱心值，爱心值将会通过一定比例释放成贡献值。'
+				  message: '由于会员量上升，经过精算师计算，若继续签到加贡献值，会产生不可控的泡沫，故老版的签到功能取消，即将升级成通过签到来释放爱心值，爱心值将会通过一定比例释放成贡献值。'
 				}).then(() => {
 				  // on confirm
 				  /* _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)

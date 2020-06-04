@@ -238,7 +238,7 @@
 			</div>
 			<div class="line clearBoth">
 				<div class="left">平台指导价 {{dealPageInfo.currentPlatformPrice}}CNY</div>
-				<div class="right">24小时交易量 {{dealPageInfo.transactionNum24}}</div>
+				<div class="right">24小时交易量 {{(dealPageInfo.transactionNum24).toFixed(2)}}</div>
 			</div>
 		</div>
 		

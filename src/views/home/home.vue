@@ -140,7 +140,7 @@ $noticeHeight:40px;
 					}
 					
 					.iconBackgroundAttendance {
-						background-color: #1aa034;
+						background-color: #55aa00;
 					}
 					
 					.iconBackgroundRank {
@@ -554,10 +554,10 @@ $noticeHeight:40px;
 					<div class="infoBox" @click="attendanceBtn">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="attendance" />
+								<van-icon class-prefix="iconfont" name="free-love" size="35"/>
 							</div>
 						</div>
-						<div class="text">签到</div>
+						<div class="text">释放爱心</div>
 					</div>
 					<div class="infoBox">
 						<router-link to="/ranking">
@@ -961,19 +961,61 @@ $noticeHeight:40px;
 					}
 				})
 			},
-			attendanceBtn(){
-				Dialog.alert({
-				  title: '提示信息',
-				  confirmButtonText:'好的',
-				  message: '由于会员量上升，经过精算师计算，若继续签到加贡献值，会产生不可控的泡沫，故老版的签到功能取消，即将升级成通过签到来释放爱心值，爱心值将会通过一定比例释放成贡献值。'
-				}).then(() => {
-				  // on confirm
-				  /* _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
-				  _this.$router.push('/myBook'); */
+			getUserInfoByNewAttendance() {
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						_this.userInfo = res.data;
+						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
+						Dialog.alert({
+						  title: '系统信息',
+						  confirmButtonText:`${_this.userInfo.aword>10?'释放':'好的'}`,
+						  message: `爱心值大于10即可按特定比例释放成贡献值。您当前的爱心值为：${Number(_this.userInfo.aword).toFixed(2)}，${_this.userInfo.aword>10?'签到可释放爱心值!':'无需释放！'}`
+						}).then(() => {
+							if(_this.userInfo.aword>10){
+								_this.sureAttendance();
+							}
+						  // on confirm
+						  /* _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+						  _this.$router.push('/myBook'); */
+						})
+					}else{
+						_this.$toast(res.message);
+					}
 				})
+			},
+			attendanceBtn(){
+				let _this = this;
+				_this.getUserInfoByNewAttendance();
 				//this.showAttendanceModel=true;
 				//this.getUserInfo();
 				//console.log('attendanceBtn');
+			},
+			sureAttendance(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
+					//_this.isLoading = false;
+					//console.log("res.code",res.code);
+					if (res.code == _this.$api.CODE_OK) {
+						_this.$toast("释放成功");
+						//_this.getUserInfo();
+						_this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+						_this.$router.push('/myBook');
+						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
+						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+					}else{
+						//_this.showAttendanceModel=false;
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '提示信息',
+						  message: res.message
+						}).then(() => {
+						  // on confirm
+						  
+						})
+					} 
+				})
 			},
 			sureAttendanceBtn(){
 				let _this = this;

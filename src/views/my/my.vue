@@ -235,7 +235,7 @@
 					</div>
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
-					<div class="line"><span>爱心值 {{userInfo.raiseNum}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
+					<div class="line"><span>爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
 					<div class="line" v-if="userInfo.manType==2">
 						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
 					</div>
@@ -592,6 +592,13 @@
 		},
 		created() {
 			let _this = this;
+			/* let cv = 0;
+			let loveValue = 2000;
+			for(let i=0;i<180;i++){
+				cv=cv+0.1;
+				loveValue = loveValue - 0.1*19;
+			}
+			console.log(`cv:${cv},loveValue:${loveValue}`) */
 			/* setTimeout(function(){
 				console.log("123200000")
 			},2000) */
@@ -767,7 +774,7 @@
 				//console.log(val);
 				let message = '';
 				if(val=='mineral'){
-					message = '矿石：当前所能用来流通的矿石。卖出的时候要额外收20%的手续费(服务费)，比如卖100个矿石要使用120个矿石，所收的手续费(服务费)全部销毁，不再它用。获得途径：矿机产出、买入。';
+					message = '矿石：当前所能用来流通的矿石。卖出的时候要额外收20%的手续费(服务费)，比如卖100个矿石要使用110个矿石(其中10个销毁)+价值10个矿石价格的帮扶券(其中部分存入基金池，做为线下帮扶时的启动资金，无形中，大家的每笔交易都给自己增加了福报，行善积德，大慈大悲，感谢有您的支持)。获得途径：矿机产出、买入。';
 				}else if(val=='platformTicket'){
 					message = '帮扶券：可用于交易的时候当手续费(服务费)、可用于解冻、可用于消实名次数、可用于捐赠给平台上生活遇到困难的会员而获得爱心值，或者捐赠给少年儿童基金池来帮助更多的人，后续还会有其他用处......。获取途径：从省市代理那儿购买。';
 				}else if(val=='contribution'){

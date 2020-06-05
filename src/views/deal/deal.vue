@@ -281,7 +281,7 @@
 			<!-- sticky -->
 			<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
-				<van-tab title="平价市场" name="dealArea1">
+				<van-tab title="平价买单" name="dealArea1">
 					<div class="line1pxbgcolor"></div>
 					<div class="dealContent">
 						<div class="dealList">
@@ -318,7 +318,7 @@
 						<div class="placeholderLine"></div>
 					</div>
 				</van-tab>
-				<van-tab title="溢价市场" name="dealArea2">
+				<van-tab title="溢价买单" name="dealArea2">
 					<div class="dealContent">
 						<div class="dealList">
 							<div class="line1pxbgcolor"></div>
@@ -363,6 +363,41 @@
 						<div class="placeholderLine"></div>
 					</div>
 				</van-tab>
+				<!-- <van-tab title="溢价卖单" name="dealArea3">
+					<div class="dealContent">
+						<div class="dealList">
+							<div class="line1pxbgcolor"></div>
+							<div class="item" v-for="item in list2" :key="item.id">
+								<div class="boxLeft">
+									<div class="">单价 {{item.price}}CNY</div>
+									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
+								</div>
+								<div class="boxRight">
+									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
+								</div>
+							</div>
+						</div>
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+						<div class="paddingWing" v-if="totalItems2>0">
+							<van-pagination 
+							  v-model="currentPage2" 
+							  :total-items="totalItems2" 
+							  :items-per-page="pageSize"
+							  :show-page-size="3" 
+							  force-ellipses
+							  @change="changeCurrentPage2"
+							/>
+						</div>
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+					</div>
+				</van-tab> -->
 			</van-tabs>	
 		</van-pull-refresh>
 		<van-action-sheet v-model="showPickSellModel" title="卖出">
@@ -607,12 +642,13 @@ export default {
 	watch: {
 	    addPriceValue(val, oldVal) {
 			let _this = this;
-	        //console.log("addPriceValue = " + val + " , oldValue = " + oldVal)
+	        //console.log("addPriceValue = " + val + " , oldValue = " + oldVal);
 			if(val == 0){
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 			}else{
 				let addValue = 3*(val/100);
-				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + addValue).toFixed(2);
+				//console.log("addValue = " + addValue);
+				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentMaxPrice) - 3 + addValue).toFixed(2);
 			}
 	    }
 	},
@@ -701,7 +737,7 @@ export default {
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 			}else{
 				let addValue = 3*(value/100);
-				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + addValue).toFixed(2);
+				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice) + 2 + addValue).toFixed(2);
 			}
 		},
 		toMyDealPage(){

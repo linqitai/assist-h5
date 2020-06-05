@@ -7,7 +7,7 @@
 		background-color: $main-box-color;
 		z-index: 2;
 		.unFreezePage{
-			min-height: 700px;
+			min-height: 600px;
 			color: $mainTextColor;
 			background-color: $main-box-color;
 			.van-field__label{
@@ -331,6 +331,7 @@
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 			}
+			_this.$utils.scrollTop();
 		},
 		methods: {
 			back(){

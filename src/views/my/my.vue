@@ -416,14 +416,14 @@
 					</div>
 				</router-link>
 				<!-- to="transferCV" -->
-				<div class="my-cell" @click="closeTCV">
+				<!-- <div class="my-cell" @click="closeTCV">
 					<div class="flex1">
 						定向转让贡献值
 					</div>
 					<div class="flex2">
 						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<!-- <div class="items">
 				<router-link to="transferMineral">

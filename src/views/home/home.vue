@@ -976,9 +976,6 @@ $noticeHeight:40px;
 							if(_this.userInfo.aword>10){
 								_this.sureAttendance();
 							}
-						  // on confirm
-						  /* _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
-						  _this.$router.push('/myBook'); */
 						})
 					}else{
 						_this.$toast(res.message);

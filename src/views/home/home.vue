@@ -971,7 +971,7 @@ $noticeHeight:40px;
 						Dialog.alert({
 						  title: '系统信息',
 						  confirmButtonText:`${_this.userInfo.aword>10?'释放':'好的'}`,
-						  message: `爱心值大于10即可按特定比例释放成贡献值。您当前的爱心值为：${Number(_this.userInfo.aword).toFixed(2)}，${_this.userInfo.aword>10?'签到可释放爱心值!':'无需释放！'}`
+						  message: `爱心值大于10即可按特定比例释放成贡献值(爱心值的释放与统计还在测试中，近日会优化完成并正式上线)。您当前的爱心值为：${Number(_this.userInfo.aword).toFixed(2)}，${_this.userInfo.aword>10?'可释放爱心值!':'暂时无法释放！'}`
 						}).then(() => {
 							if(_this.userInfo.aword>10){
 								_this.sureAttendance();

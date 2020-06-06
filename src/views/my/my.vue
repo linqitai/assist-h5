@@ -620,10 +620,8 @@
 				_this.$router.replace('login');
 				return;
 			}
-			////console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
 			if(_this.$cookies.get('isRefreshUserInfo')==1){
 				_this.getUserInfo();
-				_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 			}
 			if(_this.userInfo.isAgent==1){
 				_this.getAssistAgentInfo4Province();

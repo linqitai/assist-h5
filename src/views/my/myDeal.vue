@@ -568,7 +568,7 @@
 				</div>
 				<div class="line" v-if="detail4sellerInfo.remark">
 					<span class="label">诉讼</span>
-					<span class="value <red></red>">{{detail4sellerInfo.remark}}</span>
+					<span class="value red letterSpacing lineHeight">{{detail4sellerInfo.remark}}</span>
 				</div>
 				<div class="line" v-if="detail4sellerInfo.status==0 || detail4sellerInfo.status==1">
 					<span class="label">自动取消倒计时</span>
@@ -767,7 +767,7 @@
 				</div>
 				<div class="line" v-if="detail4buyerInfo.remark">
 					<span class="label">诉讼</span>
-					<span class="value <red></red>">{{detail4buyerInfo.remark}}</span>
+					<span class="value red letterSpacing lineHeight">{{detail4buyerInfo.remark}}</span>
 				</div>
 				<div class="line" v-if="detail4buyerInfo.status==0 || detail4buyerInfo.status==1">
 					<span class="label">可取消倒计时</span>
@@ -1663,7 +1663,6 @@
 			},
 			cancelDetail(item){
 				let _this = this;
-				console.log("item.remark",item.remark);
 				Dialog.alert({
 				  title: '提示信息',
 				  message: item.remark||'暂无诉讼信息',

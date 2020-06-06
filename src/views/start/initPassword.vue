@@ -111,40 +111,44 @@
 				this.$router.push('login');
 			},
 			initPassWordBtn(){
-				console.log('form',this.form);
 				let _this = this;
-				let params = {
-					mobilePhone:_this.form.mobilePhone
-				}
-				if(_this.$utils.hasNull(params)){
-					_this.$toast('系统提示：请填写完整信息');
-					return;
-				}
-				_this.isLoading = true;
-				_this.$ajax.ajax(_this.$api.initPassWord, 'POST', params, function(res) {
-					// console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) { // 200
-						/* localStorage.setItem("mobilePhone",_this.form.phone); */
-						_this.$toast('系统提示：修改成功');
-					}else{
-						Dialog.alert({
-							title: "系统提示",
-							confirmButtonText:'哦哦',
-							message: res.message
-						}).then(() => {
-						  // on confirm
-						})
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确认',
+				  message: `请再次确认是否要给对方初始化密码？`
+				}).then(() => {
+					let params = {
+						mobilePhone:_this.form.mobilePhone
 					}
-				},function(res){
-					// console.log("complate",res);
-					_this.isLoading = false;
+					if(_this.$utils.hasNull(params)){
+						_this.$toast('系统提示：请填写完整信息');
+						return;
+					}
+					_this.isLoading = true;
+					_this.$ajax.ajax(_this.$api.initPassWord, 'POST', params, function(res) {
+						// console.log('res', res);
+						if (res.code == _this.$api.CODE_OK) { // 200
+							/* localStorage.setItem("mobilePhone",_this.form.phone); */
+							_this.$toast('初始化成功');
+						}else{
+							Dialog.alert({
+								title: "系统提示",
+								confirmButtonText:'哦哦',
+								message: res.message
+							}).then(() => {
+							  // on confirm
+							})
+						}
+					},function(res){
+						// console.log("complate",res);
+						_this.isLoading = false;
+					})
 				})
 			},
 			validate(key){
 				let _this = this;
 				if(key == 'mobilePhone') {
-					console.log('_this.form.phone',_this.form.mobilePhone)
-					if(_this.$reg.phone.test(_this.form.mobilePhone)){
+					if(_this.$reg.phone2.test(_this.form.mobilePhone)){
 						_this.errorHint.mobilePhone = '';
 					}else{
 						_this.errorHint.mobilePhone = _this.$reg.phoneHint;

@@ -542,13 +542,13 @@ $noticeHeight:40px;
 				</div>
 				<div class="cateInfo">
 					<div class="infoBox">
-						<router-link to="/raise">
+						<router-link to="/volunteer">
 							<div class="iconBox">
 								<div class="iconBackground iconBackgroundRaise">
 									<van-icon class-prefix="iconfont" name="love2" />
 								</div>
 							</div>
-							<div class="text">帮扶筹</div>
+							<div class="text">志愿者</div>
 						</router-link>
 					</div>
 					<div class="infoBox" @click="attendanceBtn">
@@ -822,7 +822,7 @@ $noticeHeight:40px;
 				//console.log(val);
 				let message = '';
 				if(val=='fundPool'){
-					message = '少年儿童帮扶基金池：平价区的交易手续费中，有一半的帮扶券进入帮扶基金池；溢价区的交易手续费中，有20%的帮扶券进入帮扶基金池。这基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的朋友';
+					message = '少年儿童帮扶基金池：平价区的交易手续费中，有50%的帮扶券进入帮扶基金池；溢价区的交易手续费中，有20%的帮扶券进入帮扶基金池。这基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的朋友';
 				}
 				Dialog.alert({
 				  title: '温馨提示',

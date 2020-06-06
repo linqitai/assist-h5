@@ -827,6 +827,7 @@
 				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast("捐赠成功");
+						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 						_this.word4Mineral = '';
 						_this.number4Mineral = '';
 						_this.getAssistRaiseRecordListPage4();
@@ -889,6 +890,7 @@
 				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast("捐赠成功");
+						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 						_this.word = '';
 						_this.number = '';
 						_this.getAssistRaiseListPage();

@@ -369,6 +369,12 @@ export default new Router({
 					meta:{footer:false},
 				},
 				{
+					path: '/volunteer',
+					name: '志愿者',
+					component: resolve => require(['./views/home/volunteer'],resolve),
+					meta:{footer:false},
+				},
+				{
 					path: '/ranking4Level',
 					name: '会长排行榜',
 					component: resolve => require(['./views/home/ranking4Level'],resolve),

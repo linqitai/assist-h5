@@ -728,10 +728,6 @@ export default {
 			}else if(_this.form4pickSellBill.serviceCharge==1){
 				num = _this.platformTicket - _this.form4pickSellBill.sellAmountSliderValue*price*0.1;
 				if(num<0){
-					//alert('系统提示：对不起，您的帮扶券不够，请先找省市代理购买');
-					/* alert('系统提示：对不起，您的帮扶券不够，请选择矿石做服务费'); */
-					/* _this.form4pickSellBill.serviceCharge = 0;
-					_this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`; */
 					num = _this.platformTicket;
 					return num;
 				}

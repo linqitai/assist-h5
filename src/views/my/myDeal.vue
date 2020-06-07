@@ -305,7 +305,7 @@
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
-				<van-tab title="求购中" name="buy">
+				<van-tab title="挂单中" name="buy">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list">
 							<div class="item" v-for="item in list1" :key="item.id">
@@ -581,7 +581,7 @@
 					<span class="value textAdornColor">买方已锁定交易</span>
 				</div> -->
 				<div v-if="detail4sellerInfo.status==0||detail4sellerInfo.status==1">
-					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn">我已付款 让卖家确认</van-button>
+					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn(detail4sellerInfo)">我已付款 让卖家确认</van-button>
 					<div class="placeholderLine10"></div>
 					<!-- <van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(detail4sellerInfo)" size="normal" :block="true">取消交易</van-button> -->
 				</div>
@@ -712,7 +712,7 @@
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="notReciveCNYBtn" size="normal" :block="true">代理没收到款 请对方上传付款凭证</van-button> -->
 				</div>
 				<div v-if="(appointDealDetail.assistAppointDealInfo.status==0||appointDealDetail.assistAppointDealInfo.status==1)&&activeName=='pay'">
-					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn">我已付款 让代理确认</van-button>
+					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn(appointDealDetail.assistAppointDealInfo)">我已付款 让代理确认</van-button>
 					<div class="placeholderLine10"></div>
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">取消交易</van-button>
 				</div>
@@ -1052,14 +1052,14 @@
 				////console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
 				if(_this.$route.query.dealType==1){
 					if(_this.$route.query.isSelf) {
-						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家0.5~1个贡献值";
+						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家1个贡献值";
 						_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
 					}else{
 						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请提醒代理审核单子。";
 						_this.smsContent = `【${_this.$api.projectName}】我的定向交易单子选择了您做担保，请审核，谢谢。`;
 					}
 				}else{
-					_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家0.5贡献值";
+					_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家1贡献值";
 					_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“我的--我的交易--待付款”的订单详情中查看并及时完成交易。`;
 				}
 				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
@@ -2031,7 +2031,7 @@
 				_this.showSendSMSTipModel=false;
 				window.location.href = _this.sendSmsHref;
 			},
-			payedBtn(){
+			payedBtn(item){
 				let _this = this;
 				// _this.showBuyDetailModel = false;
 				Dialog.confirm({
@@ -2059,7 +2059,7 @@
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个短信提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-								_this.smsContent = `【${_this.$api.projectName}】我已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收款并释放矿石。让真情感动世界，帮扶成就你我，HPC帮扶链感恩有您的支持，谢谢。`;
+								_this.smsContent = `【${_this.$api.projectName}】所匹配的${item.num}个矿石已付款，请确认收款，并在“我的--我的交易--待收款”的订单详情中确认收款并释放矿石。让真情感动世界，帮扶成就你我，HPC帮扶链感恩有您的支持，谢谢。`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								//发送短信提示end
 								_this.showSellerDetailModel = false;

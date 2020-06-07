@@ -165,6 +165,7 @@ export default {
 	getActivity2Reward: host + "assist/reward/getActivity2Reward",
 	getActivity3Reward: host + "assist/reward/getActivity3Reward",
 	//deal
+	insertTransaction4PickSellBill: host + "assist/transaction/insertTransaction4PickSellBill",
 	getAssistSellBillList: host + "assist/buybill/getAssistSellBillList",
 	getAssistBuyBillListGeneralPage: host + "assist/buybill/getAssistBuyBillListGeneralPage",
 	getAssistBuyBillListAddPricePage: host + "assist/buybill/getAssistBuyBillListAddPricePage",

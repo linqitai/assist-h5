@@ -374,7 +374,7 @@
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
-									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
+									<div class="margT3"><van-button @click="ShowBuyTAModelBtn(item)" type="danger" size="mini" loading-type="spinner">买TA</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -455,8 +455,22 @@
 		  </div>
 		</van-action-sheet>
 		
+		<van-action-sheet v-model="showPickBuyModel" title="买TA">
+		  <van-cell-group>
+			  <van-field v-model="form3.num" type="number" clearable label="想买数量" placeholder="请填写买入数量"/>
+			  <van-field v-model="form3.price" type="number" disabled clearable label="单价" placeholder="请填写单价"/>
+			  <van-field v-model="form3.idCard" type="text" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18"/>
+			  <van-field v-model="form3.safePassword" required type="password" clearable label="安全密码" placeholder="请填写安全密码"/>
+		  </van-cell-group>
+		  <div class="sureAppointBtnBox">
+			  <van-button @click="surePickedBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="sellBtnLoading" loading-type="spinner">确 认</van-button>
+		  </div>
+		</van-action-sheet>
+		
 		<div class="buy" v-if="tabActiveName=='dealArea1'||tabActiveName=='dealArea2'" @click="showBuyModelBtn()">挂买</div>
-		<div class="buy" v-if="tabActiveName=='dealArea3'" @click="showSellModelBtn()">挂卖</div>
+		<div class="sale" v-if="tabActiveName=='dealArea3'" @click="showSellModelBtn()">挂卖</div>
+		
+		
 		<van-action-sheet v-model="showSellModel" title="挂卖">
 			<div class="hangBuyContent">
 				<!-- <div class="tipText paddingWing">
@@ -606,6 +620,13 @@ export default {
 				blockAddress:"",
 				safePassword:"",
 			},
+			form3:{
+				id:'',
+				num:'',
+				price:'',
+				safePassword:"",
+				idCard:""
+			},
 			sellAmountPlaceholder:"单笔挂卖数量的区间为1~2000",
 			minBill:1,
 			maxBill:2000,
@@ -661,7 +682,8 @@ export default {
 			pages:0,
 			pagesPlatPrice:0,
 			buyLowestAmountText:"最低匹配数量请填写1~500之间",
-			tabName:""
+			tabName:"",
+			showPickBuyModel:false
 		}
 	},  
 	components:{
@@ -1153,7 +1175,81 @@ export default {
 			_this.minBill = item.minNumber;
 			//console.log('_this.maxBill',_this.maxBill);
 		},
-		//挂卖操作
+		ShowBuyTAModelBtn(item){
+			let _this = this;
+			_this.showPickBuyModel = true;
+			_this.form3.price = item.price;
+			_this.form3.id = item.id;
+			//console.log('_this.maxBill',_this.maxBill);
+		},
+		//匹配服务商的卖单-建立交易单子
+		surePickedBuyBillBtn(){
+			let _this = this;
+			//挂卖之前先判断时间
+			/* if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '交易时间是9~21点，请明天再来'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '交易时间是9~21点，请到点再来'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			} */
+			let params = {
+				id:_this.form3.id,
+				serviceCharge:1,
+				num:_this.form3.num,
+				price:_this.form3.price,
+				safePassword:_this.$JsEncrypt.encrypt(_this.form3.safePassword),
+				idCard:_this.form3.idCard
+			}
+			console.log("params",params);
+			if(_this.$utils.hasNull(params)){
+				_this.$toast('请填写完整信息');
+				return;
+			}
+			/* if(_this.$utils.hasVal(_this.errorInfo4pickSellBill)){
+				_this.$toast('请按要求填写信息');
+				return;
+			} */
+			_this.sellBtnLoading = true;
+			_this.$ajax.ajax(_this.$api.insertTransaction4PickSellBill, 'POST', params, function(res) {
+				
+				if (res.code == _this.$api.CODE_OK) { // 200
+					_this.showSellModel = false;
+					_this.transactionVo4BuyerTip = res.data;
+					
+					//_this.showSendSMSTipModel = true;
+					//把是否刷新用户信息设置成true,打开‘我的’页面的时候，会自动重新获取一遍userInfo
+					_this.$cookies.set('isRefreshUserInfo',true,_this.$api.cookiesTime);
+					//路由跳转
+					//缓存所需要显示的页面
+					_this.$cookies.set("tabName4MyDeal", "pay", 60 * 60 * 1)
+					//_this.$router.push({path:'myDeal',query:{dealType:2,mobilePhone:_this.transactionVo4BuyerTip.mobilePhone,num:_this.transactionVo4BuyerTip.num}});
+					_this.$router.push('myDeal');
+					
+				}else{
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
+				}
+			},function(){
+				_this.sellBtnLoading = false;
+			})
+		},
+		//匹配买单
 		sureHangPickedSellBillBtn(){
 			let _this = this;
 			//挂卖之前先判断时间
@@ -1396,14 +1492,42 @@ export default {
 			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
 			let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
 			let params = {
-				serviceCharge:1,
 				maxNumber:_this.form4pickSellBill.sellAmount,
 				minNumber:_this.form4pickSellBill.sellLowestAmount,
 				price:_this.form4pickSellBill.price,
 				type:parseFloat(_this.form4pickSellBill.price)>parseFloat(currentPlatformPrice)?1:0,
-				safePassword:_this.form4pickSellBill.safePassword
+				safePassword:_this.form4pickSellBill.safePassword,
+				buyOrSell:"sell"
 			}
 			console.log("params",params);
+			_this.loading4Buy = true;
+			params.safePassword = _this.$JsEncrypt.encrypt(_this.form4pickSellBill.safePassword);
+			_this.$ajax.ajax(_this.$api.insertBuyBill, 'POST', params, function(res) {
+				if (res.code == _this.$api.CODE_OK) { // 200
+					if(res.data == 1){
+						_this.showSellModel = false;
+						_this.$toast(res.message);
+						// _this.getList();
+						_this.$cookies.set("tabName4MyDeal", "sell", 60 * 60 * 1)
+						_this.$cookies.set("isRefreshDealInfo", 1, 60 * 60 * 1)
+						_this.$router.push('myDeal');
+					}
+				}else if(res.code == 2003){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					  _this.$cookies.set("tabName4MyDeal", "sell", 60 * 60 * 1)
+					  _this.$router.push('myDeal');
+					});
+					return;
+				}else{
+					_this.$toast(res.message);
+				}
+			},function(res){
+				_this.loading4Buy = false;
+			})
 		},
 		sureHangBuyBillBtn(){
 			let _this = this;
@@ -1436,7 +1560,8 @@ export default {
 				minNumber:_this.form4BuyBill.buyLowestAmount,
 				price:_this.form4BuyBill.price,
 				type:parseFloat(_this.form4BuyBill.price)>parseFloat(currentPlatformPrice)?1:0,
-				safePassword:_this.form4BuyBill.safePassword
+				safePassword:_this.form4BuyBill.safePassword,
+				buyOrSell:"buy"
 			}
 			/* let price = (parseFloat(_this.form4BuyBill[key])).toFixed(2);
 			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
@@ -1517,7 +1642,7 @@ export default {
 					}else if(res.code == 2003){
 						Dialog.alert({
 						  title: '系统提示',
-						  message: '同一价格每人只能挂一单，前去查看您所挂的买单？'
+						  message: res.message
 						}).then(() => {
 						  // on close
 						  _this.$cookies.set("tabName4MyDeal", "buy", 60 * 60 * 1)

@@ -733,7 +733,8 @@
 				let params = {
 				  raiseId: _this.list1.id,
 				  raiseNum: _this.num,
-				  word: _this.word
+				  word: _this.word,
+				  type: 1
 				}
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');

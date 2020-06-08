@@ -244,5 +244,7 @@ export default {
 	//fundPoolRecord
 	getAssistFundPoolRecord: host + "assist/fundpoolrecord/getAssistFundPoolRecord",
 	insertFundPoolRecord: host + "assist/fundpoolrecord/insertFundPoolRecord",
-	outFundPoolRecord: host + "assist/fundpoolrecord/outFundPoolRecord"
+	outFundPoolRecord: host + "assist/fundpoolrecord/outFundPoolRecord",
+	//loveValue
+	getAssistLoveValueList: host + "assist/loveValue/getAssistLoveValueList"
 }

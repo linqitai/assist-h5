@@ -194,6 +194,12 @@ const mineralBookTypeOptions = config.mineralBookTypeOptions;
 function mineralBookType(val){
 	 return mineralBookTypeOptions[val].value;
 }
+//0-捐赠矿石 1-捐赠帮扶券 2-捐赠基金池 3-释放爱心
+const loveValueBookTypeOptions = config.loveValueBookOptions;
+function loveValueBookType(val){
+	 return loveValueBookTypeOptions[val].value;
+}
+
 //类型（矿机产出、买入、卖出、释放）
 const platformTicketBookTypeOptions = config.platformTicketBookTypeOptions;
 function platformBookType(val){
@@ -286,6 +292,7 @@ export {
 	machineStatus,
 	mineralBookTypeOptions,
 	mineralBookType,
+	loveValueBookType,
 	calculationType,
 	platformTicketBookTypeOptions,
 	platformBookType,

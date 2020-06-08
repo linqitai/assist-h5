@@ -389,7 +389,6 @@
 						_this.$toast('请填写完整信息');
 						return;
 					}
-					console.log('_this.errorInfo4BuyBill',_this.errorInfo4BuyBill);
 					if(_this.$utils.hasVal(_this.errorInfo4AppointDeal)){
 						_this.$toast('请按要求填写信息');
 						return;

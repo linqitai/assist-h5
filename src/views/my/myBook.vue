@@ -122,6 +122,19 @@
 						</div>
 						</van-list>
 					</van-tab>
+					<van-tab title="爱心值" name="loveValue">
+						<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
+						<div class="list">
+							<div class="item" v-for="item in list5" :key="item.id">
+								<div class="flex">
+									<div class="line">{{item.createTime}}</div>
+									<div class="line margT6"><i :class="item.type==0?'red':item.type==1?'green':item.type==2?'blue':item.type==3?'yellow':''">{{item.type | loveValueBookType}}</i>后拥有爱心值 {{item.currentNum}}</div>
+								</div>
+								<div class="flexRight">{{item.addOrReduce}} {{item.num}}</div>
+							</div>
+						</div>
+						</van-list>
+					</van-tab>
 				</van-tabs>
 			</van-pull-refresh>
 		</div>
@@ -142,6 +155,7 @@
 				currentPage2: 1,
 				currentPage3: 1,
 				currentPage4: 1,
+				currentPage5: 1,
 				pageSize:20,
 				activeName:'mineral',
 				loading1:false,
@@ -152,10 +166,13 @@
 				finished3:false,
 				loading4:false,
 				finished4:false,
+				loading5:false,
+				finished5:false,
 				list1:[],
 				list2:[],
 				list3:[],
 				list4:[],
+				list5:[],
 				list:[{
 					id:0,
 					createTime:'2019-12-12 12:12:12',
@@ -223,6 +240,11 @@
 					_this.list4 = [];
 					_this.finished4 = false;
 					_this.onLoad4();
+				}else if(_this.activeName == 'loveValue'){
+					_this.currentPage5 = 1;
+					_this.list5 = [];
+					_this.finished5 = false;
+					_this.onLoad5();
 				}
 			},
 			tabChange(name, title) {
@@ -359,9 +381,7 @@
 				
 			},
 			onLoad4(){
-				// console.log('load4')
 				let _this = this;
-				// 异步更新数据getAssistPlateformTicketAccountBookList
 				let params = {
 					pageNo: _this.currentPage4,
 					pageSize: _this.pageSize,
@@ -369,22 +389,16 @@
 				}
 				_this.loading4 = true;
 				_this.$ajax.ajax(_this.$api.getAssistPlateformTicketAccountBookList, 'GET', params, function(res) {
-					// // console.log('res', res);
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
-						// // console.log('_this.list1',_this.list1);
-						// // console.log('res.data.list',res.data.list)
 						let list = res.data.list;
 						_this.list4.push(...list);
 						_this.loading4 = false;
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished4 = true;
-							// console.log('res.data.endRow == res.data.total');
 						}else{
 							_this.currentPage4 = _this.currentPage4 + 1;
 						}
-						// // console.log('_this.list1',_this.list1);
 					}else{
 						_this.list4 = _this.list;
 						_this.loading4 = false;
@@ -394,7 +408,36 @@
 				},function(){
 					_this.loading = false;
 					_this.loading4 = false;
-					//_this.finished4 = true;
+				})
+			},
+			onLoad5(){
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage5,
+					pageSize: _this.pageSize,
+					userId: _this.userId
+				}
+				_this.loading5 = true;
+				_this.$ajax.ajax(_this.$api.getAssistLoveValueList, 'GET', params, function(res) {
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list5.push(...list);
+						_this.loading5 = false;
+						if(res.data.endRow == res.data.total){
+							_this.finished5 = true;
+						}else{
+							_this.currentPage5 = _this.currentPage5 + 1;
+						}
+					}else{
+						_this.list5 = _this.list;
+						_this.loading5 = false;
+						_this.finished5 = true;
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.loading = false;
+					_this.loading5 = false;
 				})
 			},
 		}

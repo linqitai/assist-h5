@@ -235,7 +235,8 @@
 					</div>
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
-					<div class="line"><span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
+					<!-- @click="toBookView('5')" -->
+					<div class="line"><span>爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
 					<div class="line" v-if="userInfo.manType==2">
 						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
 					</div>
@@ -774,7 +775,7 @@
 				if(val=='mineral'){
 					message = '矿石：当前所能用来流通的矿石。卖出的时候要额外收20%的手续费(服务费)，比如卖100个矿石要使用110个矿石(其中10个销毁)+价值10个矿石价格的帮扶券(其中部分存入基金池，做为线下帮扶时的启动资金，无形中，大家的每笔交易都给自己增加了福报，行善积德，大慈大悲，感谢有您的支持)。获得途径：矿机产出、买入。';
 				}else if(val=='platformTicket'){
-					message = '帮扶券：可用于交易的时候当手续费(服务费)、可用于解冻、可用于消实名次数、可用于捐赠给平台上生活遇到困难的会员而获得爱心值，或者捐赠给少年儿童基金池来帮助更多的人，后续还会有其他用处......。获取途径：从省市代理那儿购买。';
+					message = '帮扶券：可用于交易的时候当手续费(服务费)、可用于解冻、可用于消实名次数、可用于捐赠给平台上生活遇到困难的会员而获得爱心值，或者捐赠给少年儿童基金池来帮助更多的人，后续还会有其他用处......。获取途径：从自己上级或志愿者或省市代理那儿购买。';
 				}else if(val=='contribution'){
 					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：签到、推广、自己复投矿机、直推复投矿机、捐赠帮扶券。';
 				}else if(val=='teamCalculationPower'){

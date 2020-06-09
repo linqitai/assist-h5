@@ -55,7 +55,35 @@
 			}
 		}
 	}
-	
+	.shadeMaster{
+		position: fixed;
+		top: 0;
+		left: 0;
+		/*水平居中*/
+		text-align: center;
+		width: 100%;
+		height: 100%;
+		background-color:rgba(0,0,0,0.5);
+		p{
+			position: absolute;
+			color: white;
+			font-size: 28px;
+			text-align: center;
+			top:50%;
+			width: 100%;
+			transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			span{
+				color:#5FD6FF;
+			}
+		}
+		.img{
+			position: absolute;
+			display: block;
+			right: 20px;
+			top:10px;
+		}
+	}
 	.van-cell__value,.van-cell__value--alone,.van-field__control{
 		color: $mainTextColor !important;
 	}
@@ -107,6 +135,12 @@
 			</div> -->
 			<div class="placeholderLine10"></div>
 		</div>
+		<div class="shadeMaster" v-if="isWeixin">
+			<p>请打开右上角按钮选择<br>
+				<span>【在浏览器打开并收藏】</span>
+			</p>
+			<img class='img' src="../../assets/image/open_right.png" alt="pic">
+		</div>
 	</div>
 </template>
 
@@ -141,7 +175,8 @@
 				cookiesTime: 60 * 60 * 24,
 				userFreezeInfo:'',
 				getInitCode:'',
-				userInfo:''
+				userInfo:'',
+				isWeixin:false,
 			}
 		},
 		mounted() {
@@ -169,15 +204,7 @@
 			},
 			bsTip(){
 				let _this = this;
-				let isWeixin = _this.$utils.isWeixin();
-				if(isWeixin){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.bsTip
-					}).then(() => {
-					  // on close
-					});
-				}
+				_this.isWeixin = _this.$utils.isWeixin();
 			},
 			judgeMoreAccount(){
 				let _this = this;

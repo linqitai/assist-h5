@@ -64,9 +64,38 @@
 		.van-dialog__header{
 			color: #323232 !important;
 		}
+		.shadeMaster{
+			position: fixed;
+			top: 0;
+			left: 0;
+			/*水平居中*/
+			text-align: center;
+			width: 100%;
+			height: 100%;
+			background-color:rgba(0,0,0,0.5);
+			p{
+				position: absolute;
+				color: white;
+				font-size: 30px;
+				text-align: center;
+				top:50%;
+				width: 100%;
+				transform: translateY(-50%);
+				-webkit-transform: translateY(-50%);
+				span{
+					color:#5FD6FF;
+				}
+			}
+			.img{
+				position: absolute;
+				display: block;
+				right: 20px;
+				top:10px;
+			}
+		}
 	}
 	.van-field__error-message{
-		color: $main-adorn-color !important;
+		color: red !important;
 	}
 </style>
 
@@ -114,6 +143,12 @@
 			<div class="placeholderLine10"></div>
 			<van-button color="inherit" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>
 			<div class="placeholderLine10"></div>
+		</div>
+		<div class="shadeMaster" v-if="isWeixin">
+			<p>请打开右上角按钮选择<br>
+				<span>【在浏览器打开】</span>
+			</p>
+			<img class='img' src="../../assets/image/open_right.png" alt="pic">
 		</div>
 		<!-- <van-dialog v-model="showTipModel" title="系统提示" :show-confirm-button="false">
 			<div class="placeholderLine10"></div>
@@ -170,7 +205,8 @@
 				registerValidate:true,
 				isLoading:false,
 				showTipModel:false,
-				isShortMessageDisabled:false
+				isShortMessageDisabled:false,
+				isWeixin:false,
 			}
 		},
 		/* watch:{
@@ -183,7 +219,7 @@
 			let _this = this;
 			_this.welcomeText = _this.$api.welcomeText;
 			_this.form.shareCode = _this.$route.query.id;
-			
+			_this.isWeixin = _this.$utils.isWeixin();
 		},
 		//倒计时方法
 		countDown4Time(){
@@ -204,6 +240,10 @@
 		methods:{
 			loginBtn(){
 				this.$router.push('login');
+			},
+			bsTip(){
+				let _this = this;
+				_this.isWeixin = _this.$utils.isWeixin();
 			},
 			shortMessageBtn(){
 				let _this = this;

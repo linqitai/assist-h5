@@ -57,16 +57,25 @@
 				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="addInCheck">申请加入HPC督察组</van-button>
 			</div> -->
 			<div class="placeholderLine10"></div>
-			<div class="tip4model3 textBold">有问题请先联系自己的团队长，然后团队长再联系客服，尽量减少客服的压力，感恩您的配合</div>
+			<div class="tip4model3 textBold">有问题请先联系自己的上级或团队长，然后由上级或团队长再联系客服，尽量减少客服的压力，感恩您的配合</div>
 			<div class="placeholderLine10"></div>
-			<div class="title">+++++++++++++++++++++++++</div>
+			<!-- <div class="title">+++++++++++++++++++++++++</div>
 			<div class="title">问题解决群(让上级邀请进群)：</div>
 			<div class="title">+++++++++++++++++++++++++</div>
 			<div class="placeholderLine10"></div>
 			<div class="cateInfo">
 				<div class="infoBox">
-					<!-- <img class="ewmBox" src="https://www.helpchain.online/image/wechat.png" alt=""> -->
 					<img class="ewmBox" src="../../assets/image/question.png">
+					<div class="text">扫码进群</div>
+				</div>
+			</div> -->
+			<div class="placeholderLine10"></div>
+			<div class="title">找不到(无)上级·帮扶群：</div>
+			<div class="placeholderLine10"></div>
+			<div class="cateInfo">
+				<div class="infoBox">
+					<!-- <img class="ewmBox" src="https://www.helpchain.online/image/wechat.png" alt=""> -->
+					<img class="ewmBox" src="../../assets/image/help.jpg">
 					<div class="text">扫码进群</div>
 				</div>
 			</div>

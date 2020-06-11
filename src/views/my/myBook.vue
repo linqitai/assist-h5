@@ -122,7 +122,7 @@
 						</div>
 						</van-list>
 					</van-tab>
-					<!-- <van-tab title="爱心值" name="loveValue">
+					<van-tab title="爱心值" name="loveValue">
 						<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
 						<div class="list">
 							<div class="item" v-for="item in list5" :key="item.id">
@@ -134,7 +134,7 @@
 							</div>
 						</div>
 						</van-list>
-					</van-tab> -->
+					</van-tab>
 				</van-tabs>
 			</van-pull-refresh>
 		</div>

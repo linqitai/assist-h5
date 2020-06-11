@@ -241,8 +241,8 @@
 				currentPage: 1,
 				currentPage2: 1,
 				currentPage3: 1,
-				pageSize: 16,
-				activeName: 'myShare',
+				pageSize: 20,
+				activeName: 'actived',
 				loading1: false,
 				finished1: false,
 				loading2: false,
@@ -357,7 +357,7 @@
 						_this.list1.push(...list);
 						_this.totalNum = res.data.total;
 						_this.myShareText = '我的直推' + ' ' + res.data.total;//团队注册人数
-						_this.unactivedText = '未实名' + ' ' + (res.data.total - _this.userInfo.realnameNum);
+						//_this.unactivedText = '未实名' + ' ' + (res.data.total - _this.userInfo.realnameNum);
 						_this.loading1 = false;
 						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
@@ -391,7 +391,7 @@
 						_this.loading2 = false;
 						_this.realnameNum = res.data.total;
 						_this.activedText = '已实名 ' + _this.realnameNum;
-						_this.unactivedText = '未实名 ' + (_this.totalNum - _this.realnameNum);
+						//_this.unactivedText = '未实名 ' + (_this.totalNum - _this.realnameNum);
 						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished2 = true;

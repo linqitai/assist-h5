@@ -236,7 +236,7 @@
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
 					<!-- @click="toBookView('5')" -->
-					<div class="line"><span>爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
+					<div class="line"><span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
 					<div class="line" v-if="userInfo.manType==2">
 						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
 					</div>
@@ -777,7 +777,7 @@
 				}else if(val=='platformTicket'){
 					message = '帮扶券：可用于交易的时候当手续费(服务费)、可用于解冻、可用于消实名次数、可用于捐赠给平台上生活遇到困难的会员而获得爱心值，或者捐赠给少年儿童基金池来帮助更多的人，后续还会有其他用处......。获取途径：从自己上级或志愿者或省市代理那儿购买。';
 				}else if(val=='contribution'){
-					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：签到、推广、自己复投矿机、直推复投矿机、捐赠帮扶券。';
+					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：爱心值释放、推广、直推复投矿机。';
 				}else if(val=='teamCalculationPower'){
 					message = '团队算力：个人算力+近代下级的个人算力。它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
 				}else if(val=='myCalculationPower'){
@@ -785,7 +785,7 @@
 				}else if(val=='limitBuyNum'){
 					message = '个人限购数量=个人额度+(卖出数量-买入数量)，若有特殊需要，个人限购数量可找客服申请提升';
 				}else if(val=='raise'){
-					message = '爱心值就是您捐赠帮扶券的数量';
+					message = '爱心值就是您捐赠帮扶券的数量，满10个即可在首页每日释放爱心值';
 				}
 				Dialog.alert({
 				  title: '温馨提示',

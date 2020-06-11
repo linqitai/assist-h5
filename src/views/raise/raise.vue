@@ -774,12 +774,6 @@
 				this.$cookies.set("tabName4Record", name, 60 * 60 * 1)
 				if(name == 'raiseRecord1'){
 					_this.getAssistRaiseRecordListPage();
-					/* if(_this.$cookies.get('totalItems2')){
-						_this.list2 = JSON.parse(localStorage.getItem("LIST2"));
-						_this.totalItems2 = parseInt(_this.$cookies.get('totalItems2'));
-					}else{
-						_this.getListAddPrice();
-					} */
 				}else if(name == 'raiseRecord2'){
 					_this.getAssistRaiseRecordListPage3();
 				}else if(name == 'raiseRecord4'){

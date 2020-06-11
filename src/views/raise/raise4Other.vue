@@ -369,6 +369,10 @@
 							<div class="digit">{{list1.getedTicket}}</div>
 							<div class="text">已筹到帮扶券</div>
 						</div>
+						<div class="flexC flex3" v-if="raiseMineralSum">
+							<div class="digit">{{raiseMineralSum}}</div>
+							<div class="text">已筹到矿石</div>
+						</div>
 						<div class="flexC flex3">
 							<div class="digit">{{list1.beHelpTimes}}</div>
 							<div class="text">被帮扶次数</div>
@@ -474,7 +478,7 @@
 				</div>
 				<div class="materialProve borderBottom">
 					<div class="flex">
-						<div class="title flexMedial">我要捐赠</div>
+						<div class="title flexMedial">我要捐赠<i class="yellow">帮扶券</i></div>
 					</div>
 					<div>
 						<van-field label="爱心问候"
@@ -489,15 +493,44 @@
 					</div>
 					<div class="placeholderLine10"></div>
 					<div>
-						<van-button round type="info" @click="addTicket(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个券</van-button>
-						<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个券</van-button>
-						<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个券</van-button>
-						<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个券</van-button>
-						<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个券</van-button>
+						<van-button round type="info" @click="addTicket(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个</van-button>
+						<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个</van-button>
+						<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个</van-button>
+						<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个</van-button>
+						<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个</van-button>
 						<!-- 增加自己填写数额 -->
 						<div class="placeholderLine10"></div>
 						<van-field v-model="number" center clearable placeholder="自定义捐赠帮扶券数量">
 							<van-button slot="button" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getNumberLoading" @click="addTicket(number)">确认</van-button>
+						</van-field>
+					</div>
+					<div class="placeholderLine10"></div>
+				</div>
+				<div class="materialProve borderBottom">
+					<div class="flex">
+						<div class="title flexMedial">我要捐赠<i class="yellow">矿石</i></div>
+					</div>
+					<div>
+						<van-field label="爱心问候"
+						  v-model="word4Mineral"
+						  rows="2"
+						  autosize clearable
+						  type="textarea"
+						  maxlength="100"
+						  placeholder="顺便给求助者捎一句问候/慰问,送人玫瑰,手留余香,感恩有你"
+						  show-word-limit
+						/>
+					</div>
+					<div class="placeholderLine10"></div>
+					<div>
+						<van-button round type="info" @click="addMineral(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个</van-button>
+						<van-button round type="info" @click="addMineral(3)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">3个</van-button>
+						<van-button round type="info" @click="addMineral(5)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">5个</van-button>
+						<van-button round type="info" @click="addMineral(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个</van-button>
+						<van-button round type="info" @click="addMineral(20)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">20个</van-button>
+						<div class="placeholderLine10"></div>
+						<van-field v-model="number4Mineral" center clearable placeholder="自定义捐赠矿石数量">
+							<van-button slot="button" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getNumberLoading" @click="addMineral(number4Mineral)">确认</van-button>
 						</van-field>
 					</div>
 					<div class="placeholderLine10"></div>
@@ -527,7 +560,7 @@
 				</van-list> -->
 				<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
-					<van-tab title="爱心帮扶记录" name="raiseRecord1">
+					<van-tab title="赠卷记录" name="raiseRecord1">
 						<div class="records" v-if="list2">
 							<div class="item flexsBox row" v-for="item in list2" :key="item.id">
 								<div class="flexThis column">
@@ -553,7 +586,7 @@
 							</div>
 						</div>
 					</van-tab>
-					<van-tab title="爱心帮扶排行榜" name="raiseRecord2">
+					<van-tab title="赠卷排行榜" name="raiseRecord2">
 						<div class="records" v-if="list3">
 							<div class="item flexsBox row" v-for="item in list3" :key="item.id">
 								<div class="flexThis column">
@@ -575,6 +608,32 @@
 								  :show-page-size="3" 
 								  force-ellipses
 								  @change="getAssistRaiseRecordListPage3"
+								/>
+							</div>
+						</div>
+					</van-tab>
+					<van-tab title="赠矿石记录" name="raiseRecord4">
+						<div class="records" v-if="list4">
+							<div class="item flexsBox row" v-for="item in list4" :key="item.id">
+								<div class="flexThis column">
+									<div class="line1">
+										<div class="left yellow">{{item.nickName}}</div>
+										<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个矿石</div>
+									</div>
+									<div class="line2">
+										{{item.word}}
+									</div>
+									<div class="line3">{{item.createTime}}</div>
+								</div>
+							</div>
+							<div v-if="totalItems4>0">
+								<van-pagination 
+								  v-model="currentPage4" 
+								  :total-items="totalItems4" 
+								  :items-per-page="pageSize4"
+								  :show-page-size="3" 
+								  force-ellipses
+								  @change="getAssistRaiseRecordListPage4"
 								/>
 							</div>
 						</div>
@@ -639,6 +698,12 @@
 				list3:[],
 				totalItems:0,
 				totalItems3:0,
+				currentPage4: 1,
+				pageSize4:6,
+				loading4:false,
+				finished4:false,
+				list4:[],
+				totalItems4:0,
 				showImagePreview: false,
 				imageIndex: 0,
 				images: [],
@@ -649,7 +714,9 @@
 				tabActiveName:"raiseRecord1",
 				userInfo:"",
 				number:"",
-				getNumberLoading: false
+				word4Mineral:"",
+				getNumberLoading: false,
+				raiseMineralSum:0
 			}
 		},
 		components: {
@@ -692,21 +759,70 @@
 				this.$cookies.set("tabName4Record", name, 60 * 60 * 1)
 				if(name == 'raiseRecord1'){
 					_this.getAssistRaiseRecordListPage();
-					/* if(_this.$cookies.get('totalItems2')){
-						_this.list2 = JSON.parse(localStorage.getItem("LIST2"));
-						_this.totalItems2 = parseInt(_this.$cookies.get('totalItems2'));
-					}else{
-						_this.getListAddPrice();
-					} */
 				}else if(name == 'raiseRecord2'){
 					_this.getAssistRaiseRecordListPage3();
-					/* if(_this.$cookies.get('totalItems1')){
-						_this.list3 = JSON.parse(localStorage.getItem("LIST1"));
-						_this.totalItems3 = parseInt(_this.$cookies.get('totalItems1'));
-					}else{
-						_this.getListGeneral();
-					} */
+				}else if(name == 'raiseRecord4'){
+					_this.getAssistRaiseRecordListPage4();
 				}
+			},
+			addMineral(num){
+				let _this = this;
+				_this.num = num;
+				Dialog.confirm({
+				  title: '系统提示',
+				  confirmButtonText:'确认',
+				  closeOnClickOverlay:true,
+				  message: `您是否要捐赠${num}个矿石给求助者？`
+				}).then(() => {
+				  // on confirm
+				  //_this.$toast(`即将开放`);
+				  _this.addMineralRequest();
+				})
+				
+			},
+			addMineralRequest(){
+				let _this = this;
+				let params = {
+				  raiseId: _this.list1.id,
+				  raiseNum: _this.num,
+				  word: _this.word4Mineral||'加油',
+				  type: 0
+				}
+				console.log("params",params);
+				if(_this.$utils.hasNull(params)){
+					_this.$toast('请填写完整信息');
+					return;
+				}
+				if(!_this.$reg.positive_integer.test(_this.num)){
+					_this.$toast(`请填写正整数的矿石`);
+					return;
+				}
+				if(_this.userInfo.thisWeekMineral<_this.num){
+					_this.$toast(`您所拥有的矿石扣不够${_this.num}个，请调整数量`);
+					return;
+				}
+				_this.getNumberLoading = true;
+				//console.log("p",params)
+				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.$toast("捐赠成功");
+						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+						_this.word4Mineral = '';
+						_this.number4Mineral = '';
+						_this.getAssistRaiseRecordListPage4();
+						//_this.getAssistRaiseRecordListPage();
+					}else{
+						Dialog.alert({
+							title: "系统提示",
+							message: res.message
+						}).then(() => {
+						  // on confirm
+						  //_this.getCurrentAuction();
+						})
+					}
+				},function(){
+					_this.getNumberLoading = false;
+				})
 			},
 			addTicket(num){
 				let _this = this;
@@ -770,6 +886,19 @@
 					_this.getNumberLoading = false;
 				})
 			},
+			getRaiseMineralNum(raiseId){
+				let _this = this;
+				let params = {
+					raiseId:raiseId
+				}
+				_this.$ajax.ajax(_this.$api.getRaiseMineralNum, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.raiseMineralSum = res.data;
+					}else{
+						_this.$toast(res.message);
+					}
+				})
+			},
 			getAssistRaiseRecordListPage(){
 				let _this = this;
 				
@@ -790,6 +919,28 @@
 				},function(){
 					_this.finished2 = true;
 					_this.loading2 = false;
+				})
+			},
+			getAssistRaiseRecordListPage4(){
+				let _this = this;
+				
+				let params = {
+					pageNo: _this.currentPage4,
+					pageSize: _this.pageSize4,
+					raiseId:_this.list1.id,
+					type:0
+				}
+				_this.loading4 = true;
+				_this.$ajax.ajax(_this.$api.getAssistRaiseRecordListPage, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list4 = res.data.list;
+						_this.totalItems4 = res.data.total;
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.finished4 = true;
+					_this.loading4 = false;
 				})
 			},
 			getAssistRaiseRecordListPage3(){
@@ -832,6 +983,7 @@
 							_this.images=images;
 							//_this.images = _this.list1.pic.split('|');
 							_this.getAssistRaiseRecordListPage();
+							_this.getRaiseMineralNum(_this.list1.id);
 						}else{
 							_this.list1 = '';
 						}

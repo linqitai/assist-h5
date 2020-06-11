@@ -251,7 +251,7 @@
 						<div class="mlBox left">实名人数 {{userInfo.realnameNum}}</div>
 					</div>
 					<div class="line"><span @click="toBookView('3',userInfo.userId)">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
-					<div class="line"><span>爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
+					<div class="line"><span @click="toBookView('5',userInfo.userId)">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
 					<div class="line">
 						<i class="underline" @click="toMachineView(userInfo.userId)">查看TA的矿机</i>
 					</div>
@@ -535,6 +535,8 @@
 					name = 'contribution';
 				}else if(val==4){
 					name = 'mineral';
+				}else if(val==5){
+					name = 'loveValue';
 				}
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})

@@ -190,7 +190,7 @@
 		</m-header>
 		<canvas class="matrix" id="matrix"></canvas>
 		<div class="millContent" id="millContent">
-			<div class="statistics" v-if="remainCount">
+			<div class="statistics" v-if="remainCount&&userInfo.level>0">
 				<div class="line clearBoth flexCenter f-14">
 					<div class="left title">智能统计小助手</div>
 					<div class="right">总资产 {{parseFloat(Number(userInfo.thisWeekMineral)+Number(remainCount)).toFixed(3)}}个</div>

@@ -80,7 +80,7 @@
 		.img{
 			position: absolute;
 			display: block;
-			right: 20px;
+			right: 30px;
 			top:10px;
 		}
 	}

@@ -522,7 +522,7 @@ $noticeHeight:40px;
 				<div class="millInfo" v-if="statistics.allMineralNum">
 					<div class="infoBox">
 						<div class="amount">{{ statistics.awardNum || 0 }}</div>
-						<div class="margT6">奖励分红出去的数量</div>
+						<div class="margT6">赠送奖励分红的数量</div>
 					</div>
 					<div class="infoBox">
 						<div class="amount">{{ statistics.allMineralNum - statistics.beDigNum - statistics.awardNum - statistics.beDestroyNum  || 0}}</div>
@@ -703,6 +703,7 @@ $noticeHeight:40px;
 					'https://www.helpchain.online/image/banner/banner004.jpg',
 					'https://www.helpchain.online/image/banner/banner005.jpg',
 					'https://www.helpchain.online/image/banner/banner006.jpg',
+					'https://www.helpchain.online/image/banner/banner007.jpg',
 				],
 				mill: {
 					zl: "",
@@ -971,7 +972,7 @@ $noticeHeight:40px;
 						Dialog.alert({
 						  title: '系统信息',
 						  confirmButtonText:`${_this.userInfo.aword>10?'释放':'好的'}`,
-						  message: `爱心值大于10即可按特定比例释放成贡献值(爱心值的释放与统计还在测试中，近日会优化完成并正式上线)。您当前的爱心值为：${Number(_this.userInfo.aword).toFixed(2)}，${_this.userInfo.aword>10?'可释放爱心值!':'暂时无法释放！'}`
+						  message: `爱心值大于10即可按特定比例释放成贡献值。您当前的爱心值为：${Number(_this.userInfo.aword).toFixed(2)}，${_this.userInfo.aword>10?'可释放爱心值!':'暂时无法释放！'}`
 						}).then(() => {
 							if(_this.userInfo.aword>10){
 								_this.sureAttendance();

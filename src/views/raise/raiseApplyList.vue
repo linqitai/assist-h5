@@ -97,7 +97,7 @@
 						</div>
 					</van-list>
 				</van-tab>
-				<van-tab title="拜访中" name="onLoad2">
+				<van-tab title="排队中" name="onLoad2">
 					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 						<div class="wordList">
 							<div class="item" v-for="item in list2" :key="item.id">

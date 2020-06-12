@@ -528,7 +528,7 @@
 			</div>
 			<div class="detailBox" v-if="detail4sellerInfo">
 				<div class="tip4model3">
-					平台为保证交易的顺利进行，卖方的真实姓名若与支付宝里的不一致将冻结账号处理，交易的时候买方若遇到此问题欢迎向平台诉讼，情况属实买方会得到贡献值奖励。
+					平台为保证交易的顺利进行，卖方的真实姓名若与支付宝里的不一致将冻结账号处理，交易的时候买方若遇到此问题欢迎向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
 				</div>
 				<div class="line" v-if="detail4sellerInfo.id">
 					<span class="label">订单编号</span>
@@ -567,7 +567,7 @@
 					<span class="value textAdornColor">{{detail4sellerInfo.status | dealStatusType}}</span>
 				</div>
 				<div class="line" v-if="detail4sellerInfo.remark">
-					<span class="label">诉讼</span>
+					<span class="label">诉讼反馈问题</span>
 					<span class="value red letterSpacing lineHeight">{{detail4sellerInfo.remark}}</span>
 				</div>
 				<div class="line" v-if="detail4sellerInfo.status==0 || detail4sellerInfo.status==1">
@@ -612,7 +612,7 @@
 				</div>
 				<div class="margT10 tip4model3" v-html="$api.tip4Complain"></div>
 				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4sellerInfo)" size="normal" :block="true">诉讼</van-button>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4sellerInfo)" size="normal" :block="true">诉讼反馈问题</van-button>
 				</div>
 				<div class="margT10 tip4model3" v-html="$api.tipText"></div>
 			</div>
@@ -717,7 +717,7 @@
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">取消交易</van-button>
 				</div>
 				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">诉讼</van-button>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">诉讼反馈问题</van-button>
 				</div>
 			</div>
 		</van-action-sheet>
@@ -766,7 +766,7 @@
 					<span class="value textAdornColor">{{detail4buyerInfo.status | dealStatusType}}</span>
 				</div>
 				<div class="line" v-if="detail4buyerInfo.remark">
-					<span class="label">诉讼</span>
+					<span class="label">诉讼反馈问题</span>
 					<span class="value red letterSpacing lineHeight">{{detail4buyerInfo.remark}}</span>
 				</div>
 				<div class="line" v-if="detail4buyerInfo.status==0 || detail4buyerInfo.status==1">
@@ -792,7 +792,7 @@
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="notReciveCNYBtn" size="normal" :block="true">我没收到款 请对方上传付款凭证</van-button>
 				</div>
 				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4buyerInfo)" size="normal" :block="true">诉讼</van-button>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4buyerInfo)" size="normal" :block="true">诉讼反馈问题</van-button>
 				</div>
 				<div class="margT10 tip4model3" v-html="$api.tipText"></div>
 			</div>
@@ -814,7 +814,7 @@
 		</van-action-sheet>
 		<van-action-sheet v-model="showSureCancelTransactionModel4buyer" title="温馨提示">
 			<div class="cancelSellTip">
-				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要扣0.5个贡献值。若卖方实名信息不符或者有其他问题，请向平台诉讼，让客服来处理单子。</div>
+				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要扣0.5个贡献值。若卖方实名信息不符或者有其他问题，请向平台诉讼反馈问题，让客服来处理单子。</div>
 			</div>
 			<div class="sureAppointBtnBox">
 				<van-button @click="cancel4buyer" :loading="sureCancelBtnLoading" loading-type="spinner" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确认取消</van-button>
@@ -830,7 +830,7 @@
 		</van-action-sheet>
 		<van-dialog
 		  v-model="showComplainDialog"
-		  title="诉讼的理由"
+		  title="诉讼反馈问题的理由"
 		  show-cancel-button
 		  @confirm="submitComplainBtn"
 		>
@@ -847,7 +847,7 @@
 			</div>	  
 		  <!-- <van-field v-model="remark" required clearable placeholder="写点内容,让平台好找到线索"/> -->
 		</van-dialog>
-		<van-action-sheet v-model="showSellerUserInfoModel" title="去了解卖家信息或诉讼">
+		<van-action-sheet v-model="showSellerUserInfoModel" title="去了解卖家信息或诉讼反馈问题">
 			<!-- <div class="box box2">
 				<div class="flex flex1">
 					<div class="value" @click="toBookView('1',sellerUserInfo.userId)">{{sellerUserInfo.teamCalculationPower}}</div>
@@ -877,10 +877,10 @@
 				</div>
 			</div> -->
 			<div class="margT10">
-				<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="toMy4OtherView(sellerUserInfo.userId)">查看对方信息，若异常就控告或诉讼</van-button>
+				<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="toMy4OtherView(sellerUserInfo.userId)">查看对方信息，若异常就控告或诉讼反馈问题</van-button>
 			</div>
 			<div class="margT10">
-				<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" size="normal" @click="complain(sellerUserInfo)" :block="true">诉讼</van-button>
+				<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" size="normal" @click="complain(sellerUserInfo)" :block="true">诉讼反馈问题</van-button>
 			</div>
 			<div class="placeholderLine10"></div>
 		</van-action-sheet>
@@ -1526,7 +1526,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
 						if(res.data == 1){
-							_this.$toast("诉讼成功");
+							_this.$toast("诉讼反馈问题成功");
 							_this.onLoad2();
 							_this.showSellerDetailModel = false;
 							_this.onLoad4();
@@ -1560,10 +1560,10 @@
 				if(_this.cancelSellSureBtnText=="知道了"){
 					_this.showSureCancelTransactionModel4seller = false;
 				}else{
-					//_this.$toast("卖方取消单子功能已经被下线，若有问题请点诉讼");
+					//_this.$toast("卖方取消单子功能已经被下线，若有问题请点诉讼反馈问题");
 					Dialog.alert({
 						title: "系统提示",
-						message: "卖方取消单子功能已经被撤销，若有问题请点诉讼"
+						message: "卖方取消单子功能已经被撤销，若有问题请点诉讼反馈问题"
 					}).then(() => {
 					  // on confirm
 					  
@@ -1592,7 +1592,7 @@
 			},
 			cancel4buyer(){
 				let _this = this;
-				_this.$toast('取消交易请点诉讼按钮，让客服取消');
+				_this.$toast('取消交易请点诉讼反馈问题按钮，让客服取消');
 				//调用取消接口
 				/*let params = {
 					id: _this.id,
@@ -1665,7 +1665,7 @@
 				let _this = this;
 				Dialog.alert({
 				  title: '提示信息',
-				  message: item.remark||'暂无诉讼信息',
+				  message: item.remark||'暂无诉讼反馈问题信息',
 				  closeOnClickOverlay:true
 				}).then(() => {
 				  // on confirm
@@ -1706,7 +1706,7 @@
 					}else if(_this.activeName == 'pay'){//pay是买家
 						////console.log('pay是买家');
 						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
-							_this.$toast("交易已经超时，请点诉讼让客服取消交易");
+							_this.$toast("交易已经超时，请点诉讼反馈问题让客服取消交易");
 							return;
 						}
 						_this.showAgentDetailModel = true;
@@ -1765,7 +1765,7 @@
 						console.log('item.status',item.status) */
 						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0)){
 							//_this.cancelDeal4OverTime();
-							_this.$toast("交易已经超时，请点诉讼让客服取消交易");
+							_this.$toast("交易已经超时，请点诉讼反馈问题让客服取消交易");
 							return;
 						}
 						//console.log('buy')

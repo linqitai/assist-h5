@@ -599,7 +599,6 @@
 				cv=cv+0.1;
 				loveValue = loveValue - 0.1*19;
 			}
-			console.log(`cv:${cv},loveValue:${loveValue}`) */
 			/* setTimeout(function(){
 				console.log("123200000")
 			},2000) */

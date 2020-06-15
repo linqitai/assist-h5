@@ -277,7 +277,7 @@
 				currentPage2: 1,
 				currentPage3: 1,
 				currentPage4: 1,
-				pageSize:16,
+				pageSize:20,
 				activeName:'mill',
 				loading1:false,
 				finished1:false,

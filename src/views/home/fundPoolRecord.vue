@@ -49,7 +49,7 @@
 						font-size: $fs-16;
 					}
 					.flexRight2{
-						flex: 0 0 140px;
+						flex: 0 0 110px;
 						text-align: right;
 						font-size: $fs-12;
 					}

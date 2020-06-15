@@ -208,7 +208,7 @@
 		:error-message="errorInfo.bankCard"/> -->
 		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" type="password" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
 		<van-field v-model="form.idCardSure" required clearable label="确认身份证号" maxlength="18" type="password" :placeholder="errorHint.idCardSure" @blur="validate('idCardSure')" :error-message="errorInfo.idCardSure"/>
-		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="10"
+		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="11"
 		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
 		  <div class="line">
 		  	<span class="label">支付宝个人主页</span>
@@ -620,7 +620,7 @@ export default {
 			_this.errorHint = {
 				nickName:"请填写1~7位昵称",
 				// telPhone:"请填写与微信绑定的手机号",
-				realName:"请填写2~20位真实姓名",
+				realName:"请正确填写真实姓名",
 				alipayNum:"请填写自己的支付宝账号",
 				wechartNum:"请填写绑定了登录手机号的微信号",
 				address:"",
@@ -731,16 +731,21 @@ export default {
 				}
 			}else if(key == 'telPhone'){
 				if(_this.$reg.phone2.test(_this.form.telPhone)){
-					_this.errorInfo.telPhone = ''
+					_this.errorInfo.telPhone = '';
 				}else{
 					_this.errorInfo.telPhone = _this.errorHint.telPhone;
 				}
 			}else if(key == 'realName'){
-				if((_this.form.realName.length)<=10&&(_this.form.realName.length)>1){
+				if(_this.$reg.phone2.test(_this.form.realName)){
+					_this.errorInfo.realName = _this.errorHint.realName;
+				}else{
+					_this.errorInfo.realName = '';
+				}
+				/* if((_this.form.realName.length)<=10&&(_this.form.realName.length)>1){
 					_this.errorInfo.realName = '';
 				}else{
 					_this.errorInfo.realName = _this.errorHint.realName;
-				}
+				} */
 			}else if(key == 'alipayNum') {
 				if(_this.$reg.alipay.test(_this.form.alipayNum)){
 					_this.errorInfo.alipayNum = '';

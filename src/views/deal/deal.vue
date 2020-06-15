@@ -696,9 +696,9 @@ export default {
 			if(val == 0){
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 			}else{
-				let addValue = 3*(val/100);
+				let addValue = 2*(val/100);
 				//console.log("addValue = " + addValue);
-				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentMaxPrice) - 3 + addValue).toFixed(2);
+				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentMaxPrice) - 2 + addValue).toFixed(2);
 			}
 	    }
 	},
@@ -895,6 +895,7 @@ export default {
 				/* _this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`; */
 				/* _this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}]; */
 				_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'}];
+				//_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'},{id:0,text:'30%矿石'}];
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 				/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
 				_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
@@ -951,6 +952,7 @@ export default {
 					/* _this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`; */
 					/* _this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}]; */
 					_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'}];
+					//_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'},{id:0,text:'30%矿石'}];
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 					/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
 					_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */

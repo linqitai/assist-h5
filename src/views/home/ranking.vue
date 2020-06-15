@@ -147,7 +147,7 @@
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 					
-					<van-tab title="捐赠" name="ranking3">
+					<van-tab title="爱心值" name="ranking3">
 						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
 							<div class="list" v-for="(item,index) in list3" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -158,7 +158,7 @@
 										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
 									</div>
 									<div class="flexRight">
-										{{item.num}}券 <i class="iconfont iconfont-right-arrow2"></i>
+										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
 							</div>
@@ -591,8 +591,7 @@
 				var params = {
 					pageNo: this.currentPage3,
 					pageSize: this.pageSize,
-					mobilePhone: _this.mobilePhone,
-					type:'platform_ticket'
+					mobilePhone: _this.mobilePhone
 				}
 				_this.loading3 = true;
 				_this.finished3 = false;

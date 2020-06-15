@@ -533,7 +533,8 @@ $noticeHeight:40px;
 					<div class="infoBox">
 						<div>
 							<!-- @click="toFundPoolRecordView" -->
-							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童帮扶基金池</span><span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
+							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童帮扶基金池</span>
+							<span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
 							<!-- <span class="margL10 underline" @click="addFundPoolBtn">我要捐赠</span> -->
 						</div>
 						<div class="placeholderLine10"></div>
@@ -693,17 +694,12 @@ $noticeHeight:40px;
 				currentPage:1,
 				pageSize:3,
 				images: [
-					'https://www.helpchain.online/image/banner/banner1.jpg',
+					'https://www.helpchain.online/image/banner/banner0055.jpg',
 					'https://www.helpchain.online/image/banner/banner001.jpg',
-					'https://www.helpchain.online/image/banner/banner2.jpg',
 					'https://www.helpchain.online/image/banner/banner002.jpg',
+					'https://www.helpchain.online/image/banner/banner1.jpg',
+					'https://www.helpchain.online/image/banner/banner2.jpg',
 					'https://www.helpchain.online/image/banner/banner3.jpg',
-					'https://www.helpchain.online/image/banner/banner003.jpg',
-					'https://www.helpchain.online/image/banner/banner4.jpg',
-					'https://www.helpchain.online/image/banner/banner004.jpg',
-					'https://www.helpchain.online/image/banner/banner005.jpg',
-					'https://www.helpchain.online/image/banner/banner006.jpg',
-					'https://www.helpchain.online/image/banner/banner007.jpg',
 				],
 				mill: {
 					zl: "",
@@ -823,7 +819,7 @@ $noticeHeight:40px;
 				//console.log(val);
 				let message = '';
 				if(val=='fundPool'){
-					message = '少年儿童帮扶基金池：平价区的交易手续费中，有50%的帮扶券进入帮扶基金池；溢价区的交易手续费中，有20%的帮扶券进入帮扶基金池。这基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的朋友';
+					message = '少年儿童帮扶基金池：交易手续费中，有20%~50%的帮扶券进入帮扶基金池。基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的弱势群体';
 				}
 				Dialog.alert({
 				  title: '温馨提示',
@@ -882,6 +878,10 @@ $noticeHeight:40px;
 				let _this = this;
 				let params = {
 				  num: _this.form4FundPool.raiseNum
+				}
+				if(Number(params.num)<=0){
+					_this.$toast('请填写大于0的正整数');
+					return;
 				}
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');

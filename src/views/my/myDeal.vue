@@ -1683,8 +1683,8 @@
 				//   duration: 0, // 持续展示 toast
 				//   forbidClick: true
 				// });
+				_this.detail4sellerInfo = '';
 				_this.type = item.type;
-				console.log('_this.type',_this.type);
 				_this.id = item.id;
 				let bs = _this.buyOrSell(item);
 				//console.log('bs',bs);

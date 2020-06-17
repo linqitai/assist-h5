@@ -508,11 +508,11 @@ $noticeHeight:40px;
 					</div>
 					<div class="infoBox">
 						<div class="amount">{{ statistics.beDigNum  || 0}}</div>
-						<div class="margT6">被挖数量</div>
+						<div class="margT6">开采数量</div>
 					</div>
 					<div class="infoBox">
 						<div class="amount">{{ statistics.canCirculateNum  || 0}}</div>
-						<div class="margT6">可流通数量</div>
+						<div class="margT6">流通数量</div>
 					</div>
 					<div class="infoBox">
 						<div class="amount">{{statistics.beDestroyNum || 0}}</div>
@@ -522,7 +522,7 @@ $noticeHeight:40px;
 				<div class="millInfo" v-if="statistics.allMineralNum">
 					<div class="infoBox">
 						<div class="amount">{{ statistics.awardNum || 0 }}</div>
-						<div class="margT6">赠送奖励分红的数量</div>
+						<div class="margT6">赠送与分红的数量</div>
 					</div>
 					<div class="infoBox">
 						<div class="amount">{{ statistics.allMineralNum - statistics.beDigNum - statistics.awardNum - statistics.beDestroyNum  || 0}}</div>
@@ -533,7 +533,7 @@ $noticeHeight:40px;
 					<div class="infoBox">
 						<div>
 							<!-- @click="toFundPoolRecordView" -->
-							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童帮扶基金池</span>
+							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童帮扶帮扶池</span>
 							<span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
 							<!-- <span class="margL10 underline" @click="addFundPoolBtn">我要捐赠</span> -->
 						</div>

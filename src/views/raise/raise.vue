@@ -675,7 +675,7 @@
 
 <script>
 	import mHeader from '@/components/Header.vue';
-	import { Dialog,ImagePreview } from 'vant';
+	import { Dialog,ImagePreview,Toast } from 'vant';
 	import clip from '@/assets/js/clipboard';
 	export default {
 		data() {
@@ -975,6 +975,10 @@
 					isShow:1
 				}
 				_this.loading1 = true;
+				const toast = Toast.loading({
+				  forbidClick: true,
+				  message: '加载中...',
+				});
 				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data.list[0];
@@ -999,6 +1003,7 @@
 					}
 				},function(){
 					_this.loading1 = false;
+					Toast.clear();
 				})
 			},
 			onLoadRecordsList() {

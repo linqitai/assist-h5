@@ -1,15 +1,30 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	.register{
-		padding: $boxPadding1;
 		color: $mainTextColor;
 		@include pageNoHeight4Scroll();
 		width: 100%;
 		box-sizing: border-box;
 		.logoBox{
-			min-height: 280px;
+			position: relative;
+			img{
+				width: 100%;
+			}
+		}
+		.formHeader{
+			padding: 6px $boxPadding1;
+			text-align: center;
+			// background-color: $main-box-fh-bg-color;
+			color: $mainTextColor;
+			.logoBox{
+				position: relative;
+				img{
+					width: 100%;
+				}
+			}
 		}
 		.formBox{
+			padding: $boxPadding1;
 			.van-cell__value,.van-cell__value--alone,.van-field__control{
 				color: $mainTextColor !important;
 			}
@@ -41,7 +56,7 @@
 			}
 		}
 		.sureBox{
-			margin-top: 1.25rem;
+			padding: $boxPadding1;
 			.tip{
 				margin: 1.25rem 0;
 				font-size: 0.812rem
@@ -102,10 +117,11 @@
 <template>
 	<div class="register">
 		<div class="logoBox">
-			<img src="https://www.helpchain.online/image/LOGO.png" alt="">
-			<!-- <img src="../../assets/image/LOGO.png" alt=""> -->
+			<img src="https://www.helpchain.online/image/banner/banner0055.jpg" alt="">
 		</div>
-		<div class="welcomeText textIndent">{{welcomeText}}</div>
+		<div class="formHeader">
+			<div class="welcomeText green_text">{{welcomeText}}</div>
+		</div>
 		<div class="formBox">
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>

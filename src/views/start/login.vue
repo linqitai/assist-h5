@@ -6,8 +6,15 @@
 		min-height: 100%;
 		width: 100%;
 		box-sizing: border-box;
+		.logoBox{
+			position: relative;
+			img{
+				width: 100%;
+			}
+		}
 		.formHeader{
-			padding: $boxPadding1;
+			padding: 6px $boxPadding1;
+			text-align: center;
 			// background-color: $main-box-fh-bg-color;
 			color: $mainTextColor;
 			.logoBox{
@@ -107,11 +114,11 @@
 <template>
 	<div class="loginBox">
 		<!-- <div class="welcomeText">欢迎来到帮扶链</div> -->
+		<div class="logoBox">
+			<img src="https://www.helpchain.online/image/banner/banner0055.jpg" alt="">
+		</div>
 		<div class="formHeader">
-			<div class="logoBox">
-				<img src="https://www.helpchain.online/image/LOGO.png" alt="">
-			</div>
-			<div class="welcomeText textIndent">{{welcomeText}}</div>
+			<div class="welcomeText green_text">{{welcomeText}}</div>
 		</div>
 		<div class="formBox paddingWing">
 			<van-cell-group :border="isNo">
@@ -135,12 +142,12 @@
 			</div> -->
 			<div class="placeholderLine10"></div>
 		</div>
-		<div class="shadeMaster" v-if="isWeixin">
+		<!-- <div class="shadeMaster" v-if="isWeixin">
 			<p>请打开右上角按钮选择<br>
 				<span>【在浏览器打开并收藏】</span>
 			</p>
 			<img class='img' src="../../assets/image/open_right.png" alt="pic">
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -160,7 +167,7 @@
 					securityCode:''
 				},
 				placeholder:{
-					phone:'请填写11位登录手机号',
+					phone:'请填写登录手机号',
 					password:'请填写6~16位登录密码',
 					securityCode:'请填写4位验证码'
 				},

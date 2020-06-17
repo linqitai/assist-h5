@@ -314,7 +314,7 @@
 								<van-icon class-prefix="iconfont" name="deal" />
 							</div>
 						</div>
-						<div class="text">我的交易</div>
+						<div class="text">我的单子</div>
 					</router-link>
 				</div>
 				<div class="infoBox">
@@ -463,6 +463,16 @@
 				</router-link>
 			</div>
 			<div class="items" v-if="userInfo.isAgent==3">
+				<router-link to="dealList">
+					<div class="my-cell">
+						<div class="flex1">
+							会员交易列表
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
 				<router-link to="initPassword">
 					<div class="my-cell">
 						<div class="flex1">

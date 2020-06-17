@@ -55,6 +55,8 @@
 		<van-cell-group :border="isNo">
 			<div class="labelText">手机号</div>
 			<van-field v-model="form.mobilePhone" clearable :placeholder="placeholder.mobilePhone" @blur="validate('mobilePhone')" :error-message="errorHint.mobilePhone" maxlength="11"/>
+			<div class="labelText">身份证号</div>
+			<van-field v-model="form.idCard" clearable :placeholder="placeholder.idCard" @blur="validate('idCard')" :error-message="errorHint.idCard" maxlength="18"/>
 			
 		</van-cell-group>
 		<div class="sureBox">
@@ -81,13 +83,15 @@
 				isNo:false,
 				form:{
 					mobilePhone:'',
+					idCard:'',
 					password:'',
 					password2:'',
 					validateCode:'',
 					shareCode:''
 				},
 				placeholder:{
-					mobilePhone:'请填写手机号',
+					mobilePhone:'请填写对方的手机号',
+					idCard:'请填写对方的身份证号',
 				},
 				errorHint:{
 					phone:'',
@@ -118,13 +122,15 @@
 				  message: `请再次确认是否要给对方初始化密码？`
 				}).then(() => {
 					let params = {
-						mobilePhone:_this.form.mobilePhone
+						mobilePhone:_this.form.mobilePhone,
+						idCard:_this.form.idCard
 					}
 					if(_this.$utils.hasNull(params)){
 						_this.$toast('系统提示：请填写完整信息');
 						return;
 					}
 					_this.isLoading = true;
+					console.log('params', params);
 					_this.$ajax.ajax(_this.$api.initPassWord, 'POST', params, function(res) {
 						// console.log('res', res);
 						if (res.code == _this.$api.CODE_OK) { // 200
@@ -151,7 +157,13 @@
 					if(_this.$reg.phone2.test(_this.form.mobilePhone)){
 						_this.errorHint.mobilePhone = '';
 					}else{
-						_this.errorHint.mobilePhone = _this.$reg.phoneHint;
+						_this.errorHint.mobilePhone = _this.placeholder.mobilePhone;
+					}
+				}else if(key == 'idCard'){
+					if(_this.$reg.idCard.test(_this.form.idCard)){
+						_this.errorHint.idCard = '';
+					}else{
+						_this.errorHint.idCard = _this.placeholder.idCard;
 					}
 				}
 			},

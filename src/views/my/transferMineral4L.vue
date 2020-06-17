@@ -264,7 +264,7 @@
 			},
 			submit(){
 				let _this = this;
-				/* if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
+				if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '交易时间是9~21点，请明天再来'
@@ -281,7 +281,7 @@
 					  // on close
 					});
 					return;
-				} */
+				}
 				let leaveNum = (Number(_this.userInfo.thisWeekMineral) - Number(_this.form4AppointDeal.transferAmount)).toFixed(2);
 				if(leaveNum<2){
 					Dialog.alert({

@@ -601,10 +601,10 @@ export default {
 			_this.flag = flag;
 			_this.form = _this.$utils.formClear(_this.form);
 			if(flag == 'loginPassword'){
-				_this.label = '登录密码';
+				_this.label = '新密码';
 				_this.titleName = '修改登录密码';
 			}else if(flag == 'securityPassword'){
-				_this.label = '安全密码';
+				_this.label = '新安全密码';
 				_this.titleName = '修改安全密码';
 			}
 		},
@@ -620,7 +620,7 @@ export default {
 				params[_this.flag] = _this.form[_this.flag];
 				console.log('params', params);
 				if(_this.$utils.hasNull(params)){	
-					_this.$toast('系统提示：请填写完整信息');
+					_this.$toast('请填写完整信息');
 					return;
 				}
 				if(_this.$utils.hasVal(_this.errorInfo)){
@@ -637,7 +637,7 @@ export default {
 				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo, 'POST', params, function(res){
 					// console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
-						_this.$toast('系统提示：修改成功');
+						_this.$toast('修改成功');
 						_this.showUpdateModel = false;
 						_this.getUserInfo();
 					}else{

@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	$cellHeight:50px;
-	.freeze{
+	.unFreeze{
 		font-size: 0.75rem;
 		@include pageNoHeight4Scroll();
 		background-color: $main-box-color;
@@ -146,7 +146,7 @@
 	
 </style>
 <template>
-	<div class="freeze">
+	<div class="unFreeze">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">

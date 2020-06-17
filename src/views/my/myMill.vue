@@ -193,20 +193,24 @@
 			<div class="statistics" v-if="remainCount">
 				<div class="line clearBoth flexCenter f-14">
 					<div class="left title">智能统计小助手</div>
-					<div class="right">总资产 {{parseFloat(Number(userInfo.thisWeekMineral)+Number(remainCount)).toFixed(3)}}个</div>
-					<!-- <div class="right">总资产 {{(totalCount).toFixed(2)}}个</div> -->
+					<div class="right">待产出矿石 ≈ {{(parseFloat(remainCount)).toFixed(3)}}个</div>
+				</div>
+			</div>
+			<!-- <div class="statistics">
+				<div class="line clearBoth flexCenter f-14">
+					<div>系统提示:由于总资产的统计是根据矿机所产来计算的，而每台矿机所产都四舍五入保留了几位小数，所以每次领取矿机后，总资产会在近似值内上下浮动。只有矿机到期后，才会产生最准确的矿石数据。</div>
+				</div>
+			</div>
+			<div class="statistics" v-if="remainCount">
+				<div class="line clearBoth flexCenter f-14">
+					<div class="left title">智能统计小助手</div>
+					<div class="right">总资产 ≈ {{parseFloat(Number(userInfo.thisWeekMineral)+Number(remainCount)).toFixed(3)}}个</div>
 				</div>
 				<div class="line clearBoth">
 					<div class="left">背包中矿石 {{userInfo.thisWeekMineral.toFixed(3)}}个</div>
-					<div class="right">待产出矿石 {{(parseFloat(remainCount)).toFixed(3)}}个</div>
-					<!-- <div class="left">背包中矿石 {{userInfo.thisWeekMineral.toFixed(2)}}个</div>
-					<div class="right">待产出矿石 {{(totalCount-Number(userInfo.thisWeekMineral)).toFixed(2)}}个</div> -->
+					<div class="right">待产出矿石 ≈ {{(parseFloat(remainCount)).toFixed(3)}}个</div>
 				</div>
-				
-				<!-- <div class="line clearBoth">
-					<div class="right">总资产 {{(userInfo.thisWeekMineral+remainCount).toFixed(2)}}个</div>
-				</div> -->
-			</div>
+			</div> -->
 			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab name="myMill">

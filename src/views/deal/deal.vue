@@ -62,7 +62,7 @@
 						flex: 1;
 					}
 					.boxRight{
-						flex: 0 0 120px;
+						flex: 0 0 160px;
 						text-align: right;
 						font-size: 0.75rem
 					}
@@ -234,11 +234,11 @@
 		<div class="statistics" v-if="dealPageInfo.currentBuyNum">
 			<div class="line clearBoth flexCenter f-14">
 				<div class="left title">智能统计小助手</div>
-				<div class="right">求购总量 {{dealPageInfo.currentBuyNum}}</div>
+				<div class="right">平台指导价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div>
 			</div>
 			<div class="line clearBoth">
-				<div class="left">平台指导价 {{dealPageInfo.currentPlatformPrice}}CNY</div>
-				<div class="right">24小时交易量 {{(dealPageInfo.transactionNum24).toFixed(2)}}</div>
+				<div class="left">24小时交易量 {{(dealPageInfo.transactionNum24).toFixed(2)}}</div>
+				<div class="right">求购总量 {{dealPageInfo.currentBuyNum}}</div>
 			</div>
 		</div>
 		
@@ -287,11 +287,11 @@
 						<div class="dealList">
 							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="boxLeft">
-									<div class="">单价 {{item.price}}CNY</div>
+									<div class="">单价 {{(parseFloat(item.price)/7).toFixed(3)}}$/{{item.price}}￥</div>
 									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
 								</div>
 								<div class="boxRight">
-									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
+									<div>合计 {{(totalPrice(item.price,item.maxNumber)/7).toFixed(3)}}$/{{totalPrice(item.price,item.maxNumber)}}￥</div>
 									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
 								</div>
 							</div>
@@ -324,11 +324,11 @@
 							<div class="line1pxbgcolor"></div>
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="boxLeft">
-									<div class="">单价 {{item.price}}CNY</div>
+									<div class="">单价 {{(parseFloat(item.price)/7).toFixed(3)}}$/{{item.price}}￥</div>
 									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
 								</div>
 								<div class="boxRight">
-									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
+									<div>合计 {{(totalPrice(item.price,item.maxNumber)/7).toFixed(3)}}$/{{totalPrice(item.price,item.maxNumber)}}￥</div>
 									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
 								</div>
 							</div>
@@ -369,7 +369,7 @@
 							<div class="line1pxbgcolor"></div>
 							<div class="item" v-for="item in list3" :key="item.id">
 								<div class="boxLeft">
-									<div class="">单价 {{item.price}}CNY</div>
+									<div class="">单价 {{(parseFloat(item.price)/7).toFixed(3)}}$/{{item.price}}CNY</div>
 									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
 								</div>
 								<div class="boxRight">
@@ -505,7 +505,7 @@
 				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
 				@blur="validate4BuyBill('buyLowestAmount')"
 				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" disabled clearable label="单价" right-icon="question-o" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" clearable label="单价" right-icon="question-o" placeholder="请填写单价"
 				 @click-right-icon="alertTip(clickIconTip.price)" :error-message="errorInfo4BuyBill.price"/>
 				<div class="inLine">
 					<span class="label">开溢价</span>
@@ -696,9 +696,9 @@ export default {
 			if(val == 0){
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 			}else{
-				let addValue = 2*(val/100);
+				let addValue = 3*(val/100);
 				//console.log("addValue = " + addValue);
-				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentMaxPrice) - 2 + addValue).toFixed(2);
+				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentMaxPrice) - 3 + addValue).toFixed(2);
 			}
 	    }
 	},

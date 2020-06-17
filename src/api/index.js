@@ -24,8 +24,9 @@ export default {
 	tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长120分钟交易时间，锁定交易后买方若在2小时内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
 	tipText4AppointDeal: "<b class='textBold'>担保交易流程：</b><br>1.卖方和买方或省市代理之间预先谈好价格，然后买方把自己的区块地址告诉卖方或代理。<br>2.卖方通过区块地址去匹配买方，同时选择该代理(一名代理)做担保。<br>3.订单匹配成功后，需要让担保代理审核。<br>4.审核通过后，买方先把担保总价支付给担保代理。<br>5.担保代理确认如实收到款后，再把担保金额打到卖方账户，并让卖方确认收款且释放矿石。<br>注1:该流程中若遇到问题，代理有权终止并取消交易，若是卖方账号有问题，担保代理亦有权冻结该账号<b class='textBold'>(该交易流程担保代理应收取担保服务辛苦费3%)</b>。<br>注2：若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能。",
 	checkTip:"实名信息已经提交成功,预计24小时内审核出结果",
-	welcomeText:"欢迎来到帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。",
-	bsTip:'您若是在微信中打开帮扶链，在提交实名与交易的时候，建议使用谷歌、UC、QQ等主流浏览器打开平台页面。',
+	welcomeText:"真情感动世界 帮扶成就你我",
+	/* welcomeText:"欢迎来到帮扶链,让我们携手共同打造公平、公正、公开、透明、去中心化的公益型创业平台。", */
+	bsTip:'您若是在微信中打开帮扶链，在[提交实名]与[买卖矿石]的时候，建议使用谷歌、UC等主流浏览器打开该页面然后进行操作。',
 	manType1Tip:'经系统检测，您的账号数据异常(没买入量也没怎么发展团队为何刚开始就有那么高的产量?)。若是第一批对接的团队长，得了中型而没去发展团队的，请直推实名超过30名且团队算力大于30G且买入个数大于300个，才能进行该操作。',
 	raiseTip:'为了保证赠与人的每一个帮扶券都能全额给付求助者，HPC帮扶链平台不收取任何手续费。求助者筹到多少兑现多少，不让任何一份爱心流失。帮扶券：成本价0.7CNY，求助者筹到多少，平台就以0.7CNY的价格向求助者购买多少。',
 	HOST_IMG: hostImg,
@@ -165,6 +166,10 @@ export default {
 	getActivity2Reward: host + "assist/reward/getActivity2Reward",
 	getActivity3Reward: host + "assist/reward/getActivity3Reward",
 	//deal
+	sureDeal4SellerById: host + "assist/transaction/sureDeal4SellerById",
+	cancelAssistTransaction4S: host + "assist/transaction/cancelAssistTransaction4S",
+	getAssistTransactionExtendById: host + "assist/transaction/getAssistTransactionExtendById",
+	getAssistTransactionListByPage: host + "assist/transaction/getAssistTransactionListByPage",
 	insertTransaction4PickSellBill: host + "assist/transaction/insertTransaction4PickSellBill",
 	getAssistSellBillList: host + "assist/buybill/getAssistSellBillList",
 	getAssistBuyBillListGeneralPage: host + "assist/buybill/getAssistBuyBillListGeneralPage",

@@ -184,6 +184,11 @@ function machineType4Pic(val){
 		return machineTypeOptions[val].value.substr(0,1);
 	}
 }
+//订单状态
+/* const machineStatusOptions = config.machineStatusOptions;
+function dealStatus(val){
+	return dealStatusOptions[val].value;
+} */
 //矿机状态 运行状态(0.就绪状态,1.运行状态2.过期状态)
 const machineStatusOptions = [{id:0,value:'未运行'},{id:1,value:'已运行'},{id:2,value:'已过期'}];
 function machineStatus(val){
@@ -278,7 +283,6 @@ export {
 	getRoleType,
 	menuType,
 	levelType,
-	dealStatus,
 	wordType,
 	voteStatus,
 	getDateYMD,
@@ -290,6 +294,7 @@ export {
 	machineTypeType,
 	machineStatusOptions,
 	machineStatus,
+	dealStatus,
 	mineralBookTypeOptions,
 	mineralBookType,
 	loveValueBookType,

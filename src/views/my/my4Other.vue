@@ -9,7 +9,9 @@
 		// margin-bottom: $header-height;
 		$iconBgWidth:50px;
 		background-color: $main-box-fh-bg-color;
-		color: $main-box-fh-text-color;
+		.van-dialog__header{
+			color: black !important;
+		}
 		.pageContent{
 			margin-top: $header-height;
 		}
@@ -223,6 +225,9 @@
 					<div class="textCenter margT10">
 						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
 					</div>
+					<div class="textCenter margT10">
+						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" @click="freeze" v-if="userInfo4Me.isAgent==3">解冻TA</van-button>
+					</div>
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
@@ -301,7 +306,7 @@
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
-			<div class="paddingWing f-11">
+			<div class="paddingWing f-11 white">
 				<div class="placeholderLine10"></div>
 				<div class="textCenter">
 					该账户状态：{{userInfo.accountStatus | accountStatus}}
@@ -322,6 +327,14 @@
 					审核者：{{cheker}}
 				</div>
 			</div>
+			<van-dialog v-model="showFreezeReasonModel" title="冻结原因" :showConfirmButton="false" :close-on-click-overlay="true">
+				<div class="placeholderLine10"></div>
+				<div class="refuseReason">
+					<van-field v-model="remark" rows="2" autosize required placeholder="请填写冻结原因"/>
+					<van-button size="normal" :block="true" @click="freezeEvent">提 交</van-button>
+				</div>
+				<div class="placeholderLine10"></div>
+			</van-dialog>
 		</div>
 		<!-- <transition name="van-fade">
 		  <router-view></router-view>
@@ -339,11 +352,13 @@
 	export default {
 		data() {
 			return {
+				showFreezeReasonModel:false,
 				pageHeight:"",
 				userId:"",
 				result: "",
 				loading: true,
 				userInfo: "",
+				userInfo4Me: "",
 				buyAndSellInfo:{
 					buyInNum:0.0,
 					buyInTime:0,
@@ -354,7 +369,8 @@
 				cityInfo:'',
 				dsPassword:'',
 				userFreezeInfo:'',
-				cheker:''
+				cheker:'',
+				remark:''
 			}
 		},
 		components: {
@@ -378,6 +394,14 @@
 		},
 		mounted() {
 			let _this = this;
+			let userInfo4Me = localStorage.getItem("_USERINFO_");
+			if(userInfo4Me){
+				_this.userInfo4Me = JSON.parse(userInfo4Me);
+			}else{
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
+			}
 			//console.log('userId:',_this.$route.query.lookUserId)
 			_this.getUserInfo4Other();
 		},
@@ -562,6 +586,30 @@
 					}
 				},function(){
 					_this.$router.replace('login');
+				})
+			},
+			freeze(){
+				let _this = this;
+				_this.showFreezeReasonModel = true;
+			},
+			freezeEvent(){
+				let _this = this;
+				let params = {
+				  userId: _this.userInfo.userId,
+				  reason: _this.remark,
+				  needTicket: 0,
+				  canUnfreeze: 0,
+				}
+				_this.$ajax.ajax(_this.$api.insertAssistUserFreeze, 'POST', params, function(res){
+					if(res.code == _this.$api.CODE_OK){
+						_this.$toast('已经冻结');
+						_this.showFreezeReasonModel = false;
+						_this.getUserInfo4Other();
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					
 				})
 			},
 			getUserInfo4Other() {

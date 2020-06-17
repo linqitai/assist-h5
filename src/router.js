@@ -115,7 +115,7 @@ export default new Router({
 				},
 				{
 					path: '/raise4Other',
-					name: '帮扶筹',
+					name: 'raise4Other',
 					component: resolve => require(['./views/raise/raise4Other'],resolve),
 					meta:{footer:true,keepAlive:true},
 				},
@@ -127,7 +127,7 @@ export default new Router({
 				},
 				{
 					path: '/deal',
-					name: '交易市场',
+					name: '流通中心',
 					component: resolve => require(['./views/deal/deal'],resolve),
 					meta:{footer:true,question:true,questionName:'deal',showRecordIcon:true},
 					// children:[
@@ -261,6 +261,16 @@ export default new Router({
 							name: '销实名次数',
 							component: resolve => require(['./views/my/reduceRNTimes'],resolve),
 							meta:{footer:false,back:true},
+						},
+						{
+							path: '/dealList',
+							name: '会员交易列表',
+							component: resolve => require(['./views/my/dealList'],resolve),
+						},
+						{
+							path: '/dealDetail',
+							name: '订单详情',
+							component: resolve => require(['./views/my/dealDetail'],resolve),
 						},
 					]
 				}

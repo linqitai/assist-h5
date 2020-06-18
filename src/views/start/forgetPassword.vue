@@ -75,7 +75,7 @@
 				</div>
 				<div class="placeholderLine4"></div>
 				<div class="tip4model3">
-					<b class="textBold">【{{remark}}】</b><span class="copy margL10" @click="handleCopy(remark,$event)">复制此备注</span>
+					<b class="textBold">{{remark}}</b>
 				</div>
 				<div class="placeholderLine4"></div>
 				<div class="tip4model3">
@@ -100,7 +100,7 @@
 		data() {
 			return {
 				isNo:false,
-				remark:'忘记密码+登录手机号',
+				remark:'忘记密码+登录手机号+身份证号',
 				securityCode:'love',
 				form:{
 					phone:'',
@@ -144,12 +144,11 @@
 					_this.$toast('请先填写验证码');
 					return;
 				}
-				console.log(params,'params');
 				_this.isLoading = true;
 				_this.$ajax.ajax(_this.$api.verifySecurityCode, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						_this.isShowWechat = true;
-						_this.remark = `忘记密码+${_this.form.phone}`;
+						//_this.remark = `忘记密码+${_this.form.phone}+身份证号`;
 					}else{
 						_this.$toast(res.message);
 					}

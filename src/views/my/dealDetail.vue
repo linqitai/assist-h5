@@ -191,7 +191,7 @@
 			<!-- <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="passBtn">通 过</van-button> -->
 			<div class="placeholderLine10"></div>
 			<div class="tip4model3">
-				注：若卖家确认超时后(过待确认时间尚未确认)，客服可给确认，并扣卖家1个贡献值。17776645782 18289077558
+				注：若卖家确认超时后(过待确认时间尚未确认)，客服可给确认，并扣卖家1个贡献值。
 			</div>
 			<van-button size="normal" :block="true" type="primary" @click="sureBtn">给确认</van-button>
 			<div class="placeholderLine10"></div>

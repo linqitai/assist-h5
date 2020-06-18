@@ -169,7 +169,7 @@
 									<div class="line">
 										<div @click="toMy4OtherView(item.userId)">
 											<i class="iconfont iconfont-book"></i> 
-											<i class="yellow"> 团队算力 {{item.teamCalculationPower}}G</i> 
+											<i class="yellow"> 帮扶券 {{item.platformTicket}}个</i> 
 											<i class="iconfont iconfont-right-arrow2 yellow f-11"></i>
 										</div>
 									</div>

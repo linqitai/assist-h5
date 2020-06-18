@@ -99,7 +99,7 @@
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing tip4model3">
 				<b class="textBold">定向转让帮扶券的规则：</b><br>
-				1.购买帮扶券请找【首页--省市代理】里的代理，或者自己的上级。<br>
+				1.购买帮扶券请找个人中心-我的工会中的【上级】，或【首页--志愿者、服务商、省市代理】里的团队长。<br>
 				2.转让帮扶券不收手续费。<br>
 				3.帮扶券恒价1CNY/个。<br>
 			</div>

@@ -226,7 +226,7 @@
 						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
 					</div>
 					<div class="textCenter margT10">
-						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" @click="freeze" v-if="userInfo4Me.isAgent==3">解冻TA</van-button>
+						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" @click="freeze" v-if="userInfo4Me.isAgent==3">冻结TA</van-button>
 					</div>
 				</div>
 				<div class="flex flex2">

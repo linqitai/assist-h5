@@ -90,7 +90,7 @@
 		</van-search>
 		<div class="paddingWing">
 			<van-radio-group v-model="status" icon-size='16px' direction="horizontal" @change="statusChange">
-				<van-radio name="">全部</van-radio>
+			  <!-- <van-radio name="">全部</van-radio>  -->
 			  <van-radio name="5">待客服调查</van-radio>
 			  <van-radio name="2">待确认</van-radio>
 			</van-radio-group>
@@ -128,7 +128,7 @@
 			return {
 				showTipModel:false,
 				searchValue:"",
-				status:'',
+				status:5,
 				list1: [],
 				loading:false,
 				loading1:false,
@@ -157,7 +157,7 @@
 				_this.$router.replace('login');
 				return;
 			}
-			_this.status=_this.$cookies.get("status")||'';
+			_this.status=_this.$cookies.get("status")||_this.status;
 			//_this.getCount4Check();
 		},
 		methods: {
@@ -199,23 +199,20 @@
 				_this.status = value;
 				_this.$cookies.set("status",_this.status);
 				_this.currentPage1 = 1;
-				_this.getcheckList4Search();
-			},
-			getCount4Check(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.getAssistUserInfoCount4Check, 'GET', null, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						_this.checkCount = res.data;
-					}
-				})
+				_this.searchValue = '';
+				_this.list1 = '';
+				_this.getcheckList();
 			},
 			getcheckList4Search() {
 				let _this = this;
+				if(_this.searchValue==''||_this.searchValue==null){
+					_this.$toast('请填写订单编号');
+					return;
+				}
 				let params = {
 					pageNo:_this.currentPage1,
 					pageSize:_this.pageSize,
-					id: _this.searchValue,
-					status: _this.status||_this.$cookies.get("status")
+					id: _this.searchValue
 				}
 				/* if((!_this.$utils.isNUll(params.mobilePhone))&&_this.$reg.phone.test(params.mobilePhone)){
 					
@@ -251,7 +248,6 @@
 				let params = {
 					pageNo:_this.currentPage1,
 					pageSize:_this.pageSize,
-					id: _this.searchValue,
 					status: _this.status||_this.$cookies.get("status")
 				}
 				/* if((!_this.$utils.isNUll(params.mobilePhone))&&_this.$reg.phone.test(params.mobilePhone)){

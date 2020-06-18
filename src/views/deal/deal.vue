@@ -523,7 +523,7 @@
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
 					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
-					<div class="tip4model3">系统提示：卖单被匹配的方式是随机的，最新挂的单子被匹配的概率会高一些，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间，买家若因不知情而没查看所匹配的单子，单子被取消后，只扣卖家的0.5~1.0个贡献值--因卖家通知不到位，没及时提醒买家查看订单。（同时，交易过程中若遇到问题，随时都可以点诉讼按钮，并联系客服让客服介入调查或协调）</div>
+					<div class="tip4model3">系统提示：平价区的匹配机制全体一致且随机，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间。（同时，交易过程中若遇到问题，随时都可以点诉讼反馈问题按钮，并联系客服让客服介入调查或协调）</div>
 					<div class="placeholderLine10"></div>
 				    <van-button @click="sureHangBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Buy" :block="true">确 认</van-button>
 				</div>
@@ -558,7 +558,7 @@ export default {
 			showTipModel:false,
 			addPriceValue:0,
 			min4Price:0,
-			max4Price:100,
+			max4Price:90,
 			step4Price:0.01,
 			sellBtnLoading:false,
 			tabActiveName:"dealArea1",
@@ -581,7 +581,7 @@ export default {
 			//挂买单
 			form4BuyBill:{
 				buyAmount:"",
-				buyLowestAmount:"",
+				buyLowestAmount:10,
 				price:"",
 				safePassword:"",
 			},
@@ -698,7 +698,7 @@ export default {
 			}else{
 				let addValue = 3*(val/100);
 				//console.log("addValue = " + addValue);
-				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentMaxPrice) - 3 + addValue).toFixed(2);
+				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2 + addValue).toFixed(2);
 			}
 	    }
 	},

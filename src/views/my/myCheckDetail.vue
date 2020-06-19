@@ -141,10 +141,10 @@
 		<van-field v-model="form.mobilePhone" required clearable label="手机号" maxlength="11" disabled="true">
 			<van-button slot="button" size="small" type="primary" @click="handleCopy(form.mobilePhone,$event)">复制</van-button>
 		</van-field>
-		<van-field v-model="form.wechartNum" required clearable label="微信号" maxlength="11" disabled="true">
+		<van-field v-model="form.wechartNum" required clearable label="微信号" disabled="true">
 			<van-button slot="button" size="small" type="primary" @click="handleCopy(form.wechartNum,$event)">复制</van-button>
 		</van-field>
-		<van-field v-model="form.alipayNum" required clearable label="支付宝" maxlength="11" disabled="true">
+		<van-field v-model="form.alipayNum" required clearable label="支付宝" disabled="true">
 			<van-button slot="button" size="small" type="primary" @click="handleCopy(form.alipayNum,$event)">复制</van-button>
 		</van-field>
 		<div class="line" v-if="form.gesturePic">

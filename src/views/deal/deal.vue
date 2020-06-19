@@ -1210,7 +1210,7 @@ export default {
 				safePassword:_this.$JsEncrypt.encrypt(_this.form3.safePassword),
 				idCard:_this.form3.idCard
 			}
-			console.log("params",params);
+			//console.log("params",params);
 			if(_this.$utils.hasNull(params)){
 				_this.$toast('请填写完整信息');
 				return;

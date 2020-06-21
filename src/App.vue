@@ -205,6 +205,7 @@ b{font-weight: bold;}
 .f-15{font-size: 15px !important;}
 .f-16{font-size: 16px !important;}
 .f-18{font-size: 18px !important;}
+.f-20{font-size: 20px !important;}
 .flex-1{flex: 1;}
 .letterSpacing{letter-spacing: 1px;}
 .textIndent{text-indent: 2em;}
@@ -301,4 +302,35 @@ b{font-weight: bold;}
 .sureAppointBtnBox{
 	padding: $boxPadding2;
 }
+.shadeMaster{
+		position: fixed;
+		top: 0;
+		left: 0;
+		/*水平居中*/
+		text-align: center;
+		width: 100%;
+		height: 100%;
+		background-color:rgba(0,0,0,0.5);
+		z-index: 1001;
+		p{
+			position: absolute;
+			color: white;
+			font-size: 28px;
+			text-align: center;
+			top:50%;
+			width: 100%;
+			line-height: 1.3em;
+			transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			span{
+				color:#5FD6FF;
+			}
+		}
+		.img{
+			position: absolute;
+			display: block;
+			right: 30px;
+			top:10px;
+		}
+	}
 </style>

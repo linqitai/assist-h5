@@ -565,7 +565,7 @@ export default {
 			currentPage1:1,
 			currentPage2:1,
 			currentPage3:1,
-			pageSize:20,
+			pageSize:10,
 			pageCount:0,
 			totalItems1:0,
 			totalItems2:0,
@@ -1379,7 +1379,13 @@ export default {
 					_this.$router.push({path:'myDeal',query:{dealType:0,mobilePhone:_this.transactionVo4BuyerTip.mobilePhone,num:_this.transactionVo4BuyerTip.num}});
 					
 				}else{
-					if(res.code == 10015){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
+					/* if(res.code == 10015){
 						Dialog.alert({
 						  title: '系统提示',
 						  message: '经系统检测，您是拥有内测矿机的会员，平台内测送的小矿是激励用户做团队的，请团队算力大于3G且直推实名超过20名后再进行该操作。温馨提示:个人算力1G可以在溢价区操作。'
@@ -1393,7 +1399,7 @@ export default {
 						}).then(() => {
 						  // on close
 						});
-					}
+					} */
 				}
 			},function(){
 				_this.sellBtnLoading = false;

@@ -241,7 +241,7 @@
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.curerntPlatformPrice = Number(res.data.currentPlatformPrice);
-						_this.maxPrice = (Number((res.data.currentPlatformPrice)*1.3+3)+3).toFixed(2);
+						_this.maxPrice = (Number((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
 						_this.maxAddPrice = (Number((res.data.currentPlatformPrice)*1.3+1)).toFixed(2);
 						/* console.log('_this.maxAddPrice',_this.maxAddPrice);
 						console.log('_this.maxPrice',_this.maxPrice);
@@ -251,16 +251,16 @@
 							_this.maxPrice = _this.maxPrice;
 							console.log('_this.maxPrice',_this.maxPrice);
 						} */
-						if(_this.maxPrice>=targetPrice){
+						/* if(_this.maxPrice>=targetPrice){
 							_this.maxPrice = targetPrice;
 							console.log('_this.maxPrice',_this.maxPrice);
-						}
-						if(_this.maxAddPrice>=targetPrice){
+						} */
+						/* if(_this.maxAddPrice>=targetPrice){
 							_this.maxPrice = _this.maxAddPrice;
 							console.log('_this.maxPrice',_this.maxPrice);
 							_this.form4AppointDeal.price = _this.maxPrice;
 							_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${_this.maxPrice}CNY`;
-						}
+						} */
 					}else{
 						Dialog.alert({
 						  title: '系统提示',
@@ -286,10 +286,10 @@
 					let maxAddPrice = Number(_this.maxAddPrice).toFixed(2);
 					let curerntPlatformPrice = Number(_this.curerntPlatformPrice);
 					//alert(maxAddPrice);
-					if(parseFloat(price)>parseFloat(maxAddPrice)&&parseFloat(price)<=parseFloat(13.0)){
+					if(parseFloat(price)>parseFloat(curerntPlatformPrice)*1.2&&parseFloat(price)<=parseFloat(maxPrice)){
 						_this.errorInfo4AppointDeal.price = '';
 					}else{
-						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${(parseFloat(maxAddPrice)+parseFloat(0.01)).toFixed(2)}~${maxPrice}CNY`;
+						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${(parseFloat(curerntPlatformPrice)*1.2+parseFloat(0.01)).toFixed(2)}~${maxPrice}CNY`;
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){

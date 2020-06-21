@@ -339,6 +339,19 @@
 					return 'tag2'
 				}
 			},
+			getUserInfo() {
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						_this.userInfo = res.data;
+						//console.log(_this.userInfo,"userInfo");
+						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
+					}else{
+						_this.$toast(res.message);
+					}
+				})
+			},
 			logout(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
@@ -390,7 +403,7 @@
 				//   // on cancel
 				// });
 			},
-			sureBuyMillEvent(){
+			requestBuyMillUrl(){
 				let _this = this;
 				_this.showSelectBox = false;
 				_this.buyMillLoading = true;
@@ -452,6 +465,20 @@
 					}
 				},function(){
 					_this.buyMillLoading = false;
+				})
+			},
+			sureBuyMillEvent(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						_this.userInfo = res.data;
+						//console.log(_this.userInfo,"userInfo");
+						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
+						_this.requestBuyMillUrl();
+					}else{
+						_this.$toast(res.message);
+					}
 				})
 			},
 			onLoadMillShop() {

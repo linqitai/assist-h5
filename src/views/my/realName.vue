@@ -262,7 +262,7 @@
 				<div class="placeholderLine4"></div>
 				<b class="textBold">若遇到无法提交实名或提示区块拥堵的解决办法：</b><br>
 				1、检查网络信号是否良好。<br>
-				2、更换浏览器，QQ、谷歌、UC浏览器优先。<br>
+				2、更换浏览器，谷歌、UC浏览器优先。<br>
 				3、把证件照片裁剪得尽可能小一点。<br>
 				4、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
 			</div>
@@ -285,10 +285,16 @@
 	  title="照片模板"
 	  :showConfirmButton="true"
 	  confirmButtonText="OK"
-	>
+	> v-if="isWeixin"
 		<div class="placeholderLine10"></div>
 		<img style="width: 100%;" src="https://www.helpchain.online/image/alipay.png">
 	</van-dialog> -->
+	<!-- <div class="shadeMaster">
+		<p class="f-20">实名前请先点开右上角按钮选择<br>
+			<span class="f-20">【在浏览器中打开并登录】</span>
+		</p>
+		<img class='img' src="../../assets/image/open_right.png" alt="pic">
+	</div> -->
   </div>
 </template>
 
@@ -376,7 +382,8 @@ export default {
 			showIdCardPicExmple2:false,
 			submitRealNameLoding:false,
 			dataOri:'',
-			isShowPic2:false
+			isShowPic2:false,
+			isWeixin:''
 		}
 	},  
 	components:{
@@ -411,6 +418,10 @@ export default {
 		},
 		bsTip(){
 			let _this = this;
+			_this.isWeixin = _this.$utils.isWeixin();
+		},
+		/* bsTip(){
+			let _this = this;
 			let isWeixin = _this.$utils.isWeixin();
 			if(isWeixin){
 				Dialog.alert({
@@ -420,7 +431,7 @@ export default {
 				  // on close
 				});
 			}
-		},
+		}, */
 		getAssistUserInfoPicByUserId(){
 			let _this = this;
 			_this.$ajax.ajax(_this.$api.getAssistUserInfoPicByUserId, 'GET', null, function(res){

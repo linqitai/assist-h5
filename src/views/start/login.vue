@@ -62,11 +62,10 @@
 			}
 		}
 	}
-	.shadeMaster{
+	/* .shadeMaster{
 		position: fixed;
 		top: 0;
 		left: 0;
-		/*水平居中*/
 		text-align: center;
 		width: 100%;
 		height: 100%;
@@ -90,7 +89,7 @@
 			right: 30px;
 			top:10px;
 		}
-	}
+	} */
 	.van-cell__value,.van-cell__value--alone,.van-field__control{
 		color: $mainTextColor !important;
 	}
@@ -143,7 +142,7 @@
 			<div class="placeholderLine10"></div>
 		</div>
 		<!-- <div class="shadeMaster" v-if="isWeixin">
-			<p>请打开右上角按钮选择<br>
+			<p>请点开右上角按钮选择<br>
 				<span>【在浏览器打开并收藏】</span>
 			</p>
 			<img class='img' src="../../assets/image/open_right.png" alt="pic">

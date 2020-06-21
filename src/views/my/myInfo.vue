@@ -124,15 +124,14 @@
 		</div>
 	</div>
 	<div class="items" v-if="userInfo.actived==1">
-		<div class="my-cell" v-if="userInfo.isAgent">
+		<!-- <div class="my-cell" v-if="userInfo.isAgent">
 			<div class="flex1">
 				代理
 			</div>
 			<div class="flex2">
 				<span class="ellipsis">{{userInfo.isAgent | agentType}}</span>
-				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 			</div>
-		</div>
+		</div> -->
 		<div class="my-cell">
 			<div class="flex1">
 				级别

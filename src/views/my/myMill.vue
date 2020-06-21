@@ -479,7 +479,9 @@
 						if(res.data){
 							_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
 							_this.onLoadMyMill();
-							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+							_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
+							_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime)
+							_this.$router.push('/myBook');
 						}else{
 							_this.mineralNumTip = `未到领取收益的时间`;
 						}

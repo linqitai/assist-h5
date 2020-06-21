@@ -5,15 +5,15 @@ function getUserType(val) {
 	} else if (val == 0) {
 		return '初级用户';
 	} else if (val == 1) {
-		return '青铜级工会会长';
+		return '青铜会长';
 	} else if (val == 2) {
-		return '白银级工会会长';
+		return '白银会长';
 	} else if(val == 3) {
-		return '黄金级工会会长';
+		return '黄金会长';
 	} else if (val == 4) {
-		return '铂金级工会会长';
+		return '铂金会长';
 	} else if (val == 5) {
-		return '钻石级工会会长';
+		return '钻石会长';
 	} else {
 		return val;
 	}
@@ -241,7 +241,11 @@ function serviceChargeType(val){
 
 const agentOptions = config.agentOptions;
 function agentType(val){
-	return agentOptions[val].value;
+	if(val>2){
+		return agentOptions[val].value;
+	}else{
+		return "";	
+	}
 }
 
 function accountStatus(val){

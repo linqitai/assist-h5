@@ -4,7 +4,6 @@
 	.van-list__finished-text {
 		background-color: $main-bg-color;
 	}
-
 	.mySharePage {
 		/* position: fixed;
 		top: 0;
@@ -14,9 +13,13 @@
 		@include pageMy();
 		box-sizing: border-box;
 		z-index: 2;
+		.header{
+			background-color: #ae0010 !important;
+			border-bottom: 0.0625rem solid #93000e !important;
+		}
 		.poster {
 			// margin-top: $headerHeight;
-			padding: $boxPadding2;
+			/* padding: $boxPadding2; */
 			position: relative;
 			box-sizing: border-box;
 			.myShareUrl{
@@ -25,8 +28,8 @@
 			}
 			.posterBG {
 				position: relative;
-				height: 480px;
-				background-color: #323232;
+				height: 520px;
+				background-color: #ae0010;
 				overflow: hidden;
 				$widthBox1: 240px;
 				$widthBox2: 120px;
@@ -116,10 +119,37 @@
 					font-size: 36px;
 					color: white;
 				}
-
+				.helpPic{
+					width: 100%;
+					box-sizing: border-box;
+					padding-left: $paddingGlobal;
+					padding-right: $paddingGlobal;
+					padding-top: $paddingGlobal;
+				}
+				.titleWord{
+					margin-top: 20px;
+					text-align: center;
+					font-size: 24px;
+				}
+				/* .registerCode {
+					position: absolute;
+					text-align: center;
+					z-index: 101;
+					font-weight: 900;
+					font-size: 36px;
+					left: 0;
+					right: 0;
+					color: white;
+					left: 50%;
+					transform: translateX(-50%);
+					top: 50%;
+					transform: translateY(-50%);
+					border: 1px solid white;
+					width: 120px;
+				} */
 				.registerCode {
 					position: absolute;
-					bottom: 70px;
+					bottom: 140px;
 					left: 0;
 					right: 0;
 					text-align: center;
@@ -129,13 +159,13 @@
 					color: white;
 					left: 50%;
 					transform: translateX(-50%);
-					border: 10px solid white;
+					border: 1px solid white;
 					width: 120px;
 				}
 
 				.registerCodeText {
 					position: absolute;
-					bottom: 48px;
+					bottom: 108px;
 					left: 0;
 					right: 0;
 					text-align: center;
@@ -148,7 +178,7 @@
 				}
 				.registerCodeText2 {
 					position: absolute;
-					bottom: 30px;
+					bottom: 70px;
 					left: 0;
 					right: 0;
 					text-align: center;
@@ -176,53 +206,31 @@
 		<div class="poster" id="tree-containner">
 			<div class="posterBG" id="tree" ref="tree">
 				<div class="borderGlobal"></div>
-				<img class="logo" src="https://www.helpchain.online/image/LOGO4Share.png">
-				<div class="box1"></div>
-				<div class="box2"></div>
+				<!-- <img class="logo" src="https://www.helpchain.online/image/LOGO_tran.png"> -->
+				<!-- <div class="box1"></div> -->
+				<!-- <div class="box2"></div>
 				<div class="box3"></div>
-				<div class="box4"></div>
+				<div class="box4"></div> -->
 				<!-- <div class="box5">
 					<img src="../../assets/image/poster/PostText1.png">
 				</div> -->
 				<!-- <img class="registerCode" src="../../assets/image/code.png"> -->
+				<img class="helpPic" src="https://www.helpchain.online/image/banner/banner0058.jpg">
+				<!-- <div class="titleWord">真情感动世界 帮扶成就你我</div> -->
+				<!-- <img class="helpPic" src="https://www.helpchain.online/image/banner/banner0057.jpg"> -->
 				<div class="registerCode" id="qrcode" ref="qrcode"></div>
 				<div class="registerCodeText">扫码注册</div>
 				<div class="registerCodeText2">我为帮扶链代言：{{userInfo.nickName}}</div>
 			</div>
-			<div class="margT10">
+			<div class="margT10 paddingWing">
 				<div class="myShareUrl">
 					分享链接: {{registerUrl}}
 				</div>
 				<div class="placeholderLine10"></div>
 				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopy(registerUrl,$event)" :block="true">复制分享链接</van-button>
 				<div class="placeholderLine10"></div>
-				<!-- <van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="innerRegister" :block="true">内排注册</van-button>
-				<div class="placeholderLine10"></div> -->
-				<!-- <div class="tip4model3">
-					分享是快速提升团队算力的首选方案<br>
-					而想要管理好团队快速增长算力<br>
-					建议团队长们建立帮扶链工会群<br>
-					条件：设立2名群管理<br>
-					所服务的帮扶链用户数量超过300名<br>
-					需省市代理审核群活跃度并引荐给客服<br>
-					达标后群主和群管理获得一台小型矿机<br>
-				</div> -->
-				
 			</div>
 		</div>
-		<!-- <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
-			<div class="paddingWing f-12 lineHeight tip4model2">
-				<div class="line text margT10">
-					分享是快速提升团队算力的首选方案<br>
-					而想要管理好团队快速增长算力<br>
-					建议团队长们建立帮扶链工会群<br>
-					条件：设立2名群管理<br>
-					所服务的帮扶链用户数量超过300名<br>
-					需省市代理审核群活跃度并引荐给客服<br>
-					达标后群主和群管理获得一台小型矿机<br>
-				</div>
-			</div>
-		</van-dialog> -->
 	</div>
 </template>
 
@@ -285,12 +293,14 @@
 			getQrcode2(){
 				let _this = this;
 				let id = _this.userInfo.shareCode;
+				let href = window.location.href;
+				console.log('window.location.href:',window.location.href);
 				let registerUrl = ''
 				if (process.env.NODE_ENV === "development") {
-					registerUrl = _this.$api.hostIPPort + '/#/register?id=' + id;
+					registerUrl = href.split('#')[0] + '#/register?id=' + id;
 					//console.log('registerUrl', registerUrl);
 				}else {
-					registerUrl = _this.$api.domainName + '/#/register?id=' + id;
+					registerUrl = href.split('#')[0] + '#/register?id=' + id;
 					//console.log('registerUrl', registerUrl);
 				}
 				

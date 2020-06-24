@@ -224,7 +224,7 @@ b{font-weight: bold;}
 	padding: $boxPadding2;
 	color: $main-adorn-color;
 	font-size: 0.75rem;
-	line-height: 1.5em;
+	line-height: 1.2em;
 	letter-spacing: 1px;
 }
 

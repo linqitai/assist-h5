@@ -263,7 +263,8 @@
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
-						_this.list1.push(...list);
+						_this.list1 = list;
+						//_this.list1.push(...list);
 						_this.loading1 = false;
 						//_this.finished1 = true;
 						if(res.data.endRow == res.data.total){

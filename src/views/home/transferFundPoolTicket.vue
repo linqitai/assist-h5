@@ -1,13 +1,9 @@
 <style lang="scss">
-	@import '~@/assets/scss/variable.scss';
+	@import '~@/assets/scss/index.scss';
 	$cellHeight:50px;
 	.transferT{
 		font-size: 0.75rem;
-		position: fixed;
-		top: 0;
-		right: 0;
-		left: 0;
-		bottom: 0;
+		@include pageNoHeight4Scroll();
 		background-color: $main-box-color;
 		z-index: 2;
 		.van-dropdown-menu{
@@ -29,7 +25,6 @@
 		} */
 		.transferPageT{
 			color: $mainTextColor;
-			margin-top: $headerHeight;
 			background-color: $main-box-color;
 			.van-field__label{
 				width: 70px !important;
@@ -94,6 +89,9 @@
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
 				<van-field required clearable v-model="form4AppointDeal.remark" @blur="validate4AppointDeal('remark')" maxlength="50" placeholder="请输入50字内的转出备注" :error-message="errorInfo4AppointDeal.remark"/>
 			</van-cell-group>
+			
+			<div class="placeholderLine10"></div>
+			<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
 			<!-- <div class="myCell">
 				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的留言标题" />
 			</div> -->
@@ -104,9 +102,22 @@
 				2.转让帮扶券不收手续费。<br>
 				3.帮扶券恒价1CNY/个。<br>
 			</div> -->
-			<div class="sureBtn">
-				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
+			<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4getProfitNum" size="large" @click="getNDayProfitNum">获取这次分红总量</van-button>
+			<div v-if="profitInfo">
+				<div class="paddingWing margT10">分红总量:{{profitInfo.profitNum}} 省代理:{{profitInfo.isAgent1Num}} 市代理:{{profitInfo.isAgent2Num}}</div>
+				<div class="paddingWing margT10">省代理均分:{{profitInfo.profitNum}}*0.15/{{profitInfo.isAgent1Num}}={{(profitInfo.profitNum*0.15/profitInfo.isAgent1Num).toFixed(2)}}</div>
+				<div class="paddingWing margT10">市代理均分:{{profitInfo.profitNum}}*0.35/{{profitInfo.isAgent2Num}}={{(profitInfo.profitNum*0.35/profitInfo.isAgent2Num).toFixed(2)}}</div>
 			</div>
+			<div class="placeholderLine10"></div>
+			<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4getProfitNum" size="large" @click="excuteProfit">执行分红</van-button>
+			<div v-if="profitInfoList">
+				<div class="paddingWing margT10" v-for="item in profitInfoList" :key="item.userId">
+					昵称:{{item.realName}} 手机号:{{item.mobilePhone}} 数量:{{item.profitTicketNum}}
+				</div>
+			</div>
+			<!-- <div class="sureBtn">
+				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
+			</div> -->
 		</div>
 		<!-- <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
 			<div class="paddingWing f-12 lineHeight tip4model2">
@@ -149,6 +160,9 @@
 				totalItems: 10000,
 				userInfo:"",
 				loading:false,
+				loading4getProfitNum:false,
+				profitInfo:'',
+				profitInfoList:''
 			}
 		},
 		components: {
@@ -205,6 +219,54 @@
 					}
 				}
 			},
+			excuteProfit(){
+				let _this = this;
+				let params = {
+					day:7,
+					safePassword: _this.form4AppointDeal.safePassword
+				}
+				params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
+				_this.loading4getProfitNum = true;
+				_this.$ajax.ajax(_this.$api.excuteProfit, 'POST', params, function(res) {
+					_this.loading4getProfitNum = false;
+					if (res.code == _this.$api.CODE_OK) {
+						_this.profitInfoList = res.data;
+					}else{
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+					}
+				},function(){
+					_this.loading4getProfitNum = false;
+				})
+			},
+			getNDayProfitNum(){
+				let _this = this;
+				let params = {
+					day:7
+				}
+				_this.loading4getProfitNum = true;
+				_this.$ajax.ajax(_this.$api.getNDayProfitNum, 'GET', params, function(res) {
+					_this.loading4getProfitNum = false;
+					if (res.code == _this.$api.CODE_OK) {
+						_this.profitInfo = res.data;
+					}else{
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+					}
+				},function(){
+					_this.loading4getProfitNum = false;
+				})
+			},
 			submit(){
 				//console.log("submit");
 				let _this = this;
@@ -223,12 +285,10 @@
 				  	remark: _this.form4AppointDeal.remark,
 				  	safePassword: _this.form4AppointDeal.safePassword,
 				  }
-				  console.log('params',params);
 				  if(_this.$utils.hasNull(params)){
 				  	_this.$toast('请填写完整信息');
 				  	return;
 				  }
-				  console.log('_this.errorInfo4AppointDeal',_this.errorInfo4AppointDeal);
 				  if(_this.$utils.hasVal(_this.errorInfo4AppointDeal)){
 				  	_this.$toast('请按要求填写信息');
 				  	return;

@@ -114,7 +114,12 @@
 	<div class="loginBox">
 		<!-- <div class="welcomeText">欢迎来到帮扶链</div> -->
 		<div class="logoBox">
-			<img src="https://www.helpchain.online/image/banner/banner0055.jpg" alt="">
+			<van-swipe :autoplay="2000" :lazy-render="true">
+			  <van-swipe-item v-for="(image, index) in images" :key="index">
+				<img v-lazy="image" />
+			  </van-swipe-item>
+			</van-swipe>
+			<!-- <img src="https://www.helpchain.online/image/banner/banner0055.jpg" alt=""> -->
 		</div>
 		<div class="formHeader">
 			<div class="welcomeText green_text">{{welcomeText}}</div>
@@ -124,9 +129,9 @@
 				<div class="labelText">账号</div>
 				<van-field v-model="form.phone" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
 				<div class="labelText">密码</div>
-				<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
+				<van-field v-model="form.password" type="password" @focus="getSecurityCode" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
 				<div class="labelText">验证码</div>
-				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @focus="getSecurityCode" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
+				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
 					<van-button slot="button" size="small" type="primary" :loading="getSCLoading" @click="getSecurityCode">{{securityCode}}</van-button>
 				</van-field>
 			</van-cell-group>
@@ -157,6 +162,11 @@
 	export default {
 		data() {
 			return {
+				images: [
+					'https://www.helpchain.online/image/banner/banner0058.jpg',
+					'https://www.helpchain.online/image/banner/banner0055.jpg',
+					'https://www.helpchain.online/image/banner/banner0057.jpg'
+				],
 				welcomeText:"",
 				isNo:false,
 				securityCode:'love',
@@ -232,7 +242,7 @@
 				let _this = this;
 				
 				//请不要操作多账号
-				//_this.judgeMoreAccount();
+				_this.judgeMoreAccount();
 				
 				_this.$router.replace('/forgetPassword');
 			},
@@ -256,7 +266,7 @@
 							//_this.$toast(res.message);
 							Dialog.alert({
 							  title: '系统提示',
-							  message: '您有矿机超过48小时未领取，【该矿机】上次领取时间已经被系统自动设置成[当前时间]，且矿机的开启时间和截止时间都自动延后了[当前时间-上次领取时间或开机时间]，但总产不变，再过24小时后48小时内再领取又会有收益。请广大会员们在24~48小时内领取一次收益，感谢您的配合。'
+							  message: '您有矿机超过48小时未领取，【该矿机】的开启时间和截止时间都自动延后了[当前时间-上次领取时间或开机时间]，但总产不变，现在上次领取时间已经被系统自动设置成[当前时间]，且需要重新启动，再过24小时后48小时内再领取就又会有收益。请广大会员们在24~48小时内领取一次收益，超过48小时收益会延后，感谢您的配合。'
 							}).then(() => {
 							  // on close
 							  //_this.getMyPastMachinesReceipt();

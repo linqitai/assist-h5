@@ -243,6 +243,8 @@ const agentOptions = config.agentOptions;
 function agentType(val){
 	if(val>2){
 		return agentOptions[val].value;
+	}else if(val == 1 || val == 2){
+		return "代理";	
 	}else{
 		return "";	
 	}

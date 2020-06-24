@@ -5,8 +5,8 @@ export const hostImg = 'http://192.168.100.3:8088'; //阿广电脑
 const host = '/bflApp/'
 // const domainName = 'https://www.helpchain.online';
 // const hostIPPort = 'https://www.helpchain.online';
-const domainName = 'https://www.assist-china.com.cn';
-const hostIPPort = 'https://www.assist-china.com.cn';
+const domainName = 'https://www.assist-china.co.ax';
+const hostIPPort = 'http://localhost:8086';
 
 export default {
 	tabBgColor:'#298522',
@@ -19,7 +19,7 @@ export default {
 	ticketName:'帮扶券',
 	tip4Sure:'由于卖家超时没确认，请再次联系对方，若联系无果，请点诉讼，让客服帮您确认！',
 	tip4Complain:'买家付款后，卖家若在2小时内卖家没给确认，且联系无果，2小时后买家可点诉讼，并让平台来帮忙确认。',
-	tip4ReduceMill:'矿机商城里的矿机是限量的，任何一种矿机被租赁完，全体矿机将会被更新，第二天就会换上新的一批减产后的矿机。',
+	tip4ReduceMill:'请广大会员们在租赁矿机后，在24~48小时内领取一次收益，否则矿机会被临时暂停，需要重新启动后再过24小时来领取收益，感谢您的配合。',
 	tipText4Safe:"<b class='textBold'>担保交易的安全性：</b><br>每笔交易都由省市代理预先来审核双方账号是否正常、实名信息是否正确、区块账本数据是否对得上等，最大限度得维护了投资者的利益，保证了交易的安全性。<br>注:买卖双方交易前先检查自己的手机号是否已经绑定了自己的支付宝和微信号(即通过手机号可以搜索到自己的支付宝和微信号)，若审核出未绑定或者实名信息不一致,一律冻结账号处理。",
 	tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长120分钟交易时间，锁定交易后买方若在2小时内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
 	tipText4AppointDeal: "<b class='textBold'>担保交易流程：</b><br>1.卖方和买方或省市代理之间预先谈好价格，然后买方把自己的区块地址告诉卖方或代理。<br>2.卖方通过区块地址去匹配买方，同时选择该代理(一名代理)做担保。<br>3.订单匹配成功后，需要让担保代理审核。<br>4.审核通过后，买方先把担保总价支付给担保代理。<br>5.担保代理确认如实收到款后，再把担保金额打到卖方账户，并让卖方确认收款且释放矿石。<br>注1:该流程中若遇到问题，代理有权终止并取消交易，若是卖方账号有问题，担保代理亦有权冻结该账号<b class='textBold'>(该交易流程担保代理应收取担保服务辛苦费3%)</b>。<br>注2：若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能。",
@@ -202,6 +202,8 @@ export default {
 	//上下级转矿石
 	insertTransaction4LevelTeamBill: host + "assist/transaction/insertTransaction4LevelTeamBill",
 	//统计
+	excuteProfit: host + "assist/statistics/excuteProfit",
+	getNDayProfitNum: host + "assist/statistics/getNDayProfitNum",
 	getHomeMineralStaticInfo: host + "assist/statistics/getHomeMineralStaticInfo",
 	getCurrentBuyNum: host + "assist/statistics/getCurrentBuyNum",
 	getBeDigMineralNum: host + "assist/statistics/getBeDigMineralNum",

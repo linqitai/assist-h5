@@ -295,7 +295,7 @@
 			</van-tabs>
 		</div>
 		<!-- <van-button type="primary" @click="testLoginUrl()">登录</van-button>
-	  <van-button type="primary" @click="testUrl()">获取信息</van-button> -->
+	  <van-button type="primary" @click="testUrl()">获取信息</van-button>  :confirm="confirmEvent"-->
 	  <van-dialog v-model="showReceiptTip" :title="receiptModelTile" :show-confirm-button="isShowConfirmButton">
 		<div class="placeholderLine20"></div>
 	    <div class="paddingWing textCenter">
@@ -308,7 +308,7 @@
 	  <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 	  	<div class="paddingWing f-12 lineHeight tip4model2">
 	  		<div class="textIndent">
-	  			奖励(赠送)型的矿机不加算力，从矿机商城中所租赁的矿机才加算力。
+	  			奖励(赠送)型的矿机不加算力，从矿机商城中所租赁的矿机才加算力。请广大会员们在24~48小时内领取一次收益，否则矿机会被临时暂停，需要重新启动后再过24小时来领取收益，感谢您的配合。
 	  		</div>
 	  	</div>
 	  </van-dialog>
@@ -450,6 +450,9 @@
 					
 				// })
 			},
+			confirmEvent(){
+				console.log("confirm");
+			},
 			getReceipt(){
 				let _this = this;
 				/* Dialog.alert({
@@ -478,6 +481,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data){
 							_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
+							_this.$toast(`此次领取收益为${res.data}个矿石`);
 							_this.onLoadMyMill();
 							_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
 							_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime)

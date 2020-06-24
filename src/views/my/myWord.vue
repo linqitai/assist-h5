@@ -4,11 +4,7 @@
 	.myWord{
 		font-size: 0.75rem;
 		color: $mainTextColor;
-		position: fixed;
-		top: 0;
-		right: 0;
-		left: 0;
-		bottom: 0;
+		@include pageNoHeight4Scroll();
 		background-color: $main-box-color;
 		z-index: 2;
 		.van-dropdown-menu{
@@ -32,7 +28,6 @@
 		    color: #FFFFFF !important;
 		} */
 		.myWordPage{
-			margin-top: $headerHeight;
 			background-color: $main-box-color;
 			.myCell{
 				display: flex;
@@ -57,12 +52,13 @@
 				border-bottom: 1px solid $mainBorderColor;
 			}
 			.sureBtn{
+				margin-top: 30px;
 				position: fixed;
 				bottom: 0;
 				left: 0;
 				right: 0;
 				.tip{
-					margin-bottom: 6px;
+					margin-bottom: 1px;
 					margin-left: $boxPadding2;
 					font-size: 0.812rem;
 					color:$mainTextColor;
@@ -111,10 +107,9 @@
 				  />
 				</van-cell-group>
 			</div>
-			<div class="sureBtn">
-				<div class="tip4model1">为了提高留言质量，提交留言需使用0.1个帮扶券</div>
-				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提交</van-button>
-			</div>
+			<div class="tip4model1">为了提高留言质量，提交留言需使用0.1个帮扶券</div>
+			<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提交</van-button>
+			
 		</div>
 	</div>
 </template>

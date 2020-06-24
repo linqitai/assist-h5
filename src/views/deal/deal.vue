@@ -505,7 +505,7 @@
 				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
 				@blur="validate4BuyBill('buyLowestAmount')"
 				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" clearable label="单价" right-icon="question-o" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" disabled type="number" clearable label="单价" right-icon="question-o" placeholder="请填写单价"
 				 @click-right-icon="alertTip(clickIconTip.price)" :error-message="errorInfo4BuyBill.price"/>
 				<div class="inLine">
 					<span class="label">开溢价</span>
@@ -1597,7 +1597,7 @@ export default {
 				console.log('_this.form4BuyBill.price',_this.form4BuyBill.price);
 			} */
 			
-			if(parseFloat(params.price)<parseFloat(currentPlatformPrice)||parseFloat(params.price)>parseFloat(maxPrice)){
+			/* if(parseFloat(params.price)<parseFloat(currentPlatformPrice)||parseFloat(params.price)>parseFloat(maxPrice)){
 				Dialog.alert({
 				  title: '系统提示',
 				  message: `今日买单价格控制在${currentPlatformPrice}~${maxPrice}之间，请重新填写`
@@ -1605,15 +1605,15 @@ export default {
 				  // on close
 				});
 				return;
-			}
+			} */
 			//最低溢价为平价×1.3
 			/* console.log('parseFloat(params.price):',parseFloat(params.price));
 			console.log('parseFloat(currentPlatformPrice):',parseFloat(currentPlatformPrice));
 			console.log('parseFloat(currentPlatformPrice)*1.3',parseFloat(currentPlatformPrice)*1.3); */
-			if(parseFloat(params.price)>parseFloat(currentPlatformPrice)&&parseFloat(params.price)<parseFloat(currentPlatformPrice)*1.3){
+			if(parseFloat(params.price)>parseFloat(currentPlatformPrice)&&parseFloat(params.price)<parseFloat(currentPlatformPrice)*1.2){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: `今日最低溢价为${parseFloat(currentPlatformPrice)*1.3}，请重新填写`
+				  message: `当前最低可挂溢价为${parseFloat(currentPlatformPrice)*1.2}，请重新填写`
 				}).then(() => {
 				  // on close
 				});

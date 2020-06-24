@@ -533,7 +533,7 @@ $noticeHeight:40px;
 					<div class="infoBox">
 						<div>
 							<!-- @click="toFundPoolRecordView" -->
-							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童帮扶帮扶池</span>
+							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童基金帮扶池</span>
 							<span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
 							<!-- <span class="margL10 underline" @click="addFundPoolBtn">我要捐赠</span> -->
 						</div>
@@ -695,6 +695,7 @@ $noticeHeight:40px;
 				pageSize:3,
 				images: [
 					'https://www.helpchain.online/image/banner/banner0055.jpg',
+					'https://www.helpchain.online/image/banner/banner0057.jpg',
 					'https://www.helpchain.online/image/banner/banner001.jpg',
 					'https://www.helpchain.online/image/banner/banner002.jpg',
 					'https://www.helpchain.online/image/banner/banner1.jpg',

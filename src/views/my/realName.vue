@@ -285,16 +285,16 @@
 	  title="照片模板"
 	  :showConfirmButton="true"
 	  confirmButtonText="OK"
-	> v-if="isWeixin"
+	> 
 		<div class="placeholderLine10"></div>
 		<img style="width: 100%;" src="https://www.helpchain.online/image/alipay.png">
 	</van-dialog> -->
-	<!-- <div class="shadeMaster">
+	<div class="shadeMaster" v-if="isWeixin">
 		<p class="f-20">实名前请先点开右上角按钮选择<br>
 			<span class="f-20">【在浏览器中打开并登录】</span>
 		</p>
 		<img class='img' src="../../assets/image/open_right.png" alt="pic">
-	</div> -->
+	</div>
   </div>
 </template>
 

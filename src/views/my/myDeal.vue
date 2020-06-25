@@ -452,7 +452,7 @@
 									<div class="timeBox">
 										匹配时间 {{ item.machingTime }}
 									</div>
-									<div class="timeBox">
+									<div class="timeBox" v-if="item.coinReleaseTime">
 										完成时间 {{ item.coinReleaseTime }}
 									</div>
 									<div class="timeBox">
@@ -2059,7 +2059,7 @@
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个短信提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-								_this.smsContent = `【${_this.$api.projectName}】所匹配的${item.num}个矿石已付款，请确认收款，并在“我的--我的单子--待收款”的订单详情中确认收款并释放矿石。每次交易的手续费中都会有部分帮扶券存入少年儿童基金帮扶池，每次交易都为帮扶活动奉献了爱心，HPC帮扶链感恩有您的支持!`;
+								_this.smsContent = `【${_this.$api.projectName}】所匹配的${item.num}个矿石已付款，请确认收款，并在“我的--我的单子--待收款”的订单详情中确认收款并释放矿石。每次交易的手续费中都会有部分帮扶券存入少年儿童基金帮扶池，感谢您为帮扶活动奉献了爱心，HPC帮扶链感恩有您的支持!`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								//发送短信提示end
 								_this.showSellerDetailModel = false;

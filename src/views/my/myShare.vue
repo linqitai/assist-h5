@@ -149,7 +149,7 @@
 				} */
 				.registerCode {
 					position: absolute;
-					bottom: 140px;
+					bottom: 160px;
 					left: 0;
 					right: 0;
 					text-align: center;
@@ -159,13 +159,13 @@
 					color: white;
 					left: 50%;
 					transform: translateX(-50%);
-					border: 1px solid white;
+					/* border: 1px solid white; */
 					width: 120px;
 				}
 
 				.registerCodeText {
 					position: absolute;
-					bottom: 108px;
+					bottom: 138px;
 					left: 0;
 					right: 0;
 					text-align: center;
@@ -178,6 +178,19 @@
 				}
 				.registerCodeText2 {
 					position: absolute;
+					bottom: 100px;
+					left: 0;
+					right: 0;
+					text-align: center;
+					z-index: 101;
+					font-weight: bolder;
+					font-size: 14px;
+					color: white;
+					/* left: 50%;
+					transform: translateX(-50%); */
+				}
+				.registerCodeText3 {
+					position: absolute;
 					bottom: 70px;
 					left: 0;
 					right: 0;
@@ -188,6 +201,17 @@
 					color: white;
 					/* left: 50%;
 					transform: translateX(-50%); */
+				}
+				.registerCodeText4{
+					position: absolute;
+					bottom: 30px;
+					left: 0;
+					right: 0;
+					text-align: center;
+					z-index: 101;
+					font-weight: bolder;
+					font-size: 12px;
+					color: white;
 				}
 			}
 		}
@@ -221,6 +245,10 @@
 				<div class="registerCode" id="qrcode" ref="qrcode"></div>
 				<div class="registerCodeText">扫码注册</div>
 				<div class="registerCodeText2">我为帮扶链代言：{{userInfo.nickName}}</div>
+				<div class="registerCodeText3">我的推荐码：{{userInfo.shareCode}}</div>
+				<div class="registerCodeText4">
+					<van-button type="info" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopyShareCode(userInfo.shareCode,$event)" :block="false">复制推荐码</van-button>
+				</div>
 			</div>
 			<div class="margT10 paddingWing">
 				<div class="myShareUrl">
@@ -254,7 +282,7 @@
 				userInfo:""
 			}
 		},
-		mounted() {
+		created() {
 			let _this = this;
 			// _this.handleGenerator();
 			/* _this.userId = _this.$cookies.get('userId');
@@ -271,7 +299,7 @@
 				_this.$router.replace('login');
 				return;
 			}
-			this.$nextTick(function () {
+			_this.$nextTick(function () {
 			    _this.getQrcode2()
 			})
 		},
@@ -285,6 +313,12 @@
 					_this.$toast(`复制分享链接成功`);
 				});
 			},
+			handleCopyShareCode(text, event) {
+				let _this = this;
+				clip(text,event,function(res){
+					_this.$toast(`复制推荐码${text}成功`);
+				});
+			},
 			innerRegister(){
 				let _this = this;
 				_this.$router.push("innerRegister");
@@ -295,12 +329,21 @@
 				let id = _this.userInfo.shareCode;
 				let href = window.location.href;
 				console.log('window.location.href:',window.location.href);
+				let domainName = href.split('#')[0];
 				let registerUrl = ''
 				if (process.env.NODE_ENV === "development") {
-					registerUrl = href.split('#')[0] + '#/register?id=' + id;
+					registerUrl = domainName + '#/register?id=' + id;
+					//registerUrl = _this.$api.domainName + '/#/register?id=' + id;
 					//console.log('registerUrl', registerUrl);
 				}else {
-					registerUrl = href.split('#')[0] + '#/register?id=' + id;
+					if(domainName=='https://www.assist-china.co.ax/'||domainName=='https://www.helpchain.co.ax/'){
+						registerUrl = domainName + '#/register?id=' + id;
+					}else{
+						registerUrl = domainName + '/#/register?id=' + id;
+						//registerUrl = _this.$api.domainName + '/#/register?id=' + id;
+					}
+					//registerUrl = href.split('#')[0] + '#/register?id=' + id;
+					
 					//console.log('registerUrl', registerUrl);
 				}
 				

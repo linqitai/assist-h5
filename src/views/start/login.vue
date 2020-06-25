@@ -7,7 +7,6 @@
 		width: 100%;
 		box-sizing: border-box;
 		.logoBox{
-			position: relative;
 			img{
 				width: 100%;
 			}
@@ -18,7 +17,6 @@
 			// background-color: $main-box-fh-bg-color;
 			color: $mainTextColor;
 			.logoBox{
-				position: relative;
 				img{
 					width: 100%;
 				}
@@ -114,7 +112,7 @@
 	<div class="loginBox">
 		<!-- <div class="welcomeText">欢迎来到帮扶链</div> -->
 		<div class="logoBox">
-			<van-swipe :autoplay="2000" :lazy-render="true">
+			<van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
 			  <van-swipe-item v-for="(image, index) in images" :key="index">
 				<img v-lazy="image" />
 			  </van-swipe-item>
@@ -141,6 +139,8 @@
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" :loading="isLoading" @click="loginBtn" loading-type="spinner">登  录</van-button>
 		
 			<div class="placeholderLine10"></div>
+			<van-button color="linear-gradient(to right, #e7e7e7, #c5c5c5)" size="normal" :block="true" @click="registerBtn" loading-type="spinner">去注册</van-button>
+			<div class="placeholderLine10"></div>
 			<!-- <div class="tip4model3">
 				Tip：您若已经参与了内排注册，登录密码初始化为所注册的手机号。
 			</div> -->
@@ -165,7 +165,8 @@
 				images: [
 					'https://www.helpchain.online/image/banner/banner0058.jpg',
 					'https://www.helpchain.online/image/banner/banner0055.jpg',
-					'https://www.helpchain.online/image/banner/banner0057.jpg'
+					'https://www.helpchain.online/image/banner/banner0057.jpg',
+					'https://www.helpchain.online/image/banner/banner0059.jpg'
 				],
 				welcomeText:"",
 				isNo:false,
@@ -221,6 +222,10 @@
 			bsTip(){
 				let _this = this;
 				_this.isWeixin = _this.$utils.isWeixin();
+			},
+			registerBtn(){
+				let _this = this;
+				_this.$router.replace('/register');
 			},
 			judgeMoreAccount(){
 				let _this = this;
@@ -384,7 +389,7 @@
 				}
 				//请不要操作多账号
 				//_this.judgeMoreAccount();
-				/* let phone = localStorage.getItem("mobilePhone");
+				let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
 						Dialog.alert({
@@ -395,7 +400,7 @@
 						});
 						return;
 					}
-				} */
+				}
 				
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('系统提示:请填写完成信息');

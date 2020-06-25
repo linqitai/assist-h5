@@ -696,6 +696,7 @@ $noticeHeight:40px;
 				images: [
 					'https://www.helpchain.online/image/banner/banner0055.jpg',
 					'https://www.helpchain.online/image/banner/banner0057.jpg',
+					'https://www.helpchain.online/image/banner/banner0059.jpg',
 					'https://www.helpchain.online/image/banner/banner001.jpg',
 					'https://www.helpchain.online/image/banner/banner002.jpg',
 					'https://www.helpchain.online/image/banner/banner1.jpg',

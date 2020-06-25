@@ -117,7 +117,7 @@
 <template>
 	<div class="register">
 		<div class="logoBox">
-			<van-swipe :autoplay="2000" :lazy-render="true">
+			<van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
 			  <van-swipe-item v-for="(image, index) in images" :key="index">
 				<img v-lazy="image" />
 			  </van-swipe-item>
@@ -130,7 +130,7 @@
 		<div class="formBox">
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>
-				<van-field v-model="form.phone" type="password" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
+				<van-field v-model="form.phone" type="text" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
 				<div class="labelText">确认账号</div>
 				<van-field v-model="form.phone2" type="password" clearable :placeholder="placeholder.phone2" @blur="validate('phone2')" :error-message="errorHint.phone2" maxlength="11"/>
 				<div class="tip4model3 margT6">
@@ -155,14 +155,14 @@
 					</van-button>
 				</van-field> -->
 				<div class="labelText">推荐码</div>
-				<van-field v-model="form.shareCode" clearable :disabled="true" :placeholder="placeholder.shareCode" @blur="validate('shareCode')" :error-message="errorHint.shareCode" />
+				<van-field v-model="form.shareCode" clearable :disabled="false" :placeholder="placeholder.shareCode" @blur="validate('shareCode')" :error-message="errorHint.shareCode" />
 			</van-cell-group>
 		</div>
 		<div class="sureBox">
 			<div class="tip">点击注册即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" @click="registerBtn" :loading="isLoading" loading-type="spinner">注  册</van-button>
 			<div class="placeholderLine10"></div>
-			<van-button color="inherit" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>
+			<van-button color="linear-gradient(to right, #e7e7e7, #c5c5c5)" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>
 			<div class="placeholderLine10"></div>
 		</div>
 		<div class="shadeMaster" v-if="isWeixin">
@@ -193,7 +193,8 @@
 				images: [
 					'https://www.helpchain.online/image/banner/banner0058.jpg',
 					'https://www.helpchain.online/image/banner/banner0055.jpg',
-					'https://www.helpchain.online/image/banner/banner0057.jpg'
+					'https://www.helpchain.online/image/banner/banner0057.jpg',
+					'https://www.helpchain.online/image/banner/banner0059.jpg'
 				],
 				getSCLoading:false,
 				interval:180,
@@ -376,12 +377,10 @@
 					securityCode: _this.form.securityCode.toLowerCase().replace(/ /g,""),
 					shareCode:_this.form.shareCode
 				}
-				console.log("params",params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');
 					return;
 				}
-				console.log("_this.errorHin",_this.errorHint);
 				if(_this.$utils.hasVal(_this.errorHint)){
 					_this.$toast('请按要求填写信息');
 					return;

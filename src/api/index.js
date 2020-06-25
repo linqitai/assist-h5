@@ -6,6 +6,7 @@ const host = '/bflApp/'
 // const domainName = 'https://www.helpchain.online';
 // const hostIPPort = 'https://www.helpchain.online';
 const domainName = 'https://www.assist-china.co.ax';
+/* const domainName = 'https://www.assist-china.com.cn'; */
 const hostIPPort = 'http://localhost:8086';
 
 export default {

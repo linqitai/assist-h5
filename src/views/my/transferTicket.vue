@@ -245,12 +245,21 @@
 				  		});
 				  	}else{
 				  		//_this.$toast(res.message);
-				  		Dialog.alert({
-				  		  title: '系统提示',
-				  		  message: res.message
-				  		}).then(() => {
-				  		  // on close
-				  		});
+						if(res.code == 30088){
+							Dialog.alert({
+							  title: '系统提示',
+							  message: '经系统检测，对方账户暂无买券权限，在团队算力未达到0.5G之前，请让选择第二种交易手续费。'
+							}).then(() => {
+							  // on close
+							});
+						}else{
+							Dialog.alert({
+							  title: '系统提示',
+							  message: res.message
+							}).then(() => {
+							  // on close
+							});
+						}
 				  	}
 				  })
 				}).catch(() => {

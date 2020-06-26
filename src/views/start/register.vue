@@ -298,7 +298,7 @@
 				}
 				_this.getSCLoading = true;
 				_this.$ajax.ajax(_this.$api.getSecurityCode, 'POST', params, function(res) {
-					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
+					if (res.code == _this.$api.CODE_OK) {
 						// console.log('securityCode4Web',res.data);
 						_this.getInitCode = res.data;
 						let initCode = _this.$JsEncrypt.decrypt(_this.getInitCode.initCode);

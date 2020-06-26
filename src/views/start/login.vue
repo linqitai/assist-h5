@@ -14,7 +14,6 @@
 		.formHeader{
 			padding: 6px $boxPadding1;
 			text-align: center;
-			// background-color: $main-box-fh-bg-color;
 			color: $mainTextColor;
 			.logoBox{
 				img{
@@ -110,7 +109,6 @@
 
 <template>
 	<div class="loginBox">
-		<!-- <div class="welcomeText">欢迎来到帮扶链</div> -->
 		<div class="logoBox">
 			<van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
 			  <van-swipe-item v-for="(image, index) in images" :key="index">

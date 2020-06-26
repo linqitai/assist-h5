@@ -260,10 +260,10 @@
 				<b class="textBold">若遇到支付宝截图可以上传，证件照片却上传不了的解决办法：</b><br>
 				1、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
 				<div class="placeholderLine4"></div>
-				<b class="textBold">若遇到无法提交实名或提示区块拥堵的解决办法：</b><br>
+				<b class="textBold">若遇到提交实名一直转圈圈或提示区块拥堵的解决办法：</b><br>
 				1、检查网络信号是否良好。<br>
-				2、更换浏览器，谷歌、UC浏览器优先。<br>
-				3、把证件照片裁剪得尽可能小一点。<br>
+				2、把证件照片裁剪得尽可能小一点。<br>
+				3、更换浏览器，UC浏览器优先。<br>
 				4、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
 			</div>
 			<div class="placeholderLine4"></div>
@@ -289,12 +289,12 @@
 		<div class="placeholderLine10"></div>
 		<img style="width: 100%;" src="https://www.helpchain.online/image/alipay.png">
 	</van-dialog> -->
-	<div class="shadeMaster" v-if="isWeixin">
+	<!-- <div class="shadeMaster" v-if="isWeixin">
 		<p class="f-20">实名前请先点开右上角按钮选择<br>
 			<span class="f-20">【在浏览器中打开并登录】</span>
 		</p>
 		<img class='img' src="../../assets/image/open_right.png" alt="pic">
-	</div>
+	</div> -->
   </div>
 </template>
 
@@ -396,7 +396,7 @@ export default {
 		let userInfo = localStorage.getItem("_USERINFO_");
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
-			_this.mobilePhone = _this.userInfo.mobilePhone;
+			_this.mobilePhone = _this.$JsEncrypt.decrypt(_this.userInfo.mobilePhone);
 			/* _this.form.wechartNum = _this.userInfo.mobilePhone;
 			_this.form.alipayNum = _this.userInfo.mobilePhone; */
 			//console.log(_this.mobilePhone,_this.form.wechartNum,_this.form.alipayNum);
@@ -410,7 +410,7 @@ export default {
 			return;
 		}
 		_this.initializeHintInfo();
-		_this.bsTip();
+		//_this.bsTip();
 	},
 	methods:{
 		back(){

@@ -147,8 +147,8 @@
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 				</div>
 				<div class="flex flex2">
-					<div class="line">上级昵称：{{parentUserInfo.nickName}}</div>
-					<div class="line">上级微信：{{parentUserInfo.wechartNum}} <span class="copy" @click="handleCopy(parentUserInfo.wechartNum,$event)">复制</span></div>
+					<div class="line">上级昵称：{{$JsEncrypt.decrypt(parentUserInfo.nickName)}}</div>
+					<div class="line">上级微信：{{$JsEncrypt.decrypt(parentUserInfo.wechartNum)}} <span class="copy" @click="handleCopy(parentUserInfo.wechartNum,$event)">复制</span></div>
 					<div class="line">我的二代总人数：{{teamNum}}</div>
 					<!-- <div class="line">因风控部门提供消息说三代奖励会有政策风险，团队上矿机三代贡献值收益分红的功能已终止研发，该奖励将会换成以全球分红的形式发放。</div> -->
 				</div>

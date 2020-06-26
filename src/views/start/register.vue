@@ -165,12 +165,12 @@
 			<van-button color="linear-gradient(to right, #e7e7e7, #c5c5c5)" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>
 			<div class="placeholderLine10"></div>
 		</div>
-		<div class="shadeMaster" v-if="isWeixin">
+		<!-- <div class="shadeMaster" v-if="isWeixin">
 			<p>请打开右上角按钮选择<br>
 				<span>【在浏览器打开】</span>
 			</p>
 			<img class='img' src="../../assets/image/open_right.png" alt="pic">
-		</div>
+		</div> -->
 		<!-- <van-dialog v-model="showTipModel" title="系统提示" :show-confirm-button="false">
 			<div class="placeholderLine10"></div>
 			<div class="securityCodeBox">
@@ -270,7 +270,7 @@
 			},
 			bsTip(){
 				let _this = this;
-				_this.isWeixin = _this.$utils.isWeixin();
+				//_this.isWeixin = _this.$utils.isWeixin();
 			},
 			shortMessageBtn(){
 				let _this = this;

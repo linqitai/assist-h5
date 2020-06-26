@@ -257,6 +257,11 @@
 				<div class="placeholderLine10"></div>
 				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopy(registerUrl,$event)" :block="true">复制分享链接</van-button>
 				<div class="placeholderLine10"></div>
+				<div class="tip4model3">
+					1.将此页面二维码保存发送给您的好友<br>
+					2.好友扫一扫二维码通过手机号注册<br>
+					3.好友实名通过后您将会得到推广奖励
+				</div>
 			</div>
 		</div>
 	</div>
@@ -339,7 +344,7 @@
 					if(domainName=='https://www.assist-china.co.ax/'||domainName=='https://www.helpchain.co.ax/'){
 						registerUrl = domainName + '#/register?id=' + id;
 					}else{
-						registerUrl = domainName + '/#/register?id=' + id;
+						registerUrl = domainName + '#/register?id=' + id;
 						//registerUrl = _this.$api.domainName + '/#/register?id=' + id;
 					}
 					//registerUrl = href.split('#')[0] + '#/register?id=' + id;

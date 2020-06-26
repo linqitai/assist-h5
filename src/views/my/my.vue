@@ -208,7 +208,7 @@
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
-					<div class="name" @click="toMyInfo">{{userInfo.realName | getLastName}}</div>
+					<div class="name" @click="toMyInfo">{{$JsEncrypt.decrypt(userInfo.realName) | getLastName}}</div>
 					<div class="textCenter margT10">
 						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
 					</div>
@@ -216,7 +216,7 @@
 				<div class="flex flex2">
 					<div class="line1">
 						<div class="nick_name left">
-							{{userInfo.nickName}}
+							{{$JsEncrypt.decrypt(userInfo.nickName)}}
 						</div>
 					</div>
 					<div class="line1 margT3">

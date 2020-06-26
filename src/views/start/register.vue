@@ -304,7 +304,6 @@
 						let initCode = _this.$JsEncrypt.decrypt(_this.getInitCode.initCode);
 						_this.securityCode = _this.$utils.getSC(initCode);
 					}else{
-						//_this.$toast(res.message);
 						Dialog.alert({
 						  title: '系统提示',
 						  message: res.message

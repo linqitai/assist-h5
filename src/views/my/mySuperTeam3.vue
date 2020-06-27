@@ -278,7 +278,6 @@
 				return;
 			} */
 			_this.realnameNum = _this.$route.query.realnameNum;
-			//console.log('realnameNum',_this.realnameNum);
 			_this.activedText = '已实名' + ' ' + _this.realnameNum;
 			_this.parentId = _this.$route.query.parentId;
 			//console.log('parentId',_this.parentId);

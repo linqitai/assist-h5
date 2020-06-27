@@ -259,7 +259,8 @@
 				let params = {
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
-					userId: _this.userId
+					userId: _this.userId,
+					/* day:7 */
 				}
 				// console.log('params',params);
 				_this.loading1 = true;

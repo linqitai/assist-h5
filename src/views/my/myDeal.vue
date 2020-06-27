@@ -521,12 +521,12 @@
 		<!-- <van-sticky></van-sticky> -->
 		<!-- 买家所显示的订单详情 -->
 		<van-action-sheet v-model="showSellerDetailModel" title="订单详情">
-			<div v-if="!detail4sellerInfo">
+			<div v-if="showSellerDetailLoading==true">
 				<div class="placeholderLine20"></div>
 				<van-skeleton :row="16"/>
 				<div class="placeholderLine20"></div>
 			</div>
-			<div class="detailBox" v-if="detail4sellerInfo">
+			<div class="detailBox" v-if="showSellerDetailLoading==false&&detail4sellerInfo">
 				<div class="tip4model3">
 					平台为保证交易的顺利进行，卖方的真实姓名若与支付宝里的不一致将冻结账号处理，交易的时候买方若遇到此问题欢迎向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
 				</div>
@@ -961,6 +961,7 @@
 				showSureCancelTransactionModel4buyer:false,
 				showSellerUserInfoModel:false,
 				showSellerDetailModel: false,
+				showSellerDetailLoading: false,
 				showBuyerDetailModel: false,
 				showAgentDetailModel: false,
 				cancelSellSureBtnText: '知道了',
@@ -1773,6 +1774,7 @@
 							id: _this.id
 						}
 						_this.showSellerDetailModel = true;
+						_this.showSellerDetailLoading = true;
 						_this.$ajax.ajax(_this.$api.getAssistSellerInfoByTransactionId, 'GET', params, function(res) {
 							if (res.code == _this.$api.CODE_OK) {
 								if(res.data){
@@ -1834,19 +1836,20 @@
 							}else{
 								_this.$toast(res.message);
 							}
-						})
+						},function(){
+							_this.showSellerDetailLoading = false;
+						});
 					}
 				}
 			},
 			getSellerInfoByTransactionId(){
-				////console.log('==getSellerInfoByTransactionId==')
 				let _this = this;
 				let params = {
 					id: _this.id
 				}
 				_this.showSellerDetailModel = true;
+				_this.showSellerDetailLoading = true;
 				_this.$ajax.ajax(_this.$api.getAssistSellerInfoByTransactionId, 'GET', params, function(res) {
-					// ////console.log('res', res);
 					// Toast.clear();
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
@@ -1873,7 +1876,9 @@
 					}else{
 						_this.$toast(res.message);
 					}
-				})
+				},function(){
+					_this.showSellerDetailLoading = false;
+				});
 			},
 			letSureByBuyer(){
 				let _this = this;

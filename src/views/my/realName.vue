@@ -396,7 +396,8 @@ export default {
 		let userInfo = localStorage.getItem("_USERINFO_");
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
-			_this.mobilePhone = _this.$JsEncrypt.decrypt(_this.userInfo.mobilePhone);
+			_this.mobilePhone = _this.userInfo.mobilePhone;
+			/* _this.mobilePhone = _this.$JsEncrypt.decrypt(_this.userInfo.mobilePhone); */
 			/* _this.form.wechartNum = _this.userInfo.mobilePhone;
 			_this.form.alipayNum = _this.userInfo.mobilePhone; */
 			//console.log(_this.mobilePhone,_this.form.wechartNum,_this.form.alipayNum);

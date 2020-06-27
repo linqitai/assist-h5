@@ -146,7 +146,8 @@
 				昵称
 			</div>
 			<div class="flex2">
-				<span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.nickName)}}</span>
+				<!-- <span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.nickName)}}</span> -->
+				<span class="ellipsis">{{userInfo.nickName}}</span>
 				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>
@@ -155,7 +156,8 @@
 				真实姓名
 			</div>
 			<div class="flex2">
-				<span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.realName)}}</span>
+				<!-- <span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.realName)}}</span> -->
+				<span class="ellipsis">{{userInfo.realName}}</span>
 				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 			</div>
 		</div>
@@ -164,7 +166,8 @@
 				手机号
 			</div>
 			<div class="flex2">
-				<span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.mobilePhone)}}</span>
+				<span class="ellipsis">{{userInfo.mobilePhone}}</span>
+				<!-- <span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.mobilePhone)}}</span> -->
 				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 			</div>
 		</div>
@@ -173,7 +176,8 @@
 				微信号
 			</div>
 			<div class="flex2">
-				<span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.wechartNum)}}</span>
+				<span class="ellipsis">{{userInfo.wechartNum}}</span>
+				<!-- <span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.wechartNum)}}</span> -->
 				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>
@@ -183,7 +187,8 @@
 				支付宝号
 			</div>
 			<div class="flex2">
-				<span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.alipayNum)}}</span>
+				<span class="ellipsis">{{userInfo.alipayNum}}</span>
+				<!-- <span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.alipayNum)}}</span> -->
 				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 			</div>
 		</div>

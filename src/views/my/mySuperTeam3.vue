@@ -143,13 +143,14 @@
 		<div class="myTeamContent">
 			<div class="top1">
 				<div class="flex flex1">
-					<div class="name">{{parentUserInfo.realName | getLastName}}</div>
+					<div class="name">{{$JsEncrypt.decrypt(parentUserInfo.realName) | getLastName}}</div>
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 				</div>
 				<div class="flex flex2">
 					<div class="line">上级昵称：{{$JsEncrypt.decrypt(parentUserInfo.nickName)}}</div>
-					<div class="line">上级微信：{{$JsEncrypt.decrypt(parentUserInfo.wechartNum)}} <span class="copy" @click="handleCopy(parentUserInfo.wechartNum,$event)">复制</span></div>
-					<div class="line">他的二代总人数：{{teamNum}}</div>
+					<div class="line">上级电话：{{$JsEncrypt.decrypt(parentUserInfo.mobilePhone)}} <span class="copy" @click="handleCopy($JsEncrypt.decrypt(parentUserInfo.mobilePhone),$event)">复制</span></div>
+					<div class="line">上级微信：{{$JsEncrypt.decrypt(parentUserInfo.wechartNum)}} <span class="copy" @click="handleCopy($JsEncrypt.decrypt(parentUserInfo.wechartNum),$event)">复制</span></div>
+					<div class="line">TA的二代总人数：{{teamNum}}</div>
 					<!-- <div class="line">(团队三代收益分红的功能正在研发中)</div> -->
 				</div>
 			</div>

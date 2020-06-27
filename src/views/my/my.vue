@@ -208,7 +208,8 @@
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
-					<div class="name" @click="toMyInfo">{{$JsEncrypt.decrypt(userInfo.realName) | getLastName}}</div>
+					<!-- <div class="name" @click="toMyInfo">{{$JsEncrypt.decrypt(userInfo.realName) | getLastName}}</div> -->
+					<div class="name" @click="toMyInfo">{{userInfo.realName | getLastName}}</div>
 					<div class="textCenter margT10">
 						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
 					</div>
@@ -216,7 +217,8 @@
 				<div class="flex flex2">
 					<div class="line1">
 						<div class="nick_name left">
-							{{$JsEncrypt.decrypt(userInfo.nickName)}}
+							<!-- {{$JsEncrypt.decrypt(userInfo.nickName)}} -->
+							{{userInfo.nickName}}
 						</div>
 					</div>
 					<div class="line1 margT3">
@@ -792,7 +794,7 @@
 				}else if(val=='myCalculationPower'){
 					message = '我的算力：由个人所拥有的矿机所决定。';
 				}else if(val=='limitBuyNum'){
-					message = '个人限购数量=个人额度+(卖出数量-买入数量)，若有特殊需要，个人限购数量可找客服申请提升';
+					message = '个人限购数量=个人限购额度+(卖出数量-买入数量)，若有特殊需要，个人限购额度可找客服申请提升';
 				}else if(val=='raise'){
 					message = '爱心值就是您捐赠帮扶券的数量，满10个即可在首页每日释放爱心值';
 				}

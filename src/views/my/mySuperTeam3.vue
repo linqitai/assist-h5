@@ -277,7 +277,6 @@
 				_this.$router.replace('login');
 				return;
 			} */
-			// //console.log('_this.userInfo',_this.userInfo);
 			_this.realnameNum = _this.$route.query.realnameNum;
 			//console.log('realnameNum',_this.realnameNum);
 			_this.activedText = '已实名' + ' ' + _this.realnameNum;

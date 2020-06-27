@@ -280,7 +280,6 @@
 			_this.realnameNum = _this.$route.query.realnameNum;
 			_this.activedText = '已实名' + ' ' + _this.realnameNum;
 			_this.parentId = _this.$route.query.parentId;
-			//console.log('parentId',_this.parentId);
 			_this.getParentUserInfo(_this.parentId);
 			_this.getCountTeamNum();
 		},

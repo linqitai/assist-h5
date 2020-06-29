@@ -8,14 +8,25 @@ var keyStr = "amituofoloveyoui";
 const IV = CryptoJS.enc.Utf8.parse("iloveyouamituofo");//""中与后台一样 */
 export default {
 	/**
-	 * AES加密 ：字符串 key iv  返回base64
+	 * AES解密 ：字符串 key iv  返回base64
 	 */
-	
+	myDecode1(ciphertext) {//key需和后台保持一致
+		var keyHex = CryptoJS.enc.Utf8.parse(keyStr);
+		// direct decrypt ciphertext
+		var decrypted = CryptoJS.DES.decrypt({
+			ciphertext: CryptoJS.enc.Base64.parse(ciphertext)
+		}, keyHex, {
+			mode: CryptoJS.mode.ECB,
+			padding: CryptoJS.pad.Pkcs7
+		});
+		// console.log(decrypted.toString(CryptoJS.enc.Utf8))
+		return decrypted.toString(CryptoJS.enc.Utf8);
+	},
 	/**
 	 * AES 解密 ：字符串 key iv  返回base64
 	 *
 	 */
-	aesDecode(encodePassword) {
+	myDecode2(encodePassword) {
 		var d = encodePassword.substr(9);
 		var key = CryptoJS.enc.Latin1.parse('abcdef0123456789');//需要与后台保持一致
 		var iv = CryptoJS.enc.Latin1.parse('0123456789abcdef');//需要与后台保持一致

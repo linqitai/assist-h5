@@ -273,11 +273,9 @@
 							}).then(() => {
 							  // on close
 							  //_this.getMyPastMachinesReceipt();
-							  _this.$router.replace("/home");
 							});
 						}else{
 							_this.getMyPastMachinesReceipt();
-							_this.$router.replace("/home");
 						}
 					}
 				})
@@ -429,6 +427,7 @@
 						}else{
 							//_this.$router.replace("/home");
 							_this.let48HMachinesStop();
+							_this.$router.replace("/home");
 						}
 					}else{
 						Dialog.alert({

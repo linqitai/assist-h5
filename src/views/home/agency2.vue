@@ -159,10 +159,10 @@
 						<div class="list" v-for="item in list2" :key='item.id'>
 							<div class="item">
 								<div class="flexLeft">
-									<div class="nameChild">{{item.realName | getLastName}}</div>
+									<div class="nameChild">{{(item.realName) | getLastName}}</div>
 								</div>
 								<div class="flex">
-									<div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
+									<div class="line"><i class="iconfont iconfont-name"></i> {{(item.nickName)}}</div>
 									<div class="placeholderLine10"></div>
 									<div class="line">
 										<div @click="toMy4OtherView(item.userId)">
@@ -175,12 +175,12 @@
 									<div class="placeholderLine10"></div>
 									<div class="line">
 										<div>
-											<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}
-											<span class="margL1" @touchstart="handleCopy(item.wechartNum,$event)" @tap="handleCopy(item.wechartNum,$event)" @click="handleCopy(item.wechartNum,$event)">复制</span>
+											<i class="iconfont iconfont-weichat"></i> {{(item.wechartNum)}} 
+											<span class="margL1" @touchstart="handleCopy((item.wechartNum),$event)" @tap="handleCopy((item.wechartNum),$event)" @click="handleCopy((item.wechartNum),$event)">复制</span>
 										</div>
 									</div>
 								</div>
-								<div class="flexRight">{{item.cityName}}</div>
+								<div class="flexRight">{{(item.cityName)}}</div>
 							</div>
 							<!-- <div class="item" v-for="itemChild in item.assistCityAgentExtendList" :key='itemChild.id'>
 								<div class="flexLeft">

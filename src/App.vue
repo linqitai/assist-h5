@@ -242,6 +242,12 @@ b{font-weight: bold;}
 	line-height: 1.4em;
 	letter-spacing: 1px;
 }
+.tip4model3RedText{
+	color: red;
+	font-size: 0.75rem;
+	line-height: 1.4em;
+	letter-spacing: 1px;
+}
 
 .tip4model4{
 	color: $grayDarker;

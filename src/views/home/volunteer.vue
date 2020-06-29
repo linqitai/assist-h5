@@ -117,7 +117,8 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">志愿者</div>
-			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
+			<!-- <i class="iconfont iconfont-question rightBox icon" @click="showTip"></i> -->
+			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="agencyTabs">
 			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
@@ -159,7 +160,7 @@
 						<div class="list" v-for="item in list2" :key='item.id'>
 							<div class="item">
 								<div class="flexLeft">
-									<div class="nameChild">{{item.realName | getLastName}}</div>
+									<div class="nameChild">{{(item.realName) | getLastName}}</div>
 								</div>
 								<div class="flex">
 									<!-- <div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
@@ -175,8 +176,8 @@
 									<div class="placeholderLine10"></div>
 									<div class="line">
 										<div>
-											<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}
-											<span class="margL1" @touchstart="handleCopy(item.wechartNum,$event)" @tap="handleCopy(item.wechartNum,$event)" @click="handleCopy(item.wechartNum,$event)">复制</span>
+											<i class="iconfont iconfont-weichat"></i> {{(item.wechartNum)}}
+											<span class="margL1" @touchstart="handleCopy((item.wechartNum),$event)" @tap="handleCopy((item.wechartNum),$event)" @click="handleCopy((item.wechartNum),$event)">复制</span>
 										</div>
 									</div>
 								</div>

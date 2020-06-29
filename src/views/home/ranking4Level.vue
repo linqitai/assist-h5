@@ -155,14 +155,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
-										<!-- <div class="placeholderLine10"></div>
-										<div class="line">
-											<div>
-												<i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}
-												<span class="margL1" @click="lookWeChartNumBtn(item.shareCode)">查看</span>
-											</div>
-										</div> -->
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}}G <i class="iconfont iconfont-right-arrow2"></i>
@@ -180,7 +173,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}}G <i class="iconfont iconfont-right-arrow2"></i>
@@ -198,7 +191,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}}G <i class="iconfont iconfont-right-arrow2"></i>
@@ -216,7 +209,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}}G <i class="iconfont iconfont-right-arrow2"></i>
@@ -234,7 +227,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}}G <i class="iconfont iconfont-right-arrow2"></i>

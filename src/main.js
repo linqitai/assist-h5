@@ -26,8 +26,8 @@ import getAjaxs from '@/api/ajax';
 Vue.prototype.$ajax = getAjaxs;
 import JsEncrypt from '@/assets/js/JsEncrypt';
 Vue.prototype.$JsEncrypt = JsEncrypt;
-import crypto from '@/assets/js/aesCrypto'
-Vue.prototype.$aesCrypto = crypto;
+import crypto from '@/assets/js/JsCrypto'
+Vue.prototype.$JsCrypto = crypto;
 
 import * as filters from '@/assets/js/filters';
 // Vue.prototype.filters = filters;

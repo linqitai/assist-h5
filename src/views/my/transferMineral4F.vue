@@ -204,7 +204,16 @@
 				_this.$router.replace('login');
 				return;
 			}
-			_this.getDealPageInfo();
+			console.log("dealPageInfo",_this.$cookies.get('haveDealPageInfo'));
+			if(_this.$cookies.get('haveDealPageInfo')){
+				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
+				_this.curerntPlatformPrice = Number(_this.dealPageInfo.currentPlatformPrice);
+				_this.maxPrice = (Number((_this.dealPageInfo.maxPrice))).toFixed(2);
+				_this.maxAddPrice = (Number((_this.dealPageInfo.maxPrice)*1.2)).toFixed(2);
+			}else{
+				_this.getDealPageInfo();
+			}
+			
 		},
 		methods: {
 			back(){
@@ -241,8 +250,10 @@
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.curerntPlatformPrice = Number(res.data.currentPlatformPrice);
-						_this.maxPrice = (Number((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
-						_this.maxAddPrice = (Number((res.data.currentPlatformPrice)*1.3+1)).toFixed(2);
+						_this.maxPrice = (Number((res.data.maxPrice))).toFixed(2);
+						_this.maxAddPrice = (Number((_this.maxPrice)*1.2)).toFixed(2);
+						/* _this.maxPrice = (Number((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
+						_this.maxAddPrice = (Number((res.data.currentPlatformPrice)*1.3+1)).toFixed(2); */
 						/* console.log('_this.maxAddPrice',_this.maxAddPrice);
 						console.log('_this.maxPrice',_this.maxPrice);
 						console.log('_this.targetPrice',targetPrice); */
@@ -286,10 +297,10 @@
 					let maxAddPrice = Number(_this.maxAddPrice).toFixed(2);
 					let curerntPlatformPrice = Number(_this.curerntPlatformPrice);
 					//alert(maxAddPrice);
-					if(parseFloat(price)>parseFloat(curerntPlatformPrice)*1.2&&parseFloat(price)<=parseFloat(maxPrice)){
+					if(parseFloat(price)>=parseFloat(maxPrice)&&parseFloat(price)<=parseFloat(maxAddPrice)){
 						_this.errorInfo4AppointDeal.price = '';
 					}else{
-						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${(parseFloat(curerntPlatformPrice)*1.2+parseFloat(0.01)).toFixed(2)}~${maxPrice}CNY`;
+						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${(parseFloat(maxPrice)-0.01)}~${maxAddPrice}CNY`;
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){
@@ -369,10 +380,10 @@
 						safePassword: _this.form4AppointDeal.safePassword.replace(/ /g,""),
 						// createTime:_this.$utils.getDateTime(new Date())
 					}
-					if(Number(params.price)>Number(_this.maxPrice)){
+					/* if(Number(params.price)>Number(_this.maxPrice)){
 						_this.$toast(`交易最高价暂时为${_this.maxPrice}CNY`);
 						return;
-					}
+					} */
 					if(_this.userInfo.thisWeekMineral<Number(params.num)){
 						_this.$toast('您的矿石不够');
 						return;
@@ -393,30 +404,24 @@
 						_this.$toast('请按要求填写信息');
 						return;
 					}
+					console.log("params",params);
 					params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 					_this.loading = true;
 					_this.$ajax.ajax(_this.$api.insertTransaction2ServiceBill, 'POST', params, function(res) {
 						if (res.code == _this.$api.CODE_OK) {
-							// _this.$toast('转让成功');
 							_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
-							/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
 							_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
-							// _this.$router.push('myDeal');
 							if(params.agentPhone == localStorage.getItem('mobilePhone')) {
 								_this.$router.push({path:'myDeal',query:{dealType:1,isSelf:1,mobilePhone:res.data.mobilePhone,num:params.num}});
 							}else{
 								_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
 							}
-							//_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
-							//_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:params.num}});
 							_this.$utils.formClear(_this.form4AppointDeal);
 						}else{
-							// _this.$toast(res.message);
 							Dialog.alert({
 							  title: '系统提示',
 							  message: res.message
 							}).then(() => {
-							  // on close
 							});
 						}
 					},function(){

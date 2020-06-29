@@ -225,7 +225,7 @@
 						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}+{{getCityName(cityInfo)}}{{userInfo.isAgent | agentType}}</div>
 					</div>
 					<div class="line margT3">
-						注册时间 {{userInfo.registerTime}}
+						注册实名时间 {{userInfo.registerTime}}
 					</div>
 					<div class="line">
 						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
@@ -615,8 +615,8 @@
 				console.log("123200000")
 			},2000) */
 			//console.log("getTime:" + Date.parse(new Date('2020/04/30 09:45:12:123')));
-			let aesDecrypt = _this.$aesCrypto.aesDecode("3nH9j6iI3GN8DTUSMHJ3j5c8y0db7yA==");
-			console.log("aesDecrypt",aesDecrypt);
+			let JsDecrypt = _this.$JsCrypto.myDecode1("s2mpMsUAYbtKa+s2pRx/WFBDnfjM4FQ/");
+			console.log("JsDecrypt",JsDecrypt);
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				////console.log("userInfo_localStorage");

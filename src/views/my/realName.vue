@@ -185,12 +185,25 @@
 			<b class="textBold">温馨提示：</b>
 			<br>
 			尊敬的原始矿工实名前请认真阅读以下规则：<br>
-			【1】实名认证年龄范围为18~70周岁，若不在该范围内，需找客服特殊申请。<br>
+			【1】实名认证年龄范围为18~75周岁，若不在该范围内，需找客服特殊申请。<br>
 			【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
 			【3】平台为保证交易的顺利进行，真实姓名要和支付宝、微信中的实名信息一致，交易的时候若遇到实名信息不一致的问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
 			【4】请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。<br>
 			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现端口。挂单交易每人限购2000个矿石，若有特殊需要，可额外找客服申请限购额度。<br>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
+			 <div class="tip4model3RedText margT6">
+			 	<b class="textBold">若遇到在微信中照片上传不了的解决办法：</b><br>
+			 	1、换浏览器操作，UC浏览器优先。<br>
+			 	<div class="placeholderLine4"></div>
+			 	<b class="textBold">若遇到支付宝截图可以上传，证件照片却上传不了的解决办法：</b><br>
+			 	1、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
+			 	<div class="placeholderLine4"></div>
+			 	<b class="textBold">若遇到提交实名一直转圈圈或提示区块拥堵的解决办法：</b><br>
+			 	1、检查网络信号是否良好。<br>
+			 	2、把证件照片裁剪得尽可能小一点。<br>
+			 	3、更换浏览器，UC浏览器优先。<br>
+			 	4、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
+			 </div>
 		</div>
 		<van-field v-model="mobilePhone" disabled clearable label="手机号"/>
 		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
@@ -229,7 +242,7 @@
 			注意：<br>
 			1.为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像。<br>
 			2.若提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。<br>
-			3.年龄范围需在18~70周岁，否则实名审核可能通过不了，若超过70周岁需找客服额外申请。
+			3.年龄范围需在18~75周岁，否则实名审核可能通过不了，若超过75周岁需找客服额外申请。
 		</div> 
 		<div class="line">
 			<span class="label">身份证正面照片</span>
@@ -256,7 +269,10 @@
 		</div> 
 		<div class="placeholderLine40"></div>
 		<div class="sureAppointBtnBox">
-			<div class="tip4model3">
+			<div class="tip4model3RedText">
+				<b class="textBold">若遇到在微信中照片上传不了的解决办法：</b><br>
+				1、换浏览器操作，UC浏览器优先。<br>
+				<div class="placeholderLine4"></div>
 				<b class="textBold">若遇到支付宝截图可以上传，证件照片却上传不了的解决办法：</b><br>
 				1、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
 				<div class="placeholderLine4"></div>

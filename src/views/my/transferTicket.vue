@@ -85,7 +85,7 @@
 		<div class="transferPageT">
 			<div class="placeholderLine10"></div>
 			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
-			<div class="paddingWing tip4model3">当前拥有 帮扶券 {{userInfo.platformTicket.toFixed(2)}} 个</div>
+			<div class="paddingWing tip4model3" v-if="userInfo">当前拥有 帮扶券 {{userInfo.platformTicket.toFixed(2)}} 个</div>
 			<div class="placeholderLine10"></div>
 			<van-cell-group>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>

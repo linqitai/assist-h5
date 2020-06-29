@@ -155,7 +155,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -173,7 +173,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 										<!-- <div class="placeholderLine10"></div>
 										<div class="line">
 											<div>
@@ -198,7 +198,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -216,7 +216,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -234,7 +234,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -252,7 +252,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -270,7 +270,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{item.nickName}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>

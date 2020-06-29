@@ -27,7 +27,6 @@ export default {
 		let queryAjax = $.ajax({
 			url: url,
 			type: method,
-			timeout: 20000,
 			// processData: true,
 			// contentType: 'application/json',
 			// dataType:'json',
@@ -118,6 +117,7 @@ export default {
 		let queryAjax = $.ajax({
 			url: url,
 			type: method,
+			/* timeout: 20000, */
 			// processData: true,
 			// contentType: 'application/json',
 			// dataType:'json',

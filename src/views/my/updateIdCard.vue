@@ -106,6 +106,10 @@
 				<b class="textBold">修改身份证号的规则：</b><br>
 				1.首先要让对方提供手持证件照。<br>
 				2.校对是本人且信息无误后再给与修改。<br>
+				
+			</div>
+			<div class="paddingWing tip4model3" v-if="thisUserInfo">
+				测试加解密：昵称解密后 {{$JsCrypto.myDecode1(thisUserInfo.nickName)}}
 			</div>
 			<div class="sureBtn">
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>

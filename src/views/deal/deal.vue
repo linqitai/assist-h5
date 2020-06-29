@@ -546,8 +546,7 @@
 // import { ajax } from "@/api/ajax";
 import mHeader from '@/components/Header.vue';
 import mFullscreen from '@/components/Fullscreen.vue';
-import { Skeleton } from 'vant';
-import { Dialog } from 'vant';
+import { Skeleton,Toast,Dialog } from 'vant';
 export default {
 	data() {
 		return {
@@ -560,7 +559,7 @@ export default {
 			min4Price:0,
 			max4Price:100,
 			step4Price:0.01,
-			currentMaxPrice:'',
+			currentMaxPrice:0,
 			sellBtnLoading:false,
 			tabActiveName:"dealArea1",
 			currentPage1:1,
@@ -880,7 +879,7 @@ export default {
 			if(userInfo){
 				_this.userInfo = JSON.parse(userInfo);
 				_this.platformTicket = parseFloat(_this.userInfo.platformTicket);
-				_this.canBuyNum = parseFloat(_this.userInfo.canBuyNum);
+				_this.canBuyNum = parseFloat(_this.userInfo.canBuyNum || 0);
 				if(_this.userInfo.accountStatus==1){
 					//退出登录
 					_this.logout();
@@ -896,7 +895,7 @@ export default {
 			if(_this.$cookies.get('haveDealPageInfo')){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
 				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
-				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2))*100;
+				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)*1.2))*100;
 				//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
 				console.log("_this.max4Price:",_this.max4Price);
 				_this.serviceCharge = `10%矿石+交易总金额的10%帮扶券`;
@@ -956,7 +955,7 @@ export default {
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
 					//_this.currentMaxPrice = _this.dealPageInfo.maxPrice;
-					_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2))*100;
+					_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice) || 0) - (parseFloat(_this.dealPageInfo.currentPlatformPrice||0)*1.2))*100;
 					//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
 					console.log("_this.max4Price:",_this.max4Price);
 					_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
@@ -1020,6 +1019,10 @@ export default {
 			}
 			//console.log(params,'params')
 			_this.loading1 = true;
+			const toast = Toast.loading({
+			  forbidClick: true,
+			  message: '加载中...',
+			});
 			_this.$ajax.ajax(_this.$api.getAssistBuyBillListGeneralPage, 'GET', params, function(res) {
 				// //console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) {
@@ -1044,6 +1047,7 @@ export default {
 			},function(){
 				_this.loading1 = false;
 				_this.loading = false;
+				Toast.clear();
 			})
 		},
 		getListAddPrice(){
@@ -1053,6 +1057,10 @@ export default {
 				pageSize: _this.pageSize,
 			}
 			_this.loading2 = true;
+			const toast = Toast.loading({
+			  forbidClick: true,
+			  message: '加载中...',
+			});
 			_this.$ajax.ajax(_this.$api.getAssistBuyBillListAddPricePage, 'GET', params, function(res) {
 				// //console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) {
@@ -1073,6 +1081,7 @@ export default {
 			},function(){
 				_this.loading2 = false;
 				_this.loading = false;
+				Toast.clear();
 			})
 		},
 		initializeTabActiveName(){

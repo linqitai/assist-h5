@@ -164,8 +164,8 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{(item.wechartNum)}}<span class="copy margL10" @click="handleCopy((tem.wechartNum),$event)">复制</span></div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -183,8 +183,8 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{(item.wechartNum)}}<span class="copy margL10" @click="handleCopy((tem.wechartNum),$event)">复制</span></div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -202,8 +202,8 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{(item.wechartNum)}}<span class="copy margL10" @click="handleCopy((tem.wechartNum),$event)">复制</span></div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -221,8 +221,8 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{(item.wechartNum)}}<span class="copy margL10" @click="handleCopy((tem.wechartNum),$event)">复制</span></div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -239,8 +239,8 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{(item.wechartNum)}}<span class="copy margL10" @click="handleCopy((tem.wechartNum),$event)">复制</span></div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -258,8 +258,8 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name"></i> <span>{{item.nickName}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{(item.wechartNum)}}<span class="copy margL10" @click="handleCopy((tem.wechartNum),$event)">复制</span></div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -277,8 +277,8 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{(item.wechartNum)}}<span class="copy margL10" @click="handleCopy((tem.wechartNum),$event)">复制</span></div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
@@ -296,8 +296,8 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{item.nickName}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{item.wechartNum}}<span class="copy margL10" @click="handleCopy(item.wechartNum,$event)">复制</span></div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{(item.wechartNum)}}<span class="copy margL10" @click="handleCopy((tem.wechartNum),$event)">复制</span></div>
 									</div>
 									<div class="flexRight">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>

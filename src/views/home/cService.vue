@@ -75,7 +75,7 @@
 			<div class="cateInfo">
 				<div class="infoBox">
 					<!-- <img class="ewmBox" src="https://www.helpchain.online/image/wechat.png" alt=""> -->
-					<img class="ewmBox" src="../../assets/image/help.png">
+					<img class="ewmBox" src="../../assets/image/wechat.jpg">
 					<div class="text">扫码进群</div>
 				</div>
 			</div>
@@ -93,7 +93,7 @@
 			<div class="title">微信客服：</div>
 			<div class="placeholderLine10"></div>
 			<div v-for="item in serviceList" :key="item.id+20" v-if="item.weiChart!='--'">
-				<b class="textBold">{{item.remark}}：{{item.weiChart}}</b><span class="copy margL10" @click="handleCopy(item.weiChart,$event)">复制</span>
+				<b class="textBold">{{(item.remark)}}：{{(item.weiChart)}}</b><span class="copy margL10" @click="handleCopy((item.weiChart),$event)">复制</span>
 				<div class="placeholderLine10"></div>
 			</div>
 			<!-- <div class="title">QQ客服：</div>

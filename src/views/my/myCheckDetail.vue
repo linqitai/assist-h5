@@ -200,34 +200,37 @@
 	<van-dialog v-model="showRefuseReasonModel" title="驳回原因" :showConfirmButton="false" :close-on-click-overlay="true">
 		<div class="placeholderLine10"></div>
 		<div class="refuseReason margT10">
-			<van-field v-model="remark" rows="2" autosize type="textarea" required placeholder="请填写驳回原因,以便系统做统计" @blur="validate('remark')" :error-message="errorInfo.remark"/>
+			<!-- @blur="validate('remark')" -->
+			<van-field v-model="remark" rows="2" autosize type="textarea" required placeholder="请填写驳回原因,以便系统做统计" :error-message="errorInfo.remark"/>
 			<van-radio-group v-model="remark">
+				<div class="placeholderLine4"></div>
+				<van-radio name="该微信号无法被搜索到,请确认后重新设置。(每人有3次实名机会,请咨询上级按要求完成实名认证)">该微信号无法被搜索到,请确认后重新设置</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="您的支付宝账号未实名。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">您的支付宝账号未实名</van-radio>
+			  <van-radio name="您的支付宝账号未实名。(每人有3次实名机会,请咨询上级按要求完成实名认证)">您的支付宝账号未实名</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="所填写的身份证号和证件照中不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">所填写的身份证号和证件照中不一致</van-radio>
+			  <van-radio name="所填写的身份证号和证件照中不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">所填写的身份证号和证件照中不一致</van-radio>
 			  <div class="placeholderLine4"></div>
 			  <van-radio name="您的纸条有P图嫌疑，请换一个稍微带有褶皱的纸条重新提交。(每人只有3次实名机会,请咨询上级按要求完成实名认证)"> 您的纸条有P图嫌疑</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="小纸条不合格，请按照模板要求来。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
+			  <van-radio name="小纸条不合格，请按照模板要求来。(每人有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="怀疑存在P图，请重新拍照后再上传。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">怀疑存在P图，请重新拍照后再上传</van-radio>
+			  <van-radio name="怀疑存在P图，请重新拍照后再上传。(每人有3次实名机会,请咨询上级按要求完成实名认证)">怀疑存在P图，请重新拍照后再上传</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="纸条上写的手机号和注册手机号不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">纸条上写的手机号和注册手机号不一致</van-radio>
+			  <van-radio name="纸条上写的手机号和注册手机号不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">纸条上写的手机号和注册手机号不一致</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="图一请上传支付宝个人信息页面或个人主页的截图。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">图一请上传支付宝个人信息页面或个人主页的截图</van-radio>
+			  <van-radio name="图一请上传支付宝个人信息页面或个人主页的截图。(每人有3次实名机会,请咨询上级按要求完成实名认证)">图一请上传支付宝个人信息页面或个人主页的截图</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="身份证里的名字与支付宝实名不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">身份证里的名字与支付宝实名不一致</van-radio>
+			  <van-radio name="身份证里的名字与支付宝实名不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">身份证里的名字与支付宝实名不一致</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像</van-radio>
+			  <van-radio name="为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像。(每人有3次实名机会,请咨询上级按要求完成实名认证)">为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="所搜索到的支付宝和所上传的照片不一致。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">所搜索到的支付宝和所上传的照片不一致</van-radio>
+			  <van-radio name="所搜索到的支付宝和所上传的照片不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">所搜索到的支付宝和所上传的照片不一致</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我</van-radio>
+			  <van-radio name="支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我。(每人有3次实名机会,请咨询上级按要求完成实名认证)">支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="支付宝里请先上传头像，不然容易给会员感觉是小号，而留下不好印象。(每人只有3次实名机会,请咨询上级按要求完成实名认证)">支付宝里请先上传头像，不然容易给会员感觉是小号，而留下不好印象</van-radio>
+			  <van-radio name="支付宝里请先上传头像，不然容易给会员感觉是小号，而留下不好印象。(每人有3次实名机会,请咨询上级按要求完成实名认证)">支付宝里请先上传头像，不然容易给会员感觉是小号，而留下不好印象</van-radio>
 			  <div class="placeholderLine4"></div>
-			  <van-radio name="每人只有3次实名机会,您的实名材料存在比较多的问题,请咨询上级按要求完成实名认证">您的实名材料存在比较多的问题,请咨询上级按要求完成实名认证</van-radio>
+			  <van-radio name="每人有3次实名机会,您的实名材料存在比较多的问题,请咨询上级按要求完成实名认证">您的实名材料存在比较多的问题,请咨询上级按要求完成实名认证</van-radio>
 			</van-radio-group>
 			<!-- <van-dropdown-menu>
 			  <van-dropdown-item v-model="remark" :options="option1"/>
@@ -338,6 +341,7 @@ export default {
 				{ text: '支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我', value: 6 },
 				{ text: '支付宝里请先上传头像，不然容易给人感觉是小号，给他人印象不好', value: 7 }
 			],
+			duplicationNum:0
 		}
 	},  
 	components:{
@@ -360,6 +364,26 @@ export default {
 		back(){
 			this.$router.go(-1);
 		},
+		checkAssistUserInfoByUserId(){
+			let _this = this;
+			_this.$ajax.ajax(_this.$api.checkAssistUserInfoByUserId + _this.userId, 'GET', null, function(res){
+				if(res.code == _this.$api.CODE_OK){
+					// _this.form.idCardPic = res.data.idCardPic;
+					// _this.form.gesturePic = res.data.gesturePic;
+					_this.duplicationNum = res.data;
+					if(Number(res.data)>1){
+						Dialog.alert({
+						  title: '系统提示',
+						  confirmButtonText:'好的',
+						  message: `数据库中已经有${Number(res.data)-1}个【${_this.form.realName}】，请审核员仔细审核，若发现有刷号嫌疑的，请及时反馈`
+						}).then(() => {
+						  // on close
+						});
+					}
+					//console.log("form",_this.form);
+				}
+			})
+		},
 		getAssistUserInfoPicByUserId(){
 			let _this = this;
 			_this.$ajax.ajax4GetCheckDetail(_this.$api.getAssistUserInfo4CheckDetail + _this.userId, 'GET', null, function(res){
@@ -367,6 +391,7 @@ export default {
 					// _this.form.idCardPic = res.data.idCardPic;
 					// _this.form.gesturePic = res.data.gesturePic;
 					_this.form = res.data;
+					_this.checkAssistUserInfoByUserId();
 					//console.log("form",_this.form);
 				}
 			})

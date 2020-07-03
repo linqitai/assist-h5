@@ -532,6 +532,13 @@ $noticeHeight:40px;
 				<div class="millInfo">
 					<div class="infoBox">
 						<div>
+							<span class="yellow underline" @click="toBlcokSearchView">区块浏览器·全</span> <i class="iconfont iconfont-question" @click="showTip('blockSearch')"/>
+						</div>
+					</div>
+				</div>
+				<div class="millInfo">
+					<div class="infoBox">
+						<div>
 							<!-- @click="toFundPoolRecordView" -->
 							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童基金帮扶池</span>
 							<span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
@@ -697,8 +704,11 @@ $noticeHeight:40px;
 					'https://www.helpchain.online/image/banner/banner0055.jpg',
 					'https://www.helpchain.online/image/banner/banner0057.jpg',
 					'https://www.helpchain.online/image/banner/banner0059.jpg',
+					'https://www.helpchain.online/image/banner/banner0060.jpg',
+					'https://www.helpchain.online/image/banner/banner0062.jpg',
 					'https://www.helpchain.online/image/banner/banner001.jpg',
 					'https://www.helpchain.online/image/banner/banner002.jpg',
+					'https://www.helpchain.online/image/banner/banner0061.jpg',
 					'https://www.helpchain.online/image/banner/banner1.jpg',
 					'https://www.helpchain.online/image/banner/banner2.jpg',
 					'https://www.helpchain.online/image/banner/banner3.jpg',
@@ -823,11 +833,17 @@ $noticeHeight:40px;
 				let _this = this;
 				_this.$router.push('fundPoolRecord');
 			},
+			toBlcokSearchView(){
+				let _this = this;
+				_this.$router.push('blockSearch');
+			},
 			showTip(val){
 				//console.log(val);
 				let message = '';
 				if(val=='fundPool'){
-					message = '少年儿童帮扶基金池：交易手续费中，有20%~50%的帮扶券进入帮扶基金池。基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的弱势群体';
+					message = '交易手续费中，有20%~50%的帮扶券进入帮扶基金池。基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的弱势群体';
+				}else if(val=='blockSearch'){
+					message = '全体会员的账户中，矿石上的任何变动都会记录在区块浏览器中，该数据接受全体会员浏览与监管';
 				}
 				Dialog.alert({
 				  title: '温馨提示',

@@ -167,11 +167,11 @@
 				<div class="box box1">
 					<div class="flex flex1">
 						<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
-						<div class="name">{{(thisUserInfo.realName) | getLastName}}</div>
+						<div class="name">{{$JsCrypto.myDecode1(thisUserInfo.realName) | getLastName}}</div>
 					</div>
 					<div class="flex flex2">
 						<div class="line1">
-							<div class="nick_name left">{{(thisUserInfo.nickName)}}</div>
+							<div class="nick_name left">{{$JsCrypto.myDecode1(thisUserInfo.nickName)}}</div>
 							<div class="level left">{{thisUserInfo.level | getUserType}}+{{thisUserInfo.isAgent|agentType}}</div>
 						</div>
 						<!-- <div class="line">

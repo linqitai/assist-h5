@@ -160,6 +160,7 @@
 				curerntPlatformPrice:'',
 				tipText4AppointDeal:'',
 				guidancePrice:'',
+				dealPageInfo:''
 			}
 		},
 		components: {
@@ -193,7 +194,14 @@
 				_this.$router.replace('login');
 				return;
 			}
-			_this.getDealPageInfo();
+			if(_this.$cookies.get('haveDealPageInfo')){
+				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
+				_this.curerntPlatformPrice = _this.dealPageInfo.currentPlatformPrice;
+				_this.maxPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+3)).toFixed(2);
+				_this.maxAddPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+2)).toFixed(2);
+			}else{
+				_this.getDealPageInfo();
+			}
 		},
 		methods: {
 			back(){
@@ -204,9 +212,13 @@
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
 					console.log('getDealPageInfo', res);
 					if (res.code == _this.$api.CODE_OK) {
-						_this.curerntPlatformPrice = res.data.currentPlatformPrice;
-						_this.maxPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+3)*1.3).toFixed(2);
-						_this.maxAddPrice = (parseFloat((res.data.currentPlatformPrice)*1.3+2)).toFixed(2);
+						_this.dealPageInfo = res.data;
+						_this.curerntPlatformPrice = _this.dealPageInfo.currentPlatformPrice;
+						_this.maxPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+3)).toFixed(2);
+						_this.maxAddPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+2)).toFixed(2);
+						_this.$cookies.remove('haveDealPageInfo');
+						_this.$cookies.set("haveDealPageInfo",1, 60 * 30 * 1);
+						localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
 					}
 				})
 			},

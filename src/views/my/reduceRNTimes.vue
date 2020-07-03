@@ -149,11 +149,11 @@
 			<div v-if="thisUserInfo">
 				<div class="box box1">
 					<div class="flex flex1">
-						<div class="name">{{$aesCrypto.aesDecode(thisUserInfo.realName) | getLastName}}</div>
+						<div class="name">{{$JsCrypto.myDecode1(thisUserInfo.realName) | getLastName}}</div>
 					</div>
 					<div class="flex flex2">
 						<div class="line1">
-							<div class="nick_name left">{{$aesCrypto.aesDecode(thisUserInfo.nickName)}}</div>
+							<div class="nick_name left">{{$JsCrypto.myDecode1(thisUserInfo.nickName)}}</div>
 							<div class="level left">{{thisUserInfo.level | getUserType}}</div>
 						</div>
 						<div class="line">

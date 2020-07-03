@@ -160,7 +160,7 @@
 						<div class="list" v-for="item in list2" :key='item.id'>
 							<div class="item">
 								<div class="flexLeft">
-									<div class="nameChild">{{(item.realName) | getLastName}}</div>
+									<div class="nameChild">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
 								</div>
 								<div class="flex">
 									<!-- <div class="line"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
@@ -176,8 +176,9 @@
 									<div class="placeholderLine10"></div>
 									<div class="line">
 										<div>
-											<i class="iconfont iconfont-weichat"></i> {{(item.wechartNum)}}
-											<span class="margL1" @touchstart="handleCopy((item.wechartNum),$event)" @tap="handleCopy((item.wechartNum),$event)" @click="handleCopy((item.wechartNum),$event)">复制</span>
+											<i class="iconfont iconfont-weichat"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}
+											<span class="margL1" @touchstart="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)" @tap="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span>
+											<!-- <span class="margL1" @touchstart="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event) @tap="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span> -->
 										</div>
 									</div>
 								</div>

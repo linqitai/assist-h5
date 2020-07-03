@@ -351,7 +351,7 @@
 						<van-image round width="20" height="20" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
 					</div> -->
 					<div class="textInfo">
-						<span class="text1 unSelect">{{list1.realName}}</span>
+						<span class="text1 unSelect">{{$JsCrypto.myDecode1(list1.realName)}}</span>
 						<span class="text2 unSelect">发起筹款</span>
 						<span class="text2 unSelect">{{list1.createTime}}</span>
 					</div>
@@ -436,15 +436,15 @@
 							<div class="contentText1 justify">
 								求助者已承诺所提交的文字与图片资料完全真实，无任何虚构事实及隐瞒真相的情况，如有不实，求助者愿承担全部法律责任。
 							</div>
-							<div class="title2">求助者昵称：{{list1.nickName}}</div>
-							<div class="title2">求助者姓名：{{list1.realName}}</div>
-							<div class="title2">求助者团队算力：{{list1.teamCalculationPower}}</div>
-							<div class="title2">求助者手机号：{{list1.mobilePhone}} <span @click="handleCopy(list1.mobilePhone,$event)">复制</span></div>
-							<div class="title2">求助者微信：{{list1.wechartNum}} <span @click="handleCopy(list1.wechartNum,$event)">复制</span></div>
-							<div class="title2">求助者支付宝：{{list1.alipayNum}} <span @click="handleCopy(list1.alipayNum,$event)">复制</span></div>
-							<div class="contentText1 justify">
+							<div class="title2">求助者昵称：{{(list1.nickName)}}</div>
+							<div class="title2">求助者姓名：{{$JsCrypto.myDecode1(list1.realName)}}</div>
+							<div class="title2">求助者团队算力：{{(list1.teamCalculationPower)}}</div>
+							<div class="title2">求助者手机号：{{$JsCrypto.myDecode1(list1.mobilePhone)}} <span @click="handleCopy($JsCrypto.myDecode1(list1.mobilePhone),$event)">复制</span></div>
+							<div class="title2">求助者微信：{{$JsCrypto.myDecode1(list1.wechartNum)}} <span @click="handleCopy($JsCrypto.myDecode1(list1.wechartNum),$event)">复制</span></div>
+							<div class="title2">求助者支付宝：{{$JsCrypto.myDecode1(list1.alipayNum)}} <span @click="handleCopy($JsCrypto.myDecode1(list1.alipayNum),$event)">复制</span></div>
+							<!-- <div class="contentText1 justify">
 								该求助信息不属于慈善公开募捐，真实性由求助者个人负责，帮扶筹提示您加求助者微信了解详情后再进行帮扶。
-							</div>
+							</div> -->
 						</div>
 						<!-- <div class="knowMore">
 							了解更多求助人信息

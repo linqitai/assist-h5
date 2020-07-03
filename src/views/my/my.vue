@@ -8,7 +8,6 @@
 		width: 100%;
 		$iconBgWidth:50px;
 		background-color: $main-box-fh-bg-color;
-		color: $main-box-fh-text-color;
 		.refreshBox{
 			top: 60px;
 		}
@@ -550,7 +549,12 @@
 		
 		<!-- <m-fullscreen></m-fullscreen> -->
 		<!-- <m-refresh @refreshEvent="refreshEvent"></m-refresh> -->
-		
+		<van-dialog v-model="showTipModel" title="系统提示" :showCancelButton="isShowCancelBtn" cancelButtonText="稍后" confirmButtonText="好的" @confirm="confirmBtn">
+			<div class="paddingWing f-12 lineHeight tip4model2">
+				1.您尚未实名，是否先前去实名？<br>
+				2.实名审核通过后，所上传的照片会被系统自动删除。
+			</div>
+		</van-dialog>
 	</div>
 	<transition name="van-fade">
 	  <router-view></router-view>
@@ -568,6 +572,8 @@
 	export default {
 		data() {
 			return {
+				isShowCancelBtn:true,
+				showTipModel:false,
 				pageHeight:"",
 				userId:"",
 				result: "",
@@ -615,8 +621,8 @@
 				console.log("123200000")
 			},2000) */
 			//console.log("getTime:" + Date.parse(new Date('2020/04/30 09:45:12:123')));
-			let JsDecrypt = _this.$JsCrypto.myDecode1("s2mpMsUAYbtKa+s2pRx/WFBDnfjM4FQ/");
-			console.log("JsDecrypt",JsDecrypt);
+			/* let JsDecrypt = _this.$JsCrypto.myDecode1("s2mpMsUAYbtKa+s2pRx/WFBDnfjM4FQ/");
+			console.log("JsDecrypt",JsDecrypt); */
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				////console.log("userInfo_localStorage");
@@ -741,6 +747,7 @@
 				document.body.scrollTop = 0;
 				document.documentElement.scrollTop = 0;
 			},
+			
 			cancelAccount(){
 				let _this = this;
 				Dialog.confirm({
@@ -849,6 +856,11 @@
 					_this.$router.replace('login');
 				})
 			},
+			confirmBtn(){
+				let _this = this;
+				_this.showTipModel = false;
+				_this.$router.push('/myInfo');
+			},
 			getUserInfo() {
 				let _this = this;
 				_this.loading = true;
@@ -856,6 +868,14 @@
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
+						if(_this.userInfo.actived!=1){
+							_this.showTipModel = true;
+							/* Dialog.alert({
+								title: "系统提示",
+								message: "您尚未实名，请前去实名"
+							}).then(() => {
+							}) */
+						}
 						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 						//console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));

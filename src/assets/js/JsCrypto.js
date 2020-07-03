@@ -11,6 +11,9 @@ export default {
 	 * AES解密 ：字符串 key iv  返回base64
 	 */
 	myDecode1(ciphertext) {//key需和后台保持一致
+		if(ciphertext==''||ciphertext==null){
+			return ciphertext;
+		}
 		var keyHex = CryptoJS.enc.Utf8.parse(keyStr);
 		// direct decrypt ciphertext
 		var decrypted = CryptoJS.DES.decrypt({

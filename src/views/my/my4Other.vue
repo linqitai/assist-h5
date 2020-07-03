@@ -217,7 +217,7 @@
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
-					<div class="name">{{(userInfo.realName) | getLastName}}</div>
+					<div class="name">{{$JsCrypto.myDecode1(userInfo.realName) | getLastName}}</div>
 					<!-- <span>点赞</span> -->
 					<!-- <div class="textCenter margT10 f-18">
 						<i class="iconfont iconfont-good"></i>
@@ -231,7 +231,7 @@
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
-						<span class="nick_name">{{(userInfo.nickName)}} </span>
+						<span class="nick_name">{{$JsCrypto.myDecode1(userInfo.nickName)}} </span>
 						<!-- <span class="level margL6" v-if="userInfo.manType == 2">服务商</span> -->
 					</div>
 					<div class="line1">

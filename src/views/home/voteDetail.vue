@@ -87,7 +87,7 @@
 						}
 					}
 					.itemRight{
-						flex: 0 0 100px;
+						flex: 0 0 150px;
 						height: $itemLRHeight;
 						line-height: $itemLRHeight;
 						font-size: 1rem;

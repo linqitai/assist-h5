@@ -73,6 +73,7 @@ export default {
 	getAssistUserInfoPicByUserId: host + "assist/userInfo/getAssistUserInfoPicByUserId",
 	getAssistUserInfoPageList4Check: host + "assist/userInfo/getAssistUserInfoPageList4Check",
 	getAssistUserInfo4CheckDetail: host + "assist/userInfo/getAssistUserInfo4CheckDetail/",
+	checkAssistUserInfoByUserId: host + "assist/userInfo/checkAssistUserInfoByUserId/",
 	updateUserInfo4CheckPassOrNot: host + "assist/userInfo/updateUserInfo4CheckPassOrNot",
 	assistUserAttendance: host + "assist/userInfo/assistUserAttendance",
 	getAssistUserInfoCount4Check: host + "assist/userInfo/getAssistUserInfoCount4Check",

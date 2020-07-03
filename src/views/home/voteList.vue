@@ -122,21 +122,19 @@
 				}
 			},
 			onLoad1(){
-				console.log('load1')
 				let _this = this;
-				
 				var params = {
 					pageNo: _this.pageIndex,
 					pageSize: _this.pageSize,
 					isPublish: 1,
 				}
-				console.log('params',params);
 				_this.$ajax.ajax(_this.$api.getAssistVoteList, 'GET', params, function(res) {
 					// console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) { // 200
+					if (res.code == _this.$api.CODE_OK) {
 						_this.loading1 = false;
-						_this.voteList = res.data.list;
+						let list = res.data.list;
 						// _this.total = res.data.size;
+						_this.voteList.push(...list);
 						if(res.data.endRow == res.data.total){
 							_this.finished1 = true;
 						}else{
@@ -144,6 +142,7 @@
 						}
 					}else{
 						_this.loading1 = false;
+						_this.finished1 = true;
 						_this.$toast(res.message);
 					}
 				},function(){

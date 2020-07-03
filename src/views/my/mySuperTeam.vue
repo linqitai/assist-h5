@@ -106,7 +106,7 @@
 						}
 					}
 					.flex3 {
-						flex: 0 0 100px;
+						flex: 0 0 80px;
 						text-align: right;
 						.line2,
 						.line3,
@@ -117,8 +117,8 @@
 						}
 					}
 					.flex4 {
-						flex: 0 0 20px;
-						font-size: 0.825rem;
+						flex: 0 0 10px;
+						font-size: 0.625rem;
 						color: #c7c7c7;
 						text-align: right;
 					}
@@ -162,12 +162,12 @@
 						<div class="list">
 							<div class="item" v-for="item in list1" :key="item.id" @click="toTeamView(item.userId,item.realnameNum)">
 								<div class="flex flex1">
-									<div class="name">{{item.realName | getLastName}}</div>
+									<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
 								</div>
 								<div class="flex flex2">
 									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
-									<div class="line2"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
-									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div>
+									<div class="line2"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}}</div>
+									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}</div>
 									<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>
 								</div>
 								<div class="flex flex3">
@@ -186,19 +186,19 @@
 						<div class="list">
 							<div class="item" v-for="item in list2" :key="item.id" @click="toTeamView(item.userId,item.realnameNum)">
 								<div class="flex flex1">
-									<div class="name">{{item.realName | getLastName}}</div>
+									<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
 								</div>
 								<div class="flex flex2">
-									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
-									<div class="line2"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
-									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div>
-									<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>
-									<!-- <div class="line3"><i class="iconfont iconfont-mill"></i> X台矿机正在运行</div> -->
+									<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
+									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}</div>
+									<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
+									<div class="line3"><i class="iconfont iconfont-clock"></i> 实名时间 {{item.registerTime}}</div>
+									<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime}}</div>
 								</div>
-								<div class="flex flex3">
+								<!-- <div class="flex flex3">
 									<div class="line2">{{item.level | getUserType}}</div>
 									<div class="line3">战友数{{item.teamateNum}}个</div>
-								</div>
+								</div> -->
 								<div class="flex flex4" v-if="item.teamateNum>0">
 									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
@@ -211,14 +211,14 @@
 						<div class="list">
 							<div class="item" v-for="item in list3" :key="item.id">
 								<div class="flex flex1">
-									<div class="name">{{item.realName | getLastName}}</div>
+									<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
 								</div>
 								<div class="flex flex2">
 									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
-									<div class="line2"><i class="iconfont iconfont-name"></i> {{item.nickName}}</div>
-									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{item.wechartNum}}</div>
-									<!-- <div class="line3"><i class="iconfont iconfont-mill"></i> X台矿机正在运行</div> -->
-								</div>
+									<div class="line2"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}}</div>
+									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}</div>
+									<!-- <div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>-->
+								</div> 
 								<div class="flex flex3">
 									<div class="line2">{{item.level | getUserType}}</div>
 									<div class="line3">战友数{{item.teamateNum}}个</div>

@@ -159,7 +159,7 @@
 						<div class="list" v-for="item in list2" :key='item.id'>
 							<div class="item">
 								<div class="flexLeft">
-									<div class="nameChild">{{(item.realName) | getLastName}}</div>
+									<div class="nameChild">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
 								</div>
 								<div class="flex">
 									<div class="line"><i class="iconfont iconfont-name"></i> {{(item.nickName)}}</div>
@@ -175,7 +175,7 @@
 									<div class="placeholderLine10"></div>
 									<div class="line">
 										<div>
-											<i class="iconfont iconfont-weichat"></i> {{(item.wechartNum)}} 
+											<i class="iconfont iconfont-weichat"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} 
 											<span class="margL1" @touchstart="handleCopy((item.wechartNum),$event)" @tap="handleCopy((item.wechartNum),$event)" @click="handleCopy((item.wechartNum),$event)">复制</span>
 										</div>
 									</div>
@@ -297,6 +297,9 @@
 				_this.$ajax.ajax(_this.$api.getCityAgentListMoreInfo, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
+						/* for(let i=0;i<list.length;i++){
+							list[i].nickName = 1;
+						} */
 						_this.list2.push(...list);
 						_this.loading2 = false;
 						if(res.data.endRow == res.data.total){

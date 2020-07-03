@@ -103,7 +103,7 @@
 		</m-header>
 		<div class="raiseApplyPage">
 			<div class="tip4model3 paddingAll myCell">
-				申请帮扶筹需要0.41G的个人算力，且少年儿童的求助会优先获得帮助，所提交申请的求助者需要先经过线下家访，让志愿者与代理先去考察后才能公开求助信息。
+				2020年7月更新：申请帮扶筹至少需要0.41G的个人算力且注册帮扶链的时间不得少于2个月，少年儿童的求助优先，所提交申请的求助者需要先经过线下拜访，让志愿者与代理先去考察后才能公开求助信息，拜访的时候需要拉横幅【真情感动世界，帮扶成就你我】，且参与线下帮扶活动的人数不少于10人。
 			</div>
 			<div class="myCell">
 				<van-field label="标题" required clearable @blur="validate('title')" v-model="form.title" maxlength="30" placeholder="请填写30字内的筹款标题" />

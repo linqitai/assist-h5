@@ -142,7 +142,8 @@
 				<div class="labelText">确认密码</div>
 				<van-field v-model="form.password2" type="password" clearable :placeholder="placeholder.password2" @blur="validate('password2')" :error-message="errorHint.password2"/>
 				<div class="labelText">验证码</div>
-				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @focus="getSecurityCode" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
+				 <!-- @blur="validate('securityCode')" -->
+				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @focus="getSecurityCode" :error-message="errorHint.securityCode">
 					<van-button slot="button" size="small" type="primary" :loading="getSCLoading" @click="getSecurityCode">{{securityCode}}</van-button>
 				</van-field>
 				<!-- <div class="labelText">短信验证码</div>
@@ -194,7 +195,9 @@
 					'https://www.helpchain.online/image/banner/banner0058.jpg',
 					'https://www.helpchain.online/image/banner/banner0055.jpg',
 					'https://www.helpchain.online/image/banner/banner0057.jpg',
-					'https://www.helpchain.online/image/banner/banner0059.jpg'
+					'https://www.helpchain.online/image/banner/banner0059.jpg',
+					'https://www.helpchain.online/image/banner/banner0060.jpg',
+					'https://www.helpchain.online/image/banner/banner0062.jpg'
 				],
 				getSCLoading:false,
 				interval:180,

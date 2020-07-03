@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
-	.dealRecord{
-		@include pageHaveHeight4Scroll();
+	.blockSearch{
+		@include pageNoHeight4Scroll();
 		.myBookTabs {
 			color: $mainTextColor;
 			.list{
@@ -83,11 +83,11 @@
 	
 </style>
 <template>
-	<div class="dealRecord">
+	<div class="blockSearch">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				区块浏览器·交易
+				区块浏览器·全
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
@@ -107,64 +107,35 @@
 						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex">
 								<div class="line">{{item.createTime}}</div>
-								<div class="line margT6" @click="toMy4OtherView(item.fromUserId)">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.sellerNickName}}</i></span>
+								<div class="line margT6" @click="toMy4OtherView(item.fromUserId)" v-if="item.type!=0&&item.type!=5">
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromUserName}}</i></span>
 									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
-								<div class="line margT6">
-									{{item.type | mineralBookType}} <i class="textAdornColor">{{item.number}}</i>个 给
+								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)" v-if="item.type==0">
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toUserName}}</i></span>
+									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
-								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.buyerNickName}}</i></span>
+								<div class="line margT6" v-if="item.type==0">
+									{{item.type | mineralBookType}} <i class="textAdornColor">{{item.number}}</i>个
+								</div>
+								<div class="line margT6" v-if="item.type!=1&&item.type!=0">
+									{{item.type | mineralBookType}} <i class="textAdornColor">{{item.number}}</i>个 <span v-if="item.type!=1">给</span>
+								</div>
+								<div class="line margT6" v-if="item.type==1">
+									{{item.type | mineralBookType}} 使用<i class="textAdornColor">{{item.number}}</i>个
+								</div>
+								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)" v-if="item.type!=1&&item.type!=0">
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toUserName}}</i></span>
 									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
 								<div class="line margT6">
 									<span class="nickName">区块高度 <i class="textColor">{{item.id}}</i></span>
 								</div>
-								<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
 							</div>
 							<div class="flexRight2">所剩<span class="textAdornColor">{{item.currentMineralNum}}</span>个</div>
-							<!-- <div class="flexRight3">
-								<i class="iconfont iconfont-right-arrow2"  @click="toMy4OtherView(item.fromUserId)"></i>
-							</div> -->
 						</div>
 					 </div>
 				</van-list>
-				<!-- <van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
-					 <div class="list">
-						<div class="item" v-for="item in list1" :key="item.id">
-							<div class="flex">
-								<div class="line">{{item.createTime | getDateTime}}</div>
-								<div class="line margT6">
-									<span class="ellipsis userIdSpan" @click="toBookView(2,item.fromUserId)">{{item.fromUserId}}</span>
-									<i class="iconfont iconfont-arrow-to"></i>
-									<span class="ellipsis userIdSpan" @click="toBookView(2,item.toUserId)">{{item.toUserId}}</span>
-								</div>
-							</div>
-							<div class="flexRight">{{item.number}}</div>
-						</div>
-					 </div>
-				</van-list> -->
-				<!-- <van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-				 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
-					<van-tab title="矿石" name="mineral">
-						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
-						<div class="list">
-							<div class="item" v-for="item in list1" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime | getDateTime}}</div>
-									<div class="line margT6">
-										<span class="ellipsis userIdSpan" @click="toBookView(2,item.fromUserId)">{{item.fromUserId}}</span>
-										<i class="iconfont iconfont-arrow-to"></i>
-										<span class="ellipsis userIdSpan" @click="toBookView(2,item.toUserId)">{{item.toUserId}}</span>
-									</div>
-								</div>
-								<div class="flexRight">{{item.number}}</div>
-							</div>
-						</div>
-						</van-list>
-					</van-tab>
-				</van-tabs> -->
 			</van-pull-refresh>
 		</div>
 		<!-- </van-pull-refresh> -->
@@ -181,6 +152,7 @@
 		name: 'dealRecord',
 		data() {
 			return {
+				value:'',
 				userId:"",
 				isShowSkeleton:true,
 				loading: true,
@@ -240,6 +212,11 @@
 			back(){
 				this.$router.go(-1);
 			},
+			onSearch(){
+				let _this = this;
+				_this.list1=[];
+				_this.onLoad1();
+			},
 			toScrollTop(){
 				window.scrollTo(0,0);
 				document.body.scrollTop = 0;
@@ -288,13 +265,18 @@
 				let params = {
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
-					type:3
+					userId: _this.value
 				}
 				_this.loading1 = true;
-				_this.$ajax.ajax(_this.$api.getMineralBookList4Type, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getMineralBookList, 'GET', params, function(res) {
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
+						/* list.forEach((item)=>{
+							if(item.fromUserName=='基金池'){
+								item.fromUserName = '系统';
+							}
+						}); */
 						list = list.filter((item)=>{
 							let b = _this.$utils.inArray(item.fromUserId,_this.manTypeList);
 							if(b==false){

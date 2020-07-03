@@ -75,6 +75,12 @@ export default new Router({
 					meta:{footer:true,back:false,question:false,keepAlive:true},
 					children:[
 						{
+							path: '/blockSearch',
+							name: '区块浏览器',
+							component: resolve => require(['./views/home/blockSearch'],resolve),
+							meta:{footer:false,keepAlive:true},
+						},
+						{
 							path: '/rankingDeal',
 							name: '服务商排行榜',
 							component: resolve => require(['./views/home/rankingDeal'],resolve),

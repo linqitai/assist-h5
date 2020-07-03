@@ -527,7 +527,7 @@
 				<div class="placeholderLine20"></div>
 			</div>
 			<div class="detailBox" v-if="showSellerDetailLoading==false&&detail4sellerInfo">
-				<div class="tip4model3">
+				<div class="tip4model3RedText">
 					平台为保证交易的顺利进行，卖方的真实姓名若与支付宝里的不一致将冻结账号处理，交易的时候买方若遇到此问题欢迎向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
 				</div>
 				<div class="line" v-if="detail4sellerInfo.id">

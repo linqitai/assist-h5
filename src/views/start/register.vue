@@ -117,12 +117,13 @@
 <template>
 	<div class="register">
 		<div class="logoBox">
-			<van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
+			<!-- <van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
 			  <van-swipe-item v-for="(image, index) in images" :key="index">
 				<img v-lazy="image" />
 			  </van-swipe-item>
-			</van-swipe>
-			<!-- <img src="https://www.helpchain.online/image/banner/banner0055.jpg" alt=""> -->
+			</van-swipe> -->
+			<img src="https://www.helpchain.co.ax/image/banner/banner0058.jpg" alt="">
+			<!-- <img src="https://www.helpchain.co.ax/image/banner/banner0055.jpg" alt=""> -->
 		</div>
 		<div class="formHeader">
 			<div class="welcomeText green_text">{{welcomeText}}</div>
@@ -191,14 +192,14 @@
 	export default {
 		data() {
 			return {
-				images: [
-					'https://www.helpchain.online/image/banner/banner0058.jpg',
-					'https://www.helpchain.online/image/banner/banner0055.jpg',
-					'https://www.helpchain.online/image/banner/banner0057.jpg',
-					'https://www.helpchain.online/image/banner/banner0059.jpg',
-					'https://www.helpchain.online/image/banner/banner0060.jpg',
-					'https://www.helpchain.online/image/banner/banner0062.jpg'
-				],
+				/* images: [
+					'https://www.helpchain.co.ax/image/banner/banner0058.jpg',
+					'https://www.helpchain.co.ax/image/banner/banner0055.jpg',
+					'https://www.helpchain.co.ax/image/banner/banner0057.jpg',
+					'https://www.helpchain.co.ax/image/banner/banner0059.jpg',
+					'https://www.helpchain.co.ax/image/banner/banner0060.jpg',
+					'https://www.helpchain.co.ax/image/banner/banner0062.jpg'
+				], */
 				getSCLoading:false,
 				interval:180,
 				time:180,

@@ -363,14 +363,14 @@
 						<van-skeleton :row="2" :loading="loading">
 						<div class="flexC flex1">
 							<div class="digit">{{list1.needTicket}}+</div>
-							<div class="text">需要帮扶券</div>
+							<div class="text">筹款总额</div>
 						</div>
 						<div class="flexC flex2">
 							<div class="digit">{{list1.getedTicket}}</div>
 							<div class="text">已筹到帮扶券</div>
 						</div>
-						<div class="flexC flex3" v-if="raiseMineralSum">
-							<div class="digit">{{raiseMineralSum}}</div>
+						<div class="flexC flex3">
+							<div class="digit">{{raiseMineralSum || 0}}</div>
 							<div class="text">已筹到矿石</div>
 						</div>
 						<div class="flexC flex3">
@@ -476,7 +476,7 @@
 					</div> -->
 					<div class="placeholderLine10"></div>
 				</div>
-				<div class="materialProve borderBottom">
+				<div class="materialProve borderBottom" v-if="list1.status==3">
 					<div class="flex">
 						<div class="title flexMedial">我要捐赠<i class="yellow">帮扶券</i></div>
 					</div>
@@ -506,7 +506,7 @@
 					</div>
 					<div class="placeholderLine10"></div>
 				</div>
-				<div class="materialProve borderBottom">
+				<div class="materialProve borderBottom" v-if="list1.status==3">
 					<div class="flex">
 						<div class="title flexMedial">我要捐赠<i class="yellow">矿石</i></div>
 					</div>
@@ -535,135 +535,96 @@
 					</div>
 					<div class="placeholderLine10"></div>
 				</div>
-				<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
-				<!-- <van-list
-				  v-model="loading2"
-				  :finished="finished2"
-				  finished-text="没有更多了"
-				  @load="getAssistRaiseRecordListPage"
-				>
-					<div class="records">
-						<div class="title">爱心帮扶记录</div>
-						<div class="item flexsBox row" v-for="item in list2" :key="item.id">
-							<div class="flexThis column">
-								<div class="line1">
-									<div class="left yellow">{{item.nickName}}</div>
-									<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
+				<div v-if="list1.status==3">
+					<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+					 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
+						<van-tab title="赠卷记录" name="raiseRecord1">
+							<div class="records" v-if="list2">
+								<div class="item flexsBox row" v-for="item in list2" :key="item.id">
+									<div class="flexThis column">
+										<div class="line1">
+											<div class="left yellow">{{item.nickName}}</div>
+											<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
+										</div>
+										<div class="line2">
+											{{item.word}}
+										</div>
+										<div class="line3">{{item.createTime}}</div>
+									</div>
 								</div>
-								<div class="line2">
-									{{item.word}}
+								<div v-if="totalItems>0">
+									<van-pagination 
+									  v-model="currentPage2" 
+									  :total-items="totalItems" 
+									  :items-per-page="pageSize2"
+									  :show-page-size="3" 
+									  force-ellipses
+									  @change="getAssistRaiseRecordListPage"
+									/>
 								</div>
-								<div class="line3">{{item.createTime}}</div>
 							</div>
-						</div>
+						</van-tab>
+						<van-tab title="赠卷排行榜" name="raiseRecord2">
+							<div class="records" v-if="list3">
+								<div class="item flexsBox row" v-for="item in list3" :key="item.id">
+									<div class="flexThis column">
+										<div class="line1">
+											<div class="left yellow">{{item.nickName}}</div>
+											<div class="left margL10">捐赠了 <span>{{item.total}}</span> 个帮扶券</div>
+										</div>
+										<div class="line2">
+											{{item.word}}
+										</div>
+										<!-- <div class="line3">{{item.createTime}}</div> -->
+									</div>
+								</div>
+								<div v-if="totalItems3>0">
+									<van-pagination 
+									  v-model="currentPage3" 
+									  :total-items="totalItems3" 
+									  :items-per-page="pageSize3"
+									  :show-page-size="3" 
+									  force-ellipses
+									  @change="getAssistRaiseRecordListPage3"
+									/>
+								</div>
+							</div>
+						</van-tab>
+						<van-tab title="赠矿石记录" name="raiseRecord4">
+							<div class="records" v-if="list4">
+								<div class="item flexsBox row" v-for="item in list4" :key="item.id">
+									<div class="flexThis column">
+										<div class="line1">
+											<div class="left yellow">{{item.nickName}}</div>
+											<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个矿石</div>
+										</div>
+										<div class="line2">
+											{{item.word}}
+										</div>
+										<div class="line3">{{item.createTime}}</div>
+									</div>
+								</div>
+								<div v-if="totalItems4>0">
+									<van-pagination 
+									  v-model="currentPage4" 
+									  :total-items="totalItems4" 
+									  :items-per-page="pageSize4"
+									  :show-page-size="3" 
+									  force-ellipses
+									  @change="getAssistRaiseRecordListPage4"
+									/>
+								</div>
+							</div>
+						</van-tab>
+					</van-tabs>	
+				</div>
+				<div class="materialProve borderBottom" v-if="list1.status==5">
+					<div class="flex">
+						<div class="title flexMedial">节点<i class="yellow">支持</i>信息</div>
 					</div>
-				</van-list> -->
-				<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
-				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
-					<van-tab title="赠卷记录" name="raiseRecord1">
-						<div class="records" v-if="list2">
-							<div class="item flexsBox row" v-for="item in list2" :key="item.id">
-								<div class="flexThis column">
-									<div class="line1">
-										<div class="left yellow">{{item.nickName}}</div>
-										<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
-									</div>
-									<div class="line2">
-										{{item.word}}
-									</div>
-									<div class="line3">{{item.createTime}}</div>
-								</div>
-							</div>
-							<div v-if="totalItems>0">
-								<van-pagination 
-								  v-model="currentPage2" 
-								  :total-items="totalItems" 
-								  :items-per-page="pageSize2"
-								  :show-page-size="3" 
-								  force-ellipses
-								  @change="getAssistRaiseRecordListPage"
-								/>
-							</div>
-						</div>
-					</van-tab>
-					<van-tab title="赠卷排行榜" name="raiseRecord2">
-						<div class="records" v-if="list3">
-							<div class="item flexsBox row" v-for="item in list3" :key="item.id">
-								<div class="flexThis column">
-									<div class="line1">
-										<div class="left yellow">{{item.nickName}}</div>
-										<div class="left margL10">捐赠了 <span>{{item.total}}</span> 个帮扶券</div>
-									</div>
-									<div class="line2">
-										{{item.word}}
-									</div>
-									<!-- <div class="line3">{{item.createTime}}</div> -->
-								</div>
-							</div>
-							<div v-if="totalItems3>0">
-								<van-pagination 
-								  v-model="currentPage3" 
-								  :total-items="totalItems3" 
-								  :items-per-page="pageSize3"
-								  :show-page-size="3" 
-								  force-ellipses
-								  @change="getAssistRaiseRecordListPage3"
-								/>
-							</div>
-						</div>
-					</van-tab>
-					<van-tab title="赠矿石记录" name="raiseRecord4">
-						<div class="records" v-if="list4">
-							<div class="item flexsBox row" v-for="item in list4" :key="item.id">
-								<div class="flexThis column">
-									<div class="line1">
-										<div class="left yellow">{{item.nickName}}</div>
-										<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个矿石</div>
-									</div>
-									<div class="line2">
-										{{item.word}}
-									</div>
-									<div class="line3">{{item.createTime}}</div>
-								</div>
-							</div>
-							<div v-if="totalItems4>0">
-								<van-pagination 
-								  v-model="currentPage4" 
-								  :total-items="totalItems4" 
-								  :items-per-page="pageSize4"
-								  :show-page-size="3" 
-								  force-ellipses
-								  @change="getAssistRaiseRecordListPage4"
-								/>
-							</div>
-						</div>
-					</van-tab>
-				</van-tabs>	
-				<!-- <div class="records" v-if="list2">
-					<div class="title">爱心帮扶记录</div>
-					<div class="item flexsBox row" v-for="item in list2" :key="item.id">
-						<div class="flexThis column">
-							<div class="line1">
-								<div class="left yellow">{{item.nickName}}</div>
-								<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
-							</div>
-							<div class="line2">
-								{{item.word}}
-							</div>
-							<div class="line3">{{item.createTime}}</div>
-						</div>
-					</div>
-					<div v-if="totalItems>0">
-						<van-pagination 
-						  v-model="currentPage2" 
-						  :total-items="totalItems" 
-						  :items-per-page="pageSize2"
-						  :show-page-size="3" 
-						  force-ellipses
-						  @change="getAssistRaiseRecordListPage"
-						/>
-					</div>
-				</div> -->
+					
+					<div class="placeholderLine10"></div>
+				</div>
 			</div>
 		</div>
 		<transition name="van-fade">
@@ -977,7 +938,7 @@
 							let id = _this.list1.id;
 							let images = [];
 							for(let i=0;i<picNum;i++){
-								let item = 'https://www.helpchain.online/image/raise/' + id + '00'+ (i+1) +'.jpg';
+								let item = 'https://www.helpchain.co.ax/image/raise/' + id + '00'+ (i+1) +'.jpg';
 								images.push(item);
 							}
 							_this.images=images;

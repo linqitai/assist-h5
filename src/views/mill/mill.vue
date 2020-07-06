@@ -217,6 +217,8 @@
 					<van-button slot="button" size="small" type="primary" @click="getSecurityCode">{{securityCode}}</van-button>
 				</van-field> -->
 				<div class="placeholderLine20"></div>
+				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
+				<div class="placeholderLine20"></div>
 			</div>
 			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
 			<van-button type="info" @click="sureBuyMillEvent" :loading="buyMillLoading" :disabled="buyMillLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
@@ -251,6 +253,7 @@
 	export default {
 		data() {
 			return {
+				safePassword:'',
 				buyMillLoading:false,
 				selectRadioValue:'1',
 				loading: false,
@@ -432,13 +435,16 @@
 				let params = {
 					/* userId:_this.userInfo.userId, */
 					machineId:_this.machineId,
-					use:_this.selectRadioValue
+					use:_this.selectRadioValue,
+					safePassword:_this.safePassword
 				}
 				Toast.loading({
 				  message: '租赁中...',
 				  forbidClick: true,
 				  loadingType: 'spinner'
 				});
+				params.safePassword = _this.$JsEncrypt.encrypt(params.safePassword);
+				_this.safePassword='';
 				_this.$ajax.ajax(_this.$api.insertAssistMyMachine, 'POST', params, function(res) {
 					Toast.clear();
 					if (res.code == _this.$api.CODE_OK) {

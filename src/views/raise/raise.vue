@@ -364,7 +364,7 @@
 						<van-skeleton :row="2" :loading="loading">
 						<div class="flexC flex1">
 							<div class="digit">{{list1.needTicket}}+</div>
-							<div class="text">需要帮扶券</div>
+							<div class="text">筹款总额</div>
 						</div>
 						<div class="flexC flex2">
 							<div class="digit">{{list1.getedTicket}}</div>
@@ -988,7 +988,7 @@
 							let id = _this.list1.id;
 							let images = [];
 							for(let i=0;i<picNum;i++){
-								let item = 'https://www.helpchain.online/image/raise/' + id + '00'+ (i+1) +'.jpg';
+								let item = 'https://www.helpchain.co.ax/image/raise/' + id + '00'+ (i+1) +'.jpg';
 								images.push(item);
 							}
 							_this.images=images;

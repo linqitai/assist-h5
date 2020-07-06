@@ -115,11 +115,17 @@
 				<img v-lazy="image" />
 			  </van-swipe-item>
 			</van-swipe>
-			<!-- <img src="https://www.helpchain.online/image/banner/banner0055.jpg" alt=""> -->
+			<!-- <img src="https://www.helpchain.co.ax/image/banner/banner0058.jpg" alt=""> -->
+			<!-- <img src="../../assets/image/banner0058.jpg" alt=""> -->
 		</div>
 		<div class="formHeader">
 			<div class="welcomeText green_text">{{welcomeText}}</div>
 		</div>
+		<!-- <div class="wing">
+			<div class="placeholderLine10"></div>
+			<div class="placeholderLine10"></div>
+			<div class="green_text">欢迎来到HPC帮扶链</div>
+		</div> -->
 		<div class="formBox paddingWing">
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>
@@ -162,12 +168,7 @@
 		data() {
 			return {
 				images: [
-					'https://www.helpchain.online/image/banner/banner0058.jpg',
-					'https://www.helpchain.online/image/banner/banner0055.jpg',
-					'https://www.helpchain.online/image/banner/banner0057.jpg',
-					'https://www.helpchain.online/image/banner/banner0059.jpg',
-					'https://www.helpchain.online/image/banner/banner0060.jpg',
-					'https://www.helpchain.online/image/banner/banner0062.jpg'
+					'https://www.helpchain.co.ax/image/banner/banner0058.jpg'
 				],
 				welcomeText:"",
 				isNo:false,

@@ -552,7 +552,7 @@
 		<van-dialog v-model="showTipModel" title="系统提示" :showCancelButton="isShowCancelBtn" cancelButtonText="稍后" confirmButtonText="好的" @confirm="confirmBtn">
 			<div class="paddingWing f-12 lineHeight tip4model2">
 				1.您尚未实名，是否先前去实名？<br>
-				2.实名审核通过后，所上传的照片会被系统自动删除。
+				2.实名审核通过后，所上传的照片会被系统自动销毁并删除处理。
 			</div>
 		</van-dialog>
 	</div>
@@ -888,6 +888,9 @@
 						}
 					}else{
 						_this.$toast(res.message);
+						if(res.message=='登录已过期，请重新登录'){
+							_this.$router.push('/login');
+						}
 					}
 				},function(){
 					_this.loading = false;

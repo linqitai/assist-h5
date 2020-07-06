@@ -129,7 +129,7 @@
 				<b>审核嘱咐：</b>帮扶链这个平台不是张三的，也不是李四的，而是大家的，期望各位领导人认真审核，共同维护好平台。
 			</div>
 			<div class="textIndent">
-				<b>审核津贴：</b>审核通过奖励审核人0.1张帮扶券；审核驳回奖励审核人0.2张帮扶券。
+				<b>审核津贴：</b>审核通过奖励审核人0.2张帮扶券；审核驳回奖励审核人0.3张帮扶券。
 			</div>
 			<div class="textIndent">
 				注：若会员提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。
@@ -375,7 +375,7 @@ export default {
 						Dialog.alert({
 						  title: '系统提示',
 						  confirmButtonText:'好的',
-						  message: `数据库中已经有${Number(res.data)-1}个【${_this.form.realName}】，请审核员仔细审核，若发现有刷号嫌疑的，请及时反馈`
+						  message: `系统中已经有${Number(res.data)-1}个【${_this.form.realName}】，请审核员仔细审核其支付宝和身份证号，若发现有刷号嫌疑的，请及时上报反馈`
 						}).then(() => {
 						  // on close
 						});

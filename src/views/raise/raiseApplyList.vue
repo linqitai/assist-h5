@@ -113,6 +113,37 @@
 						</div>
 					</van-list>
 				</van-tab>
+				<!-- <van-tab title="待拜访" name="onLoad6">
+					<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
+						<div class="wordList">
+							<div class="item" v-for="item in list6" :key="item.id">
+								<div class="itemLeft">
+									<div class="title">
+										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}}</span>
+									</div>
+									<div class="remark margT3">{{item.title}}</div>
+									<div class="time margT3">{{item.createTime}}<i class="f-10 right">团队算力{{item.teamCalculationPower}}G</i></div>
+								</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab> -->
+				<van-tab title="投票中" name="onLoad7">
+					<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
+						<div class="wordList">
+							<div class="item" v-for="item in list7" :key="item.id">
+								<!-- @click="toRaise4OtherView(item.id)" -->
+								<div class="itemLeft" @click="toRaise4OtherView(item.id)">
+									<div class="title">
+										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}}</span>
+									</div>
+									<div class="remark margT3">{{item.title}}</div>
+									<div class="time margT3">{{item.createTime}}<i class="f-10 right">团队算力{{item.teamCalculationPower}}G</i></div>
+								</div>
+							</div>
+						</div>
+					</van-list>
+				</van-tab>
 				<van-tab title="已审核" name="onLoad3">
 					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
 						<div class="wordList">
@@ -181,6 +212,8 @@
 				currentPage3: 1,
 				currentPage4: 1,
 				currentPage5: 1,
+				currentPage6: 1,
+				currentPage7: 1,
 				activeName:'onLoad1',
 				loading1:false,
 				finished1:false,
@@ -192,11 +225,17 @@
 				finished4:false,
 				loading5:false,
 				finished5:false,
+				loading6:false,
+				finished6:false,
+				loading7:false,
+				finished7:false,
 				list1:[],
 				list2:[],
 				list3:[],
 				list4:[],
 				list5:[],
+				list6:[],
+				list7:[],
 			}
 		},
 			filters: {
@@ -208,11 +247,15 @@
 					}else if (val == 1) {
 						result = '审核通过';
 					}else if (val == 2) {
-						result = '审核驳回';
+						result = '排队中';
 					}else if (val == 3) {
 						result = '筹款中';
 					}else if (val == 4) {
 						result = '筹款结束';
+					}else if (val == 5) {
+						result = '投票中';
+					}else if (val == 6) {
+						result = '待拜访';
 					}
 					return result;
 				}
@@ -268,6 +311,16 @@
 					_this.currentPage5 = 1;
 					_this.list5 = [];
 					_this.finished5 = false;
+					//_this.onLoad4();
+				}else if(_this.activeName == 'onLoad6'){
+					_this.currentPage6 = 1;
+					_this.list6 = [];
+					_this.finished6 = false;
+					//_this.onLoad4();
+				}else if(_this.activeName == 'onLoad7'){
+					_this.currentPage7 = 1;
+					_this.list7 = [];
+					_this.finished7 = false;
 					//_this.onLoad4();
 				}
 			},
@@ -426,6 +479,62 @@
 						_this.list5 = [];
 						_this.loading5 = false;
 						_this.finished5 = true;
+						_this.$toast(res.message);
+					}
+				})
+			},
+			onLoad6() {
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage6,
+					pageSize: _this.pageSize,
+					status:5
+				}
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {
+					//console.log('res', res);
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list6.push(...list);
+						_this.loading6 = false;
+						if(res.data.endRow == res.data.total){
+							_this.finished6 = true;
+						}else{
+							_this.currentPage6 = _this.currentPage6 + 1;
+						}
+					}else{
+						_this.list6 = [];
+						_this.loading6 = false;
+						_this.finished6 = true;
+						_this.$toast(res.message);
+					}
+				})
+			},
+			onLoad7() {
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage7,
+					pageSize: _this.pageSize,
+					status:5
+				}
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {
+					//console.log('res', res);
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list7.push(...list);
+						_this.loading7 = false;
+						if(res.data.endRow == res.data.total){
+							_this.finished7 = true;
+						}else{
+							_this.currentPage7 = _this.currentPage7 + 1;
+						}
+					}else{
+						_this.list7 = [];
+						_this.loading7 = false;
+						_this.finished7 = true;
 						_this.$toast(res.message);
 					}
 				})

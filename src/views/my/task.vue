@@ -96,7 +96,7 @@
 				</div>
 				<div class="line text margT10">
 					完成后：<br>
-					获得一台产7.5矿石的微型矿机和一台产50矿石的晋级矿机(6月份福利)<br>
+					获得一台产7.5矿石的微型矿机<br>
 				</div>
 			</div>
 			<div class="flexRight">

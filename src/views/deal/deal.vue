@@ -970,7 +970,7 @@ export default {
 					_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
 					_this.buyLowestAmountText = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
 					_this.$cookies.remove('haveDealPageInfo');
-					_this.$cookies.set("haveDealPageInfo",1, 60 * 30 * 1);
+					_this.$cookies.set("haveDealPageInfo",1, 60 * 60 * 2);
 					localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
 				}else{
 					_this.$toast(res.message);

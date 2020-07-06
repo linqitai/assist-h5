@@ -219,8 +219,7 @@
 		:error-message="errorInfo.bankCard"/> -->
 		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" type="password" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
 		<van-field v-model="form.idCardSure" required clearable label="确认身份证号" maxlength="18" type="password" :placeholder="errorHint.idCardSure" @blur="validate('idCardSure')" :error-message="errorInfo.idCardSure"/>
-		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="11"
-		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
+		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="11" @blur="validate('realName')" :error-message="errorInfo.realName"/>
 		  <div class="line">
 		  	<span class="label">支付宝个人主页</span>
 			<span class="text"></span>
@@ -232,7 +231,7 @@
 		  </div>
 		  <div class="line" v-if="!pic2">
 			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
-		  	<img style="width: 100%;" src="https://www.helpchain.online/image/alipayTemplate.png">
+		  	<img style="width: 100%;" src="https://www.helpchain.co.ax/image/alipay.jpg">
 		  </div>
 		  <div class="line" v-if="pic2">
 			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
@@ -254,7 +253,7 @@
 		</div>
 		<div class="line" v-if="!form.idCardPic">
 			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
-			<img style="width: 100%;" src="https://www.helpchain.online/image/idCardPicTemplate.png">
+			<img style="width: 100%;" src="https://www.helpchain.co.ax/image/idt.jpg">
 		</div>
 		<div class="line">
 			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
@@ -293,7 +292,7 @@
 	  confirmButtonText="OK"
 	>
 		<div class="placeholderLine10"></div>
-		<img style="width: 100%;" src="https://www.helpchain.online/image/idCardPic.png">
+		<img style="width: 100%;" src="https://www.helpchain.co.ax/image/ids.jpg">
 	</van-dialog>
 	<!-- <van-dialog
 	  v-model="showIdCardPicExmple2"
@@ -302,13 +301,13 @@
 	  confirmButtonText="OK"
 	> 
 		<div class="placeholderLine10"></div>
-		<img style="width: 100%;" src="https://www.helpchain.online/image/alipay.png">
+		<img style="width: 100%;" src="https://www.helpchain.co.ax/image/alipay.jpg">
 	</van-dialog> -->
 	<!-- <div class="shadeMaster" v-if="isWeixin">
 		<p class="f-20">实名前请先点开右上角按钮选择<br>
 			<span class="f-20">【在浏览器中打开并登录】</span>
 		</p>
-		<img class='img' src="../../assets/image/open_right.png" alt="pic">
+		<img class='img' src="../../assets/image/open_right.jpg" alt="pic">
 	</div> -->
   </div>
 </template>

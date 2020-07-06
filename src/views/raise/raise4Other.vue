@@ -618,13 +618,13 @@
 						</van-tab>
 					</van-tabs>	
 				</div>
-				<div class="materialProve borderBottom" v-if="list1.status==5">
+				<!-- <div class="materialProve borderBottom" v-if="list1.status==5">
 					<div class="flex">
 						<div class="title flexMedial">节点<i class="yellow">支持</i>信息</div>
 					</div>
 					
 					<div class="placeholderLine10"></div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<transition name="van-fade">

@@ -413,6 +413,15 @@
 					  <template v-slot:index><span class="bg_black padding4Text">第{{ imageIndex+1 }}页</span></template>
 					</van-image-preview>
 				</div>
+				<div class="materialProve borderBottom" v-if="list1.status==5">
+					<div class="flex textCenter">
+						<div class="title flexMedial">节点<i class="yellow">支持</i>信息</div>
+					</div>
+					<div class="textCenter">
+						<van-button size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="isSupportLoading">支持TA</van-button>
+					</div>
+					<div class="placeholderLine10"></div>
+				</div>
 				<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
 				<div class="materialProve borderBottom">
 					<div class="flex">
@@ -618,13 +627,7 @@
 						</van-tab>
 					</van-tabs>	
 				</div>
-				<div class="materialProve borderBottom" v-if="list1.status==5">
-					<div class="flex">
-						<div class="title flexMedial">节点<i class="yellow">支持</i>信息</div>
-					</div>
-					
-					<div class="placeholderLine10"></div>
-				</div>
+				
 			</div>
 		</div>
 		<transition name="van-fade">
@@ -640,6 +643,7 @@
 	export default {
 		data() {
 			return {
+				isSupportLoading:false,
 				closeable:true,
 				loading:false,
 				pageSize:1,

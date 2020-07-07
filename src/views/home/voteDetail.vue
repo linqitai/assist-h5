@@ -143,16 +143,18 @@
 				<div class="placeholderLine8"></div>
 				<div class="tip4model3">{{voteInfo.remark}}</div>
 				<div class="time">{{voteInfo.createTime|getDateTimeTOHM}} ~ {{voteInfo.deadTime|getDateTimeTOHM}}</div>
-				<div class="margT10" v-if="isDead==0">
-					<van-radio-group v-model="form.questionId" @change="radioChange">
-						<div v-for="(item,index) in voteInfo.questionVoList" :key="item.id" class="margT6">
-							<van-radio :name="item.id" checked-color="#ffae00">
-								<!-- <div class="content" v-html="voteInfo.vote1"></div> -->
-								支持{{index + 1}}：{{item.questionTitle}} 
-							</van-radio>
-							<div class="f-12 lineHeight">{{item.questionContent}}</div>
-						</div>
-					</van-radio-group>
+				<div class="margT10">
+					<div v-if="isDead==0">
+						<van-radio-group v-model="form.questionId" @change="radioChange">
+							<div v-for="(item,index) in voteInfo.questionVoList" :key="item.id" class="margT6">
+								<van-radio :name="item.id" checked-color="#ffae00">
+									<!-- <div class="content" v-html="voteInfo.vote1"></div> -->
+									支持{{index + 1}}：{{item.questionTitle}} 
+								</van-radio>
+								<div class="f-12 lineHeight">{{item.questionContent}}</div>
+							</div>
+						</van-radio-group>
+					</div>
 					<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" v-if="isDead==1">
 						支持{{index + 1}}：{{item.questionTitle}}
 					</div>
@@ -393,6 +395,7 @@
 				let params = {
 					voteId:voteId,
 					questionId: _this.form.questionId,
+					type:0
 					/* userId: _this.userId */
 				}
 				//console.log('params',params);

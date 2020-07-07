@@ -150,7 +150,7 @@
 			  maxlength="11"
 			  @search="searchEvent"
 			>
-			  <div slot="action" @click="searchEvent">搜索</div>
+			  <div slot="action" @click="searchEvent">搜 索</div>
 			</van-search> -->
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
@@ -159,15 +159,15 @@
 					<van-tab title="团队算力" name="ranking0">
 						<van-list v-model="loading0" :finished="finished0" finished-text="没有更多了" @load="onLoad0">
 							<div class="list" v-for="(item,index) in list0" :key='item.id'>
-								<div class="item" @click="toMy4OtherView(item.userId)">
-									<div class="flexLeft">
+								<div class="item">
+									<div class="flexLeft" @click="toMy4OtherView(item.userId)">
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(tem.wechartNum),$event)">复制</span></div>
+										<div class="line" @click="toMy4OtherView(item.userId)"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 									</div>
-									<div class="flexRight">
+									<div class="flexRight" @click="toMy4OtherView(item.userId)">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
@@ -178,15 +178,15 @@
 					<van-tab title="矿石" name="ranking1">
 						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 							<div class="list" v-for="(item,index) in list1" :key='item.id'>
-								<div class="item" @click="toMy4OtherView(item.userId)">
+								<div class="item">
 									<div class="flexLeft">
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(tem.wechartNum),$event)">复制</span></div>
+										<div class="line" @click="toMy4OtherView(item.userId)"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 									</div>
-									<div class="flexRight">
+									<div class="flexRight" @click="toMy4OtherView(item.userId)">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
@@ -197,15 +197,15 @@
 					<van-tab title="买入次数" name="ranking2">
 						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 							<div class="list" v-for="(item,index) in list2" :key='item.id'>
-								<div class="item" @click="toMy4OtherView(item.userId)">
+								<div class="item">
 									<div class="flexLeft">
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(tem.wechartNum),$event)">复制</span></div>
+										<div class="line" @click="toMy4OtherView(item.userId)"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 									</div>
-									<div class="flexRight">
+									<div class="flexRight" @click="toMy4OtherView(item.userId)">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
@@ -216,15 +216,15 @@
 					<van-tab title="卖出次数" name="ranking3">
 						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
 							<div class="list" v-for="(item,index) in list3" :key='item.id'>
-								<div class="item" @click="toBookView(item.userId)">
+								<div class="item">
 									<div class="flexLeft">
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(tem.wechartNum),$event)">复制</span></div>
+										<div class="line" @click="toBookView(item.userId)"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 									</div>
-									<div class="flexRight">
+									<div class="flexRight" @click="toBookView(item.userId)">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
@@ -234,15 +234,15 @@
 					<van-tab title="买入数量" name="ranking4">
 						<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 							<div class="list" v-for="(item,index) in list4" :key='item.id'>
-								<div class="item"  @click="toMy4OtherView(item.userId)">
+								<div class="item">
 									<div class="flexLeft">
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(tem.wechartNum),$event)">复制</span></div>
+										<div class="line" @click="toMy4OtherView(item.userId)"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 									</div>
-									<div class="flexRight">
+									<div class="flexRight" @click="toMy4OtherView(item.userId)">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
@@ -252,16 +252,16 @@
 					
 					<van-tab title="卖出数量" name="ranking5">
 						<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
-							<div class="list" v-for="(item,index) in list5" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
+							<div class="list" v-for="(item,index) in list5" v-index :key='item.id'>
 								<div class="item">
 									<div class="flexLeft">
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(tem.wechartNum),$event)">复制</span></div>
+										<div class="line"  @click="toMy4OtherView(item.userId)"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 									</div>
-									<div class="flexRight">
+									<div class="flexRight"  @click="toMy4OtherView(item.userId)">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
@@ -272,15 +272,15 @@
 					<van-tab title="个人算力" name="ranking7">
 						<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
 							<div class="list" v-for="(item,index) in list7" :key='item.id'>
-								<div class="item" @click="toMy4OtherView(item.userId)">
+								<div class="item">
 									<div class="flexLeft">
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(tem.wechartNum),$event)">复制</span></div>
+										<div class="line" @click="toMy4OtherView(item.userId)"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 									</div>
-									<div class="flexRight">
+									<div class="flexRight" @click="toMy4OtherView(item.userId)">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
@@ -290,16 +290,16 @@
 					
 					<van-tab title="被告次数" name="ranking6">
 						<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
-							<div class="list" v-for="(item,index) in list6" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
+							<div class="list" v-for="(item,index) in list6" v-index :key='item.id'>
 								<div class="item">
 									<div class="flexLeft">
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
-										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(tem.wechartNum),$event)">复制</span></div>
+										<div class="line" @click="toMy4OtherView(item.userId)"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
+										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 									</div>
-									<div class="flexRight">
+									<div class="flexRight" @click="toMy4OtherView(item.userId)">
 										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>

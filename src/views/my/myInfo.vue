@@ -192,6 +192,16 @@
 				<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 			</div>
 		</div>
+		<div class="my-cell" @click="update('bankCard')">
+			<div class="flex1">
+				银行卡
+			</div>
+			<div class="flex2">
+				<span class="ellipsis">{{userInfo.bankCard||"去绑定"}}</span>
+				<!-- <span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.alipayNum)}}</span> -->
+				<i class="iconfont iconfont-right-arrow2"></i>
+			</div>
+		</div>
 		<div class="my-cell">
 			<div class="flex1">
 				区块地址
@@ -279,7 +289,7 @@
 		  </van-cell-group>
 		  <div class="placeholderLine10"></div>
 		  <div class="placeholderLine40"></div>
-		  <div class="modelTip">系统提示：除了修改微信号免费，修改其他信息需使用2个矿石价格的帮扶券人工费</div>
+		  <!-- <div class="modelTip">系统提示：除了修改微信号免费，修改其他信息需使用2个矿石价格的帮扶券人工费</div> -->
 		  <div class="sureAppointBtnBox">
 			  <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="update1Loading" @click="sureUpdate('update1')">确 认</van-button>
 		  </div>
@@ -593,7 +603,7 @@ export default {
 				_this.form.wechartNum = _this.userInfo.wechartNum;
 			}else if(flag == 'bankCard'){
 				_this.label = '银行卡';
-				_this.titleName = '修改银行卡号';
+				_this.titleName = '绑定银行卡号';
 			}else if(flag == 'securityPassword'){
 				_this.label = '安全密码';
 				_this.titleName = '修改安全密码';

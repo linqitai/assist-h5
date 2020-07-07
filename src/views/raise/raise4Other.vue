@@ -61,7 +61,6 @@
 			}
 			.rightBox{
 				flex: 0 0 100px;
-				float: right;
 			}
 		}
 		.raiseHeader{
@@ -315,11 +314,10 @@
 	<div class="raise">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
-			<i class="leftBox iconfont"></i>
 			<div class="text">
 				帮扶筹
 			</div>
-			<i class="rightBox icon"></i>
+			<i class="iconfont rightBox icon"></i>
 		</m-header>
 		<!-- <div class="helpBox">
 			<i class="iconfont iconfont-love leftBox"></i>
@@ -418,7 +416,13 @@
 						<div class="title flexMedial">节点<i class="yellow">支持</i>信息</div>
 					</div>
 					<div class="textCenter">
-						<van-button size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="isSupportLoading">支持TA</van-button>
+						<!-- 节点浏览数 {{list1.browseTimes || 0}} -->
+						<div class="lineHeight">支持的票数超过500，即可激活此申请，<br>并开放此帮扶筹</div>
+						<div class="lineHeight"><span class="yellow">支持票数 {{list1.supportTimes || 0}}</span></div>
+					</div>
+					<div class="placeholderLine10"></div>
+					<div class="textCenter">
+						<van-button size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="isSupportLoading" @click="supportBtn">支持TA</van-button>
 					</div>
 					<div class="placeholderLine10"></div>
 				</div>
@@ -729,6 +733,39 @@
 				}else if(name == 'raiseRecord4'){
 					_this.getAssistRaiseRecordListPage4();
 				}
+			},
+			supportBtn(){
+				//console.log("submit");
+				let _this = this;
+				let params = {
+					voteId:_this.list1.id,
+					type:1
+				}
+				_this.$ajax.ajax(_this.$api.insertAssistAnswer, 'POST', params, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) { // 200
+						if(res.data == 1){
+							_this.$toast('投票成功');
+							//_this.getVoteInfo();
+						}else if(res.data == 0){
+							Dialog.alert({
+							  title: '系统提示',
+							  message: '每人投一票，您已投过票'
+							}).then(() => {
+							  // on close
+							});
+						}else{
+							_this.$toast(res.message);
+						}
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+					}
+				})
 			},
 			addMineral(num){
 				let _this = this;

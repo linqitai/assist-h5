@@ -744,7 +744,7 @@ export default {
 	},
 	methods:{
 		onChange4sliderPrice(value){
-			console.log(value);
+			//console.log(value);
 			let _this = this;
 			if(value == 0){
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);

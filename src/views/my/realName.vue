@@ -185,13 +185,13 @@
 			<b class="textBold">温馨提示：</b>
 			<br>
 			尊敬的原始矿工实名前请认真阅读以下规则：<br>
-			【1】实名认证年龄范围为18~70周岁，若不在该范围内，需找首页的客服额外申请。<br>
+			【1】实名认证年龄范围为18~70周岁，若超过70周岁，需找首页的客服额外申请。<br>
 			【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
 			【3】平台为保证交易的顺利进行，真实姓名要和支付宝、微信中的实名信息一致，交易的时候若遇到实名信息不一致的问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
 			【4】请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。<br>
 			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现端口。挂单交易每人限购2000个矿石，若有特殊需要，可额外找客服申请限购额度。<br>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
-			 <div class="tip4model3RedText margT6">
+			 <!-- <div class="tip4model3RedText margT6">
 			 	<b class="textBold">若遇到在微信中照片上传不了的解决办法：</b><br>
 			 	1、换浏览器操作，UC浏览器优先。<br>
 			 	<div class="placeholderLine4"></div>
@@ -203,7 +203,7 @@
 			 	2、把证件照片裁剪得尽可能小一点。<br>
 			 	3、更换浏览器，UC浏览器优先。<br>
 			 	4、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
-			 </div>
+			 </div> -->
 		</div>
 		<van-field v-model="mobilePhone" disabled clearable label="手机号"/>
 		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
@@ -220,10 +220,9 @@
 		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" type="password" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
 		<van-field v-model="form.idCardSure" required clearable label="确认身份证号" maxlength="18" type="password" :placeholder="errorHint.idCardSure" @blur="validate('idCardSure')" :error-message="errorInfo.idCardSure"/>
 		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="11" @blur="validate('realName')" :error-message="errorInfo.realName"/>
-		  <div class="line">
+		  <!-- <div class="line">
 		  	<span class="label">支付宝个人主页</span>
 			<span class="text"></span>
-		  	<!-- <span class="text" @click="showExamplePic2">点击查看模板</span> -->
 		  	<span class="value">
 		  		<i class="iconfont iconfont-upload-pic"></i>
 		  		<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
@@ -236,27 +235,32 @@
 		  <div class="line" v-if="pic2">
 			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
 		  	<img class="selectedImg" :src="pic2"/>
-		  </div>
-		<div class="line tip4modelRedText">
+		  </div> -->
+		<!-- <div class="line tip4modelRedText">
 			注意：<br>
 			1.实名审核通过后2张照片会被系统自动删除，上传证件照片的时候，请按照模板要求用纸条盖住证件头像。<br>
 			2.实名认证年龄范围为18~70周岁，若不在该范围内，需找首页的客服额外申请。
-		</div> 
+		</div> -->
+		<div class="line tip4modelRedText">
+			上传证件照片注意事项：<br>
+			1.为了保证照片能够顺利上传，请在拍照后，先对照片进行裁剪，保证清晰可见，方便审核员快速审核。<br>
+			2.实名审核通过后照片会被系统自动删除，拍摄证件照片的时候，请按照模板要求用纸条盖住证件头像。<br>
+			3.实名认证年龄范围为18~70周岁，若超过70周岁，需找首页的客服额外申请。<br>
+		</div>
 		<div class="line">
 			<span class="label">身份证正面照片</span>
 			<span class="text" @click="showExamplePic">点我查看模板</span>
 			<span class="value">
 				<i class="iconfont iconfont-upload-pic"></i>
-				<!-- <input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="selectFileImage($event)"/> -->
-				<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)"/>
+				<input accept="image/*;capture=camera" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 			</span>
 		</div>
 		<div class="line" v-if="!form.idCardPic">
-			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
+			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 			<img style="width: 100%;" src="https://www.helpchain.co.ax/image/idt.jpg">
 		</div>
 		<div class="line">
-			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
+			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 			<img class="selectedImg" :src="form.idCardPic"/>
 		</div>
 		
@@ -266,7 +270,8 @@
 			安全密码就是交易时所用到的密码
 		</div> 
 		<div class="placeholderLine40"></div>
-		<div class="sureAppointBtnBox">
+		<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitRealNameLoding" @click="submitRealNameBtn">提 交</van-button>
+		<!-- <div class="sureAppointBtnBox">
 			<div class="tip4model3RedText">
 				<b class="textBold">若遇到在微信中照片上传不了的解决办法：</b><br>
 				1、换浏览器操作，UC浏览器优先。<br>
@@ -282,8 +287,7 @@
 			</div>
 			<div class="placeholderLine4"></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitRealNameLoding" @click="submitRealNameBtn">提 交</van-button>
-			
-		</div>
+		</div> -->
 	</div>
 	<van-dialog
 	  v-model="showIdCardPicExmple"
@@ -469,11 +473,11 @@ export default {
 			let files = e.target.files || e.dataTransfer.files;
 			if (!files.length) return;
 			//console.log("pic_size(MB)", files[0].size / 1024 / 1024);
-			if (files[0].size / 1024 / 1024 > 8) {
-			   // _this.$toast('上传图片大小不能超过 8MB');
+			if (files[0].size / 1024 / 1024 > 3) {
+			   // _this.$toast('上传图片大小不能超过 3MB');
 			   Dialog.alert({
 			     title: '系统提示',
-			     message: '上传图片大小不能超过 8MB，请先进行压缩'
+			     message: '上传图片大小不能超过 3MB，请先在相册里的照片编辑中进行裁剪处理'
 			   }).then(() => {
 			     // on close
 			   });
@@ -541,11 +545,11 @@ export default {
 			let files = e.target.files || e.dataTransfer.files;
 			if (!files.length) return;
 			//console.log("pic_size(MB)", files[0].size / 1024 / 1024);
-			if (files[0].size / 1024 / 1024 > 8) {
+			if (files[0].size / 1024 / 1024 > 3) {
 			   // _this.$toast('上传图片大小不能超过 8MB');
 			   Dialog.alert({
 			     title: '系统提示',
-			     message: '上传图片大小不能超过 8MB，请先进行压缩'
+			     message: '上传图片大小不能超过 3MB，请先在相册里的照片编辑中进行裁剪处理'
 			   }).then(() => {
 			     // on close
 			   });
@@ -678,7 +682,7 @@ export default {
 				wechartNum:_this.form.wechartNum,
 				idCard:_this.form.idCard,
 				idCardPic:_this.form.idCardPic,
-				gesturePic:_this.pic2,
+				/* gesturePic:_this.pic2, */
 				securityPassword:_this.form.securityPassword,
 			}
 			// //console.log('params',params)

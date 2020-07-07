@@ -868,7 +868,7 @@
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
-						if(_this.userInfo.actived!=1){
+						if(_this.userInfo.actived==-1||_this.userInfo.actived==2){
 							_this.showTipModel = true;
 							/* Dialog.alert({
 								title: "系统提示",

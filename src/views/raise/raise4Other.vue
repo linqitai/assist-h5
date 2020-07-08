@@ -741,6 +741,15 @@
 					voteId:_this.list1.id,
 					type:1
 				}
+				if(_this.userInfo.myCalculationPower<0.1){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '参与该投票需要个人算力达到0.1G'
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				_this.$ajax.ajax(_this.$api.insertAssistAnswer, 'POST', params, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200

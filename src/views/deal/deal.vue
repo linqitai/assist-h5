@@ -363,7 +363,7 @@
 						<div class="placeholderLine"></div>
 					</div>
 				</van-tab>
-				<!-- <van-tab title="溢价卖单" name="dealArea3">
+				<van-tab title="溢价卖单" name="dealArea3">
 					<div class="dealContent">
 						<div class="dealList">
 							<div class="line1pxbgcolor"></div>
@@ -374,7 +374,7 @@
 								</div>
 								<div class="boxRight">
 									<div>合计 {{totalPrice(item.price,item.maxNumber)}}CNY</div>
-									<div class="margT3"><van-button @click="ShowBuyTAModelBtn(item)" type="danger" size="mini" loading-type="spinner">买TA</van-button></div>
+									<div class="margT3"><van-button @click="ShowBuyTAModelBtn(item)" type="primary" size="mini" loading-type="spinner">买 TA</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -397,7 +397,7 @@
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 					</div>
-				</van-tab> -->
+				</van-tab>
 			</van-tabs>	
 		</van-pull-refresh>
 		<van-action-sheet v-model="showPickSellModel" title="卖出">
@@ -455,7 +455,7 @@
 		  </div>
 		</van-action-sheet>
 		
-		<van-action-sheet v-model="showPickBuyModel" title="买TA">
+		<van-action-sheet v-model="showPickBuyModel" title="买 TA">
 		  <van-cell-group>
 			  <van-field v-model="form3.num" type="number" clearable label="想买数量" placeholder="请填写买入数量"/>
 			  <van-field v-model="form3.price" type="number" disabled clearable label="单价" placeholder="请填写单价"/>
@@ -897,7 +897,7 @@ export default {
 				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)*1.2))*100;
 				//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
-				console.log("_this.max4Price:",_this.max4Price);
+				//console.log("_this.max4Price:",_this.max4Price);
 				_this.serviceCharge = `10%矿石+交易总金额的10%帮扶券`;
 				/* _this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`; */
 				/* _this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}]; */
@@ -1244,6 +1244,24 @@ export default {
 			_this.$ajax.ajax(_this.$api.insertTransaction4PickSellBill, 'POST', params, function(res) {
 				
 				if (res.code == _this.$api.CODE_OK) { // 200
+					if(res.data.result==7001){
+						Dialog.alert({
+						  title: '系统提示',
+						  message: `卖家背包中的可流通矿石数不够${parseFloat(params.num)*1.1}个，他的背包中还剩下${res.data.num}个矿石，请调整购买数量(需除去手续费)`
+						}).then(() => {
+						  // on close
+						});
+						return;
+					}
+					if(res.data.result==7002){
+						Dialog.alert({
+						  title: '系统提示',
+						  message: `卖家背包中的帮扶券不够该笔交易手续费,对方还有${res.data.num}个帮扶券可做为手续费，请调整购买数量或联系卖家补充帮扶券，卖家手机号：${res.data.mobilePhone}`
+						}).then(() => {
+						  // on close
+						});
+						return;
+					}
 					_this.showSellModel = false;
 					_this.transactionVo4BuyerTip = res.data;
 					
@@ -1538,14 +1556,12 @@ export default {
 			params.safePassword = _this.$JsEncrypt.encrypt(_this.form4pickSellBill.safePassword);
 			_this.$ajax.ajax(_this.$api.insertBuyBill, 'POST', params, function(res) {
 				if (res.code == _this.$api.CODE_OK) { // 200
-					if(res.data == 1){
-						_this.showSellModel = false;
-						_this.$toast(res.message);
-						// _this.getList();
-						_this.$cookies.set("tabName4MyDeal", "sell", 60 * 60 * 1)
-						_this.$cookies.set("isRefreshDealInfo", 1, 60 * 60 * 1)
-						_this.$router.push('myDeal');
-					}
+					_this.showSellModel = false;
+					_this.$toast(res.message);
+					// _this.getList();
+					_this.$cookies.set("tabName4MyDeal", "sell", 60 * 60 * 1)
+					_this.$cookies.set("isRefreshDealInfo", 1, 60 * 60 * 1)
+					_this.$router.push('myDeal');
 				}else if(res.code == 2003){
 					Dialog.alert({
 					  title: '系统提示',

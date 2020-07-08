@@ -274,7 +274,7 @@
 				<div class="flex flex4">
 					<div>{{userInfo.temporaryFreezePlatformTicket}}</div>
 					<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
-					<div class="text">交易中<br>帮扶券</div>
+					<div class="text">售出冻结中<br>帮扶券</div>
 				</div>
 				<!-- <div class="flex flex3">
 					<div>{{userInfo.temporaryFreezeContribution}}</div>
@@ -283,7 +283,7 @@
 				<div class="flex flex2">
 					<div>{{userInfo.temporaryFreezeMineral}}</div>
 					<!-- <NumberGrow :value="userInfo.temporaryFreezeMineral"></NumberGrow> -->
-					<div class="text">交易中<br>矿石</div>
+					<div class="text">售出冻结中<br>矿石</div>
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
@@ -621,7 +621,7 @@
 				console.log("123200000")
 			},2000) */
 			//console.log("getTime:" + Date.parse(new Date('2020/04/30 09:45:12:123')));
-			/* let JsDecrypt = _this.$JsCrypto.myDecode1("s2mpMsUAYbtKa+s2pRx/WFBDnfjM4FQ/");
+			/* let JsDecrypt = _this.$JsCrypto.myDecode2("FIeZaO8MkOVJTu2sSmbdcw==");
 			console.log("JsDecrypt",JsDecrypt); */
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){

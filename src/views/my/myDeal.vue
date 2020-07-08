@@ -1480,7 +1480,7 @@
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
-				  message: '买家您是否确定要撤销此买单？'
+				  message: '您是否确定要撤销此单？'
 				}).then(() => {
 					// on confirm
 					////console.log('sure');
@@ -1706,10 +1706,10 @@
 						})
 					}else if(_this.activeName == 'pay'){//pay是买家
 						////console.log('pay是买家');
-						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
+						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
 							_this.$toast("交易已经超时，请点诉讼反馈问题让客服取消交易");
 							return;
-						}
+						} */
 						_this.showAgentDetailModel = true;
 						_this.$ajax.ajax(_this.$api.getAssistAppointDealDetailById, 'GET', params, function(res) {
 							if (res.code == _this.$api.CODE_OK) {
@@ -1764,11 +1764,10 @@
 						/* console.log('item.canCancelTime',item.canCancelTime)
 						console.log('_this.$utils.getDateTime(new Date())',_this.$utils.getDateTime(new Date()))
 						console.log('item.status',item.status) */
-						if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0)){
-							//_this.cancelDeal4OverTime();
+						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0)){
 							_this.$toast("交易已经超时，请点诉讼反馈问题让客服取消交易");
 							return;
-						}
+						} */
 						//console.log('buy')
 						let params = {
 							id: _this.id
@@ -1796,7 +1795,6 @@
 											  forbidClick: true,
 											  loadingType: 'spinner'
 											});
-											////console.log('params',params)
 											_this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
 												Toast.clear();
 												if (res.code == _this.$api.CODE_OK) {

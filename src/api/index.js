@@ -56,6 +56,8 @@ export default {
 	register: host + 'assist/register/register',
 	innerRegister: host + 'assist/register/innerRegister',
 	//用户信息
+	cancelAccountByIsAgent: host + "assist/userInfo/cancelAccountByIsAgent",
+	updateUserAlipay: host + "assist/userInfo/updateUserAlipay",
 	getIsAgentRanking: host + "assist/statistics/getIsAgentRanking",
 	getLevelRanking: host + "assist/statistics/getLevelRanking",
 	getAssistUserInfoByPhone4Service: host + "assist/userInfo/getAssistUserInfoByPhone4Service",

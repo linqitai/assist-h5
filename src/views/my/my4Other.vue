@@ -225,8 +225,10 @@
 					<div class="textCenter margT10">
 						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
 					</div>
-					<div class="textCenter margT10">
-						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" @click="freeze" v-if="userInfo4Me.isAgent==3">冻结TA</van-button>
+					<div class="textCenter margT10" v-if="userInfo4Me.isAgent==3">
+						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4Freeze" @click="freeze">冻结TA</van-button>
+						<div class="placeholderLine10"></div>
+						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4CancelAccount" @click="cancelAccount">注销账号</van-button>
 					</div>
 				</div>
 				<div class="flex flex2">
@@ -370,7 +372,9 @@
 				dsPassword:'',
 				userFreezeInfo:'',
 				cheker:'',
-				remark:''
+				remark:'',
+				loading4CancelAccount:false,
+				loading4Freeze:false
 			}
 		},
 		components: {
@@ -588,6 +592,37 @@
 					_this.$router.replace('login');
 				})
 			},
+			cancelAccount(){
+				let _this = this;
+				Dialog.alert({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  closeOnClickOverlay:true,
+				  showCancelButton:true,
+				  message: `是否确定要给对方注销账号？`
+				}).then(() => {
+				  let params = {
+				    cancellerUserId: _this.userInfo.userId,
+				  }
+				  _this.loading4CancelAccount = true;
+				  _this.$ajax.ajax(_this.$api.cancelAccountByIsAgent, 'POST', params, function(res){
+				  	if(res.code == _this.$api.CODE_OK){
+				  		_this.$toast('注销成功');
+				  	}else{
+				  		//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '提示信息',
+						  confirmButtonText:'好的',
+						  message: res.message
+						}).then(() => {
+						  
+						});
+				  	}
+				  },function(){
+				  	_this.loading4CancelAccount = false;
+				  })
+				});
+			},
 			freeze(){
 				let _this = this;
 				_this.showFreezeReasonModel = true;
@@ -600,6 +635,7 @@
 				  needTicket: 0,
 				  canUnfreeze: 0,
 				}
+				_this.loading4Freeze = true;
 				_this.$ajax.ajax(_this.$api.insertAssistUserFreeze, 'POST', params, function(res){
 					if(res.code == _this.$api.CODE_OK){
 						_this.$toast('已经冻结');
@@ -609,7 +645,7 @@
 						_this.$toast(res.message);
 					}
 				},function(){
-					
+					_this.loading4Freeze = false;
 				})
 			},
 			getUserInfo4Other() {

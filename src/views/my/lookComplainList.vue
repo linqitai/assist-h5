@@ -71,7 +71,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				互动列表
+				留言列表
 			</div>
 			<i class="iconfont iconfont-edit rightBox icon" @click="toComplainView"></i>
 		</m-header>
@@ -79,7 +79,8 @@
 			<div class="wordList">
 				<div class="item" v-for="item in list1" :key="item.id">
 					<div class="itemLeft">
-						<div class="title">匿名 <span :class="item.type==0?'red':'green'">{{item.type==0?'控告':'辩护'}}</span></div>
+						<div class="title">匿名留言</div>
+						<!-- <span :class="item.type==0?'red':'green'">{{item.type==0?'控告':'辩护'}}</span> -->
 						<div class="remark margT3">{{item.remark}}</div>
 						<div class="time margT3">{{item.createTime}}</div>
 					</div>

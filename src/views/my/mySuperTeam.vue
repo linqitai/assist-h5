@@ -125,6 +125,12 @@
 				}
 			}
 		}
+		.van-field__label{
+			width: 66px !important;
+		}
+		.van-cell{
+			line-height: 32px !important;
+		}
 		.textAdornColor {
 			color: $main-adorn-color !important;
 		}
@@ -155,79 +161,88 @@
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
-			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
-			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
-				<van-tab :title="myShareText" name="myShare">
-					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1" :offset='100'>
-						<div class="list">
-							<div class="item" v-for="item in list1" :key="item.id" @click="toTeamView(item.userId,item.realnameNum)">
-								<div class="flex flex1">
-									<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
-								</div>
-								<div class="flex flex2">
-									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
-									<div class="line2"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}}</div>
-									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}</div>
-									<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>
-								</div>
-								<div class="flex flex3">
-									<div class="line2">{{item.level | getUserType}}</div>
-									<div class="line3">战友数{{item.teamateNum}}个</div>
-								</div>
-								<div class="flex flex4" v-if="item.teamateNum>0">
-									<i class="iconfont iconfont-right-arrow2"></i>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				<van-tab :title="activedText" name="actived">
-					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
-						<div class="list">
-							<div class="item" v-for="item in list2" :key="item.id" @click="toTeamView(item.userId,item.realnameNum)">
-								<div class="flex flex1">
-									<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
-								</div>
-								<div class="flex flex2">
-									<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
-									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}</div>
-									<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
-									<div class="line3"><i class="iconfont iconfont-clock"></i> 实名时间 {{item.registerTime}}</div>
-									<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime}}</div>
-								</div>
-								<!-- <div class="flex flex3">
-									<div class="line2">{{item.level | getUserType}}</div>
-									<div class="line3">战友数{{item.teamateNum}}个</div>
-								</div> -->
-								<div class="flex flex4" v-if="item.teamateNum>0">
-									<i class="iconfont iconfont-right-arrow2"></i>
+			<div>
+				<van-field v-model="mobilePhone" clearable label="手机号" placeholder="请填写直推的手机号" maxlength="11">
+					<van-button slot="button" size="small" color="#ffae00" :loading="loading" @click="getUserInfo">查询</van-button>
+				</van-field>
+			</div>
+			
+			<div class="line1pxbgcolor"></div>
+			<div>
+				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
+					<van-tab :title="myShareText" name="myShare">
+						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1" :offset='100'>
+							<div class="list">
+								<div class="item" v-for="item in list1" :key="item.id" @click="toTeamView(item.userId,item.realnameNum)">
+									<div class="flex flex1">
+										<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
+									</div>
+									<div class="flex flex2">
+										<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
+										<div class="line2"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}}</div>
+										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}</div>
+										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>
+									</div>
+									<div class="flex flex3">
+										<div class="line2">{{item.level | getUserType}}</div>
+										<div class="line3">战友数{{item.teamateNum}}个</div>
+									</div>
+									<div class="flex flex4" v-if="item.teamateNum>0">
+										<i class="iconfont iconfont-right-arrow2"></i>
+									</div>
 								</div>
 							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				<van-tab :title="unactivedText" name="unactived">
-					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
-						<div class="list">
-							<div class="item" v-for="item in list3" :key="item.id">
-								<div class="flex flex1">
-									<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
-								</div>
-								<div class="flex flex2">
-									<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
-									<div class="line2"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}}</div>
-									<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}</div>
-									<!-- <div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>-->
-								</div> 
-								<div class="flex flex3">
-									<div class="line2">{{item.level | getUserType}}</div>
-									<div class="line3">战友数{{item.teamateNum}}个</div>
+						</van-list>
+					</van-tab>
+					<van-tab :title="activedText" name="actived">
+						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
+							<div class="list">
+								<div class="item" v-for="item in list2" :key="item.id" @click="toTeamView(item.userId,item.realnameNum)">
+									<div class="flex flex1">
+										<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
+									</div>
+									<div class="flex flex2">
+										<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
+										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}</div>
+										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 实名时间 {{item.registerTime}}</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime}}</div>
+									</div>
+									<!-- <div class="flex flex3">
+										<div class="line2">{{item.level | getUserType}}</div>
+										<div class="line3">战友数{{item.teamateNum}}个</div>
+									</div> -->
+									<div class="flex flex4" v-if="item.teamateNum>0">
+										<i class="iconfont iconfont-right-arrow2"></i>
+									</div>
 								</div>
 							</div>
-						</div>
-					</van-list>
-				</van-tab>
-			</van-tabs>
+						</van-list>
+					</van-tab>
+					<van-tab :title="unactivedText" name="unactived">
+						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
+							<div class="list">
+								<div class="item" v-for="item in list3" :key="item.id">
+									<div class="flex flex1">
+										<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
+									</div>
+									<div class="flex flex2">
+										<div class="line1"><i class="iconfont iconfont-clock"></i> {{item.registerTime}}</div>
+										<div class="line2"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}}</div>
+										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}</div>
+										<!-- <div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力</div>-->
+									</div> 
+									<div class="flex flex3">
+										<div class="line2">{{item.level | getUserType}}</div>
+										<div class="line3">战友数{{item.teamateNum}}个</div>
+									</div>
+								</div>
+							</div>
+						</van-list>
+					</van-tab>
+				</van-tabs>
+			</div>
 		</div>
 	</div>
 </template>
@@ -259,7 +274,9 @@
 				activedText:'已实名',
 				unactivedText:'未实名',
 				realnameNum:0,
-				teamNum:0
+				teamNum:0,
+				mobilePhone:'',
+				loading:false
 			}
 		},
 		components: {
@@ -280,7 +297,6 @@
 			_this.realnameNum = _this.userInfo.realnameNum;
 			_this.activedText = '已实名' + ' ' + _this.realnameNum;
 			//_this.getParentUserInfo();
-			console.log('_this.parent_info',_this.$cookies.get("parent_info"));
 			_this.getParentUserInfo();
 			/* if(_this.$cookies.get("parent_info")){
 				_this.parentUserInfo = JSON.parse(localStorage.getItem('parentUserInfo'));
@@ -317,6 +333,33 @@
 					_this.$toast(`复制成功`);
 				});
 			},
+			getUserInfo() {
+				let _this = this;
+				_this.activeName = 'myShare';
+				let params = {
+					pageNo: _this.currentPage,
+					pageSize: _this.pageSize,
+					parentId: _this.userInfo.userId,
+					mobilePhone: _this.mobilePhone
+				}
+				if(!_this.$reg.phone2.test(params.mobilePhone)){
+					_this.$toast('手机号格式有误');
+					return;
+				}
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistUserInfoPageList, 'GET', params, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						_this.list1 = res.data.list;
+						//_this.thisUserInfo = res.data;
+						//_this.$router.push({path:"my4Other",query:{lookUserId:res.data}});
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.loading = false;
+				})
+			},
 			getCountTeamNum(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getCountTeamNum, 'GET', null, function(res){
@@ -330,7 +373,6 @@
 			},
 			getParentUserInfo(){
 				let _this = this;
-				_this.loading = true;
 				let parentId = _this.userInfo.parentId==null?_this.userInfo.userId:_this.userInfo.parentId;
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo4Path + parentId, 'GET', null, function(res){
 					// console.log('res',res);

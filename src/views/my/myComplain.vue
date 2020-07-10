@@ -80,21 +80,21 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				我要诉讼
+				给他留言
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="myWordPage">
-			<div class="myCell">
+			<!-- <div class="myCell">
 				<div class="flex label">
-					诉讼类型
+					留言类型
 				</div>
 				<div class="flex align-right">
 					<van-dropdown-menu>
 					  <van-dropdown-item v-model="form.type" :options="option1" />
 					</van-dropdown-menu>
 				</div>
-			</div>
+			</div> -->
 			<!-- <div class="myCell">
 				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的申诉标题" />
 			</div> -->
@@ -112,7 +112,8 @@
 				</van-cell-group>
 			</div>
 			<div class="sureBtn">
-				<div class="tip4model3 paddingWing">为了提高诉讼质量，控告他人要使用{{paramterInfo.complainNeedTicket}}个帮扶券，为他人辩护需使用{{paramterInfo.complainNeedTicket/2}}个帮扶券，且参与诉讼个人算力至少要达到{{paramterInfo.complainNeedMcv}}G</div>
+				<!-- <div class="tip4model3 paddingWing">为了提高诉讼质量，给他人留言要使用{{paramterInfo.complainNeedTicket}}个帮扶券，为他人辩护需使用{{paramterInfo.complainNeedTicket/2}}个帮扶券，且参与诉讼个人算力至少要达到{{paramterInfo.complainNeedMcv}}G</div> -->
+				<div class="tip4model3 paddingWing">为了提高留言质量，留言需使用{{paramterInfo.complainNeedTicket}}个帮扶券</div>
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="complainBtn">提交</van-button>
 			</div>
 		</div>
@@ -204,7 +205,7 @@
 					// on confirm
 					let params = {
 						targetUserId: _this.$route.query.targetUserId,
-						type: _this.form.type,
+						type: 0,
 						remark: _this.form.remark
 					}
 					if(_this.$utils.hasNull(params)){
@@ -214,7 +215,7 @@
 					_this.loading = true;
 					_this.$ajax.ajax(_this.$api.update4Complain, 'POST', params, function(res) {
 						if (res.code == _this.$api.CODE_OK) {
-							_this.$toast('控告成功');
+							_this.$toast('留言成功');
 							_this.back();
 						}else{
 							_this.$toast(res.message);

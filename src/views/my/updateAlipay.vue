@@ -78,7 +78,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				帮他人修改身份证号
+				帮他人修改支付宝
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
@@ -94,15 +94,20 @@
 				<div class="margT10">
 					姓名 {{$JsCrypto.myDecode1(thisUserInfo.realName)}}
 				</div>
-				<div class="margT10">
+				<!-- <div class="margT10">
 					旧的身份证号 {{$JsCrypto.myDecode1(thisUserInfo.idCard)}}
-				</div>
+				</div> -->
 				<div class="placeholderLine10"></div>
 			</div>
 			<van-cell-group>
+				<!-- <div v-if="thisUserInfo">
+					<van-field v-model="thisUserInfo.realName" label="对方姓名" />
+					<van-field v-model="thisUserInfo.idCard" label="对方身份证号" />
+				</div> -->
 				<!-- <van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/> -->
-				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请填写他人的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
-				<van-field v-model="form4AppointDeal.idCard" required clearable label="新的身份证号" placeholder="请填写他人的正确身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
+				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="对方手机号" placeholder="请填写他人的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
+				<van-field v-model="form4AppointDeal.idCard" required clearable label="对方身份证号" placeholder="请填写他人的正确身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
+				<van-field v-model="form4AppointDeal.alipayNum" required clearable label="新的支付宝" placeholder="请填写他人新的支付宝号" maxlength="30" @blur="validate4AppointDeal('alipay')" :error-message="errorInfo4AppointDeal.alipayNum"/>
 				<!-- <van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/> -->
 			</van-cell-group>
 			<!-- <div class="myCell">
@@ -110,9 +115,9 @@
 			</div> -->
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing tip4model3">
-				<b class="textBold">修改身份证号的规则：</b><br>
+				<b class="textBold">修改支付宝的规则：</b><br>
 				1.首先要让对方提供手持证件照。<br>
-				2.校对是本人且信息无误后再给与修改。<br>
+				2.让提供注册手机号和新的支付宝号、和身份证号，并核实新的支付宝号实名一致后即可修改，修改一次扣2个矿石的最高溢价手续费。<br>
 			</div>
 			<!-- <div class="paddingWing tip4model3" v-if="thisUserInfo">
 				测试加解密：昵称解密后 {{$JsCrypto.myDecode1(thisUserInfo.nickName)}}
@@ -142,10 +147,12 @@
 				form4AppointDeal:{
 					mobilePhone:"",
 					idCard:"",
+					alipayNum:""
 				},
 				errorInfo4AppointDeal:{
 					mobilePhone:"",
 					idCard:"",
+					alipayNum:""
 				},
 				option1: [
 					{ text: '问题反馈', value: 0 },
@@ -213,7 +220,13 @@
 					}else{
 						_this.errorInfo4AppointDeal.safePassword = "安全密码不超过20位，由'字母或数字或._'组成";
 					}
+				}else if(key == 'alipayNum') {
+				if(_this.$reg.alipay.test(_this.form.alipayNum)){
+					_this.errorInfo.alipayNum = '';
+				}else{
+					_this.errorInfo.alipayNum = _this.errorHint.alipayNum;
 				}
+			}
 			},
 			getUserInfo() {
 				let _this = this;
@@ -243,7 +256,7 @@
 				Dialog.confirm({
 				  title: '提示信息',
 				  confirmButtonText:'确定',
-				  message: `请确定是否要给对方修改身份证号？`
+				  message: `是否确定要给对方修改支付宝号？`
 				}).then(() => {
 				  // on confirm
 				  //console.log('sure',_this.imagesList);
@@ -252,6 +265,7 @@
 				  let params = {
 				  	mobilePhone: _this.form4AppointDeal.mobilePhone,
 				  	idCard: _this.form4AppointDeal.idCard,
+					alipayNum: _this.form4AppointDeal.alipayNum,
 				  }
 				  //console.log('params',params);
 				  if(_this.$utils.hasNull(params)){
@@ -265,7 +279,7 @@
 				  }
 				  //params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 				  _this.loading = true;
-				  _this.$ajax.ajax(_this.$api.updateUserIdCard, 'POST', params, function(res) {
+				  _this.$ajax.ajax(_this.$api.updateUserAlipay, 'POST', params, function(res) {
 				  	_this.loading = false;
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		_this.$toast('修改成功');
@@ -279,6 +293,8 @@
 				  		  // on close
 				  		});
 				  	}
+				  },function(){
+					  _this.loading = false;
 				  })
 				}).catch(() => {
 				  // on cancel

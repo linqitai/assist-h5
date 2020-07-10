@@ -475,6 +475,10 @@
 			},
 			sureBuyMillEvent(){
 				let _this = this;
+				if(_this.safePassword==''||_this.safePassword==null){
+					_this.$toast("安全密码不能为空");
+					return;
+				}
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {

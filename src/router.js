@@ -251,6 +251,12 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
+							path: '/updateAlipay',
+							name: '帮他人修改支付宝',
+							component: resolve => require(['./views/my/updateAlipay'],resolve),
+							meta:{footer:false},
+						},
+						{
 							path: '/unFreeze',
 							name: '解冻账号',
 							component: resolve => require(['./views/my/unFreeze'],resolve),

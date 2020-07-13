@@ -988,7 +988,7 @@
 							let id = _this.list1.id;
 							let images = [];
 							for(let i=0;i<picNum;i++){
-								let item = 'https://www.helpchain.co.ax/image/raise/' + id + '00'+ (i+1) +'.jpg';
+								let item = 'https://www.assist-china.co.ax/image/raise/' + id + '00'+ (i+1) +'.jpg';
 								images.push(item);
 							}
 							_this.images=images;

@@ -204,8 +204,8 @@
 				_this.$router.replace('login');
 				return;
 			}
-			console.log("dealPageInfo",_this.$cookies.get('haveDealPageInfo'));
-			if(_this.$cookies.get('haveDealPageInfo')){
+			console.log("haveDealPageInfo",_this.$cookies.get('haveDealPageInfo'));
+			if(_this.$cookies.get('haveDealPageInfo')==1){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
 				_this.curerntPlatformPrice = Number(_this.dealPageInfo.currentPlatformPrice);
 				_this.maxPrice = (Number((_this.dealPageInfo.maxPrice))).toFixed(2);
@@ -246,12 +246,17 @@
 			},
 			getDealPageInfo(){
 				let _this = this;
-				let targetPrice = Number(13.0);
+				//let targetPrice = Number(13.0);
+				console.log("getDealPageInfo");
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						_this.curerntPlatformPrice = Number(res.data.currentPlatformPrice);
-						_this.maxPrice = (Number((res.data.maxPrice))).toFixed(2);
+						_this.dealPageInfo = res.data;
+						_this.curerntPlatformPrice = Number(_this.dealPageInfo.currentPlatformPrice);
+						_this.maxPrice = (Number((_this.dealPageInfo.maxPrice))).toFixed(2)+0.01;
 						_this.maxAddPrice = (Number((_this.maxPrice)*1.2)).toFixed(2);
+						_this.$cookies.remove('haveDealPageInfo');
+						_this.$cookies.set("haveDealPageInfo",1, 60 * 60 * 2);
+						localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
 						/* _this.maxPrice = (Number((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
 						_this.maxAddPrice = (Number((res.data.currentPlatformPrice)*1.3+1)).toFixed(2); */
 						/* console.log('_this.maxAddPrice',_this.maxAddPrice);
@@ -300,7 +305,7 @@
 					if(parseFloat(price)>=parseFloat(maxPrice)&&parseFloat(price)<=parseFloat(maxAddPrice)){
 						_this.errorInfo4AppointDeal.price = '';
 					}else{
-						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${(parseFloat(maxPrice)-0.01)}~${maxAddPrice}CNY`;
+						_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${(parseFloat(maxPrice)+0.01)}~${maxAddPrice}CNY`;
 					}
 				}else if(key == 'blockAddress'){
 					if(_this.$reg.block_address.test(_this.form4AppointDeal[key])){

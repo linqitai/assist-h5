@@ -228,6 +228,14 @@ b{font-weight: bold;}
 	letter-spacing: 1px;
 }
 
+.tip4model4Green{
+	padding: $boxPadding2;
+	color: green;
+	font-size: 0.75rem;
+	line-height: 1.2em;
+	letter-spacing: 1px;
+}
+
 .tip4model2{
 	padding: $boxPadding2;
 	color: $grayDarker;

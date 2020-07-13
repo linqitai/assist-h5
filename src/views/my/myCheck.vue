@@ -130,6 +130,7 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	import mRefresh from '@/components/Refresh.vue';
+	import { Dialog } from 'vant';
 	// import { image_host } from '@/assets/js/config.js'
 	
 	export default {
@@ -201,6 +202,15 @@
 			},
 			getCount4Check(){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>'20:00:00'&&_this.$utils.getTimeHMS(new Date())<'23:00:00'){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '系统休息中，请明天再来'
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				_this.$ajax.ajax(_this.$api.getAssistUserInfoCount4Check, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.checkCount = res.data;
@@ -248,6 +258,15 @@
 					pageNo:_this.currentPage1,
 					pageSize:_this.pageSize,
 					mobilePhone: _this.searchValue
+				}
+				if(_this.$utils.getTimeHMS(new Date())>'20:00:00'&&_this.$utils.getTimeHMS(new Date())<'23:00:00'){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '系统休息中，请明天再来'
+					}).then(() => {
+					  // on close
+					});
+					return;
 				}
 				/* if((!_this.$utils.isNUll(params.mobilePhone))&&_this.$reg.phone.test(params.mobilePhone)){
 					

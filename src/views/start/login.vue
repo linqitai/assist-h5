@@ -115,7 +115,7 @@
 				<img v-lazy="image" />
 			  </van-swipe-item>
 			</van-swipe>
-			<!-- <img src="https://www.helpchain.co.ax/image/banner/banner0058.jpg" alt=""> -->
+			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0058.jpg" alt=""> -->
 			<!-- <img src="../../assets/image/banner0058.jpg" alt=""> -->
 		</div>
 		<div class="formHeader">
@@ -168,7 +168,7 @@
 		data() {
 			return {
 				images: [
-					'https://www.helpchain.co.ax/image/banner/banner0058.jpg'
+					'https://www.assist-china.co.ax/image/banner/banner0058.jpg'
 				],
 				welcomeText:"",
 				isNo:false,

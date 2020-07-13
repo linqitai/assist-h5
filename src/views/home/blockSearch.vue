@@ -147,6 +147,7 @@
 	import mHeader from '@/components/Header.vue';
 	import mRefresh from '@/components/Refresh.vue';
 	import clip from '@/assets/js/clipboard';
+	import { Dialog } from 'vant';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
 		name: 'dealRecord',

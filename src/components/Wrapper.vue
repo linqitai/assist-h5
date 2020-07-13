@@ -129,6 +129,7 @@
 
 <script>
 import mTabbar from '@/components/Tabbar.vue';
+import { Dialog } from 'vant';
 export default {
 	props: {
 		msg: String
@@ -177,6 +178,15 @@ export default {
 		},
 		toView(view){
 			let _this = this;
+			if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: _this.$api.tip4Rest
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
 			if(view == 'dealRecord'){
 				// console.log("dealRecord");
 				_this.$router.push({path:"dealRecord"});

@@ -567,15 +567,15 @@ $noticeHeight:40px;
 						</div>
 						<div class="text">释放爱心</div>
 					</div>
-					<div class="infoBox">
-						<router-link to="/ranking">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundRank">
-									<van-icon class-prefix="iconfont" name="rank" />
-								</div>
+					<div class="infoBox" @click="toRanking">
+						<div class="iconBox">
+							<div class="iconBackground iconBackgroundRank">
+								<van-icon class-prefix="iconfont" name="rank" />
 							</div>
-							<div class="text">排行榜</div>
-						</router-link>
+						</div>
+						<div class="text">排行榜</div>
+						<!-- <router-link to="/ranking">
+						</router-link> -->
 					</div>
 					<div class="infoBox">
 						<router-link to="/voteList">
@@ -609,15 +609,15 @@ $noticeHeight:40px;
 							<div class="text">服务商</div>
 						</router-link>
 					</div>
-					<div class="infoBox">
-						<router-link to="/ranking4Level">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground2">
-									<van-icon class-prefix="iconfont" name="merchant" />
-								</div>
+					<div class="infoBox" @click="toRanking4Level">
+						<div class="iconBox">
+							<div class="iconBackground iconBackground2">
+								<van-icon class-prefix="iconfont" name="merchant" />
 							</div>
-							<div class="text">工会会长</div>
-						</router-link>
+						</div>
+						<div class="text">工会会长</div>
+						<!-- <router-link to="/ranking4Level">
+						</router-link> -->
 					</div>
 					<div class="infoBox">
 						<router-link to="/cService">
@@ -656,14 +656,22 @@ $noticeHeight:40px;
 				</div>
 			</div>
 		</van-pull-refresh>
-		<van-dialog v-model="isShowLastNotice" :title="lastNoticeItem.noticeTitle" v-if="lastNoticeItem.noticeTitle">
+		<!-- <van-dialog v-model="isShowLastNotice" :title="lastNoticeItem.noticeTitle" v-if="lastNoticeItem.noticeTitle">
 			<div class="noticeDetail paddingWing">
 				<div class="content margT6" v-html="lastNoticeItem.noticeContent"/>
 				<div class="detailTime textCenter margT10">
 					{{lastNoticeItem.createTime}}
 				</div>
 			</div>
-		</van-dialog>
+		</van-dialog> -->
+		<van-action-sheet v-model="isShowLastNotice" :title="lastNoticeItem.noticeTitle" v-if="lastNoticeItem.noticeTitle">
+		  <div class="noticeDetail paddingWing">
+		  	<div class="content margT6" v-html="lastNoticeItem.noticeContent"/>
+		  	<div class="detailTime textCenter margT10">
+		  		{{lastNoticeItem.createTime}}
+		  	</div>
+		  </div>
+		</van-action-sheet>
 		<transition name="van-fade">
 			<keep-alive include="agency">
 				<router-view></router-view>
@@ -701,14 +709,16 @@ $noticeHeight:40px;
 				currentPage:1,
 				pageSize:3,
 				images: [
-					'https://www.helpchain.co.ax/image/banner/banner0055.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0057.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0059.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0060.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0062.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner001.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner002.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0061.jpg'
+					'https://www.assist-china.co.ax/image/banner/banner0055.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0057.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0059.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0060.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0062.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0063.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0064.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner001.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner002.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0061.jpg'
 				],
 				mill: {
 					zl: "",
@@ -832,6 +842,15 @@ $noticeHeight:40px;
 			},
 			toBlcokSearchView(){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				_this.$router.push('blockSearch');
 			},
 			showTip(val){
@@ -1003,6 +1022,34 @@ $noticeHeight:40px;
 						_this.$toast(res.message);
 					}
 				})
+			},
+			toRanking4Level(){
+				let _this = this;
+				//console.log('_this.$api.tip4Rest',_this.$api.tip4Rest);
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+				_this.$router.push('/ranking4Level');
+			},
+			toRanking(){
+				let _this = this;
+				//console.log('_this.$api.tip4Rest',_this.$api.tip4Rest);
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+				_this.$router.push('/ranking');
 			},
 			attendanceBtn(){
 				let _this = this;

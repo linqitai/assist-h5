@@ -121,19 +121,8 @@
 	</m-header>
 	<!-- 实名认证 -->
 	<div class="realName">
-		<div class="f-12 lineHeight textJustify tip4model">
-			<div class="textIndent">
-				<b>审核指标：</b>请客服和团队长们一定要审核对方的支付宝账号的真实姓名，只要用户的真实姓名和支付宝中的姓名还有证件照中的姓名对得上，且身份证号也对得上即可通过；否则就驳回。
-			</div>
-			<div class="textIndent">
-				<b>审核嘱咐：</b>帮扶链这个平台不是张三的，也不是李四的，而是大家的，期望各位领导人认真审核，共同维护好平台。
-			</div>
-			<div class="textIndent">
-				<b>审核津贴：</b>审核通过奖励审核人0.2张帮扶券；审核驳回奖励审核人0.3张帮扶券。
-			</div>
-			<div class="textIndent">
-				注：若会员提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。
-			</div> 
+		<div class="f-12 lineHeight textJustify tip4model3RedText paddingWing margT10">
+			<b class="textBold">总结审核技巧</b><br>			1.先复制对方支付宝账号去支付宝首页-转账里验证是否搜索得到对方且是同一人，再查看对方支付宝头像是否已经设置<br>			2.再复制对方的注册手机号去添加TA的微信好友，要能搜索到才行，再查看对方微信头像是否已经设置<br>			3.务必检查对方支付宝头像和微信头像是否已经设置，没设置就驳回，有刷小号嫌疑<br>			4.再查看纸条里的信息是否对得上，如果明显是P图出来的纸条，就驳回<br>			5.再看纸条上手机号是否一致<br>			6.再看身份证号是否一致<br>			7.再看看对方年龄是否在18~70周岁之内（超过这个范围的，需要特殊申请）<br>			以上7点若有一条未达到要求，就审核驳回，若发现严重P图或多次P图的直接冻结账号<br>			支付宝关联了多个邮箱账号且没指定哪个是常用的，酌情处理。<br>
 		</div>
 		<van-field v-model="form.nickName" required clearable label="昵称" disabled="true" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
 		<van-field v-model="form.realName" required clearable label="真实姓名" disabled="true" placeholder="请填写真实姓名" maxlength="20"
@@ -154,9 +143,9 @@
 		@click-right-icon="$toast(errorHint.bankCard)"
 		@blur="validate('bankCard')"
 		:error-message="errorInfo.bankCard"/> -->
-		<van-field v-model="form.mobilePhone" required clearable label="手机号" maxlength="11" disabled="true">
+		<!-- <van-field v-model="form.mobilePhone" required clearable label="手机号" maxlength="11" disabled="true">
 			<van-button slot="button" size="small" type="primary" @click="handleCopy(form.mobilePhone,$event)">复制</van-button>
-		</van-field>
+		</van-field> -->
 		<van-field v-model="form.realName" required clearable label="真实姓名" disabled="true" placeholder="请填写真实姓名" maxlength="20"
 		  @blur="validate('realName')" :error-message="errorInfo.realName"/>
 		<div class="line" v-if="form.idCardPic">
@@ -190,55 +179,65 @@
 			<div class="tip4model3">
 				注：会员若提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。
 			</div>
-			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="passBtn">通 过</van-button>
+			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitPassLoading" @click="passBtn">通 过</van-button>
 			<div class="placeholderLine10"></div>
 			<van-button size="normal" :block="true" @click="refuseBtn">驳 回</van-button>
 			<div class="placeholderLine10"></div>
 			<van-button size="normal" :block="true" @click="freezzBtn">冻结账号</van-button>
 		</div>
 	</div>
-	<van-dialog v-model="showRefuseReasonModel" title="驳回原因" :showConfirmButton="false" :close-on-click-overlay="true">
-		<div class="placeholderLine10"></div>
-		<div class="refuseReason margT10">
+	<van-action-sheet v-model="showRefuseReasonModel" title="驳回原因">
+		<div class="refuseReason">
 			<!-- @blur="validate('remark')" -->
-			<van-field v-model="remark" rows="2" autosize type="textarea" required placeholder="请填写驳回原因,以便系统做统计" :error-message="errorInfo.remark"/>
+			<van-field v-model="remark" rows="1" autosize type="textarea" required placeholder="请填写驳回原因,以便系统做统计" :error-message="errorInfo.remark"/>
+			<div class="placeholderLine10"></div>
 			<van-radio-group v-model="remark">
-				<div class="placeholderLine4"></div>
-				<van-radio name="该微信号无法被搜索到,请确认后重新设置。(每人有3次实名机会,请咨询上级按要求完成实名认证)">该微信号无法被搜索到,请确认后重新设置</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="您的支付宝账号未实名。(每人有3次实名机会,请咨询上级按要求完成实名认证)">您的支付宝账号未实名</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="所填写的身份证号和证件照中不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">所填写的身份证号和证件照中不一致</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="您的纸条有P图嫌疑，请换一个稍微带有褶皱的纸条重新提交。(每人只有3次实名机会,请咨询上级按要求完成实名认证)"> 您的纸条有P图嫌疑</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="小纸条不合格，请按照模板要求来。(每人有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="怀疑存在P图，请重新拍照后再上传。(每人有3次实名机会,请咨询上级按要求完成实名认证)">怀疑存在P图，请重新拍照后再上传</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="纸条上写的手机号和注册手机号不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">纸条上写的手机号和注册手机号不一致</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="图一请上传支付宝个人信息页面或个人主页的截图。(每人有3次实名机会,请咨询上级按要求完成实名认证)">图一请上传支付宝个人信息页面或个人主页的截图</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="身份证里的名字与支付宝实名不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">身份证里的名字与支付宝实名不一致</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像。(每人有3次实名机会,请咨询上级按要求完成实名认证)">为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="所搜索到的支付宝和所上传的照片不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">所搜索到的支付宝和所上传的照片不一致</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我。(每人有3次实名机会,请咨询上级按要求完成实名认证)">支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="支付宝里请先上传头像，不然容易给会员感觉是小号，而留下不好印象。(每人有3次实名机会,请咨询上级按要求完成实名认证)">支付宝里请先上传头像，不然容易给会员感觉是小号，而留下不好印象</van-radio>
-			  <div class="placeholderLine4"></div>
-			  <van-radio name="每人有3次实名机会,您的实名材料存在比较多的问题,请咨询上级按要求完成实名认证">您的实名材料存在比较多的问题,请咨询上级按要求完成实名认证</van-radio>
+				<van-radio name="所传照片模糊不清，请重新拍照且经过裁剪后再次上传更可观更清晰的图片。(每人有3次实名机会,请咨询上级按要求完成实名认证)">所传照片模糊不清,请重新拍照且经过裁剪后再次上传更可观更清晰的图片</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="注册手机号无法搜索到微信号，请先用该手机号绑定此微信号。(每人有3次实名机会,请咨询上级按要求完成实名认证)">注册手机号无法搜索到微信号,请先用该手机号绑定此微信号</van-radio>
+				<div class="placeholderLine2"></div>
+				<!-- <van-radio name="请先在微信的【我--支付--支付管理】里开启【允许通过手机号向我转账】的功能。(每人有3次实名机会,请咨询上级按要求完成实名认证)">先在微信的【我--支付--支付管理】里开启【允许通过手机号向我转账】的功能</van-radio>
+				<div class="placeholderLine2"></div> -->
+				<!-- <van-radio name="微信号里的姓名和身份证上的不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">微信号里的姓名和身份证上的不一致</van-radio>
+				<div class="placeholderLine2"></div> -->
+				<van-radio name="微信号里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象。(每人有3次实名机会,请咨询上级按要求完成实名认证)">微信号里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="该微信号无法被搜索到，请确认后重新设置微信号。(每人有3次实名机会,请咨询上级按要求完成实名认证)">该微信号无法被搜索到,请确认后重新设置微信号</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="您的支付宝账号未实名。(每人有3次实名机会,请咨询上级按要求完成实名认证)">您的支付宝账号未实名</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="所填写的身份证号和证件照中不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">所填写的身份证号和证件照中不一致</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="您的纸条有P图嫌疑，请换一个稍微带有褶皱的纸条重新提交。(每人只有3次实名机会,请咨询上级按要求完成实名认证)"> 您的纸条有P图嫌疑，请换一个稍微带有褶皱的纸条重新提交</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="小纸条不合格，请按照模板要求来。(每人有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="纸条请不要遮住身份证号，这样无法核对，需重新拍照。(每人有3次实名机会,请咨询上级按要求完成实名认证)">纸条请不要遮住身份证号，这样无法核对，需重新拍照</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="纸条上写的手机号和注册手机号不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">纸条上写的手机号和注册手机号不一致</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="身份证里的名字与支付宝实名不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">身份证里的名字与支付宝实名不一致</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像。(每人有3次实名机会,请咨询上级按要求完成实名认证)">为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我。(每人有3次实名机会,请咨询上级按要求完成实名认证)">支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="支付宝里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象。(每人有3次实名机会,请咨询上级按要求完成实名认证)">支付宝里请先上传头像，不然容易给会员感觉是小号，而留下不好印象</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="年龄超出70周岁，若想加入帮扶链，需加客服额外申请。(每人有3次实名机会,请咨询上级按要求完成实名认证)">年龄超出70周岁，若想加入帮扶链，需加客服额外申请</van-radio>
+				<div class="placeholderLine2"></div>
+				<van-radio name="您的认证资料还存在多处问题，请先仔细阅读实名规则后再提交资料。(每人有3次实名机会,请咨询上级按要求完成实名认证)">您的认证资料还存在多处问题，请先仔细阅读实名规则后再提交资料</van-radio>
 			</van-radio-group>
 			<!-- <van-dropdown-menu>
 			  <van-dropdown-item v-model="remark" :options="option1"/>
 			</van-dropdown-menu> -->
-			<van-button size="normal" :block="true" @click="submit('refuse')">提 交</van-button>
+			
+			<div class="placeholderLine10"></div>
+			
+			<van-button size="normal" :block="true" :loading="submitRefuseLoading" @click="submit('refuse')">提 交</van-button>
 		</div>
 		<div class="placeholderLine10"></div>
-	</van-dialog>
+	</van-action-sheet>
 	<van-dialog v-model="showFreezeReasonModel" title="冻结原因" :showConfirmButton="false" :close-on-click-overlay="true">
 		<div class="placeholderLine10"></div>
 		<div class="refuseReason">
@@ -262,6 +261,8 @@ import { Toast } from 'vant';
 export default {
 	data() {
 		return {
+			submitPassLoading:false,
+			submitRefuseLoading:false,
 			showFreezeReasonModel:false,
 			showRefuseReasonModel:false,
 			showTipModel:false,
@@ -489,11 +490,12 @@ export default {
 			}
 			if(type=='pass'){
 				params.actived = 1;
+				_this.submitPassLoading = true;
 			}else if(type=='refuse'){
 				params.actived = 2;
 				params.remark = _this.remark;
+				_this.submitRefuseLoading = true;
 			}
-			console.log('params',params)
 			if(_this.$utils.hasVal(_this.errorInfo)||_this.$utils.hasNull(params)){
 				_this.$toast(`系统提示：请提交完整信息`);
 				return;
@@ -510,6 +512,9 @@ export default {
 				}else{
 					_this.$toast(res.message);
 				}
+			},function(){
+				_this.submitRefuseLoading = false;
+				_this.submitPassLoading = false;
 			})
 		},
 		validate(key){

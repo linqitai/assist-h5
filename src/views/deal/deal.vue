@@ -442,11 +442,16 @@
 			  <div class="tip4model3">
 			  	<b class="textBold">尊敬的原始矿工交易前请认真阅读以下规则：</b>
 			  	<br>
-			  	【1】平价区的卖出匹配是随机的。<br>
-			  	【2】交易之前请先检查自己的支付宝和微信号是否可以被搜索到。<br>
-			  	【3】平台为保证交易的顺利进行，交易前请先检查在平台上预留的真实姓名与支付宝号里的一致。<br>
-			  	【4】请矿工们交易前预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
-			  	 <b class="textBold">发起交易后，即代表您已认真阅读并同意以上规则</b>
+			  	【1】同价单子的匹配是随机的，匹配后卖家务必主动<b class="textBold red">短信提醒</b>或<b class="textBold red">电话联系</b>买家；买家付款后，务必在<b class="textBold red">2小时</b>内给予<b class="textBold red">确认或诉讼反馈问题</b>。<br>
+			  	【2】交易之前请买家先检查在平台上所预留的真实姓名与【支付宝、微信】里的是否一致、自己的支付宝和微信号是否可以被搜索到、手机号是否可以接通，确保能顺利交易与顺畅沟通。<br>
+			  	 <b class="textBold red">支付宝收款时：</b>请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
+				 <b class="textBold red">微信收款时：</b>请矿工们预先在微信的【我--支付--支付管理】里开启【允许通过手机号向我转账】的功能，该手机号务必是注册帮扶链的手机号。<br>
+				 <span class="red">【3】若卖方出现以上问题而被投诉，客服会介入调查，调查属实后会酌情处理单子并处罚卖方2~5个贡献值。</span><br>
+			  	 <div class="read">
+					 <van-radio-group v-model="isRead" @change="isReadChange">
+					   <van-radio name="1"><b class="textBold green">发起交易后，即代表您已认真阅读并同意以上规则</b></van-radio>
+					 </van-radio-group>
+				 </div>
 			  	<!-- 注：<br>
 			  	<b class="textBold">身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，{{$api.projectEnglishName}}认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i> -->
 			  </div>
@@ -477,9 +482,9 @@
 					价格涨幅规律：每当平台指导价的求购量超过10万{{pen}}，则涨0.1CNY。
 				</div> -->
 				<van-cell-group>
-				<van-field v-model="form4pickSellBill.sellAmount" type="text" required clearable label="想卖数量" placeholder="请填写想要卖出的总数量"/>
-				<van-field v-model="form4pickSellBill.sellLowestAmount" type="text" required clearable label="最低匹配数量" placeholder="请填写最低匹配数量"/>
-				<van-field v-model="form4pickSellBill.price" type="text" required clearable label="单价" placeholder="请填写单价"/>
+				<van-field v-model="form4pickSellBill.sellAmount" type="number" required clearable label="想卖数量" placeholder="请填写想要卖出的总数量"/>
+				<van-field v-model="form4pickSellBill.sellLowestAmount" type="number" required clearable label="最低匹配数量" placeholder="请填写最低匹配数量"/>
+				<van-field v-model="form4pickSellBill.price" type="number" required clearable label="单价" placeholder="请填写单价"/>
 				<van-field v-model="form4pickSellBill.safePassword" type="password" required clearable label="安全密码" placeholder="请填写安全密码"/>
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
@@ -550,6 +555,7 @@ import { Skeleton,Toast,Dialog } from 'vant';
 export default {
 	data() {
 		return {
+			isRead:0,
 			sendSmsHref:"",
 			smsContent:"",
 			showSendSMSTipModel:false,
@@ -597,7 +603,7 @@ export default {
 				sellAmount:100,
 				sellLowestAmount:1,
 				sellAmountSliderValue:1,
-				price:12.8,
+				price:17,
 				serviceCharge:1,
 				safePassword:"",
 				idCard:""
@@ -743,6 +749,11 @@ export default {
 		_this.initializeTabActiveName();
 	},
 	methods:{
+		isReadChange(val){
+			let _this = this;
+			_this.isRead = val;
+			console.log(_this.isRead,"isRead");
+		},
 		onChange4sliderPrice(value){
 			//console.log(value);
 			let _this = this;
@@ -892,8 +903,9 @@ export default {
 			_this.pages = parseInt(_this.$cookies.get('pages')) || 0;
 			_this.pagesPlatPrice = parseInt(_this.$cookies.get('pagesPlatPrice')) || 0;
 			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
-			if(_this.$cookies.get('haveDealPageInfo')){
+			if(_this.$cookies.get('haveDealPageInfo')==1){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
+				_this.form4pickSellBill.price = _this.dealPageInfo.maxPrice;
 				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)*1.2))*100;
 				//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
@@ -954,10 +966,11 @@ export default {
 				//console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
+					_this.form4pickSellBill.price = _this.dealPageInfo.maxPrice;
 					//_this.currentMaxPrice = _this.dealPageInfo.maxPrice;
 					_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice) || 0) - (parseFloat(_this.dealPageInfo.currentPlatformPrice||0)*1.2))*100;
 					//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
-					console.log("_this.max4Price:",_this.max4Price);
+					//console.log("_this.max4Price:",_this.max4Price);
 					_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 					_this.serviceCharge = `10%矿石+交易总金额的10%帮扶券`;
 					/* _this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`; */
@@ -1289,11 +1302,21 @@ export default {
 		//匹配买单
 		sureHangPickedSellBillBtn(){
 			let _this = this;
-			//挂卖之前先判断时间
-			if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
+			//判断是否勾选交易规则
+			if(_this.isRead == 0){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: '交易时间是9~21点，请明天再来'
+				  message: '请尊敬的矿工，请先认真阅读交易规则'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			//挂卖之前先判断时间
+			if(_this.$utils.getTimeHMS(new Date())>'20:00:00'){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '交易时间是9~20点，请明天再来'
 				}).then(() => {
 				  // on close
 				});
@@ -1302,7 +1325,7 @@ export default {
 			if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: '交易时间是9~21点，请到点再来'
+				  message: '交易时间是9~20点，请到点再来'
 				}).then(() => {
 				  // on close
 				});
@@ -1543,6 +1566,10 @@ export default {
 			let _this = this;
 			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
 			let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
+			if(parseFloat(_this.form4pickSellBill.price)>maxPrice){
+				_this.$toast(`今日溢价卖单最高价为${maxPrice}￥`);
+				return;
+			}
 			let params = {
 				maxNumber:_this.form4pickSellBill.sellAmount,
 				minNumber:_this.form4pickSellBill.sellLowestAmount,

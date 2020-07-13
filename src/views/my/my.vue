@@ -274,7 +274,7 @@
 				<div class="flex flex4">
 					<div>{{userInfo.temporaryFreezePlatformTicket}}</div>
 					<!-- <NumberGrow :value="userInfo.temporaryFreezePlatformTicket"></NumberGrow> -->
-					<div class="text">售出冻结中<br>帮扶券</div>
+					<div class="text">流通中<br>帮扶券</div>
 				</div>
 				<!-- <div class="flex flex3">
 					<div>{{userInfo.temporaryFreezeContribution}}</div>
@@ -283,7 +283,7 @@
 				<div class="flex flex2">
 					<div>{{userInfo.temporaryFreezeMineral}}</div>
 					<!-- <NumberGrow :value="userInfo.temporaryFreezeMineral"></NumberGrow> -->
-					<div class="text">售出冻结中<br>矿石</div>
+					<div class="text">流通中<br>矿石</div>
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
@@ -318,15 +318,15 @@
 						<div class="text">我的单子</div>
 					</router-link>
 				</div>
-				<div class="infoBox">
-					<router-link to="/myBook">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundBook">
-								<van-icon class-prefix="iconfont" name="book" />
-							</div>
+				<div class="infoBox" @click="toMyBook">
+					<div class="iconBox">
+						<div class="iconBackground iconBackgroundBook">
+							<van-icon class-prefix="iconfont" name="book" />
 						</div>
-						<div class="text">我的账本</div>
-					</router-link>
+					</div>
+					<div class="text">我的账本</div>
+					<!-- <router-link to="/myBook">
+					</router-link> -->
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
@@ -515,7 +515,7 @@
 					</div>
 				</router-link> -->
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3||userInfo.isAgent==4">
+			<div class="items" v-if="userInfo.isAgent==3||userInfo.isAgent==4" @click="toMyCheck">
 				<router-link to="myCheck">
 					<div class="my-cell">
 						<div class="flex1">
@@ -714,6 +714,45 @@
 				}).then(() => {
 				  // on confirm
 				})
+			},
+			toBlcokSearchView(){
+				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+				_this.$router.push('blockSearch');
+			},
+			toMyCheck(){
+				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+				_this.$router.push('myCheck');
+			},
+			toMyBook(){
+				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+				_this.$router.push('myBook');
 			},
 			toComplainView(userId){
 				let _this = this;

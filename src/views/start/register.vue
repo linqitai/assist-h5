@@ -122,8 +122,8 @@
 				<img v-lazy="image" />
 			  </van-swipe-item>
 			</van-swipe> -->
-			<img src="https://www.helpchain.co.ax/image/banner/banner0058.jpg" alt="">
-			<!-- <img src="https://www.helpchain.co.ax/image/banner/banner0055.jpg" alt=""> -->
+			<img src="https://www.assist-china.co.ax/image/banner/banner0058.jpg" alt="">
+			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0055.jpg" alt=""> -->
 		</div>
 		<div class="formHeader">
 			<div class="welcomeText green_text">{{welcomeText}}</div>
@@ -134,8 +134,8 @@
 				<van-field v-model="form.phone" type="text" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
 				<div class="labelText">确认账号</div>
 				<van-field v-model="form.phone2" type="password" clearable :placeholder="placeholder.phone2" @blur="validate('phone2')" :error-message="errorHint.phone2" maxlength="11"/>
-				<div class="tip4model3 margT6">
-					温馨提示：注册账号即是本人的手机号。若是港澳台及海外用户，只要有自己的支付宝和微信号即可注册并实名。
+				<div class="tip4model3RedText margT6">
+					温馨提示：注册账号即是本人的手机号，请填写绑定了自己微信号的手机号。若是港澳台及海外用户，只要有自己的支付宝和微信号即可注册并实名。
 					<!-- 2.若不是看好帮扶的理念，而是单纯想撸羊毛的用户请不要注册，因为每次交易的数据都公开透明，纯撸者会被会员控告并冻结账号。 -->
 				</div>
 				<div class="labelText">登录密码</div>
@@ -193,12 +193,12 @@
 		data() {
 			return {
 				/* images: [
-					'https://www.helpchain.co.ax/image/banner/banner0058.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0055.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0057.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0059.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0060.jpg',
-					'https://www.helpchain.co.ax/image/banner/banner0062.jpg'
+					'https://www.assist-china.co.ax/image/banner/banner0058.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0055.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0057.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0059.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0060.jpg',
+					'https://www.assist-china.co.ax/image/banner/banner0062.jpg'
 				], */
 				getSCLoading:false,
 				interval:180,
@@ -216,7 +216,7 @@
 					shareCode:''
 				},
 				placeholder:{
-					phone:'请填写注册手机号',
+					phone:'请填写绑定了微信的手机号',
 					phone2:'请填写与上面一致的注册手机号',
 					password:'请填写6~16位登录密码',
 					password2:'请填写与上面一致的登录密码',

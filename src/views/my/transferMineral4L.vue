@@ -210,14 +210,13 @@
 			getDealPageInfo(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
-					console.log('getDealPageInfo', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.dealPageInfo = res.data;
 						_this.curerntPlatformPrice = _this.dealPageInfo.currentPlatformPrice;
 						_this.maxPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+3)).toFixed(2);
 						_this.maxAddPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+2)).toFixed(2);
 						_this.$cookies.remove('haveDealPageInfo');
-						_this.$cookies.set("haveDealPageInfo",1, 60 * 30 * 1);
+						_this.$cookies.set("haveDealPageInfo",1, 60 * 60 * 2);
 						localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
 					}
 				})

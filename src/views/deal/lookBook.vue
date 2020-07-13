@@ -143,6 +143,7 @@
 
 <script>
 	import mHeader from '@/components/Header.vue';
+	import { Dialog } from 'vant';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
 		data() {
@@ -253,6 +254,15 @@
 			},
 			onLoad1(){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				let params = {
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
@@ -290,6 +300,15 @@
 			},
 			onLoad2(){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				// 异步更新数据
 				let params = {
 					pageNo: _this.currentPage2,
@@ -332,6 +351,15 @@
 			},
 			onLoad3(){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				let params = {
 					pageNo: _this.currentPage3,
 					pageSize: _this.pageSize,
@@ -369,6 +397,15 @@
 			},
 			onLoad4(){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				let params = {
 					pageNo: _this.currentPage4,
 					pageSize: _this.pageSize,
@@ -405,12 +442,20 @@
 			},
 			onLoad5(){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				let params = {
 					pageNo: _this.currentPage5,
 					pageSize: _this.pageSize,
 					userId: _this.userId
 				}
-				console.log("params",params);
 				_this.loading5 = true;
 				_this.$ajax.ajax(_this.$api.getAssistLoveValueList, 'GET', params, function(res) {
 					_this.loading = false;

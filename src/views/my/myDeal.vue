@@ -528,15 +528,16 @@
 			</div>
 			<div class="detailBox" v-if="showSellerDetailLoading==false&&detail4sellerInfo">
 				<div class="tip4model3RedText">
-					平台为保证交易的顺利进行，卖方的真实姓名若与支付宝里的不一致将冻结账号处理，交易的时候买方若遇到此问题欢迎向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
+					1.交易默认收款方式为支付宝，若用微信或银行卡转账，请买家预先和卖家沟通并说明原因后再转。<br>
+					2.平台为保证交易的顺利进行，卖方的真实姓名若与收款账户里的不一致将冻结账号处理，交易的时候买方若遇到此问题欢迎向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
 				</div>
 				<div class="line" v-if="detail4sellerInfo.id">
 					<span class="label">订单编号</span>
-					<span class="value">{{detail4sellerInfo.id}}</span>
+					<span class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.id,$event)">复制</span>{{detail4sellerInfo.id}}</span>
 				</div>
 				<div class="line">
 					<span class="label">卖方</span>
-					<span class="value">{{detail4sellerInfo.realName}}</span>
+					<span class="value"><span class="copy" @click="handleCopy((detail4sellerInfo.realName.substring(0,1)),$event)">复制姓</span>{{detail4sellerInfo.realName}}</span>
 				</div>
 				<div class="line">
 					<span class="label">卖方手机号</span>
@@ -549,6 +550,10 @@
 				<div class="line">
 					<div class="label">卖方微信号</div>
 					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.wechartNum,$event)">复制</span>{{detail4sellerInfo.wechartNum}}</div>
+				</div>
+				<div class="line" v-if="detail4sellerInfo.bankCard">
+					<div class="label">卖方银行卡</div>
+					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.bankCard,$event)">复制</span>{{detail4sellerInfo.bankCard}}</div>
 				</div>
 				<div class="line">
 					<span class="label">数量</span>

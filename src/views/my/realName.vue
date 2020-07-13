@@ -181,29 +181,19 @@
 	</van-dialog>
 	<!-- 实名认证 -->
 	<div class="realName">
-		<div class="tip4model1">
+		<div class="tip4model4Green">
 			<b class="textBold">温馨提示：</b>
-			<br>
-			尊敬的原始矿工实名前请认真阅读以下规则：<br>
-			【1】实名认证年龄范围为18~70周岁，若超过70周岁，需找首页的客服额外申请。<br>
-			【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
-			【3】平台为保证交易的顺利进行，真实姓名要和支付宝、微信中的实名信息一致，交易的时候若遇到实名信息不一致的问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
-			【4】请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。<br>
-			【5】矿工点对点交易，所有资金不经过平台，无私募、无充值提现端口。挂单交易每人限购2000个矿石，若有特殊需要，可额外找客服申请限购额度。<br>
+			<div class="textJustify">
+				尊敬的原始矿工实名前请认真阅读以下规则：<br>
+				【1】实名认证年龄范围为18~70周岁，若超过70周岁，需找首页的客服额外申请。<br>
+				【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
+				【3】平台为保证交易的顺利进行，<b class="red">【真实姓名要和支付宝、微信中的实名信息一致，且支付宝和微信都要设置照片头像】</b>，交易的时候若遇到实名信息不一致的问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
+				【4】请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。<br>
+				<!-- 【5】请矿工们预先在微信的【我--设置--账号与安全】中绑定手机号，该手机号务必是注册帮扶链的手机号。否则交易的时候买家若无法通过手机号向你转账的，客服介入调查属实后会取消交易。<br> -->
+				<span class="red">【5】微信号默认为注册手机号，您的微信若没绑定该手机号，请先在微信的【我--设置--账号与安全】中绑定；若没绑定，实名审核很可能不会通过。</span><br>
+				【6】矿工点对点交易，所有资金不经过平台，无私募、无认筹、无充值提现端口。<br>
+			</div>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
-			 <!-- <div class="tip4model3RedText margT6">
-			 	<b class="textBold">若遇到在微信中照片上传不了的解决办法：</b><br>
-			 	1、换浏览器操作，UC浏览器优先。<br>
-			 	<div class="placeholderLine4"></div>
-			 	<b class="textBold">若遇到支付宝截图可以上传，证件照片却上传不了的解决办法：</b><br>
-			 	1、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
-			 	<div class="placeholderLine4"></div>
-			 	<b class="textBold">若遇到提交实名一直转圈圈或提示区块拥堵的解决办法：</b><br>
-			 	1、检查网络信号是否良好。<br>
-			 	2、把证件照片裁剪得尽可能小一点。<br>
-			 	3、更换浏览器，UC浏览器优先。<br>
-			 	4、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
-			 </div> -->
 		</div>
 		<van-field v-model="mobilePhone" disabled clearable label="手机号"/>
 		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
@@ -211,7 +201,7 @@
 		@click-right-icon="$toast(errorHint.telPhone)"
 		@blur="validate('telPhone')"
 		:error-message="errorInfo.telPhone"/> -->
-		<van-field v-model="form.wechartNum" required clearable label="微信号" maxlength="20" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
+		<van-field v-model="form.wechartNum" disabled clearable label="微信号" maxlength="20" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
 		<van-field v-model="form.alipayNum" required clearable label="支付宝" maxlength="24" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
 		<!-- <van-field v-model="form.bankCard" required clearable label="银行卡号" right-icon="question-o" :placeholder="errorHint.bankCard"
 		@click-right-icon="$toast(errorHint.bankCard)"
@@ -230,7 +220,7 @@
 		  </div>
 		  <div class="line" v-if="!pic2">
 			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
-		  	<img style="width: 100%;" src="https://www.helpchain.co.ax/image/alipay.jpg">
+		  	<img style="width: 100%;" src="https://www.assist-china.co.ax/image/alipay.jpg">
 		  </div>
 		  <div class="line" v-if="pic2">
 			<input accept="image/*" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG2($event)"/>
@@ -241,11 +231,13 @@
 			1.实名审核通过后2张照片会被系统自动删除，上传证件照片的时候，请按照模板要求用纸条盖住证件头像。<br>
 			2.实名认证年龄范围为18~70周岁，若不在该范围内，需找首页的客服额外申请。
 		</div> -->
-		<div class="line tip4modelRedText">
-			上传证件照片注意事项：<br>
-			1.为了保证照片能够顺利上传，请在拍照后，先对照片进行裁剪，保证清晰可见，方便审核员快速审核。<br>
-			2.实名审核通过后照片会被系统自动删除，拍摄证件照片的时候，请按照模板要求用纸条盖住证件头像。<br>
-			3.实名认证年龄范围为18~70周岁，若超过70周岁，需找首页的客服额外申请。<br>
+		<div class="tip4modelRedText paddingWing textJustify margT10">
+			注意事项强调：<br>
+			1.实名认证年龄范围为18~70周岁，若超过70周岁，需找首页的客服额外申请。<br>
+			2.为了保证照片能够顺利上传，请在拍照后，先对照片进行裁剪，保证清晰可见，方便审核员快速审核。<br>
+			3.实名审核通过后照片会被系统自动删除，拍摄证件照片的时候，请按照模板要求用纸条盖住证件头像。<br>
+			4.所实名的矿工请在微信的【支付-支付管理】中开通'允许通过手机号向我转账'的功能，该手机号务必是注册帮扶链的手机号。<br>
+			5.小纸条上需写上"帮扶链实名认证专用+手机号+当天日期"，<b class="green textBold">照片上任何内容严禁P图，审核时，P图的账号会被驳回或冻结处理。</b>
 		</div>
 		<div class="line">
 			<span class="label">身份证正面照片</span>
@@ -257,7 +249,7 @@
 		</div>
 		<div class="line" v-if="!form.idCardPic">
 			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
-			<img style="width: 100%;" src="https://www.helpchain.co.ax/image/idt.jpg">
+			<img style="width: 100%;" src="https://www.assist-china.co.ax/image/idt.jpg">
 		</div>
 		<div class="line">
 			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
@@ -271,23 +263,21 @@
 		</div> 
 		<div class="placeholderLine40"></div>
 		<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitRealNameLoding" @click="submitRealNameBtn">提 交</van-button>
-		<!-- <div class="sureAppointBtnBox">
-			<div class="tip4model3RedText">
+		<div class="sureAppointBtnBox">
+			<div class="tip4model3RedText textJustify">
 				<b class="textBold">若遇到在微信中照片上传不了的解决办法：</b><br>
-				1、换浏览器操作，UC浏览器优先。<br>
+				1、换浏览器操作，QQ、UC浏览器优先。<br>
 				<div class="placeholderLine4"></div>
-				<b class="textBold">若遇到支付宝截图可以上传，证件照片却上传不了的解决办法：</b><br>
+				<b class="textBold">若遇到证件照片却上传不了的解决办法：</b><br>
 				1、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
 				<div class="placeholderLine4"></div>
 				<b class="textBold">若遇到提交实名一直转圈圈或提示区块拥堵的解决办法：</b><br>
 				1、检查网络信号是否良好。<br>
 				2、把证件照片裁剪得尽可能小一点。<br>
-				3、更换浏览器，UC浏览器优先。<br>
+				3、更换浏览器，QQ、UC浏览器优先。<br>
 				4、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
 			</div>
-			<div class="placeholderLine4"></div>
-			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="submitRealNameLoding" @click="submitRealNameBtn">提 交</van-button>
-		</div> -->
+		</div>
 	</div>
 	<van-dialog
 	  v-model="showIdCardPicExmple"
@@ -296,7 +286,7 @@
 	  confirmButtonText="OK"
 	>
 		<div class="placeholderLine10"></div>
-		<img style="width: 100%;" src="https://www.helpchain.co.ax/image/ids.jpg">
+		<img style="width: 100%;" src="https://www.assist-china.co.ax/image/ids.jpg">
 	</van-dialog>
 	<!-- <van-dialog
 	  v-model="showIdCardPicExmple2"
@@ -305,7 +295,7 @@
 	  confirmButtonText="OK"
 	> 
 		<div class="placeholderLine10"></div>
-		<img style="width: 100%;" src="https://www.helpchain.co.ax/image/alipay.jpg">
+		<img style="width: 100%;" src="https://www.assist-china.co.ax/image/alipay.jpg">
 	</van-dialog> -->
 	<!-- <div class="shadeMaster" v-if="isWeixin">
 		<p class="f-20">实名前请先点开右上角按钮选择<br>
@@ -415,6 +405,7 @@ export default {
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
 			_this.mobilePhone = _this.userInfo.mobilePhone;
+			_this.form.wechartNum = _this.userInfo.mobilePhone;
 			/* _this.mobilePhone = _this.$JsEncrypt.decrypt(_this.userInfo.mobilePhone); */
 			/* _this.form.wechartNum = _this.userInfo.mobilePhone;
 			_this.form.alipayNum = _this.userInfo.mobilePhone; */
@@ -788,6 +779,16 @@ export default {
 					}
 				} */
 			}else if(key == 'wechartNum') {
+				Dialog.alert({
+				  title: '系统提示',
+				  confirmButtonText:'已经绑定',
+				  showCancelButton:true,
+				  cancelButtonText:'先去微信绑定',
+				  message: "请确认所注册的【手机号】是否已经绑定了该【微信号】? 若未绑定，实名审核可能会被驳回！"
+				}).then(() => {
+				  // on confirm
+				  
+				})
 				if(_this.$reg.weichat.test(_this.form.wechartNum)){
 					_this.errorInfo.wechartNum = '';
 				}else{

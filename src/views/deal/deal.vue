@@ -1373,7 +1373,7 @@ export default {
 				_this.$toast('卖出数量请选择一个正整数');
 				return;
 			}
-			if(parseFloat(_this.userInfo.myCalculationPower)<=parseFloat(0.1)&&parseFloat(params.price)<=parseFloat(_this.dealPageInfo.currentPlatformPrice)){
+			/* if(parseFloat(_this.userInfo.myCalculationPower)<=parseFloat(0.1)&&parseFloat(params.price)<=parseFloat(_this.dealPageInfo.currentPlatformPrice)){
 				Dialog.alert({
 				  title: '系统提示',
 				  message: '个人算力大于0.1才能在平价区出售'
@@ -1381,7 +1381,7 @@ export default {
 				  // on close
 				});
 				return;
-			}
+			} */
 			/* if(parseFloat(params.price)>parseFloat(_this.dealPageInfo.currentPlatformPrice)&&parseFloat(params.price)<parseFloat(_this.dealPageInfo.maxPrice)){
 				Dialog.alert({
 				  title: '系统提示',

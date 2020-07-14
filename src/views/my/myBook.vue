@@ -255,8 +255,16 @@
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 			},
 			onLoad1(){
-				//console.log('load1')
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				let params = {
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
@@ -301,8 +309,16 @@
 				// }, 500);
 			},
 			onLoad2(){
-				console.log('load2')
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				// 异步更新数据
 				let params = {
 					pageNo: _this.currentPage2,
@@ -344,8 +360,16 @@
 				// }, 500);
 			},
 			onLoad3(){
-				// console.log('load3',"getAssistContributionValueListByUserId")
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				let params = {
 					pageNo: _this.currentPage3,
 					pageSize: _this.pageSize,
@@ -384,6 +408,15 @@
 			},
 			onLoad4(){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				let params = {
 					pageNo: _this.currentPage4,
 					pageSize: _this.pageSize,
@@ -414,6 +447,15 @@
 			},
 			onLoad5(){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				let params = {
 					pageNo: _this.currentPage5,
 					pageSize: _this.pageSize,

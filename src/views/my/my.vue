@@ -877,6 +877,15 @@
 			},
 			toBookView(val){
 				let _this = this;
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: _this.$api.tip4Rest
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				//console.log('toBookView');
 				let name = 'mineral';
 				if(val==1){

@@ -510,7 +510,7 @@
 				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
 				@blur="validate4BuyBill('buyLowestAmount')"
 				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" disabled type="number" clearable label="单价" right-icon="question-o" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" clearable label="单价" right-icon="question-o" placeholder="请填写单价"
 				 @click-right-icon="alertTip(clickIconTip.price)" :error-message="errorInfo4BuyBill.price"/>
 				<div class="inLine">
 					<span class="label">开溢价</span>
@@ -561,7 +561,7 @@ export default {
 			showSendSMSTipModel:false,
 			questionText:"",
 			showTipModel:false,
-			addPriceValue:0,
+			addPriceValue:0.0,
 			min4Price:0,
 			max4Price:100,
 			step4Price:0.01,
@@ -698,13 +698,15 @@ export default {
 	watch: {
 	    addPriceValue(val, oldVal) {
 			let _this = this;
-	        console.log("addPriceValue = " + val + " , oldValue = " + oldVal);
+			let currentPlatPrice = parseFloat(_this.dealPageInfo.currentPlatformPrice);
+	        //console.log("addPriceValue = " + val + " , oldValue = " + oldVal);
 			if(val == 0){
-				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
+				_this.form4BuyBill.price = currentPlatPrice;
 			}else{
 				let addValue = (val/100);
-				console.log("addValue = " + addValue);
-				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2 + addValue).toFixed(2);
+				//console.log("addValue = " + addValue);
+				//_this.form4BuyBill.price = 13.0;
+				_this.form4BuyBill.price = ((currentPlatPrice)*1.1 + addValue + currentPlatPrice*0.1).toFixed(2);
 			}
 	    }
 	},
@@ -1578,7 +1580,7 @@ export default {
 				safePassword:_this.form4pickSellBill.safePassword,
 				buyOrSell:"sell"
 			}
-			console.log("params",params);
+			//console.log("params",params);
 			_this.loading4Buy = true;
 			params.safePassword = _this.$JsEncrypt.encrypt(_this.form4pickSellBill.safePassword);
 			_this.$ajax.ajax(_this.$api.insertBuyBill, 'POST', params, function(res) {
@@ -1683,6 +1685,15 @@ export default {
 				});
 				return;
 			}
+			if(parseFloat(params.price)>parseFloat(_this.dealPageInfo.currentMaxPrice)){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: `当前最高可挂溢价为${parseFloat(_this.dealPageInfo.currentMaxPrice)}，请重新填写`
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
 			if(Number(params.maxNumber)<Number(params.minNumber)){
 				// _this.$toast('想买数量和最低匹配数量填写反了');
 				Dialog.alert({
@@ -1727,7 +1738,13 @@ export default {
 						});
 						return;
 					}else{
-						_this.$toast(res.message);
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				},function(res){
 					_this.loading4Buy = false;

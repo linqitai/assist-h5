@@ -245,6 +245,12 @@ export default new Router({
 							meta:{footer:false},
 						},
 						{
+							path: '/lookupIdCard',
+							name: '查看他人身份证号被谁占用',
+							component: resolve => require(['./views/my/lookupIdCard'],resolve),
+							meta:{footer:false},
+						},
+						{
 							path: '/updateIdCard',
 							name: '帮他人修改身份证号',
 							component: resolve => require(['./views/my/updateIdCard'],resolve),

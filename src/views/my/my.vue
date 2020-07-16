@@ -504,16 +504,16 @@
 						</div>
 					</div>
 				</router-link>
-				<!-- <router-link to="updateAlipay">
+				<router-link to="lookupIdCard">
 					<div class="my-cell">
 						<div class="flex1">
-							帮他人注销账号
+							查看他人身份证号被谁占用
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link> -->
+				</router-link>
 			</div>
 			<div class="items" v-if="userInfo.isAgent==3||userInfo.isAgent==4" @click="toMyCheck">
 				<router-link to="myCheck">

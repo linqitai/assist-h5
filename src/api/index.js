@@ -64,6 +64,7 @@ export default {
 	updateUserAlipay: host + "assist/userInfo/updateUserAlipay",
 	getIsAgentRanking: host + "assist/statistics/getIsAgentRanking",
 	getLevelRanking: host + "assist/statistics/getLevelRanking",
+	getAssistUserInfoByIdCard4Service:host + "assist/userInfo/getAssistUserInfoByIdCard4Service",
 	getAssistUserInfoByPhone4Service: host + "assist/userInfo/getAssistUserInfoByPhone4Service",
 	getNickNameByUserId: host + 'assist/userInfo/getNickNameByUserId',
 	getAssistAgentInfo4Province: host + 'assist/userInfo/getAssistAgentInfo4Province',

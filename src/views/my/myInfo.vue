@@ -307,7 +307,7 @@
 			  maxlength="18" @click-right-icon="$toast(errorHint['idCard'])"
 			  @blur="validate('idCard')"
 			  :error-message="errorInfo['idCard']"/>
-			<van-field v-model="form['originalPassowrd']" required clearable label="原始密码" right-icon="question-o" :placeholder="errorHint['originalPassowrd']"
+			<van-field v-model="form['originalPassowrd']" required clearable label="原密码" right-icon="question-o" :placeholder="errorHint['originalPassowrd']"
 				maxlength="20" type="password"
 			  @click-right-icon="$toast(errorHint['originalPassowrd'])"
 			  @blur="validate('originalPassowrd')"

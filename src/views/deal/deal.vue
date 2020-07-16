@@ -706,7 +706,7 @@ export default {
 				let addValue = (val/100);
 				//console.log("addValue = " + addValue);
 				//_this.form4BuyBill.price = 13.0;
-				_this.form4BuyBill.price = ((currentPlatPrice)*1.1 + addValue + currentPlatPrice*0.1).toFixed(2);
+				_this.form4BuyBill.price = ((currentPlatPrice)*1.2 + addValue).toFixed(2);
 			}
 	    }
 	},

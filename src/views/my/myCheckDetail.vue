@@ -160,20 +160,6 @@
 		<div class="" v-if="form.remark">
 			<van-field v-model="form.remark" label="上次驳回原因" rows="3" type="textarea" autosize required disabled="true"/>
 		</div>
-		<!-- <div class="items2">
-			<div class="my-cell">
-				<div class="flex1">
-					身份证号
-				</div>
-				<div class="flex2">
-					<input type="text" :value="form.idCard">
-				</div>
-			</div>
-		</div>	 -->
-		<!-- <van-field v-model="form.idCard" required clearable label="身份证号" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/> -->
-		<!-- <div class="line" v-if="form.idCardPic">
-			<img class="selectedImg" :src="form.gesturePic"/>
-		</div> -->
 		<div class="placeholderLine10"></div>
 		<div class="sureAppointBtnBox">
 			<div class="tip4model3">

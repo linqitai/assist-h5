@@ -177,47 +177,25 @@
 			<!-- @blur="validate('remark')" -->
 			<van-field v-model="remark" rows="1" autosize type="textarea" required placeholder="请填写驳回原因,以便系统做统计" :error-message="errorInfo.remark"/>
 			<div class="placeholderLine10"></div>
-			<van-radio-group v-model="remark">
-				<van-radio name="所传照片模糊不清，请重新拍照且经过裁剪后再次上传更可观更清晰的图片。(每人有3次实名机会,请咨询上级按要求完成实名认证)">所传照片模糊不清,请重新拍照且经过裁剪后再次上传更可观更清晰的图片</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="注册手机号无法搜索到微信号，请先用该手机号绑定此微信号。(每人有3次实名机会,请咨询上级按要求完成实名认证)">注册手机号无法搜索到微信号,请先用该手机号绑定此微信号</van-radio>
-				<div class="placeholderLine2"></div>
-				<!-- <van-radio name="请先在微信的【我--支付--支付管理】里开启【允许通过手机号向我转账】的功能。(每人有3次实名机会,请咨询上级按要求完成实名认证)">先在微信的【我--支付--支付管理】里开启【允许通过手机号向我转账】的功能</van-radio>
-				<div class="placeholderLine2"></div> -->
-				<!-- <van-radio name="微信号里的姓名和身份证上的不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">微信号里的姓名和身份证上的不一致</van-radio>
-				<div class="placeholderLine2"></div> -->
-				<van-radio name="微信号里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象。(每人有3次实名机会,请咨询上级按要求完成实名认证)">微信号里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="该微信号无法被搜索到，请确认后重新设置微信号。(每人有3次实名机会,请咨询上级按要求完成实名认证)">该微信号无法被搜索到,请确认后重新设置微信号</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="您的支付宝账号未实名。(每人有3次实名机会,请咨询上级按要求完成实名认证)">您的支付宝账号未实名</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="所填写的身份证号和证件照中不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">所填写的身份证号和证件照中不一致</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="您的纸条有P图嫌疑，请换一个稍微带有褶皱的纸条重新提交。(每人只有3次实名机会,请咨询上级按要求完成实名认证)"> 您的纸条有P图嫌疑，请换一个稍微带有褶皱的纸条重新提交</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="小纸条不合格，请按照模板要求来。(每人有3次实名机会,请咨询上级按要求完成实名认证)">小纸条不合格，请按照模板要求来</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="纸条请不要遮住身份证号，这样无法核对，需重新拍照。(每人有3次实名机会,请咨询上级按要求完成实名认证)">纸条请不要遮住身份证号，这样无法核对，需重新拍照</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="纸条上写的手机号和注册手机号不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">纸条上写的手机号和注册手机号不一致</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="身份证里的名字与支付宝实名不一致。(每人有3次实名机会,请咨询上级按要求完成实名认证)">身份证里的名字与支付宝实名不一致</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像。(每人有3次实名机会,请咨询上级按要求完成实名认证)">为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我。(每人有3次实名机会,请咨询上级按要求完成实名认证)">支付宝无法被搜索到，请先去支付宝--我的--隐私里开启通过手机号找到我</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="支付宝里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象。(每人有3次实名机会,请咨询上级按要求完成实名认证)">支付宝里请先上传头像，不然容易给会员感觉是小号，而留下不好印象</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="年龄超出70周岁，若想加入帮扶链，需加客服额外申请。(每人有3次实名机会,请咨询上级按要求完成实名认证)">年龄超出70周岁，若想加入帮扶链，需加客服额外申请</van-radio>
-				<div class="placeholderLine2"></div>
-				<van-radio name="您的认证资料还存在多处问题，请先仔细阅读实名规则后再提交资料。(每人有3次实名机会,请咨询上级按要求完成实名认证)">您的认证资料还存在多处问题，请先仔细阅读实名规则后再提交资料</van-radio>
-			</van-radio-group>
-			<!-- <van-dropdown-menu>
-			  <van-dropdown-item v-model="remark" :options="option1"/>
-			</van-dropdown-menu> -->
-			
+			<!-- <div>{{refuseReason}}</div> -->
+			<van-checkbox-group v-model="refuseReason" @change="checkboxChange" :max="3">
+			  <van-checkbox shape="square" v-for="(item, index) in list" :name="item" ref="checkboxes">{{item}}</van-checkbox>
+			</van-checkbox-group>
+			<!-- <van-checkbox-group v-model="refuseReason" @change="checkboxChange" :max="3">
+			  <van-cell-group>
+			    <van-cell
+			      v-for="(item, index) in list"
+			      clickable
+			      :key="item"
+			      :title="`${item}`"
+			      @click="toggle(index)"
+			    >
+			      <template #right-icon>
+			        <van-checkbox shape="square" :name="item" ref="checkboxes" />
+			      </template>
+			    </van-cell>
+			  </van-cell-group>
+			</van-checkbox-group> -->
 			<div class="placeholderLine10"></div>
 			
 			<van-button size="normal" :block="true" :loading="submitRefuseLoading" @click="submit('refuse')">提 交</van-button>
@@ -247,6 +225,23 @@ import { Toast } from 'vant';
 export default {
 	data() {
 		return {
+			list:[
+				'所传照片模糊不清，请重新拍照且经过裁剪后再次上传更可观更清晰的图片',
+				'注册手机号无法搜索到微信号，请先用该手机号绑定此微信号',
+				'微信号里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象',
+				'支付宝里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象',
+				'该微信号无法被搜索到，请在微信中的[我--设置--账号与安全]里重新设置微信号',
+				'支付宝无法被搜索到，请在支付宝的[我的--设置--隐私]里开启通过手机号找到我',
+				'您的支付宝账号未实名，请先去实名',
+				'所填写的身份证号和证件照中不一致',
+				'身份证里的名字与支付宝实名不一致',
+				'您的纸条有P图嫌疑，请换一个稍微带有褶皱的纸条重新提交',
+				'小纸条不合格，请按照模板要求来',
+				'纸条请不要遮住身份证号，这样无法核对，需重新拍照',
+				'纸条上写的手机号和注册手机号不一致',
+				'为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像',
+				'年龄超出70周岁，若要加入帮扶链，需加客服额外申请',
+				'您的认证资料还存在多处问题，请仔细阅读实名规则后再提交资料'],
 			submitPassLoading:false,
 			submitRefuseLoading:false,
 			showFreezeReasonModel:false,
@@ -260,6 +255,7 @@ export default {
 			titleName:'',
 			label:'---',
 			userInfo:{},
+			refuseReason:[],
 			remark:'',
 			form:{
 				nickName:"",
@@ -350,6 +346,12 @@ export default {
 	methods:{
 		back(){
 			this.$router.go(-1);
+		},
+		checkboxChange(value){
+			this.remark = value.join('；');
+		},
+		toggle(index) {
+		  this.$refs.checkboxes[index].toggle();
 		},
 		checkAssistUserInfoByUserId(){
 			let _this = this;

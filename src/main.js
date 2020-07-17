@@ -9,9 +9,9 @@ import 'babel-polyfill'
 // import './registerServiceWorker';
 import '@/assets/scss/reset.scss';
 import '@/assets/scss/iconfont.scss';
-import { Button,Tabbar,TabbarItem,Slider,Swipe,SwipeItem,Lazyload,NoticeBar,NavBar,Icon,Sticky,Toast,Image,Skeleton,Loading,CellGroup,Cell,Tab,Tabs,Pagination,ActionSheet,Field,PullRefresh,Divider,List,Dialog,Tag,ImagePreview,CountDown,Uploader,Search,DropdownMenu, DropdownItem, Panel,RadioGroup,Radio,Step,Steps,Stepper,Popup,Picker,Row,Col,Grid,GridItem,Circle } from 'vant';
+import { Button,Tabbar,TabbarItem,Slider,Swipe,SwipeItem,Lazyload,NoticeBar,NavBar,Icon,Sticky,Toast,Image,Skeleton,Loading,CellGroup,Cell,Tab,Tabs,Pagination,ActionSheet,Field,PullRefresh,Divider,List,Dialog,Tag,ImagePreview,CountDown,Uploader,Search,DropdownMenu, DropdownItem, Panel,RadioGroup,Radio,Step,Steps,Stepper,Popup,Picker,Row,Col,Grid,GridItem,Circle,Checkbox,CheckboxGroup } from 'vant';
 import 'vant/lib/index.css';
-Vue.use(Button).use(Tabbar).use(TabbarItem).use(Slider).use(Swipe).use(SwipeItem).use(NoticeBar).use(NavBar).use(Icon).use(Sticky).use(Toast).use(Image).use(Skeleton).use(Loading).use(CellGroup).use(Cell).use(Tab).use(Tabs).use(Pagination).use(ActionSheet).use(Field).use(PullRefresh).use(Divider).use(List).use(Dialog).use(Tag).use(ImagePreview).use(CountDown).use(Uploader).use(Search).use(DropdownMenu).use(DropdownItem).use(Panel).use(RadioGroup).use(Radio).use(Step).use(Steps).use(Stepper).use(Popup).use(Picker).use(Row).use(Col).use(Grid).use(GridItem).use(Circle);
+Vue.use(Button).use(Tabbar).use(TabbarItem).use(Slider).use(Swipe).use(SwipeItem).use(NoticeBar).use(NavBar).use(Icon).use(Sticky).use(Toast).use(Image).use(Skeleton).use(Loading).use(CellGroup).use(Cell).use(Tab).use(Tabs).use(Pagination).use(ActionSheet).use(Field).use(PullRefresh).use(Divider).use(List).use(Dialog).use(Tag).use(ImagePreview).use(CountDown).use(Checkbox).use(CheckboxGroup).use(Uploader).use(Search).use(DropdownMenu).use(DropdownItem).use(Panel).use(RadioGroup).use(Radio).use(Step).use(Steps).use(Stepper).use(Popup).use(Picker).use(Row).use(Col).use(Grid).use(GridItem).use(Circle);
 Vue.use(Lazyload, {
   lazyComponent: true
 });

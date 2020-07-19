@@ -68,7 +68,17 @@
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 					<van-tab title="团队算力" name="calculation">
-						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
+						<!-- <van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
+							<div class="list">
+								<div class="item" v-for="item in list2" :key="item.id">
+									<div class="flex">
+										<div class="line">{{item.createTime}}</div>
+										<div class="line margT6">{{item.type | calculationType}}后拥有算力 {{item.currentCalculationNum}}</div>
+									</div>
+									<div class="flexRight">{{item.addOrReduce}} {{item.calculation}}</div>
+								</div>
+							</div>
+						</van-list> -->
 						<div class="list">
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="flex">
@@ -78,37 +88,58 @@
 								<div class="flexRight">{{item.addOrReduce}} {{item.calculation}}</div>
 							</div>
 						</div>
-						</van-list>
+						<van-button @click="loadingMore2Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading2" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 					<van-tab title="帮扶券" name="ticket">
-						<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
+						<!-- <van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 						<div class="list">
 							<div class="item" v-for="item in list4" :key="item.id">
 								<div class="flex">
 									<div class="line">{{item.createTime}}</div>
-									<div class="line margT6"><i :class="item.type==12?'mainAdornColor':''">{{item.type | platformBookType}}</i><i class="mainAdornColor" v-if="item.type==7">给{{item.toUserName}}</i>后剩余 {{item.currentTicketNum}}</div>
+									
+									<div class="line margT6"><i :class="item.type==12?'mainAdornColor':''">{{item.type | platformBookType}}</i><i class="mainAdornColor" v-if="item.type==7">给{{item.toUserName}}</i>后拥有券 {{item.currentTicketNum}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.platformTicket}}</div>
 							</div>
 						</div>
-						</van-list>
+						</van-list> -->
+						<div class="list">
+							<div class="item" v-for="item in list4" :key="item.id">
+								<div class="flex">
+									<div class="line">{{item.createTime}}</div>
+									<!-- <div class="line margT6">从<i class="mainAdornColor">{{item.fromUserName}}</i>到<i class="mainAdornColor">{{item.toUserName}}</i></div> -->
+									<div class="line margT6"><i :class="item.type==12?'mainAdornColor':''">{{item.type | platformBookType}}</i><i class="mainAdornColor" v-if="item.type==7">给{{item.toUserName}}</i>后拥有券 {{item.currentTicketNum}}</div>
+								</div>
+								<div class="flexRight">{{item.addOrReduce}} {{item.platformTicket}}</div>
+							</div>
+						</div>
+						<van-button @click="loadingMore4Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading4" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 					<van-tab title="贡献值" name="contribution">
-						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
+						<!-- <van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
+							<div class="list">
+								<div class="item" v-for="item in list3" :key="item.id">
+									<div class="flex">
+										<div class="line">{{item.createTime}}</div>
+										<div class="line margT6" :class="item.type==20?'red':item.type==15?'red2':item.type==22?'green':''">{{item.type | contributeType}}后拥有贡献值 {{item.currentContributionValue}}</div>
+									</div>
+									<div class="flexRight">{{item.addOrReduce}} {{item.contributionValue}}</div>
+								</div>
+							</div>
+						</van-list> -->
 						<div class="list">
 							<div class="item" v-for="item in list3" :key="item.id">
 								<div class="flex">
 									<div class="line">{{item.createTime}}</div>
-									<!-- <div class="line margT6">{{item.type | contributeType}}后拥有贡献值 {{item.currentContributionValue}}</div> -->
 									<div class="line margT6" :class="item.type==20?'red':item.type==15?'red2':item.type==22?'green':''">{{item.type | contributeType}}后拥有贡献值 {{item.currentContributionValue}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.contributionValue}}</div>
 							</div>
 						</div>
-						</van-list>
+						<van-button @click="loadingMore3Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading3" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 					<van-tab title="矿石" name="mineral">
-						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
+						<!-- <van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list">
 							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="flex">
@@ -119,10 +150,21 @@
 								<div class="flexRight">{{item.addOrReduce}} {{item.number}}</div>
 							</div>
 						</div>
-						</van-list>
+						</van-list> -->
+						<div class="list">
+							<div class="item" v-for="item in list1" :key="item.id">
+								<div class="flex">
+									<div class="line">{{item.createTime}}</div>
+									<div class="line margT6" v-if="item.type==2||item.type==3">从<i class="mainAdornColor">{{item.fromUserName}}</i>到<i class="mainAdornColor">{{item.toUserName}}</i></div>
+									<div class="line margT6">{{item.type | mineralBookType}}后拥有矿石数 {{item.currentMineralNum}}</div>
+								</div>
+								<div class="flexRight">{{item.addOrReduce}} {{item.number}}</div>
+							</div>
+						</div>
+						<van-button @click="loadingMore1Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading1" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 					<van-tab title="爱心值" name="loveValue">
-						<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
+						<!-- <van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
 						<div class="list">
 							<div class="item" v-for="item in list5" :key="item.id">
 								<div class="flex">
@@ -132,7 +174,17 @@
 								<div class="flexRight">{{item.addOrReduce}} {{item.num}}</div>
 							</div>
 						</div>
-						</van-list>
+						</van-list> -->
+						<div class="list">
+							<div class="item" v-for="item in list5" :key="item.id">
+								<div class="flex">
+									<div class="line">{{item.createTime}}</div>
+									<div class="line margT6"><i :class="item.type==0?'red':item.type==1?'green':item.type==2?'blue':item.type==3?'yellow':''">{{item.type | loveValueBookType}}</i>后拥有爱心值 {{item.currentNum}}</div>
+								</div>
+								<div class="flexRight">{{item.addOrReduce}} {{item.num}}</div>
+							</div>
+						</div>
+						<van-button @click="loadingMore5Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading5" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 				</van-tabs>
 			</van-pull-refresh>
@@ -156,7 +208,12 @@
 				currentPage3: 1,
 				currentPage4: 1,
 				currentPage5: 1,
-				pageSize:20,
+				offset1:0,
+				offset2:0,
+				offset3:0,
+				offset4:0,
+				offset5:0,
+				pageSize:10,
 				activeName:'mineral',
 				loading1:false,
 				finished1:false,
@@ -173,6 +230,11 @@
 				list3:[],
 				list4:[],
 				list5:[],
+				loadingMore1:false,
+				loadingMore2:false,
+				loadingMore3:false,
+				loadingMore4:false,
+				loadingMore5:false,
 				list:[{
 					id:0,
 					createTime:'2019-12-12 12:12:12',
@@ -204,6 +266,7 @@
 				_this.activeName = "mineral";
 			}
 			_this.userId = _this.$route.query.lookUserId;
+			_this.refreshEvent();
 		},
 		methods: {
 			back(){
@@ -220,27 +283,32 @@
 				if(_this.activeName == 'mineral'){
 					console.log("refresh1");
 					_this.currentPage1 = 1;
+					_this.offset1=0;
 					_this.list1 = [];
 					_this.finished1 = false;
 					_this.onLoad1();
 				}else if(_this.activeName == 'calculation'){
 					console.log("refresh2");
 					_this.currentPage2 = 1;
+					_this.offset2=0;
 					_this.list2 = [];
 					_this.finished2 = false;
 					_this.onLoad2();
 				}else if(_this.activeName == 'contribution'){
 					_this.currentPage3 = 1;
+					_this.offset3=0;
 					_this.list3 = [];
 					_this.finished3 = false;
 					_this.onLoad3();
 				}else if(_this.activeName == 'ticket'){
 					_this.currentPage4 = 1;
+					_this.offset4=0;
 					_this.list4 = [];
 					_this.finished4 = false;
 					_this.onLoad4();
 				}else if(_this.activeName == 'loveValue'){
 					_this.currentPage5 = 1;
+					_this.offset5=0;
 					_this.list5 = [];
 					_this.finished5 = false;
 					_this.onLoad5();
@@ -249,12 +317,33 @@
 			tabChange(name, title) {
 				let _this = this;
 				// console.log('name', name)
-				// _this.activeName = name;
-				this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
+				_this.activeName = name;
+				this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime);
+				_this.refreshEvent();
+			},
+			loadingMore1Btn(){
+				let _this = this;
+				_this.onLoad1();
+			},
+			loadingMore2Btn(){
+				let _this = this;
+				_this.onLoad2();
+			},
+			loadingMore3Btn(){
+				let _this = this;
+				_this.onLoad3();
+			},
+			loadingMore4Btn(){
+				let _this = this;
+				_this.onLoad4();
+			},
+			loadingMore5Btn(){
+				let _this = this;
+				_this.onLoad5();
 			},
 			onLoad1(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -262,45 +351,34 @@
 					  // on close
 					});
 					return;
-				}
+				} */
 				let params = {
-					pageNo: _this.currentPage1,
-					pageSize: _this.pageSize,
-					userId: _this.userId
+					userId: _this.userId,
+					offset: _this.offset1,
+					pagesize: _this.pageSize,
 				}
-				//console.log('onLoad1');
 				_this.loading1 = true;
-				_this.$ajax.ajax(_this.$api.getMineralBookList, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getMineralBookListByUserId, 'GET', params, function(res) {
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data.list;
-						_this.list1.push(...list);
-						_this.loading1 = false;
-						if(res.data.endRow == res.data.total){
+						let list = res.data;
+						if(list.length==0){
 							_this.finished1 = true;
-						}else{
-							_this.currentPage1 = _this.currentPage1 + 1;
+							_this.$toast("已经到底了");
 						}
+						_this.list1.push(...list);
+						_this.offset1 = _this.offset1 + _this.pageSize;
 					}else{
-						_this.loading1 = false;
 						_this.finished1 = true;
 						_this.$toast(res.message);
 					}
 				},function(){
-					//_this.loading = false;
 					_this.loading1 = false;
-					//_this.finished1 = true;
 				})
-				// 异步更新数据
-				// setTimeout(() => {
-				// 	// 加载状态结束
-				// 	_this.loading1 = false;
-				// 	_this.finished1 = true;
-				// }, 500);
 			},
 			onLoad2(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -308,50 +386,41 @@
 					  // on close
 					});
 					return;
-				}
+				} */
 				// 异步更新数据
 				let params = {
-					pageNo: _this.currentPage2,
-					pageSize: _this.pageSize,
-					userId: _this.userId
+					userId: _this.userId,
+					offset: _this.offset2,
+					pagesize: _this.pageSize,
 				}
 				_this.loading2 = true;
-				_this.$ajax.ajax(_this.$api.getCalculationPowerPageList, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getCPowerListByUserId, 'GET', params, function(res) {
 					// // console.log('res', res);
-					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
-						// // console.log('_this.list1',_this.list1);
-						// // console.log('res.data.list',res.data.list)
-						let list = res.data.list;
-						_this.list2.push(...list);
-						_this.loading2 = false;
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
-						if(res.data.endRow == res.data.total){
+						let list = res.data;
+						if(list.length==0){
 							_this.finished2 = true;
-							// console.log('res.data.endRow == res.data.total');
+							_this.$toast("已经到底了");
+						}
+						_this.list2.push(...list);
+						_this.offset2 = _this.offset2 + _this.pageSize;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished2 = true;
 						}else{
 							_this.currentPage2 = _this.currentPage2 + 1;
-						}
-						// // console.log('_this.list1',_this.list1);
+						} */
 					}else{
 						_this.loading2 = false;
 						_this.finished2 = true;
 						_this.$toast(res.message);
 					}
 				},function(){
-					//_this.loading = false;
 					_this.loading2 = false;
-					//_this.finished2 = true;
 				})
-				// setTimeout(() => {
-				// 	// 加载状态结束
-				// 	_this.loading2 = false;
-				// 	_this.finished2 = true;
-				// }, 500);
 			},
 			onLoad3(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -359,45 +428,38 @@
 					  // on close
 					});
 					return;
-				}
+				} */
 				let params = {
-					pageNo: _this.currentPage3,
-					pageSize: _this.pageSize,
-					userId: _this.userId
+					userId: _this.userId,
+					offset: _this.offset3,
+					pagesize: _this.pageSize,
 				}
 				_this.loading3 = true;
-				_this.$ajax.ajax(_this.$api.getAssistContributionValueList, 'GET', params, function(res) {
-					_this.loading = false;
+				_this.$ajax.ajax(_this.$api.getCValueListByUserId, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data.list;
+						let list = res.data;
+						if(list.length==0){
+							_this.finished3 = true;
+							_this.$toast("已经到底了");
+						}
 						_this.list3.push(...list);
-						_this.loading3 = false;
-						if(res.data.endRow == res.data.total){
+						_this.offset3 = _this.offset3 + _this.pageSize;
+						/* if(res.data.endRow == res.data.total){
 							_this.finished3 = true;
 						}else{
 							_this.currentPage3 = _this.currentPage3 + 1;
-						}
+						} */
 					}else{
-						_this.loading3 = false;
 						_this.finished3 = true;
 						_this.$toast(res.message);
 					}
 				},function(){
-					//_this.loading = false;
 					_this.loading3 = false;
-					//_this.finished3 = true;
 				})
-				// 异步更新数据
-				// setTimeout(() => {
-				// 	// 加载状态结束
-				// 	_this.loading3 = false;
-				// 	_this.finished3 = true;
-				// }, 500);
-				
 			},
 			onLoad4(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -405,44 +467,38 @@
 					  // on close
 					});
 					return;
-				}
+				} */
 				let params = {
-					pageNo: _this.currentPage4,
-					pageSize: _this.pageSize,
-					userId: _this.userId
+					userId: _this.userId,
+					offset: _this.offset4,
+					pagesize: _this.pageSize,
 				}
 				_this.loading4 = true;
-				_this.$ajax.ajax(_this.$api.getAssistPlateformTicketAccountBookList, 'GET', params, function(res) {
-					// // console.log('res', res);
-					_this.loading = false;
+				_this.$ajax.ajax(_this.$api.getPTicketBookListByUserId, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						// // console.log('_this.list1',_this.list1);
-						// // console.log('res.data.list',res.data.list)
-						let list = res.data.list;
-						_this.list4.push(...list);
-						_this.loading4 = false;
-						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
-						if(res.data.endRow == res.data.total){
+						let list = res.data;
+						if(list.length==0){
 							_this.finished4 = true;
-							// console.log('res.data.endRow == res.data.total');
+							_this.$toast("已经到底了");
+						}
+						_this.list4.push(...list);
+						_this.offset4 = _this.offset4 + _this.pageSize;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished4 = true;
 						}else{
 							_this.currentPage4 = _this.currentPage4 + 1;
-						}
-						// // console.log('_this.list1',_this.list1);
+						} */
 					}else{
-						_this.loading4 = false;
 						_this.finished4 = true;
 						_this.$toast(res.message);
 					}
 				},function(){
-					//_this.loading = false;
 					_this.loading4 = false;
-					//_this.finished4 = true;
 				})
 			},
 			onLoad5(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -450,7 +506,7 @@
 					  // on close
 					});
 					return;
-				}
+				} */
 				let params = {
 					pageNo: _this.currentPage5,
 					pageSize: _this.pageSize,
@@ -458,7 +514,6 @@
 				}
 				_this.loading5 = true;
 				_this.$ajax.ajax(_this.$api.getAssistLoveValueList, 'GET', params, function(res) {
-					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list5.push(...list);
@@ -475,7 +530,6 @@
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.loading = false;
 					_this.loading5 = false;
 				})
 			},

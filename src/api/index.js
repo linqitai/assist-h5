@@ -1,12 +1,6 @@
-// export const host = 'http://192.168.100.6:8001';//阿广电脑
-// export const host = '/web/assist';//阿广电脑
-export const hostImg = 'http://192.168.100.3:8088'; //阿广电脑
-// http://192.168.100.3:8001/admin/user/getAdminUserPageList
+export const hostImg = 'http://192.168.100.3:8088';
 const host = '/bflApp/'
-// const domainName = 'https://www.helpchain.online';
-// const hostIPPort = 'https://www.helpchain.online';
 const domainName = 'https://www.assist-china.co.ax';
-/* const domainName = 'https://www.assist-china.com.cn'; */
 const hostIPPort = 'http://localhost:8086';
 
 export default {
@@ -99,6 +93,7 @@ export default {
 	getActivityCompleteInfo: host + "assist/userInfo/getActivityCompleteInfo",
 	getAssistUserInfoList4RealName: host + "assist/userInfo/getAssistUserInfoList4RealName",
 	get24BuyTimes2Service: host + "assist/userInfo/get24BuyTimes2Service",
+	transferMineral: host + "assist/userInfo/transferMineral",
 	transferCV: host + "assist/userInfo/transferCV",
 	cancelAccount: host + "assist/userInfo/cancelAccount",
 	getUserIdByObj: host + "assist/userInfo/getUserIdByObj",
@@ -152,12 +147,14 @@ export default {
 	getMyActivityMachineNum: host + "assist/myMachine/getMyActivityMachineNum",
 	let48HMachinesStop: host + "assist/myMachine/let48HMachinesStop",
 	getAssistOtherMachine: host + "assist/myMachine/getAssistOtherMachine",
-	//算力账本列表
+	//账本
+	getPTicketBookListByUserId: host + "assist/plateformTicketAccountBook/getPTicketBookListByUserId",
+	getCPowerListByUserId: host + "assist/calculationPower/getCPowerListByUserId",
 	getCalculationPowerPageList: host + "assist/calculationPower/getCalculationPowerPageList",
+	getCValueListByUserId: host + "assist/contributionValue/getCValueListByUserId",
 	//矿石账本列表
 	getMineralBookList: host + "assist/mineralBook/getMineralBookList",
 	getMineralBookListByUserId: host + "assist/mineralBook/getMineralBookListByUserId",
-	transferMineral: host + "assist/userInfo/transferMineral",
 	getMineralBookList4SellType: host + "assist/mineralBook/getMineralBookList4SellType",
 	getMineralBookList4Type: host + "assist/mineralBook/getMineralBookList4Type",
 	//平台券账本

@@ -117,12 +117,12 @@
 <template>
 	<div class="register">
 		<div class="logoBox">
-			<!-- <van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
+			<van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
 			  <van-swipe-item v-for="(image, index) in images" :key="index">
 				<img v-lazy="image" />
 			  </van-swipe-item>
-			</van-swipe> -->
-			<img src="https://www.assist-china.co.ax/image/banner/banner0058.jpg" alt="">
+			</van-swipe>
+			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0058.jpg" alt=""> -->
 			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0055.jpg" alt=""> -->
 		</div>
 		<div class="formHeader">
@@ -192,14 +192,9 @@
 	export default {
 		data() {
 			return {
-				/* images: [
-					'https://www.assist-china.co.ax/image/banner/banner0058.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0055.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0057.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0059.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0060.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0062.jpg'
-				], */
+				images: [
+					this.$api.domainName + '/image/banner/banner0058.jpg'
+				],
 				getSCLoading:false,
 				interval:180,
 				time:180,

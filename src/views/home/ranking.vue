@@ -262,7 +262,7 @@
 						</van-list>
 					</van-tab>
 					
-					<van-tab title="被告次数" name="ranking7">
+					<van-tab title="留言频率" name="ranking7">
 						<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
 							<div class="list" v-for="(item,index) in list7" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
 								<div class="item">

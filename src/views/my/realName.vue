@@ -249,7 +249,7 @@
 		</div>
 		<div class="line" v-if="!form.idCardPic">
 			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
-			<img style="width: 100%;" src="https://www.assist-china.co.ax/image/idt.jpg">
+			<img style="width: 100%;" :src="$api.domainName + '/image/idt.jpg'">
 		</div>
 		<div class="line">
 			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
@@ -286,7 +286,7 @@
 	  confirmButtonText="OK"
 	>
 		<div class="placeholderLine10"></div>
-		<img style="width: 100%;" src="https://www.assist-china.co.ax/image/ids.jpg">
+		<img style="width: 100%;" :src="$api.domainName + '/image/ids.jpg'">
 	</van-dialog>
 	<!-- <van-dialog
 	  v-model="showIdCardPicExmple2"

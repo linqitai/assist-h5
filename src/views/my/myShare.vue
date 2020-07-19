@@ -230,7 +230,7 @@
 		<div class="poster" id="tree-containner">
 			<div class="posterBG" id="tree" ref="tree">
 				<div class="borderGlobal"></div>
-				<!-- <img class="logo" src="https://www.helpchain.online/image/LOGO_tran.png"> -->
+				<!-- <img class="logo" src="https://www.assist-china.co.ax/image/LOGO_tran.png"> -->
 				<!-- <div class="box1"></div> -->
 				<!-- <div class="box2"></div>
 				<div class="box3"></div>
@@ -239,9 +239,9 @@
 					<img src="../../assets/image/poster/PostText1.png">
 				</div> -->
 				<!-- <img class="registerCode" src="../../assets/image/code.png"> -->
-				<img class="helpPic" src="https://www.helpchain.online/image/banner/banner0058.jpg">
+				<img class="helpPic" :src="$api.domainName + '/image/banner/banner0058.jpg'">
 				<!-- <div class="titleWord">真情感动世界 帮扶成就你我</div> -->
-				<!-- <img class="helpPic" src="https://www.helpchain.online/image/banner/banner0057.jpg"> -->
+				<!-- <img class="helpPic" src="https://www.assist-china.co.ax/image/banner/banner0057.jpg"> -->
 				<div class="registerCode" id="qrcode" ref="qrcode"></div>
 				<div class="registerCodeText">扫码注册</div>
 				<div class="registerCodeText2">我为帮扶链代言：{{userInfo.nickName}}</div>

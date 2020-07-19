@@ -709,16 +709,16 @@ $noticeHeight:40px;
 				currentPage:1,
 				pageSize:3,
 				images: [
-					'https://www.assist-china.co.ax/image/banner/banner0055.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0057.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0059.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0060.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0062.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0063.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0064.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner001.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner002.jpg',
-					'https://www.assist-china.co.ax/image/banner/banner0061.jpg'
+					this.$api.domainName + '/image/banner/banner0055.jpg',
+					this.$api.domainName + '/image/banner/banner0057.jpg',
+					this.$api.domainName + '/image/banner/banner0059.jpg',
+					this.$api.domainName + '/image/banner/banner0060.jpg',
+					this.$api.domainName + '/image/banner/banner0062.jpg',
+					this.$api.domainName + '/image/banner/banner0063.jpg',
+					this.$api.domainName + '/image/banner/banner0064.jpg',
+					this.$api.domainName + '/image/banner/banner001.jpg',
+					this.$api.domainName + '/image/banner/banner002.jpg',
+					this.$api.domainName + '/image/banner/banner0061.jpg'
 				],
 				mill: {
 					zl: "",
@@ -1026,7 +1026,7 @@ $noticeHeight:40px;
 			toRanking4Level(){
 				let _this = this;
 				//console.log('_this.$api.tip4Rest',_this.$api.tip4Rest);
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -1034,13 +1034,13 @@ $noticeHeight:40px;
 					  // on close
 					});
 					return;
-				}
+				} */
 				_this.$router.push('/ranking4Level');
 			},
 			toRanking(){
 				let _this = this;
 				//console.log('_this.$api.tip4Rest',_this.$api.tip4Rest);
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -1048,7 +1048,7 @@ $noticeHeight:40px;
 					  // on close
 					});
 					return;
-				}
+				} */
 				_this.$router.push('/ranking');
 			},
 			attendanceBtn(){

@@ -21,6 +21,7 @@
 			position: absolute;
 			top:0;
 			width: 100%;
+			background-color: $main-box-fh-bg-color;
 			.van-list__finished-text{
 				color: inherit !important;
 			}
@@ -481,11 +482,11 @@
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data){
 							_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
-							_this.$toast(`此次领取收益为${res.data}个矿石`);
+							//_this.$toast(`此次领取收益为${res.data}个矿石`);
 							_this.onLoadMyMill();
 							_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
 							_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime)
-							_this.$router.push('/myBook');
+							//_this.$router.push('/myBook');
 						}else{
 							_this.mineralNumTip = `未到领取收益的时间`;
 						}

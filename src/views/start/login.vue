@@ -168,7 +168,7 @@
 		data() {
 			return {
 				images: [
-					'https://www.assist-china.co.ax/image/banner/banner0058.jpg'
+					this.$api.domainName + '/image/banner/banner0058.jpg'
 				],
 				welcomeText:"",
 				isNo:false,

@@ -146,7 +146,7 @@
 				loading1:false,
 				finished1:false,
 				currentPage1:1,
-				pageSize:10,
+				pageSize:3,
 				checkCount:0,
 			}
 		},
@@ -169,7 +169,7 @@
 				_this.$router.replace('login');
 				return;
 			}
-			_this.getCount4Check();
+			//_this.getCount4Check();
 		},
 		methods: {
 			back(){
@@ -259,7 +259,7 @@
 					pageSize:_this.pageSize,
 					mobilePhone: _this.searchValue
 				}
-				if(_this.$utils.getTimeHMS(new Date())>'20:00:00'&&_this.$utils.getTimeHMS(new Date())<'23:00:00'){
+				/* if(_this.$utils.getTimeHMS(new Date())>'20:00:00'&&_this.$utils.getTimeHMS(new Date())<'23:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '系统休息中，请明天再来'
@@ -267,7 +267,7 @@
 					  // on close
 					});
 					return;
-				}
+				} */
 				/* if((!_this.$utils.isNUll(params.mobilePhone))&&_this.$reg.phone.test(params.mobilePhone)){
 					
 				}else{
@@ -280,6 +280,7 @@
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
+						_this.checkCount = res.data.total;
 						_this.list1 = list;
 						_this.loading1 = false;
 						_this.finished1 = true;

@@ -190,7 +190,7 @@
 				【3】平台为保证交易的顺利进行，<b class="red">【真实姓名要和支付宝、微信中的实名信息一致，且支付宝和微信都要设置照片头像】</b>，交易的时候若遇到实名信息不一致的问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
 				【4】请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。<br>
 				<!-- 【5】请矿工们预先在微信的【我--设置--账号与安全】中绑定手机号，该手机号务必是注册帮扶链的手机号。否则交易的时候买家若无法通过手机号向你转账的，客服介入调查属实后会取消交易。<br> -->
-				<span class="red">【5】微信号默认为注册手机号，您的微信若没绑定该手机号，请先在微信的【我--设置--账号与安全】中绑定；若没绑定，实名审核很可能不会通过。</span><br>
+				<span class="red">【5】微信号默认为注册手机号，您的微信若没绑定该手机号，请先在微信的【我--设置--账号与安全】中绑定，且在[设置--隐私--添加我的方式]里打开用手机号搜索到我的功能；若没绑定或搜索不到，实名审核不会通过。</span><br>
 				【6】矿工点对点交易，所有资金不经过平台，无私募、无认筹、无充值提现端口。<br>
 			</div>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
@@ -464,11 +464,11 @@ export default {
 			let files = e.target.files || e.dataTransfer.files;
 			if (!files.length) return;
 			//console.log("pic_size(MB)", files[0].size / 1024 / 1024);
-			if (files[0].size / 1024 / 1024 > 3) {
+			if (files[0].size / 1024 / 1024 > 2) {
 			   // _this.$toast('上传图片大小不能超过 3MB');
 			   Dialog.alert({
 			     title: '系统提示',
-			     message: '上传图片大小不能超过 3MB，请先在相册里的照片编辑中进行裁剪处理'
+			     message: '上传图片大小不能超过 2MB，请先在相册里的照片编辑中进行裁剪处理'
 			   }).then(() => {
 			     // on close
 			   });
@@ -536,11 +536,11 @@ export default {
 			let files = e.target.files || e.dataTransfer.files;
 			if (!files.length) return;
 			//console.log("pic_size(MB)", files[0].size / 1024 / 1024);
-			if (files[0].size / 1024 / 1024 > 3) {
+			if (files[0].size / 1024 / 1024 > 2) {
 			   // _this.$toast('上传图片大小不能超过 8MB');
 			   Dialog.alert({
 			     title: '系统提示',
-			     message: '上传图片大小不能超过 3MB，请先在相册里的照片编辑中进行裁剪处理'
+			     message: '上传图片大小不能超过 2MB，请先在相册里的照片编辑中进行裁剪处理'
 			   }).then(() => {
 			     // on close
 			   });
@@ -618,7 +618,7 @@ export default {
 					//console.log('********未压缩前的图片大小(KB)********');
 					//console.log(dataOri.length / 1024);
 					img.onload = function() {
-						let data = _this.$utils.compress(img, 0.6);//调整压缩比例
+						let data = _this.$utils.compress(img, 0.2);//调整压缩比例
 						_this.pic2 = data;
 					}
 				}

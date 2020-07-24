@@ -210,13 +210,12 @@
 		</div>
 		<div class="placeholderLine10"></div>
 	</van-dialog>
+	<m-refresh @refreshEvent="refreshEvent"></m-refresh>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-// import { getTestUser,ERR_OK } from "@/api/index";
+import mRefresh from '@/components/Refresh.vue';
 import mHeader from '@/components/Header.vue';
 import clip from '@/assets/js/clipboard';
 import { Dialog } from 'vant';
@@ -227,10 +226,9 @@ export default {
 		return {
 			list:[
 				'所传照片模糊不清，请重新拍照且经过裁剪后再次上传更可观更清晰的图片',
-				'注册手机号无法搜索到微信号，请先用该手机号绑定此微信号',
 				'微信号里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象',
+				'注册手机号无法搜索到微信，请在微信中的[我--设置--账号与安全]里检查是否绑定了该手机号，且在[设置--隐私--添加我的方式]里打开用手机号搜索到我的功能',
 				'支付宝里请先上传头像照片，不然容易给会员感觉是小号，而留下不好印象',
-				'该微信号无法被搜索到，请在微信中的[我--设置--账号与安全]里重新设置微信号',
 				'支付宝无法被搜索到，请在支付宝的[我的--设置--隐私]里开启通过手机号找到我',
 				'您的支付宝账号未实名，请先去实名',
 				'所填写的身份证号和证件照中不一致',
@@ -329,7 +327,7 @@ export default {
 		}
 	},  
 	components:{
-	    mHeader
+	    mHeader,mRefresh
 	},
 	mounted(){
 		let _this = this;
@@ -347,6 +345,11 @@ export default {
 	methods:{
 		back(){
 			this.$router.go(-1);
+		},
+		refreshEvent() {
+			console.log("refresh")
+			let _this = this;
+			_this.getAssistUserInfoPicByUserId();
 		},
 		checkboxChange(value){
 			this.remark = value.join('；');
@@ -376,14 +379,20 @@ export default {
 		},
 		getAssistUserInfoPicByUserId(){
 			let _this = this;
+			const toast = Toast.loading({
+			  forbidClick: true,
+			  message: '加载中...',
+			});
 			_this.$ajax.ajax4GetCheckDetail(_this.$api.getAssistUserInfo4CheckDetail + _this.userId, 'GET', null, function(res){
 				if(res.code == _this.$api.CODE_OK){
 					// _this.form.idCardPic = res.data.idCardPic;
 					// _this.form.gesturePic = res.data.gesturePic;
 					_this.form = res.data;
-					_this.checkAssistUserInfoByUserId();
+					//_this.checkAssistUserInfoByUserId();
 					//console.log("form",_this.form);
 				}
+			},function(){
+				Toast.clear();
 			})
 		},
 		showTip(){

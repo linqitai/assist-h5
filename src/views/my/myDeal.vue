@@ -529,7 +529,7 @@
 			<div class="detailBox" v-if="showSellerDetailLoading==false&&detail4sellerInfo">
 				<div class="tip4model3RedText">
 					1.交易默认收款方式为支付宝，若用微信或银行卡转账，请买家预先和卖家沟通并说明原因后再转。<br>
-					2.平台为保证交易的顺利进行，卖方的真实姓名若与收款账户里的不一致将冻结账号处理，交易的时候买方若遇到此问题欢迎向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
+					2.平台为保证交易的顺利进行，卖方的真实姓名若与收款账户里的不一致将冻结账号处理，交易的时候买方若遇到此问题请不要付款，务必第一时间向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
 				</div>
 				<div class="line" v-if="detail4sellerInfo.id">
 					<span class="label">订单编号</span>
@@ -544,12 +544,12 @@
 					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.mobilePhone,$event)">复制</span>{{detail4sellerInfo.mobilePhone}}</div>
 				</div>
 				<div class="line">
-					<div class="label">卖方支付宝</div>
-					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.alipayNum,$event)">复制</span>{{detail4sellerInfo.alipayNum}}</div>
-				</div>
-				<div class="line">
 					<div class="label">卖方微信号</div>
 					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.wechartNum,$event)">复制</span>{{detail4sellerInfo.wechartNum}}</div>
+				</div>
+				<div class="line red">
+					<div class="label red">卖方支付宝</div>
+					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.alipayNum,$event)">复制</span><span class="red">{{detail4sellerInfo.alipayNum}}</span></div>
 				</div>
 				<div class="line" v-if="detail4sellerInfo.bankCard">
 					<div class="label">卖方银行卡</div>
@@ -1379,37 +1379,50 @@
 				let _this = this;
 				_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 				// 异步更新数据
-				/* let params = {
-					userId: _this.userId
-				} */
-				_this.$ajax.ajax(_this.$api.getAssistTransactionList4ComplateByUserId, 'GET', null, function(res) {
-					// ////console.log('res', res);
+				let params = {
+					pageNo: _this.currentPage3,
+					pageSize:_this.pageSize
+				}
+				_this.loading3 = true;
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4ComplateByUserId, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						// let list = res.data.list;
-						_this.list3 = res.data;
-						_this.loading3 = false;
-						_this.finished3 = true;
+						let list = res.data.list;
+						_this.list3.push(...list);
+						if(res.data.endRow == res.data.total){
+							_this.finished3 = true;
+						}else{
+							_this.currentPage3 = _this.currentPage3 + 1;
+						}
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading3 = false;
 					_this.loading = false;
 				})
 			},
 			onLoad5(){
-				////console.log('load5')
 				let _this = this;
-				// 异步更新数据
-				/* let params = {
-					userId: _this.userId
-				} */
-				_this.$ajax.ajax(_this.$api.getAssistTransactionList4CancelByUserId, 'GET', null, function(res) {
+				let params = {
+					pageNo: _this.currentPage5,
+					pageSize:_this.pageSize
+				}
+				_this.loading5 = true;
+				_this.$ajax.ajax(_this.$api.getAssistTransactionList4CancelByUserId, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						_this.list5 = res.data;
-						_this.loading5 = false;
-						_this.finished5 = true;
+						let list = res.data.list;
+						_this.list5.push(...list);
+						if(res.data.endRow == res.data.total){
+							_this.finished5 = true;
+						}else{
+							_this.currentPage5 = _this.currentPage5 + 1;
+						}
 					}else{
 						_this.$toast(res.message);
 					}
+					_this.loading = false;
+				},function(){
+					_this.loading5 = false;
 					_this.loading = false;
 				})
 			},
@@ -1647,14 +1660,19 @@
 				let _this = this;
 				_this.loading = true;
 				if(_this.activeName == "buy"){
+					_this.currentPage1 = 1;
 					_this.onLoad1();
 				}else if(_this.activeName == "pay"){
+					_this.currentPage2 = 1;
 					_this.onLoad2();
 				}else if(_this.activeName == "get"){
+					_this.currentPage4 = 1;
 					_this.onLoad4();
 				}else if(_this.activeName == "complated"){
+					_this.currentPage3 = 1;
 					_this.onLoad3();
 				}else if(_this.activeName == "canceled"){
+					_this.currentPage5 = 1;
 					_this.onLoad5();
 				}
 			},
@@ -1933,7 +1951,7 @@
 				Dialog.confirm({
 				  title: '提示信息',
 				  confirmButtonText:'确定',
-				  message: '请先去支付宝或微信确认是否收到款，您确定没收到款？'
+				  message: '请先去确认是否收到款，您确定没收到款？'
 				}).then(() => {
 				  // on confirm
 				  ////console.log('sure');
@@ -1975,7 +1993,7 @@
 				// _this.showBuyDetailModel = false;
 				Dialog.confirm({
 				  title: '提示信息',
-				  message: '请先查看您的支付宝或微信，确认已经收到款后再放矿石！',
+				  message: '请先查看您的收款账户，确认已经收到款后再放矿石！',
 				  cancelButtonText:'先去查看',
 				  confirmButtonText:'确认已收到'
 				}).then(() => {

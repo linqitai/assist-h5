@@ -716,6 +716,7 @@ $noticeHeight:40px;
 					this.$api.domainName + '/image/banner/banner0062.jpg',
 					this.$api.domainName + '/image/banner/banner0063.jpg',
 					this.$api.domainName + '/image/banner/banner0064.jpg',
+					this.$api.domainName + '/image/banner/banner0065.jpg',
 					this.$api.domainName + '/image/banner/banner001.jpg',
 					this.$api.domainName + '/image/banner/banner002.jpg',
 					this.$api.domainName + '/image/banner/banner0061.jpg'

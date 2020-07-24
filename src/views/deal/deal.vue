@@ -705,7 +705,7 @@ export default {
 				let addValue = (val/100);
 				//console.log("addValue = " + addValue);
 				//_this.form4BuyBill.price = 13.0;
-				_this.form4BuyBill.price = ((currentPlatPrice)*1.2 + addValue).toFixed(2);
+				_this.form4BuyBill.price = ((currentPlatPrice) + addValue).toFixed(2);
 			}
 	    }
 	},
@@ -762,7 +762,7 @@ export default {
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 			}else{
 				let addValue = (value/100);
-				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2 + addValue).toFixed(2);
+				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice) + addValue).toFixed(2);
 				//_this.form4BuyBill.price = (parseFloat(_this.currentMaxPrice)-parseFloat(_this.dealPageInfo.currentPlatformPrice) + addValue).toFixed(2);
 			}
 		},
@@ -908,7 +908,7 @@ export default {
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
 				_this.form4pickSellBill.price = _this.dealPageInfo.maxPrice;
 				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
-				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)*1.2))*100;
+				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)))*100;
 				//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
 				//console.log("_this.max4Price:",_this.max4Price);
 				_this.serviceCharge = `10%矿石+交易总金额的10%帮扶券`;
@@ -969,7 +969,7 @@ export default {
 					_this.dealPageInfo = res.data;
 					_this.form4pickSellBill.price = _this.dealPageInfo.maxPrice;
 					//_this.currentMaxPrice = _this.dealPageInfo.maxPrice;
-					_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice) || 0) - (parseFloat(_this.dealPageInfo.currentPlatformPrice||0)*1.2))*100;
+					_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice) || 0) - (parseFloat(_this.dealPageInfo.currentPlatformPrice||0)))*100;
 					//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
 					//console.log("_this.max4Price:",_this.max4Price);
 					_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
@@ -1675,15 +1675,15 @@ export default {
 			/* console.log('parseFloat(params.price):',parseFloat(params.price));
 			console.log('parseFloat(currentPlatformPrice):',parseFloat(currentPlatformPrice));
 			console.log('parseFloat(currentPlatformPrice)*1.3',parseFloat(currentPlatformPrice)*1.3); */
-			if(parseFloat(params.price)>parseFloat(currentPlatformPrice)&&parseFloat(params.price)<parseFloat(currentPlatformPrice)*1.2){
+			/* if(parseFloat(params.price)>parseFloat(currentPlatformPrice)&&parseFloat(params.price)<parseFloat(currentPlatformPrice)*1.1){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: `当前最低可挂溢价为${parseFloat(currentPlatformPrice)*1.2}，请重新填写`
+				  message: `当前最低可挂溢价为${parseFloat(currentPlatformPrice)*1.1}，请重新填写`
 				}).then(() => {
 				  // on close
 				});
 				return;
-			}
+			} */
 			if(parseFloat(params.price)>parseFloat(_this.dealPageInfo.currentMaxPrice)){
 				Dialog.alert({
 				  title: '系统提示',

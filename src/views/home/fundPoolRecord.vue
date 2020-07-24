@@ -196,7 +196,7 @@
 				currentPage3: 1,
 				currentPage4: 1,
 				pageSize:16,
-				activeName:'mineral',
+				activeName:'in',
 				loading1:false,
 				finished1:false,
 				loading2:false,
@@ -248,6 +248,11 @@
 				_this.$router.replace('login');
 				return;
 			}
+			if (_this.$cookies.isKey("tab_name_fund_pool")) {
+				_this.activeName = _this.$cookies.get("tab_name_fund_pool");
+			}else{
+				_this.activeName = "in";
+			}
 			//console.log("inArray:",_this.utils.inArray('a',['a','b']));
 		},
 		methods: {
@@ -278,25 +283,36 @@
 			},
 			toBookView(val,userId){
 				let _this = this;
-				let name = 'mineral';
+				let name = 'in';
 				if(val==1){
 					name = 'ticket';
 				}else if(val==2){
 					name = 'mineral';
 				}
-				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
+				_this.$cookies.set("tab_name_fund_pool", name, _this.$api.cookiesTime)
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
 			refreshEvent() {
 				// console.log("refresh1")
 				let _this = this;
-				_this.currentPage1 = 1;
-				_this.list1 = [];
-				_this.finished1 = false;
-				_this.onLoad1();
+				if(_this.activeName == 'in'){
+					_this.currentPage1 = 1;
+					_this.list1 = [];
+					_this.finished1 = false;
+					_this.onLoad1();
+				}else if(_this.activeName == 'out'){
+					_this.currentPage2 = 1;
+					_this.list2 = [];
+					_this.finished2 = false;
+					_this.onLoad2();
+				}
+				
 			},
 			tabChange(name, title) {
 				let _this = this;
+				_this.activeName = name;
+				_this.$cookies.set("tab_name_fund_pool", name, _this.$api.cookiesTime);
+				_this.refreshEvent();
 				//this.$cookies.set("tab_name_dealRecord", name, _this.$api.cookiesTime)
 			},
 			onLoad1(){
@@ -353,7 +369,7 @@
 							return b==false;
 						}); */
 						_this.list2.push(...list);
-						_this.loading1 = false;
+						_this.loading2 = false;
 						if(res.data.endRow == res.data.total){
 							_this.finished2 = true;
 						}else{
@@ -365,6 +381,8 @@
 						_this.list2 = [];
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading2 = false;
 				})
 			},
 		}

@@ -155,6 +155,7 @@ export default {
 	//矿石账本列表
 	getMineralBookList: host + "assist/mineralBook/getMineralBookList",
 	getMineralBookListByUserId: host + "assist/mineralBook/getMineralBookListByUserId",
+	getMineralBookListByUserId2: host + "assist/mineralBook/getMineralBookListByUserId2",
 	getMineralBookList4SellType: host + "assist/mineralBook/getMineralBookList4SellType",
 	getMineralBookList4Type: host + "assist/mineralBook/getMineralBookList4Type",
 	//平台券账本

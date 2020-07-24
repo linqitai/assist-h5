@@ -365,15 +365,19 @@
 						if(list.length==0){
 							_this.finished1 = true;
 							_this.$toast("已经到底了");
+							return;
 						}
 						_this.list1.push(...list);
-						_this.offset1 = _this.offset1 + _this.pageSize;
+						_this.offset1 = list[_this.pageSize-1].id;
+						console.log("_this.offset1:",_this.offset1);
+						//_this.offset1 = _this.offset1 + _this.pageSize;
 					}else{
 						_this.finished1 = true;
 						_this.$toast(res.message);
 					}
 				},function(){
 					_this.loading1 = false;
+					_this.loading = false;
 				})
 			},
 			onLoad2(){
@@ -401,9 +405,12 @@
 						if(list.length==0){
 							_this.finished2 = true;
 							_this.$toast("已经到底了");
+							return;
 						}
 						_this.list2.push(...list);
-						_this.offset2 = _this.offset2 + _this.pageSize;
+						_this.offset2 = list[_this.pageSize-1].id;
+						console.log("_this.offset2:",_this.offset2);
+						//_this.offset2 = _this.offset2 + _this.pageSize;
 						/* if(res.data.endRow == res.data.total){
 							_this.finished2 = true;
 						}else{
@@ -416,6 +423,7 @@
 					}
 				},function(){
 					_this.loading2 = false;
+					_this.loading = false;
 				})
 			},
 			onLoad3(){
@@ -441,9 +449,13 @@
 						if(list.length==0){
 							_this.finished3 = true;
 							_this.$toast("已经到底了");
+							return;
 						}
 						_this.list3.push(...list);
-						_this.offset3 = _this.offset3 + _this.pageSize;
+						_this.offset3 = list[_this.pageSize-1].id;
+						console.log("_this.offset3:",_this.offset3);
+						//_this.offset2 = _this.offset2 + _this.pageSize;
+						//_this.offset3 = _this.offset3 + _this.pageSize;
 						/* if(res.data.endRow == res.data.total){
 							_this.finished3 = true;
 						}else{
@@ -455,6 +467,7 @@
 					}
 				},function(){
 					_this.loading3 = false;
+					_this.loading = false;
 				})
 			},
 			onLoad4(){
@@ -480,9 +493,12 @@
 						if(list.length==0){
 							_this.finished4 = true;
 							_this.$toast("已经到底了");
+							return;
 						}
 						_this.list4.push(...list);
-						_this.offset4 = _this.offset4 + _this.pageSize;
+						_this.offset4 = list[_this.pageSize-1].id;
+						console.log("_this.offset4:",_this.offset4);
+						//_this.offset4 = _this.offset4 + _this.pageSize;
 						/* if(res.data.endRow == res.data.total){
 							_this.finished4 = true;
 						}else{
@@ -494,6 +510,7 @@
 					}
 				},function(){
 					_this.loading4 = false;
+					_this.loading = false;
 				})
 			},
 			onLoad5(){
@@ -531,6 +548,7 @@
 					}
 				},function(){
 					_this.loading5 = false;
+					_this.loading = false;
 				})
 			},
 		}

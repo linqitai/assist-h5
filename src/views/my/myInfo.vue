@@ -194,7 +194,7 @@
 		</div>
 		<div class="my-cell" @click="update('bankCard')">
 			<div class="flex1">
-				银行卡
+				银行卡号
 			</div>
 			<div class="flex2">
 				<span class="ellipsis">{{userInfo.bankCard||"去绑定"}}</span>

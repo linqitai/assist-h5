@@ -1,22 +1,25 @@
 <style lang="scss">
 // @import '@/assets/scss/variable.scss';
 @import '~@/assets/scss/index.scss';
-[class*=van-hairline]::after {
-    border: 1px solid transparent !important;
-}
-.modelTip{
-	font-size: 0.75rem;
-	padding: 0 12px;
-	color: $grayDarker;
-}
-.van-cell{
-	font-size: 12px !important;
-}
-.van-cell__value, .van-cell__value--alone, .van-field__control{
-	color: $mainTextColor !important;
-}
 .realNameBox{
 	@include pageBlackBGHaveHeight();
+	.van-field__error-message{
+		color: #ee0a24 !important;
+	}
+	[class*=van-hairline]::after {
+	    border: 1px solid transparent !important;
+	}
+	.modelTip{
+		font-size: 0.75rem;
+		padding: 0 12px;
+		color: $grayDarker;
+	}
+	.van-cell{
+		font-size: 12px !important;
+	}
+	.van-cell__value, .van-cell__value--alone, .van-field__control{
+		color: $mainTextColor !important;
+	}
 	.realName{
 		overflow-y: scroll;
 		.van-cell__value, .van-cell__value--alone, .van-field__control{

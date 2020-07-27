@@ -3,13 +3,16 @@
 	.raise{
 		// padding: $boxPadding1;
 		@include pageNoHeight4Scroll();
-		color: $main-box-fh-text-color !important;
 		background-color: $main-box-fh-bg-color !important;
+		color: $main-box-fh-text-color;
 		.van-list__finished-text{
 			color:$main-box-fh-text-color;
 		}
 		.van-field__label{
 			width: 66px !important;
+		}
+		.van-dialog{
+			color: $mainTextColor !important;
 		}
 		.helpBox{
 			position:relative;
@@ -667,6 +670,17 @@
 				</div> -->
 			</div>
 		</div>
+		<van-dialog v-model="showPasswordBoxDialog" title="系统提示" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
+			<div class="paddingWing">
+				<div class="placeholderLine20"></div>
+				<div class="yellow textCenter">您是否要捐赠{{num}}个{{textTip}}给求助者？</div>
+				<div class="placeholderLine20"></div>
+				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
+				<div class="placeholderLine20"></div>
+			</div>
+			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
+			<van-button type="info" @click="sureRaiseEvent" :loading="getNumberLoading" :disabled="getNumberLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">确认</van-button>
+		</van-dialog>
 		<transition name="van-fade">
 		  <router-view></router-view>
 		</transition>
@@ -680,6 +694,9 @@
 	export default {
 		data() {
 			return {
+				textTip:"",
+				showPasswordBoxDialog:false,
+				safePassword:"",
 				closeable:true,
 				loading:false,
 				pageSize:1,
@@ -780,52 +797,76 @@
 					_this.getAssistRaiseRecordListPage4();
 				}
 			},
+			sureRaiseEvent(){
+				let _this = this;
+				_this.raiseRequest();
+			},
 			addMineral(num){
 				let _this = this;
 				_this.num = num;
-				Dialog.confirm({
+				_this.showPasswordBoxDialog = true;
+				_this.textTip = "矿石";
+				/* Dialog.confirm({
 				  title: '系统提示',
 				  confirmButtonText:'确认',
 				  closeOnClickOverlay:true,
 				  message: `您是否要捐赠${num}个矿石给求助者？`
 				}).then(() => {
-				  // on confirm
-				  //_this.$toast(`即将开放`);
-				  _this.addMineralRequest();
-				})
+				}) */
 				
 			},
-			addMineralRequest(){
+			raiseRequest(){
 				let _this = this;
 				let params = {
 				  raiseId: _this.list1.id,
 				  raiseNum: _this.num,
 				  word: _this.word4Mineral||'加油',
-				  type: 0
+				  type: _this.textTip == "矿石"?0:1,
+				  safePassword:_this.safePassword
 				}
-				console.log("params",params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');
 					return;
 				}
 				if(!_this.$reg.positive_integer.test(_this.num)){
-					_this.$toast(`请填写正整数的矿石`);
+					_this.$toast(`请填写正整数的数量`);
 					return;
 				}
-				if(_this.userInfo.thisWeekMineral<_this.num){
-					_this.$toast(`您所拥有的矿石扣不够${_this.num}个，请调整数量`);
-					return;
+				if(_this.textTip=="矿石"){
+					if(_this.userInfo.thisWeekMineral<_this.num){
+						_this.$toast(`您所拥有的${_this.textTip}扣不够${_this.num}个，请调整数量`);
+						return;
+					}
+				}else{
+					if(_this.userInfo.platformTicket<_this.num){
+						_this.$toast(`您所拥有的${_this.textTip}扣不够${_this.num}个，请调整数量`);
+						return;
+					}
 				}
+				params.safePassword = _this.$JsEncrypt.encrypt(params.safePassword);
+				_this.safePassword='';
 				_this.getNumberLoading = true;
-				//console.log("p",params)
 				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						_this.$toast("捐赠成功");
+						//_this.$toast("捐赠成功");
 						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
-						_this.word4Mineral = '';
-						_this.number4Mineral = '';
-						_this.getAssistRaiseRecordListPage4();
-						//_this.getAssistRaiseRecordListPage();
+						if(_this.textTip=="矿石"){
+							_this.word4Mineral = '';
+							_this.number4Mineral = '';
+							_this.getAssistRaiseRecordListPage4();
+						}else{
+							_this.word = '';
+							_this.number = '';
+							_this.getAssistRaiseListPage();
+						}
+						
+						Dialog.alert({
+							title: "系统提示",
+							message: "捐赠成功"
+						}).then(() => {
+						  // on confirm
+						  //_this.getCurrentAuction();
+						})
 					}else{
 						Dialog.alert({
 							title: "系统提示",
@@ -837,17 +878,20 @@
 					}
 				},function(){
 					_this.getNumberLoading = false;
+					_this.showPasswordBoxDialog = false;
 				})
 			},
 			addTicket(num){
 				let _this = this;
 				_this.num = num;
+				_this.showPasswordBoxDialog = true;
+				_this.textTip = "帮扶券";
 				/* if(_this.word){
 					
 				}else{
 					_this.$toast(`请`);
 				} */
-				Dialog.confirm({
+				/* Dialog.confirm({
 				  title: '系统提示',
 				  confirmButtonText:'确认',
 				  closeOnClickOverlay:true,
@@ -856,7 +900,7 @@
 				  // on confirm
 				  //_this.$toast(`即将开放`);
 				  _this.addTicketRequest();
-				})
+				}) */
 				
 			},
 			addTicketRequest(){
@@ -926,7 +970,6 @@
 			},
 			getAssistRaiseRecordListPage4(){
 				let _this = this;
-				
 				let params = {
 					pageNo: _this.currentPage4,
 					pageSize: _this.pageSize4,

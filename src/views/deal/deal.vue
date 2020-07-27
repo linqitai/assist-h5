@@ -461,6 +461,9 @@
 		</van-action-sheet>
 		
 		<van-action-sheet v-model="showPickBuyModel" title="买 TA">
+			<div class="tip4model3RedText paddingWing">
+				温馨提示：该操作是买入操作，匹配的是卖家所挂的卖单，请矿工们了解清楚后再点【确认】，点【确认】后若没去完成订单，买家将会因失信而失去2~5个贡献值。
+			</div>
 		  <van-cell-group>
 			  <van-field v-model="form3.num" type="number" clearable label="想买数量" placeholder="请填写买入数量"/>
 			  <van-field v-model="form3.price" type="number" disabled clearable label="单价" placeholder="请填写单价"/>

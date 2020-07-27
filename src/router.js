@@ -75,12 +75,6 @@ export default new Router({
 					meta:{footer:true,back:false,question:false,keepAlive:true},
 					children:[
 						{
-							path: '/blockSearch',
-							name: '区块浏览器',
-							component: resolve => require(['./views/home/blockSearch'],resolve),
-							meta:{footer:false,keepAlive:true},
-						},
-						{
 							path: '/rankingDeal',
 							name: '服务商排行榜',
 							component: resolve => require(['./views/home/rankingDeal'],resolve),
@@ -500,30 +494,28 @@ export default new Router({
 			meta:{footer:false,keepAlive:true},
 		},
 		{
-			path: '/my4Other',
-			name: 'TA的信息',
-			component: resolve => require(['./views/my/my4Other'],resolve),
-			meta:{footer:false},
-		},
-		{
-			path: '/dealRecord',
-			name: '交易记录',
-			component: resolve => require(['./views/deal/dealRecord'],resolve),
+			path: '/blockSearch',
+			name: '区块浏览器',
+			component: resolve => require(['./views/home/blockSearch'],resolve),
 			meta:{footer:false,keepAlive:true},
 		},
 		{
 			path: '/millRecord',
 			name: '购买矿机记录表',
 			component: resolve => require(['./views/mill/millRecord'],resolve),
+			meta:{footer:false,keepAlive:true}
+		},
+		{
+			path: '/my4Other',
+			name: 'TA的信息',
+			component: resolve => require(['./views/my/my4Other'],resolve),
 			meta:{footer:false,keepAlive:true},
-			/* children:[
-				{
-					path: '/merchantEnter',
-					name: '填写资料',
-					component: resolve => require(['./views/home/merchantEnter'],resolve),
-					meta:{footer:false,back:true,child1:0},
-				},
-			] */
+		},
+		{
+			path: '/dealRecord',
+			name: '交易记录',
+			component: resolve => require(['./views/deal/dealRecord'],resolve),
+			meta:{footer:false,keepAlive:true},
 		},
 	]
 })

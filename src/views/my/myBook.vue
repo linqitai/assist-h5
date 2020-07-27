@@ -65,6 +65,13 @@
 			>
 			  <div slot="action" @click="onSearch">搜索</div>
 			</van-search> -->
+			<div class="selectBox">
+				<div class="selectLeft">
+					<van-dropdown-menu>
+					  <van-dropdown-item v-model="type" :options="option1" @change="refreshEvent"/>
+					</van-dropdown-menu>
+				</div>
+			</div>
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
@@ -201,6 +208,11 @@
 	export default {
 		data() {
 			return {
+				type:0,
+				option1: [
+					{ text: '近期记录', value: 0 },
+					{ text: '历史记录', value: 1 }
+				],
 				userId:"",
 				isShowSkeleton:true,
 				loading: true,
@@ -316,6 +328,7 @@
 			},
 			tabChange(name, title) {
 				let _this = this;
+				_this.type = 0;
 				// console.log('name', name)
 				_this.activeName = name;
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime);
@@ -380,20 +393,13 @@
 			},
 			onLoad2(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.tip4Rest
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
 				// 异步更新数据
 				let params = {
 					userId: _this.userId,
 					offset: _this.offset2,
 					pagesize: _this.pageSize,
+					type: _this.type,
+					pageno:_this.currentPage2
 				}
 				_this.loading2 = true;
 				_this.$ajax.ajax(_this.$api.getCPowerListByUserId, 'GET', params, function(res) {
@@ -407,8 +413,9 @@
 							return;
 						}
 						_this.list2.push(...list);
-						_this.offset2 = list[_this.pageSize-1].id;
-						console.log("_this.offset2:",_this.offset2);
+						let len = list.length-1;
+						_this.offset2 = list[len].id;
+						_this.currentPage2 = _this.currentPage2 + 1;
 						//_this.offset2 = _this.offset2 + _this.pageSize;
 						/* if(res.data.endRow == res.data.total){
 							_this.finished2 = true;
@@ -428,15 +435,6 @@
 			},
 			onLoad3(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.tip4Rest
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
 				let params = {
 					userId: _this.userId,
 					offset: _this.offset3,
@@ -473,15 +471,6 @@
 			},
 			onLoad4(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.tip4Rest
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
 				let params = {
 					userId: _this.userId,
 					offset: _this.offset4,
@@ -517,15 +506,6 @@
 			},
 			onLoad5(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.tip4Rest
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
 				let params = {
 					pageNo: _this.currentPage5,
 					pageSize: _this.pageSize,

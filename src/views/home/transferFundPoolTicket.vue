@@ -106,7 +106,7 @@
 			<div v-if="profitInfo">
 				<div class="paddingWing margT10">分红总量:{{profitInfo.profitNum}} 省代理:{{profitInfo.isAgent1Num}} 市代理:{{profitInfo.isAgent2Num}}</div>
 				<div class="paddingWing margT10">省代理均分:{{profitInfo.profitNum}}*0.15/{{profitInfo.isAgent1Num}}={{(profitInfo.profitNum*0.15/profitInfo.isAgent1Num).toFixed(2)}}</div>
-				<div class="paddingWing margT10">市代理均分:{{profitInfo.profitNum}}*0.35/{{profitInfo.isAgent2Num}}={{(profitInfo.profitNum*0.35/profitInfo.isAgent2Num).toFixed(2)}}</div>
+				<div class="paddingWing margT10">市代理均分:{{profitInfo.profitNum}}*0.25/{{profitInfo.isAgent2Num}}={{(profitInfo.profitNum*0.25/profitInfo.isAgent2Num).toFixed(2)}}</div>
 			</div>
 			<div class="placeholderLine10"></div>
 			<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4getProfitNum" size="large" @click="excuteProfit">执行分红</van-button>

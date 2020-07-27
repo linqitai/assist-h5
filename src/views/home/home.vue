@@ -843,7 +843,7 @@ $noticeHeight:40px;
 			},
 			toBlcokSearchView(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -851,7 +851,7 @@ $noticeHeight:40px;
 					  // on close
 					});
 					return;
-				}
+				} */
 				_this.$router.push('blockSearch');
 			},
 			showTip(val){

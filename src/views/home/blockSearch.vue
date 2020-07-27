@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	.blockSearch{
-		@include pageNoHeight4Scroll();
+		@include pageHaveHeight4Scroll();
 		.myBookTabs {
 			color: $mainTextColor;
 			.list{

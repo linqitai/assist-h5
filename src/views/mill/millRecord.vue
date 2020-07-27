@@ -267,7 +267,6 @@
 	import mRefresh from '@/components/Refresh.vue';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
-		name: 'millRecord',
 		data() {
 			return {
 				userId:"",
@@ -336,12 +335,10 @@
 			},
 			toMy4OtherView(userId){
 				let _this = this;
-				////console.log('userIdInDealRecolod:',userId);
 				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
 			},
 			toBookView(val,userId){
 				let _this = this;
-				////console.log('toBookView');
 				let name = 'mineral';
 				if(val==1){
 					name = 'ticket';

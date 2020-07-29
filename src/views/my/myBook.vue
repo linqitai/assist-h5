@@ -216,11 +216,11 @@
 				userId:"",
 				isShowSkeleton:true,
 				loading: true,
-				currentPage1: 1,
-				currentPage2: 1,
-				currentPage3: 1,
-				currentPage4: 1,
-				currentPage5: 1,
+				currentPage1: 0,
+				currentPage2: 0,
+				currentPage3: 0,
+				currentPage4: 0,
+				currentPage5: 0,
 				offset1:0,
 				offset2:0,
 				offset3:0,
@@ -295,31 +295,31 @@
 				// console.log("refresh1")
 				let _this = this;
 				if(_this.activeName == 'mineral'){
-					_this.currentPage1 = 1;
+					_this.currentPage1 = 0;
 					_this.offset1=0;
 					_this.list1 = [];
 					_this.finished1 = false;
 					_this.onLoad1();
 				}else if(_this.activeName == 'calculation'){
-					_this.currentPage2 = 1;
+					_this.currentPage2 = 0;
 					_this.offset2=0;
 					_this.list2 = [];
 					_this.finished2 = false;
 					_this.onLoad2();
 				}else if(_this.activeName == 'contribution'){
-					_this.currentPage3 = 1;
+					_this.currentPage3 = 0;
 					_this.offset3=0;
 					_this.list3 = [];
 					_this.finished3 = false;
 					_this.onLoad3();
 				}else if(_this.activeName == 'ticket'){
-					_this.currentPage4 = 1;
+					_this.currentPage4 = 0;
 					_this.offset4=0;
 					_this.list4 = [];
 					_this.finished4 = false;
 					_this.onLoad4();
 				}else if(_this.activeName == 'loveValue'){
-					_this.currentPage5 = 1;
+					_this.currentPage5 = 0;
 					_this.offset5=0;
 					_this.list5 = [];
 					_this.finished5 = false;
@@ -369,19 +369,22 @@
 					userId: _this.userId,
 					offset: _this.offset1,
 					pagesize: _this.pageSize,
+					type: _this.type,
+					pageno:_this.currentPage1
 				}
 				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getMineralBookListByUserId, 'GET', params, function(res) {
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data;
-						if(list.length==0){
+						if(list==null||list.length==0){
 							_this.finished1 = true;
 							_this.$toast("已经到底了");
 						}
 						_this.list1.push(...list);
-						_this.offset1 = list[_this.pageSize-1].id;
-						console.log("_this.offset1:",_this.offset1);
+						let len = list.length-1;
+						_this.offset1 = list[len].id;
+						_this.currentPage1 = _this.currentPage1 + 1;
 						//_this.offset1 = _this.offset1 + _this.pageSize;
 					}else{
 						_this.finished1 = true;
@@ -407,7 +410,7 @@
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data;
-						if(list.length==0){
+						if(list==null||list.length==0){
 							_this.finished2 = true;
 							_this.$toast("已经到底了");
 							return;
@@ -439,20 +442,23 @@
 					userId: _this.userId,
 					offset: _this.offset3,
 					pagesize: _this.pageSize,
+					type: _this.type,
+					pageno:_this.currentPage3
 				}
 				_this.loading3 = true;
 				_this.$ajax.ajax(_this.$api.getCValueListByUserId, 'GET', params, function(res) {
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data;
-						if(list.length==0){
+						if(list==null||list.length==0){
 							_this.finished3 = true;
 							_this.$toast("已经到底了");
 							return;
 						}
 						_this.list3.push(...list);
-						_this.offset3 = list[_this.pageSize-1].id;
-						console.log("_this.offset3:",_this.offset3);
+						let len = list.length-1;
+						_this.offset3 = list[len].id;
+						_this.currentPage3 = _this.currentPage3 + 1;
 						//_this.offset3 = _this.offset3 + _this.pageSize;
 						/* if(res.data.endRow == res.data.total){
 							_this.finished3 = true;
@@ -481,14 +487,14 @@
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data;
-						if(list.length==0){
+						if(list==null||list.length==0){
 							_this.finished4 = true;
 							_this.$toast("已经到底了");
 							return;
 						}
 						_this.list4.push(...list);
 						_this.offset4 = list[_this.pageSize-1].id;
-						console.log("_this.offset4:",_this.offset4);
+						_this.currentPage4 = _this.currentPage4 + 1;
 						//_this.offset4 = _this.offset4 + _this.pageSize;
 						/* if(res.data.endRow == res.data.total){
 							_this.finished4 = true;

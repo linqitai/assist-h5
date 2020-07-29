@@ -184,12 +184,12 @@
 			<!-- <div class="tip4model3">
 				注：会员若提交批图后的照片，包括小纸条，审核的时候一律冻结账号处理。
 			</div> -->
-			<div v-if="form.status==5">
+			<!-- <div v-if="form.status==5">
 				<div class="placeholderLine10"></div>
 				<van-checkbox v-model="checked4Buyer" @change="checkedChange">买家诉讼有效给奖励</van-checkbox>
 				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
-			</div>
+			</div> -->
 			<!-- <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="passBtn">通 过</van-button> -->
 			<div v-if="form.status==2||form.status==4">
 				<div class="placeholderLine10"></div>

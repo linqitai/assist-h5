@@ -367,7 +367,7 @@
 							<div class="digit">{{list1.getedTicket}}</div>
 							<div class="text">已筹到帮扶券</div>
 						</div>
-						<div class="flexC flex3">
+						<div class="flexC flex3" v-if="list1.needMineral>0">
 							<div class="digit">{{raiseMineralSum || 0}}</div>
 							<div class="text">已筹到矿石</div>
 						</div>
@@ -519,7 +519,7 @@
 					</div>
 					<div class="placeholderLine10"></div>
 				</div>
-				<div class="materialProve borderBottom" v-if="list1.status==3">
+				<div class="materialProve borderBottom" v-if="list1.status==3&&needMineral>0">
 					<div class="flex">
 						<div class="title flexMedial">我要捐赠<i class="yellow">矿石</i></div>
 					</div>
@@ -603,7 +603,7 @@
 								</div>
 							</div>
 						</van-tab>
-						<van-tab title="赠矿石记录" name="raiseRecord4">
+						<van-tab title="赠矿石记录" name="raiseRecord4" v-if="list1.needMineral>0">
 							<div class="records" v-if="list4">
 								<div class="item flexsBox row" v-for="item in list4" :key="item.id">
 									<div class="flexThis column">

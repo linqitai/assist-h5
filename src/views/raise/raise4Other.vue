@@ -398,9 +398,6 @@
 					</div>
 					<div class="imageList flex" v-if="list1">
 						<img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/>
-						<!-- <img class="" src="" @click="imagePreviewEvent(1)"/>
-						<img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(2)"/> -->
-						<!-- <img class="" src="../../assets/image/wechat.png" @click="imagePreviewEvent(3)"/> -->
 					</div>
 					<van-image-preview
 					  v-model="showImagePreview"

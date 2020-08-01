@@ -118,6 +118,10 @@ $noticeHeight:40px;
 					.iconBackground1 {
 						background-color: #00eaff;
 					}
+					
+					.iconBackgroundHR {
+						background-color: #c80000;
+					}
 		
 					.iconBackground2 {
 						background-color: #0049b6;
@@ -638,6 +642,24 @@ $noticeHeight:40px;
 						<div class="text">水滴帮扶筹</div>
 					</div> -->
 				</div>
+				<!-- <div class="cateInfo">
+					<div class="infoBox" @click="waiting">
+						<div class="iconBox">
+							<div class="iconBackground iconBackground4">
+								<van-icon class-prefix="iconfont" name="crown" />
+							</div>
+						</div>
+						<div class="text">讲师招募</div>
+					</div>
+					<div class="infoBox" @click="waiting">
+						<div class="iconBox">
+							<div class="iconBackground iconBackgroundAttendance">
+								<van-icon class-prefix="iconfont" name="flow" />
+							</div>
+						</div>
+						<div class="text">帮扶历史</div>
+					</div>
+				</div> -->
 				<div class="noticeFlag paddingWing margT8">
 					<div class="title">历史公告</div>
 					<!-- <div class="lookMore">查看更多</div> -->
@@ -858,7 +880,7 @@ $noticeHeight:40px;
 				//console.log(val);
 				let message = '';
 				if(val=='fundPool'){
-					message = '交易手续费中，有20%~50%的帮扶券进入帮扶基金池。基金池里的基金，主要用来做线下帮扶活动，也可以用来扶持市场领导们设立地面工作室，进行更加专业的推广帮扶链。各个地区的代理都有权限自主发起线下帮扶活动，与设立地面工作室，向平台申请帮扶基金，去帮扶身边更多所需帮助的弱势群体';
+					message = '交易手续费中，有10%~50%(该比例会随着市场发展情况来调节)的帮扶券进入帮扶基金池。各个地区的代理都有权限自主发起线下帮扶活动(需要先提交帮扶活动策划案，由平台审核通过即可开展)，向平台申请帮扶基金，去帮扶身边更多所需帮助的弱势群体';
 				}else if(val=='blockSearch'){
 					message = '全体会员的账户中，矿石上的任何变动都会记录在区块浏览器中，该数据接受全体会员浏览与监管';
 				}

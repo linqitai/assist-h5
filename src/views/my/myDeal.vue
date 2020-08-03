@@ -586,7 +586,7 @@
 					<span class="value textAdornColor">买方已锁定交易</span>
 				</div> -->
 				<div v-if="detail4sellerInfo.status==0||detail4sellerInfo.status==1">
-					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn(detail4sellerInfo)">我已付款 让卖家确认</van-button>
+					<van-button color="#ffae00" size="normal" :loading="isPayLoading" :block="true" @click="payedBtn(detail4sellerInfo)">我已付款 让卖家确认</van-button>
 					<div class="placeholderLine10"></div>
 					<!-- <van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(detail4sellerInfo)" size="normal" :block="true">取消交易</van-button> -->
 				</div>
@@ -942,6 +942,7 @@
 	export default {
 		data() {
 			return {
+				isPayLoading:false,
 				sendSmsTipText:"订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。",
 				mobilePhone:"",
 				sendSmsHref:"",
@@ -2074,6 +2075,7 @@
 				  	id: _this.id
 				  }
 				  ////console.log('params',params)
+				  _this.isPayLoading = true;
 				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
 				  	// ////console.log('res', res);
 				  	if (res.code == _this.$api.CODE_OK) {
@@ -2106,7 +2108,7 @@
 				  })
 				}).catch(() => {
 				  // on cancel
-				  ////console.log('cancel');
+				  _this.isPayLoading = false;
 				});
 			},
 			setCountDownTime(canCancelTime) {

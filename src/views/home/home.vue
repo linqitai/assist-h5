@@ -496,10 +496,11 @@ $noticeHeight:40px;
 					    </template> -->
 					</van-swipe>
 				</div>
-				<div class="notice">
+				<div class="placeholderLine4"></div>
+				<!-- <van-notice-bar :text="qqFlock" left-icon="volume-o" @click="toServicePage"/> -->
+				<!-- <div class="notice">
 					<van-notice-bar :text="lastNoticeItem.noticeTitle" left-icon="volume-o" @click="toNoticeDetail(lastNoticeItem)" />
-					<!-- <van-notice-bar :text="qqFlock" left-icon="volume-o" @click="toServicePage"/> -->
-				</div>
+				</div> -->
 				<div class="millInfo" v-if="!statistics.allMineralNum">
 					<div class="placeholderLine10"></div>
 					<van-skeleton :row="4"/>
@@ -544,7 +545,7 @@ $noticeHeight:40px;
 					<div class="infoBox">
 						<div>
 							<!-- @click="toFundPoolRecordView" -->
-							<span @click="toFundPoolRecordView" class="yellow underline">少年儿童基金帮扶池</span>
+							<span @click="toFundPoolRecordView" class="yellow underline">尊老爱幼帮扶基金池</span>
 							<span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
 							<!-- <span class="margL10 underline" @click="addFundPoolBtn">我要捐赠</span> -->
 						</div>
@@ -642,27 +643,39 @@ $noticeHeight:40px;
 						<div class="text">水滴帮扶筹</div>
 					</div> -->
 				</div>
-				<!-- <div class="cateInfo">
-					<div class="infoBox" @click="waiting">
+				<div class="cateInfo">
+					<!-- <div class="infoBox" @click="waiting">
 						<div class="iconBox">
 							<div class="iconBackground iconBackground4">
 								<van-icon class-prefix="iconfont" name="crown" />
 							</div>
 						</div>
 						<div class="text">讲师招募</div>
-					</div>
-					<div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="flow" />
+					</div> -->
+					<div class="infoBox">
+						<router-link to="/noticeList">
+							<div class="iconBox">
+								<div class="iconBackground iconBackground4">
+									<van-icon class-prefix="iconfont" name="notice-record" />
+								</div>
 							</div>
-						</div>
-						<div class="text">帮扶历史</div>
+							<div class="text">历史公告</div>
+						</router-link>
 					</div>
-				</div> -->
-				<div class="noticeFlag paddingWing margT8">
+					<div class="infoBox">
+						<router-link to="/helpRecord">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundAttendance">
+									<van-icon class-prefix="iconfont" name="flow" />
+								</div>
+							</div>
+							<div class="text">帮扶历史</div>
+						</router-link>
+					</div>
+				</div>
+				<div class="placeholderLine10"></div>
+				<!-- <div class="noticeFlag paddingWing margT8">
 					<div class="title">历史公告</div>
-					<!-- <div class="lookMore">查看更多</div> -->
 					<router-link class="lookMore" to="/noticeList">查看更多 </router-link>
 				</div>
 				<div class="noticeList">
@@ -675,7 +688,7 @@ $noticeHeight:40px;
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</van-pull-refresh>
 		<!-- <van-dialog v-model="isShowLastNotice" :title="lastNoticeItem.noticeTitle" v-if="lastNoticeItem.noticeTitle">
@@ -803,7 +816,7 @@ $noticeHeight:40px;
 				}, 500)
 			}
 			//公告缓存获取
-			if(_this.$cookies.get('hasnoticeList')){
+			/* if(_this.$cookies.get('hasnoticeList')){
 				_this.noticeList = JSON.parse(localStorage.getItem("noticeListLocal"));
 				if(_this.noticeList){
 					_this.lastNoticeItem = _this.noticeList[0];
@@ -816,7 +829,7 @@ $noticeHeight:40px;
 				setTimeout(() => {
 				  _this.getNoticeList();
 				}, 1000)
-			}
+			} */
 			//轮播图存获取
 			/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
 				//console.log('hasNoticeList4Swipe');
@@ -918,7 +931,7 @@ $noticeHeight:40px;
 				Dialog.alert({
 				  title: '系统提示',
 				  confirmButtonText:'加油',
-				  message: "此功能正在努力建设中"
+				  message: "该模块正在努力建设中"
 				}).then(() => {
 				  // on confirm
 				})
@@ -1214,9 +1227,9 @@ $noticeHeight:40px;
 				let _this = this;
 				_this.getHomeMineralStaticInfo();
 				// _this.getNoticeList4Swipe();
-				setTimeout(() => {
+				/* setTimeout(() => {
 				  _this.getNoticeList();
-				}, 1000)
+				}, 1000) */
 				//轮播图存获取
 				/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
 					//console.log('hasNoticeList4Swipe');

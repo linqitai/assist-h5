@@ -433,6 +433,12 @@ export default new Router({
 					meta:{footer:false,back:true,question:false},
 				},
 				{
+					path: '/helpRecord',
+					name: '帮扶历史',
+					component: resolve => require(['./views/home/helpRecord'],resolve),
+					meta:{footer:false,back:true,question:false},
+				},
+				{
 					path: '/noticeList',
 					name: '公告列表',
 					component: resolve => require(['./views/home/noticeList'],resolve),

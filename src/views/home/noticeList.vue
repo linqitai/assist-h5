@@ -93,12 +93,7 @@
 		},
 		data() {
 			return {
-				noticelist: [{
-					type:'0',
-					noticeTitle:'有问题',
-					createTime:'2019-12-12 12:12:12',
-					status:'0'
-				}],
+				noticelist: [],
 				loading1:false,
 				finished1:false
 			}

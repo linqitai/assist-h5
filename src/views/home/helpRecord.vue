@@ -103,7 +103,7 @@ export default {
 				{
 					time:'2020/07/13',
 					title:'给金带铺小学捐赠图书',
-					url:'https://www.meipian.cn/32uquw25?share_from=self&first_share_uid=58778585&first_share_to=singlemessage&isappinstalled=1&share_depth=1&from=singlemessage'
+					url:'http://note.youdao.com/noteshare?id=9b200b98fb195083932acba319ef429e'
 				},
 				{
 					time:'2020/07/11',

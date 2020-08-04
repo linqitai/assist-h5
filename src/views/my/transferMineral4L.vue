@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/variable.scss';
 	$cellHeight:50px;
-	.transfer{
+	.transferL{
 		font-size: 0.75rem;
 		position: absolute;
 		top: 0;
@@ -12,6 +12,9 @@
 		color: $main-box-text-color;
 		z-index: 2;
 		overflow-y:scroll;
+		.van-field__error-message {
+		    color: #ee0a22 !important;
+		}
 		.van-dropdown-menu{
 			height: $cellHeight !important;
 			background-color: inherit !important;
@@ -73,7 +76,7 @@
 	
 </style>
 <template>
-	<div class="transfer">
+	<div class="transferL">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
@@ -196,7 +199,7 @@
 			}
 			if(_this.$cookies.get('haveDealPageInfo')){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
-				_this.curerntPlatformPrice = _this.dealPageInfo.currentPlatformPrice;
+				_this.curerntPlatformPrice = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 				_this.maxPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+3)).toFixed(2);
 				_this.maxAddPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+2)).toFixed(2);
 			}else{
@@ -212,7 +215,7 @@
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.dealPageInfo = res.data;
-						_this.curerntPlatformPrice = _this.dealPageInfo.currentPlatformPrice;
+						_this.curerntPlatformPrice = parseFloat(_this.dealPageInfo.currentPlatformPrice).toFixed(2);
 						_this.maxPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+3)).toFixed(2);
 						_this.maxAddPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.3+2)).toFixed(2);
 						_this.$cookies.remove('haveDealPageInfo');

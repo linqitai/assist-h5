@@ -816,7 +816,7 @@ $noticeHeight:40px;
 				}, 500)
 			}
 			//公告缓存获取
-			/* if(_this.$cookies.get('hasnoticeList')){
+			if(_this.$cookies.get('hasnoticeList')){
 				_this.noticeList = JSON.parse(localStorage.getItem("noticeListLocal"));
 				if(_this.noticeList){
 					_this.lastNoticeItem = _this.noticeList[0];
@@ -829,7 +829,7 @@ $noticeHeight:40px;
 				setTimeout(() => {
 				  _this.getNoticeList();
 				}, 1000)
-			} */
+			}
 			//轮播图存获取
 			/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
 				//console.log('hasNoticeList4Swipe');
@@ -1227,9 +1227,9 @@ $noticeHeight:40px;
 				let _this = this;
 				_this.getHomeMineralStaticInfo();
 				// _this.getNoticeList4Swipe();
-				/* setTimeout(() => {
+				setTimeout(() => {
 				  _this.getNoticeList();
-				}, 1000) */
+				}, 1000)
 				//轮播图存获取
 				/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
 					//console.log('hasNoticeList4Swipe');
@@ -1315,7 +1315,7 @@ $noticeHeight:40px;
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage,
-					pageSize: 6,
+					pageSize: 1,
 					type:0
 				}
 				_this.$ajax.ajax(_this.$api.getNoticePageList, 'GET', params, function(res) {

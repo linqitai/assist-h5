@@ -483,8 +483,8 @@ export default {
 				id:_this.form.id,
 				userId:_this.form.userId,
 				/* loginerUserId:_this.loginerUserId, */
-				realName:_this.form.realName,
-				idCard:_this.form.idCard,
+				/* realName:_this.form.realName,
+				idCard:_this.form.idCard, */
 			}
 			if(type=='pass'){
 				params.actived = 1;

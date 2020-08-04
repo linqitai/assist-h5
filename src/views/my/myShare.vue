@@ -260,8 +260,15 @@
 				<div class="tip4model3">
 					1.将此页面二维码保存发送给您的好友<br>
 					2.好友扫一扫二维码通过手机号注册<br>
-					3.好友实名通过后您将会得到推广奖励
+					3.好友完成基础任务二后您将会得到推广奖励以及等级分红
 				</div>
+				<div class="placeholderLine10"></div>
+				<div class="myShareUrl">
+					注册实名及基础操作流程：http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675
+				</div>
+				<div class="placeholderLine10"></div>
+				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopy('http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675',$event)" :block="true">复制流程</van-button>
+				<div class="placeholderLine10"></div>
 			</div>
 		</div>
 	</div>

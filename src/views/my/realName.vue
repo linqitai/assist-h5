@@ -212,7 +212,7 @@
 		:error-message="errorInfo.bankCard"/> -->
 		<van-field v-model="form.idCard" required clearable label="身份证号" maxlength="18" type="password" :placeholder="errorHint.idCard" @blur="validate('idCard')" :error-message="errorInfo.idCard"/>
 		<van-field v-model="form.idCardSure" required clearable label="确认身份证号" maxlength="18" type="password" :placeholder="errorHint.idCardSure" @blur="validate('idCardSure')" :error-message="errorInfo.idCardSure"/>
-		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="11" @blur="validate('realName')" :error-message="errorInfo.realName"/>
+		<van-field v-model="form.realName" required clearable label="真实姓名" placeholder="请填写真实姓名" maxlength="15" @blur="validate('realName')" :error-message="errorInfo.realName"/>
 		  <!-- <div class="line">
 		  	<span class="label">支付宝个人主页</span>
 			<span class="text"></span>
@@ -758,16 +758,16 @@ export default {
 					_this.errorInfo.telPhone = _this.errorHint.telPhone;
 				}
 			}else if(key == 'realName'){
-				if(_this.$reg.phone2.test(_this.form.realName)){
+				/* if(_this.$reg.phone2.test(_this.form.realName)){
 					_this.errorInfo.realName = _this.errorHint.realName;
 				}else{
 					_this.errorInfo.realName = '';
-				}
-				/* if((_this.form.realName.length)<=10&&(_this.form.realName.length)>1){
-					_this.errorInfo.realName = '';
-				}else{
-					_this.errorInfo.realName = _this.errorHint.realName;
 				} */
+				if((_this.form.realName.length)>1&&(_this.form.realName.length)<=15){
+					_this.errorInfo.realName = '';
+				}else{
+					_this.errorInfo.realName = _this.errorHint.realName;
+				}
 			}else if(key == 'alipayNum') {
 				if(_this.$reg.alipay.test(_this.form.alipayNum)){
 					_this.errorInfo.alipayNum = '';

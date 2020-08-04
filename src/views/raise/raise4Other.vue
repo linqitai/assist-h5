@@ -393,9 +393,8 @@
 							<span class="margL1 unSelect">质疑</span>
 						</div> -->
 					</div>
-					<div class="content unSelect justify">
-						{{list1.story}}
-					</div>
+					<!-- <div class="content margT10" v-if="obj.noticeContent" v-html="obj.noticeContent"/> -->
+					<div class="content unSelect justify" v-html="list1.story"/>
 					<div class="imageList flex" v-if="list1">
 						<img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/>
 					</div>

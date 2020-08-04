@@ -98,7 +98,7 @@ export default {
 				{
 					time:'2020/07/21',
 					title:'敬老院爱心帮扶活动',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
+					url:'http://note.youdao.com/noteshare?id=eb37717a00ecf9f3ae06cada292fc3d5'
 				},
 				{
 					time:'2020/07/13',
@@ -108,50 +108,33 @@ export default {
 				{
 					time:'2020/07/11',
 					title:'给抗洪卫士送物资',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
+					url:'http://note.youdao.com/noteshare?id=7fbfeb3b5f7618b20cd59a602a7d17d8'
 				},
 				{
 					time:'2020/07/02',
 					title:'帮扶悬崖村的孩子',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
+					url:'https://www.meipian9.cn/310bbp45?first_share_to=singlemessage&first_share_uid=58778585&from=singlemessage&isappinstalled=1&share_depth=1&share_from=self'
 				},
 				{
 					time:'2020/06/29',
 					title:'帮扶与慰问残疾人',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
+					url:'http://note.youdao.com/noteshare?id=2425a80dbab26af088b2b97c03a3e165'
 				},
 				{
 					time:'2020/06/25',
-					title:'给环卫工人送温暖',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
+					title:'端午节给环卫工人送温暖',
+					url:'https://www.meipian9.cn/30ple7kt?first_share_to=singlemessage&first_share_uid=58778585&from=singlemessage&isappinstalled=1&share_depth=1&share_from=self'
 				},
 				{
 					time:'2020/06/24',
 					title:'共青学院募捐活动',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
+					url:'https://www.meipian8.cn/30ie68gt?first_share_to=timeline&first_share_uid=212941138&share_depth=3&share_user_mpuuid=1ad9d53c3223db007714de36291d66be&sharer_id=ojq1tt7nfMQ2p9LmtSAk3zOHvD_0&user_id=ohbsluHXOyM_J1cmrC9lqMJbiHeI'
 				},
 				{
 					time:'2020/06/12',
 					title:'上谢小学捐赠活动',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
-				},
-				{
-					time:'2020/05/29',
-					title:'帮扶与慰问烫伤女孩',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
-				},
-				{
-					/* image:this.$api.domainName + '/image/raise/47007.jpg', */
-					time:'2020/05/28',
-					title:'帮扶与慰问肾病综合征女孩',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
-				},
-				{
-					/* image:this.$api.domainName + '/image/banner/banner002.jpg', */
-					time:'2020/05/15',
-					title:'帮扶与慰问贫困大学生',
-					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
-				},
+					url:'https://www.meipian7.cn/2zunbgn1?first_share_to=singlemessage&first_share_uid=58778585&share_depth=2&share_source=singlemessage&sharer_id=ojq1tt7nfMQ2p9LmtSAk3zOHvD_0&user_id=ohbsluHXOyM_J1cmrC9lqMJbiHeI'
+				}
 			],			
 			userId:'',
 			loading1: false,

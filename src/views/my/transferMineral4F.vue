@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/variable.scss';
 	$cellHeight:50px;
-	.transfer{
+	.transferF{
 		font-size: 0.75rem;
 		position: absolute;
 		top: 0;
@@ -12,6 +12,9 @@
 		color: $main-box-text-color;
 		z-index: 2;
 		overflow-y:scroll;
+		.van-field__error-message {
+		    color: #ee0a22 !important;
+		}
 		.van-dropdown-menu{
 			height: $cellHeight !important;
 			background-color: inherit !important;
@@ -73,7 +76,7 @@
 	
 </style>
 <template>
-	<div class="transfer">
+	<div class="transferF">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
@@ -205,11 +208,11 @@
 				return;
 			}
 			console.log("haveDealPageInfo",_this.$cookies.get('haveDealPageInfo'));
-			if(_this.$cookies.get('haveDealPageInfo')==1){
+			if(_this.$cookies.get('haveDealPageInfo')){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
-				_this.curerntPlatformPrice = Number(_this.dealPageInfo.currentPlatformPrice);
-				_this.maxPrice = (Number((_this.dealPageInfo.maxPrice))).toFixed(2);
-				_this.maxAddPrice = (Number((_this.dealPageInfo.maxPrice)*1.2)).toFixed(2);
+				_this.curerntPlatformPrice = parseFloat(_this.dealPageInfo.currentPlatformPrice);
+				_this.maxPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.2+1)).toFixed(2);
+				_this.maxAddPrice = (parseFloat((_this.dealPageInfo.maxPrice)*1.2)).toFixed(2);
 			}else{
 				_this.getDealPageInfo();
 			}
@@ -251,32 +254,12 @@
 				_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.dealPageInfo = res.data;
-						_this.curerntPlatformPrice = Number(_this.dealPageInfo.currentPlatformPrice);
-						_this.maxPrice = (Number((_this.dealPageInfo.maxPrice))).toFixed(2)+0.01;
-						_this.maxAddPrice = (Number((_this.maxPrice)*1.2)).toFixed(2);
+						_this.curerntPlatformPrice = parseFloat(_this.dealPageInfo.currentPlatformPrice).toFixed(2);
+						_this.maxPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.2+1)).toFixed(2);
+						_this.maxAddPrice = (parseFloat((_this.dealPageInfo.maxPrice)*1.2)).toFixed(2);
 						_this.$cookies.remove('haveDealPageInfo');
 						_this.$cookies.set("haveDealPageInfo",1, 60 * 60 * 2);
 						localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
-						/* _this.maxPrice = (Number((res.data.currentPlatformPrice)*1.3+3)).toFixed(2);
-						_this.maxAddPrice = (Number((res.data.currentPlatformPrice)*1.3+1)).toFixed(2); */
-						/* console.log('_this.maxAddPrice',_this.maxAddPrice);
-						console.log('_this.maxPrice',_this.maxPrice);
-						console.log('_this.targetPrice',targetPrice); */
-						//price>=maxAddPrice&&price<=13.0
-						/* if(_this.maxAddPrice<targetPrice){
-							_this.maxPrice = _this.maxPrice;
-							console.log('_this.maxPrice',_this.maxPrice);
-						} */
-						/* if(_this.maxPrice>=targetPrice){
-							_this.maxPrice = targetPrice;
-							console.log('_this.maxPrice',_this.maxPrice);
-						} */
-						/* if(_this.maxAddPrice>=targetPrice){
-							_this.maxPrice = _this.maxAddPrice;
-							console.log('_this.maxPrice',_this.maxPrice);
-							_this.form4AppointDeal.price = _this.maxPrice;
-							_this.errorInfo4AppointDeal.price = `服务商定向交易价格暂时控制在${_this.maxPrice}CNY`;
-						} */
 					}else{
 						Dialog.alert({
 						  title: '系统提示',
@@ -296,11 +279,11 @@
 						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在0.1~10000之间";
 					}
 				}else if(key == 'price') {
-					let price = Number(_this.form4AppointDeal[key]).toFixed(2);
-					let maxPrice = Number(_this.maxPrice).toFixed(2);
+					let price = parseFloat(_this.form4AppointDeal[key]).toFixed(2);
+					let maxPrice = parseFloat(_this.maxPrice).toFixed(2);
 					//console.log("maxPrice——key",maxPrice);
-					let maxAddPrice = Number(_this.maxAddPrice).toFixed(2);
-					let curerntPlatformPrice = Number(_this.curerntPlatformPrice);
+					let maxAddPrice = parseFloat(_this.maxAddPrice).toFixed(2);
+					let curerntPlatformPrice = parseFloat(_this.curerntPlatformPrice);
 					//alert(maxAddPrice);
 					if(parseFloat(price)>=parseFloat(maxPrice)&&parseFloat(price)<=parseFloat(maxAddPrice)){
 						_this.errorInfo4AppointDeal.price = '';

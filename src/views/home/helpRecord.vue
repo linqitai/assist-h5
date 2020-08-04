@@ -96,6 +96,11 @@ export default {
 					url:'https://www.meipian.cn/32uquw25?share_from=self&first_share_uid=58778585&first_share_to=singlemessage&isappinstalled=1&share_depth=1&from=singlemessage'
 				},
 				{
+					time:'2020/08/01',
+					title:'帮扶链志愿者慰问黄双村特困户真情感动片',
+					url:'http://note.youdao.com/noteshare?id=ca92ed00829746b86a7209ee5d6e06d7'
+				},
+				{
 					time:'2020/07/21',
 					title:'敬老院爱心帮扶活动',
 					url:'http://note.youdao.com/noteshare?id=eb37717a00ecf9f3ae06cada292fc3d5'

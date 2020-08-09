@@ -218,7 +218,9 @@
 				</van-field> -->
 				<div class="placeholderLine20"></div>
 				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
-				<div class="placeholderLine20"></div>
+				<div class="placeholderLine10"></div>
+				<div class="tip4model3RedText">安全密码是实名的时候所设置的安全(交易)密码</div>
+				<div class="placeholderLine10"></div>
 			</div>
 			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
 			<van-button type="info" size="large" @click="sureBuyMillEvent" :loading="buyMillLoading" :disabled="buyMillLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>

@@ -399,9 +399,10 @@
 							<span class="margL1 unSelect">质疑</span>
 						</div> -->
 					</div>
-					<div class="content unSelect justify">
+					<!-- <div class="content unSelect justify">
 						{{list1.story}}
-					</div>
+					</div> -->
+					<div class="content unSelect justify" v-html="list1.story"/>
 					<div class="imageList flex" v-if="list1">
 						<img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/>
 					</div>
@@ -814,10 +815,16 @@
 			},
 			raiseRequest(){
 				let _this = this;
+				let word = '';
+				if(_this.textTip=="矿石"){
+					word = _this.word4Mineral;
+				}else{
+					word = _this.word;
+				}
 				let params = {
 				  raiseId: _this.list1.id,
 				  raiseNum: _this.num,
-				  word: _this.word4Mineral||'加油',
+				  word: word||'加油',
 				  type: _this.textTip == "矿石"?0:1,
 				  safePassword:_this.safePassword
 				}

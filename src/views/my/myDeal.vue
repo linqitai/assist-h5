@@ -576,7 +576,7 @@
 					<span class="value red letterSpacing lineHeight">{{detail4sellerInfo.remark}}</span>
 				</div>
 				<div class="line" v-if="detail4sellerInfo.status==0 || detail4sellerInfo.status==1">
-					<span class="label">自动取消倒计时</span>
+					<span class="label">可取消倒计时</span>
 					<span class="value textAdornColor">
 						<van-count-down :time="setCancelDealDownTime(detail4sellerInfo.canCancelTime)" />
 					</span>
@@ -2074,10 +2074,9 @@
 					status:2,
 				  	id: _this.id
 				  }
-				  ////console.log('params',params)
 				  _this.isPayLoading = true;
 				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-				  	// ////console.log('res', res);
+				  	_this.isPayLoading = false;
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
 				  		if(res.data==1){
@@ -2103,6 +2102,7 @@
 							_this.onLoad2();
 						}
 				  	}else{
+						_this.isPayLoading = false;
 						_this.$toast(res.message);
 					}
 				  })

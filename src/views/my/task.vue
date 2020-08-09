@@ -249,7 +249,7 @@
 					1.从2020/03/31开始统计，自己新增的直推累计100人实名，他们的直推累计200人实名，获得半年产100个矿石的小矿机一台!<br>
 					2.从2020/03/31开始统计，自己新增的直推累计300人实名，他们的直推累计700人实名，获得半年产100个矿石的小矿机二台!<br>
 					3.从2020/03/31开始统计，自己新增的直推累计500人实名，他们的直推累计4500人实名，获得半年产500个矿石的中矿机一台!<br>
-					注：该活动的统计从2020/03/31号开始。从3月31号开始您已经直推<span class="yellow">{{teamActivedNum1}}</span>人实名，他们的直推已累计<span class="yellow">{{teamActivedNum2}}</span>人实名。
+					注：该活动的统计从2020/03/31号开始。从3月31号开始您已经直推<span class="yellow">{{teamActivedNum1}}</span>人实名，他们的直推已累计<span class="yellow">{{teamActivedNum2}}</span>人实名，该活动小矿机最后还剩<span class="yellow">{{activity3MillInventory}}</span>台，中矿机最后还剩<span class="yellow">{{activity3MillInventory2}}</span>台(纯放单的可能领取不到奖励)。
 				</div>
 			</div>
 			<div class="flexRight">
@@ -479,9 +479,11 @@ export default {
 			isShowQunTaskOK:false,
 			teamBuyMachineNum:0,
 			teamLevelAddNum:0,
-			createFlockMillInventory:100,
-			activity1MillInventory:1000,
-			activity2MillInventory:100,
+			createFlockMillInventory:0,
+			activity1MillInventory:0,
+			activity2MillInventory:0,
+			activity3MillInventory:0,
+			activity3MillInventory2:0,
 			myActivity1MillNum:0,
 			myActivity2MillNum:0,
 			teamActivedNum1:0,
@@ -587,6 +589,8 @@ export default {
 				if(res.code == _this.$api.CODE_OK){
 					_this.activity1MillInventory = res.data.activity1MachineNum;
 					_this.activity2MillInventory = res.data.activity2MachineNum;
+					_this.activity3MillInventory = res.data.activity3MachineNum;
+					_this.activity3MillInventory2 = res.data.activity3MachineNum2;
 					_this.createFlockMillInventory = res.data.createFlockMachineNum;
 				}else{
 					_this.$toast(res.message);

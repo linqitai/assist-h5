@@ -216,12 +216,12 @@
 				<div class="flex flex2">
 					<div class="line1">
 						<div class="nick_name left">
-							<!-- {{$JsEncrypt.decrypt(userInfo.nickName)}} -->
-							{{userInfo.nickName}}
+							{{userInfo.nickName}} 
 						</div>
 					</div>
 					<div class="line1 margT3">
 						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}+{{getCityName(cityInfo)}}{{userInfo.isAgent | agentType}}</div>
+						
 					</div>
 					<div class="line margT3">
 						注册实名时间 {{userInfo.registerTime}}
@@ -237,7 +237,12 @@
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
 					<!-- @click="toBookView('5')" -->
-					<div class="line"><span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
+					<div class="line">
+						<span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/> 
+						<span class="margL10" v-if="userInfo.level>0">
+							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveLevelDealProfitLoading" @click="giveLevelDealProfit">全球分红</van-button>
+						</span>
+					</div>
 					<div class="line" v-if="userInfo.manType==2">
 						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
 					</div>
@@ -607,7 +612,8 @@
 				},
 				cookiesTime:60 * 60 * 24,
 				cityInfo:'',
-				dsPassword:''
+				dsPassword:'',
+				giveLevelDealProfitLoading:false
 			}
 		},
 		components: {
@@ -753,6 +759,40 @@
 					return;
 				}
 				_this.$router.push('myBook');
+			},
+			giveLevelDealProfit(){
+				let _this = this;
+				Dialog.confirm({
+				  title: '系统提示',
+				  confirmButtonText:'确认',
+				  closeOnClickOverlay:true,
+				  message: '达到条件的会长，每周一可领取全球分红，是否确认领取？'
+				}).then(() => {
+				  _this.giveLevelDealProfitLoading = true;
+				  _this.$ajax.ajax(_this.$api.giveLevelDealProfit, 'POST', null, function(res){
+				  	if(res.code == _this.$api.CODE_OK){
+				  		if(res.data == 1){
+				  			_this.$toast('领取成功');
+				  			_this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+				  			_this.$router.push('myBook');
+				  		}
+				  	}else{
+				  		//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+						return;
+				  	}
+				  },function(){
+				  	_this.giveLevelDealProfitLoading = false;
+				  })
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
+				});
 			},
 			toComplainView(userId){
 				let _this = this;

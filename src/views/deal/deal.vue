@@ -513,7 +513,7 @@
 				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
 				@blur="validate4BuyBill('buyLowestAmount')"
 				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" clearable label="单价" right-icon="question-o" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" disabled clearable label="单价" right-icon="question-o" placeholder="请填写单价"
 				 @click-right-icon="alertTip(clickIconTip.price)" :error-message="errorInfo4BuyBill.price"/>
 				<div class="inLine">
 					<span class="label">开溢价</span>
@@ -531,7 +531,7 @@
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
 					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
-					<div class="tip4model3">系统提示：平价区的匹配机制全体一致且随机，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间。（同时，交易过程中若遇到问题，随时都可以点诉讼反馈问题按钮，并联系客服让客服介入调查或协调）</div>
+					<div class="tip4model3">系统提示：平价区的匹配机制为随机匹配，每天新挂的单子更有机会被匹配，若被匹配后，有2小时的交易时间，买家锁定交易后，可继续往后延长2小时的交易时间。（同时，交易过程中若遇到问题，随时都可以点诉讼反馈问题按钮，若是特殊情况，最好主动联系客服让客服介入调查或协调）</div>
 					<div class="placeholderLine10"></div>
 				    <van-button @click="sureHangBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Buy" :block="true">确 认</van-button>
 				</div>
@@ -706,8 +706,6 @@ export default {
 				_this.form4BuyBill.price = currentPlatPrice;
 			}else{
 				let addValue = (val/100);
-				//console.log("addValue = " + addValue);
-				//_this.form4BuyBill.price = 13.0;
 				_this.form4BuyBill.price = ((currentPlatPrice) + addValue).toFixed(2);
 			}
 	    }
@@ -1569,7 +1567,12 @@ export default {
 		sureHangSellBillBtn(){
 			let _this = this;
 			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
+			let minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2))+1;
 			let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
+			if(parseFloat(_this.form4pickSellBill.price)<minPrice){
+				_this.$toast(`今日卖单最低价格为${minPrice}￥`);
+				return;
+			}
 			if(parseFloat(_this.form4pickSellBill.price)>maxPrice){
 				_this.$toast(`今日溢价卖单最高价为${maxPrice}￥`);
 				return;
@@ -1598,7 +1601,6 @@ export default {
 					  title: '系统提示',
 					  message: res.message
 					}).then(() => {
-					  // on close
 					  _this.$cookies.set("tabName4MyDeal", "sell", 60 * 60 * 1)
 					  _this.$router.push('myDeal');
 					});

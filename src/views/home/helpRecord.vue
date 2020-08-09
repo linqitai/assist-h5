@@ -91,13 +91,18 @@ export default {
 		return {
 			list:[
 				{
+					time:'2020/08/04',
+					title:'关爱老人，真情传递',
+					url:'http://note.youdao.com/noteshare?id=536a5ef451ca7e85cfe06cf538cecac3'
+				},
+				{
 					time:'2020/08/01',
 					title:'炎炎夏日给抗战老兵送清凉',
 					url:'https://www.meipian.cn/32uquw25?share_from=self&first_share_uid=58778585&first_share_to=singlemessage&isappinstalled=1&share_depth=1&from=singlemessage'
 				},
 				{
 					time:'2020/08/01',
-					title:'帮扶链志愿者慰问黄双村特困户真情感动片',
+					title:'慰问黄双村特困户纪实',
 					url:'http://note.youdao.com/noteshare?id=ca92ed00829746b86a7209ee5d6e06d7'
 				},
 				{

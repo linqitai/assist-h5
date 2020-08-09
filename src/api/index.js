@@ -173,6 +173,7 @@ export default {
 	getActivity1Reward: host + "assist/reward/getActivity1Reward",
 	getActivity2Reward: host + "assist/reward/getActivity2Reward",
 	getActivity3Reward: host + "assist/reward/getActivity3Reward",
+	giveLevelDealProfit: host + "assist/reward/giveLevelDealProfit",
 	//deal
 	sureDeal4SellerById: host + "assist/transaction/sureDeal4SellerById",
 	cancelAssistTransaction4S: host + "assist/transaction/cancelAssistTransaction4S",

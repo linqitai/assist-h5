@@ -121,6 +121,10 @@
 			
 			<!-- <div class="margT10 paddingWing tip4model3" v-html="tipText4AppointDeal"></div> -->
 			<div class="placeholderLine40"></div>
+			<div class="paddingWing tip4model3RedText">
+				通过服务商转让矿石的功能将于8月16号取消。想快速收到矿石的矿工，可联系个人算力大于20G的矿工来预约矿石，通过溢价卖单来定向匹配交易。
+			</div>
+			<div class="placeholderLine40"></div>
 			<div class="placeholderLine40"></div>
 			<div class="sureBtn">
 				<div class="placeholderLine4"></div>
@@ -274,11 +278,13 @@
 				let _this = this;
 				if(key == 'transferAmount') {
 					if(_this.form4AppointDeal[key]>=0.1&&_this.form4AppointDeal[key]<=10000){
+						_this.form4AppointDeal[key] = parseFloat(_this.form4AppointDeal[key]).toFixed(2);
 						_this.errorInfo4AppointDeal.transferAmount = '';
 					}else{
 						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在0.1~10000之间";
 					}
 				}else if(key == 'price') {
+					_this.form4AppointDeal[key] = parseFloat(_this.form4AppointDeal[key]).toFixed(2);
 					let price = parseFloat(_this.form4AppointDeal[key]).toFixed(2);
 					let maxPrice = parseFloat(_this.maxPrice).toFixed(2);
 					//console.log("maxPrice——key",maxPrice);
@@ -339,6 +345,15 @@
 					});
 					return;
 				} */
+				if(_this.$utils.getDate(new Date())>'2020/08/15'){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '通过服务商交易的功能已经被取消'
+					}).then(() => {
+					  // on close
+					});
+					return;
+				} 
 				let leaveNum = (Number(_this.userInfo.thisWeekMineral) - Number(_this.form4AppointDeal.transferAmount)).toFixed(2);
 				if(leaveNum<2){
 					Dialog.alert({

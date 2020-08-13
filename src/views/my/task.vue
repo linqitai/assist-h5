@@ -136,7 +136,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="userInfo.isGetShareTask==0" @click="getShareReword1">去领取</div>
+				<div v-if="userInfo.isGetShareTask==0">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getShareReword1">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask>=1"></i>
 			</div>
 		</div>
@@ -154,7 +156,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="userInfo.isGetShareTask<2" @click="getShareReword2">去领取</div>
+				<div v-if="userInfo.isGetShareTask<2">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getShareReword2">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask==2"></i>
 			</div>
 		</div>
@@ -172,7 +176,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="userInfo.isGetBuyTask==0" @click="getBuyIn10MineralReword">去领取</div>
+				<div v-if="userInfo.isGetBuyTask==0">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getBuyIn10MineralReword">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetBuyTask==1"></i>
 			</div>
 		</div>
@@ -215,7 +221,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="myActivity1MillNum<=0" @click="getActivity1Reward">去领取</div>
+				<div v-if="myActivity1MillNum<=0">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getActivity1Reward">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="myActivity1MillNum>=1"></i>
 			</div>
 		</div>
@@ -234,7 +242,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="myActivity2MillNum<=0" @click="getActivity2Reward">去领取</div>
+				<div v-if="myActivity2MillNum<=0">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getActivity2Reward">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="myActivity2MillNum>=1"></i>
 			</div>
 		</div>
@@ -249,11 +259,13 @@
 					1.从2020/03/31开始统计，自己新增的直推累计100人实名，他们的直推累计200人实名，获得半年产100个矿石的小矿机一台!<br>
 					2.从2020/03/31开始统计，自己新增的直推累计300人实名，他们的直推累计700人实名，获得半年产100个矿石的小矿机二台!<br>
 					3.从2020/03/31开始统计，自己新增的直推累计500人实名，他们的直推累计4500人实名，获得半年产500个矿石的中矿机一台!<br>
-					注：该活动的统计从2020/03/31号开始。从3月31号开始您已经直推<span class="yellow">{{teamActivedNum1}}</span>人实名，他们的直推已累计<span class="yellow">{{teamActivedNum2}}</span>人实名，该活动小矿机最后还剩<span class="yellow">{{activity3MillInventory}}</span>台，中矿机最后还剩<span class="yellow">{{activity3MillInventory2}}</span>台(纯放单的可能领取不到奖励)。
+					注：该活动的统计从2020/03/31号开始。从3月31号开始您已经直推<span class="yellow">{{teamActivedNum1}}</span>人实名，他们的直推已累计<span class="yellow">{{teamActivedNum2}}</span>人实名，该活动小矿机最后还剩<span class="yellow">{{activity3MillInventory}}</span>台，中矿机最后还剩<span class="yellow">{{activity3MillInventory2}}</span>台(该奖励需审核且不对纯放单会员发放，若错过领取时机，可单独找客服额外申请)。
 				</div>
 			</div>
 			<div class="flexRight">
-				<div @click="getActivity3Reward">去领取</div>
+				<div>
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getActivity3Reward">去领取</van-button>
+				</div>
 				<!-- <i class="iconfont iconfont-finished" v-if="myActivity2MillNum>=1"></i> -->
 			</div>
 		</div>
@@ -320,7 +332,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="!userInfo.isGetOneLevelTask" @click="getAssistReward4Level(1)">去领取</div>
+				<div v-if="!userInfo.isGetOneLevelTask">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getAssistReward4Level(1)">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetOneLevelTask"></i>
 			</div>
 		</div>
@@ -341,7 +355,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="!userInfo.isGetTwoLevelTask" @click="getAssistReward4Level(2)">去领取</div>
+				<div v-if="!userInfo.isGetTwoLevelTask">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getAssistReward4Level(2)">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetTwoLevelTask"></i>
 			</div>
 		</div>
@@ -363,7 +379,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="!userInfo.isGetThreeLevelTask" @click="getAssistReward4Level(3)">去领取</div>
+				<div v-if="!userInfo.isGetThreeLevelTask">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getAssistReward4Level(3)">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetThreeLevelTask"></i>
 			</div>
 		</div>
@@ -385,7 +403,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="!userInfo.isGetFourLevelTask" @click="getAssistReward4Level(4)">去领取</div>
+				<div v-if="!userInfo.isGetFourLevelTask">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getAssistReward4Level(4)">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetFourLevelTask"></i>
 			</div>
 		</div>
@@ -407,7 +427,9 @@
 				</div>
 			</div>
 			<div class="flexRight">
-				<div v-if="!userInfo.isGetFiveLevelTask" @click="getAssistReward4Level(5)">去领取</div>
+				<div v-if="!userInfo.isGetFiveLevelTask">
+					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getAssistReward4Level(5)">去领取</van-button>
+				</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetFiveLevelTask"></i>
 			</div>
 		</div>
@@ -464,6 +486,7 @@ export default {
 			showTipModel:false,
 			result:"",
 			loading:true,
+			loading4Reword:false,
 			showUpdateModel:false,
 			showUpdatePasswordModel:false,
 			showRealNameModel:false,
@@ -546,7 +569,7 @@ export default {
 		},
 		getActivityCompleteInfo(){
 			let _this = this;
-			
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getActivityCompleteInfo, 'GET', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -560,6 +583,8 @@ export default {
 				}else{
 					_this.$toast(res.message);
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		getAssistMyMachineNum(){
@@ -568,6 +593,7 @@ export default {
 				tag: 6,
 				type: 1
 			}
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getMyActivityMachineNum, 'GET', params, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -576,6 +602,8 @@ export default {
 				}else{
 					_this.$toast(res.message);
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		getActivityMachineInventory(){
@@ -584,6 +612,7 @@ export default {
 				tag: 6,
 				type: 1
 			} */
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getActivityMachineInventory, 'GET', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -595,6 +624,8 @@ export default {
 				}else{
 					_this.$toast(res.message);
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		getActivity1Reward(){
@@ -609,6 +640,7 @@ export default {
 				});
 				return;
 			}
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getActivity1Reward, 'POST', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -622,6 +654,8 @@ export default {
 				}else{
 					_this.$toast(res.message);
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		getActivity2Reward(){
@@ -636,6 +670,7 @@ export default {
 				});
 				return;
 			}
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getActivity2Reward, 'POST', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -649,10 +684,13 @@ export default {
 				}else{
 					_this.$toast(res.message);
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		getActivity3Reward(){
 			let _this = this;
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getActivity3Reward, 'POST', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -672,6 +710,8 @@ export default {
 					  // on close
 					});
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		getShareReword1(){
@@ -696,6 +736,7 @@ export default {
 				});
 				return;
 			}
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getShareReword, 'POST', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -715,6 +756,8 @@ export default {
 					  // on close
 					});
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		getShareReword2(){
@@ -739,6 +782,7 @@ export default {
 				});
 				return;
 			}
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getShareReword, 'POST', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -759,6 +803,8 @@ export default {
 					  // on close
 					});
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		getBuyIn10MineralReword(){
@@ -781,6 +827,7 @@ export default {
 				});
 				return;
 			}
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getAssistBuyMineralReward, 'POST', null, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -795,6 +842,8 @@ export default {
 				}else{
 					_this.$toast(res.message);
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		getAssistReward4Level(level){
@@ -921,7 +970,7 @@ export default {
 				/* userId: _this.userInfo.userId, */
 				level: level
 			}
-			//console.log('params',params);
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(url, 'POST', params, function(res){
 				// console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -946,6 +995,8 @@ export default {
 				}else{
 					_this.$toast(res.message);
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		showConfirm(type){
@@ -979,6 +1030,7 @@ export default {
 			let params = {
 				type:2
 			}
+			_this.loading4Reword = true;
 			_this.$ajax.ajax(_this.$api.getAssistMyMachineCount4FlockTask, 'GET', params, function(res){
 				console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
@@ -990,6 +1042,8 @@ export default {
 				}else{
 					_this.$toast(res.message);
 				}
+			},function(){
+				_this.loading4Reword = false;
 			})
 		},
 		toRealName(){

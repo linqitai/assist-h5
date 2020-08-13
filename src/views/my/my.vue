@@ -235,13 +235,15 @@
 						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
 					</div>
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
-					<div class="line"><span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
-					<!-- @click="toBookView('5')" -->
 					<div class="line">
-						<span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/> 
-						<span class="margL10" v-if="userInfo.level>0">
+						<span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/>
+						<span class="margL10">
 							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveLevelDealProfitLoading" @click="giveLevelDealProfit">全球分红</van-button>
 						</span>
+					</div>
+					<!-- @click="toBookView('5')" -->
+					<div class="line">
+						<span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/>	
 					</div>
 					<div class="line" v-if="userInfo.manType==2">
 						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
@@ -762,11 +764,20 @@
 			},
 			giveLevelDealProfit(){
 				let _this = this;
+				if(_this.userInfo.level<1){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: "领取全球分红首先要青铜及以上级别"
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				Dialog.confirm({
 				  title: '系统提示',
 				  confirmButtonText:'确认',
 				  closeOnClickOverlay:true,
-				  message: '达到条件的会长，每周一可领取全球分红，是否确认领取？'
+				  message: '工会会长的全球分红按多劳多得的方式发放，每周一手动领取分红，您是否确认领取？'
 				}).then(() => {
 				  _this.giveLevelDealProfitLoading = true;
 				  _this.$ajax.ajax(_this.$api.giveLevelDealProfit, 'POST', null, function(res){

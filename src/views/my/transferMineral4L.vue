@@ -228,11 +228,13 @@
 				let _this = this;
 				if(key == 'transferAmount') {
 					if(_this.form4AppointDeal[key]>=0.1&&_this.form4AppointDeal[key]<=10000){
+						_this.form4AppointDeal[key] = parseFloat(_this.form4AppointDeal[key]).toFixed(2);
 						_this.errorInfo4AppointDeal.transferAmount = '';
 					}else{
 						_this.errorInfo4AppointDeal.transferAmount = "单次转让数量在0.1~10000之间";
 					}
 				}else if(key == 'price') {
+					_this.form4AppointDeal[key] = parseFloat(_this.form4AppointDeal[key]).toFixed(2);
 					let price = parseFloat(_this.form4AppointDeal[key]);
 					let maxPrice = parseFloat(_this.maxPrice);
 					let maxAddPrice = parseFloat(_this.maxAddPrice);

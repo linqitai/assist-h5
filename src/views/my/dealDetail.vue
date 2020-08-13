@@ -190,6 +190,10 @@
 				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
 			</div> -->
+			<!-- <div v-if="form.status==5&&(loginerUserId=='en15079AQ107o91Y7217'||loginerUserId=='1502d824670iQ1215VW8')">
+				<div class="placeholderLine10"></div>
+				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
+			</div> -->
 			<!-- <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="passBtn">通 过</van-button> -->
 			<div v-if="form.status==2||form.status==4">
 				<div class="placeholderLine10"></div>

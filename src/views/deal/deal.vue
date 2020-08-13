@@ -488,10 +488,11 @@
 				<van-field v-model="form4pickSellBill.sellAmount" type="number" required clearable label="想卖数量" placeholder="请填写想要卖出的总数量"/>
 				<van-field v-model="form4pickSellBill.sellLowestAmount" type="number" required clearable label="最低匹配数量" placeholder="请填写最低匹配数量"/>
 				<van-field v-model="form4pickSellBill.price" type="number" required clearable label="单价" placeholder="请填写单价"/>
+				<div class="paddingWing tip4model3RedText margT3">当前溢价卖单的单价控制为：{{minPrice}}~{{maxPrice}}元</div>
 				<van-field v-model="form4pickSellBill.safePassword" type="password" required clearable label="安全密码" placeholder="请填写安全密码"/>
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
-					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
+					<!-- <div class="tip4model3">当前溢价卖家的价格控制为：{{minPrice}}~{{maxPrice}}元</div> -->
 					<!-- <div class="tip4model3">系统提示：卖单被匹配的方式是随机的，最新挂的单子被匹配的概率会高一些，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间，买家若因不知情而没查看所匹配的单子，单子被取消后，只扣卖家的0.5~1.0个贡献值--因卖家通知不到位，没及时提醒买家查看订单。（同时，交易过程中若遇到问题，随时都可以点诉讼按钮，并联系客服让客服介入调查或协调）</div> -->
 					<div class="placeholderLine10"></div>
 				    <van-button @click="sureHangSellBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Buy" :block="true">确 认</van-button>
@@ -907,7 +908,9 @@ export default {
 			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
 			if(_this.$cookies.get('haveDealPageInfo')==1){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
-				_this.form4pickSellBill.price = _this.dealPageInfo.maxPrice;
+				_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2))+1;
+				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
+				_this.form4pickSellBill.price = _this.minPrice;
 				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)))*100;
 				//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
@@ -968,7 +971,9 @@ export default {
 				//console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
-					_this.form4pickSellBill.price = _this.dealPageInfo.maxPrice;
+					_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2))+1;
+					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
+					_this.form4pickSellBill.price = _this.minPrice;
 					//_this.currentMaxPrice = _this.dealPageInfo.maxPrice;
 					_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice) || 0) - (parseFloat(_this.dealPageInfo.currentPlatformPrice||0)))*100;
 					//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
@@ -1569,11 +1574,11 @@ export default {
 			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
 			let minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2))+1;
 			let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
-			if(parseFloat(_this.form4pickSellBill.price)<minPrice){
+			if(parseFloat(_this.form4pickSellBill.price)<parseFloat(minPrice)){
 				_this.$toast(`今日卖单最低价格为${minPrice}￥`);
 				return;
 			}
-			if(parseFloat(_this.form4pickSellBill.price)>maxPrice){
+			if(parseFloat(_this.form4pickSellBill.price)>parseFloat(maxPrice)){
 				_this.$toast(`今日溢价卖单最高价为${maxPrice}￥`);
 				return;
 			}
@@ -1923,6 +1928,15 @@ export default {
 			let _this = this;
 			//console.log('val',val);
 			_this.currentPage2 = val;
+			if(_this.currentPage2>5){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: "为了规避溢价区的定向交易，溢价单子暂时只让查询5页"
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
 			_this.getListAddPrice();
 		},
 		//刷新

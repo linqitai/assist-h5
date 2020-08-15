@@ -493,7 +493,7 @@
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
 					<!-- <div class="tip4model3">当前溢价卖家的价格控制为：{{minPrice}}~{{maxPrice}}元</div> -->
-					<!-- <div class="tip4model3">系统提示：卖单被匹配的方式是随机的，最新挂的单子被匹配的概率会高一些，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间，买家若因不知情而没查看所匹配的单子，单子被取消后，只扣卖家的0.5~1.0个贡献值--因卖家通知不到位，没及时提醒买家查看订单。（同时，交易过程中若遇到问题，随时都可以点诉讼按钮，并联系客服让客服介入调查或协调）</div> -->
+					<div class="tip4model3RedText">系统提示：所挂卖单无法主动撤销，请调整好合理的价格后再挂。</div>
 					<div class="placeholderLine10"></div>
 				    <van-button @click="sureHangSellBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Buy" :block="true">确 认</van-button>
 				</div>
@@ -747,7 +747,7 @@ export default {
 	},
 	created() {
 		let _this = this;
-		_this.bsTip();
+		//_this.bsTip();
 		_this.initializeData();
 		_this.initializeTabActiveName();
 	},

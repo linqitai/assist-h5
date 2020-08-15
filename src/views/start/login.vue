@@ -211,7 +211,7 @@
 			/* if(_this.$cookies.get('token')){
 				_this.$router.push("home");
 			} */
-			_this.bsTip();
+			//_this.bsTip();
 			//_this.getAssistMaintainInfo();
 		},
 		methods:{

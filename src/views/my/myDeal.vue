@@ -1074,7 +1074,7 @@
 				_this.showSendSMSTipModel = true;
 			}
 			
-			_this.bsTip();
+			//_this.bsTip();
 			
 			// let all = 2000;
 			// let r=0.005;

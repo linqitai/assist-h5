@@ -345,7 +345,7 @@
 					});
 					return;
 				} */
-				if(_this.$utils.getDate(new Date())>'2020/08/15'){
+				/* if(_this.$utils.getDate(new Date())>'2020/08/15'){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '通过服务商交易的功能已经被取消'
@@ -353,7 +353,7 @@
 					  // on close
 					});
 					return;
-				} 
+				} */
 				let leaveNum = (Number(_this.userInfo.thisWeekMineral) - Number(_this.form4AppointDeal.transferAmount)).toFixed(2);
 				if(leaveNum<2){
 					Dialog.alert({

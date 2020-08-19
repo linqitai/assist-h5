@@ -485,7 +485,7 @@ $noticeHeight:40px;
 						<img :src="item.imgUrl" v-lazy="item.imgUrl"/>
 					  </van-swipe-item>
 					</van-swipe> -->
-					<van-swipe :autoplay="3000" style="height: 190px;" :lazy-render="true">
+					<van-swipe :autoplay="3000" style="height: 176px;" :lazy-render="true">
 					  <van-swipe-item v-for="(image, index) in images" :key="index">
 						<img v-lazy="image" />
 					  </van-swipe-item>
@@ -665,7 +665,7 @@ $noticeHeight:40px;
 					<div class="infoBox">
 						<router-link to="/helpRecord">
 							<div class="iconBox">
-								<div class="iconBackground iconBackgroundAttendance">
+								<div class="iconBackground iconBackgroundRaise">
 									<van-icon class-prefix="iconfont" name="flow" />
 								</div>
 							</div>
@@ -744,17 +744,9 @@ $noticeHeight:40px;
 				currentPage:1,
 				pageSize:3,
 				images: [
-					this.$api.domainName + '/image/banner/banner0055.jpg',
-					this.$api.domainName + '/image/banner/banner0057.jpg',
-					this.$api.domainName + '/image/banner/banner0059.jpg',
-					this.$api.domainName + '/image/banner/banner0060.jpg',
-					this.$api.domainName + '/image/banner/banner0062.jpg',
-					this.$api.domainName + '/image/banner/banner0063.jpg',
-					this.$api.domainName + '/image/banner/banner0064.jpg',
-					this.$api.domainName + '/image/banner/banner0065.jpg',
-					this.$api.domainName + '/image/banner/banner001.jpg',
-					this.$api.domainName + '/image/banner/banner002.jpg',
-					this.$api.domainName + '/image/banner/banner0061.jpg'
+					this.$api.domainName + '/image/banner/001.jpg',
+					this.$api.domainName + '/image/banner/002.jpg',
+					this.$api.domainName + '/image/banner/003.jpg',
 				],
 				mill: {
 					zl: "",

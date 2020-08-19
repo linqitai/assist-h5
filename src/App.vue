@@ -194,6 +194,7 @@ b{font-weight: bold;}
 .warn_text{color: rgb(211, 0, 0);}
 .red2{color: rgb(255, 135, 65);}
 .green_text{color: #07961f;}
+.bg_yellow{background-color: rgb(255, 135, 65);}
 .bg_black{background-color: #199E00;}
 .inline{display: inline-block;}
 .lineHeight{line-height: 1.3em;}

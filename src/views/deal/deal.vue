@@ -18,6 +18,14 @@
 			color: #323232 !important;
 			font-size: 12px;
 		}
+		.tip{
+			font-size:12px;
+			line-height: 1.8em;
+			letter-spacing: 1px;
+			color: white;
+			background-color: $main-adorn-color;
+			text-align: center;
+		}
 		.tipText{
 			font-size:13px;
 			text-indent: 2em;
@@ -231,14 +239,15 @@
 			<van-skeleton :row="2"/>
 			<div class="placeholderLine10"></div>
 		</div>
+		<div class="tip4model3 tip">流通中心每日开放的时间为9~20点</div>
 		<div class="statistics" v-if="dealPageInfo.currentBuyNum">
 			<div class="line clearBoth flexCenter f-14">
 				<div class="left title">智能统计小助手</div>
 				<div class="right">平台指导价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div>
 			</div>
 			<div class="line clearBoth">
-				<div class="left">24小时交易量 {{(dealPageInfo.transactionNum24).toFixed(2)}}</div>
-				<div class="right">求购总量 {{dealPageInfo.currentBuyNum}}</div>
+				<div class="left">求购总量 {{dealPageInfo.currentBuyNum}}</div>
+				<div class="right">今日当前流通量 {{(dealPageInfo.transactionNum24).toFixed(2)}}</div>
 			</div>
 		</div>
 		
@@ -442,11 +451,11 @@
 			  <div class="tip4model3">
 			  	<b class="textBold">尊敬的原始矿工交易前请认真阅读以下规则：</b>
 			  	<br>
-			  	【1】同价单子的匹配是随机的，匹配后卖家务必主动<b class="textBold red">短信提醒</b>买家；买家付款后，务必在<b class="textBold red">2小时</b>内给予<b class="textBold red">确认或诉讼反馈问题</b>。<br>
+			  	【1】同价单子的匹配是随机的，匹配后卖家务必主动<b class="textBold red">短信提醒</b>买家；买家付款后，卖家务必在<b class="textBold red">2小时</b>内给予<b class="textBold red">确认或诉讼反馈问题</b>。<br>
 			  	【2】交易之前请<b class="textBold red">卖家</b>先检查在平台上所预留的<b class="textBold red">真实姓名</b>与<b class="textBold red">【支付宝、微信】</b>里的是否一致、自己的支付宝和微信号是否可以被搜索到、手机号是否可以接通，确保能顺利交易与顺畅沟通。<br>
-			  	 <b class="textBold red">支付宝收款时：</b>请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
-				 <b class="textBold red">微信收款时：</b>请矿工们预先在微信的【我--支付--支付管理】里开启【允许通过手机号向我转账】的功能，该手机号务必是注册帮扶链的手机号。<br>
-				 <span class="red">【3】若卖方出现以上问题而被投诉，客服会介入调查，调查属实后会酌情处理或处罚卖方2~5个贡献值。</span><br>
+			  	 <b class="textBold red">支付宝收款：</b>请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
+				 <b class="textBold red">微信收款：</b>请矿工们预先在微信的【我--支付--支付管理】里开启【允许通过手机号向我转账】的功能，该手机号务必是注册帮扶链的手机号。<br>
+				 <span class="red">【3】若卖方出现以上任何问题，客服会介入调查后台数据，调查属实后会酌情处理或处罚卖方2~5个贡献值。</span><br>
 			  	 <div class="read">
 					 <van-radio-group v-model="isRead" @change="isReadChange">
 					   <van-radio name="1"><b class="textBold green">发起交易后，即代表您已认真阅读并同意以上规则</b></van-radio>
@@ -908,8 +917,8 @@ export default {
 			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
 			if(_this.$cookies.get('haveDealPageInfo')==1){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
-				_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2))+1;
-				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
+				_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
+				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2).toFixed(2);
 				_this.form4pickSellBill.price = _this.minPrice;
 				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)))*100;
@@ -971,8 +980,8 @@ export default {
 				//console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
-					_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2))+1;
-					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
+					_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
+					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2).toFixed(2);
 					_this.form4pickSellBill.price = _this.minPrice;
 					//_this.currentMaxPrice = _this.dealPageInfo.maxPrice;
 					_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice) || 0) - (parseFloat(_this.dealPageInfo.currentPlatformPrice||0)))*100;
@@ -1572,8 +1581,8 @@ export default {
 		sureHangSellBillBtn(){
 			let _this = this;
 			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
-			let minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2))+1;
-			let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
+			let minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
+			let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2);
 			if(parseFloat(_this.form4pickSellBill.price)<parseFloat(minPrice)){
 				_this.$toast(`今日卖单最低价格为${minPrice}￥`);
 				return;
@@ -1651,49 +1660,6 @@ export default {
 				safePassword:_this.form4BuyBill.safePassword,
 				buyOrSell:"buy"
 			}
-			/* let price = (parseFloat(_this.form4BuyBill[key])).toFixed(2);
-			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
-			let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
-			if(parseFloat(price)>parseFloat(currentPlatformPrice)){
-				_this.addPriceValue = 1;
-			}else{
-				_this.addPriceValue = 0;
-			}
-			console.log("price",price);
-			console.log("currentPlatformPrice",currentPlatformPrice);
-			console.log("maxPrice",maxPrice);
-			console.log("price>maxPrice",parseFloat(price)>parseFloat(maxPrice)?1:0);
-			console.log("price<currentPlatformPrice",parseFloat(price)<parseFloat(currentPlatformPrice)?1:0);
-			if(parseFloat(price)<parseFloat(currentPlatformPrice)||parseFloat(price)>parseFloat(maxPrice)){
-				_this.errorInfo4BuyBill.price = `买单价格暂时控制在${currentPlatformPrice}~${maxPrice}CNY`;
-			}else{
-				_this.errorInfo4BuyBill.price = "";
-				_this.form4BuyBill.price = parseFloat(price);
-				console.log('_this.form4BuyBill.price',_this.form4BuyBill.price);
-			} */
-			
-			/* if(parseFloat(params.price)<parseFloat(currentPlatformPrice)||parseFloat(params.price)>parseFloat(maxPrice)){
-				Dialog.alert({
-				  title: '系统提示',
-				  message: `今日买单价格控制在${currentPlatformPrice}~${maxPrice}之间，请重新填写`
-				}).then(() => {
-				  // on close
-				});
-				return;
-			} */
-			//最低溢价为平价×1.3
-			/* console.log('parseFloat(params.price):',parseFloat(params.price));
-			console.log('parseFloat(currentPlatformPrice):',parseFloat(currentPlatformPrice));
-			console.log('parseFloat(currentPlatformPrice)*1.3',parseFloat(currentPlatformPrice)*1.3); */
-			/* if(parseFloat(params.price)>parseFloat(currentPlatformPrice)&&parseFloat(params.price)<parseFloat(currentPlatformPrice)*1.1){
-				Dialog.alert({
-				  title: '系统提示',
-				  message: `当前最低可挂溢价为${parseFloat(currentPlatformPrice)*1.1}，请重新填写`
-				}).then(() => {
-				  // on close
-				});
-				return;
-			} */
 			if(parseFloat(params.price)>parseFloat(_this.dealPageInfo.currentMaxPrice)){
 				Dialog.alert({
 				  title: '系统提示',

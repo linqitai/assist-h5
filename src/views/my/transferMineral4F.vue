@@ -215,8 +215,8 @@
 			if(_this.$cookies.get('haveDealPageInfo')){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
 				_this.curerntPlatformPrice = parseFloat(_this.dealPageInfo.currentPlatformPrice);
-				_this.maxPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.2+1)).toFixed(2);
-				_this.maxAddPrice = (parseFloat((_this.dealPageInfo.maxPrice)*1.3)).toFixed(2);
+				_this.maxPrice = (parseFloat((_this.dealPageInfo.maxPrice)*1.1)).toFixed(2);
+				_this.maxAddPrice = (parseFloat((_this.dealPageInfo.maxPrice)*1.2)).toFixed(2);
 			}else{
 				_this.getDealPageInfo();
 			}
@@ -259,8 +259,8 @@
 					if (res.code == _this.$api.CODE_OK) {
 						_this.dealPageInfo = res.data;
 						_this.curerntPlatformPrice = parseFloat(_this.dealPageInfo.currentPlatformPrice).toFixed(2);
-						_this.maxPrice = (parseFloat((_this.dealPageInfo.currentPlatformPrice)*1.2+1)).toFixed(2);
-						_this.maxAddPrice = (parseFloat((_this.dealPageInfo.maxPrice)*1.3)).toFixed(2);
+						_this.maxPrice = (parseFloat((_this.dealPageInfo.maxPrice)*1.1)).toFixed(2);
+						_this.maxAddPrice = (parseFloat((_this.dealPageInfo.maxPrice)*1.2)).toFixed(2);
 						_this.$cookies.remove('haveDealPageInfo');
 						_this.$cookies.set("haveDealPageInfo",1, 60 * 60 * 2);
 						localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))

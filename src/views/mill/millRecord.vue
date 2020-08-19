@@ -100,7 +100,7 @@
 						.line1{
 							.millName{
 								font-weight: bold;
-								font-size: 1rem;
+								font-size: 12px;
 							}
 							.calcullatePower{
 								font-size: 0.687rem;
@@ -108,7 +108,7 @@
 							}
 							.nickName{
 								font-weight: bold;
-								font-size: 14px;
+								font-size: 12px;
 								.iconfont-name{
 									font-size: 12px;
 								}
@@ -217,10 +217,9 @@
 					 		<div class="flex flex2">
 					 			<div class="line1">
 					 				<span class="millName">{{item.type | machineTypeType}}</span>
-					 				<span class="calcullatePower">算力 {{item.calculationPower}}GH/s</span>
 									<span class="nickName margL10"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.nickName}}</i></span>
 					 			</div>
-					 			<div class="line">租金 {{item.price}} 租赁时间 {{item.getTime}}</div>
+					 			<div class="line">租金{{item.price}} 算力{{item.calculationPower}}G 租赁时间{{item.getTime}}</div>
 					 		</div>
 					 		<div class="flex flex3">
 								<i class="iconfont iconfont-right-arrow2"></i>
@@ -301,7 +300,8 @@
 					{ text: '小型矿机', value: 2 },
 					{ text: '中型矿机', value: 3 },
 					{ text: '大型矿机', value: 4 },
-					{ text: '晋级矿机', value: 6 }
+					{ text: '晋级矿机I', value: 6 },
+					{ text: '晋级矿机II', value: 7 }
 				],
 				option2: [
 					{ text: '最近7天', value: 7 },

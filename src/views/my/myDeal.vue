@@ -528,8 +528,9 @@
 			</div>
 			<div class="detailBox" v-if="showSellerDetailLoading==false&&detail4sellerInfo">
 				<div class="tip4model3RedText">
-					1.交易默认收款方式为支付宝，若用微信或银行卡转账，请买家预先和卖家沟通并说明原因后再转。<br>
-					2.平台为保证交易的顺利进行，卖方的真实姓名若与收款账户里的不一致将冻结账号处理，交易的时候买方若遇到此问题请不要付款，务必第一时间向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
+					1.若卖家支付宝或微信号异常，请买家点诉讼反馈问题；匹配后若不发短信提醒，客服有劝截图调查，并给予相应的处理。<br>
+					2.交易默认收款方式为支付宝，若用微信转账，请买家预先和卖家沟通并说明原因后再转；若是小额转账，务必使用支付宝或微信完成，若是银行卡当天向多个地方的号转，会被银行判定为银行卡被盗而临时冻结。<br>
+					3.平台为保证交易的顺利进行，卖方的真实姓名若与收款账户里的不一致将冻结账号处理，交易的时候买方若遇到此问题请不要付款，务必第一时间向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
 				</div>
 				<div class="line" v-if="detail4sellerInfo.id">
 					<span class="label">订单编号</span>
@@ -551,7 +552,7 @@
 					<div class="label red">卖方支付宝</div>
 					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.alipayNum,$event)">复制</span><span class="red">{{detail4sellerInfo.alipayNum}}</span></div>
 				</div>
-				<div class="line" v-if="detail4sellerInfo.bankCard">
+				<div class="line" v-if="detail4sellerInfo.bankCard&&parseFloat(totalPrice(detail4sellerInfo))>5000">
 					<div class="label">卖方银行卡</div>
 					<div class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.bankCard,$event)">复制</span>{{detail4sellerInfo.bankCard}}</div>
 				</div>
@@ -2086,7 +2087,7 @@
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个短信提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-								_this.smsContent = `【${_this.$api.projectName}】所匹配的${item.num}个矿石已付款，请确认收款，并在“个人中心--我的单子--待收款”的订单详情中确认收款并释放矿石。每次交易的手续费中都会有部分帮扶券存入少年儿童基金帮扶池，感谢您为帮扶活动奉献了爱心，HPC帮扶链感恩有您的支持!`;
+								_this.smsContent = `【${_this.$api.projectName}】所匹配的${item.num}个矿石已付款，请确认收款，并在“个人中心--我的单子--待收款”的订单详情中确认收款并释放矿石。HPC帮扶链感恩有您的支持!`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								//发送短信提示end
 								_this.showSellerDetailModel = false;

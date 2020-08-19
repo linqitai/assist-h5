@@ -14,6 +14,16 @@
 		[class*=van-hairline]::after {
 		    border: 1px solid #c7c7c7 !important;
 		}
+		.tip{
+			font-size:12px;
+			line-height: 1.2em;
+			letter-spacing: 1px;
+			color: white;
+			background-color: $main-adorn-color;
+			text-align: center;
+			padding-top: 4px;
+			padding-bottom: 4px;
+		}
 		.millContent{
 			color: $main-box-fh-text-color;
 			//min-height: 100%;
@@ -191,6 +201,7 @@
 		</m-header>
 		<canvas class="matrix" id="matrix"></canvas>
 		<div class="millContent" id="millContent">
+			<div class="tip4model3 tip">温馨提示：有时候若遇到网址打不开的情况，请切换一个网址或者切换一下网络试试，若还是不行，就耐心等会儿再试</div>
 			<div class="statistics" v-if="remainCount">
 				<div class="line clearBoth flexCenter f-14">
 					<div class="left title">智能统计小助手</div>

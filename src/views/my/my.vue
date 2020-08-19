@@ -11,6 +11,16 @@
 		.refreshBox{
 			top: 60px;
 		}
+		.tip{
+			font-size:12px;
+			line-height: 1.2em;
+			letter-spacing: 1px;
+			color: white;
+			background-color: $main-adorn-color;
+			text-align: center;
+			padding-top: 4px;
+			padding-bottom: 4px;
+		}
 		.cateInfo {
 			display: flex;
 			width: 100%;
@@ -204,6 +214,9 @@
 			<i class="iconfont iconfont-set rightBox icon" @click="toMyInfo"></i>
 		</m-header>
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
+			<div class="tip4model3 tip">
+				30天没登录将会被系统回收2~12个矿石且需重新实名认证
+			</div>
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->

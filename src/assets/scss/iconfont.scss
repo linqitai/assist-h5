@@ -14,6 +14,10 @@
   font-style: normal !important;
 }
 
+.iconfont-new-guide::before {
+  content: '\e68d';
+}
+
 .iconfont-notice-record::before {
   content: '\e731';
 }

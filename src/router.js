@@ -439,6 +439,12 @@ export default new Router({
 					meta:{footer:false,back:true,question:false},
 				},
 				{
+					path: '/newGuide',
+					name: '新手指南',
+					component: resolve => require(['./views/home/newGuide'],resolve),
+					meta:{footer:false,back:true,question:false},
+				},
+				{
 					path: '/noticeList',
 					name: '公告列表',
 					component: resolve => require(['./views/home/noticeList'],resolve),

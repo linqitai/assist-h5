@@ -672,6 +672,16 @@ $noticeHeight:40px;
 							<div class="text">帮扶历史</div>
 						</router-link>
 					</div>
+					<div class="infoBox">
+						<router-link to="/newGuide">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundRank">
+									<van-icon class-prefix="iconfont" name="new-guide" />
+								</div>
+							</div>
+							<div class="text">新手指南</div>
+						</router-link>
+					</div>
 				</div>
 				<div class="placeholderLine10"></div>
 				<!-- <div class="noticeFlag paddingWing margT8">

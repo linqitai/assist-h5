@@ -307,7 +307,7 @@
 								</div>
 								<div class="boxRight">
 									<div>合计 {{(totalPrice(item.price,item.maxNumber)/7).toFixed(3)}}$/{{(totalPrice(item.price,item.maxNumber))}}￥</div>
-									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">卖 TA</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -378,7 +378,7 @@
 								</div>
 								<div class="boxRight">
 									<div>合计 {{(totalPrice(item.price,item.maxNumber)/7).toFixed(3)}}$/{{totalPrice(item.price,item.maxNumber)}}￥</div>
-									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">卖 TA</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -562,16 +562,16 @@
 				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
 				@blur="validate4BuyBill('buyLowestAmount')"
 				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" disabled clearable label="单价" right-icon="question-o" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" clearable label="单价" right-icon="question-o" placeholder="请填写单价"
 				 @click-right-icon="alertTip(clickIconTip.price)" :error-message="errorInfo4BuyBill.price"/>
-				<div class="inLine">
+				<!-- <div class="inLine">
 					<span class="label">开溢价</span>
 					<span class="value">
 						<span class="valueRight">
 							<van-slider v-model="addPriceValue" @change="onChange4sliderPrice" :min="min4Price" :max="max4Price"/>
 						</span>
 					</span>
-				</div>
+				</div> -->
 				<van-field v-model="form4BuyBill.safePassword" type="password" required clearable label="安全密码" right-icon="question-o" placeholder="请填写安全密码"
 				  @click-right-icon="alertTip(clickIconTip.safePassword)"
 				  @blur="validate4BuyBill('safePassword')"
@@ -802,7 +802,7 @@ export default {
 				_this.form4BuyBill.price = currentPlatPrice;
 			}else{
 				let addValue = (val/100);
-				_this.form4BuyBill.price = ((currentPlatPrice) + addValue).toFixed(1);
+				_this.form4BuyBill.price = ((currentPlatPrice) + addValue).toFixed(2);
 			}
 	    },
 		addPriceValue4Newbie(val, oldVal) {
@@ -887,7 +887,7 @@ export default {
 			if(_this.$cookies.get('haveDealPageInfo')==1){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
 				_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
-				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2).toFixed(2);
+				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.1 + 1).toFixed(2);
 				_this.form4pickSellBill.price = _this.minPrice;
 				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)))*100;
@@ -940,7 +940,7 @@ export default {
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 			}else{
 				let addValue = (value/100);
-				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice) + addValue).toFixed(1);
+				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice) + addValue).toFixed(2);
 				//_this.form4BuyBill.price = (parseFloat(_this.currentMaxPrice)-parseFloat(_this.dealPageInfo.currentPlatformPrice) + addValue).toFixed(2);
 			}
 		},
@@ -953,7 +953,7 @@ export default {
 				_this.form4BuyBill.price = currentPlatformPrice;
 			}else{
 				let addValue = (value/100);
-				_this.form4BuyBill.price = (currentPlatformPrice*addValue).toFixed(1);
+				_this.form4BuyBill.price = (currentPlatformPrice*addValue).toFixed(2);
 			}
 		},
 		bsTip(){
@@ -1121,7 +1121,7 @@ export default {
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
 					_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
-					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2).toFixed(2);
+					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.1 + 1).toFixed(2);
 					_this.form4pickSellBill.price = _this.minPrice;
 					//_this.currentMaxPrice = _this.dealPageInfo.maxPrice;
 					_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice) || 0) - (parseFloat(_this.dealPageInfo.currentPlatformPrice||0)))*100;

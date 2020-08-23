@@ -199,6 +199,9 @@
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
 		</div>
 		<van-field v-model="mobilePhone" disabled clearable label="手机号"/>
+		<div class="tip4modelRedText paddingWing textJustify margT10">
+			填写昵称请注意：不能复制微信里的表情文字，需要手写文字、字母或数字，否者实名会无法提交<br>
+		</div>
 		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
 		<!-- <van-field v-model="form.telPhone" required clearable label="手机号" right-icon="question-o" :placeholder="errorHint.telPhone" maxlength="11"
 		@click-right-icon="$toast(errorHint.telPhone)"
@@ -279,6 +282,7 @@
 				2、把证件照片裁剪得尽可能小一点。<br>
 				3、更换浏览器，QQ、UC浏览器优先。<br>
 				4、可能个人手机的系统版本不是最新的，请借用家人的其他手机提交实名试试。<br>
+				5、检查昵称中是否有表情符号，若有请删除表情符号。<br>
 			</div>
 		</div>
 	</div>

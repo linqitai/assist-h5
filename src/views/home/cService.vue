@@ -92,7 +92,7 @@
 			
 			<div class="title">微信客服：</div>
 			<div class="placeholderLine10"></div>
-			<div v-for="item in serviceList" :key="item.id+20" v-if="item.weiChart!='--'">
+			<div v-for="item in serviceList" :key="item.id+20" v-if="$JsCrypto.myDecode1(item.weiChart)!='--'">
 				<b class="textBold">{{(item.remark)}}：{{$JsCrypto.myDecode1(item.weiChart)}}</b><span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.weiChart),$event)">复制</span>
 				<div class="placeholderLine10"></div>
 			</div>

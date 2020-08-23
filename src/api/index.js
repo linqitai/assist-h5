@@ -181,6 +181,7 @@ export default {
 	getAssistTransactionListByPage: host + "assist/transaction/getAssistTransactionListByPage",
 	insertTransaction4PickSellBill: host + "assist/transaction/insertTransaction4PickSellBill",
 	getAssistSellBillList: host + "assist/buybill/getAssistSellBillList",
+	getAssistBuyBillListNewbiePage: host + "assist/buybill/getAssistBuyBillListNewbiePage",
 	getAssistBuyBillListGeneralPage: host + "assist/buybill/getAssistBuyBillListGeneralPage",
 	getAssistBuyBillListAddPricePage: host + "assist/buybill/getAssistBuyBillListAddPricePage",
 	getAssistBuyBillListByBuyerId: host + "assist/buybill/getAssistBuyBillListByBuyerId",

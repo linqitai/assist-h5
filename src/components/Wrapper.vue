@@ -107,7 +107,7 @@
 					</div>
 					<div class="placeholderLine4"></div>
 					<div>
-						2.个人算力达到1G后即可开通溢价交易。
+						2.在新手区买入数量超过100个且人算力达到1G后即可开通买卖区的交易。
 					</div>
 					<div class="placeholderLine4"></div>
 					<div>

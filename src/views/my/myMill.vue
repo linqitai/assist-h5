@@ -394,6 +394,9 @@
 				_this.$router.replace('login');
 				return;
 			}
+			if(_this.userInfo.realnameNum>0){
+				_this.updateRealNameNumByUserId();
+			}
 			//console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
 		},
 		methods: {
@@ -465,6 +468,17 @@
 			},
 			confirmEvent(){
 				console.log("confirm");
+			},
+			updateRealNameNumByUserId(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.updateRealNameNumByUserId, 'GET', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						//_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
+					}else{
+						_this.$toast(res.message);
+					}
+				})
 			},
 			getReceipt(){
 				let _this = this;

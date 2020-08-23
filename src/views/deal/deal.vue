@@ -19,8 +19,10 @@
 			font-size: 12px;
 		}
 		.tip{
+			padding-top: 6px;
+			padding-bottom: 6px;
 			font-size:12px;
-			line-height: 1.8em;
+			line-height: 1.3em;
 			letter-spacing: 1px;
 			color: white;
 			background-color: $main-adorn-color;
@@ -79,8 +81,8 @@
 		}
 		$bottom:118px;
 		.buy{
-			top: $bottom*1.7;
-			right: $right*1.2;
+			bottom: $bottom + 60px;
+			left: $right*1.2;
 			color: $main-box-fh-text-color;
 		}
 		.sale{
@@ -221,6 +223,11 @@
 			</van-skeleton>
 		</div> -->
 		<!-- <div class="kline" id="kline"></div> -->
+		<!-- <div class="tip4model3 tip">平价买单和溢价买单接近的时候将会合并</div> -->
+		<div class="tip4model3 tip">
+			流通中心每日开放的时间为9~20点<br/>
+			新手区为个人买入数量为0~99个矿石的矿工的专属交易区
+		</div>
 		<van-button type="info" size="normal" to="kline" color="#ff8400" :block="true"><span class="letterSpacing">查看K线图</span></van-button>
 		<!-- <van-sticky>
 			<div class="statistics">
@@ -239,7 +246,7 @@
 			<van-skeleton :row="2"/>
 			<div class="placeholderLine10"></div>
 		</div>
-		<div class="tip4model3 tip">流通中心每日开放的时间为9~20点</div>
+		
 		<div class="statistics" v-if="dealPageInfo.currentBuyNum">
 			<div class="line clearBoth flexCenter f-14">
 				<div class="left title">智能统计小助手</div>
@@ -250,7 +257,6 @@
 				<div class="right">今日当前流通量 {{(dealPageInfo.transactionNum24).toFixed(2)}}</div>
 			</div>
 		</div>
-		
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 			<!-- <div class="line1pxbgcolor"></div>
 			<div class="dealContent">
@@ -290,7 +296,44 @@
 			<!-- sticky -->
 			<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
-				<van-tab title="平价买单" name="dealArea1">
+				<van-tab title="新手区" name="dealArea4">
+					<div class="line1pxbgcolor"></div>
+					<div class="dealContent">
+						<div class="dealList">
+							<div class="item" v-for="item in list4" :key="item.id">
+								<div class="boxLeft">
+									<div class="">单价 {{(parseFloat(item.price)/7).toFixed(2)}}$/{{(item.price)}}￥</div>
+									<div class="margT10">数量 {{item.minNumber}}~{{item.maxNumber}}{{$api.coinUnit}}</div>
+								</div>
+								<div class="boxRight">
+									<div>合计 {{(totalPrice(item.price,item.maxNumber)/7).toFixed(3)}}$/{{(totalPrice(item.price,item.maxNumber))}}￥</div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">随机卖</van-button></div>
+								</div>
+							</div>
+						</div>
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+						<!-- <div class="paddingWing tip4model3 justify">
+							系统提示：当前平价共{{pagesPlatPrice}}页，希望广大会员更多得去注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！
+						</div> -->
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+						<div class="paddingWing" v-if="totalItems4>0">
+							<van-pagination 
+							  v-model="currentPage4" 
+							  :total-items="totalItems4" 
+							  :items-per-page="pageSize"
+							  :show-page-size="3" 
+							  force-ellipses
+							  @change="changeCurrentPage4"
+							/>
+						</div>
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+						<div class="placeholderLine"></div>
+					</div>
+				</van-tab>
+				<!-- <van-tab title="平价买单" name="dealArea1">
 					<div class="line1pxbgcolor"></div>
 					<div class="dealContent">
 						<div class="dealList">
@@ -307,9 +350,6 @@
 						</div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
-						<!-- <div class="paddingWing tip4model3 justify">
-							系统提示：当前平价共{{pagesPlatPrice}}页，希望广大会员更多得去注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！
-						</div> -->
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 						<div class="paddingWing" v-if="totalItems1>0">
@@ -326,8 +366,8 @@
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 					</div>
-				</van-tab>
-				<van-tab title="溢价买单" name="dealArea2">
+				</van-tab> -->
+				<van-tab title="买单区" name="dealArea2">
 					<div class="dealContent">
 						<div class="dealList">
 							<div class="line1pxbgcolor"></div>
@@ -372,7 +412,7 @@
 						<div class="placeholderLine"></div>
 					</div>
 				</van-tab>
-				<van-tab title="溢价卖单" name="dealArea3">
+				<van-tab title="卖单区" name="dealArea3">
 					<div class="dealContent">
 						<div class="dealList">
 							<div class="line1pxbgcolor"></div>
@@ -433,7 +473,6 @@
 				  </div>
 			  </div>
 			  <van-field v-model="form4pickSellBill.price" disabled clearable label="单价"/>
-			  <!-- <van-field readonly clickable label="服务费" :value="serviceCharge"/> -->
 			  <van-field readonly required clickable label="选择服务费" :value="serviceCharge" placeholder="请先选择服务费" @click="showPicker4ServiceChargePopup = true" @blur="validate4pickSellBill('serviceCharge')" :error-message="errorInfo4pickSellBill.serviceCharge"/>
 			  <van-popup v-model="showPicker4ServiceChargePopup" position="bottom">
 			    <van-picker
@@ -484,7 +523,7 @@
 		  </div>
 		</van-action-sheet>
 		
-		<div class="buy" v-if="tabActiveName=='dealArea1'||tabActiveName=='dealArea2'" @click="showBuyModelBtn()">挂买</div>
+		<div class="buy" v-if="tabActiveName=='dealArea1'||tabActiveName=='dealArea2'||tabActiveName=='dealArea4'" @click="showBuyModelBtn()">挂买</div>
 		<div class="sale" v-if="tabActiveName=='dealArea3'" @click="showSellModelBtn()">挂卖</div>
 		
 		
@@ -547,6 +586,45 @@
 				</div>
 			</div>
 		</van-action-sheet>
+		<van-action-sheet v-model="showBuyModel4Newbie" title="新手区挂买">
+			<div class="hangBuyContent">
+				<!-- <div class="tipText paddingWing">
+					价格涨幅规律：每当平台指导价的求购量超过10万{{pen}}，则涨0.1CNY。
+				</div> -->
+				<van-cell-group>
+				<van-field v-model="userInfo.canBuyNum" label="我的限购数量" type="number" disabled right-icon="question-o" @click-right-icon="alertTip(clickIconTip.buyAmount)"/>
+				<van-field v-model="form4BuyBill.buyAmount" type="number" required clearable label="求购数量" right-icon="question-o" placeholder="请填写想要买入的总数量"
+				  @click-right-icon="alertTip(clickIconTip.buyAmount)"
+				  @blur="validate4BuyBill('buyAmount')"
+				  :error-message="errorInfo4BuyBill.buyAmount"/>
+				<van-field v-model="form4BuyBill.buyLowestAmount" type="number" required clearable label="最低匹配数量" right-icon="question-o" :placeholder="buyLowestAmountText"
+				@click-right-icon="alertTip(clickIconTip.buyLowestAmount)"
+				@blur="validate4BuyBill('buyLowestAmount')"
+				:error-message="errorInfo4BuyBill.buyLowestAmount"/>
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="单价" right-icon="question-o" placeholder="请填写单价"
+				 @click-right-icon="alertTip(clickIconTip.price)" :error-message="errorInfo4BuyBill.price"/>
+				<!-- <div class="inLine">
+					<span class="label">调价格</span>
+					<span class="value">
+						<span class="valueRight">
+							<van-slider v-model="addPriceValue4Newbie" @change="onChange4sliderPrice4Newbie" :min="min4Price4NewBie" :max="max4Price4NewBie"/>
+						</span>
+					</span>
+				</div> -->
+				<van-field v-model="form4BuyBill.safePassword" type="password" required clearable label="安全密码" right-icon="question-o" placeholder="请填写安全密码"
+				  @click-right-icon="alertTip(clickIconTip.safePassword)"
+				  @blur="validate4BuyBill('safePassword')"
+				  :error-message="errorInfo4BuyBill.safePassword"
+				  />
+				</van-cell-group>
+				<div class="sureAppointBtnBox">
+					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
+					<div class="tip4model3">系统提示：新手区的匹配机制为随机匹配，若被匹配后，有2小时的交易时间，买家锁定交易后，可继续往后延长2小时的交易时间。（同时，交易过程中若遇到问题，随时都可以点诉讼反馈问题按钮，若是特殊情况，最好主动联系客服让客服介入调查或协调）</div>
+					<div class="placeholderLine10"></div>
+				    <van-button @click="sureHangBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Buy" :block="true">确 认</van-button>
+				</div>
+			</div>
+		</van-action-sheet>
 		<van-action-sheet v-model="showTipModel" title="问题小帮手">
 			<div class="paddingWing">
 				<div class="placeholderLine40"></div>
@@ -567,6 +645,7 @@ import { Skeleton,Toast,Dialog } from 'vant';
 export default {
 	data() {
 		return {
+			showBuyModel4Newbie:false,
 			isRead:0,
 			sendSmsHref:"",
 			smsContent:"",
@@ -576,18 +655,22 @@ export default {
 			addPriceValue:0.0,
 			min4Price:0,
 			max4Price:100,
+			min4Price4NewBie:0,
+			max4Price4NewBie:100,
 			step4Price:0.01,
 			currentMaxPrice:0,
 			sellBtnLoading:false,
-			tabActiveName:"dealArea1",
+			tabActiveName:"dealArea4",
 			currentPage1:1,
 			currentPage2:1,
 			currentPage3:1,
+			currentPage4:1,
 			pageSize:10,
 			pageCount:0,
 			totalItems1:0,
 			totalItems2:0,
 			totalItems3:0,
+			totalItems4:0,
 			showAppointDealModel:false,//定向交易模型
 			showBuyModel:false,//挂买单模型
 			showSellModel:false,//挂卖单模型
@@ -678,6 +761,9 @@ export default {
 			list3:[],
 			loading3: true,
 			finished3: false,
+			list4:[],
+			loading4: true,
+			finished4: false,
 			currentBuyNum:1314216,
 			userInfo:"",
 			userIdBuyBillCount:0,
@@ -718,7 +804,18 @@ export default {
 				let addValue = (val/100);
 				_this.form4BuyBill.price = ((currentPlatPrice) + addValue).toFixed(1);
 			}
-	    }
+	    },
+		addPriceValue4Newbie(val, oldVal) {
+			let _this = this;
+			let currentPlatPrice = parseFloat(_this.dealPageInfo.currentPlatformPrice);
+		    //console.log("addPriceValue = " + val + " , oldValue = " + oldVal);
+			if(val == 0){
+				_this.form4BuyBill.price = currentPlatPrice;
+			}else{
+				let addValue = (val/100);
+				_this.form4BuyBill.price = (currentPlatPrice*addValue).toFixed(1);
+			}
+		}
 	},
 	computed:{
 		/* remainContributionValue () {
@@ -731,6 +828,8 @@ export default {
 			let num = 0
 			if(_this.form4pickSellBill.serviceCharge==0){
 				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue*(1.0+_this.dealPageInfo.dealRatio);
+			}else if(_this.form4pickSellBill.serviceCharge==3){
+				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue*(1.0+_this.dealPageInfo.newbieRatio);
 			}else{
 				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue*1.1;
 			}
@@ -743,7 +842,7 @@ export default {
 			let price = _this.form4pickSellBill.price;
 			if(_this.form4pickSellBill.serviceCharge==0){
 				num = _this.platformTicket;
-			}else if(_this.form4pickSellBill.serviceCharge==1){
+			}else if(_this.form4pickSellBill.serviceCharge==1||_this.form4pickSellBill.serviceCharge==3){
 				num = _this.platformTicket - _this.form4pickSellBill.sellAmountSliderValue*price*0.1;
 				if(num<0){
 					num = _this.platformTicket;
@@ -766,6 +865,74 @@ export default {
 			_this.isRead = val;
 			console.log(_this.isRead,"isRead");
 		},
+		initializeData(){
+			let _this = this;
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				_this.userInfo = JSON.parse(userInfo);
+				_this.platformTicket = parseFloat(_this.userInfo.platformTicket);
+				_this.canBuyNum = parseFloat(_this.userInfo.canBuyNum || 0);
+				if(_this.userInfo.accountStatus==1){
+					//退出登录
+					_this.logout();
+				}
+			}else{
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
+			}
+			_this.pages = parseInt(_this.$cookies.get('pages')) || 0;
+			_this.pagesPlatPrice = parseInt(_this.$cookies.get('pagesPlatPrice')) || 0;
+			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
+			if(_this.$cookies.get('haveDealPageInfo')==1){
+				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
+				_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
+				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2).toFixed(2);
+				_this.form4pickSellBill.price = _this.minPrice;
+				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
+				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)))*100;
+				//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
+				//console.log("_this.max4Price:",_this.max4Price);
+				if(_this.userInfo.myCalculationPower<1){
+					_this.form4pickSellBill.serviceCharge = 3;
+					_this.serviceCharge = `20%矿石+交易总金额的10%帮扶券`;
+				}else{
+					_this.form4pickSellBill.serviceCharge = 1;
+					_this.serviceCharge = `10%矿石+交易总金额的10%帮扶券`;
+				}
+				_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'},{id:3,text:'20%矿石+交易总金额的10%帮扶券'},{id:0,text:`${parseFloat(_this.dealPageInfo.dealRatio)*100}%矿石`}];
+				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
+				/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
+				_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
+				_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
+				_this.buyLowestAmountText = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
+			}else{
+				_this.getDealPageInfo();
+			}
+			//给人买卖信息，次缓存来自我的页面
+			/* if(_this.$cookies.get("buyAndSellInfo")){
+				_this.buyAndSellInfo = _this.$cookies.get("buyAndSellInfo");
+				_this.canBuyNum = _this.buyAndSellInfo.canBuyNum;
+			}else{
+				_this.getBuyAndSellInfo();
+			} */
+			_this.clickIconTip = {
+				sellAmount:"请填写单次挂卖数量",
+				univalence:_this.$reg.univalenceHint,
+				blockAddress:_this.$reg.block_addressHint,
+				buyAmount:_this.$reg.positive_integerHint4BuyBill,
+				buyLowestAmount:"最低匹配数量请填写1~500之间",
+				price:"请填写想要买入的单价",
+				platformUnivalence:"请按平台指导价挂单",
+				serviceCharge:"请先选择服务费",
+				safePassword:_this.$reg.safePasswordHint
+			}
+			if(_this.$cookies.get('isRefreshDealInfo')==1){
+				_this.refreshEvent();
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.set('isRefreshDealInfo',0,_this.$api.cookiesTime);
+			}
+		},
 		onChange4sliderPrice(value){
 			//console.log(value);
 			let _this = this;
@@ -775,6 +942,18 @@ export default {
 				let addValue = (value/100);
 				_this.form4BuyBill.price = (parseFloat(_this.dealPageInfo.currentPlatformPrice) + addValue).toFixed(1);
 				//_this.form4BuyBill.price = (parseFloat(_this.currentMaxPrice)-parseFloat(_this.dealPageInfo.currentPlatformPrice) + addValue).toFixed(2);
+			}
+		},
+		onChange4sliderPrice4Newbie(value){
+			//console.log(value,"value");
+			let _this = this;
+			let currentPlatformPrice = parseFloat(_this.dealPageInfo.currentPlatformPrice);
+			//console.log(currentPlatformPrice,"currentPlatformPrice");
+			if(value == 0){
+				_this.form4BuyBill.price = currentPlatformPrice;
+			}else{
+				let addValue = (value/100);
+				_this.form4BuyBill.price = (currentPlatformPrice*addValue).toFixed(1);
 			}
 		},
 		bsTip(){
@@ -794,15 +973,26 @@ export default {
 			this.questionText = text;
 		},
 		onConfirm4ServiceCharge(item) {
-		  let _this = this;
-		  _this.serviceCharge = item.text;
-		  _this.form4pickSellBill.serviceCharge = item.id;
-		  _this.showPicker4ServiceChargePopup = false;
-		  if(_this.form4pickSellBill.serviceCharge == 1){
-			  _this.maxBill = Math.floor(_this.maxBill*1.1);
-		  }else if(_this.form4pickSellBill.serviceCharge == 0){
-			  _this.maxBill = Math.floor(_this.maxBill*(1.0 + _this.dealPageInfo.dealRatio));
-		  }
+			let _this = this;
+			if(_this.userInfo.myCalculationPower<1&&item.id!=3){
+				Dialog.alert({
+					title: '系统提示',
+					message: '个人算力不到1G的服务费暂时只能选择：20%矿石+交易总金额的10%帮扶券'
+				}).then(() => {
+					// on close
+				});
+			}else{
+				_this.serviceCharge = item.text;
+				_this.form4pickSellBill.serviceCharge = item.id;
+				_this.showPicker4ServiceChargePopup = false;
+				if(_this.form4pickSellBill.serviceCharge == 1){
+					_this.maxBill = Math.floor(_this.maxBill*1.1);
+				}else if(_this.form4pickSellBill.serviceCharge == 0){
+					_this.maxBill = Math.floor(_this.maxBill*(1.0 + _this.dealPageInfo.dealRatio));
+				}else if(_this.form4pickSellBill.serviceCharge == 3){
+					_this.maxBill = Math.floor(_this.maxBill*(1.0+_this.dealPageInfo.newbieRatio));
+				}
+			}
 		},
 		onChange4ServiceCharge(picker, value, index) {
 		  Toast(`当前值：${value}, 当前索引：${index}`);
@@ -815,8 +1005,8 @@ export default {
 			_this.$router.push('/myDeal4Deal');
 		},
 		refreshEvent() {
-			//console.log("refresh")
 			let _this = this;
+			console.log("refresh:",_this.tabActiveName);
 			_this.getDealPageInfo();
 			if(_this.tabActiveName == 'dealArea1'){
 				//console.log("refresh1");
@@ -836,6 +1026,12 @@ export default {
 				_this.list3 = [];
 				_this.finished3 = false;
 				_this.getSellBillList();
+			}else if(_this.tabActiveName == 'dealArea4'){
+				//console.log("refresh2");
+				_this.currentPage4 = 1;
+				_this.list4 = [];
+				_this.finished4 = false;
+				_this.getNewbieBillList();
 			}
 		},
 		totalPrice(a,b){
@@ -875,6 +1071,15 @@ export default {
 				}else{
 					_this.getSellBillList();
 				}
+			}else if(name == 'dealArea4'){
+				if(_this.$cookies.get('totalItems4')){
+					_this.list4 = JSON.parse(localStorage.getItem("LIST4"));
+					_this.totalItems4 = parseInt(_this.$cookies.get('totalItems4'));
+					_this.pagesPlatPrice = parseInt(_this.$cookies.get('pagesPlatPrice'));
+					//console.log('_this.totalItems1',_this.totalItems1);
+				}else{
+					_this.getNewbieBillList();
+				}
 			}
 		},
 		logout(){
@@ -895,71 +1100,6 @@ export default {
 			},function(){
 				_this.$router.replace('login');
 			})
-		},
-		initializeData(){
-			let _this = this;
-			let userInfo = localStorage.getItem("_USERINFO_");
-			if(userInfo){
-				_this.userInfo = JSON.parse(userInfo);
-				_this.platformTicket = parseFloat(_this.userInfo.platformTicket);
-				_this.canBuyNum = parseFloat(_this.userInfo.canBuyNum || 0);
-				if(_this.userInfo.accountStatus==1){
-					//退出登录
-					_this.logout();
-				}
-			}else{
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			}
-			_this.pages = parseInt(_this.$cookies.get('pages')) || 0;
-			_this.pagesPlatPrice = parseInt(_this.$cookies.get('pagesPlatPrice')) || 0;
-			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
-			if(_this.$cookies.get('haveDealPageInfo')==1){
-				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
-				_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
-				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2).toFixed(2);
-				_this.form4pickSellBill.price = _this.minPrice;
-				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
-				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)))*100;
-				//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
-				//console.log("_this.max4Price:",_this.max4Price);
-				_this.serviceCharge = `10%矿石+交易总金额的10%帮扶券`;
-				/* _this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`; */
-				/* _this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}]; */
-				//_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'}];
-				_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'},{id:0,text:`${parseFloat(_this.dealPageInfo.dealRatio)*100}%矿石`}];
-				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
-				/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
-				_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
-				_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
-				_this.buyLowestAmountText = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
-			}else{
-				_this.getDealPageInfo();
-			}
-			//给人买卖信息，次缓存来自我的页面
-			/* if(_this.$cookies.get("buyAndSellInfo")){
-				_this.buyAndSellInfo = _this.$cookies.get("buyAndSellInfo");
-				_this.canBuyNum = _this.buyAndSellInfo.canBuyNum;
-			}else{
-				_this.getBuyAndSellInfo();
-			} */
-			_this.clickIconTip = {
-				sellAmount:"请填写单次挂卖数量",
-				univalence:_this.$reg.univalenceHint,
-				blockAddress:_this.$reg.block_addressHint,
-				buyAmount:_this.$reg.positive_integerHint4BuyBill,
-				buyLowestAmount:"最低匹配数量请填写1~500之间",
-				price:"请填写想要买入的单价",
-				platformUnivalence:"请按平台指导价挂单",
-				serviceCharge:"请先选择服务费",
-				safePassword:_this.$reg.safePasswordHint
-			}
-			if(_this.$cookies.get('isRefreshDealInfo')==1){
-				_this.refreshEvent();
-				_this.$cookies.remove('isRefreshDealInfo');
-				_this.$cookies.set('isRefreshDealInfo',0,_this.$api.cookiesTime);
-			}
 		},
 		getHomeMineralStaticInfo(){
 			let _this = this;
@@ -988,11 +1128,14 @@ export default {
 					//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
 					//console.log("_this.max4Price:",_this.max4Price);
 					_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
-					_this.serviceCharge = `10%矿石+交易总金额的10%帮扶券`;
-					/* _this.serviceCharge = `${_this.dealPageInfo.dealRatio*100}%矿石`; */
-					/* _this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}]; */
-					//_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'}];
-					_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'},{id:0,text:`${parseFloat(_this.dealPageInfo.dealRatio)*100}%矿石`}];
+					if(_this.userInfo.myCalculationPower<1){
+						_this.form4pickSellBill.serviceCharge = 3;
+						_this.serviceCharge = `20%矿石+交易总金额的10%帮扶券`;
+					}else{
+						_this.form4pickSellBill.serviceCharge = 1;
+						_this.serviceCharge = `10%矿石+交易总金额的10%帮扶券`;
+					}
+					_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'},{id:3,text:'20%矿石+交易总金额的10%帮扶券'},{id:0,text:`${parseFloat(_this.dealPageInfo.dealRatio)*100}%矿石`}];
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 					/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
 					_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
@@ -1038,6 +1181,45 @@ export default {
 			},function(){
 				_this.loading3 = false;
 				_this.loading = false;
+			})
+		},
+		getNewbieBillList(){
+			let _this = this;
+			let params = {
+				pageNo: _this.currentPage4,
+				pageSize: _this.pageSize,
+			}
+			//console.log(params,'params')
+			_this.loading1 = true;
+			const toast = Toast.loading({
+			  forbidClick: true,
+			  message: '加载中...',
+			});
+			_this.$ajax.ajax(_this.$api.getAssistBuyBillListNewbiePage, 'GET', params, function(res) {
+				// //console.log('res', res);
+				if (res.code == _this.$api.CODE_OK) {
+					_this.list4 = res.data.list;
+					_this.totalItems4 = res.data.total;
+					_this.pagesPlatPrice = res.data.pages;
+					_this.$cookies.set("pagesPlatPrice", _this.pagesPlatPrice, 60 * 30 * 1);
+					_this.$cookies.set("totalItems4", _this.totalItems4, 60 * 30 * 1)
+					if(_this.list4==[]){
+						
+					}else{
+						localStorage.setItem("LIST4",JSON.stringify(_this.list4));
+					}
+				}else{
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
+				}
+			},function(){
+				_this.loading1 = false;
+				_this.loading = false;
+				Toast.clear();
 			})
 		},
 		getListGeneral(){
@@ -1162,11 +1344,36 @@ export default {
 				}else{
 					_this.getSellBillList();
 				}
+			}else if(_this.tabActiveName == "dealArea4"){
+				if(_this.$cookies.isKey("totalItems4")){
+					_this.totalItems4 = parseInt(_this.$cookies.get("totalItems4"));
+					if(_this.totalItems4&&localStorage.getItem("LIST4")){
+						//从缓存中获取list1,先立刻加载出页面，然后再从接口中获取数据list1，提高用户体验
+						_this.list1 = JSON.parse(localStorage.getItem("LIST1"))|| [];
+						_this.list2 = JSON.parse(localStorage.getItem("LIST2"))|| [];
+						_this.list3 = JSON.parse(localStorage.getItem("LIST3"))|| [];
+						_this.list4 = JSON.parse(localStorage.getItem("LIST4"))|| [];
+						_this.loading = false;
+					}else{
+						_this.getNewbieBillList();
+					}
+				}else{
+					_this.getNewbieBillList();
+				}
 			}
 		},
 		showPickSellModelBtn(item){
 			let _this = this;
 			if(_this.tabActiveName == 'dealArea2'){
+				if(_this.userInfo.buyAmount<100){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '由于您买入数量小于100个，需在新手区交易'
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
 				if(_this.userInfo.myCalculationPower<1){
 					Dialog.alert({
 					  title: '系统提示',
@@ -1177,6 +1384,17 @@ export default {
 					return;
 				}
 			}
+			/* if(_this.tabActiveName == 'dealArea4'){
+				if(_this.userInfo.buyAmount>=100){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '只有买入数量在1~99之间的矿工才能在此区出售'
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+			} */
 			// 如果用户在中途选择了第二种服务费，最大可卖数量要在原来基础上加10%
 			//卖出需要贡献值
 			// let myContributionValue = _this.userInfo.contributionValue;
@@ -1184,23 +1402,11 @@ export default {
 			let myMaxCanSellNum = 0;
 			let ratio = _this.dealPageInfo.dealRatio;
 			if(_this.form4pickSellBill.serviceCharge==0){
-				//卖出需要贡献值
-				/* if(myContributionValue<=myMineralNum/(1.0 + ratio)){
-					myMaxCanSellNum = myContributionValue;
-				}
-				if(myContributionValue>=myMineralNum/(1.0 + ratio)){
-					myMaxCanSellNum = myMineralNum/(1.0 + ratio);
-				} */
 				myMaxCanSellNum = myMineralNum/(1.0 + ratio);
 			}else if(_this.form4pickSellBill.serviceCharge==1){
-				//卖出需要贡献值
-				/* if(myContributionValue<=myMineralNum/1.1){
-					myMaxCanSellNum = myContributionValue;
-				}
-				if(myContributionValue>=myMineralNum){
-					myMaxCanSellNum = myMineralNum/1.1;
-				} */
 				myMaxCanSellNum = myMineralNum/1.1;
+			}else if(_this.form4pickSellBill.serviceCharge==3){
+				myMaxCanSellNum = myMineralNum/(1.0+_this.dealPageInfo.newbieRatio);
 			}
 			if(myMaxCanSellNum>=item.minNumber&&myMaxCanSellNum<=item.maxNumber){
 				_this.maxBill = Math.floor(myMaxCanSellNum);
@@ -1367,11 +1573,18 @@ export default {
 				});
 				return;
 			}
+			let type = 1;
+			if(_this.tabActiveName == 'dealArea4'){
+				type = 2;
+			}else{
+				type = 1;
+			}
 			let params = {
 				/* sellerId:_this.userInfo.userId, */
 				serviceCharge:_this.form4pickSellBill.serviceCharge,
 				num:_this.form4pickSellBill.sellAmountSliderValue,
 				price:_this.form4pickSellBill.price,
+				type:type,
 				safePassword:_this.form4pickSellBill.safePassword,
 				idCard:_this.form4pickSellBill.idCard
 			}
@@ -1534,10 +1747,23 @@ export default {
 		showBuyModelBtn(){
 			let _this = this;
 			_this.$utils.formClear(_this.errorInfo4BuyBill);
-			if(parseFloat(_this.form4BuyBill.price)>0.07) {
+			if(_this.tabActiveName == 'dealArea1' || _this.tabActiveName == 'dealArea2') {
 				_this.showBuyModel = true;
-			}else{
-				window.location.reload();
+			}else if(_this.tabActiveName == 'dealArea4'){
+				if(_this.userInfo.buyAmount>=100){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '只有买入数量在0~99之间的矿工才能在此区挂单'
+					}).then(() => {
+					  // on close
+					  return;
+					});
+					return;
+				}else{
+					_this.form4BuyBill.price = 10;
+					_this.form4BuyBill.buyAmount = Number(100 - parseInt(_this.userInfo.buyAmount));
+					_this.showBuyModel4Newbie = true;
+				}
 			}
 			//_this.judgeMyBuyBill();
 		},
@@ -1564,7 +1790,7 @@ export default {
 					if(_this.userIdBuyBillCount>0){
 						Dialog.alert({
 						  title: '系统提示',
-						  message: '平台指导价每人只能挂一个买单，前去查看您所挂的买单？'
+						  message: '平台指导价每人暂时只能挂一个买单，前去查看您所挂的买单？'
 						}).then(() => {
 						  // on close
 						  _this.$cookies.set("tabName4Book", "buy", 60 * 60 * 1)
@@ -1649,14 +1875,42 @@ export default {
 				return;
 			}
 			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
-			let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
+			let type;
+			if(parseFloat(_this.form4BuyBill.price)>parseFloat(currentPlatformPrice)){
+				type = 1;
+			}else if(parseFloat(_this.form4BuyBill.price)==parseFloat(currentPlatformPrice)){
+				type = 0;
+			}
+			if(_this.tabActiveName == 'dealArea4'){
+				type = 2;
+				let maxAmount = Number(100 - parseInt(_this.userInfo.buyAmount));
+				if(parseFloat(_this.form4BuyBill.buyAmount)>parseFloat(maxAmount)){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: `您当前最高可挂数量为${parseFloat(maxAmount)}个，请重新填写`
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+				if(parseFloat(_this.form4BuyBill.price)>parseFloat(currentPlatformPrice)){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: `新手区最高单价为${parseFloat(_this.dealPageInfo.currentPlatformPrice)}，请重新填写`
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+			}
+			//let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
 			let params = {
 				/*userId:_this.userInfo.userId,
 				serviceCharge:_this.form4BuyBill.serviceCharge, */
 				maxNumber:_this.form4BuyBill.buyAmount,
 				minNumber:_this.form4BuyBill.buyLowestAmount,
 				price:_this.form4BuyBill.price,
-				type:parseFloat(_this.form4BuyBill.price)>parseFloat(currentPlatformPrice)?1:0,
+				type:type,
 				safePassword:_this.form4BuyBill.safePassword,
 				buyOrSell:"buy"
 			}
@@ -1664,6 +1918,15 @@ export default {
 				Dialog.alert({
 				  title: '系统提示',
 				  message: `当前最高可挂溢价为${parseFloat(_this.dealPageInfo.currentMaxPrice)}，请重新填写`
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			if(parseFloat(params.price)<parseFloat(0.07)){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: `当前最低可挂单价为0.07，请重新填写`
 				}).then(() => {
 				  // on close
 				});
@@ -1754,6 +2017,10 @@ export default {
 					_this.errorInfo4BuyBill.buyAmount = `请填写正整数`;
 				}
 			}else if(key == 'price') {
+				console.log("price");
+				if(_this.tabActiveName == 'dealArea4'){
+					_this.form4BuyBill.price = parseFloat((_this.form4BuyBill.price)).toFixed(1);
+				}
 				/* let price = (parseFloat(_this.form4BuyBill[key])).toFixed(2);
 				let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
 				let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.3 + 3).toFixed(2);
@@ -1904,6 +2171,36 @@ export default {
 				return;
 			}
 			_this.getListAddPrice();
+		},
+		changeCurrentPage3(val){
+			let _this = this;
+			//console.log('val',val);
+			_this.currentPage3 = val;
+			if(_this.currentPage3>5){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: "溢价卖单暂时只让查询5页"
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			_this.getListAddPrice();
+		},
+		changeCurrentPage4(val){
+			let _this = this;
+			//console.log('val',val);
+			_this.currentPage4 = val;
+			if(_this.currentPage4>1){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: "新手区单子暂时只查询1页"
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			_this.getNewbieBillList();
 		},
 		//刷新
 		handleRefresh(){

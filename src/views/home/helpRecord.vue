@@ -91,6 +91,11 @@ export default {
 		return {
 			list:[
 				{
+					time:'2020/08/24',
+					title:'蔡锷大将军的故乡帮扶记录',
+					url:'https://www.meipian6.cn/342pxmz6?first_share_to=&first_share_uid=ohbsluHXOyM_J1cmrC9lqMJbiHeI&s_uid=212887301&share_depth=3&share_source=timeline&sharer_id=ojq1tt7nfMQ2p9LmtSAk3zOHvD_0&user_id=ohbsluHXOyM_J1cmrC9lqMJbiHeI'
+				},
+				{
 					time:'2020/08/04',
 					title:'关爱老人，真情传递',
 					url:'http://note.youdao.com/noteshare?id=536a5ef451ca7e85cfe06cf538cecac3'

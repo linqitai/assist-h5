@@ -660,12 +660,12 @@ export default {
 			step4Price:0.01,
 			currentMaxPrice:0,
 			sellBtnLoading:false,
-			tabActiveName:"dealArea4",
+			tabActiveName:"dealArea2",
 			currentPage1:1,
 			currentPage2:1,
 			currentPage3:1,
 			currentPage4:1,
-			pageSize:10,
+			pageSize:7,
 			pageCount:0,
 			totalItems1:0,
 			totalItems2:0,
@@ -1875,12 +1875,7 @@ export default {
 				return;
 			}
 			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
-			let type;
-			if(parseFloat(_this.form4BuyBill.price)>parseFloat(currentPlatformPrice)){
-				type = 1;
-			}else if(parseFloat(_this.form4BuyBill.price)==parseFloat(currentPlatformPrice)){
-				type = 0;
-			}
+			let type = 1;
 			if(_this.tabActiveName == 'dealArea4'){
 				type = 2;
 				let maxAmount = Number(100 - parseInt(_this.userInfo.buyAmount));

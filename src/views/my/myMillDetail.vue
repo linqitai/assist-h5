@@ -61,7 +61,7 @@
 			<div class="loading">
 				<van-loading color="#ff8400" type="spinner" size="36px"/>
 				<div class="placeholderLine10"></div>
-				<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getRecieptLoading"><span class="letterSpacing">领取收益</span></van-button>
+				<!-- <van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getRecieptLoading"><span class="letterSpacing">领取收益</span></van-button> -->
 			</div>
 			<div class="info">
 				<div class="millType">{{millInfo.type | machineTypeType}}</div>

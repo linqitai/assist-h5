@@ -201,7 +201,7 @@
 		</m-header>
 		<canvas class="matrix" id="matrix"></canvas>
 		<div class="millContent" id="millContent">
-			<div class="tip4model3 tip">温馨提示：有时候若遇到网址打不开的情况，请切换一个网址或者切换一下网络试试，若还是不行，就耐心等会儿再试</div>
+			<div class="tip4model3 tip">若遇到网址打不开的情况，请切换一个网址或者切换一下网络试试，若还是不行，就耐心等会儿再试</div>
 			<div class="statistics" v-if="remainCount">
 				<div class="line clearBoth flexCenter f-14">
 					<div class="left title">智能统计小助手</div>

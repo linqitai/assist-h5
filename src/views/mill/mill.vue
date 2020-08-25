@@ -23,6 +23,16 @@
 			.van-list__finished-text{
 				color: inherit !important;
 			}
+			.tip{
+				font-size:12px;
+				line-height: 1.2em;
+				letter-spacing: 1px;
+				color: white;
+				background-color: $main-adorn-color;
+				text-align: center;
+				padding-top: 4px;
+				padding-bottom: 4px;
+			}
 			.tabTitle{
 				display: flex;
 				align-items: center;
@@ -166,6 +176,7 @@
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header> -->
 		<div class="millContent">
+			<div class="tip4model3 tip">任何一种矿机被租赁完，就会集体减产</div>
 			<van-pull-refresh v-model="loading" @refresh="onLoadMillShop">
 				<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
 					<div class="millList">

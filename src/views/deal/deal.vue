@@ -666,6 +666,7 @@ export default {
 			currentPage3:1,
 			currentPage4:1,
 			pageSize:7,
+			newbiePageSize:7,
 			pageCount:0,
 			totalItems1:0,
 			totalItems2:0,
@@ -886,13 +887,15 @@ export default {
 			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
 			if(_this.$cookies.get('haveDealPageInfo')==1){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
+				console.log("_this.dealPageInfo:",_this.dealPageInfo);
+				_this.newbiePageSize = _this.dealPageInfo.newbiePageSize;
 				_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
 				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.1 + 1).toFixed(2);
 				_this.form4pickSellBill.price = _this.minPrice;
 				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 				_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)))*100;
 				//console.log("_this.dealPageInfo.maxPrice：",_this.dealPageInfo.maxPrice);
-				//console.log("_this.max4Price:",_this.max4Price);
+				//console.log("_this.dealPageInfo:",_this.dealPageInfo);
 				if(_this.userInfo.myCalculationPower<1){
 					_this.form4pickSellBill.serviceCharge = 3;
 					_this.serviceCharge = `20%矿石+交易总金额的10%帮扶券`;
@@ -1120,6 +1123,7 @@ export default {
 				//console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
+					_this.newbiePageSize = _this.dealPageInfo.newbiePageSize;
 					_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
 					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.1 + 1).toFixed(2);
 					_this.form4pickSellBill.price = _this.minPrice;
@@ -1187,9 +1191,8 @@ export default {
 			let _this = this;
 			let params = {
 				pageNo: _this.currentPage4,
-				pageSize: _this.pageSize,
+				pageSize: _this.dealPageInfo.newbiePagesize?_this.dealPageInfo.newbiePagesize:7
 			}
-			//console.log(params,'params')
 			_this.loading1 = true;
 			const toast = Toast.loading({
 			  forbidClick: true,
@@ -1760,7 +1763,8 @@ export default {
 					});
 					return;
 				}else{
-					_this.form4BuyBill.price = 10;
+					let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
+					_this.form4BuyBill.price = currentPlatformPrice;
 					_this.form4BuyBill.buyAmount = Number(100 - parseInt(_this.userInfo.buyAmount));
 					_this.showBuyModel4Newbie = true;
 				}

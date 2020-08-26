@@ -120,7 +120,7 @@
 		<i class="rightBox icon"></i>
 	</m-header>
 	<!-- 实名认证 -->
-	<div class="realName">
+	<div class="realName" v-if="form.status">
 		<!-- <div class="f-12 lineHeight textJustify tip4model">
 			<div class="textIndent">
 				<b>审核指标：</b>请客服和团队长们一定要审核对方的支付宝账号的真实姓名，只要用户的真实姓名和支付宝中的姓名还有证件照中的姓名对得上，且身份证号也对得上即可通过；否则就驳回。
@@ -174,7 +174,7 @@
 			<van-field v-model="form.letSureTime" clearable label="待确认时间" disabled="true"/>
 		</div>
 		<van-field clearable label="状态" disabled="true">
-			<van-button slot="button" size="small"><span class="statusText" :class="getColor(form.status)">{{form.status | dealStatusType}}</span></van-button>
+			<van-button slot="button" size="small"><span class="statusText" :class="getColor(form.status)">{{form.status}}</span></van-button>
 		</van-field>
 		<div v-if="form.remark">
 			<van-field v-model="form.remark" label="诉讼问题信息" rows="3" type="textarea" autosize disabled="true"/>
@@ -190,10 +190,14 @@
 				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
 			</div> -->
-			<!-- <div v-if="form.status==5&&(loginerUserId=='en15079AQ107o91Y7217'||loginerUserId=='1502d824670iQ1215VW8')">
+			<div v-if="form.status==5&&(loginerUserId=='en15079AQ107o91Y7217'||loginerUserId=='1502d824670iQ1215VW8')">
 				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
-			</div> -->
+				<div class="tip4model3">
+					注：若卖家确认超时后(过待确认时间尚未确认)，客服可给确认，并扣卖家1个贡献值。
+				</div>
+				<van-button size="normal" :block="true" type="primary" @click="sureBtn">给确认</van-button>
+			</div>
 			<!-- <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="passBtn">通 过</van-button> -->
 			<div v-if="form.status==2||form.status==4">
 				<div class="placeholderLine10"></div>

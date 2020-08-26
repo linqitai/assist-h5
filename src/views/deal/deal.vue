@@ -18,6 +18,10 @@
 			color: #323232 !important;
 			font-size: 12px;
 		}
+		.notice-swipe {
+		    height: 40px;
+		    line-height: 40px;
+		}
 		.tip{
 			padding-top: 6px;
 			padding-bottom: 6px;
@@ -224,10 +228,24 @@
 		</div> -->
 		<!-- <div class="kline" id="kline"></div> -->
 		<!-- <div class="tip4model3 tip">平价买单和溢价买单接近的时候将会合并</div> -->
-		<div class="tip4model3 tip">
+		<!-- <div class="tip4model3 tip">
 			流通中心每日开放的时间为9~20点<br/>
 			新手区为个人买入数量为0~99个矿石的矿工的专属交易区
-		</div>
+		</div> -->
+		<!-- <div class="notice">
+			<van-notice-bar text="流通中心每日开放的时间为9~20点" left-icon="volume-o"/>
+		</div> -->
+		<van-notice-bar left-icon="volume-o" :scrollable="true">
+		  <van-swipe
+		    vertical
+		    class="notice-swipe"
+		    :autoplay="10000"
+		    :show-indicators="false"
+		  >
+		    <van-swipe-item>流通中心每日开放的时间为9~20点</van-swipe-item>
+		    <van-swipe-item>新手区是买入数量为0~99个矿石的矿工的专属交易区</van-swipe-item>
+		  </van-swipe>
+		</van-notice-bar>
 		<van-button type="info" size="normal" to="kline" color="#ff8400" :block="true"><span class="letterSpacing">查看K线图</span></van-button>
 		<!-- <van-sticky>
 			<div class="statistics">

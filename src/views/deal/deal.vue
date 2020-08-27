@@ -244,6 +244,7 @@
 		  >
 		    <van-swipe-item>流通中心每日开放的时间为9~20点</van-swipe-item>
 		    <van-swipe-item>新手区是买入数量为0~99个矿石的矿工的专属交易区</van-swipe-item>
+			<van-swipe-item>进入溢价区交易需买入数量达到100个且个人算力达到1G</van-swipe-item>
 		  </van-swipe>
 		</van-notice-bar>
 		<van-button type="info" size="normal" to="kline" color="#ff8400" :block="true"><span class="letterSpacing">查看K线图</span></van-button>

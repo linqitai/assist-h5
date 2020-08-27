@@ -223,89 +223,91 @@
 					<div class="right">待产出矿石 ≈ {{(parseFloat(remainCount)).toFixed(3)}}个</div>
 				</div>
 			</div> -->
-			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
-			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
-				<van-tab name="myMill">
-					<div slot="title" class="tabTitle">
-					     我的矿机 {{myMillList.length}}
-					</div>
-					<div class="getMineral" v-if="isShowOneReciept">
-						<div class="tip4model3 textCenter">每次矿机收益需要在24~48小时之内领取</div>
-						<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
-					</div>
-					<van-list v-model="loadingMyMill" :finished="finishedMyMill" :finished-text="finishedMyMillText" @load="onLoadMyMill">
-						<div class="millList">
-							<div class="item" v-for="item in myMillList" :key="item.id">
-								<!-- <div class="flex flex1">
-									<div class="machingBox">
-										<div class="name">{{item.type | machineType4Pic}}</div>
-									</div>
-								</div> -->
-								<div class="flex flex2">
-									<div class="line1">
-										<div class="millName inline">{{item.type | machineTypeType}}</div>
-										<!-- <div class="inline"><span class="tag" :class="tagColor(item.tag)">{{item.tag | machineTagType}}</span></div> -->
-										<div class="inline calcullatePower">算力 {{item.calculationPower}}GH/s</div>
-										<!-- <div class="inline f-12 status">{{item.status | machineStatus}}</div> -->
-									</div>
-									<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 到期</div>
-									<div class="line">租金 {{item.price}}矿石</div>
-									<div class="line">总产 {{item.totalOutput}}矿石</div>
-									<div class="line">已产 {{item.alreadyGet}}矿石</div>
-									<div class="line">总运行时长 {{item.allRuntime}}小时</div>
-									<!-- <div class="line" v-if="item.turnOnTime">开机 {{item.turnOnTime}}</div> -->
-									<div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt || '--'}}</div>
-									<!-- <div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
-									<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div> -->
-								</div>
-								<div class="flex flex3">
-									<div class="status line">{{item.status | machineStatus}}</div>
-									<div class="line margT3">
-										<van-button round type="info" v-if="item.status==1" size="small" @click="toMillDetailPage(item)" color="linear-gradient(to right, #099eee, #0b6fcc)" :block="true">详情</van-button>
-										<van-button round type="info" v-if="item.status==0" :loading="isRunMillBtnLoading" @click="runMillEvent(item.id)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">运行</van-button>
-									</div>
-								</div>
-								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item.tag)"></i>
-								<i class="tagIconText">{{item.tag | machineTagIconTextType}}</i>
-							</div>
+			<van-pull-refresh v-model="loadingMyMill" @refresh="refreshEvent">
+				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
+					<van-tab name="myMill">
+						<div slot="title" class="tabTitle">
+							 我的矿机 {{myMillList.length}}
 						</div>
-					</van-list>
-				</van-tab>
-				<van-tab name="pastMill">
-					<div slot="title" class="tabTitle">
-					     过期矿机 {{pastMillList?pastMillList.length:''}}
-					</div>
-					<van-list :offset="100" v-model="loadingPastMill" :finished="finishedPastMill" finished-text="没有更多了" @load="onLoadPastMill">
-						<div class="millList">
-							<div class="item" v-for="item in pastMillList" :key="item.id">
-								<!-- <div class="flex flex1">
-									<div class="machingBox">
-										<div class="name">{{item.type | machineType4Pic}}</div>
-									</div>
-								</div> -->
-								<div class="flex flex2">
-									<div class="line1">
-										<div class="millName inline">{{item.type | machineTypeType}}</div>
-										<div class="status inline">总运行 {{item.allRuntime}}小时</div>
-										<!-- <div class="status inline">{{item.status | machineStatus}}</div>
-										<div class="calcullatePower inline">算力 {{item.calculationPower}}GH/s</div> -->
-									</div>
-									<div class="line">租金{{item.price}}矿石 总产{{item.totalOutput}}矿石 已产{{item.alreadyGet}}矿石</div>
-									<!-- <div class="line">总运行时长 {{item.allRuntime}}小时</div> -->
-									<!-- <div class="line" v-if="item.turnOnTime">开机时间 {{item.turnOnTime}}</div> -->
-									<div class="line" v-if="item.turnOffTime">到期时间 {{item.turnOffTime}}</div>
-									<!-- <div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div> -->
-								</div>
-								<!-- <div class="flex flex3">
-									<div class="line">算力 {{item.calculationPower}}</div>
-								</div> -->
-								<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item.tag)"></i>
-								<i class="tagIconText">{{item.tag | machineTagIconTextType}}</i>
-							</div>
+						<div class="getMineral" v-if="isShowOneReciept">
+							<div class="tip4model3 textCenter">每次矿机收益需要在24~48小时之内领取</div>
+							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
 						</div>
-					</van-list>
-				</van-tab>
-			</van-tabs>
+						<van-list v-model="loadingMyMill" :finished="finishedMyMill" :finished-text="finishedMyMillText" @load="onLoadMyMill">
+							<div class="millList">
+								<div class="item" v-for="item in myMillList" :key="item.id">
+									<!-- <div class="flex flex1">
+										<div class="machingBox">
+											<div class="name">{{item.type | machineType4Pic}}</div>
+										</div>
+									</div> -->
+									<div class="flex flex2">
+										<div class="line1">
+											<div class="millName inline">{{item.type | machineTypeType}}</div>
+											<!-- <div class="inline"><span class="tag" :class="tagColor(item.tag)">{{item.tag | machineTagType}}</span></div> -->
+											<div class="inline calcullatePower">算力 {{item.calculationPower}}GH/s</div>
+											<!-- <div class="inline f-12 status">{{item.status | machineStatus}}</div> -->
+										</div>
+										<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 到期</div>
+										<div class="line">租金 {{item.price}}矿石</div>
+										<div class="line">总产 {{item.totalOutput}}矿石</div>
+										<div class="line">已产 {{item.alreadyGet}}矿石</div>
+										<div class="line">总运行时长 {{item.allRuntime}}小时</div>
+										<!-- <div class="line" v-if="item.turnOnTime">开机 {{item.turnOnTime}}</div> -->
+										<div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt || '--'}}</div>
+										<!-- <div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
+										<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div> -->
+									</div>
+									<div class="flex flex3">
+										<div class="status line">{{item.status | machineStatus}}</div>
+										<div class="line margT3">
+											<van-button round type="info" v-if="item.status==1" size="small" @click="toMillDetailPage(item)" color="linear-gradient(to right, #099eee, #0b6fcc)" :block="true">详情</van-button>
+											<van-button round type="info" v-if="item.status==0" :loading="isRunMillBtnLoading" @click="runMillEvent(item.id)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">运行</van-button>
+										</div>
+									</div>
+									<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item.tag)"></i>
+									<i class="tagIconText">{{item.tag | machineTagIconTextType}}</i>
+								</div>
+							</div>
+						</van-list>
+					</van-tab>
+					<van-tab name="pastMill">
+						<div slot="title" class="tabTitle">
+							 过期矿机 {{pastMillList?pastMillList.length:''}}
+						</div>
+						<van-list :offset="100" v-model="loadingPastMill" :finished="finishedPastMill" finished-text="没有更多了" @load="onLoadPastMill">
+							<div class="millList">
+								<div class="item" v-for="item in pastMillList" :key="item.id">
+									<!-- <div class="flex flex1">
+										<div class="machingBox">
+											<div class="name">{{item.type | machineType4Pic}}</div>
+										</div>
+									</div> -->
+									<div class="flex flex2">
+										<div class="line1">
+											<div class="millName inline">{{item.type | machineTypeType}}</div>
+											<div class="status inline">总运行 {{item.allRuntime}}小时</div>
+											<!-- <div class="status inline">{{item.status | machineStatus}}</div>
+											<div class="calcullatePower inline">算力 {{item.calculationPower}}GH/s</div> -->
+										</div>
+										<div class="line">租金{{item.price}}矿石 总产{{item.totalOutput}}矿石 已产{{item.alreadyGet}}矿石</div>
+										<!-- <div class="line">总运行时长 {{item.allRuntime}}小时</div> -->
+										<!-- <div class="line" v-if="item.turnOnTime">开机时间 {{item.turnOnTime}}</div> -->
+										<div class="line" v-if="item.turnOffTime">到期时间 {{item.turnOffTime}}</div>
+										<!-- <div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div> -->
+									</div>
+									<!-- <div class="flex flex3">
+										<div class="line">算力 {{item.calculationPower}}</div>
+									</div> -->
+									<i class="tagIcon iconfont iconfont-tag" :class="tagColor(item.tag)"></i>
+									<i class="tagIconText">{{item.tag | machineTagIconTextType}}</i>
+								</div>
+							</div>
+						</van-list>
+					</van-tab>
+				</van-tabs>
+			</van-pull-refresh>
 		</div>
 		<!-- <van-button type="primary" @click="testLoginUrl()">登录</van-button>
 	  <van-button type="primary" @click="testUrl()">获取信息</van-button>  :confirm="confirmEvent"-->
@@ -454,6 +456,10 @@
 				}else{
 					return 'tag2'
 				}
+			},
+			refreshEvent() {
+				let _this = this;
+				_this.onLoadMyMill();
 			},
 			nextReceipt(value){
 				let _this = this;

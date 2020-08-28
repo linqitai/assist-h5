@@ -235,7 +235,12 @@
 		<!-- <div class="notice">
 			<van-notice-bar text="流通中心每日开放的时间为9~20点" left-icon="volume-o"/>
 		</div> -->
-		<van-notice-bar left-icon="volume-o" :scrollable="true">
+		<van-notice-bar
+		  mode = "closeable"
+		  left-icon="volume-o"
+		  text="流通中心每日开放的时间为9~20点 新手区是买入数量为0~99个矿石的矿工的专属交易区 进入溢价区交易需买入数量达到100个并复投到1G个人算力"
+		/>
+		<!-- <van-notice-bar left-icon="volume-o" :scrollable="true">
 		  <van-swipe
 		    vertical
 		    class="notice-swipe"
@@ -246,7 +251,7 @@
 		    <van-swipe-item>新手区是买入数量为0~99个矿石的矿工的专属交易区</van-swipe-item>
 			<van-swipe-item>进入溢价区交易需买入数量达到100个且个人算力达到1G</van-swipe-item>
 		  </van-swipe>
-		</van-notice-bar>
+		</van-notice-bar> -->
 		<van-button type="info" size="normal" to="kline" color="#ff8400" :block="true"><span class="letterSpacing">查看K线图</span></van-button>
 		<!-- <van-sticky>
 			<div class="statistics">
@@ -1144,7 +1149,7 @@ export default {
 					_this.dealPageInfo = res.data;
 					_this.newbiePageSize = _this.dealPageInfo.newbiePageSize;
 					_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
-					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.1 + 1).toFixed(2);
+					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2).toFixed(2);
 					_this.form4pickSellBill.price = _this.minPrice;
 					//_this.currentMaxPrice = _this.dealPageInfo.maxPrice;
 					_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice) || 0) - (parseFloat(_this.dealPageInfo.currentPlatformPrice||0)))*100;
@@ -1390,7 +1395,7 @@ export default {
 				if(_this.userInfo.buyAmount<100){
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '由于您买入数量小于100个，需在新手区交易'
+					  message: '个人买入数量达到100个并复投到1G个人算力即可开通买单区交易'
 					}).then(() => {
 					  // on close
 					});
@@ -1399,7 +1404,7 @@ export default {
 				if(_this.userInfo.myCalculationPower<1){
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '个人算力达到1G后即可开通溢价交易'
+					  message: '个人买入数量达到100个并复投到1G个人算力即可开通买单区交易'
 					}).then(() => {
 					  // on close
 					});
@@ -1586,10 +1591,10 @@ export default {
 					return;
 				}
 			}
-			if(_this.userInfo.manType==2){
+			if(_this.userInfo.manType==2 || _this.userInfo.isAgent == 3 || _this.userInfo.innerRegister == 1){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: '请服务商不要在溢价区卖出'
+				  message: '服务商、城市盟主、客服等具有先天优势的会员，为了维护项目稳定，卖出请通过有秩序得挂卖单，最好是通过权限转矿石给自己的伞下会员。'
 				}).then(() => {
 				  // on close
 				});

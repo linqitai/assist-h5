@@ -44,10 +44,6 @@
 				.content{
 					color:$mainTextColor;
 				}
-				.result{
-					height: 24px;
-					line-height: 24px;
-				}
 			}
 			
 			.sureBtn{
@@ -155,8 +151,8 @@
 							</div>
 						</van-radio-group>
 					</div>
-					<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" v-if="isDead==1">
-						支持{{index + 1}}：{{item.questionTitle}}
+					<div v-for="(item,index) in voteInfo.questionVoList" :key="item.id" :name="item.id" v-if="isDead==1">
+						<div class="f-12 lineHeight"><span class="textBold">支持{{index + 1}}：</span>{{item.questionTitle}} {{item.questionContent}}</div>
 					</div>
 				</div>
 				<div class="placeholderLine10"></div>
@@ -171,19 +167,19 @@
 					投票结果：
 				</div>
 				<div class="placeholderLine10"></div>
-				<div class="result" v-for="(item,index) in voteInfo.questionVoList" :key="item.id">
+				<div class="lineHeight" v-for="(item,index) in voteInfo.questionVoList" :key="item.id">
 					支持{{index+1}}：{{item.num}} 票
 				</div>
 			</div>
 			<div class="voteList" v-if="myVoteInfo">
 				<div class="item">
 					<div class="itemLeft">
-						<div class="title">{{myVoteInfo.mobilePhone}}</div>
-						<div class="time">{{myVoteInfo.createTime|getDateTime}}</div>
+						<div class="time">{{myVoteInfo.mobilePhone}} {{myVoteInfo.createTime|getDateTime}}</div>
+						<div class="title">{{myVoteInfo.questionTitle}}</div>
 					</div>
-					<div class="itemRight">
-						<div class="status">{{myVoteInfo.questionTitle}}</div>
-					</div>
+					<!-- <div class="itemRight">
+						<div class="status"></div>
+					</div> -->
 					<i class="tagIcon iconfont iconfont-tag"></i>
 					<i class="tagIconText">我</i>
 				</div>
@@ -191,12 +187,12 @@
 			<div class="voteList" v-if="voteList">
 				<div class="item" v-for="item in voteList" :key="item.id">
 					<div class="itemLeft">
-						<div class="title">{{item.mobilePhone}}</div>
-						<div class="time">{{item.createTime|getDateTime}}</div>
+						<div class="time">{{item.mobilePhone}} {{item.createTime|getDateTime}}</div>
+						<div class="title">{{item.questionTitle}}</div>
 					</div>
-					<div class="itemRight">
+					<!-- <div class="itemRight">
 						<div class="status">{{item.questionTitle}}</div>
-					</div>
+					</div> -->
 				</div>
 				<div v-if="totalItems>0">
 					<van-pagination 

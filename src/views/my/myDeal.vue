@@ -788,12 +788,12 @@
 				<div class="tipText2" v-if="detail4buyerInfo.status==1">
 					{{buyerHaveWord}}
 				</div>
-				<van-button v-if="detail4buyerInfo.status==4" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
+				<van-button v-if="detail4buyerInfo.status==4" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="sureLetLoading" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
 				<div class="margT10" v-if="detail4buyerInfo.status==4">
 					<img class="selectedImg" :src="detail4buyerInfo.imgUrl"/>
 				</div>
 				<div class="margT10" v-if="detail4buyerInfo.status==2">
-					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
+					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="sureLetLoading" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
 					<div class="placeholderLine10"></div>
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="notReciveCNYBtn" size="normal" :block="true">我没收到款 请对方上传付款凭证</van-button>
 				</div>
@@ -943,6 +943,7 @@
 	export default {
 		data() {
 			return {
+				sureLetLoading:false,
 				isPayLoading:false,
 				sendSmsTipText:"订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。",
 				mobilePhone:"",
@@ -2002,6 +2003,7 @@
 				  // on confirm
 				  ////console.log('sure');
 				  //这里调用确认付款接口
+				  _this.sureLetLoading = true;
 				  let params = {
 					// userId:  _this.userId,
 					status:8,
@@ -2034,6 +2036,9 @@
 				  	}else{
 						_this.$toast(res.message);
 					}
+				  },function(){
+					  _this.showBuyerDetailModel = false;
+					  _this.sureLetLoading = false;
 				  })
 				}).catch(() => {
 				  // on cancel

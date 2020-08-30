@@ -55,7 +55,7 @@
 		<div class="text">
 			帮扶历史
 		</div>
-		<i class="iconfont iconfont-question rightBox icon"></i>
+		<i class="iconfont rightBox icon"></i>
 	</m-header>
 	<div class="shopList">
 		<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
@@ -90,6 +90,12 @@ export default {
 	data() {
 		return {
 			list:[
+				
+				{
+					time:'2020/08/29',
+					title:'帮扶慰问2位年迈90岁孤老人',
+					url:'https://www.meipian.cn/34efrhwd?share_depth=1'
+				},
 				{
 					time:'2020/08/24',
 					title:'蔡锷大将军的故乡帮扶记录',

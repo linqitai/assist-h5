@@ -261,6 +261,8 @@
 							});
 						}
 				  	}
+				  },function(){
+					  _this.loading = false;
 				  })
 				}).catch(() => {
 				  // on cancel

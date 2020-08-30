@@ -82,12 +82,6 @@
 		</div>
 		<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 	</m-header>
-	<!-- <div class="notRealName" v-show="!isRealName">
-		<div class="flexRealName">{{isRealName==false?'您尚未实名任务':''}}</div>
-		<div class="flexRealName margT20">
-			<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="toRealName">去任务</van-button>
-		</div>
-	</div> -->
 	<div class="taskList">
 		<div class="box finishInfo" @click="toView('info')">
 			<div class="flexLeft">
@@ -132,7 +126,7 @@
 					分享10名会员完成基础任务1<br>
 					领取奖励者本人要先完成基础任务2<br>
 					达到后:<br>
-					可额外获得一台体验矿机
+					可额外获得一个贡献值
 				</div>
 			</div>
 			<div class="flexRight">
@@ -152,7 +146,7 @@
 					分享20名会员完成基础任务1<br>
 					领取奖励者本人要先完成基础任务2<br>
 					达到后:<br>
-					可额外获得一台微型矿机
+					可额外获得一个贡献值
 				</div>
 			</div>
 			<div class="flexRight">
@@ -172,7 +166,7 @@
 					需要：<br>
 					累计收购10个矿石<br>
 					达到后：<br>
-					可额外获得一台体验矿机<br>
+					可额外获得一个贡献值
 				</div>
 			</div>
 			<div class="flexRight">
@@ -197,7 +191,7 @@
 					需省市代理审核群昵称及群活跃度并引荐给客服再审核观察一周<br>
 					群管理必须是群主的下级团队成员，或者是群主的上级，群主的团队算力不得低于10G<br>
 					达标后：<br>
-					群主和群管理各获得<span class="yellow">一台半年产40个矿石的小型矿机,需要先升级成工会会长然后启动该矿机</span>，申请该奖励需要写纸质版的申请书，群主和群管理4个人各一份<br>
+					群主和群管理各获得<span class="yellow">一台半年产30个矿石的小型矿机,需要先升级成工会会长然后启动该矿机</span>，申请该奖励需要写纸质版的申请书，群主和群管理4个人各一份<br>
 					该福利时刻有效，客服审核通过后，72小时内会发放该奖励，名额有限，该小型矿机最后只剩下<span class="yellow">{{createFlockMillInventory}}</span>台<br>
 					若因违规操作而被他人投诉后该奖励将会被收回，同时奖励投诉者一台微型矿机<br>
 				</div>
@@ -256,8 +250,8 @@
 				</div>
 				<div class="line text margT10">
 					由于之前该任务的描述好多会员不理解，故该活动优化后的文案为：<br>
-					1.从2020/03/31开始统计，自己新增的直推累计100人实名，他们的直推累计200人实名，获得半年产100个矿石的小矿机一台!<br>
-					2.从2020/03/31开始统计，自己新增的直推累计300人实名，他们的直推累计700人实名，获得半年产100个矿石的小矿机二台!<br>
+					1.从2020/03/31开始统计，自己新增的直推累计100人实名，他们的直推累计200人实名，获得半年产50个矿石的小矿机一台!<br>
+					2.从2020/03/31开始统计，自己新增的直推累计300人实名，他们的直推累计700人实名，获得半年产50个矿石的小矿机二台!<br>
 					3.从2020/03/31开始统计，自己新增的直推累计500人实名，他们的直推累计4500人实名，获得半年产500个矿石的中矿机一台!<br>
 					注：该活动的统计从2020/03/31号开始。从3月31号开始您已经直推<span class="yellow">{{teamActivedNum1}}</span>人实名，他们的直推已累计<span class="yellow">{{teamActivedNum2}}</span>人实名，该活动小矿机最后还剩<span class="yellow">{{activity3MillInventory}}</span>台，中矿机最后还剩<span class="yellow">{{activity3MillInventory2}}</span>台(该奖励需审核且不对纯放单会员发放，若错过领取时机，可单独找客服额外申请)。
 				</div>

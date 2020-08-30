@@ -512,19 +512,19 @@ $noticeHeight:40px;
 						<div class="margT6">矿石总量</div>
 					</div>
 					<div class="infoBox">
-						<div class="amount">{{ statistics.beDigNum  || 0}}</div>
-						<div class="margT6">开采数量</div>
+						<div class="amount">{{ statistics.allMineralNum - statistics.beDigNum - statistics.awardNum - statistics.beDestroyNum  || 0}}</div>
+						<div class="margT6">所剩数量</div>
 					</div>
 					<div class="infoBox">
 						<div class="amount">{{ statistics.canCirculateNum  || 0}}</div>
-						<div class="margT6">流通数量</div>
+						<div class="margT6">可流通数量</div>
 					</div>
 					<div class="infoBox">
 						<div class="amount">{{statistics.beDestroyNum || 0}}</div>
 						<div class="margT6">销毁数量</div>
 					</div>
 				</div>
-				<div class="millInfo" v-if="statistics.allMineralNum">
+				<!-- <div class="millInfo" v-if="statistics.allMineralNum">
 					<div class="infoBox">
 						<div class="amount">{{ statistics.awardNum || 0 }}</div>
 						<div class="margT6">赠送与分红的数量</div>
@@ -533,7 +533,7 @@ $noticeHeight:40px;
 						<div class="amount">{{ statistics.allMineralNum - statistics.beDigNum - statistics.awardNum - statistics.beDestroyNum  || 0}}</div>
 						<div class="margT6">最后所剩矿石数量</div>
 					</div>
-				</div>
+				</div> -->
 				<div class="millInfo">
 					<div class="infoBox">
 						<div>

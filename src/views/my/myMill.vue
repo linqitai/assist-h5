@@ -255,7 +255,7 @@
 										<div class="line">已产 {{item.alreadyGet}}矿石</div>
 										<div class="line">总运行时长 {{item.allRuntime}}小时</div>
 										<!-- <div class="line" v-if="item.turnOnTime">开机 {{item.turnOnTime}}</div> -->
-										<div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt || '--'}}</div>
+										<div class="line" v-if="item.alreadyGet">上次领取 {{item.beforeReceipt || '--'}}</div>
 										<!-- <div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
 										<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div> -->
 									</div>
@@ -500,7 +500,7 @@
 				let nowTimestamp = Number(new Date().getTime());
 				let lastReceiptTimestamp = Number(new Date(_this.userInfo.lastReceiptTime).getTime());
 				let timestamp = (nowTimestamp - lastReceiptTimestamp)/1000;
-				if(timestamp<24*60*60){
+				/* if(timestamp<24*60*60){
 					_this.receiptModelTile = "系统提示";
 					_this.isShowReceiptLoading = false;
 					_this.mineralNumTip = "未到领取收益时间";
@@ -508,7 +508,7 @@
 					_this.isShowConfirmButton = true;
 					_this.getRecieptLoading = false;
 					return;
-				}
+				} */
 				
 				_this.$ajax.ajax(_this.$api.getMyMachinesReceipt, 'POST', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {

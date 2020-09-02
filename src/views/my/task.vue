@@ -740,7 +740,8 @@ export default {
 					  message: '恭喜您，奖励领取成功！'
 					}).then(() => {
 					  // on close
-					  _this.$router.push('/mill');
+					  _this.$cookies.set("tab_name_book", "contribution", _this.$api.cookiesTime)
+					  _this.$router.push('/myBook');
 					});
 				}else{
 					Dialog.alert({
@@ -786,7 +787,9 @@ export default {
 					  message: '恭喜您，奖励领取成功！'
 					}).then(() => {
 					  // on close
-					  _this.$router.push('/mill');
+					  //_this.$router.push('/mill');
+					  _this.$cookies.set("tab_name_book", "contribution", _this.$api.cookiesTime)
+					  _this.$router.push('/myBook');
 					});
 				}else{
 					//_this.$toast(res.message);
@@ -831,7 +834,9 @@ export default {
 					  message: '恭喜您，奖励领取成功。为了把控算力上的泡沫，经研究决定所奖励的矿机不加算力，用此矿机所产出的矿石去商城租赁矿机即可加算力，请您知晓，帮扶链感恩有您的支持！'
 					}).then(() => {
 					  // on close
-					  _this.$router.push('/mill');
+					  //_this.$router.push('/mill');
+					  _this.$cookies.set("tab_name_book", "contribution", _this.$api.cookiesTime)
+					  _this.$router.push('/myBook');
 					});
 				}else{
 					_this.$toast(res.message);

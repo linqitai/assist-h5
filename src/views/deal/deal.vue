@@ -1,9 +1,9 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	
-	[class*=van-hairline]::after {
+	/* [class*=van-hairline]::after {
 	    border: 1px solid transparent !important;
-	}
+	} */
 	
 	.van-cell__value, .van-cell__value--alone, .van-field__control{
 		color: #323232 !important;
@@ -11,9 +11,9 @@
 	.deal{
 		background-color: $main-box-fh-bg-color;
 		min-height: 100%;
-		[class*=van-hairline]::after {
+		/* [class*=van-hairline]::after {
 		    border: 1px solid transparent !important;
-		}
+		} */
 		.van-cell__value, .van-cell__value--alone, .van-field__control{
 			color: #323232 !important;
 			font-size: 12px;
@@ -238,7 +238,7 @@
 		<van-notice-bar
 		  mode = "closeable"
 		  left-icon="volume-o"
-		  text="流通中心每日开放的时间为9~20点 新手区是买入数量为0~99个矿石的矿工的专属交易区 进入溢价区交易需买入数量达到100个并复投到1G个人算力"
+		  text="流通中心每日开放的时间为9~20点;新手区是买入数量为0~99个矿石的矿工的专属交易区;进入溢价区交易需买入数量达到100个并复投到1G个人算力;买单匹配后务必要完成交易，否者会被系统回收匹配数量的10%~50%矿石;"
 		/>
 		<!-- <van-notice-bar left-icon="volume-o" :scrollable="true">
 		  <van-swipe
@@ -277,6 +277,7 @@
 				<div class="right">平台指导价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div>
 			</div>
 			<div class="line clearBoth">
+				<!-- <div class="left">平台指导价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div> -->
 				<div class="left">求购总量 {{dealPageInfo.currentBuyNum}}</div>
 				<div class="right">今日当前流通量 {{(dealPageInfo.transactionNum24).toFixed(2)}}</div>
 			</div>
@@ -460,8 +461,8 @@
 							<van-pagination 
 							  v-model="currentPage3" 
 							  :total-items="totalItems3" 
-							  :items-per-page="pageSize"
-							  :show-page-size="3" 
+							  :items-per-page="pageSize3"
+							  :show-page-size="1" 
 							  force-ellipses
 							  @change="changeCurrentPage3"
 							/>
@@ -519,7 +520,7 @@
 			  	 <b class="textBold red">支付宝收款(首选，若卖家支付宝异常，订单会被终止)：</b>请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
 				 <b class="textBold red">微信收款：</b>请矿工们预先在微信的【我--支付--支付管理】里开启【允许通过手机号向我转账】的功能，该手机号务必是注册帮扶链的手机号。<br>
 				 <span class="red">【3】若卖方出现以上任何问题，客服会介入调查后台数据，调查属实后会酌情处理或处罚卖方2~5个贡献值。</span><br>
-			  	 <div class="read">
+			  	 <div class="read margT6">
 					 <van-radio-group v-model="isRead" @change="isReadChange">
 					   <van-radio name="1"><b class="textBold green">发起交易后，即代表您已认真阅读并同意以上规则</b></van-radio>
 					 </van-radio-group>
@@ -533,9 +534,7 @@
 		</van-action-sheet>
 		
 		<van-action-sheet v-model="showPickBuyModel" title="买 TA">
-			<div class="tip4model3RedText paddingWing">
-				温馨提示：该操作是买入操作，匹配的是卖家所挂的卖单，请矿工们了解清楚后再点【确认】，点【确认】后若没去完成订单，买家将会因失信而失去2~5个贡献值。
-			</div>
+			
 		  <van-cell-group>
 			  <van-field v-model="form3.num" type="number" clearable label="想买数量" placeholder="请填写买入数量"/>
 			  <van-field v-model="form3.price" type="number" disabled clearable label="单价" placeholder="请填写单价"/>
@@ -543,6 +542,19 @@
 			  <van-field v-model="form3.safePassword" required type="password" clearable label="安全密码" placeholder="请填写安全密码"/>
 		  </van-cell-group>
 		  <div class="sureAppointBtnBox">
+			  <div class="tip4model3">
+			  	<b class="textBold">尊敬的原始矿工交易前请认真阅读以下规则：</b>
+			  	<br>
+					该操作是【买入】操作，匹配的是卖家所挂的卖单，请矿工们了解清楚后再点【确认】，点【确认】后若没去完成订单，买家将会因失信而失去2~5个贡献值。<br>
+			  	 <div class="read margT6">
+					 <van-radio-group v-model="isRead" @change="isReadChange">
+					   <van-radio name="1"><b class="textBold green">发起交易后，即代表您已认真阅读并同意以上规则</b></van-radio>
+					 </van-radio-group>
+				 </div>
+			  	<!-- 注：<br>
+			  	<b class="textBold">身份证正面照片:</b><br>即带有姓名那一面的照片，需带上小纸条并写上，{{$api.projectEnglishName}}认证专用+当天日期。<i class="underline" @click="showExamplePic">点击查看模板</i> -->
+			  </div>
+			  <div class="placeholderLine10"></div>
 			  <van-button @click="surePickedBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="sellBtnLoading" loading-type="spinner">确 认</van-button>
 		  </div>
 		</van-action-sheet>
@@ -690,6 +702,7 @@ export default {
 			currentPage3:1,
 			currentPage4:1,
 			pageSize:7,
+			pageSize3:3,
 			newbiePageSize:7,
 			pageCount:0,
 			totalItems1:0,
@@ -707,7 +720,7 @@ export default {
 			//挂买单
 			form4BuyBill:{
 				buyAmount:"",
-				buyLowestAmount:10,
+				buyLowestAmount:3,
 				price:"",
 				safePassword:"",
 			},
@@ -754,6 +767,7 @@ export default {
 				idCard:""
 			},
 			sellAmountPlaceholder:"单笔挂卖数量的区间为1~2000",
+			minBuyAmount:3,
 			minBill:1,
 			maxBill:2000,
 			appintDealValidate:true,
@@ -888,7 +902,6 @@ export default {
 		isReadChange(val){
 			let _this = this;
 			_this.isRead = val;
-			console.log(_this.isRead,"isRead");
 		},
 		initializeData(){
 			let _this = this;
@@ -931,8 +944,8 @@ export default {
 				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 				/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
 				_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
-				_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
-				_this.buyLowestAmountText = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
+				_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写${_this.minBuyAmount}~${_this.dealPageInfo.minBuyBillNum}之间`;
+				_this.buyLowestAmountText = `最低匹配数量请填写${_this.minBuyAmount}~${_this.dealPageInfo.minBuyBillNum}之间`;
 			}else{
 				_this.getDealPageInfo();
 			}
@@ -1167,8 +1180,8 @@ export default {
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice);
 					/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
 					_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
-					_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
-					_this.buyLowestAmountText = `最低匹配数量请填写1~${_this.dealPageInfo.minBuyBillNum}之间`;
+					_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写${_this.minBuyAmount}~${_this.dealPageInfo.minBuyBillNum}之间`;
+					_this.buyLowestAmountText = `最低匹配数量请填写${_this.minBuyAmount}~${_this.dealPageInfo.minBuyBillNum}之间`;
 					_this.$cookies.remove('haveDealPageInfo');
 					_this.$cookies.set("haveDealPageInfo",1, 60 * 60 * 2);
 					localStorage.setItem("dealPageInfo",JSON.stringify(_this.dealPageInfo))
@@ -1181,7 +1194,7 @@ export default {
 			let _this = this;
 			let params = {
 				pageNo: _this.currentPage3,
-				pageSize: _this.pageSize
+				pageSize: _this.pageSize3
 			}
 			//console.log(params,'params')
 			_this.loading3 = true;
@@ -1459,6 +1472,7 @@ export default {
 		ShowBuyTAModelBtn(item){
 			let _this = this;
 			_this.showPickBuyModel = true;
+			_this.form3.num = item.minNumber;
 			_this.form3.price = item.price;
 			_this.form3.id = item.id;
 			//console.log('_this.maxBill',_this.maxBill);
@@ -1485,6 +1499,16 @@ export default {
 				});
 				return;
 			} */
+			//判断是否勾选交易规则
+			if(_this.isRead == 0){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '请尊敬的矿工，请先认真阅读交易规则'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
 			let params = {
 				id:_this.form3.id,
 				serviceCharge:1,
@@ -2031,7 +2055,7 @@ export default {
 					/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
 					_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`;
 					Number(_this.dealPageInfo.minBuyBillNum) */
-					if(thisLowestNum>=1&&thisLowestNum<=Number(_this.dealPageInfo.minBuyBillNum)){
+					if(thisLowestNum>=_this.minBuyAmount&&thisLowestNum<=Number(_this.dealPageInfo.minBuyBillNum)){
 						_this.errorInfo4BuyBill.buyLowestAmount = '';
 					}else{
 						_this.errorInfo4BuyBill.buyLowestAmount = _this.buyLowestAmountText;
@@ -2042,7 +2066,13 @@ export default {
 			}else if(key == 'price') {
 				console.log("price");
 				if(_this.tabActiveName == 'dealArea4'){
-					_this.form4BuyBill.price = parseFloat((_this.form4BuyBill.price)).toFixed(1);
+					_this.form4BuyBill.price = parseFloat((_this.form4BuyBill.price)).toFixed(2);
+				}
+				let minPrice = ((parseFloat(_this.dealPageInfo.currentMaxPrice)).toFixed(2)/2);
+				if(parseFloat((_this.form4BuyBill.price)).toFixed(2)<minPrice){
+					_this.errorInfo4BuyBill.price = `买单最低价为${minPrice}CNY`;
+				}else{
+					_this.errorInfo4BuyBill.price = '';
 				}
 				/* let price = (parseFloat(_this.form4BuyBill[key])).toFixed(2);
 				let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
@@ -2199,10 +2229,10 @@ export default {
 			let _this = this;
 			//console.log('val',val);
 			_this.currentPage3 = val;
-			if(_this.currentPage3>5){
+			if(_this.currentPage3>1){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: "卖单暂时只让查询5页"
+				  message: "卖单暂时只让查询1页3条"
 				}).then(() => {
 				  // on close
 				});

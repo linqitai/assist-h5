@@ -9,7 +9,7 @@
 		right: 0;
 		left: 0;
 		bottom: 0;
-		background-color: $main-box-color;
+		background-color: $main-box-fh-bg-color;;
 		z-index: 2;
 		.van-dropdown-menu{
 			height: $cellHeight !important;
@@ -33,7 +33,7 @@
 		} */
 		.votePublishPage{
 			margin-top: $headerHeight;
-			background-color: $main-box-color;
+			background-color: $main-box-fh-bg-color;
 			.myCell{
 				display: flex;
 				flex-direction: row;
@@ -55,6 +55,10 @@
 			}
 			.myCell2{
 				border-bottom: 1px solid $mainBorderColor;
+			}
+			.myCell4{
+				padding-top: 6px;
+				padding-left: 6px;
 			}
 			.sureBtn{
 				position: fixed;
@@ -106,16 +110,47 @@
 				    autosize clearable
 				    type="textarea"
 				    maxlength="500"
-				    placeholder="请填写发起投票的原因(不超过500字)"
+				    placeholder="请填写发起投票的原因及内容(不超过500字)"
 				    show-word-limit
 				  />
 				</van-cell-group>
+			</div>
+			<div class="myCell3">
+				<van-swipe-cell>
+				  <!-- <template #left>
+				    <van-button square type="primary" text="选择" />
+				  </template> -->
+				  <van-cell :border="false" title="选项" value="选项内容描述性文字" />
+				  <template #right>
+				    <van-button square type="danger" text="删除" />
+				    <van-button square type="primary" text="编辑" />
+				  </template>
+				</van-swipe-cell>
+			</div>
+			<div class="myCell4">
+				<van-button icon="plus" type="primary" @click="addSelectBtn">添加选项</van-button>
 			</div>
 			<div class="sureBtn">
 				<div class="tip4model1">为了提高质量，白银级工会会长才能发起投票</div>
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提交</van-button>
 			</div>
 		</div>
+		<van-action-sheet v-model="showAddSelectModel" title="添加选项">
+			<div class="hangBuyContent">
+				<!-- <div class="tipText paddingWing">
+					价格涨幅规律：每当平台指导价的求购量超过10万{{pen}}，则涨0.1CNY。
+				</div> -->
+				<van-cell-group>
+					<van-field v-model="form4Select.title" label="标题" type="text" required clearable placeholder="请填写标题"/>
+					<van-field v-model="form4Select.content" label="描述文字" type="text" clearable placeholder="请填写对选项的注释(选填)"/>
+				</van-cell-group>
+				<div class="sureAppointBtnBox">
+					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
+					
+				    <van-button size="normal" type="primary" :loading="loading4Submit" :block="true" @click="submitAddSelect">提 交</van-button>
+				</div>
+			</div>
+		</van-action-sheet>
 	</div>
 </template>
 <script>
@@ -130,6 +165,10 @@
 					wordTypleValue1:0,
 					wordContent:''
 				},
+				form4Select:{
+					title:'',
+					content:''
+				},
 				option1: [
 					{ text: '问题反馈', value: 0 },
 					{ text: '意见建议', value: 1 },
@@ -141,6 +180,8 @@
 				totalItems: 10000,
 				userId:"",
 				loading:false,
+				loading4Submit:false,
+				showAddSelectModel:false
 			}
 		},
 		components: {
@@ -167,6 +208,15 @@
 				_this.$router.push({
 					path: `/myWordList`
 				});
+			},
+			addSelectBtn(){
+				let _this = this;
+				_this.showAddSelectModel = true;
+				
+			},
+			submitAddSelect(){
+				let _this = this;
+				_this.showAddSelectModel = false;
 			},
 			validate(flag){
 				let _this = this;

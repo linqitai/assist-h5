@@ -820,7 +820,7 @@
 		</van-action-sheet>
 		<van-action-sheet v-model="showSureCancelTransactionModel4buyer" title="温馨提示">
 			<div class="cancelSellTip">
-				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要扣0.5个贡献值。若卖方实名信息不符或者有其他问题，请向平台诉讼反馈问题，让客服来处理单子。</div>
+				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要扣2~5个贡献值。若卖方实名信息不符或者有其他问题，请向平台诉讼反馈问题，让客服来处理单子。</div>
 			</div>
 			<div class="sureAppointBtnBox">
 				<van-button @click="cancel4buyer" :loading="sureCancelBtnLoading" loading-type="spinner" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确认取消</van-button>
@@ -1061,7 +1061,7 @@
 				////console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
 				if(_this.$route.query.dealType==1){
 					if(_this.$route.query.isSelf) {
-						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家1个贡献值";
+						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家2~5个贡献值";
 						_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“个人中心--我的单子--待付款”的订单详情中查看并及时完成交易。`;
 					}else{
 						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请提醒代理审核单子。";

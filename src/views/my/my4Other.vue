@@ -220,12 +220,12 @@
 					<div class="name">{{$JsCrypto.myDecode1(userInfo.realName) | getLastName}}</div>
 					<!-- <span>点赞</span> -->
 					<!-- <div class="textCenter margT10 f-18">
-						<i class="iconfont iconfont-good"></i>
+						<i class="iconfont iconfont-good"></i>v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'"
 					</div> -->
 					<div class="textCenter margT10">
 						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
 					</div>
-					<div class="textCenter margT10" v-if="userInfo4Me.isAgent==3">
+					<div class="textCenter margT10" v-if="userInfo4Me.isAgent==3&&userInfo4Me.userId=='en15079AQ107o91Y7217'">
 						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4Freeze" @click="freeze">冻结TA</van-button>
 						<div class="placeholderLine10"></div>
 						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4CancelAccount" @click="cancelAccount">注销账号</van-button>
@@ -244,11 +244,11 @@
 					<div class="line margT3">
 						注册时间 {{userInfo.registerTime}}
 					</div>
-					<div class="line">
+					<div class="line" v-if="userInfo4Me.isAgent==3&&userInfo4Me.userId=='en15079AQ107o91Y7217'">
 						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
 						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}</div>
 					</div>
-					<div class="line">
+					<div class="line" v-if="userInfo4Me.isAgent==3&&userInfo4Me.userId=='en15079AQ107o91Y7217'">
 						<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
 						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
 					</div>

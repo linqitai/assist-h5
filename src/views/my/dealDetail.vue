@@ -188,9 +188,9 @@
 				<div class="placeholderLine10"></div>
 				<van-checkbox v-model="checked4Buyer" @change="checkedChange">买家诉讼有效给奖励</van-checkbox>
 				<div class="placeholderLine10"></div>
-				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
+				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>1HW5f80P5N66z45835w5
 			</div> -->
-			<div v-if="form.status==5&&(loginerUserId=='en15079AQ107o91Y7217'||loginerUserId=='1502d824670iQ1215VW8')">
+			<div v-if="form.status==5&&(loginerUserId=='en15079AQ107o91Y7217'||loginerUserId=='1502d824670iQ1215VW8'||loginerUserId=='1580I60773e1XBJ52634'||loginerUserId=='1HW5f80P5N66z45835w5')">
 				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
 				<div class="tip4model3">

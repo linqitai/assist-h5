@@ -180,7 +180,7 @@
 						<div class="line margT3">
 							注册时间 {{thisUserInfo.registerTime}}
 						</div>
-						<div class="line">
+						<!-- <div class="line">
 							<div class="left">买入次数 {{thisUserInfo.buyTimes}}</div>
 							<div class="mlBox left">买入数量 {{thisUserInfo.buyAmount}}</div>
 						</div>
@@ -188,7 +188,7 @@
 							<div class="left">卖出次数 {{thisUserInfo.sellTimes}}</div>
 							<div class="mlBox left">卖出数量 {{thisUserInfo.sellAmount}}</div>
 						</div>
-						<div class="line">个人限购数量 {{thisUserInfo.canBuyNum}}</div>
+						<div class="line">个人限购数量 {{thisUserInfo.canBuyNum}}</div> -->
 						<div class="line">
 							<div class="left">直推人数 {{thisUserInfo.teamateNum}}</div>
 							<div class="mlBox left">实名人数 {{thisUserInfo.realnameNum}}</div>

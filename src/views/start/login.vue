@@ -279,7 +279,7 @@
 							  //_this.getMyPastMachinesReceipt();
 							});
 						}else{
-							_this.getMyPastMachinesReceipt();
+							/* _this.getMyPastMachinesReceipt(); */
 						}
 					}
 				})

@@ -284,7 +284,7 @@
 				if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '交易时间是9~21点，请明天再来'
+					  message: '定向交易时间是9~21点，请明天再来'
 					}).then(() => {
 					  // on close
 					});
@@ -293,7 +293,7 @@
 				if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '交易时间是9~21点，请到点再来'
+					  message: '定向交易时间是9~21点，请到点再来'
 					}).then(() => {
 					  // on close
 					});

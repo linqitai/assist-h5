@@ -244,11 +244,11 @@
 					<div class="line margT3">
 						注册实名时间 {{userInfo.registerTime}}
 					</div>
-					<div class="line" v-if="userInfo4Me.isAgent==3&&userInfo4Me.userId=='en15079AQ107o91Y7217'">
+					<div class="line">
 						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
 						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}</div>
 					</div>
-					<div class="line" v-if="userInfo4Me.isAgent==3&&userInfo4Me.userId=='en15079AQ107o91Y7217'">
+					<div class="line">
 						<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
 						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
 					</div>

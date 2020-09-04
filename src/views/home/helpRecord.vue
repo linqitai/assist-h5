@@ -61,10 +61,6 @@
 		<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 			<div class="list">
 				<div class="item" v-for="item in list">
-					<!-- <router-link to="shopDetail"></router-link> -->
-					<!-- <div class="imgBox">
-						<img :src="item.image" alt="">
-					</div> -->
 					<div class="textBox">
 						<div class="line">
 							<div class="left title">{{item.title}}</div>

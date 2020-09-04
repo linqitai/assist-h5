@@ -389,7 +389,7 @@
 						<div class="placeholderLine"></div>
 					</div>
 				</van-tab> -->
-				<van-tab title="买单区" name="dealArea2">
+				<van-tab title="买单" name="dealArea2">
 					<div class="dealContent">
 						<div class="dealList">
 							<div class="line1pxbgcolor"></div>
@@ -400,7 +400,7 @@
 								</div>
 								<div class="boxRight">
 									<div>合计 {{(totalPrice(item.price,item.maxNumber)/7).toFixed(3)}}$/{{totalPrice(item.price,item.maxNumber)}}￥</div>
-									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="danger" size="mini" loading-type="spinner">卖 TA</van-button></div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="primary" size="mini" loading-type="spinner">卖 TA</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -434,7 +434,7 @@
 						<div class="placeholderLine"></div>
 					</div>
 				</van-tab>
-				<van-tab title="卖单区" name="dealArea3">
+				<van-tab title="卖单" name="dealArea3">
 					<div class="dealContent">
 						<div class="dealList">
 							<div class="line1pxbgcolor"></div>
@@ -495,7 +495,7 @@
 				  </div>
 			  </div>
 			  <van-field v-model="form4pickSellBill.price" disabled clearable label="单价"/>
-			  <van-field readonly required clickable label="选择服务费" :value="serviceCharge" placeholder="请先选择服务费" @click="showPicker4ServiceChargePopup = true" @blur="validate4pickSellBill('serviceCharge')" :error-message="errorInfo4pickSellBill.serviceCharge"/>
+			  <van-field readonly required clickable label="选择手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true" @blur="validate4pickSellBill('serviceCharge')" :error-message="errorInfo4pickSellBill.serviceCharge"/>
 			  <van-popup v-model="showPicker4ServiceChargePopup" position="bottom">
 			    <van-picker
 			      show-toolbar
@@ -539,7 +539,7 @@
 			  <van-field v-model="form3.safePassword" required type="password" clearable label="安全密码" placeholder="请填写安全密码"/>
 		  </van-cell-group>
 		  <div class="sureAppointBtnBox">
-			  <div class="tip4model3">
+			  <div class="tip4model3RedText">
 			  	<b class="textBold">尊敬的原始矿工交易前请认真阅读以下规则：</b>
 			  	<br>
 					该操作是【买入】操作，匹配的是卖家所挂的卖单，请矿工们了解清楚后再点【确认】，点【确认】后若没去完成订单，买家将会因失信而失去2~5个贡献值或矿石。<br>
@@ -1014,7 +1014,7 @@ export default {
 			if(_this.userInfo.myCalculationPower<1&&item.id!=3){
 				Dialog.alert({
 					title: '系统提示',
-					message: '个人算力不到1G的矿工服务费暂时只能选择：20%矿石+交易总金额的10%帮扶券'
+					message: '个人算力不到1G的矿工暂时只能选择【20%矿石+交易总金额的10%帮扶券】作为手续费'
 				}).then(() => {
 					// on close
 				});
@@ -1755,6 +1755,16 @@ export default {
 		},
 		showSellModelBtn(){
 			let _this = this;
+			if(_this.userInfo.myCalculationPower<20){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '挂卖操作需个人算力达到20G，若需卖出，可移步买单区匹配买单即可'
+				}).then(() => {
+				  // on close
+				});
+				//_this.$toast('挂卖操作需个人算力达到20G，若需卖出，可移步买单区匹配买单即可');
+				return;
+			}
 			let params = {
 				userId:_this.userInfo.userId,
 				price:parseFloat(_this.dealPageInfo.currentPlatformPrice)

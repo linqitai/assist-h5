@@ -407,26 +407,28 @@
 				</router-link>
 			</div> -->
 			<div class="items">
-				<router-link to="transferMineral4F">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让矿石(服务商)
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
+				<!-- <router-link to="transferMineral4F">
+					
+				</router-link> -->
+				<div class="my-cell" @click="close">
+					<div class="flex1">
+						定向转让矿石(服务商)
 					</div>
-				</router-link>
-				<router-link to="transferMineral4L">
-					<div class="my-cell">
-						<div class="flex1">
-							定向转让矿石(会长)
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
-				</router-link>
+				</div>
+				<div class="my-cell" @click="close">
+					<div class="flex1">
+						定向转让矿石(会长)
+					</div>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+				<!-- <router-link to="transferMineral4L">
+					
+				</router-link> -->
 				<router-link to="transferTicket">
 					<div class="my-cell">
 						<div class="flex1">
@@ -710,6 +712,17 @@
 				  title: '系统提示',
 				  confirmButtonText:'加油',
 				  message: "内排注册功能暂时关闭，如需开通，请联系客服"
+				}).then(() => {
+				  // on confirm
+				})
+			},
+			close(){
+				let _this = this;
+				/* _this.$toast("此功能正在努力建设中"); */
+				Dialog.alert({
+				  title: '系统提示',
+				  confirmButtonText:'好的',
+				  message: "为了稳定市场，该通道暂时关闭，若要走定向，可通过挂卖单"
 				}).then(() => {
 				  // on confirm
 				})

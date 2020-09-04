@@ -230,7 +230,7 @@
 									<div class="line">已产 {{item.alreadyGet}}矿石</div>
 									<div class="line">总运行时长 {{item.allRuntime}}小时</div>
 									<!-- <div class="line" v-if="item.turnOnTime">开机 {{item.turnOnTime}}</div> -->
-									<div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt || '--'}}</div>
+									<div class="line" v-if="item.alreadyGet">上次领取 {{item.beforeReceipt || '--'}}</div>
 									<!-- <div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
 									<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div> -->
 								</div>
@@ -269,7 +269,7 @@
 									<div class="line">租金{{item.price}}矿石 总产{{item.totalOutput}}矿石 已产{{item.alreadyGet}}矿石</div>
 									<!-- <div class="line">总运行时长 {{item.allRuntime}}小时</div> -->
 									<!-- <div class="line" v-if="item.turnOnTime">开机时间 {{item.turnOnTime}}</div> -->
-									<div class="line" v-if="item.turnOffTime">到期时间 {{item.turnOffTime}}</div>
+									<!-- <div class="line" v-if="item.turnOffTime">到期时间 {{item.turnOffTime}}</div> -->
 									<!-- <div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div> -->
 								</div>
 								<!-- <div class="flex flex3">

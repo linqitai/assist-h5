@@ -93,7 +93,7 @@ export default {
 				
 				{
 					time:'2020/08/29',
-					title:'帮扶慰问2位年迈90岁孤老人',
+					title:'帮扶慰问2位年迈90岁孤寡老人',
 					url:'https://www.meipian.cn/34efrhwd?share_depth=1'
 				},
 				{

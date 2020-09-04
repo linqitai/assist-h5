@@ -300,6 +300,8 @@
 					{ text: '小型矿机', value: 2 },
 					{ text: '中型矿机', value: 3 },
 					{ text: '大型矿机', value: 4 },
+					{ text: '巨型矿机', value: 5 },
+					{ text: '超级矿机', value: 8 },
 					{ text: '晋级矿机I', value: 6 },
 					{ text: '晋级矿机II', value: 7 }
 				],

@@ -238,7 +238,7 @@
 		<van-notice-bar
 		  mode = "closeable"
 		  left-icon="volume-o"
-		  text="流通中心每日开放的时间为9~20点;新手区是买入数量为0~99个矿石的矿工的专属交易区;进入溢价区交易需买入数量达到100个并复投到1G个人算力;买单匹配后务必要完成交易，否者会被系统回收匹配数量的10%~50%矿石;"
+		  text="流通中心每日开放的时间为9~20点;新手区是买入数量为0~99个矿石的矿工的专属交易区;进入溢价区交易需买入数量达到100个并复投到1G个人算力;买单匹配后务必要完成交易，否者会被系统回收一定数量矿石;"
 		/>
 		<!-- <van-notice-bar left-icon="volume-o" :scrollable="true">
 		  <van-swipe
@@ -321,7 +321,7 @@
 			<!-- sticky -->
 			<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
-				<van-tab title="新手区" name="dealArea4">
+				<!-- <van-tab title="新手区" name="dealArea4">
 					<div class="line1pxbgcolor"></div>
 					<div class="dealContent">
 						<div class="dealList">
@@ -338,9 +338,6 @@
 						</div>
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
-						<!-- <div class="paddingWing tip4model3 justify">
-							系统提示：当前平价共{{pagesPlatPrice}}页，希望广大会员更多得去注重帮扶筹以及后面帮扶基金板块的价值，共同维护好帮扶链的氛围与环境，愿广大市场领导们更加专心于市场的宣传和推广，若在推广与帮扶过程中，遇到需要平台协助的地方，请主动找客服，我们会尽一切力量去配合您的需求。真情感动世界，帮扶成就你我，让我们一起努力为打造爱心帮扶文化而身体力行！
-						</div> -->
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 						<div class="paddingWing" v-if="totalItems4>0">
@@ -357,7 +354,7 @@
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 					</div>
-				</van-tab>
+				</van-tab> -->
 				<!-- <van-tab title="平价买单" name="dealArea1">
 					<div class="line1pxbgcolor"></div>
 					<div class="dealContent">
@@ -545,7 +542,7 @@
 			  <div class="tip4model3">
 			  	<b class="textBold">尊敬的原始矿工交易前请认真阅读以下规则：</b>
 			  	<br>
-					该操作是【买入】操作，匹配的是卖家所挂的卖单，请矿工们了解清楚后再点【确认】，点【确认】后若没去完成订单，买家将会因失信而失去2~5个贡献值。<br>
+					该操作是【买入】操作，匹配的是卖家所挂的卖单，请矿工们了解清楚后再点【确认】，点【确认】后若没去完成订单，买家将会因失信而失去2~5个贡献值或矿石。<br>
 			  	 <div class="read margT6">
 					 <van-radio-group v-model="isRead" @change="isReadChange">
 					   <van-radio name="1"><b class="textBold green">发起交易后，即代表您已认真阅读并同意以上规则</b></van-radio>
@@ -1017,7 +1014,7 @@ export default {
 			if(_this.userInfo.myCalculationPower<1&&item.id!=3){
 				Dialog.alert({
 					title: '系统提示',
-					message: '个人算力不到1G的服务费暂时只能选择：20%矿石+交易总金额的10%帮扶券'
+					message: '个人算力不到1G的矿工服务费暂时只能选择：20%矿石+交易总金额的10%帮扶券'
 				}).then(() => {
 					// on close
 				});
@@ -1404,7 +1401,7 @@ export default {
 		},
 		showPickSellModelBtn(item){
 			let _this = this;
-			if(_this.tabActiveName == 'dealArea2'){
+			/* if(_this.tabActiveName == 'dealArea2'){
 				if(_this.userInfo.buyAmount<100){
 					Dialog.alert({
 					  title: '系统提示',
@@ -1423,7 +1420,7 @@ export default {
 					});
 					return;
 				}
-			}
+			} */
 			/* if(_this.tabActiveName == 'dealArea4'){
 				if(_this.userInfo.buyAmount>=100){
 					Dialog.alert({
@@ -1642,7 +1639,7 @@ export default {
 			if(_this.userInfo.actived!=1 || _this.userInfo.buyMachineNum<2){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: `请先去完成"我的--任务中心"里的前2个任务`
+				  message: `请先去完成"我的--任务中心"里的前2个基础任务`
 				}).then(() => {
 				  // on close
 				});
@@ -1697,7 +1694,7 @@ export default {
 			} */
 			//判断该用户的矿石和贡献值够不够
 			if(_this.userInfo.thisWeekMineral<params.num){
-				_this.$toast('系统提示：您的矿石不够');
+				_this.$toast('您的矿石不够');
 				return;
 			}
 			/* if(_this.userInfo.contributionValue<params.num){

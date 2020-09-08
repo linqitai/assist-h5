@@ -302,6 +302,39 @@ b{font-weight: bold;}
     // content: '*';
     line-height: 28px;
 }
+.helpList {
+	width: 100%;
+	padding: 6px 6px;
+	box-sizing: border-box;
+	.item {
+		width: 100%;
+		border: 1px solid $bottomLineColor;
+		letter-spacing: 1px;
+		background-color: $main-box-color;
+		margin-bottom: 4px;
+		border-radius: 4px;
+		overflow: hidden;
+		&::last-child{
+			margin-bottom: 0px;
+		}
+		.imgBox{
+			width: 100%;
+			img{
+				width: 100%;
+			}
+		}
+		.textBox{
+			padding: 4px 10px;
+			.freeGet{color: $main-adorn-color !important;}
+			.title{font-size: $fs-title;font-weight: bold;color: $mainTextColor !important;}
+			.line{
+				overflow: hidden;clear: both;
+				&.content{font-size: $fs-content;line-height: 1.3em;color: $mainTextColor !important;}
+			}
+			
+		}
+	}
+}
 .myInfo{
 	.update1{
 		.van-field__label{

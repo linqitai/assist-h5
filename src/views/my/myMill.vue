@@ -249,6 +249,7 @@
 											<div class="inline calcullatePower">算力 {{item.calculationPower}}GH/s</div>
 											<!-- <div class="inline f-12 status">{{item.status | machineStatus}}</div> -->
 										</div>
+										<div class="line" v-if="item.turnOnTime">{{item.turnOnTime}} 启动</div>
 										<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 到期</div>
 										<div class="line">租金 {{item.price}}矿石</div>
 										<div class="line">总产 {{item.totalOutput}}矿石</div>
@@ -496,7 +497,6 @@
 				  // _this.$router.push("task");
 				}) */
 				_this.getRecieptLoading = true;
-				_this.showReceiptTip = true;
 				let nowTimestamp = Number(new Date().getTime());
 				let lastReceiptTimestamp = Number(new Date(_this.userInfo.lastReceiptTime).getTime());
 				let timestamp = (nowTimestamp - lastReceiptTimestamp)/1000;
@@ -514,6 +514,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data){
 							_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
+							_this.isShowMineralNum = true;
 							//_this.$toast(`此次领取收益为${res.data}个矿石`);
 							_this.onLoadMyMill();
 							_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
@@ -534,9 +535,9 @@
 								_this.mineralNumTip = `未到领取收益的时间`;
 							}
 						}
+						_this.showReceiptTip = true;
 					}else{
-						if(res.code == 10011002){
-							//_this.$toast("有矿机超过48小时未领取，需重新登录");
+						/* if(res.code == 10011002){
 							Dialog.alert({
 							  title: '系统提示',
 							  message: '有矿机超过48小时未领取，需重新登录'
@@ -548,13 +549,15 @@
 							return;
 						}
 						_this.mineralNumTip = res.message;
+						_this.isShowMineralNum = true; */
+						_this.$toast(res.message);
 					}
 				},function(){
 					_this.receiptModelTile = "系统提示";
 					_this.isShowConfirmButton = true;
 					_this.isShowReceiptLoading = false;
-					_this.isShowMineralNum = true;
 					_this.getRecieptLoading = false;
+					_this.isShowMineralNum = true;
 				})
 			},
 			logout(){

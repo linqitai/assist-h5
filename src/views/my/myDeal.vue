@@ -528,7 +528,7 @@
 			</div>
 			<div class="detailBox" v-if="showSellerDetailLoading==false&&detail4sellerInfo">
 				<div class="tip4model3RedText">
-					1.若卖家支付宝或微信号异常，请买家点诉讼反馈问题；匹配后若不发短信提醒，客服有劝截图调查，并给予相应的处理。<br>
+					1.若卖家支付宝或微信号异常，请买家点诉讼反馈问题；匹配后若不第一时间发短信提醒，客服有权介入调查，并给予相应的处理。<br>
 					2.交易默认收款方式为支付宝，若用微信转账，请买家预先和卖家沟通并说明原因后再转；若是小额转账，务必使用支付宝或微信完成，若是银行卡当天向多个地方的号转，会被银行判定为银行卡被盗而临时冻结。<br>
 					3.平台为保证交易的顺利进行，卖方的真实姓名若与收款账户里的不一致将冻结账号处理，交易的时候买方若遇到此问题请不要付款，务必第一时间向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
 				</div>
@@ -1643,7 +1643,6 @@
 			},
 			showSellerInfoBtn(item){
 				let _this = this;
-				_this.showSellerUserInfoModel = true;
 				_this.id = item.id;
 				let params = {
 					id: item.id
@@ -1652,6 +1651,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data){
 							_this.sellerUserInfo = res.data;
+							_this.showSellerUserInfoModel = true;
 						}
 					}else{
 						_this.$toast(res.message);

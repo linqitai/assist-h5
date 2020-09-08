@@ -12,7 +12,7 @@ export default {
 	numUnit:'个',
 	coinUnit:'矿石',
 	ticketName:'帮扶券',
-	restTimeStart:'20:00:00',
+	restTimeStart:'21:00:00',
 	restTimeStart21:'21:00:00',
 	restTimeEnd:'23:59:59',
 	tip4Rest:'该区块日常更新中，请明日再来查看......',
@@ -116,10 +116,16 @@ export default {
 	getAssistProvinceAgentListByPage: host + "assist/provinceAgent/getAssistProvinceAgentListByPage",
 	getCityAgentListMoreInfo: host + "assist/cityAgent/getCityAgentListMoreInfo",
 	//vote
+	insertAssistVote: host + "assist/assistVote/insertAssistVote",
+	updateAssistVote: host + "assist/assistVote/updateAssistVote",
 	getAssistVoteList: host + "assist/assistVote/getAssistVoteList",
+	getAssistVoteList4Me: host + "assist/assistVote/getAssistVoteList4Me",
 	getAssistVote: host + "assist/assistVote/getAssistVote/",
+	deleteAssistVoteById: host + "assist/assistVote/deleteAssistVoteById/",
 	//question
 	insertAssistQuestion: host + "assist/question/insertAssistQuestion",
+	updateAssistQuestion: host + "assist/question/updateAssistQuestion",
+	deleteAssistQuestionById: host + "assist/question/deleteAssistQuestionById/",
 	//answer
 	insertAssistAnswer: host + "assist/answer/insertAssistAnswer",
 	getAssistAnswerListPage: host + "assist/answer/getAssistAnswerListPage",
@@ -263,5 +269,5 @@ export default {
 	insertFundPoolRecord: host + "assist/fundpoolrecord/insertFundPoolRecord",
 	outFundPoolRecord: host + "assist/fundpoolrecord/outFundPoolRecord",
 	//loveValue
-	getAssistLoveValueList: host + "assist/loveValue/getAssistLoveValueList"
+	getAssistLoveValueList: host + "assist/loveValue/getAssistLoveValueList",
 }

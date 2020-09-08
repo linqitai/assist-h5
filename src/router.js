@@ -146,6 +146,18 @@ export default new Router({
 					meta:{footer:true,back:false},
 					children:[
 						{
+							path: '/myVoteList',
+							name: '我发起的投票申请',
+							component: resolve => require(['./views/my/myVoteList'],resolve),
+							meta:{footer:false},
+						},
+						{
+							path: '/votePublish',
+							name: '发布投票',
+							component: resolve => require(['./views/my/votePublish'],resolve),
+							meta:{footer:false,back:true,question:false},
+						},
+						{
 							path: '/innerRegister',
 							name: '内排注册',
 							component: resolve => require(['./views/start/innerRegister'],resolve),
@@ -418,12 +430,6 @@ export default new Router({
 					path: '/voteList',
 					name: '投票中心',
 					component: resolve => require(['./views/home/voteList'],resolve),
-					meta:{footer:false,back:true,question:false},
-				},
-				{
-					path: '/votePublish',
-					name: '发布投票',
-					component: resolve => require(['./views/home/votePublish'],resolve),
 					meta:{footer:false,back:true,question:false},
 				},
 				{

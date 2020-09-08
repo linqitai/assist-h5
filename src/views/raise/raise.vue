@@ -890,22 +890,6 @@
 				_this.num = num;
 				_this.showPasswordBoxDialog = true;
 				_this.textTip = "帮扶券";
-				/* if(_this.word){
-					
-				}else{
-					_this.$toast(`请`);
-				} */
-				/* Dialog.confirm({
-				  title: '系统提示',
-				  confirmButtonText:'确认',
-				  closeOnClickOverlay:true,
-				  message: `您是否要捐赠${num}个帮扶券给求助者？`
-				}).then(() => {
-				  // on confirm
-				  //_this.$toast(`即将开放`);
-				  _this.addTicketRequest();
-				}) */
-				
 			},
 			addTicketRequest(){
 				let _this = this;

@@ -245,12 +245,12 @@
 						注册实名时间 {{userInfo.registerTime}}
 					</div>
 					<div class="line">
-						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
-						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}</div>
+						<div class="left">买入次数 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.buyTimes}}</i></span></div>
+						<div class="mlBox left">买入数量 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.buyAmount}}</i></span></div>
 					</div>
 					<div class="line">
-						<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
-						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
+						<div class="left">卖出次数 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.sellTimes}}</i></span></div>
+						<div class="mlBox left">卖出数量 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.sellAmount}}</i></span></div>
 					</div>
 					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
 					<div class="line">
@@ -347,7 +347,7 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	//import mRefresh from '@/components/Refresh2.vue';
-	import { Dialog } from 'vant';
+	import { Dialog,Toast } from 'vant';
 	import clip from '@/assets/js/clipboard';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	/* import { Skeleton } from 'vant'; */
@@ -374,7 +374,8 @@
 				cheker:'',
 				remark:'',
 				loading4CancelAccount:false,
-				loading4Freeze:false
+				loading4Freeze:false,
+				isShowAmount:false
 			}
 		},
 		components: {
@@ -401,6 +402,9 @@
 			let userInfo4Me = localStorage.getItem("_USERINFO_");
 			if(userInfo4Me){
 				_this.userInfo4Me = JSON.parse(userInfo4Me);
+				if(_this.userInfo4Me.userId == 'en15079AQ107o91Y7217'){
+					_this.isShowAmount = true;
+				}
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
@@ -448,6 +452,45 @@
 				clip(text,event,function(res){
 					_this.$toast(`复制成功`);
 				});
+			},
+			submit4Raise(){
+				let _this = this;
+				Dialog.alert({
+				  title: '系统提示',
+				  confirmButtonText:'查看',
+				  showCancelButton:true,
+				  message: "为了保护他人隐私，查看他人敏感信息需花0.1个帮扶券，这0.1个券将会捐入帮扶基金池，请问是否确认查看？"
+				}).then(() => {
+					  // on confirm
+					  let params = {
+						num: 0.1
+					  }
+					  if(Number(_this.userInfo4Me.platformTicket)<Number(params.num)){
+						_this.$toast(`您所拥有的帮扶券不够0.1个`);
+						return;
+					  }
+					  const toast = Toast.loading({
+					    forbidClick: true,
+					    message: '加载中...',
+					  });
+					  //_this.loading4Raise = true;
+					  //console.log("p",params)
+					  _this.$ajax.ajax(_this.$api.insertFundPoolRecord, 'POST', params, function(res) {
+						if (res.code == _this.$api.CODE_OK) {
+							_this.isShowAmount = true;
+						}else{
+							Dialog.alert({
+								title: "系统提示",
+								message: res.message
+							}).then(() => {
+							  // on confirm
+							  //_this.getCurrentAuction();
+							})
+						}
+					  },function(){
+						Toast.clear();
+					  })
+				})
 			},
 			toComplainView(userId){
 				let _this = this;

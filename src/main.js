@@ -18,6 +18,8 @@ Vue.use(Lazyload, {
 Vue.config.productionTip = false;
 Vue.prototype.$toast = Toast;
 Vue.prototype.$api = api;
+import config from '@/assets/js/config';
+Vue.prototype.$config = config;
 import reg from '@/assets/js/reg';
 Vue.prototype.$reg = reg;
 import utils from '@/assets/js/utils';

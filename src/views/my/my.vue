@@ -562,6 +562,16 @@
 				</router-link>
 			</div>
 			<div class="items">
+				<router-link to="myVoteList">
+					<div class="my-cell">
+						<div class="flex1">
+							我的投票申请
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
 				<router-link to="reduceRNTimes">
 					<div class="my-cell">
 						<div class="flex1">
@@ -939,7 +949,7 @@
 				}else if(val=='myCalculationPower'){
 					message = '我的算力：由个人所拥有的矿机所决定。';
 				}else if(val=='limitBuyNum'){
-					message = '个人限购数量=个人限购额度+(卖出数量-买入数量)，若有特殊需要，个人限购额度可找客服申请提升';
+					message = '个人限购数量=初始限购数量+(卖出数量-买入数量)，若有特殊需要，个人限购数量可找客服申请提升';
 				}else if(val=='raise'){
 					message = '爱心值就是您捐赠帮扶券的数量，满10个即可在首页每日释放爱心值';
 				}

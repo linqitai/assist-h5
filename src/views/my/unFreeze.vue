@@ -180,7 +180,7 @@
 						<div class="line margT3">
 							注册时间 {{thisUserInfo.registerTime}}
 						</div>
-						<!-- <div class="line">
+						<div class="line">
 							<div class="left">买入次数 {{thisUserInfo.buyTimes}}</div>
 							<div class="mlBox left">买入数量 {{thisUserInfo.buyAmount}}</div>
 						</div>
@@ -188,12 +188,15 @@
 							<div class="left">卖出次数 {{thisUserInfo.sellTimes}}</div>
 							<div class="mlBox left">卖出数量 {{thisUserInfo.sellAmount}}</div>
 						</div>
-						<div class="line">个人限购数量 {{thisUserInfo.canBuyNum}}</div> -->
+						<div class="line">个人限购数量 {{thisUserInfo.canBuyNum}}</div>
 						<div class="line">
 							<div class="left">直推人数 {{thisUserInfo.teamateNum}}</div>
 							<div class="mlBox left">实名人数 {{thisUserInfo.realnameNum}}</div>
 						</div>
 						<!-- <div>=2000+(卖出数量-买入数量)=</div> -->
+						<div class="line">
+							<i class="underline" @click="toMachineView(thisUserInfo.userId)">查看TA的矿机</i>
+						</div>
 					</div>
 				</div>
 				<!-- <div class="box">
@@ -359,6 +362,10 @@
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 				_this.$router.push({path:"lookBook",query:{lookUserId:userId}})
 			},
+			toMachineView(userId){
+				let _this = this;
+				_this.$router.push({path:"myMill4Other",query:{lookUserId:userId}})
+			},
 			validate4AppointDeal(key){
 				let _this = this;
 				if(key == 'unFreezeAmount') {
@@ -399,7 +406,14 @@
 						if(_this.thisUserInfo.accountStatus == 1){
 							_this.getUserFreezeInfo();
 						}
-					}
+					}else{
+				  		Dialog.alert({
+				  		  title: '系统提示',
+				  		  message: res.message
+				  		}).then(() => {
+				  		  // on close
+				  		});
+				  	}
 				})
 			},
 			getUserFreezeInfo(){

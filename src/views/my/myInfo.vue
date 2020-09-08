@@ -255,7 +255,7 @@
 		</div> -->
 		<div class="placeholderLine10"></div>
 		<div class="flex2">
-			<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="logout">安全退出</van-button>
+			<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" :loading="loading4logout" @click="logout">安全退出</van-button>
 		</div>
 		<div class="placeholderLine10"></div>
 	</div>
@@ -400,6 +400,7 @@ export default {
 			updateValidate:true,
 			flag:'',
 			isRealName:true,
+			loading4logout:false,
 			userId:'',
 			mobilePhone:'',
 		}
@@ -501,6 +502,7 @@ export default {
 		},
 		logout(){
 			let _this = this;
+			_this.loading4logout = true;
 			_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
 				if(res.code == _this.$api.CODE_OK){
 					_this.$toast(res.message);
@@ -520,6 +522,7 @@ export default {
 					_this.$toast(res.message);
 				}
 			},function(){
+				_this.loading4logout = false;
 				_this.$router.replace('login');
 			})
 		},

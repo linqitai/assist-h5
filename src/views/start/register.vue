@@ -167,6 +167,18 @@
 			<van-button color="linear-gradient(to right, #e7e7e7, #c5c5c5)" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>
 			<div class="placeholderLine10"></div>
 		</div>
+		<div class="helpList">
+			<div class="item" v-for="item in helpList">
+				<div class="textBox">
+					<div class="line">
+						<div class="left title">{{item.title}}</div>
+						<!-- <div class="freeGet right">2020/08/01 12:12:12</div> -->
+					</div>
+					<!-- <div class="line content margT3 justify">平台小店预热优惠活动：订购此产品需交￥299押金，下单成功且经过商家审核后，奖励299张平台券，每人最多拍1件(备注：激活POS机需要刷卡满￥299，激活成功后再找商家审核，审核确实激活后，您所交的￥299押金可退回)</div> -->
+					<div class="line content margT3"><div class="left">{{item.time}}</div><div class="right underline"><a :href="item.url" target="_self">查看详情</a></div></div>
+				</div>
+			</div>
+		</div>
 		<!-- <div class="shadeMaster" v-if="isWeixin">
 			<p>请打开右上角按钮选择<br>
 				<span>【在浏览器打开】</span>
@@ -233,6 +245,7 @@
 				showTipModel:false,
 				isShortMessageDisabled:false,
 				isWeixin:false,
+				helpList:[]
 			}
 		},
 		/* watch:{
@@ -246,6 +259,7 @@
 			_this.welcomeText = _this.$api.welcomeText;
 			_this.form.shareCode = _this.$route.query.id;
 			_this.isWeixin = _this.$utils.isWeixin();
+			_this.helpList = _this.$config.helpList;
 		},
 		//倒计时方法
 		countDown4Time(){

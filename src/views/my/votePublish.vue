@@ -84,28 +84,18 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				发起投票
+				发起投票申请
 			</div>
-			<i class="iconfont iconfont-message rightBox icon" @click="toListView"></i>
+			<i class="iconfont rightBox icon"></i>
 		</m-header>
 		<div class="votePublishPage">
-			<!-- <div class="myCell">
-				<div class="flex label">
-					留言类型
-				</div>
-				<div class="flex align-right">
-					<van-dropdown-menu>
-					  <van-dropdown-item v-model="form.wordTypleValue1" :options="option1" />
-					</van-dropdown-menu>
-				</div>
-			</div> -->
 			<div class="myCell">
-				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的投票标题" />
+				<van-field required clearable @blur="validate('voteTitle')" v-model="form.voteTitle" maxlength="20" placeholder="请填写20字内的投票标题" />
 			</div>
 			<div class="myCell2">
 				<van-cell-group>
 				  <van-field
-				    v-model="form.wordContent" @blur="validate('wordContent')"
+				    v-model="form.remark" @blur="validate('remark')"
 				    rows="2" required
 				    autosize clearable
 				    type="textarea"
@@ -115,19 +105,21 @@
 				  />
 				</van-cell-group>
 			</div>
-			<div class="myCell3">
-				<van-swipe-cell>
-				  <!-- <template #left>
-				    <van-button square type="primary" text="选择" />
-				  </template> -->
-				  <van-cell :border="false" title="选项" value="选项内容描述性文字" />
-				  <template #right>
-				    <van-button square type="danger" text="删除" />
-				    <van-button square type="primary" text="编辑" />
-				  </template>
-				</van-swipe-cell>
+			<div class="tip4model3 tip">
+				向左滑动方块可进行删除与编辑投票选项
 			</div>
-			<div class="myCell4">
+			<div class="myCell3">
+				<div v-for="(item,index) in form.questionVoList" :key="item.id">
+					<van-swipe-cell>
+					  <van-cell :border="false" :title="'选项'+ (index+1) + ':' +item.questionTitle" :value="item.questionContent" />
+					  <template #right>
+					    <van-button square type="danger" text="删除" @click="deleteQuestion(item)"/>
+					    <van-button square type="primary" text="编辑" @click="editQuestionBtn(item)"/>
+					  </template>
+					</van-swipe-cell>
+				</div>
+			</div>
+			<div class="myCell4" v-if="addOrEditVoteType=='edit'">
 				<van-button icon="plus" type="primary" @click="addSelectBtn">添加选项</van-button>
 			</div>
 			<div class="sureBtn">
@@ -137,16 +129,11 @@
 		</div>
 		<van-action-sheet v-model="showAddSelectModel" title="添加选项">
 			<div class="hangBuyContent">
-				<!-- <div class="tipText paddingWing">
-					价格涨幅规律：每当平台指导价的求购量超过10万{{pen}}，则涨0.1CNY。
-				</div> -->
 				<van-cell-group>
-					<van-field v-model="form4Select.title" label="标题" type="text" required clearable placeholder="请填写标题"/>
-					<van-field v-model="form4Select.content" label="描述文字" type="text" clearable placeholder="请填写对选项的注释(选填)"/>
+					<van-field v-model="formQuestion.questionTitle" label="标题" type="text" required clearable placeholder="请填写标题"/>
+					<van-field v-model="formQuestion.questionContent" label="描述文字" type="text" clearable placeholder="请填写对选项的注释(选填)"/>
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
-					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
-					
 				    <van-button size="normal" type="primary" :loading="loading4Submit" :block="true" @click="submitAddSelect">提 交</van-button>
 				</div>
 			</div>
@@ -161,27 +148,30 @@
 		data() {
 			return {
 				form:{
-					wordTitle:'',
-					wordTypleValue1:0,
-					wordContent:''
+					voteTitle:'',
+					remark:''
 				},
 				form4Select:{
-					title:'',
-					content:''
+					voteTitle:'',
+					remark:''
 				},
-				option1: [
-					{ text: '问题反馈', value: 0 },
-					{ text: '意见建议', value: 1 },
-					{ text: '我要告状', value: 2 },
-					{ text: '其他类型', value: 3 }
-				],
+				formQuestion: {
+					id:'',
+					voteId: '',
+					questionTitle: '',
+					questionContent: '',
+				},
 				currentPage: 1,
 				pageCount: 1000,
 				totalItems: 10000,
 				userId:"",
 				loading:false,
 				loading4Submit:false,
-				showAddSelectModel:false
+				showAddSelectModel:false,
+				id:'',
+				questionId:'',
+				addOrEditVoteType:'',
+				addOrEditQuestionType: '',
 			}
 		},
 		components: {
@@ -198,6 +188,12 @@
 				_this.$router.replace('login');
 				return;
 			}
+			if(_this.$route.query.intoType=='edit'){
+				_this.getVoteInfo();
+				_this.addOrEditVoteType = 'edit';
+			}else{
+				_this.addOrEditVoteType = 'add';
+			}
 		},
 		methods: {
 			back(){
@@ -212,69 +208,142 @@
 			addSelectBtn(){
 				let _this = this;
 				_this.showAddSelectModel = true;
-				
+				_this.addOrEditQuestionType = 'add';
+			},
+			deleteQuestion(item){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.deleteAssistQuestionById + item.id, 'POST', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						_this.$toast(res.message);
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.$toast(res.message);
+				})
+			},
+			editQuestionBtn(item){
+				let _this = this;
+				_this.showAddSelectModel = true;
+				_this.addOrEditQuestionType = 'edit';
+				_this.questionId = item.id;
+				_this.formQuestion.questionTitle = item.questionTitle;
+				_this.formQuestion.questionContent = item.questionContent;;
 			},
 			submitAddSelect(){
 				let _this = this;
-				_this.showAddSelectModel = false;
+				let params = {
+					voteId: _this.formQuestion.voteId,
+					questionTitle: _this.formQuestion.questionTitle,
+					questionContent: _this.formQuestion.questionContent,
+				}
+				let url = '';
+				if (_this.addOrEditQuestionType == 'add') {
+				  url = _this.$api.insertAssistQuestion;
+				} else if (_this.addOrEditQuestionType == 'edit') {
+				  params.id = _this.questionId;
+				  url = _this.$api.updateAssistQuestion;
+				}
+				_this.$ajax.ajax(url, 'POST', params, function(res) {
+				  //console.log('res', res);
+				  if (res.code == _this.$api.CODE_OK) {
+				    _this.$toast(`${_this.addOrEditQuestionType=='add'?'添加':'修改'} 选项成功`);
+				    _this.getVoteInfo();
+				  }
+				},function(){
+					_this.showAddSelectModel = false;
+				})
+			},
+			sureQuestionBtn(formName) {
+			  console.log('formQuestion', this.formQuestion);
+			  
 			},
 			validate(flag){
 				let _this = this;
-				if(flag == 'wordTitle'){
-					if(_this.form.wordTitle==''){
-						_this.$toast('留言标题不能为空');
+				if(flag == 'voteTitle'){
+					if(_this.form.voteTitle==''){
+						_this.$toast('标题不能为空');
 						return;
 					}
-				}else if(flag == 'wordContent'){
-					if(_this.form.wordContent==''){
-						_this.$toast('留言内容不能为空');
+				}else if(flag == 'remark'){
+					if(_this.form.remark==''){
+						_this.$toast('内容不能为空');
 						return;
 					}
 				}
+			},
+			getVoteInfo(){
+				let _this = this;
+				_this.id = _this.$route.query.id;
+				_this.formQuestion.voteId = _this.id;
+				//console.log('_this.id',_this.id);
+				_this.$ajax.ajax(_this.$api.getAssistVote + _this.id, 'GET', null, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) { // 200
+						_this.form = res.data;
+						/* _this.isDead = _this.judgeTime4VoteStatus(_this.voteInfo.deadTime);
+						_this.getAssistAnswer4Self();
+						_this.getAssistAnswerListPage(); */
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+					}
+				})
 			},
 			submit(){
 				// console.log("submit");
 				let _this = this;
 				// console.log("_this.userInfo.platformTicket",_this.userInfo.platformTicket);
-				if(_this.userInfo.platformTicket<0.1){
+				if(_this.userInfo.platformTicket<1){
 					Dialog.alert({
 						title: "系统提示",
 						confirmButtonText:'知道了',
-						message: "您的帮扶券不足0.1个，无法留言"
+						message: "发起投票需使用1个帮扶券，您的帮扶券不够"
 					}).then(() => {
 					  // on confirm
 					})
 					return;
 				}
-				if(_this.form.wordTitle==''){
-					_this.$toast('留言标题不能为空');
+				if(_this.form.title==''){
+					_this.$toast('标题不能为空');
 					return;
 				}
-				if(_this.form.wordContent==''){
-					_this.$toast('留言内容不能为空');
+				if(_this.form.content==''){
+					_this.$toast('内容不能为空');
 					return;
 				}
 				//为了提高留言质量，提交留言需使用1张帮扶券，您是否确定要留言？
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
-				  message: '您是否确定要留言？'
+				  message: '发起投票申请需花1个券，且需要经过系统神审核，您是否确定要发起投票申请？'
 				}).then(() => {
 					// on confirm
 					let params = {
 						/* userId: _this.userId, */
-						messageType: _this.form.wordTypleValue1,
-						messageTitle: _this.$utils.clearSpecialRelax(_this.form.wordTitle),
-						messageContent: _this.$utils.clearSpecialRelax(_this.form.wordContent),
+						voteTitle: _this.$utils.clearSpecialRelax(_this.form.voteTitle),
+						remark: _this.$utils.clearSpecialRelax(_this.form.remark),
+					}
+					let url = '';
+					if (_this.addOrEditVoteType == 'add') {
+					  url = _this.$api.insertAssistVote;
+					} else if (_this.addOrEditVoteType == 'edit') {
+					  url = _this.$api.updateAssistVote;
+					  params.id = _this.form.id;
 					}
 					_this.loading = true;
-					_this.$ajax.ajax(_this.$api.insertAssistMessageBoard, 'POST', params, function(res) {
+					_this.$ajax.ajax(url, 'POST', params, function(res) {
 						_this.loading = false;
 						if (res.code == _this.$api.CODE_OK) {
-							_this.$toast('留言成功');
+							_this.$toast('提交成功');
 							_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
 							_this.$router.push({
-								path: `/myWordList`
+								path: `/myVoteList`
 							});
 						}else{
 							Dialog.alert({

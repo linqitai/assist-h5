@@ -103,15 +103,19 @@
 			<van-dialog v-model="showDealTipModel" title="提示小帮手" confirmButtonText="已晓得">
 				<div class="paddingWing f-12 lineHeight textJustify tip4model2">
 					<div>
-						1.在平价区交易前，需先去完成'我的--任务中心'里的2个基础任务。
+						1.流通中心每日开放的时间为9~20点。
 					</div>
 					<div class="placeholderLine4"></div>
 					<div>
-						2.在新手区买入数量超过100个且人算力达到1G后即可开通买卖区的交易。
+						2.在交易前，需先去完成'我的--任务中心'里的2个基础任务。
 					</div>
 					<div class="placeholderLine4"></div>
 					<div>
 						3.交易后所剩矿石数不得少于2个，至少要保留注册所赠送的2个矿石，用来复投矿机。
+					</div>
+					<div class="placeholderLine4"></div>
+					<div>
+						4.买单匹配后务必要完成交易，否则会被系统回收一定数量的贡献值或矿石。
 					</div>
 				</div>
 			</van-dialog>

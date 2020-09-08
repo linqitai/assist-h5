@@ -1,7 +1,6 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
 	.raise{
-		// padding: $boxPadding1;
 		@include pageNoHeight4Scroll();
 		color: $main-box-fh-text-color !important;
 		background-color: $main-box-fh-bg-color !important;
@@ -128,7 +127,6 @@
 			align-content: center;
 			align-items: center;
 			justify-content: center;
-			// color:$mainTextColor;
 			.flexMedial{
 				flex: 1;
 			}
@@ -259,10 +257,8 @@
 			}
 			.flexsBox{
 				display: flex;
-				// background-color: $main-box-color;
 				box-sizing:border-box !important;
 				color:$main-box-fh-text-color;
-				/* margin-top: 12px; */
 				border-bottom: 1px solid $bottomLineColor;
 				&.row{
 					flex-direction: row;
@@ -274,7 +270,6 @@
 				.flexThis{
 					flex:1;
 					text-align: left;
-					/* padding-left: 8px; */
 					margin-top: 6px;
 					padding-bottom: 6px;
 					&.column{
@@ -319,41 +314,23 @@
 			</div>
 			<i class="iconfont rightBox icon"></i>
 		</m-header>
-		<!-- <div class="helpBox">
-			<i class="iconfont iconfont-love leftBox"></i>
-			<span class="centerBox">紧急求助！1岁宝宝急需移植骨髓，等钱救命！</span>
-			<i class="iconfont iconfont-right-arrow2 rightBox icon"></i>
-		</div> -->
-		
 		<div>
 			<div class="raiseHeader borderBottom">
 				<div class="iconTextBox">
 					<i class="iconfont iconfont-love2 leftIcon"></i>
 					<div class="iconText">爱心·水滴·帮扶筹</div>
-					<!-- <div class="rightBox unSelect">
-						<van-button type="primary" size="small" :block="true" to="raiseApplyList">申请帮扶筹</van-button>
-					</div> -->
 				</div>
 			</div>
-			<!-- <div v-if="!list1">
-				<div class="placeholderLine10"></div>
-				<van-skeleton :row="16"/>
-				<div class="placeholderLine10"></div>
-			</div> -->
 			<div class="textCenter margT20" v-if="!list1">
 				暂无申请记录
 			</div>
 			<div v-if="list1">
 				<div class="whoAreYou">
-					<!-- <div class="avator">
-						<van-image round width="20" height="20" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-					</div> -->
 					<div class="textInfo">
 						<span class="text1 unSelect">{{$JsCrypto.myDecode1(list1.realName)}}</span>
 						<span class="text2 unSelect">发起筹款</span>
 						<span class="text2 unSelect">{{list1.createTime}}</span>
 					</div>
-					<!-- <div class="rightBox unSelect"><van-tag plain type="success">个人求助</van-tag></div> -->
 				</div>
 				<div class="content1">
 					<div class="title">{{list1.title}}</div>
@@ -388,12 +365,7 @@
 				<div class="story borderBottom">
 					<div class="flex">
 						<div class="title flexMedial">求助者的故事</div>
-						<!-- <div class="flexCenter textRight">
-							<i class="iconfont iconfont-tanhao"></i>
-							<span class="margL1 unSelect">质疑</span>
-						</div> -->
 					</div>
-					<!-- <div class="content margT10" v-if="obj.noticeContent" v-html="obj.noticeContent"/> -->
 					<div class="content unSelect justify" v-html="list1.story"/>
 					<div class="imageList flex" v-if="list1">
 						<img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/>
@@ -412,7 +384,6 @@
 						<div class="title flexMedial">节点<i class="yellow">支持</i>信息</div>
 					</div>
 					<div class="textCenter">
-						<!-- 节点浏览数 {{list1.browseTimes || 0}} -->
 						<div class="lineHeight">支持的票数超过500，即可激活此申请，<br>并开放此帮扶筹</div>
 						<div class="lineHeight"><span class="yellow">支持票数 {{list1.supportTimes || 0}}</span></div>
 					</div>
@@ -422,14 +393,9 @@
 					</div>
 					<div class="placeholderLine10"></div>
 				</div>
-				<!-- <div class="placeholderLine placeholderLineBGC"></div> -->
 				<div class="materialProve borderBottom">
 					<div class="flex">
 						<div class="title flexMedial">材料证明</div>
-						<!-- <div class="flexCenter textRight">
-							<i class="iconfont iconfont-safety"></i>
-							<span class="margL1 unSelect">安心保障</span>
-						</div> -->
 					</div>
 					<div class="proveContent">
 						<div class="flex borderBottom">
@@ -451,14 +417,8 @@
 							<div class="title2">求助者手机号：{{$JsCrypto.myDecode1(list1.mobilePhone)}} <span @click="handleCopy($JsCrypto.myDecode1(list1.mobilePhone),$event)">复制</span></div>
 							<div class="title2">求助者微信：{{$JsCrypto.myDecode1(list1.wechartNum)}} <span @click="handleCopy($JsCrypto.myDecode1(list1.wechartNum),$event)">复制</span></div>
 							<div class="title2">求助者支付宝：{{$JsCrypto.myDecode1(list1.alipayNum)}} <span @click="handleCopy($JsCrypto.myDecode1(list1.alipayNum),$event)">复制</span></div>
-							<!-- <div class="contentText1 justify">
-								该求助信息不属于慈善公开募捐，真实性由求助者个人负责，帮扶筹提示您加求助者微信了解详情后再进行帮扶。
-							</div> -->
-						</div>
-						<!-- <div class="knowMore">
-							了解更多求助人信息
-						</div> -->
 						
+						</div>
 					</div>
 					<!-- <div class="proverList">
 						<div class="flex">

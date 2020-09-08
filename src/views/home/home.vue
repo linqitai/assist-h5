@@ -88,39 +88,7 @@ $noticeHeight:40px;
 		}
 		
 		$iconBgWidth:50px;
-		.helpList {
-			width: 100%;
-			padding: 6px 6px;
-			box-sizing: border-box;
-			.item {
-				width: 100%;
-				border: 1px solid $bottomLineColor;
-				letter-spacing: 1px;
-				background-color: $main-box-color;
-				margin-bottom: 4px;
-				border-radius: 4px;
-				overflow: hidden;
-				&::last-child{
-					margin-bottom: 0px;
-				}
-				.imgBox{
-					width: 100%;
-					img{
-						width: 100%;
-					}
-				}
-				.textBox{
-					padding: 4px 10px;
-					.freeGet{color: $main-adorn-color !important;}
-					.title{font-size: $fs-title;font-weight: bold;color: $mainTextColor !important;}
-					.line{
-						overflow: hidden;clear: both;
-						&.content{font-size: $fs-content;line-height: 1.3em;color: $mainTextColor !important;}
-					}
-					
-				}
-			}
-		}
+		
 		.cateInfo {
 			display: flex;
 			width: $lineWidth;
@@ -825,79 +793,16 @@ $noticeHeight:40px;
 					raiseNum:""
 				},
 				currentImage:0,
-				list:[
-					
-					{
-						time:'2020/08/29',
-						title:'帮扶慰问2位年迈90岁孤寡老人',
-						url:'https://www.meipian.cn/34efrhwd?share_depth=1'
-					},
-					{
-						time:'2020/08/24',
-						title:'蔡锷大将军的故乡帮扶记录',
-						url:'https://www.meipian6.cn/342pxmz6?first_share_to=&first_share_uid=ohbsluHXOyM_J1cmrC9lqMJbiHeI&s_uid=212887301&share_depth=3&share_source=timeline&sharer_id=ojq1tt7nfMQ2p9LmtSAk3zOHvD_0&user_id=ohbsluHXOyM_J1cmrC9lqMJbiHeI'
-					},
-					{
-						time:'2020/08/04',
-						title:'关爱老人，真情传递',
-						url:'http://note.youdao.com/noteshare?id=536a5ef451ca7e85cfe06cf538cecac3'
-					},
-					{
-						time:'2020/08/01',
-						title:'炎炎夏日给抗战老兵送清凉',
-						url:'https://www.meipian.cn/32uquw25?share_from=self&first_share_uid=58778585&first_share_to=singlemessage&isappinstalled=1&share_depth=1&from=singlemessage'
-					},
-					{
-						time:'2020/08/01',
-						title:'慰问黄双村特困户纪实',
-						url:'http://note.youdao.com/noteshare?id=ca92ed00829746b86a7209ee5d6e06d7'
-					},
-					{
-						time:'2020/07/21',
-						title:'敬老院爱心帮扶活动',
-						url:'http://note.youdao.com/noteshare?id=eb37717a00ecf9f3ae06cada292fc3d5'
-					},
-					{
-						time:'2020/07/13',
-						title:'给金带铺小学捐赠图书',
-						url:'http://note.youdao.com/noteshare?id=9b200b98fb195083932acba319ef429e'
-					},
-					{
-						time:'2020/07/11',
-						title:'给抗洪卫士送物资',
-						url:'http://note.youdao.com/noteshare?id=7fbfeb3b5f7618b20cd59a602a7d17d8'
-					},
-					{
-						time:'2020/07/02',
-						title:'帮扶悬崖村的孩子',
-						url:'https://www.meipian9.cn/310bbp45?first_share_to=singlemessage&first_share_uid=58778585&from=singlemessage&isappinstalled=1&share_depth=1&share_from=self'
-					},
-					{
-						time:'2020/06/29',
-						title:'帮扶与慰问残疾人',
-						url:'http://note.youdao.com/noteshare?id=2425a80dbab26af088b2b97c03a3e165'
-					},
-					{
-						time:'2020/06/25',
-						title:'端午节给环卫工人送温暖',
-						url:'https://www.meipian9.cn/30ple7kt?first_share_to=singlemessage&first_share_uid=58778585&from=singlemessage&isappinstalled=1&share_depth=1&share_from=self'
-					},
-					{
-						time:'2020/06/24',
-						title:'共青学院募捐活动',
-						url:'https://www.meipian8.cn/30ie68gt?first_share_to=timeline&first_share_uid=212941138&share_depth=3&share_user_mpuuid=1ad9d53c3223db007714de36291d66be&sharer_id=ojq1tt7nfMQ2p9LmtSAk3zOHvD_0&user_id=ohbsluHXOyM_J1cmrC9lqMJbiHeI'
-					},
-					{
-						time:'2020/06/12',
-						title:'上谢小学捐赠活动',
-						url:'https://www.meipian7.cn/2zunbgn1?first_share_to=singlemessage&first_share_uid=58778585&share_depth=2&share_source=singlemessage&sharer_id=ojq1tt7nfMQ2p9LmtSAk3zOHvD_0&user_id=ohbsluHXOyM_J1cmrC9lqMJbiHeI'
-					}
-				],
+				list:[],
 			}
+		},
+		created() {
+			let _this = this;
+			_this.list = _this.$config.helpList;
+			//console.log(_this.list,"_this.list");
 		},
 		mounted() {
 			let _this = this;
-			
 			let userInfo = localStorage.getItem("_USERINFO_");
 			/* alert("userInfo:" + userInfo); */
 			if(userInfo){
@@ -1176,7 +1081,7 @@ $noticeHeight:40px;
 			toRanking4Level(){
 				let _this = this;
 				//console.log('_this.$api.tip4Rest',_this.$api.tip4Rest);
-				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -1184,13 +1089,13 @@ $noticeHeight:40px;
 					  // on close
 					});
 					return;
-				} */
+				}
 				_this.$router.push('/ranking4Level');
 			},
 			toRanking(){
 				let _this = this;
 				//console.log('_this.$api.tip4Rest',_this.$api.tip4Rest);
-				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
+				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: _this.$api.tip4Rest
@@ -1198,7 +1103,7 @@ $noticeHeight:40px;
 					  // on close
 					});
 					return;
-				} */
+				}
 				_this.$router.push('/ranking');
 			},
 			attendanceBtn(){

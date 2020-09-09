@@ -4,11 +4,7 @@
 	.votePublish{
 		font-size: 0.75rem;
 		color: $mainTextColor;
-		position: fixed;
-		top: 0;
-		right: 0;
-		left: 0;
-		bottom: 0;
+		@include pageNoHeight4Scroll();
 		background-color: $main-box-fh-bg-color;;
 		z-index: 2;
 		.van-dropdown-menu{
@@ -32,7 +28,6 @@
 		    color: #FFFFFF !important;
 		} */
 		.votePublishPage{
-			margin-top: $headerHeight;
 			background-color: $main-box-fh-bg-color;
 			.myCell{
 				display: flex;
@@ -61,10 +56,7 @@
 				padding-left: 6px;
 			}
 			.sureBtn{
-				position: fixed;
-				bottom: 0;
-				left: 0;
-				right: 0;
+				
 				.tip{
 					margin-bottom: 6px;
 					margin-left: $boxPadding2;
@@ -105,7 +97,7 @@
 				  />
 				</van-cell-group>
 			</div>
-			<div class="tip4model3 tip">
+			<div class="tip4model3 tip" v-if="form.questionVoList">
 				向左滑动方块可进行删除与编辑投票选项
 			</div>
 			<div class="myCell3">
@@ -123,7 +115,7 @@
 				<van-button icon="plus" type="primary" @click="addSelectBtn">添加选项</van-button>
 			</div>
 			<div class="sureBtn">
-				<div class="tip4model1">为了提高质量，白银级工会会长才能发起投票</div>
+				<div class="tip4model1">为了提高所发起投票申请的质量，只有重要节点能发起投票申请。重要节点：白银及以上工会会长、代理、志愿者、服务商、客服。</div>
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提交</van-button>
 			</div>
 		</div>
@@ -216,11 +208,12 @@
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast(res.message);
+						_this.getVoteInfo();
 					}else{
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.$toast(res.message);
+					//_this.$toast(res.message);
 				})
 			},
 			editQuestionBtn(item){
@@ -321,7 +314,7 @@
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
-				  message: '发起投票申请需花1个券，且需要经过系统神审核，您是否确定要发起投票申请？'
+				  message: '发起投票申请需花1个券，且需要经过平台审核，您是否确定要发起该投票申请？'
 				}).then(() => {
 					// on confirm
 					let params = {
@@ -342,9 +335,10 @@
 						if (res.code == _this.$api.CODE_OK) {
 							_this.$toast('提交成功');
 							_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
-							_this.$router.push({
+							/* _this.$router.push({
 								path: `/myVoteList`
-							});
+							}); */
+							_this.$router.go(-1);
 						}else{
 							Dialog.alert({
 								title: "系统提示",

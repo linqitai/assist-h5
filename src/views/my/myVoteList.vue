@@ -151,11 +151,13 @@
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast(res.message);
+						_this.voteList = [];
+						_this.onLoad1();
 					}else{
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.$toast(res.message);
+					//_this.$toast(res.message);
 				})
 			},
 			editMyVote(item){
@@ -196,12 +198,6 @@
 				},function(){
 					_this.loading1 = false;
 				})
-				// 异步更新数据
-				// setTimeout(() => {
-				// 	// 加载状态结束
-				// 	_this.loading1 = false;
-				// 	_this.finished1 = true;
-				// }, 500);
 			},
 			toVoteDetail(item) {
 				let _this = this;

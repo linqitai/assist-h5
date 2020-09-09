@@ -589,7 +589,7 @@ $noticeHeight:40px;
 									<van-icon class-prefix="iconfont" name="vote" />
 								</div>
 							</div>
-							<div class="text">投票中心</div>
+							<div class="text">共识投票</div>
 						</router-link>
 					</div>
 				</div>

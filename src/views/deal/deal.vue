@@ -86,7 +86,7 @@
 		$bottom:118px;
 		.buy{
 			bottom: $bottom + 60px;
-			left: $right*1.2;
+			right: $right*1.2;
 			color: $main-box-fh-text-color;
 		}
 		.sale{
@@ -279,7 +279,7 @@
 			<div class="line clearBoth">
 				<!-- <div class="left">平台指导价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div> -->
 				<div class="left">求购总量 {{dealPageInfo.currentBuyNum}}</div>
-				<!-- <div class="left">历史交易总量 {{(dealPageInfo.transactionNumAll).toFixed(0)}}</div> -->
+				<!-- <div class="left">历史流通总量 {{(dealPageInfo.transactionNumAll).toFixed(0)}}</div> -->
 				<div class="right">今日流通量 {{(dealPageInfo.transactionNum24).toFixed(0)}}</div>
 			</div>
 		</div>
@@ -449,7 +449,7 @@
 				  	  <div class="">所剩 矿石:{{ remainMineral }}个 帮扶券:{{ remainPlateForm }}个</div>
 				  </div>
 				  <div class="placeholderLine20 clear"></div>
-				  <!-- <div class="inLine">
+				  <div class="inLine">
 				  	<span class="label">想卖数量</span>
 				  	<span class="value">
 				  		<span class="valueLeft">
@@ -459,9 +459,9 @@
 							<van-slider @change="onChange4slider" v-model="form4pickSellBill.sellAmountSliderValue" :min="minBill" :max="maxBill" active-color="#ffae00"/>
 						</span>
 				  	</span>
-				  </div> -->
+				  </div>
 			  </div>
-			  <van-field v-model="form4pickSellBill.sellAmountSliderValue" readonly clearable label="数量"/>
+			  <!-- <van-field v-model="form4pickSellBill.sellAmountSliderValue" readonly clearable label="数量"/> -->
 			  <van-field v-model="form4pickSellBill.price" readonly clearable label="单价"/>
 			  <van-field readonly required clickable label="手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true"/>
 			  <van-popup v-model="showPicker4ServiceChargePopup" position="bottom">
@@ -588,8 +588,8 @@
 				  @select="onSelectMin"
 				  @cancel="onCancelMin"
 				/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="单价" right-icon="question-o" placeholder="请填写单价"
-				 @click-right-icon="alertTip(clickIconTip.price)" :error-message="errorInfo4BuyBill.price"/>
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="单价" placeholder="请填写单价"
+				:error-message="errorInfo4BuyBill.price"/>
 				 <div class="paddingWing tip4model3RedText margT3">当前买单的单价区间为：{{buyMinPrice}}~{{buyMaxPrice}}￥</div>
 				<!-- <div class="inLine">
 					<span class="label">调价格</span>
@@ -599,8 +599,7 @@
 						</span>
 					</span>
 				</div> -->
-				<van-field v-model="form4BuyBill.safePassword" type="password" required clearable label="安全密码" right-icon="question-o" placeholder="请填写安全密码"
-				  @click-right-icon="alertTip(clickIconTip.safePassword)"
+				<van-field v-model="form4BuyBill.safePassword" type="password" required clearable label="安全密码" placeholder="请填写安全密码"
 				  @blur="validate4BuyBill('safePassword')"
 				  :error-message="errorInfo4BuyBill.safePassword"
 				  />

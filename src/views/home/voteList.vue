@@ -72,7 +72,7 @@
 			<div class="voteList">
 				<div class="item" v-for="item in voteList" :key="item.id" @click="toVoteDetail(item)">
 					<div class="itemLeft">
-						<div class="title">{{item.voteTitle}}</div>
+						<div class="title">{{item.voteTitle}}[{{item.isConVote==1?'节点发起':'平台发起'}}]</div>
 						<div class="time">{{item.createTime|getDateTimeTOHM}} ~ {{item.deadTime|getDateTimeTOHM}}</div>
 					</div>
 					<div class="itemRight">

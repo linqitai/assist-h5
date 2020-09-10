@@ -28,7 +28,6 @@
 					.time{
 						font-size: 11px;
 						color: $grayDark;
-						// margin-top: 0.5rem;
 						line-height:$itemInnerLine1Height;
 					}
 					.iconfont-right-arrow{

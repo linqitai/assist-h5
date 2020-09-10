@@ -278,8 +278,8 @@
 			</div>
 			<div class="line clearBoth">
 				<!-- <div class="left">平台指导价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div> -->
-				<div class="left">求购总量 {{dealPageInfo.currentBuyNum}}</div>
-				<!-- <div class="left">历史流通总量 {{(dealPageInfo.transactionNumAll).toFixed(0)}}</div> -->
+				<!-- <div class="left">求购总量 {{dealPageInfo.currentBuyNum}}</div> -->
+				<div class="left">历史流通总量 {{(dealPageInfo.transactionNumAll).toFixed(0)}}</div>
 				<div class="right">今日流通量 {{(dealPageInfo.transactionNum24).toFixed(0)}}</div>
 			</div>
 		</div>

@@ -214,9 +214,11 @@
 			<i class="iconfont iconfont-set rightBox icon" @click="toMyInfo"></i>
 		</m-header>
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-			<div class="tip4model3 tip">
-				30天没登录将会被系统回收2~12个矿石且需重新实名认证
-			</div>
+			<van-notice-bar
+			  mode = "closeable"
+			  left-icon="volume-o"
+			  text="直推完成基础任务2奖励上级0.2个贡献值;30天没登录将会被系统回收2~12个矿石且需重新实名认证;"
+			/>
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
@@ -241,7 +243,11 @@
 					</div>
 					<div class="line">
 						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
-						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}</div>
+						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}
+							<span class="margL10">
+								<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveBuyProfitLoading" @click="givePTRewardYesterday">买入奖励</van-button>
+							</span>
+						</div>
 					</div>
 					<div class="line">
 						<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
@@ -427,7 +433,14 @@
 					</div>
 				</div>
 				<!-- <router-link to="transferMineral4L">
-					
+					<div class="my-cell">
+						<div class="flex1">
+							定向转让矿石(会长)
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
 				</router-link> -->
 				<router-link to="transferTicket">
 					<div class="my-cell">
@@ -640,7 +653,8 @@
 				cookiesTime:60 * 60 * 24,
 				cityInfo:'',
 				dsPassword:'',
-				giveLevelDealProfitLoading:false
+				giveLevelDealProfitLoading:false,
+				giveBuyProfitLoading:false
 			}
 		},
 		components: {
@@ -797,6 +811,49 @@
 					return;
 				}
 				_this.$router.push('myBook');
+			},
+			givePTRewardYesterday(){
+				let _this = this;
+				if(_this.userInfo.buyAmount<100){
+					Dialog.alert({
+					  title: '系统提示',
+					  message: "领取该奖励需昨天收购矿石数达到100颗以上"
+					}).then(() => {
+					  // on close
+					});
+					return;
+				}
+				Dialog.confirm({
+				  title: '系统提示',
+				  confirmButtonText:'确认',
+				  closeOnClickOverlay:true,
+				  message: '领取该奖励需昨天收购矿石数达到100颗以上,若今天收购达到100颗以上，要等明天领取，您是否确认领取？'
+				}).then(() => {
+				  _this.giveBuyProfitLoading = true;
+				  _this.$ajax.ajax(_this.$api.givePTRewardYesterday, 'POST', null, function(res){
+				  	if(res.code == _this.$api.CODE_OK){
+				  		if(res.data == 1){
+				  			_this.$toast('领取成功');
+				  			_this.$cookies.set("tab_name_book", 'ticket', _this.$api.cookiesTime)
+				  			_this.$router.push('myBook');
+				  		}
+				  	}else{
+				  		//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+						return;
+				  	}
+				  },function(){
+				  	_this.giveBuyProfitLoading = false;
+				  })
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
+				});
 			},
 			giveLevelDealProfit(){
 				let _this = this;

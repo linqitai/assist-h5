@@ -238,7 +238,7 @@
 		<van-notice-bar
 		  mode = "closeable"
 		  left-icon="volume-o"
-		  text="流通中心每日开放的时间为9~20点;买单匹配后务必要完成交易，否则会被系统回收一定数量的贡献值或矿石;"
+		  text="流通中心每日开放的时间为9~20点;买单匹配后务必要完成交易，否则会被系统回收一定数量的贡献值或矿石;贡献值为负数无法进行交易、租赁和启动矿机;"
 		/>
 		<!-- <van-notice-bar left-icon="volume-o" :scrollable="true">
 		  <van-swipe
@@ -608,6 +608,8 @@
 					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
 					<div class="tip4model3">系统提示：平价区的匹配机制为随机匹配，每天新挂的单子更有机会被匹配，若被匹配后，有2小时的交易时间，买家锁定交易后，可继续往后延长2小时的交易时间。（同时，交易过程中若遇到问题，随时都可以点诉讼反馈问题按钮，若是特殊情况，最好主动联系客服让客服介入调查或协调）</div>
 					<div class="placeholderLine10"></div>
+					<div class="tip4model3RedText">买单匹配后务必要完成交易，否则会被系统回收一定数量的贡献值或矿石;贡献值为负数无法进行交易、租赁和启动矿机</div>
+					<div class="placeholderLine10"></div>
 				    <van-button @click="sureHangBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Buy" :block="true">确 认</van-button>
 				</div>
 			</div>
@@ -681,7 +683,8 @@ export default {
 			addPriceValue:0.0,
 			min4Price:0,
 			max4Price:100,
-			buyMinPrice:10,
+			buyMinPrice:1,
+			buyGuidePrice:10,
 			buyMaxPrice:13,
 			min4Price4NewBie:0,
 			max4Price4NewBie:100,
@@ -695,7 +698,7 @@ export default {
 			currentPage4:1,
 			pageSize:7,
 			pageSize3:3,
-			newbiePageSize:7,
+			newbiePagesize:7,
 			pageCount:0,
 			totalItems1:0,
 			totalItems2:0,
@@ -966,12 +969,14 @@ export default {
 			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
 			if(_this.$cookies.get('haveDealPageInfo')==1){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
-				//console.log("_this.dealPageInfo:",_this.dealPageInfo);
-				_this.newbiePageSize = _this.dealPageInfo.newbiePageSize;
+				console.log("_this.dealPageInfo:",_this.dealPageInfo);
+				_this.newbiePagesize = _this.dealPageInfo.newbiePagesize;
+				console.log("_this.newbiePagesize",_this.newbiePagesize);
 				_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
 				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.1 + 1).toFixed(2);
-				_this.buyMinPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1)) - 3;
-				_this.buyMaxPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1));
+				/* _this.buyMinPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1)) - 3;*/
+				_this.buyGuidePrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1));
+				_this.buyMaxPrice = parseFloat(parseFloat(_this.dealPageInfo.currentPlatformPrice).toFixed(1)); 
 				_this.form4pickSellBill.price = _this.minPrice;
 				//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 				//_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice || 0)) - (parseFloat(_this.dealPageInfo.currentPlatformPrice || 0)))*100;
@@ -1060,12 +1065,12 @@ export default {
 		},
 		onConfirm4ServiceCharge(item) {
 			let _this = this;
-			if(_this.userInfo.myCalculationPower<1&&item.id!=3){
+			if(_this.userInfo.myCalculationPower<1&&item.id==1){
 				Dialog.alert({
 					title: '系统提示',
-					message: '个人算力不到1G的矿工暂时只能选择【20%矿石+交易总金额的10%帮扶券】作为手续费'
+					message: '该手续费只能由个人算力大于1G的会员选择'
 				}).then(() => {
-					// on close
+					// on close message: '个人算力不到1G的矿工暂时只能选择【20%矿石+交易总金额的10%帮扶券】作为手续费'
 				});
 			}else{
 				_this.serviceCharge = item.text;
@@ -1079,6 +1084,16 @@ export default {
 					_this.maxBill = Math.floor(_this.maxBill*(1.0+_this.dealPageInfo.newbieRatio));
 				}
 			}
+			/* _this.serviceCharge = item.text;
+			_this.form4pickSellBill.serviceCharge = item.id;
+			_this.showPicker4ServiceChargePopup = false;
+			if(_this.form4pickSellBill.serviceCharge == 1){
+				_this.maxBill = Math.floor(_this.maxBill*1.1);
+			}else if(_this.form4pickSellBill.serviceCharge == 0){
+				_this.maxBill = Math.floor(_this.maxBill*(1.0 + _this.dealPageInfo.dealRatio));
+			}else if(_this.form4pickSellBill.serviceCharge == 3){
+				_this.maxBill = Math.floor(_this.maxBill*(1.0+_this.dealPageInfo.newbieRatio));
+			} */
 		},
 		onChange4ServiceCharge(picker, value, index) {
 		  Toast(`当前值：${value}, 当前索引：${index}`);
@@ -1206,11 +1221,16 @@ export default {
 				//console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
-					_this.newbiePageSize = _this.dealPageInfo.newbiePageSize;
+					console.log('dealPageInfo', _this.dealPageInfo);
+					_this.newbiePagesize = _this.dealPageInfo.newbiePagesize;
+					console.log('newbiePagesize', _this.newbiePagesize);
 					_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
 					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2).toFixed(2);
-					_this.buyMinPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1)) - 3;
-					_this.buyMaxPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1));
+					/* _this.buyMinPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1)) - 3;
+					_this.buyMaxPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1)); */
+					/* _this.buyMinPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1)) - 3;*/
+					_this.buyGuidePrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1));
+					_this.buyMaxPrice = parseFloat(parseFloat(_this.dealPageInfo.currentPlatformPrice).toFixed(1)); 
 					_this.form4pickSellBill.price = _this.minPrice;
 					//_this.currentMaxPrice = _this.dealPageInfo.maxPrice;
 					//_this.max4Price = ((parseFloat(_this.dealPageInfo.currentMaxPrice) || 0) - (parseFloat(_this.dealPageInfo.currentPlatformPrice||0)))*100;
@@ -1521,6 +1541,15 @@ export default {
 		},
 		ShowBuyTAModelBtn(item){
 			let _this = this;
+			if(_this.userInfo.contributionValue<0){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '您的贡献值为负数，无法进行该操作。'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
 			_this.showPickBuyModel = true;
 			_this.form3.num = item.minNumber;
 			_this.form3.price = item.price;
@@ -1665,7 +1694,7 @@ export default {
 					return;
 				}
 			}
-			if(_this.userInfo.manType==2 || _this.userInfo.isAgent == 3 || _this.userInfo.innerRegister == 1){
+			/* if(_this.userInfo.manType==2 || _this.userInfo.isAgent == 3 || _this.userInfo.innerRegister == 1){
 				Dialog.alert({
 				  title: '系统提示',
 				  message: '服务商、城市盟主、客服等具有先天优势的会员，为了维护项目稳定，卖出请通过有秩序得挂卖单，最好是通过权限转矿石给自己的伞下会员。'
@@ -1673,7 +1702,7 @@ export default {
 				  // on close
 				});
 				return;
-			}
+			} */
 			let type = 1;
 			if(_this.tabActiveName == 'dealArea4'){
 				type = 2;
@@ -2297,12 +2326,12 @@ export default {
 		},
 		changeCurrentPage2(val){
 			let _this = this;
-			//console.log('val',val);
+			console.log('val',val,',pagesize:',_this.newbiePagesize);
 			_this.currentPage2 = val;
-			if(_this.currentPage2>5){
+			if(parseInt(_this.currentPage2)>parseInt(_this.newbiePagesize)){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: "买单暂时只展示5页"
+				  message: `买单暂时只展示${_this.dealPageInfo.newbiePagesize}页`
 				}).then(() => {
 				  // on close
 				});

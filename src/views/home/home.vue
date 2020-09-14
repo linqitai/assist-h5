@@ -769,6 +769,7 @@ $noticeHeight:40px;
 					this.$api.domainName + '/image/banner/001.jpg',
 					this.$api.domainName + '/image/banner/002.jpg',
 					this.$api.domainName + '/image/banner/003.jpg',
+					this.$api.domainName + '/image/banner/1009.jpg',
 				],
 				mill: {
 					zl: "",

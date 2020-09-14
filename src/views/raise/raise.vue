@@ -770,6 +770,34 @@
 			waiting(){
 				this.$toast(`即将开放`);
 			},
+			getRaiseList() {
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage1,
+					pageSize: _this.pageSize,
+					status:3//0-待审核 1-审核通过 2-排队中 3-筹款中 4-筹款结束
+				}
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {
+					//console.log('res', res);
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list1.push(...list);
+						_this.loading1 = false;
+						if(res.data.endRow == res.data.total){
+							_this.finished1 = true;
+						}else{
+							_this.currentPage1 = _this.currentPage1 + 1;
+						}
+					}else{
+						_this.list1 = [];
+						_this.loading1 = false;
+						_this.finished1 = true;
+						_this.$toast(res.message);
+					}
+				})
+			},
 			getRaiseMineralNum(raiseId){
 				let _this = this;
 				let params = {

@@ -16,7 +16,11 @@ export default{
 	calculationOptions:[{id:0,value:'自己租赁矿机'},{id:1,value:'伞下会员租赁矿机'},{id:2,value:'自己矿机过期'},{id:3,value:'伞下会员矿机过期'},{id:4,value:'自己获得矿机'},{id:5,value:'伞下会员获得矿机'},{id:6,value:'会员实名通过'},{id:7,value:'直推注销账号'}],
 	agentOptions:[{id:0,value:''},{id:1,value:'省代理'},{id:2,value:'市代理'},{id:3,value:'客服'},{id:4,value:'团队长'},{id:5,value:'志愿者'},{id:6,value:'群管理'},{id:7,value:'其他'},{id:8,value:'城市盟主'}],
 	helpList:[
-		
+		{
+			time:'2020/09/13',
+			title:'关爱营下困难户，温暖成长帮扶路',
+			url:'https://www.meipian7.cn/35bevtsn?first_share_to=singlemessage&first_share_uid=58778585&from=singlemessage&isappinstalled=1&share_depth=1&share_from=self'
+		},
 		{
 			time:'2020/08/29',
 			title:'帮扶慰问2位年迈90岁孤寡老人',

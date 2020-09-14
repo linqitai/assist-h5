@@ -11,7 +11,7 @@
 					flex-direction: row;
 					align-content: center;
 					align-items: center;
-					padding: $boxPadding2;
+					padding: $boxPadding2*1.2;
 					border-bottom:1px solid $mainBorderColor;
 					background-color: $main-box-color;
 					.flex{
@@ -107,7 +107,7 @@
 						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex">
 								<div class="line">{{item.createTime}}</div>
-								<div class="line margT6">
+								<div class="line margT16">
 									<span @click="toMy4OtherView(item.toUserId)">
 										<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.buyerNickName}}</i></span>
 										<i class="iconfont iconfont-right-arrow2"></i>
@@ -119,7 +119,7 @@
 									</span>
 									买入 <i class="textAdornColor">{{item.number}}</i>个
 								</div>
-								<div class="line margT6">
+								<div class="line margT16">
 									<span class="nickName">区块高度 <i class="textColor">{{item.id}}</i></span>
 								</div>
 								<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
@@ -189,7 +189,7 @@
 				currentPage2: 1,
 				currentPage3: 1,
 				currentPage4: 1,
-				pageSize:16,
+				pageSize:10,
 				activeName:'mineral',
 				loading1:false,
 				finished1:false,

@@ -239,7 +239,7 @@
 							<div class="tip4model3 textCenter">每次矿机收益需要在24~48小时之内领取</div>
 							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
 						</div>
-						<van-list v-model="loadingMyMill" :finished="finishedMyMill" :finished-text="finishedMyMillText" @load="onLoadMyMill">
+						<van-list v-model="loadingMyMill" :finished="finished1" :finished-text="finishedMyMillText" @load="onLoadMyMill">
 							<div class="millList">
 								<div class="item" v-for="item in myMillList" :key="item.id">
 									<!-- <div class="flex flex1">
@@ -282,7 +282,7 @@
 						<div slot="title" class="tabTitle">
 							 过期矿机 {{pastMillList?pastMillList.length:''}}
 						</div>
-						<van-list :offset="100" v-model="loadingPastMill" :finished="finishedPastMill" finished-text="没有更多了" @load="onLoadPastMill">
+						<van-list :offset="100" v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoadPastMill">
 							<div class="millList">
 								<div class="item" v-for="item in pastMillList" :key="item.id">
 									<!-- <div class="flex flex1">
@@ -350,14 +350,14 @@
 				showTipModel:false,
 				activeName: "myMill",
 				loadingMyMill: false,
-				finishedMyMill: false,
+				finished1: false,
 				finishedMyMillText:'',
 				myMillList:[],
 				loadingMillShop: false,
 				finishedMillShop: false,
 				millShopList: [],
-				loadingPastMill: false,
-				finishedPastMill: false,
+				loading2: false,
+				finished2: false,
 				pastMillList:[],
 				miningMachine: [{
 					miningMachineType: '小型矿机',
@@ -463,10 +463,6 @@
 					return 'tag2'
 				}
 			},
-			refreshEvent() {
-				let _this = this;
-				_this.onLoadMyMill();
-			},
 			nextReceipt(value){
 				let _this = this;
 				let dateTime = Date.parse(new Date(value)) + 24*60*60*1000;
@@ -565,30 +561,6 @@
 					_this.isShowMineralNum = true;
 				})
 			},
-			logout(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.$toast(res.message);
-						localStorage.removeItem('_USERINFO_');
-						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
-						// console.log("_this.$cookies.keys()",_this.$cookies.keys());
-						// _this.$cookies.remove('_USERINFO_');
-						// _this.$cookies.remove('buyAndSellInfo');
-						_this.$cookies.remove('userId');
-						_this.$cookies.remove('token');
-						_this.$cookies.remove('isRefreshDealInfo');
-						_this.$cookies.remove('statistics');
-						_this.$cookies.remove('haveDealPageInfo');
-						_this.$cookies.remove('hasNoticeList4Swipe');
-						// console.log("_this.$cookies.keys()",_this.$cookies.keys());
-					}else{
-						_this.$toast(res.message);
-					}
-				},function(){
-					_this.$router.replace('login');
-				})
-			},
 			getMyPastMachinesReceipt(){
 				let _this = this;
 				_this.$ajax.ajax(_this.$api.getMyPastMachinesReceipt, 'POST', null, function(res) {
@@ -640,73 +612,17 @@
 					_this.isRunMillBtnLoading = false;
 				})
 			},
-			buyMill(item){
-				let _this = this;
-				Dialog.confirm({
-				  title: '确认弹窗',
-				  message: `您当前可用矿石${_this.userInfo.thisWeekMineral}个,租赁此矿机要花${item.price}矿石,是否确定租赁？`
-				}).then(() => {
-				  // on confirm
-				  if(_this.userInfo.thisWeekMineral<item.price){
-					  _this.$toast(_this.$api.DATA_102);
-				  }else{
-					  _this.sureBuyMillEvent(item.id);
-				  }
-				}).catch(() => {
-				  // on cancel
-				});
-			},
-			sureBuyMillEvent(machineId){
-				let _this = this;
-				let params = {
-					/* userId:_this.userInfo.userId, */
-					machineId:machineId
-				}
-				Toast.loading({
-				  message: '租赁中...',
-				  forbidClick: true,
-				  loadingType: 'spinner'
-				});
-				_this.$ajax.ajax(_this.$api.insertAssistMyMachine, 'POST', params, function(res) {
-					Toast.clear();
-					if (res.code == _this.$api.CODE_OK) {
-						if(res.data == 1000){//此类矿机已经售空
-							_this.$toast(_this.$api.DATA_100);
-							return;
-						}
-						if(res.data == 1001){//该用户此类矿机已满，不让租赁
-							_this.$toast(_this.$api.DATA_101);
-							return;
-						}
-						if(res.data == 1002){//该用户所拥有矿石不够，不让租赁
-							_this.$toast(_this.$api.DATA_102);
-							return;
-						}
-						Dialog.alert({
-						  title: '温馨提示',
-						  message: res.data == 1?'租赁成功':'租赁失败'
-						}).then(() => {
-						  // on close
-						  if(res.data==1){
-							  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
-						  }
-						  _this.activeName = 'myMill';
-						  _this.onLoadMyMill();
-						  _this.onLoadMillShop();
-						});
-					}else{
-						_this.$toast(res.message);
-					}
-				})
-			},
 			onLoadMyMill() {
 				let _this = this;
+				/* let params = {
+					status:machineId
+				} */
 				_this.loadingMyMill = true;
-				_this.$ajax.ajax(_this.$api.getAssistMyMachine, 'GET', null, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistMyMachineByStatus01, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let myMill = res.data;
 						_this.myMillList = myMill.filter(item=>item.status!=2);
-						_this.pastMillList = myMill.filter(item=>item.status==2);
+						//_this.pastMillList = myMill.filter(item=>item.status==2);
 						if(_this.myMillList.length>0){
 							_this.finishedMyMillText = '没有更多了';
 						}else{
@@ -726,46 +642,50 @@
 						_this.totalCount = totalCount; */
 						//console.log("remainCount" + _this.remainCount);
 						
-						_this.loadingMyMill = false;
-						_this.finishedMyMill = true;
 						_this.$nextTick(function(){
 							_this.startCodeRain();
 						},300)
 					}else{
 						_this.$toast(res.message);
 					}
-				})
-			},
-			onLoadMillShop() {
-				let _this = this;
-				// 异步更新数据
-				// let params = {
-				// 	versionNo: 1
-				// }
-				_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
-					// console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data;
-						_this.millShopList = list;
-						// localStorage.setItem("_millShopList_",JSON.stringify(_this.millShopList));
-						_this.loadingMillShop = false;
-						_this.finishedMillShop = true;
-					}else{
-						_this.$toast(res.message);
-					}
+				},function(){
+					_this.loadingMyMill = false;
+					_this.finished1 = true;
 				})
 			},
 			onLoadPastMill() {
 				let _this = this;
-				_this.loadingPastMill = true;
-				_this.millShopCurrentPage = _this.millShopCurrentPage + 1;
-				//console.log('_this.millShopCurrentPage', _this.millShopCurrentPage);
-				// 异步更新数据
-				setTimeout(() => {
-					// 加载状态结束
-					_this.loadingPastMill = false;
-					_this.finishedPastMill = true;
-				}, 500);
+				let params = {
+					status:2
+				}
+				_this.loadingMyMill = true;
+				_this.$ajax.ajax(_this.$api.getAssistMyMachineByStatus, 'GET', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.pastMillList = res.data;
+						if(_this.myMillList.length>0){
+							_this.finishedMyMillText = '没有更多了';
+						}else{
+							_this.isShowOneReciept = false;
+							_this.finishedMyMillText = '亲，您目前没有该矿机';
+						}
+						
+						/* let totalCount = 0;
+						_this.myMillList.forEach((item,index)=>{
+							totalCount = totalCount + Number(item.totalOutput);
+						})
+						_this.totalCount = totalCount; */
+						//console.log("remainCount" + _this.remainCount);
+						
+						/* _this.$nextTick(function(){
+							_this.startCodeRain();
+						},300) */
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.loadingMyMill = false;
+					_this.finished2 = true;
+				})
 			},
 			initializeTabActiveName() {
 				let _this = this;
@@ -773,10 +693,40 @@
 					_this.activeName = _this.$cookies.get("mill_tab_name");
 				}
 			},
+			/* refreshEvent() {
+				let _this = this;
+				_this.onLoadMyMill();
+			}, */
+			refreshEvent() {
+				// console.log("refresh1")
+				let _this = this;
+				if(_this.activeName == 'myMill'){
+					_this.currentPage1 = 0;
+					_this.offset1=0;
+					_this.myMillList = [];
+					_this.finished1 = false;
+					_this.onLoadMyMill();
+				}else if(_this.activeName == 'pastMill'){
+					_this.currentPage2 = 0;
+					_this.offset2=0;
+					_this.pastMillList = [];
+					_this.finished1 = false;
+					_this.onLoadPastMill();
+				}
+			},
 			tabChange(name, title) {
+				let _this = this;
+				_this.type = 0;
+				// console.log('name', name)
+				_this.activeName = name;
+				_this.$cookies.set("mill_tab_name", name, _this.$api.cookiesTime);
+				//_this.refreshEvent();
+			},
+			/* tabChange(name, title) {
 				//console.log(name, title);
 				this.$cookies.set("mill_tab_name", name, 60 * 60 * 1)
-			}
+				
+			} */
 		}
 	}
 </script>

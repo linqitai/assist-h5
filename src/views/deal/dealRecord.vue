@@ -11,7 +11,10 @@
 					flex-direction: row;
 					align-content: center;
 					align-items: center;
-					padding: $boxPadding2*1.2;
+					padding-left: 10px;
+					padding-top: 16px;
+					padding-right: 10px;
+					padding-bottom: 16px;
 					border-bottom:1px solid $mainBorderColor;
 					background-color: $main-box-color;
 					.flex{
@@ -87,7 +90,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				区块浏览器·交易
+				交易记录
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
@@ -106,22 +109,23 @@
 					 <div class="list">
 						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex">
-								<div class="line">{{item.createTime}}</div>
-								<div class="line margT16">
-									<span @click="toMy4OtherView(item.toUserId)">
-										<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.buyerNickName}}</i></span>
-										<i class="iconfont iconfont-right-arrow2"></i>
+								<div class="">{{item.coinReleaseTime}}</div>
+								<div class="line margT10">
+									<span @click="toMy4OtherView(item.buyerId)">
+										<!-- <i class="iconfont iconfont-name"></i> -->
+										<span class="nickName"><i class="textColor">{{item.buyerId}}</i></span>
+										<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 									</span>
 									从
-									<span @click="toMy4OtherView(item.fromUserId)">
-										<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.sellerNickName}}</i></span>
-										<i class="iconfont iconfont-right-arrow2"></i>
+									<span @click="toMy4OtherView(item.sellerId)">
+										<span class="nickName"><i class="textColor">{{item.sellerId}}</i></span>
+										<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 									</span>
-									买入 <i class="textAdornColor">{{item.number}}</i>个
+									买<i class="textAdornColor">{{item.num}}</i>个
 								</div>
-								<div class="line margT16">
+								<!-- <div class="line margT16">
 									<span class="nickName">区块高度 <i class="textColor">{{item.id}}</i></span>
-								</div>
+								</div> -->
 								<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
 							</div>
 							<!-- <div class="flexRight2">所剩<span class="textAdornColor">{{item.currentMineralNum}}</span>个</div> -->
@@ -131,41 +135,6 @@
 						</div>
 					 </div>
 				</van-list>
-				<!-- <van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
-					 <div class="list">
-						<div class="item" v-for="item in list1" :key="item.id">
-							<div class="flex">
-								<div class="line">{{item.createTime | getDateTime}}</div>
-								<div class="line margT6">
-									<span class="ellipsis userIdSpan" @click="toBookView(2,item.fromUserId)">{{item.fromUserId}}</span>
-									<i class="iconfont iconfont-arrow-to"></i>
-									<span class="ellipsis userIdSpan" @click="toBookView(2,item.toUserId)">{{item.toUserId}}</span>
-								</div>
-							</div>
-							<div class="flexRight">{{item.number}}</div>
-						</div>
-					 </div>
-				</van-list> -->
-				<!-- <van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00"
-				 title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
-					<van-tab title="矿石" name="mineral">
-						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
-						<div class="list">
-							<div class="item" v-for="item in list1" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime | getDateTime}}</div>
-									<div class="line margT6">
-										<span class="ellipsis userIdSpan" @click="toBookView(2,item.fromUserId)">{{item.fromUserId}}</span>
-										<i class="iconfont iconfont-arrow-to"></i>
-										<span class="ellipsis userIdSpan" @click="toBookView(2,item.toUserId)">{{item.toUserId}}</span>
-									</div>
-								</div>
-								<div class="flexRight">{{item.number}}</div>
-							</div>
-						</div>
-						</van-list>
-					</van-tab>
-				</van-tabs> -->
 			</van-pull-refresh>
 		</div>
 		<!-- </van-pull-refresh> -->
@@ -189,7 +158,7 @@
 				currentPage2: 1,
 				currentPage3: 1,
 				currentPage4: 1,
-				pageSize:10,
+				pageSize:20,
 				activeName:'mineral',
 				loading1:false,
 				finished1:false,
@@ -288,6 +257,38 @@
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,
+					pageSize: _this.pageSize
+				}
+				_this.loading1 = true;
+				_this.$ajax.ajax(_this.$api.getAssistTransactionByCoinRT, 'GET', params, function(res) {
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						list = list.filter((item)=>{
+							let b = _this.$utils.inArray(item.sellerId,_this.manTypeList);
+							if(b==false){
+								b = _this.$utils.inArray(item.buyerId,_this.manTypeList);
+							}
+							return b==false;
+						});
+						_this.list1.push(...list);
+						_this.loading1 = false;
+						if(res.data.endRow == res.data.total){
+							_this.finished1 = true;
+						}else{
+							_this.currentPage1 = _this.currentPage1 + 1;
+						}
+					}else{
+						_this.loading1 = false;
+						_this.finished1 = true;
+						_this.$toast(res.message);
+					}
+				})
+			},
+			/* onLoad1(){
+				let _this = this;
+				let params = {
+					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
 					type:3
 				}
@@ -316,7 +317,7 @@
 						_this.$toast(res.message);
 					}
 				})
-			},
+			}, */
 		}
 	}
 </script>

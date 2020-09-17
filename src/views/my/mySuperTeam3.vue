@@ -259,7 +259,7 @@
 				parentUserInfo:{},
 				myShareText:'直推',
 				activedText:'已实名',
-				unactivedText:'未实名',
+				unactivedText:'待实名',
 				realnameNum:0,
 				teamNum:0,
 				parentId:''
@@ -357,7 +357,7 @@
 						_this.list1.push(...list);
 						_this.totalNum = res.data.total;
 						_this.myShareText = '直推' + ' ' + res.data.total;//团队注册人数
-						_this.unactivedText = '未实名' + ' ' + (res.data.total - _this.realnameNum);
+						_this.unactivedText = '待实名' + ' ' + (res.data.total - _this.realnameNum);
 						_this.loading1 = false;
 						// //console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
@@ -390,7 +390,7 @@
 						_this.loading2 = false;
 						_this.realnameNum = res.data.total;
 						_this.activedText = '已实名 ' + _this.realnameNum;
-						_this.unactivedText = '未实名 ' + (_this.totalNum - _this.realnameNum);
+						_this.unactivedText = '待实名 ' + (_this.totalNum - _this.realnameNum);
 						// //console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished2 = true;
@@ -437,7 +437,7 @@
 						let list = res.data.list;
 						_this.list3.push(...list);
 						_this.loading3 = false;
-						_this.unactivedText = '未实名 ' + res.data.total;
+						_this.unactivedText = '待实名 ' + res.data.total;
 						// //console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished3 = true;

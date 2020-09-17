@@ -1,74 +1,97 @@
-<style scoped lang="scss">
-	@import '~@/assets/scss/index.scss';
-	.test{
-		@include pageBlackBG();
-		.matrix{
-			position: relative;
-		}
-		.content{
-			position: absolute;
-			left: 0;
-			top: 0;
-			color: white;
-			z-index: 1001;
-		}
-	}
+<style lang="scss">
+  .scan{
+    height: 100%;
+  }
+  .bcid{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 3rem;
+    text-align: center;
+    color: #fff;
+    background: #ccc;
+  }
+  footer{
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
+    height: 2rem;
+    line-height: 2rem;
+    z-index: 2;
+  }
 </style>
 <template>
-	<div class="test">
-		<canvas class="matrix" id="matrix">
-		</canvas>
-		<div class="content">
-			了看得见啊看来大家阿斯利康123
-			<br>
-			爱睡懒觉的阿拉斯加大深刻理解打开了时间的
+	<div class="scan">
+		<div id="bcid" class="bcid">
+		  <div style="height:40%"></div>
+		  <p class="tip">...载入中...</p>
 		</div>
+		<footer>
+		  <button @click="startRecognize">1.创建控件</button>
+		  <button @click="startScan">2.开始扫描</button>
+		  <button @click="cancelScan">3.结束扫描</button>
+
+		  <button @click="closeScan">4.关闭控件</button>
+		</footer>
 	</div>
 </template>
 
 <script>
-import mHeader from '@/components/Header.vue';
+  let scan = null
 
-export default {
-	data() {
-		return {
-			
-		}
-	},
-	components:{
-	    mHeader
-	},
-	mounted() {
-		let _this = this;
-		_this.startCodeRain();
-	},
-	methods:{
-		startCodeRain(){
-			var matrix = document.getElementById("matrix");
-			var context = matrix.getContext("2d");
-			matrix.height = window.innerHeight;
-			matrix.width = window.innerWidth;
-			var drop = [];
-			var fontSize = 12; //字体
-			var columns = matrix.width / fontSize;
-			for (var i = 0; i < columns; i++) {
-			    drop[i] = 1;
-			}
-			function drawMatrix() {
-			    context.fillStyle = "rgba(0, 0, 0, 0.1)";
-			    context.fillRect(0, 0, matrix.width, matrix.height);
-			    context.fillStyle = "green";
-			    context.font = fontSize + "px";
-			    for (var i = 0; i < columns; i++) {
-			        context.fillText(Math.floor(Math.random() * 2), i * fontSize, drop[i] * fontSize);
-			        if (drop[i] * fontSize > (matrix.height * 2 / 3) && Math.random() > 0.85){
-						drop[i] = 0;
-					}
-			        drop[i]++;
-			    }
-			}
-			setInterval(drawMatrix, 50);//按照指定间隔一直执行方法
-		}
-	}
-}
+  export default {
+    data () {
+      return {
+        codeUrl: '',
+      }
+    },
+    methods: {
+      // 创建扫描控件
+      startRecognize () {
+        let that = this
+        if (!window.plus) return
+        scan = new plus.barcode.Barcode('bcid')
+        scan.onmarked = onmarked
+
+        function onmarked (type, result, file) {
+          switch (type) {
+            case plus.barcode.QR:
+              type = 'QR'
+              break
+            case plus.barcode.EAN13:
+              type = 'EAN13'
+              break
+            case plus.barcode.EAN8:
+              type = 'EAN8'
+              break
+            default:
+              type = '其它' + type
+              break
+          }
+          result = result.replace(/\n/g, '')
+          that.codeUrl = result
+          alert(result)
+          that.closeScan()
+
+        }
+      },
+      // 开始扫描
+      startScan () {
+        if (!window.plus) return
+        scan.start()
+      },
+      // 关闭扫描
+      cancelScan () {
+        if (!window.plus) return
+        scan.cancel()
+      },
+      // 关闭条码识别控件
+      closeScan () {
+        if (!window.plus) return
+        scan.close()
+      },
+    }
+  }
 </script>

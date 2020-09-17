@@ -76,6 +76,7 @@ export default {
 	getAssistUserInfo4CheckDetail: host + "assist/userInfo/getAssistUserInfo4CheckDetail/",
 	checkAssistUserInfoByUserId: host + "assist/userInfo/checkAssistUserInfoByUserId/",
 	updateUserInfo4CheckPassOrNot: host + "assist/userInfo/updateUserInfo4CheckPassOrNot",
+	assistUserAttendance4Love: host + "assist/userInfo/assistUserAttendance4Love",
 	assistUserAttendance: host + "assist/userInfo/assistUserAttendance",
 	getAssistUserInfoCount4Check: host + "assist/userInfo/getAssistUserInfoCount4Check",
 	getAssistWeChartNumByShareCode: host + "assist/userInfo/getAssistWeChartNumByShareCode/",
@@ -140,6 +141,8 @@ export default {
 	getAssistMachine: host + 'assist/miningMachine/getAssistMiningMachineList',
 	getAssistMyMachineList4Tag: host + 'assist/myMachine/getAssistMyMachineList4Tag',
 	//mymachine
+	getAssistMyMachineByStatus: host + 'assist/myMachine/getAssistMyMachineByStatus',
+	getAssistMyMachineByStatus01: host + 'assist/myMachine/getAssistMyMachineByStatus01',
 	getAssistMyMachine: host + "assist/myMachine/getAssistMyMachine",
 	insertAssistMyMachine: host + "assist/myMachine/insertAssistMyMachine",
 	runMyMachineById: host + "assist/myMachine/runMyMachineById/",
@@ -182,6 +185,7 @@ export default {
 	giveLevelDealProfit: host + "assist/reward/giveLevelDealProfit",
 	givePTRewardYesterday: host + "assist/reward/givePTRewardYesterday",
 	//deal
+	getAssistTransactionByCoinRT: host + "assist/transaction/getAssistTransactionByCoinRT",
 	sureDeal4SellerById: host + "assist/transaction/sureDeal4SellerById",
 	cancelAssistTransaction4S: host + "assist/transaction/cancelAssistTransaction4S",
 	getAssistTransactionExtendById: host + "assist/transaction/getAssistTransactionExtendById",

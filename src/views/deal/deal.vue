@@ -1948,6 +1948,7 @@ export default {
 		sureHangSellBillBtn(){
 			let _this = this;
 			let currentPlatformPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)).toFixed(2);
+			let currentMaxPrice = (parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2);
 			let minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
 			let maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2);
 			if(parseFloat(_this.form4pickSellBill.price)<parseFloat(minPrice)){
@@ -1962,7 +1963,7 @@ export default {
 				maxNumber:_this.form4pickSellBill.sellAmount,
 				minNumber:_this.form4pickSellBill.sellLowestAmount,
 				price:_this.form4pickSellBill.price,
-				type:parseFloat(_this.form4pickSellBill.price)>parseFloat(currentPlatformPrice)?1:0,
+				type:parseFloat(_this.form4pickSellBill.price)>parseFloat(currentMaxPrice)?1:0,
 				safePassword:_this.form4pickSellBill.safePassword,
 				buyOrSell:"sell"
 			}

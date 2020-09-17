@@ -304,8 +304,8 @@ $noticeHeight:40px;
 				</div>
 				<div class="placeholderLine20"></div>
 				<div class="title">{{attendanceTitle}}</div>
-				<div class="tomorrowContribution">连续签到30天可额外获得1个贡献值</div>
-				<div class="tomorrowContribution">随着矿石价值的增加，签到所得贡献值会不定期做调整</div>
+				<div class="tomorrowContribution">连续签到30天可额外获得1个帮扶券</div>
+				<!-- <div class="tomorrowContribution">随着矿石价值的增加，签到所得贡献值会不定期做调整</div> -->
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
@@ -363,81 +363,81 @@ $noticeHeight:40px;
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(13)">0.03</div>
+						<div class="circle" :class="getAttendanceBgColor(13)">0.04</div>
 						<div class="day">13天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(14)">0.03</div>
+						<div class="circle" :class="getAttendanceBgColor(14)">0.04</div>
 						<div class="day">14天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(15)">0.03</div>
+						<div class="circle" :class="getAttendanceBgColor(15)">0.04</div>
 						<div class="day">15天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(16)">0.03</div>
+						<div class="circle" :class="getAttendanceBgColor(16)">0.04</div>
 						<div class="day">16天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(17)">0.03</div>
+						<div class="circle" :class="getAttendanceBgColor(17)">0.04</div>
 						<div class="day">17天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(18)">0.03</div>
+						<div class="circle" :class="getAttendanceBgColor(18)">0.04</div>
 						<div class="day">18天</div>
 					</div>
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(19)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(19)">0.06</div>
 						<div class="day">19天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(20)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(20)">0.06</div>
 						<div class="day">20天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(21)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(21)">0.06</div>
 						<div class="day">21天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(22)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(22)">0.06</div>
 						<div class="day">22天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(23)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(23)">0.06</div>
 						<div class="day">23天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(24)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(24)">0.06</div>
 						<div class="day">24天</div>
 					</div>
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(25)">0.05</div>
+						<div class="circle" :class="getAttendanceBgColor(25)">0.08</div>
 						<div class="day">25天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(26)">0.05</div>
+						<div class="circle" :class="getAttendanceBgColor(26)">0.08</div>
 						<div class="day">26天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(27)">0.05</div>
+						<div class="circle" :class="getAttendanceBgColor(27)">0.08</div>
 						<div class="day">27天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(28)">0.05</div>
+						<div class="circle" :class="getAttendanceBgColor(28)">0.08</div>
 						<div class="day">28天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(29)">0.05</div>
+						<div class="circle" :class="getAttendanceBgColor(29)">0.08</div>
 						<div class="day">29天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(30)">0.05</div>
+						<div class="circle" :class="getAttendanceBgColor(30)">0.08</div>
 						<div class="day">30天</div>
 					</div>
 				</div>
@@ -447,10 +447,10 @@ $noticeHeight:40px;
 					<div class="placeholderLine20"></div>
 				</div>
 				<div v-if="todayIsAttendance">
-					<div class="textCenter red f-13">今日签到已领取{{getTodayAttendanceValue}}贡献值</div>
-					<div class="tomorrowContribution" v-if="dayNum<30">明日签到可领取{{getTomorrowContributionValue}}贡献值</div>
+					<div class="textCenter red f-13">今日签到已领取{{getTodayAttendanceValue}}帮扶券</div>
+					<div class="tomorrowContribution" v-if="dayNum<30">明日签到可领取{{getTomorrowContributionValue}}帮扶券</div>
 					<!-- <div class="tomorrowContribution" v-if="dayNum==30">恭喜您：今日已成功获取一台体验矿机，明日将重置签到</div> -->
-					<div class="tomorrowContribution" v-if="dayNum==30">恭喜您：签到满30天，已成功额外领得1个贡献值奖励，明日将重置签到</div>
+					<div class="tomorrowContribution" v-if="dayNum==30">恭喜您：签到满30天，已成功额外领得1个帮扶券奖励，明日将重置签到</div>
 					<div class="placeholderLine20"></div>
 				</div>
 			</div>
@@ -564,14 +564,14 @@ $noticeHeight:40px;
 							<div class="text">志愿者</div>
 						</router-link>
 					</div>
-					<div class="infoBox" @click="attendanceBtn">
+					<!-- <div class="infoBox" @click="releaseLove">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundAttendance">
 								<van-icon class-prefix="iconfont" name="free-love" size="35"/>
 							</div>
 						</div>
 						<div class="text">释放爱心</div>
-					</div>
+					</div> -->
 					<div class="infoBox" @click="toRanking">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundRank">
@@ -682,6 +682,14 @@ $noticeHeight:40px;
 							<div class="text">新手指南</div>
 						</router-link>
 					</div>
+					<div class="infoBox" @click="attendanceBtn">
+						<div class="iconBox">
+							<div class="iconBackground iconBackgroundAttendance">
+								<van-icon class-prefix="iconfont" name="attendance" size="35"/>
+							</div>
+						</div>
+						<div class="text">日常签到</div>
+					</div>
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="helpList">
@@ -742,7 +750,7 @@ $noticeHeight:40px;
 	// import {getImageHost} from '@/assets/js/config'
 	// import {convertMoney} from '@/assets/js/utils';
 	import mHeader from '@/components/Header.vue';
-	import { Dialog } from 'vant';
+	import { Dialog,Toast } from 'vant';
 	// import { image_host } from '@/assets/js/config.js'
 
 	export default {
@@ -1046,16 +1054,23 @@ $noticeHeight:40px;
 			},
 			getUserInfo() {
 				let _this = this;
+				const toast = Toast.loading({
+				  forbidClick: true,
+				  message: '加载中...',
+				});
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
+						_this.showAttendanceModel=true;
 						_this.refreshAttendanceInfo();
 						//console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(){
+					Toast.clear();
 				})
 			},
 			getUserInfoByNewAttendance() {
@@ -1107,12 +1122,41 @@ $noticeHeight:40px;
 				}
 				_this.$router.push('/ranking');
 			},
-			attendanceBtn(){
+			releaseLove(){
 				let _this = this;
 				_this.getUserInfoByNewAttendance();
 				//this.showAttendanceModel=true;
 				//this.getUserInfo();
 				//console.log('attendanceBtn');
+			},
+			attendanceBtn(){
+				let _this = this;
+				this.getUserInfo();
+			},
+			sureAttendance4Love(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.assistUserAttendance4Love, 'POST', null, function(res) {
+					//_this.isLoading = false;
+					//console.log("res.code",res.code);
+					if (res.code == _this.$api.CODE_OK) {
+						_this.$toast("释放成功");
+						//_this.getUserInfo();
+						_this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+						_this.$router.push('/myBook');
+						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
+						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+					}else{
+						//_this.showAttendanceModel=false;
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '提示信息',
+						  message: res.message
+						}).then(() => {
+						  // on confirm
+						  
+						})
+					} 
+				})
 			},
 			sureAttendance(){
 				let _this = this;
@@ -1122,7 +1166,7 @@ $noticeHeight:40px;
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast("释放成功");
 						//_this.getUserInfo();
-						_this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+						_this.$cookies.set("tab_name_book", 'ticket', _this.$api.cookiesTime)
 						_this.$router.push('/myBook');
 						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
@@ -1163,7 +1207,7 @@ $noticeHeight:40px;
 								  message: res.message
 								}).then(() => {
 								  // on confirm
-								  _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+								  _this.$cookies.set("tab_name_book", 'ticket', _this.$api.cookiesTime)
 								  _this.$router.push('/myBook');
 								})
 							}else{
@@ -1200,7 +1244,7 @@ $noticeHeight:40px;
 							  		  message: res.message
 							  		}).then(() => {
 							  		  // on confirm
-							  		  _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+							  		  _this.$cookies.set("tab_name_book", 'ticket', _this.$api.cookiesTime)
 							  		  _this.$router.push('/myBook');
 							  		})
 							  	}else{
@@ -1230,7 +1274,7 @@ $noticeHeight:40px;
 							  		}).then(() => {
 							  		  // on confirm
 							  		  //_this.$router.push("mill");
-									  _this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+									  _this.$cookies.set("tab_name_book", 'ticket', _this.$api.cookiesTime)
 									  _this.$router.push('/myBook');
 							  		})
 							  	}else{

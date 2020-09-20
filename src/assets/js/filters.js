@@ -205,6 +205,12 @@ function loveValueBookType(val){
 	 return loveValueBookTypeOptions[val].value;
 }
 
+//0-捐赠矿石 1-捐赠帮扶券 2-捐赠基金池 3-释放爱心
+const circulateValueBookTypeOptions = config.circulateValueOptions;
+function circulateValueBookType(val){
+	 return circulateValueBookTypeOptions[val].value;
+}
+
 //类型（矿机产出、买入、卖出、释放）
 const platformTicketBookTypeOptions = config.platformTicketBookTypeOptions;
 function platformBookType(val){
@@ -319,5 +325,6 @@ export {
 	machineType4Pic,
 	accountStatus,
 	canUnFreeze,
-	activedStatus
+	activedStatus,
+	circulateValueBookType
 }

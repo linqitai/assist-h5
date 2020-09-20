@@ -194,10 +194,22 @@
 						</div>
 						<van-button @click="loadingMore5Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading5" loading-type="spinner">加载更多</van-button>
 					</van-tab>
+					<van-tab title="流通值" name="circulateValue">
+						<div class="list">
+							<div class="item" v-for="item in list6" :key="item.id">
+								<div class="flex">
+									<div class="line">{{item.createTime}}</div>
+									<div class="line margT6"><i :class="item.type==0?'red':item.type==1?'green':item.type==2?'blue':item.type==3?'yellow':''">{{item.type | circulateValueBookType}}</i>后拥有流通值 {{item.currentNum}}</div>
+								</div>
+								<div class="flexRight">{{item.addOrReduce}} {{item.num}}</div>
+							</div>
+						</div>
+						<van-button @click="loadingMore6Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading6" loading-type="spinner">加载更多</van-button>
+					</van-tab>
 				</van-tabs>
 			</van-pull-refresh>
 		</div>
-		<!-- </van-pull-refresh> -->
+		<!-- </van-pull-refresh> getCirculateValueListByUserId-->
 	</div>
 </template>
 
@@ -220,11 +232,13 @@
 				currentPage3: 0,
 				currentPage4: 0,
 				currentPage5: 0,
+				currentPage6: 0,
 				offset1:0,
 				offset2:0,
 				offset3:0,
 				offset4:0,
 				offset5:0,
+				offset6:0,
 				pageSize:10,
 				activeName:'mineral',
 				loading1:false,
@@ -237,16 +251,20 @@
 				finished4:false,
 				loading5:false,
 				finished5:false,
+				loading6:false,
+				finished6:false,
 				list1:[],
 				list2:[],
 				list3:[],
 				list4:[],
 				list5:[],
+				list6:[],
 				loadingMore1:false,
 				loadingMore2:false,
 				loadingMore3:false,
 				loadingMore4:false,
 				loadingMore5:false,
+				loadingMore6:false,
 				list:[{
 					id:0,
 					createTime:'2019-12-12 12:12:12',
@@ -323,6 +341,12 @@
 					_this.list5 = [];
 					_this.finished5 = false;
 					_this.onLoad5();
+				}else if(_this.activeName == 'circulateValue'){
+					_this.currentPage6 = 0;
+					_this.offset6=0;
+					_this.list6 = [];
+					_this.finished6 = false;
+					_this.onLoad6();
 				}
 			},
 			tabChange(name, title) {
@@ -352,6 +376,10 @@
 			loadingMore5Btn(){
 				let _this = this;
 				_this.onLoad5();
+			},
+			loadingMore6Btn(){
+				let _this = this;
+				_this.onLoad6();
 			},
 			onLoad1(){
 				let _this = this;
@@ -536,6 +564,44 @@
 				},function(){
 					_this.loading = false;
 					_this.loading5 = false;
+				})
+			},
+			onLoad6(){
+				let _this = this;
+				let params = {
+					userId: _this.userId,
+					offset: _this.offset6,
+					pagesize: _this.pageSize,
+					pageno:_this.currentPage6
+				}
+				_this.loading6 = true;
+				_this.$ajax.ajax(_this.$api.getCirculateValueListByUserId, 'GET', params, function(res) {
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data;
+						if(list==null||list.length==0){
+							_this.finished6 = true;
+							_this.$toast("已经到底了");
+							return;
+						}
+						_this.list6.push(...list);
+						let len = list.length-1;
+						_this.offset6 = list[len].id;
+						_this.currentPage6 = _this.currentPage6 + 1;
+						//_this.offset3 = _this.offset3 + _this.pageSize;
+						/* if(res.data.endRow == res.data.total){
+							_this.finished3 = true;
+						}else{
+							_this.currentPage3 = _this.currentPage3 + 1;
+						} */
+					}else{
+						_this.finished6 = true;
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.loading = false;
+					_this.loading6 = false;
+					//_this.finished3 = true;
 				})
 			},
 		}

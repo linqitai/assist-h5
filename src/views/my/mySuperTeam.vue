@@ -196,6 +196,31 @@
 							</div>
 						</van-list>
 					</van-tab>
+					<van-tab :title="validText" name="validNum">
+						<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
+							<div class="list">
+								<div class="item" v-for="item in list4" :key="item.id">
+									<div class="flex flex1">
+										<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
+									</div>
+									<div class="flex flex2">
+										<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
+										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
+										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 实名时间 {{item.registerTime}}</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
+									</div>
+									<!-- <div class="flex flex3">
+										<div class="line2">{{item.level | getUserType}}</div>
+										<div class="line3">战友数{{item.teamateNum}}个</div>
+									</div> -->
+									<div class="flex flex4" v-if="item.validNum>0"  @click="toTeamView(item.userId,item.validNum)">
+										<i class="iconfont iconfont-right-arrow2"></i>
+									</div>
+								</div>
+							</div>
+						</van-list>
+					</van-tab>
 					<van-tab :title="activedText" name="actived">
 						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 							<div class="list">
@@ -259,22 +284,28 @@
 				currentPage: 1,
 				currentPage2: 1,
 				currentPage3: 1,
+				currentPage4: 1,
 				pageSize: 20,
-				activeName: 'actived',
+				activeName: 'validNum',
 				loading1: false,
 				finished1: false,
 				loading2: false,
 				finished2: false,
 				loading3: false,
 				finished3: false,
+				loading4: false,
+				finished4: false,
 				list1:[],
 				list2:[],
 				list3:[],
+				list4:[],
 				userInfo:{},
 				parentUserInfo:'',
 				myShareText:'我的直推',
+				validNumText:'有效人数',
 				activedText:'已实名',
 				unactivedText:'待实名',
+				validText:'有效直推',
 				realnameNum:0,
 				teamNum:0,
 				mobilePhone:'',
@@ -496,6 +527,35 @@
 					}else{
 						_this.loading3 = false;
 						_this.finished3 = true;
+						_this.$toast(res.message);
+					}
+				})
+			},
+			onLoad4() {
+				let _this = this;
+				// 异步更新数据
+				let params = {
+					pageNo: _this.currentPage4,
+					pageSize: _this.pageSize,
+					parentId: _this.userInfo.userId
+				}
+				_this.$ajax.ajax(_this.$api.getValidUserPageList, 'GET', params, function(res) {
+					// console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						let list = res.data.list;
+						_this.list4.push(...list);
+						_this.loading4 = false;
+						_this.validText = '有效直推 ' + res.data.total;
+						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
+						if(res.data.endRow == res.data.total){
+							_this.finished4 = true;
+						}else{
+							_this.currentPage4 = _this.currentPage4 + 1;
+						}
+						// console.log('_this.list4',_this.list4);
+					}else{
+						_this.loading4 = false;
+						_this.finished4 = true;
 						_this.$toast(res.message);
 					}
 				})

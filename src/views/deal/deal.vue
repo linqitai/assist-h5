@@ -274,7 +274,7 @@
 		<div class="statistics" v-if="dealPageInfo.currentBuyNum">
 			<div class="line clearBoth flexCenter f-14">
 				<div class="left title">智能统计小助手</div>
-				<div class="right">平台指导价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div>
+				<div class="right">历史最高价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div>
 			</div>
 			<div class="line clearBoth">
 				<!-- <div class="left">平台指导价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div> -->
@@ -590,7 +590,7 @@
 				/>
 				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="单价" placeholder="请填写单价"
 				:error-message="errorInfo4BuyBill.price"/>
-				 <div class="paddingWing tip4model3RedText margT3">当前买单的单价区间为：{{buyMinPrice}}~{{buyMaxPrice}}￥</div>
+				<!-- <div class="paddingWing tip4model3RedText margT3">当前买单的单价区间为：{{buyMinPrice}}~{{buyMaxPrice}}￥</div> -->
 				<!-- <div class="inLine">
 					<span class="label">调价格</span>
 					<span class="value">
@@ -816,8 +816,8 @@ export default {
 			],
 			showBuyAmountPopup:false,
 			showBuyMinAmountPopup:false,
-			actions: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:300},{name:500},{name:1000}],
-			actionsMin: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:300}],
+			actions: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:300},{name:500},{name:1000},{name:5000},{name:10000}],
+			actionsMin: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:300},{name:500}],
 			showPicker4ServiceChargePopup: false,
 			platformTicket:0,
 			buyAndSellInfo:{},
@@ -844,7 +844,7 @@ export default {
 	    addPriceValue(val, oldVal) {
 			let _this = this;
 			let currentMaxPrice = parseFloat(_this.dealPageInfo.currentMaxPrice);
-	        console.log("addPriceValue = " + val + " , oldValue = " + oldVal);
+	        //console.log("addPriceValue = " + val + " , oldValue = " + oldVal);
 			if(val == 0){
 				/* _this.form4BuyBill.price = currentPlatPrice/2; */
 				_this.form4BuyBill.price = parseFloat(currentMaxPrice)-3;
@@ -969,9 +969,9 @@ export default {
 			//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));
 			if(_this.$cookies.get('haveDealPageInfo')==1){
 				_this.dealPageInfo = JSON.parse(localStorage.getItem('dealPageInfo'));
-				console.log("_this.dealPageInfo:",_this.dealPageInfo);
+				//console.log("_this.dealPageInfo:",_this.dealPageInfo);
 				_this.newbiePagesize = _this.dealPageInfo.newbiePagesize;
-				console.log("_this.newbiePagesize",_this.newbiePagesize);
+				//console.log("_this.newbiePagesize",_this.newbiePagesize);
 				_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
 				_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.1 + 1).toFixed(2);
 				/* _this.buyMinPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1)) - 3;*/
@@ -1221,9 +1221,9 @@ export default {
 				//console.log('getDealPageInfo', res);
 				if (res.code == _this.$api.CODE_OK) {
 					_this.dealPageInfo = res.data;
-					console.log('dealPageInfo', _this.dealPageInfo);
+					//console.log('dealPageInfo', _this.dealPageInfo);
 					_this.newbiePagesize = _this.dealPageInfo.newbiePagesize;
-					console.log('newbiePagesize', _this.newbiePagesize);
+					//console.log('newbiePagesize', _this.newbiePagesize);
 					_this.minPrice = Number((parseFloat(_this.dealPageInfo.maxPrice)).toFixed(2));
 					_this.maxPrice = (parseFloat(_this.dealPageInfo.currentPlatformPrice)*1.2).toFixed(2);
 					/* _this.buyMinPrice = parseFloat(parseFloat(_this.dealPageInfo.currentMaxPrice).toFixed(1)) - 3;
@@ -2172,8 +2172,8 @@ export default {
 				}
 				let minPrice = _this.buyMinPrice;
 				let currentMaxPrice = _this.buyMaxPrice;
-				console.log("minPrice",minPrice);
-				console.log("_this.form4BuyBill.price",_this.form4BuyBill.price);
+				/* console.log("minPrice",minPrice);
+				console.log("_this.form4BuyBill.price",_this.form4BuyBill.price); */
 				if(parseFloat(_this.form4BuyBill.price)<parseFloat(minPrice)){
 					_this.errorInfo4BuyBill.price = `目前买单最低价适合为${minPrice}CNY`;
 				}else{
@@ -2327,7 +2327,7 @@ export default {
 		},
 		changeCurrentPage2(val){
 			let _this = this;
-			console.log('val',val,',pagesize:',_this.newbiePagesize);
+			//console.log('val',val,',pagesize:',_this.newbiePagesize);
 			_this.currentPage2 = val;
 			if(parseInt(_this.currentPage2)>parseInt(_this.newbiePagesize)){
 				Dialog.alert({

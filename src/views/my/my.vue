@@ -253,7 +253,7 @@
 						<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
 						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
 					</div>
-					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
+					<!-- <div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div> -->
 					<div class="line">
 						<span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/>
 						<span class="margL10">
@@ -263,6 +263,9 @@
 					<!-- @click="toBookView('5')" -->
 					<div class="line">
 						<span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/>	
+					</div>
+					<div class="line">
+						<span @click="toBookView('6')">流通值 {{Number(userInfo.email).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
 					</div>
 					<div class="line" v-if="userInfo.manType==2">
 						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
@@ -1008,7 +1011,9 @@
 				}else if(val=='limitBuyNum'){
 					message = '个人限购数量=初始限购数量+(卖出数量-买入数量)，若有特殊需要，个人限购数量可找客服申请提升';
 				}else if(val=='raise'){
-					message = '爱心值就是您捐赠帮扶券的数量，满10个即可在首页每日释放爱心值';
+					message = '爱心值：就是您捐赠帮扶券的数量，满10个即可在首页每日释放爱心值';
+				}else if(val=='circulateValue'){
+					message = '流通值：可通过复投、推广、买入矿石获得，复投2:1增加，推广完成2个基础任务1:2增加，买入1:1增加，卖出1:2扣除。';
 				}
 				Dialog.alert({
 				  title: '温馨提示',
@@ -1042,6 +1047,8 @@
 					name = 'mineral';
 				}else if(val==5){
 					name = 'loveValue';
+				}else if(val==6){
+					name = 'circulateValue';
 				}
 				_this.$cookies.set("tab_name_book", name, _this.$api.cookiesTime)
 				_this.$router.push('/myBook');

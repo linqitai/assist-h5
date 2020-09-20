@@ -74,7 +74,6 @@
           that.codeUrl = result
           alert(result)
           that.closeScan()
-
         }
       },
       // 开始扫描

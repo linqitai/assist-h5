@@ -337,6 +337,7 @@
 						_this.getInitCode = res.data;
 						let initCode = _this.$JsEncrypt.decrypt(_this.getInitCode.initCode);
 						_this.securityCode = _this.$utils.getSC(initCode);
+						//_this.initEmail();
 					}else{
 						//_this.$toast(res.message);
 						Dialog.alert({

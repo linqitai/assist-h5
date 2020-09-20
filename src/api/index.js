@@ -71,6 +71,7 @@ export default {
 	getAssistUserInfoPageList: host +'assist/userInfo/getAssistUserInfoPageList',
 	updateRealNameNumByUserId: host + 'assist/userInfo/updateRealNameNumByUserId',
 	updatePassword: host + "assist/userInfo/updatePassword",
+	getValidUserPageList:host + "assist/userInfo/getValidUserPageList",
 	getAssistUserInfoPicByUserId: host + "assist/userInfo/getAssistUserInfoPicByUserId",
 	getAssistUserInfoPageList4Check: host + "assist/userInfo/getAssistUserInfoPageList4Check",
 	getAssistUserInfo4CheckDetail: host + "assist/userInfo/getAssistUserInfo4CheckDetail/",
@@ -100,6 +101,7 @@ export default {
 	getUserIdByObj: host + "assist/userInfo/getUserIdByObj",
 	update4Complain: host + "assist/userInfo/update4Complain",
 	updateUserIdCard: host + "assist/userInfo/updateUserIdCard",
+	initEmail: host + "assist/userInfo/initEmail",
 	//服务商
 	getServiceUserList: host + "assist/user/getServiceUserList",
 	getServiceDsPassword: host + "assist/user/getServiceDsPassword",
@@ -170,6 +172,8 @@ export default {
 	//平台券账本
 	getAssistPlateformTicketAccountBookList: host + "assist/plateformTicketAccountBook/getAssistPlateformTicketAccountBookList",
 	transferPlatformTicket: host + "assist/userInfo/transferPlatformTicket",
+	//流通值账本
+	getCirculateValueListByUserId: host + "assist/circulatevalue/getCirculateValueListByUserId",
 	//领取任务奖励
 	getAssistXXLevelRewardByUserId: host + "assist/reward/getAssistXXLevelRewardByUserId",
 	getAssistRewardOneLevelByUserId: host + "assist/reward/getAssistRewardOneLevelByUserId/",

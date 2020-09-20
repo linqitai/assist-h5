@@ -305,6 +305,7 @@ $noticeHeight:40px;
 				<div class="placeholderLine20"></div>
 				<div class="title">{{attendanceTitle}}</div>
 				<div class="tomorrowContribution">连续签到30天可额外获得1个帮扶券</div>
+				<div class="tomorrowContribution">系统提示：日常签到建议在白天完成，若因特殊因素而导致错过签到的，原则上不补签</div>
 				<!-- <div class="tomorrowContribution">随着矿石价值的增加，签到所得贡献值会不定期做调整</div> -->
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
@@ -858,6 +859,7 @@ $noticeHeight:40px;
 				  _this.getNoticeList();
 				}, 1000)
 			}
+			_this.initEmail();
 			//轮播图存获取
 			/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
 				//console.log('hasNoticeList4Swipe');
@@ -883,6 +885,16 @@ $noticeHeight:40px;
 			
 		},
 		methods: {
+			initEmail(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.initEmail, 'POST', null, function(res){
+					if(res.code == _this.$api.CODE_OK){
+						
+					}else{
+						_this.$toast(res.message);
+					}
+				})
+			},
 			toServicePage(){
 				this.$router.push('cService');
 			},
@@ -1086,7 +1098,7 @@ $noticeHeight:40px;
 						  message: `爱心值大于10即可按特定比例释放成贡献值。您当前的爱心值为：${Number(_this.userInfo.aword).toFixed(2)}，${_this.userInfo.aword>10?'可释放爱心值!':'暂时无法释放！'}`
 						}).then(() => {
 							if(_this.userInfo.aword>10){
-								_this.sureAttendance();
+								_this.sureAttendance4Love();
 							}
 						})
 					}else{

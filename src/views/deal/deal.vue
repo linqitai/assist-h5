@@ -480,7 +480,7 @@
 			  <div class="tip4model3">
 			  	<b class="textBold">尊敬的原始矿工交易前请认真阅读以下规则：</b>
 			  	<br>
-			  	【1】同价单子的匹配是随机的，匹配后卖家务必主动<b class="textBold red">短信提醒</b>买家，卖家若2小时内没付款，卖家可点<b class="textBold red">诉讼反馈问题</b>说明情况；买家付款后，卖家务必在<b class="textBold red">2小时</b>内给予<b class="textBold red">确认</b>，若是没收到款就点让买家<b class="textBold red">上传付款凭证</b>或直接点<b class="textBold red">诉讼反馈问题</b>。<br>
+			  	【1】同价单子的匹配是<b class="textBold red">随机</b>的，匹配后卖家务必主动<b class="textBold red">短信提醒</b>买家，卖家若2小时内没付款，卖家可点<b class="textBold red">诉讼反馈问题</b>说明情况；买家付款后，卖家务必在<b class="textBold red">2小时</b>内给予<b class="textBold red">确认</b>，若是没收到款就点让买家<b class="textBold red">上传付款凭证</b>或直接点<b class="textBold red">诉讼反馈问题</b>。<br>
 			  	【2】交易之前请<b class="textBold red">卖家</b>先检查在平台上所预留的<b class="textBold red">真实姓名</b>与<b class="textBold red">【支付宝、微信】</b>里的是否一致、自己的<b class="textBold red">支付宝和微信号</b>是否可以<b class="textBold red">被搜索到且可以正常收付款且有设置头像，手机号可以接通</b>，确保能顺利交易与顺畅沟通。<br>
 			  	 <b class="textBold red">支付宝收款(首选，若卖家支付宝异常，订单可被终止：</b>请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
 				 <b class="textBold red">微信收款(买家自由选择，若卖家没开通，订单可被终止)：</b>请矿工们预先在微信的【我--支付--支付管理】里开启【允许通过手机号向我转账】的功能，该手机号务必是注册帮扶链的手机号。<br>

@@ -573,6 +573,14 @@ $noticeHeight:40px;
 						</div>
 						<div class="text">释放爱心</div>
 					</div> -->
+					<!-- <div class="infoBox" @click="releaseLove">
+						<div class="iconBox">
+							<div class="iconBackground iconBackgroundAttendance">
+								<van-icon class-prefix="iconfont" name="word" size="35"/>
+							</div>
+						</div>
+						<div class="text">帮扶感言</div>
+					</div> -->
 					<div class="infoBox" @click="toRanking">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundRank">

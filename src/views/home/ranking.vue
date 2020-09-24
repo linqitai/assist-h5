@@ -147,7 +147,7 @@
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 					
-					<van-tab title="爱心值" name="ranking3">
+					<!-- <van-tab title="爱心值" name="ranking3">
 						<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
 							<div class="list" v-for="(item,index) in list3" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -163,7 +163,7 @@
 								</div>
 							</div>
 						</van-list>
-					</van-tab>
+					</van-tab> -->
 					
 					<van-tab title="矿石" name="ranking1">
 						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
@@ -190,7 +190,7 @@
 						</van-list>
 					</van-tab>
 					
-					<van-tab title="贡献值" name="ranking2">
+					<!-- <van-tab title="贡献值" name="ranking2">
 						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 							<div class="list" v-for="(item,index) in list2" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -206,9 +206,9 @@
 								</div>
 							</div>
 						</van-list>
-					</van-tab>
+					</van-tab> -->
 					
-					<van-tab title="个人算力" name="ranking6">
+					<!-- <van-tab title="个人算力" name="ranking6">
 						<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
 							<div class="list" v-for="(item,index) in list6" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -224,9 +224,9 @@
 								</div>
 							</div>
 						</van-list>
-					</van-tab>
+					</van-tab> -->
 					
-					<van-tab title="团队算力" name="ranking4">
+					<!-- <van-tab title="团队算力" name="ranking4">
 						<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 							<div class="list" v-for="(item,index) in list4" :key='item.id'>
 								<div class="item" @click="toMy4OtherView(item.userId)">
@@ -242,9 +242,9 @@
 								</div>
 							</div>
 						</van-list>
-					</van-tab>
+					</van-tab> -->
 					
-					<van-tab title="有效直推" name="ranking5">
+					<!-- <van-tab title="有效直推" name="ranking5">
 						<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
 							<div class="list" v-for="(item,index) in list5" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
 								<div class="item">
@@ -260,9 +260,9 @@
 								</div>
 							</div>
 						</van-list>
-					</van-tab>
+					</van-tab> -->
 					
-					<van-tab title="留言频率" name="ranking7">
+					<!-- <van-tab title="留言频率" name="ranking7">
 						<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
 							<div class="list" v-for="(item,index) in list7" v-index :key='item.id' @click="toMy4OtherView(item.userId)">
 								<div class="item">
@@ -278,7 +278,7 @@
 								</div>
 							</div>
 						</van-list>
-					</van-tab>
+					</van-tab> -->
 				</van-tabs>
 			</van-pull-refresh>
 		</div>

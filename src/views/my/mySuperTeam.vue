@@ -2,6 +2,9 @@
 	@import '~@/assets/scss/index.scss';
 	.mySuperTeamPage {
 		@include pageMy();
+		.van-tab{
+			font-size: 0.75rem;
+		}
 		.myTeamContent {
 			// margin-top: $header-height;
 			min-height: 100%;
@@ -305,7 +308,7 @@
 				validNumText:'有效人数',
 				activedText:'已实名',
 				unactivedText:'待实名',
-				validText:'有效直推',
+				validText:'有效数',
 				realnameNum:0,
 				teamNum:0,
 				mobilePhone:'',
@@ -545,7 +548,7 @@
 						let list = res.data.list;
 						_this.list4.push(...list);
 						_this.loading4 = false;
-						_this.validText = '有效直推 ' + res.data.total;
+						_this.validText = '有效数 ' + res.data.total;
 						// console.log('res.data.endRow '+res.data.endRow+' res.data.total '+res.data.total)
 						if(res.data.endRow == res.data.total){
 							_this.finished4 = true;

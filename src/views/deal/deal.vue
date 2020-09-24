@@ -238,7 +238,7 @@
 		<van-notice-bar
 		  mode = "closeable"
 		  left-icon="volume-o"
-		  text="流通中心每日开放的时间为9~20点;买单匹配后务必要完成交易，否则会被系统回收一定数量的贡献值或矿石;贡献值为负数无法进行交易、租赁和启动矿机;"
+		  text="流通中心每日开放的时间为9~20点;直推买矿石奖励上级流通值，比例为直推所买入的20%;买单匹配后务必要完成交易，否则会被系统回收一定数量的贡献值或矿石;贡献值为负数无法进行交易、租赁和启动矿机;"
 		/>
 		<!-- <van-notice-bar left-icon="volume-o" :scrollable="true">
 		  <van-swipe
@@ -274,7 +274,7 @@
 		<div class="statistics" v-if="dealPageInfo.currentBuyNum">
 			<div class="line clearBoth flexCenter f-14">
 				<div class="left title">智能统计小助手</div>
-				<div class="right">历史最高价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div>
+				<!-- <div class="right">历史最高价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div> -->
 			</div>
 			<div class="line clearBoth">
 				<!-- <div class="left">平台指导价 {{(parseFloat(dealPageInfo.currentPlatformPrice)/7).toFixed(3)}}$/{{dealPageInfo.currentPlatformPrice}}￥</div> -->
@@ -462,8 +462,8 @@
 				  </div>
 			  </div>
 			  <!-- <van-field v-model="form4pickSellBill.sellAmountSliderValue" readonly clearable label="数量"/> -->
-			  <van-field v-model="form4pickSellBill.price" readonly clearable label="单价"/>
-			  <van-field readonly required clickable label="手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true"/>
+			  <van-field v-model="form4pickSellBill.price" readonly clearable label="单价(￥)"/>
+			  <van-field readonly required clickable label="选择手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true"/>
 			  <van-popup v-model="showPicker4ServiceChargePopup" position="bottom">
 			    <van-picker
 			      show-toolbar
@@ -588,7 +588,7 @@
 				  @select="onSelectMin"
 				  @cancel="onCancelMin"
 				/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="单价" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="单价(￥)" placeholder="请填写单价"
 				:error-message="errorInfo4BuyBill.price"/>
 				<!-- <div class="paddingWing tip4model3RedText margT3">当前买单的单价区间为：{{buyMinPrice}}~{{buyMaxPrice}}￥</div> -->
 				<!-- <div class="inLine">
@@ -816,8 +816,8 @@ export default {
 			],
 			showBuyAmountPopup:false,
 			showBuyMinAmountPopup:false,
-			actions: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:300},{name:500},{name:1000},{name:5000},{name:10000}],
-			actionsMin: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:300},{name:500}],
+			actions: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:300},{name:500}],
+			actionsMin: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:300}],
 			showPicker4ServiceChargePopup: false,
 			platformTicket:0,
 			buyAndSellInfo:{},

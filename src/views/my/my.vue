@@ -217,7 +217,7 @@
 			<van-notice-bar
 			  mode = "closeable"
 			  left-icon="volume-o"
-			  text="直推完成基础任务2奖励上级0.2个贡献值;30天没登录将会被系统回收2~12个矿石且需重新实名认证;"
+			  text="直推完成基础任务2奖励上级0.5个贡献值和2个流通值;30天没登录将会被系统回收2~12个矿石且需重新实名认证;"
 			/>
 			<div class="box box1">
 				<div class="flex flex1">
@@ -427,15 +427,15 @@
 						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
 				</div>
-				<div class="my-cell" @click="close">
+				<!-- <div class="my-cell" @click="close">
 					<div class="flex1">
 						定向转让矿石(会长)
 					</div>
 					<div class="flex2">
 						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
-				</div>
-				<!-- <router-link to="transferMineral4L">
+				</div> -->
+				<router-link to="transferMineral4L">
 					<div class="my-cell">
 						<div class="flex1">
 							定向转让矿石(会长)
@@ -444,7 +444,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link> -->
+				</router-link>
 				<router-link to="transferTicket">
 					<div class="my-cell">
 						<div class="flex1">
@@ -532,7 +532,7 @@
 						</div>
 					</div>
 				</router-link>
-				<router-link to="updateAlipay">
+				<!-- <router-link to="updateAlipay">
 					<div class="my-cell">
 						<div class="flex1">
 							帮他人修改支付宝
@@ -541,7 +541,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link>
+				</router-link> -->
 				<router-link to="lookupIdCard">
 					<div class="my-cell">
 						<div class="flex1">

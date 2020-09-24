@@ -156,7 +156,7 @@
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				 
-					<van-tab title="团队算力" name="ranking0">
+					<!-- <van-tab title="团队算力" name="ranking0">
 						<van-list v-model="loading0" :finished="finished0" finished-text="没有更多了" @load="onLoad0">
 							<div class="list" v-for="(item,index) in list0" :key='item.id'>
 								<div class="item">
@@ -173,7 +173,7 @@
 								</div>
 							</div>
 						</van-list>
-					</van-tab>
+					</van-tab> -->
 					
 					<van-tab title="矿石" name="ranking1">
 						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
@@ -194,7 +194,7 @@
 						</van-list>
 					</van-tab>
 					
-					<van-tab title="买入次数" name="ranking2">
+					<!-- <van-tab title="买入次数" name="ranking2">
 						<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
 							<div class="list" v-for="(item,index) in list2" :key='item.id'>
 								<div class="item">
@@ -305,7 +305,7 @@
 								</div>
 							</div>
 						</van-list>
-					</van-tab>
+					</van-tab> -->
 				</van-tabs>
 			</van-pull-refresh>
 		</div>

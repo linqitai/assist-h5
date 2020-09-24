@@ -217,7 +217,8 @@
 			<div class="box box1">
 				<div class="flex flex1">
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
-					<div class="name">{{$JsCrypto.myDecode1(userInfo.realName) | getLastName}}</div>
+					<div class="name" v-if="userInfo4Me.isAgent<3">*</div>
+					<div class="name" v-if="userInfo4Me.isAgent>2">{{$JsCrypto.myDecode1(userInfo.realName) | getLastName}}</div>
 					<!-- <span>点赞</span> -->
 					<!-- <div class="textCenter margT10 f-18">
 						<i class="iconfont iconfont-good"></i>v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'"
@@ -233,7 +234,8 @@
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
-						<span class="nick_name">{{$JsCrypto.myDecode1(userInfo.nickName)}} </span>
+						<span class="nick_name" v-if="userInfo4Me.isAgent<3">***</span>
+						<span class="nick_name" v-if="userInfo4Me.isAgent>2">{{$JsCrypto.myDecode1(userInfo.nickName)}} </span>
 						<!-- <span class="level margL6" v-if="userInfo.manType == 2">服务商</span> -->
 					</div>
 					<div class="line1">
@@ -252,10 +254,10 @@
 						<div class="left">卖出次数 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.sellTimes}}</i></span></div>
 						<div class="mlBox left">卖出数量 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.sellAmount}}</i></span></div>
 					</div>
-					<div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div>
+					<!-- <div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div> -->
 					<div class="line">
 						<div class="left">直推人数 {{userInfo.teamateNum}}</div>
-						<div class="mlBox left">实名人数 {{userInfo.realnameNum}}</div>
+						<div class="mlBox left">有效人数 {{userInfo.validNum}}</div>
 					</div>
 					<div class="line"><span @click="toBookView('3',userInfo.userId)">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
 					<div class="line"><span @click="toBookView('5',userInfo.userId)">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>

@@ -588,7 +588,7 @@
 				  @select="onSelectMin"
 				  @cancel="onCancelMin"
 				/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="单价(￥)" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="指导单价(￥)" placeholder="请填写单价"
 				:error-message="errorInfo4BuyBill.price"/>
 				<!-- <div class="paddingWing tip4model3RedText margT3">当前买单的单价区间为：{{buyMinPrice}}~{{buyMaxPrice}}￥</div> -->
 				<!-- <div class="inLine">

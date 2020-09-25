@@ -601,6 +601,14 @@ $noticeHeight:40px;
 							<div class="text">共识投票</div>
 						</router-link>
 					</div>
+					<div class="infoBox" @click="gameBtn">
+						<div class="iconBox">
+							<div class="iconBackground iconBackgroundAttendance">
+								<van-icon class-prefix="iconfont" name="word" size="35"/>
+							</div>
+						</div>
+						<div class="text">娱乐游戏</div>
+					</div>
 				</div>
 				<div class="cateInfo">
 					<div class="infoBox">
@@ -1113,6 +1121,10 @@ $noticeHeight:40px;
 						_this.$toast(res.message);
 					}
 				})
+			},
+			gameBtn(){
+				let _this = this;
+				
 			},
 			toRanking4Level(){
 				let _this = this;

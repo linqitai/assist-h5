@@ -245,6 +245,18 @@
 			4.所实名的矿工请在微信的【支付-支付管理】中开通'允许通过手机号向我转账'的功能，该手机号务必是注册帮扶链的手机号。<br>
 			5.小纸条上需写上"帮扶链实名认证专用+手机号+当天日期"，<b class="green textBold">照片上任何内容严禁P图，审核时，P图的账号会被驳回或冻结处理。</b>
 		</div>
+		<!-- <form enctype="multipart/form-data">
+			
+		</form> -->
+		<form method="POST" enctype="multipart/form-data">
+		   <fieldset>
+		     <legend>单一文件上传实例：</legend>
+		       文件1：<input type="file" name="file" id="file" @change="uploadIMG($event)"/><br/>
+		       
+		      <input type="button" id="upload1" value="上传" @click="uploadIMG4File2"/><br/>
+		    </fieldset>
+		</form>
+		<van-uploader multiple result-type="file" :after-read="afterRead" />
 		<div class="line">
 			<span class="label">身份证正面照片</span>
 			<span class="text" @click="showExamplePic">点我查看模板</span>
@@ -261,7 +273,6 @@
 			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 			<img class="selectedImg" :src="form.idCardPic"/>
 		</div>
-		
 		<van-field v-model="form.securityPassword" required clearable label="设置安全密码" type="password" :placeholder="errorHint.securityPassword" maxlength="20" @blur="validate('securityPassword')" :error-message="errorInfo.securityPassword"/>
 		<van-field v-model="form.securityPassword2" required clearable label="确认安全密码"  type="password" :placeholder="errorHint.securityPassword2" maxlength="20" @blur="validate('securityPassword2')" :error-message="errorInfo.securityPassword2"/>
 		<div class="line tip4modelRedText">
@@ -327,6 +338,7 @@ import { ImagePreview } from 'vant';
 export default {
 	data() {
 		return {
+			multiple:true,
 			showTipModel:false,
 			result:"",
 			loading:true,
@@ -460,9 +472,64 @@ export default {
 				}
 			})
 		},
+		afterRead(file) {
+		      let _this = this;
+			  console.log("file",file.content);
+		      var fd = new FormData();
+		      fd.append("file", file);
+		      _this.$ajax.ajax4FileUpload(_this.$api.fileUpload, 'POST', fd, function(res){
+		      	if (res.code == _this.$api.CODE_OK) { //
+		      		console.log(res.data);
+		      	}else{
+		      		Dialog.alert({
+		      		  title: '系统提示',
+		      		  message: res.message
+		      		}).then(() => {
+		      		});
+		      	}
+		      },function(){
+		      	
+		      })
+		},
+		uploadIMG4File2(e){
+			let _this = this;
+			var fd = new FormData();
+			fd.append("file", document.getElementById("file").files[0]);
+			_this.$ajax.ajax4FileUpload(_this.$api.fileUpload, 'POST', fd, function(res){
+				if (res.code == _this.$api.CODE_OK) { //
+					console.log(res.data);
+				}else{
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					});
+				}
+			},function(){
+				
+			})
+		},
+		uploadIMG4File(e){
+			let _this = this;
+			var fd = new FormData();
+			fd.append("file", e.target.files[0]);
+			_this.$ajax.ajax4FileUpload(_this.$api.fileUpload, 'POST', fd, function(res){
+				if (res.code == _this.$api.CODE_OK) { //
+					console.log(res.data);
+				}else{
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					});
+				}
+			},function(){
+				
+			})
+		},
 		uploadIMG(e) {
 			let _this = this;
-			
+			console.log("into uploadImg");
 			_this.toast = Toast.loading({
 			  duration: 3000, // 持续展示 toast
 			  closeOnClickOverlay:true,

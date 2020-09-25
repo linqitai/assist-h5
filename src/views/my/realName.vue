@@ -251,7 +251,7 @@
 		<form method="POST" enctype="multipart/form-data">
 		   <fieldset>
 		     <legend>单一文件上传实例：</legend>
-		       文件1：<input type="file" name="file" id="file" @change="uploadIMG($event)"/><br/>
+		       文件：<input type="file" name="file" id="file" @change="uploadIMG($event)"/><br/>
 		       
 		      <input type="button" id="upload1" value="上传" @click="uploadIMG4File2"/><br/>
 		    </fieldset>

@@ -17,6 +17,11 @@ export default new Router({
 	base: process.env.BASE_URL,
 	routes: [
 		{
+			path: '/createAccount',
+			name: '创建账号',
+			component: resolve => require(['./views/start/createAccount'],resolve)
+		},
+		{
 			path: '/register',
 			name: '注册',
 			component: resolve => require(['./views/start/register'],resolve)
@@ -386,7 +391,7 @@ export default new Router({
 				},
 				{
 					path: '/myInfo',
-					name: '我的身份',
+					name: '我的实名',
 					component: resolve => require(['./views/my/myInfo'],resolve),
 					meta:{footer:false},
 				},

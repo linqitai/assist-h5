@@ -59,25 +59,25 @@
 			}
 			.text{
 				flex: 1;
-				text-align: right;
+				text-align: center;
 				color: red;
 				font-size: 12px;
 				text-decoration: underline;
 			}
 			.value{
-				flex: 0 0 60px;
+				flex: 0 0 90px;
 				text-align: right;
 				position: relative;
 				.iconfont-upload-pic{
-					font-size: 50px;
+					font-size: 80px;
 					color: $main-adorn-color;
 				}
 				.selectPicInput{
 					position: absolute;
 					right: 0;
 					top: 0;
-					width: 50px;
-					height: 50px;
+					width: 80px;
+					height: 80px;
 					z-index: 1;
 				}
 			}
@@ -248,18 +248,17 @@
 		<!-- <form enctype="multipart/form-data">
 			
 		</form> -->
-		<form method="POST" enctype="multipart/form-data">
+		<!-- <form method="POST" enctype="multipart/form-data">
 		   <fieldset>
 		     <legend>单一文件上传实例：</legend>
-		       文件：<input type="file" name="file" id="file" @change="uploadIMG($event)"/><br/>
-		       
-		      <input type="button" id="upload1" value="上传" @click="uploadIMG4File2"/><br/>
+		       文件：<input type="file" name="file" id="file1" @change="uploadIMG($event)"/><br/>
+		      <input type="button" value="上传" @click="uploadIMG4File2"/><br/>
 		    </fieldset>
-		</form>
-		<van-uploader multiple result-type="file" :after-read="afterRead" />
+		</form> -->
+		<!-- <van-uploader multiple result-type="file" :after-read="afterRead" /> -->
 		<div class="line">
 			<span class="label">身份证正面照片</span>
-			<span class="text" @click="showExamplePic">点我查看模板</span>
+			<span class="text" @click="showExamplePic">点我查看详细模板</span>
 			<span class="value">
 				<i class="iconfont iconfont-upload-pic"></i>
 				<input accept="image/*;capture=camera" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)"/>
@@ -472,48 +471,12 @@ export default {
 				}
 			})
 		},
-		afterRead(file) {
-		      let _this = this;
-			  console.log("file",file.content);
-		      var fd = new FormData();
-		      fd.append("file", file);
-		      _this.$ajax.ajax4FileUpload(_this.$api.fileUpload, 'POST', fd, function(res){
-		      	if (res.code == _this.$api.CODE_OK) { //
-		      		console.log(res.data);
-		      	}else{
-		      		Dialog.alert({
-		      		  title: '系统提示',
-		      		  message: res.message
-		      		}).then(() => {
-		      		});
-		      	}
-		      },function(){
-		      	
-		      })
-		},
 		uploadIMG4File2(e){
 			let _this = this;
-			var fd = new FormData();
-			fd.append("file", document.getElementById("file").files[0]);
-			_this.$ajax.ajax4FileUpload(_this.$api.fileUpload, 'POST', fd, function(res){
-				if (res.code == _this.$api.CODE_OK) { //
-					console.log(res.data);
-				}else{
-					Dialog.alert({
-					  title: '系统提示',
-					  message: res.message
-					}).then(() => {
-					});
-				}
-			},function(){
-				
-			})
-		},
-		uploadIMG4File(e){
-			let _this = this;
-			var fd = new FormData();
-			fd.append("file", e.target.files[0]);
-			_this.$ajax.ajax4FileUpload(_this.$api.fileUpload, 'POST', fd, function(res){
+			var formdata = new FormData();
+			formdata.append("file", document.getElementById("file1").files[0]);
+			formdata.append('submit', false);
+			_this.$ajax.ajax4FileUpload(_this.$api.fileUpload1, 'POST', formdata, function(res){
 				if (res.code == _this.$api.CODE_OK) { //
 					console.log(res.data);
 				}else{

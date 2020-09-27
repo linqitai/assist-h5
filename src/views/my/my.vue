@@ -427,15 +427,15 @@
 						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
 				</div>
-				<!-- <div class="my-cell" @click="close">
+				<div class="my-cell" @click="close">
 					<div class="flex1">
 						定向转让矿石(会长)
 					</div>
 					<div class="flex2">
 						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
-				</div> -->
-				<router-link to="transferMineral4L">
+				</div>
+				<!-- <router-link to="transferMineral4L">
 					<div class="my-cell">
 						<div class="flex1">
 							定向转让矿石(会长)
@@ -444,7 +444,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link>
+				</router-link> -->
 				<router-link to="transferTicket">
 					<div class="my-cell">
 						<div class="flex1">
@@ -623,6 +623,12 @@
 				2.实名审核通过后，所上传的照片会被系统自动销毁并删除处理。
 			</div>
 		</van-dialog>
+		<van-dialog v-model="showTipModel2" title="系统提示" :showCancelButton="isShowCancelBtn" cancelButtonText="稍后" confirmButtonText="好的" @confirm="confirmBtn">
+			<div class="paddingWing f-12 lineHeight tip4model2">
+				1.您的实名审核被驳回，是否前去查看驳回原因？<br>
+				2.实名审核通过后，所上传的照片会被系统自动销毁并删除处理。
+			</div>
+		</van-dialog>
 	</div>
 	<transition name="van-fade">
 	  <router-view></router-view>
@@ -642,6 +648,7 @@
 			return {
 				isShowCancelBtn:true,
 				showTipModel:false,
+				showTipModel2:false,
 				pageHeight:"",
 				userId:"",
 				result: "",
@@ -1087,13 +1094,11 @@
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
-						if(_this.userInfo.actived==-1||_this.userInfo.actived==2){
+						if(_this.userInfo.actived==-1){
 							_this.showTipModel = true;
-							/* Dialog.alert({
-								title: "系统提示",
-								message: "您尚未实名，请前去实名"
-							}).then(() => {
-							}) */
+						}
+						if(_this.userInfo.actived==2){
+							_this.showTipModel2 = true;
 						}
 						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
 						//console.log(_this.userInfo,"userInfo");

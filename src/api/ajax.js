@@ -394,16 +394,11 @@ export default {
 		let queryAjax = $.ajax({
 			url: url,
 			type: method,
-			/* timeout: 20000, */
-			// processData: true,
-			/* headers:{
-			        "Content-Type":"multipart/form-data", //文件上传时的格式
-			}, */
-			//encType: 'multipart/form-data',
-			//contentType: 'multipart/form-data; charset=utf-8',
-			// dataType:'json',
-			// data : JSON.stringify(params), 
-			data: method == 'GET' ? qs.stringify(params) : qs.stringify(params),
+			dataType: "json",
+			cache: false, //上传文件无需缓存
+			processData: false, //用于对data参数进行序列化处理 这里必须false
+			contentType: false, //必须
+			data: params,
 			beforeSend: function(XMLHttpRequest) {
 				//XMLHttpRequest.setRequestHeader('Content-Type', 'multipart/form-data');
 				// XMLHttpRequest.setRequestHeader("token", localStorage.getItem('token'));

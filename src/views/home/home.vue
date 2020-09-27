@@ -601,10 +601,10 @@ $noticeHeight:40px;
 							<div class="text">共识投票</div>
 						</router-link>
 					</div>
-					<div class="infoBox" @click="gameBtn">
+					<div class="infoBox" @click="waiting">
 						<div class="iconBox">
-							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="word" size="35"/>
+							<div class="iconBackground iconBackground1">
+								<van-icon class-prefix="iconfont" name="game" size="35"/>
 							</div>
 						</div>
 						<div class="text">娱乐游戏</div>
@@ -754,6 +754,13 @@ $noticeHeight:40px;
 		  	</div>
 		  </div>
 		</van-action-sheet>
+		<van-action-sheet v-model="isShow4Game" title="欢迎来到传奇世界">
+		  <div class="noticeDetail paddingWing">
+		  	进行选区
+		  </div>
+		  <div class="placeholderLine20"></div>
+		  <div class="placeholderLine20"></div>
+		</van-action-sheet>
 		<transition name="van-fade">
 			<keep-alive include="agency">
 				<router-view></router-view>
@@ -777,6 +784,7 @@ $noticeHeight:40px;
 		},
 		data() {
 			return {
+				isShow4Game:false,
 				isShowLastNotice:false,
 				todayIsAttendance:false,
 				isDisableAttendanceBtn:false,
@@ -986,8 +994,8 @@ $noticeHeight:40px;
 				/* _this.$toast("此功能正在努力建设中"); */
 				Dialog.alert({
 				  title: '系统提示',
-				  confirmButtonText:'加油',
-				  message: "该模块正在努力建设中"
+				  confirmButtonText:'好的',
+				  message: "该通道正在努力建设中"
 				}).then(() => {
 				  // on confirm
 				})
@@ -1124,7 +1132,30 @@ $noticeHeight:40px;
 			},
 			gameBtn(){
 				let _this = this;
-				
+				_this.$ajax.ajax(_this.$api.isCreateAccount, 'GET', null, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						if(res.data==0){
+							_this.$router.push('/createAccount');
+						}else{
+							_this.isShow4Game = true;
+							/* _this.$ajax.ajax(_this.$api.serverList, 'GET', null, function(res) {
+								//console.log('getUserInfo');
+								if (res.code == _this.$api.CODE_OK) {
+									
+								}else{
+									_this.$toast(res.message);
+								}
+							}) */
+							//_this.$toast("先进行选区");
+							//window.open("https://www.baidu.com");
+							//到游戏登录页面
+							//_this.$toast("再到游戏登录页面");
+						}
+					}else{
+						_this.$toast(res.message);
+					}
+				})
 			},
 			toRanking4Level(){
 				let _this = this;

@@ -117,12 +117,12 @@
 <template>
 	<div class="register">
 		<div class="logoBox">
-			<van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
+			<!-- <van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
 			  <van-swipe-item v-for="(image, index) in images" :key="index">
 				<img v-lazy="image" />
 			  </van-swipe-item>
-			</van-swipe>
-			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0058.jpg" alt=""> -->
+			</van-swipe> -->
+			<img src="../../assets/image/cq.jpg" alt="">
 			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0055.jpg" alt=""> -->
 		</div>
 		<div class="formHeader">
@@ -132,12 +132,7 @@
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>
 				<van-field v-model="form.phone" type="text" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
-				<div class="labelText">确认账号</div>
-				<van-field v-model="form.phone2" type="password" clearable :placeholder="placeholder.phone2" @blur="validate('phone2')" :error-message="errorHint.phone2" maxlength="11"/>
-				<div class="tip4model3RedText margT6">
-					温馨提示：注册账号即是本人的手机号，请填写绑定了自己微信号的手机号。若是港澳台及海外用户，只要有自己的支付宝和微信号即可注册并实名。
-					<!-- 2.若不是看好帮扶的理念，而是单纯想撸羊毛的用户请不要注册，因为每次交易的数据都公开透明，纯撸者会被会员控告并冻结账号。 -->
-				</div>
+				
 				<div class="labelText">登录密码</div>
 				<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
 				<div class="labelText">确认密码</div>
@@ -147,17 +142,6 @@
 				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @focus="getSecurityCode" :error-message="errorHint.securityCode">
 					<van-button slot="button" size="small" type="primary" :loading="getSCLoading" @click="getSecurityCode">{{securityCode}}</van-button>
 				</van-field>
-				<!-- <div class="labelText">短信验证码</div>
-				<van-field v-model="form.validateCode" clearable :placeholder="placeholder.validateCode" @blur="validate('validateCode')" :error-message="errorHint.validateCode">
-					<van-button slot="button" size="small" color="#ffae00" :disabled="isShortMessageDisabled" @click="shortMessageBtn">
-						<span v-if="isShortMessageDisabled==false">发送验证码</span>
-						<span v-if="isShortMessageDisabled==true">
-							{{time}}
-						</span>
-					</van-button>
-				</van-field> -->
-				<div class="labelText">推荐码</div>
-				<van-field v-model="form.shareCode" clearable :disabled="false" :placeholder="placeholder.shareCode" @blur="validate('shareCode')" :error-message="errorHint.shareCode" />
 			</van-cell-group>
 		</div>
 		<div class="sureBox">
@@ -210,17 +194,14 @@
 				getSCLoading:false,
 				interval:180,
 				time:180,
-				welcomeText:"",
+				welcomeText:'创建账号',
 				isNo:false,
 				securityCode:'love',
 				form:{
 					phone:'',
-					phone2:'',
 					password:'',
 					password2:'',
-					validateCode:'',
 					securityCode:'',
-					shareCode:''
 				},
 				placeholder:{
 					phone:'请填写绑定了微信的手机号',
@@ -245,7 +226,8 @@
 				showTipModel:false,
 				isShortMessageDisabled:false,
 				isWeixin:false,
-				helpList:[]
+				helpList:[],
+				mobilePhone:""
 			}
 		},
 		/* watch:{
@@ -256,10 +238,24 @@
 		}, */
 		created() {
 			let _this = this;
-			_this.welcomeText = _this.$api.welcomeText;
 			_this.form.shareCode = _this.$route.query.id;
 			_this.isWeixin = _this.$utils.isWeixin();
 			_this.helpList = _this.$config.helpList;
+			if(localStorage.getItem('mobilePhone')){
+				_this.form.phone = localStorage.getItem('mobilePhone');
+			}else{
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
+			}
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				_this.userInfo = JSON.parse(userInfo);
+			}else{
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
+			}
 		},
 		//倒计时方法
 		countDown4Time(){
@@ -383,11 +379,11 @@
 					}
 				} */
 				let params = {
-					telephone:_this.form.phone.replace(/ /g,""),
+					userId: _this.userInfo.userId,
+					account:_this.form.phone.replace(/ /g,""),
 					password:_this.form.password.replace(/ /g,""),
 					confirmPassword:_this.form.password2.replace(/ /g,""),
-					securityCode: _this.form.securityCode.toLowerCase().replace(/ /g,""),
-					shareCode:_this.form.shareCode
+					securityCode: _this.form.securityCode.toLowerCase().replace(/ /g,"")
 				}
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');
@@ -401,25 +397,17 @@
 					_this.$toast('2次密码不一致');
 					return;
 				}
-				delete params.confirmPassword;
-				params.password = _this.$JsEncrypt.encrypt(_this.form.password);
+				/* delete params.confirmPassword;
+				params.password = _this.$JsEncrypt.encrypt(_this.form.password); */
 				// console.log('params',params);
 				_this.isLoading = true;
-				_this.$ajax.ajax(_this.$api.register, 'POST', params, function(res) {
+				_this.$ajax.ajax(_this.$api.createGameAccount, 'POST', params, function(res) {
 					// console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) {
-						localStorage.setItem("mobilePhone",_this.form.phone);
-						_this.$toast('注册成功');
-						_this.$router.push('/login');
+					if (res.code == _this.$api.CODE_OK) { // 200
+						_this.$toast('创建账号成功');
+						//_this.$router.push('/login');
 					}else{
-						//_this.$toast(res.message);
-						Dialog.alert({
-						  title: '系统提示',
-						  message: res.message,
-						}).then(() => {
-						  // on close
-						  
-						});
+						_this.$toast(res.message);
 					}
 				},function(){
 					_this.isLoading = false;

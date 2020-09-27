@@ -53,8 +53,12 @@ export default {
 	loginOut: host + 'web/login/loginOut',
 	register: host + 'assist/register/register',
 	innerRegister: host + 'assist/register/innerRegister',
+	//game
+	createGameAccount: host + "assist/register/createGameAccount",
+	isCreateAccount: host + "assist/userInfo/isCreateAccount",
+	serverList: host + "server/serverList",
 	//upload
-	fileUpload: host + 'assist/userInfo/fileUpload',
+	fileUpload1: host + 'assist/userInfo/fileUpload',
 	//用户信息
 	cancelAccountByIsAgent: host + "assist/userInfo/cancelAccountByIsAgent",
 	updateUserAlipay: host + "assist/userInfo/updateUserAlipay",

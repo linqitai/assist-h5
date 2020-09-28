@@ -200,7 +200,7 @@
 		</div>
 		<van-field v-model="mobilePhone" disabled clearable label="手机号"/>
 		<div class="tip4modelRedText paddingWing textJustify margT10">
-			填写昵称请注意：不能复制微信里的表情文字，需要手写文字、字母或数字，否者实名会无法提交<br>
+			填写昵称请注意：请不要复制微信里的表情文字，需手写文字、字母或数字，以免导致实名无法提交<br>
 		</div>
 		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
 		<!-- <van-field v-model="form.telPhone" required clearable label="手机号" right-icon="question-o" :placeholder="errorHint.telPhone" maxlength="11"

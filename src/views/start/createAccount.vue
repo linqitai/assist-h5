@@ -405,7 +405,7 @@
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.$toast('创建账号成功');
-						//_this.$router.push('/login');
+						_this.$router.push('/home');
 					}else{
 						_this.$toast(res.message);
 					}

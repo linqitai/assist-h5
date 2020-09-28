@@ -601,7 +601,7 @@ $noticeHeight:40px;
 							<div class="text">共识投票</div>
 						</router-link>
 					</div>
-					<div class="infoBox" @click="waiting">
+					<div class="infoBox" @click="gameBtn">
 						<div class="iconBox">
 							<div class="iconBackground iconBackground1">
 								<van-icon class-prefix="iconfont" name="game" size="35"/>
@@ -756,7 +756,11 @@ $noticeHeight:40px;
 		</van-action-sheet>
 		<van-action-sheet v-model="isShow4Game" title="欢迎来到传奇世界">
 		  <div class="noticeDetail paddingWing">
-		  	进行选区
+			<div class="title">进行选区</div>
+			<div class="placeholderLine10"></div>
+			<span class="margR20" v-for="item in serverList" :key="item.id">
+				<van-tag type="warning" @click="toServerGameView(item)">{{item.name}}</van-tag>
+			</span>
 		  </div>
 		  <div class="placeholderLine20"></div>
 		  <div class="placeholderLine20"></div>
@@ -828,6 +832,8 @@ $noticeHeight:40px;
 				},
 				currentImage:0,
 				list:[],
+				serverList:[],
+				account:''
 			}
 		},
 		created() {
@@ -837,6 +843,13 @@ $noticeHeight:40px;
 		},
 		mounted() {
 			let _this = this;
+			if(localStorage.getItem('mobilePhone')){
+				_this.account = localStorage.getItem('mobilePhone');
+			}else{
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('/login');
+				return;
+			}
 			let userInfo = localStorage.getItem("_USERINFO_");
 			/* alert("userInfo:" + userInfo); */
 			if(userInfo){
@@ -1130,8 +1143,24 @@ $noticeHeight:40px;
 					}
 				})
 			},
+			toServerGameView(item){
+				let _this = this;
+				//_this.account="1234567";
+				let url = `http://www.helpchain.cn.com:8088/app.php?user=${_this.account}&spverify=&srvid=${item.id}&srvaddr=${item.ip}&srvport=${item.port}`;
+				window.open(url);
+			},
 			gameBtn(){
 				let _this = this;
+				//_this.$router.push('/createAccount');
+				/* _this.isShow4Game = true;
+				_this.$ajax.ajax(_this.$api.serverList, 'GET', null, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						_this.serverList = res.data;
+					}else{
+						_this.$toast(res.message);
+					}
+				}) */
 				_this.$ajax.ajax(_this.$api.isCreateAccount, 'GET', null, function(res) {
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
@@ -1139,14 +1168,14 @@ $noticeHeight:40px;
 							_this.$router.push('/createAccount');
 						}else{
 							_this.isShow4Game = true;
-							/* _this.$ajax.ajax(_this.$api.serverList, 'GET', null, function(res) {
+							_this.$ajax.ajax(_this.$api.serverList, 'GET', null, function(res) {
 								//console.log('getUserInfo');
 								if (res.code == _this.$api.CODE_OK) {
-									
+									_this.serverList = res.data;
 								}else{
 									_this.$toast(res.message);
 								}
-							}) */
+							})
 							//_this.$toast("先进行选区");
 							//window.open("https://www.baidu.com");
 							//到游戏登录页面

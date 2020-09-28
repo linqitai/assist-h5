@@ -555,8 +555,8 @@
 					价格涨幅规律：每当平台指导价的求购量超过10万{{pen}}，则涨0.1CNY。
 				</div> -->
 				<van-cell-group>
-					<div class="placeholderLine10"></div>
-				<div class="paddingWing tip4model2 margT3">个人剩余可买数量:{{userInfo.canBuyNum}}</div>
+				<div class="placeholderLine10"></div>
+				<!-- <div class="paddingWing tip4model2 margT3">个人剩余可买数量:{{userInfo.canBuyNum}}</div> -->
 				<!-- <van-field v-model="userInfo.canBuyNum" label="个人剩余可买数量" type="number" disabled right-icon="question-o" @click-right-icon="alertTip(clickIconTip.buyAmount)"/> -->
 				<!-- <van-field v-model="form4BuyBill.buyAmount" type="number" required clearable label="想买数量" right-icon="question-o" placeholder="请填写想要买入的总数量"
 				  @click-right-icon="alertTip(clickIconTip.buyAmount)"

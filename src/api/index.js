@@ -57,6 +57,11 @@ export default {
 	createGameAccount: host + "assist/register/createGameAccount",
 	isCreateAccount: host + "assist/userInfo/isCreateAccount",
 	serverList: host + "server/serverList",
+	chargeGold: host + "charge/chargeGold",
+	//gameRank
+	insertGameRankRecord: host + "assist/gamerank/insertGameRankRecord",
+	getAssistGameRankList: host + "assist/gamerank/getAssistGameRankList",
+	addTicketRecord42048Start: host + "assist/plateformTicketAccountBook/addTicketRecord42048Start",
 	//upload
 	fileUpload1: host + 'assist/userInfo/fileUpload',
 	//用户信息

@@ -128,8 +128,10 @@ b{font-weight: bold;}
 .clear{clear: both;}
 .block{display: block;}
 .textCenter{text-align: center;}
+.textRight{text-align: right;}
 .textBold{font-weight: bold;}
 .title{font-weight: bold;}
+.textLeft{text-align: left !important;}
 .textRight{text-align: right;}
 .borderBottom{border-bottom: 1px solid $bottomLineColor;}
 .unSelect{user-select: none;}
@@ -194,6 +196,7 @@ b{font-weight: bold;}
 .warn_text{color: rgb(211, 0, 0);}
 .red2{color: rgb(255, 135, 65);}
 .green_text{color: #07961f;}
+.bg_green{background-color: #07961f;}
 .bg_yellow{background-color: rgb(255, 135, 65);}
 .bg_black{background-color: #199E00;}
 .inline{display: inline-block;}

@@ -55,6 +55,7 @@ module.exports = {
     'space-in-parens': 0,
     'block-spacing': 0,
     'brace-style': 0,
-    'padded-blocks': 0
+    'padded-blocks': 0,
+	'no-new':0
   }
 }

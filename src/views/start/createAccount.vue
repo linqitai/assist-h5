@@ -126,12 +126,12 @@
 			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0055.jpg" alt=""> -->
 		</div>
 		<div class="formHeader">
-			<div class="welcomeText green_text">{{welcomeText}}</div>
+			<div class="welcomeText red2 f-18 textBold">创建传奇游戏账号</div>
 		</div>
 		<div class="formBox">
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>
-				<van-field v-model="form.phone" type="text" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
+				<van-field v-model="form.phone" type="text" readonly clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
 				
 				<div class="labelText">登录密码</div>
 				<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />

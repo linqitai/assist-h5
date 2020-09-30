@@ -98,12 +98,11 @@ $noticeHeight:40px;
 			background-color: $main-box-fh-bg-color;
 			color: $main-box-fh-text-color;
 			padding: 10px 0;
-		
 			.infoBox {
 				flex: 1;
 				text-align: center;
 				font-size: 14px;
-		
+				position: relative;
 				.iconBox {
 					.iconBackground {
 						width: $iconBgWidth;
@@ -154,6 +153,29 @@ $noticeHeight:40px;
 					.iconBackgroundShare {
 						background-color: #42a0ff;
 					}
+				}
+				.bubble{
+					position: absolute;
+					left: -200px;
+					top: 0px;
+					border: 1px solid $main-box-fh-text-color;
+					background-color: rgba(0,0,0,0.8);
+					width:200px;
+					height: 66px;
+					border-radius: 8px;
+					padding: 4px;
+					text-align: left;
+					line-height: 1.2em;
+				}
+				.triangleRight {
+					position: absolute;
+					left: 10px;
+					top: 20px;
+				    width: 0;
+				    height: 0;
+				    border-top: 6px solid transparent;
+				    border-left: 10px solid $main-box-fh-text-color;
+				    border-bottom: 6px solid transparent;
 				}
 				.text {
 					margin-top: 0.375rem;
@@ -480,6 +502,11 @@ $noticeHeight:40px;
 		</van-popup>
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent" v-if="$route.meta.footer">
 			<div class="HomeContent">
+				<van-notice-bar
+				  mode = "closeable"
+				  left-icon="volume-o"
+				  text="直推完成基础任务2奖励上级0.5个贡献值和2个流通值;30天没登录将会被系统回收2~12个矿石且需重新实名认证;"
+				/>
 				<div class="swipe">
 					<!-- <van-swipe :autoplay="3000" style="height: 190px;" @change="onChange4Swipe">
 					  <van-swipe-item v-for="(item, index) in noticeList4Swipe" :key="index">
@@ -601,7 +628,14 @@ $noticeHeight:40px;
 							<div class="text">共识投票</div>
 						</router-link>
 					</div>
-					<div class="infoBox" @click="gameBtn">
+					<div class="infoBox" @click="toGameView">
+						<!-- <div class="bubble" v-if="isbubble1">
+							该模块正在内测中，暂时只对个人算力大于20G的矿工开放内测权限，内测完毕后方可对全体矿工开放！
+						</div> -->
+						<div class="bubble" v-if="isbubble1">
+							该模块正在内测中，现暂时只对个人算力大于10G的矿工开放内测权限，内测完毕后方可对全体矿工开放！
+						</div>
+						<div class="triangleRight" v-if="isbubble1"></div>
 						<div class="iconBox">
 							<div class="iconBackground iconBackground1">
 								<van-icon class-prefix="iconfont" name="game" size="35"/>
@@ -833,13 +867,18 @@ $noticeHeight:40px;
 				currentImage:0,
 				list:[],
 				serverList:[],
-				account:''
+				account:'',
+				isbubble1:false
 			}
 		},
 		created() {
 			let _this = this;
 			_this.list = _this.$config.helpList;
 			//console.log(_this.list,"_this.list");
+			if(!localStorage.getItem('isbubble1')){
+				_this.isbubble1 = true;
+				localStorage.setItem('isbubble1',true);
+			}
 		},
 		mounted() {
 			let _this = this;
@@ -1149,8 +1188,13 @@ $noticeHeight:40px;
 				let url = `http://www.helpchain.cn.com:8088/app.php?user=${_this.account}&spverify=&srvid=${item.id}&srvaddr=${item.ip}&srvport=${item.port}`;
 				window.open(url);
 			},
+			toGameView(){
+				let _this = this;
+				_this.$router.push('/gameList');
+			},
 			gameBtn(){
 				let _this = this;
+				_this.isbubble1 = false;
 				//_this.$router.push('/createAccount');
 				/* _this.isShow4Game = true;
 				_this.$ajax.ajax(_this.$api.serverList, 'GET', null, function(res) {
@@ -1161,30 +1205,39 @@ $noticeHeight:40px;
 						_this.$toast(res.message);
 					}
 				}) */
-				_this.$ajax.ajax(_this.$api.isCreateAccount, 'GET', null, function(res) {
-					//console.log('getUserInfo');
-					if (res.code == _this.$api.CODE_OK) {
-						if(res.data==0){
-							_this.$router.push('/createAccount');
+				if(_this.userInfo.isAgent==3||_this.userInfo.innerRegister==6||_this.userInfo.myCalculationPower>20){
+					_this.$ajax.ajax(_this.$api.isCreateAccount, 'GET', null, function(res) {
+						//console.log('getUserInfo');
+						if (res.code == _this.$api.CODE_OK) {
+							if(res.data==0){
+								_this.$router.push('/createAccount');
+							}else{
+								_this.isShow4Game = true;
+								_this.$ajax.ajax(_this.$api.serverList, 'GET', null, function(res) {
+									//console.log('getUserInfo');
+									if (res.code == _this.$api.CODE_OK) {
+										_this.serverList = res.data;
+									}else{
+										_this.$toast(res.message);
+									}
+								})
+								//_this.$toast("先进行选区");
+								//window.open("https://www.baidu.com");
+								//到游戏登录页面
+								//_this.$toast("再到游戏登录页面");
+							}
 						}else{
-							_this.isShow4Game = true;
-							_this.$ajax.ajax(_this.$api.serverList, 'GET', null, function(res) {
-								//console.log('getUserInfo');
-								if (res.code == _this.$api.CODE_OK) {
-									_this.serverList = res.data;
-								}else{
-									_this.$toast(res.message);
-								}
-							})
-							//_this.$toast("先进行选区");
-							//window.open("https://www.baidu.com");
-							//到游戏登录页面
-							//_this.$toast("再到游戏登录页面");
+							_this.$toast(res.message);
 						}
-					}else{
-						_this.$toast(res.message);
-					}
-				})
+					})
+				}else{
+					Dialog.alert({
+					  title: '系统提示',
+					  message: '该模块正在内测中，暂时只对个人算力大于20G的矿工开放内测权限，内测完毕后方可对全体矿工开放公测，公测的时候会开通用矿石充值的功能！'
+					}).then(() => {
+					  // on close
+					});
+				}
 			},
 			toRanking4Level(){
 				let _this = this;

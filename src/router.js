@@ -96,6 +96,18 @@ export default new Router({
 							name: '帮扶基金池转出操作',
 							component: resolve => require(['./views/home/transferFundPoolTicket'],resolve),
 							meta:{footer:false,keepAlive:true},
+						},
+						{
+							path: '/gameList',
+							name: '游戏列表',
+							component: resolve => require(['./views/home/gameList'],resolve),
+							meta:{footer:false,keepAlive:true},
+						},
+						{
+							path: '/game1024',
+							name: '2048',
+							component: resolve => require(['./views/home/game1024'],resolve),
+							meta:{footer:false,keepAlive:true},
 						}
 					]
 				},

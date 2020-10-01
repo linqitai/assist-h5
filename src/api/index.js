@@ -58,6 +58,7 @@ export default {
 	isCreateAccount: host + "assist/userInfo/isCreateAccount",
 	serverList: host + "server/serverList",
 	chargeGold: host + "charge/chargeGold",
+	gamePopOutMineral: host + "assist/circulatevalue/gamePopOutMineral",
 	//gameRank
 	insertGameRankRecord: host + "assist/gamerank/insertGameRankRecord",
 	getAssistGameRankList: host + "assist/gamerank/getAssistGameRankList",

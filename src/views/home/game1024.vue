@@ -216,8 +216,11 @@
 	  2.每滑动一次方块即会产生新的一个数字为2的小方块。<br>
 	  3.两个相同的数字方块碰撞在一起即会融合且相加。<br>
 	  4.挑战该游戏需花1个帮扶券/次。<br>
-	  5.当天进入排行榜的会员可瓜分当天此游戏所销毁帮扶券的50%分红。
+	  5.当天进入排行榜的会员可瓜分当天此游戏所销毁帮扶券的50%分红。<br>
+	  6.每人每天最多挑战10次。<br>
+	  7.该游戏开放时间为：0~20点。<br>
 	</div>
+	<!-- <button @click="gamePopOutMineral">扣矿石</button> -->
 	<van-dialog v-model="showRankBox" title="每日排行版" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
 		<div class="placeholderLine10"></div>
 		<div class="paddingWing">
@@ -331,9 +334,33 @@
 		back(){
 			this.$router.go(-1);
 		},
+		gamePopOutMineral(){
+			let _this = this;
+			//获取游戏排名
+			Toast.loading({
+			  message: '加载中...',
+			  forbidClick: true,
+			  loadingType: 'spinner'
+			});
+			var params = {
+				account: '13958776325',
+				type: "pd"
+			}
+			_this.$ajax.ajax(_this.$api.gamePopOutMineral, 'GET', params, function(res) {
+				// //console.log('res', res);
+				if (res.code == _this.$api.CODE_OK) {
+					_this.$toast(res.data);
+				}else{
+					_this.$toast(res.message);
+				}
+			},function(){
+				Toast.clear();
+			})
+		},
 		getHMSTime(value){
 			let _this = this;
-			return _this.$utils.getTimeHMS(value);
+			return value.split(' ')[1];
+			//return _this.$utils.getTimeHMS(value);
 		},
 		rank(){
 			let _this = this;

@@ -101,7 +101,6 @@
 				<div class="tip4model3RedText">安全密码是实名的时候所设置的安全(交易)密码</div>
 				<div class="placeholderLine10"></div>
 			</div>
-			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
 			<van-button type="info" size="large" @click="submit" :loading="submitLoading" :disabled="submitLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">提交</van-button>
 		</van-dialog>
 		<!-- <transition name="van-fade">
@@ -204,7 +203,13 @@
 							_this.showSelectBox = false;
 						}
 					}else{
-						_this.$toast(res.message);
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
 					}
 				})
 			},
@@ -216,7 +221,7 @@
 			},
 			game2Btn(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>'23:00:00'&&_this.$utils.getTimeHMS(new Date())<'23:59:59'){
+				if(_this.$utils.getTimeHMS(new Date())>'20:00:00'&&_this.$utils.getTimeHMS(new Date())<'23:59:59'){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '20~24点是系统清算时间，请明日再来'

@@ -167,7 +167,7 @@
 	<m-header>
 	<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 	<div class="text">
-		2048竞技区
+		2048新手练习区
 	</div>
 	<i class="rightBox icon iconfont iconfont-rank" @click="rank"></i>
 	</m-header>
@@ -181,8 +181,7 @@
 		<span class="score">总分：{{score}}</span>
 		<!-- <van-button round type="primary" @click="init" size="normal">开始新的游戏</van-button>
 		<van-button round type="warning" @click="end" size="normal"结算总分</van-button> -->
-		<button class="bg_green" @click="init">开始挑战</button>
-		<button class="bg_yellow" @click="end">保存总分</button>
+		<button class="bg_green" @click="init">重置游戏</button>
 	  </div>
 	</div>
 	<div class="layout">
@@ -215,10 +214,7 @@
 	  1.在方块中上下左右滑动即可。<br>
 	  2.每滑动一次方块即会产生新的一个数字为2的小方块。<br>
 	  3.两个相同的数字方块碰撞在一起即会融合且相加。<br>
-	  4.挑战该游戏需花1个帮扶券/次。<br>
-	  5.当天进入排行榜的会员可瓜分当天此游戏所销毁帮扶券的50%分红。<br>
-	  6.每人每天最多挑战10次。<br>
-	  7.竞技分红区游戏开放时间为：0~20点。<br>
+	  4.新手练习区游戏开放时间为全天24小时。
 	</div>
 	<!-- <button @click="gamePopOutMineral">扣矿石</button> -->
 	<van-dialog v-model="showRankBox" title="每日排行版" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
@@ -302,7 +298,7 @@
 			/* return; */
 		}
       window.app = this;
-      //this.init();
+      this.init();
       document.addEventListener("keydown", e => {
         switch (e.key.toLocaleUpperCase()){
           case "ARROWRIGHT":
@@ -421,79 +417,12 @@
       //初始化所有记录块
       init(){
 		  let _this = this;
-		  Dialog.confirm({
-		    title: '确认信息',
-		    confirmButtonText:'确定',
-		    message: '挑战该游戏需花1个帮扶券/次，当天进入排行榜的会员可瓜分当天此游戏所销毁帮扶券的50%分红，您是否确认开始挑战该游戏？'
-		  }).then(() => {
-		    // on close
-			Toast.loading({
-			  message: '...',
-			  forbidClick: true,
-			  loadingType: 'spinner'
-			});
-			_this.$ajax.ajax(_this.$api.addTicketRecord42048Start, 'POST', null, function(res) {
-				// //console.log('res', res);
-				if (res.code == _this.$api.CODE_OK) {
-					if(res.data==1){
-						_this.score = 0;
-						_this.initRocks();
-					}
-				}else{
-					//_this.$toast(res.message);
-					Dialog.alert({
-					  title: '系统提示',
-					  message: res.message
-					}).then(() => {
-					  // on close
-					});
-				}
-			},function(){
-				Toast.clear();
-			})
-		  });
+		  _this.initRocks();
       },
-	  end(){
-		  let _this = this;
-		  let params = {
-			/* userInfo:_this.userInfo.userId, */
-		  	gameName: "1024",
-		  	score:_this.score
-		  }
-		  Toast.loading({
-		    message: '结算中...',
-		    forbidClick: true,
-		    loadingType: 'spinner'
-		  });
-		  _this.$ajax.ajax(_this.$api.insertGameRankRecord, 'POST', params, function(res) {
-		  	// //console.log('res', res);
-		  	if (res.code == _this.$api.CODE_OK) {
-		  		if(res.data==1){
-					//_this.$toast("保存成功");
-					Dialog.alert({
-					  title: '系统提示',
-					  message: res.message
-					}).then(() => {
-					  // on close
-					});
-					//_this.init();
-				}
-		  	}else{
-		  		//_this.$toast(res.message);
-				Dialog.alert({
-				  title: '系统提示',
-				  message: res.message
-				}).then(() => {
-				  // on close
-				});
-		  	}
-		  },function(){
-			  Toast.clear();
-		  })
-	  },
       //初始化数字块
       initRocks(){
         this.rocks = [];
+        this.add();
         this.add();
       },
       //生成2/4数字(4出现的概率为10%)

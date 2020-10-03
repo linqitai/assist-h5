@@ -1,19 +1,12 @@
-<style lang="scss">
+<style lang="scss" scoped="">
 	@import '~@/assets/scss/index.scss';
-	.register{
+	.gameCharge{
 		color: $mainTextColor;
-		@include pageNoHeight4Scroll();
 		width: 100%;
 		box-sizing: border-box;
-		.logoBox{
-			position: relative;
-			img{
-				width: 100%;
-			}
-		}
 		.formHeader{
-			padding: 6px $boxPadding1;
-			text-align: center;
+			padding: $boxPadding1;
+			line-height: 1.4em;
 			// background-color: $main-box-fh-bg-color;
 			color: $mainTextColor;
 			.logoBox{
@@ -23,129 +16,17 @@
 				}
 			}
 		}
-		.formBox{
-			padding: $boxPadding1;
-			.van-cell__value,.van-cell__value--alone,.van-field__control{
-				color: $mainTextColor !important;
-			}
-			.van-cell-group,.van-cell{
-				background-color: inherit !important;
-			}
-			.van-cell{
-				color: $mainTextColor !important;
-				padding: 10px 0 !important;
-				&::last-child{
-					border-bottom: 1px solid #BABABA !important;
-				}
-			}
-			.van-cell::after{
-				border: none;
-			}
-			.labelText{
-				margin-top: 20px;
-			}
-			.vanCountDown{
-				.van-count-down{
-					color: $mainTextColor !important;
-				}
-			}
-			.van-button__text{
-				font-size: 16px;
-				font-weight: bold;
-				letter-spacing: 2px;
-			}
-		}
-		.sureBox{
-			padding: $boxPadding1;
-			.tip{
-				margin: 1.25rem 0;
-				font-size: 0.812rem
-			}
-			.agreement{color: $main-adorn-color;}
-		}
-		.securityCodeBox{
-			.van-cell__value, .van-cell__value--alone, .van-field__control {
-			    color: #323232 !important;
-			}
-			.van-field__label{
-				width: 66px !important;
-			}
-			.van-button__text{
-				font-size: 16px;
-				font-weight: bold;
-				letter-spacing: 2px;
-			}
-		}
-		.van-dialog__header{
-			color: #323232 !important;
-		}
-		.shadeMaster{
-			position: fixed;
-			top: 0;
-			left: 0;
-			/*水平居中*/
-			text-align: center;
-			width: 100%;
-			height: 100%;
-			background-color:rgba(0,0,0,0.5);
-			p{
-				position: absolute;
-				color: white;
-				font-size: 30px;
-				text-align: center;
-				top:50%;
-				width: 100%;
-				transform: translateY(-50%);
-				-webkit-transform: translateY(-50%);
-				span{
-					color:#5FD6FF;
-				}
-			}
-			.img{
-				position: absolute;
-				display: block;
-				right: 20px;
-				top:10px;
-			}
-		}
-	}
-	.van-field__error-message{
-		color: red !important;
 	}
 </style>
 
 <template>
-	<div class="register">
-		<div class="logoBox">
-			<!-- <van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
-			  <van-swipe-item v-for="(image, index) in images" :key="index">
-				<img v-lazy="image" />
-			  </van-swipe-item>
-			</van-swipe> -->
-			<img src="../../assets/image/cq.jpg" alt="">
-			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0055.jpg" alt=""> -->
-		</div>
+	<div class="gameCharge">
 		<div class="formHeader">
-			<div class="welcomeText red2 f-18 textBold">尊敬的会员您好，请问是否要创建传奇游戏账号，开启传奇之旅？</div>
+			<div class="red2 f-14">若充值月卡和礼品若没到账，请找【客服】提供【账号和角色昵称】来领取,若是其他(元宝)奖励只要填写对应金额即可</div>
 		</div>
+		<div class="line2pxbgcolor"></div>
 		<div class="formBox">
-			<van-cell-group :border="isNo">
-				<div class="labelText">您的账号为</div>
-				<van-field v-model="form.phone" type="text" readonly clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
-				<!-- <div class="labelText">登录密码</div>
-				<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
-				<div class="labelText">确认密码</div>
-				<van-field v-model="form.password2" type="password" clearable :placeholder="placeholder.password2" @blur="validate('password2')" :error-message="errorHint.password2"/>
-				<div class="labelText">验证码</div>
-				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @focus="getSecurityCode" :error-message="errorHint.securityCode">
-					<van-button slot="button" size="small" type="primary" :loading="getSCLoading" @click="getSecurityCode">{{securityCode}}</van-button>
-				</van-field> -->
-			</van-cell-group>
-		</div>
-		<div class="sureBox">
-			<!-- <div class="tip">点击注册即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span></div> -->
-			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" @click="registerBtn" :loading="isLoading" loading-type="spinner">是，我要创建</van-button>
-			<div class="placeholderLine10"></div>
+			<iframe :src="url" width="100%" height="800" frameborder="0" scrolling="auto" id="iframename" name="iframename"></iframe>
 		</div>
 	</div>
 </template>
@@ -155,6 +36,7 @@
 	export default {
 		data() {
 			return {
+				url:"",
 				images: [
 					this.$api.domainName + '/image/banner/banner0058.jpg'
 				],
@@ -194,7 +76,8 @@
 				isShortMessageDisabled:false,
 				isWeixin:false,
 				helpList:[],
-				mobilePhone:""
+				mobilePhone:"",
+				id:""
 			}
 		},
 		/* watch:{
@@ -205,23 +88,13 @@
 		}, */
 		created() {
 			let _this = this;
-			_this.form.shareCode = _this.$route.query.id;
-			_this.isWeixin = _this.$utils.isWeixin();
-			_this.helpList = _this.$config.helpList;
-			if(localStorage.getItem('mobilePhone')){
-				_this.form.phone = localStorage.getItem('mobilePhone');
+			_this.id = _this.$route.query.id;
+			if(_this.id == 1){
+				_this.url = 'http://www.8gesy.com/payment/fenqu.html?id=B7B3C61579860171869B454FC311597F';
+			}else if(_this.id == 2){
+				_this.url = 'http://www.8gesy.com/payment/fenqu.html?id=3FE5A5A1DD88F877BF7DE38667435CC2';
 			}else{
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			}
-			let userInfo = localStorage.getItem("_USERINFO_");
-			if(userInfo){
-				_this.userInfo = JSON.parse(userInfo);
-			}else{
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
+				_this.url = 'http://www.8gesy.com/payment/group.html?id=00887D6F29EE5293';
 			}
 		},
 		//倒计时方法

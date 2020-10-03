@@ -176,7 +176,7 @@
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header> -->
 		<div class="millContent">
-			<div class="tip4model3 tip">任何一种矿机被租赁完，就会集体减产</div>
+			<div class="tip4model3 tip">任何一种矿机被租赁完，所有类型的矿机就会集体调整</div>
 			<van-pull-refresh v-model="loading" @refresh="onLoadMillShop">
 				<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
 					<div class="millList">

@@ -239,7 +239,14 @@
 					<img src="../../assets/image/poster/PostText1.png">
 				</div> -->
 				<!-- <img class="registerCode" src="../../assets/image/code.png"> -->
-				<img class="helpPic" :src="$api.domainName + '/image/banner/banner0058.jpg'">
+				<img class="helpPic" :src="images[index]">
+				<!-- <div style="width: 100%;">
+					<van-swipe :autoplay="3000" :lazy-render="true">
+					  <van-swipe-item v-for="(image, index) in images" :key="index">
+						<img class="helpPic" v-lazy="image"/>
+					  </van-swipe-item>
+					</van-swipe>
+				</div> -->
 				<!-- <div class="titleWord">真情感动世界 帮扶成就你我</div> -->
 				<!-- <img class="helpPic" src="https://www.assist-china.co.ax/image/banner/banner0057.jpg"> -->
 				<div class="registerCode" id="qrcode" ref="qrcode"></div>
@@ -254,6 +261,8 @@
 				<div class="myShareUrl">
 					分享链接: {{registerUrl}}
 				</div>
+				<div class="placeholderLine10"></div>
+				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="switchImage" :block="true">切换推广图片</van-button>
 				<div class="placeholderLine10"></div>
 				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopy(registerUrl,$event)" :block="true">复制分享链接</van-button>
 				<div class="placeholderLine10"></div>
@@ -287,6 +296,12 @@
 		},
 		data() {
 			return {
+				index:0,
+				images: [
+					this.$api.domainName + '/image/banner/banner0058.jpg',
+					this.$api.domainName + '/image/banner/game01.jpg',
+					this.$api.domainName + '/image/banner/game02.jpg',
+				],
 				showTipModel:false,
 				loading1: false,
 				finished1: false,
@@ -316,6 +331,13 @@
 			})
 		},
 		methods: {
+			switchImage(){
+				let _this = this;
+				_this.index=_this.index+1;
+				if(_this.index>_this.images.length-1){
+					_this.index=0;
+				}
+			},
 			back() {
 				this.$router.go(-1);
 			},

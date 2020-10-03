@@ -17,6 +17,11 @@ export default new Router({
 	base: process.env.BASE_URL,
 	routes: [
 		{
+			path: '/gameCharge',
+			name: '游戏充值',
+			component: resolve => require(['./views/start/gameCharge'],resolve)
+		},
+		{
 			path: '/createAccount',
 			name: '创建账号',
 			component: resolve => require(['./views/start/createAccount'],resolve)
@@ -104,8 +109,20 @@ export default new Router({
 							meta:{footer:false,keepAlive:true},
 						},
 						{
+							path: '/gameTo1024',
+							name: '2048选区',
+							component: resolve => require(['./views/home/gameTo1024'],resolve),
+							meta:{footer:false,keepAlive:true},
+						},
+						{
+							path: '/game10241',
+							name: '2048新手练习区',
+							component: resolve => require(['./views/home/game10241'],resolve),
+							meta:{footer:false,keepAlive:true},
+						},
+						{
 							path: '/game1024',
-							name: '2048',
+							name: '2048竞技区',
 							component: resolve => require(['./views/home/game1024'],resolve),
 							meta:{footer:false,keepAlive:true},
 						}

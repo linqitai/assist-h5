@@ -12,11 +12,11 @@ export default {
     name: 'app',
 	created() {
 		let _this = this;
-		let device = this.$utils.isIphoneOrAndroid();
+		/* let device = this.$utils.isIphoneOrAndroid();
 		console.log('device',device);
 		if(device=='pc'){
 			_this.$router.push('tip');
-		}
+		} */
 		//防止微信中所设置的字体大小影响到了WEB
 		if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
 			_this.handleFontSize();
@@ -156,6 +156,7 @@ b{font-weight: bold;}
 }
 .mlBox{margin-left:10px;}
 .line1pxbgcolor{height: 1px;background-color: $bottomLineColor;}
+.line2pxbgcolor{height: 2px;background-color: #009af3;}
 .placeholderLine{height: 4px;}
 .placeholderLine1{height: 1px;}
 .placeholderLine2{height: 2px;}

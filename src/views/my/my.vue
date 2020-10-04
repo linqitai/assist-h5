@@ -490,6 +490,18 @@
 				</router-link>
 			</div> -->
 			<div class="items">
+				<router-link to="myRaiseList">
+					<div class="my-cell">
+						<div class="flex1">
+							我的帮扶筹申请列表
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+			</div>
+			<div class="items">
 				<router-link to="lookInfo">
 					<div class="my-cell">
 						<div class="flex1">

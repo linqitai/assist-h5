@@ -193,6 +193,7 @@ b{font-weight: bold;}
 .blue{color: #409EFF;}
 .green{color: green;}
 .gray{color: gray;}
+.grayc7c7c7{color: #c7c7c7;}
 .yellow{color: $main-adorn-color;}
 .warn_text{color: rgb(211, 0, 0);}
 .red2{color: rgb(255, 135, 65);}

@@ -5,7 +5,7 @@
 	.van-list__finished-text{
 		background-color: $main-bg-color;
 	}
-	.applyListPage{
+	.myApplyListPage{
 		@include pageHaveHeight4Scroll();
 		.wordList{
 			background-color: $main-box-color;
@@ -39,11 +39,6 @@
 						color: $grayDarker;
 						// margin-top: 0.5rem;
 					}
-					.textBoldAndBig{
-						font-size: 0.875rem;
-						color: $grayDarker;
-						// margin-top: 0.5rem;
-					}
 					.iconfont-right-arrow{
 						font-size: 10px !important;
 					}
@@ -72,11 +67,11 @@
 </style>
 
 <template>
-	<div class="applyListPage">
+	<div class="myApplyListPage">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				帮扶筹列表
+				我所申请的帮扶筹
 			</div>
 			<i class="iconfont iconfont-edit rightBox icon" @click="toApplyList"></i>
 		</m-header>
@@ -85,161 +80,10 @@
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				:title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
-				<van-tab title="筹款中" name="onLoad1">
-					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
-						<div class="wordList">
-							<div class="item" v-for="item in list1" :key="item.id" @click="toRaise4OtherView(item.id)">
-								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
-								<div class="itemLeft">
-									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
-									<van-image
-									  width="100px"
-									  height="100px"
-									  fit="cover"
-									  :src="item.pic.split('|')[0]"
-									/>
-								</div>
-								<div class="itemRight">
-									<div class="title">
-										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
-										<!-- <i class="iconfont iconfont-right-arrow2 f-11"></i> -->
-									</div>
-									<div class="remark margT10">{{item.title}}</div>
-									<div class="margT6 grayc7c7c7">{{item.createTime}} <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i></div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
-									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				<van-tab title="排队中" name="onLoad2">
-					<van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
-						<div class="wordList">
-							<div class="item" v-for="item in list2" :key="item.id">
-								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
-								<div class="itemLeft">
-									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
-									<van-image
-									  width="100px"
-									  height="100px"
-									  fit="cover"
-									  :src="item.pic.split('|')[0]"
-									/>
-								</div>
-								<div class="itemRight">
-									<div class="title">
-										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
-										<!-- <i class="iconfont iconfont-right-arrow2 f-11"></i> -->
-									</div>
-									<div class="remark margT10">{{item.title}}</div>
-									<div class="margT6 grayc7c7c7">{{item.createTime}}</div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
-									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				<!-- <van-tab title="待拜访" name="onLoad6">
-					<van-list v-model="loading6" :finished="finished6" finished-text="没有更多了" @load="onLoad6">
-						<div class="wordList">
-							<div class="item" v-for="item in list6" :key="item.id">
-								<div class="itemLeft">
-									<div class="title">
-										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}}</span>
-									</div>
-									<div class="remark margT3">{{item.title}}</div>
-									<div class="time margT3">{{item.createTime}}<i class="f-10 right">团队算力{{item.teamCalculationPower}}G</i></div>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab> -->
-				<van-tab title="投票中" name="onLoad7">
-					<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
-						<div class="wordList">
-							<div class="item" v-for="item in list7" :key="item.id" @click="toRaise4OtherView(item.id)">
-								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
-								<div class="itemLeft">
-									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
-									<van-image
-									  width="100px"
-									  height="100px"
-									  fit="cover"
-									  :src="item.pic.split('|')[0]"
-									/>
-								</div>
-								<div class="itemRight">
-									<div class="title">
-										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
-									</div>
-									<div class="remark margT10">{{item.title}}</div>
-									<div class="margT6 grayc7c7c7">{{item.createTime}} <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i></div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
-									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				<!-- <van-tab title="已审核" name="onLoad3">
-					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
-						<div class="wordList">
-							<div class="item" v-for="item in list3" :key="item.id">
-								<div class="itemLeft">
-									<van-image
-									  width="100px"
-									  height="100px"
-									  fit="cover"
-									  :src="item.pic.split('|')[0]"
-									/>
-								</div>
-								<div class="itemRight">
-									<div class="title">
-										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
-									</div>
-									<div class="remark margT10">{{item.title}}</div>
-									<div class="margT6 grayc7c7c7">{{item.createTime}} <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i></div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
-									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab> -->
 				<van-tab title="待审核" name="onLoad4">
 					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 						<div class="wordList">
-							<div class="item" v-for="item in list4" :key="item.id">
-								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
-								<div class="itemLeft">
-									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
-									<van-image
-									  width="100px"
-									  height="100px"
-									  fit="cover"
-									  :src="item.pic.split('|')[0]"
-									/>
-								</div>
-								<div class="itemRight">
-									<div class="title">
-										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
-										<!-- <i class="iconfont iconfont-right-arrow2 f-11"></i> -->
-									</div>
-									<div class="remark margT10">{{item.title}}</div>
-									<div class="margT6 grayc7c7c7">{{item.createTime}}</div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
-									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab>
-				<van-tab title="筹款完结" name="onLoad5">
-					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
-						<div class="wordList">
-							<div class="item" v-for="item in list5" :key="item.id" @click="toRaise4OtherView(item.id)">
+							<div class="item" v-for="item in list4" :key="item.id" @click="toRaise4OtherView(item.id)">
 								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
 								<div class="itemLeft">
 									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
@@ -340,6 +184,23 @@
 			let _this = this;
 			_this.userId = _this.$cookies.get('userId');
 			if(_this.$utils.isNUll(_this.userId)){
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
+			}
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				////console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+				_this.userId = _this.userInfo.userId;
+				if(_this.userInfo.accountStatus==1){
+					//退出登录
+					_this.logout();
+				}
+			}else{
+				/* localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token'); */
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;
@@ -509,7 +370,7 @@
 				let params = {
 					pageNo: _this.currentPage4,
 					pageSize: _this.pageSize,
-					status:0
+					userId:_this.userInfo.userId,
 				}
 				_this.loading = true;
 				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {

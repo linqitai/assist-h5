@@ -252,9 +252,10 @@
 				<div class="registerCode" id="qrcode" ref="qrcode"></div>
 				<div class="registerCodeText">扫码注册</div>
 				<div class="registerCodeText2">我为帮扶链代言：{{userInfo.nickName}}</div>
-				<div class="registerCodeText3">我的推荐码：{{userInfo.shareCode}}</div>
-				<div class="registerCodeText4">
-					<van-button type="info" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopyShareCode(userInfo.shareCode,$event)" :block="false">复制推荐码</van-button>
+				<div class="registerCodeText3">一句话</div>
+				<div class="registerCodeText4" @click="handleCopyShareCode(userInfo.shareCode,$event)">
+					我的推荐码：{{userInfo.shareCode}}
+					<!-- <van-button type="info" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopyShareCode(userInfo.shareCode,$event)" :block="false">复制推荐码</van-button> -->
 				</div>
 			</div>
 			<div class="margT10 paddingWing">

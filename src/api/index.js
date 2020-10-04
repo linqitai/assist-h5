@@ -144,6 +144,7 @@ export default {
 	deleteAssistQuestionById: host + "assist/question/deleteAssistQuestionById/",
 	//answer
 	insertAssistAnswer: host + "assist/answer/insertAssistAnswer",
+	insertAssistAnswer4Raise: host + "assist/answer/insertAssistAnswer4Raise",
 	getAssistAnswerListPage: host + "assist/answer/getAssistAnswerListPage",
 	getAssistAnswer: host + "assist/answer/getAssistAnswer",
 	//contributionValue

@@ -17,7 +17,7 @@
     <van-tabbar-item icon="coupon-o" replace to="/mill">矿机商城</van-tabbar-item>
     <van-tabbar-item icon="exchange" replace to="/deal">流通中心</van-tabbar-item>
     <van-tabbar-item icon="contact" replace to="/my">个人中心</van-tabbar-item>
-	<van-tabbar-item icon="good-job-o" replace to="/raise">帮扶筹</van-tabbar-item>
+	<van-tabbar-item icon="good-job-o" replace to="/raiseApplyList">帮扶筹</van-tabbar-item>
   </van-tabbar>
 </template>
 <script>

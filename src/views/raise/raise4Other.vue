@@ -1,7 +1,7 @@
 <style lang="scss">
 	@import '~@/assets/scss/index.scss';
-	.raise{
-		@include pageNoHeight4Scroll();
+	.raise4Other{
+		@include pageHaveHeight4Scroll();
 		color: $main-box-fh-text-color !important;
 		background-color: $main-box-fh-bg-color !important;
 		.van-list__finished-text{
@@ -172,10 +172,15 @@
 				align-content: left;
 				align-items: center;
 				justify-content: left;
-				img{
-					flex: 0 0 70px;
-					width: 70px;
-					height: 70px;
+				
+				.van-image{
+					margin-right: 3px;
+					margin-top: 3px;
+				}
+				/* img{
+					flex: 0 0 100px;
+					width: 100px;
+					height: 100px;
 					padding: 3px;
 					&::last-child{
 						padding-right: 0;
@@ -183,7 +188,7 @@
 					&::first-child{
 						padding-left: 0;
 					}
-				}
+				} */
 			}
 		}
 		.materialProve{
@@ -302,11 +307,32 @@
 				}
 			}
 		}
+		.van-popup--bottom.van-popup--round{
+			background-color: $main-box-fh-bg-color !important;
+		}
+		.van-action-sheet__header{
+			color: white !important;
+		}
+		.raiseBtn{
+			position: fixed;
+			bottom: 0px;
+			right: 0px;
+			background: linear-gradient(to right, #ffae00 , #ff8400);
+			color: $main-box-fh-text-color;
+			width:100%;
+			height:50px;
+			line-height:50px;
+			/* border-radius:$fixed-btn-width2; */
+			text-align: center;
+			z-index:2001;
+			font-size: 14px;
+			user-select:none;
+		}
 	}
 </style>
 
 <template>
-	<div class="raise">
+	<div class="raise4Other">
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
@@ -315,6 +341,12 @@
 			<i class="iconfont rightBox icon"></i>
 		</m-header>
 		<div>
+			<van-notice-bar mode="link" color="#fff" background="#ff0004" v-if="list1.remark">
+			  驳回原因：{{list1.remark}}
+			</van-notice-bar>
+			<van-notice-bar mode="link" @click="toView(list1.id)">
+			  查看捐赠记录。
+			</van-notice-bar>
 			<div class="raiseHeader borderBottom">
 				<div class="iconTextBox">
 					<i class="iconfont iconfont-love2 leftIcon"></i>
@@ -336,17 +368,21 @@
 					<div class="title">{{list1.title}}</div>
 					<div class="box box2">
 						<van-skeleton :row="2" :loading="loading">
-						<div class="flexC flex1">
+						<div class="flexC flex1" v-if="list1.needMineral==0">
 							<div class="digit">{{list1.needTicket}}+</div>
-							<div class="text">筹款总额</div>
+							<div class="text">总筹帮扶券</div>
 						</div>
-						<div class="flexC flex2">
+						<div class="flexC flex2" v-if="list1.needMineral==0">
 							<div class="digit">{{list1.getedTicket}}</div>
-							<div class="text">已筹到帮扶券</div>
+							<div class="text">已筹帮扶券</div>
 						</div>
-						<div class="flexC flex3" v-if="list1.needMineral>0">
-							<div class="digit">{{raiseMineralSum || 0}}</div>
-							<div class="text">已筹到矿石</div>
+						<div class="flexC flex1" v-if="list1.needMineral>0">
+							<div class="digit">{{list1.needMineral}}</div>
+							<div class="text">总筹矿石</div>
+						</div>
+						<div class="flexC flex3" v-if="list1.needMineral>0" @click="toView(list1.id)">
+							<div class="digit">{{list1.getedMineral}}</div>
+							<div class="text underline">已筹到矿石</div>
 						</div>
 						<div class="flexC flex3">
 							<div class="digit">{{list1.beHelpTimes}}</div>
@@ -354,12 +390,13 @@
 						</div>
 						</van-skeleton>
 					</div>
+					<!-- <div class="underline blue">查看捐赠记录</div> -->
 					<div class="flex borderBottom">
-						<div class="flexLeft">
+						<!-- <div class="flexLeft">
 							<i class="iconfont iconfont-ticket ticket"></i>
-						</div>
-						<div class="flexCenter f-10 letterSpacing">求助者所筹到的是帮扶券，这帮扶券是直接筹到求助者账户里不经过平台，然后让平台向求助者购买帮扶券，从而使求助者得到求助费用。同时，帮扶者们也可以加求助者好友直接性得给予帮扶、关心或提供其他帮助。</div>
-						<div class="flexRight"><i class="iconfont iconfont-i" @click="messageAlert"></i></div>
+						</div> -->
+						<div class="flexCenter f-10 letterSpacing">求助者所筹到的是矿石，这矿石是直接筹到求助者账户里，然后所筹到的矿石无论是复投还是卖出，由求助者自行安排。审核通过后，筹款时间为10天，10天后无论筹到多少都会被系统设置为筹款完结</div>
+						<!-- <div class="flexRight"><i class="iconfont iconfont-i" @click="messageAlert"></i></div> -->
 					</div>
 				</div>
 				<div class="story borderBottom">
@@ -368,7 +405,19 @@
 					</div>
 					<div class="content unSelect justify" v-html="list1.story"/>
 					<div class="imageList flex" v-if="list1">
-						<img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/>
+						<!-- <img v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"/> -->
+						<van-image
+						  width="70px"
+						  height="70px"
+						  fit="cover"
+						  v-for="(item,index) in images" :src="item" :key="index" @click="imagePreviewEvent(index)"
+						/>
+						<!-- <van-image
+						  width="100px"
+						  height="100px"
+						  fit="cover"
+						  :src="item.pic.split('|')[0]"
+						/> -->
 					</div>
 					<van-image-preview
 					  v-model="showImagePreview"
@@ -379,12 +428,13 @@
 					  <template v-slot:index><span class="bg_black padding4Text">第{{ imageIndex+1 }}页</span></template>
 					</van-image-preview>
 				</div>
-				<div class="materialProve borderBottom" v-if="list1.status==5">
+				<!-- v-if="list1.status==5" -->
+				<div class="materialProve borderBottom">
 					<div class="flex textCenter">
 						<div class="title flexMedial">节点<i class="yellow">支持</i>信息</div>
 					</div>
 					<div class="textCenter">
-						<div class="lineHeight">支持的票数超过500，即可激活此申请，<br>并开放此帮扶筹</div>
+						<!-- <div class="lineHeight">支持的票数超过500，即可激活此申请，<br>并开放此帮扶筹</div> -->
 						<div class="lineHeight"><span class="yellow">支持票数 {{list1.supportTimes || 0}}</span></div>
 					</div>
 					<div class="placeholderLine10"></div>
@@ -443,153 +493,85 @@
 							</div>
 						</div>
 					</div> -->
-					<div class="placeholderLine10"></div>
+					<div class="placeholderLine20"></div>
+					<div class="placeholderLine20"></div>
+					<div class="placeholderLine20"></div>
 				</div>
-				<div class="materialProve borderBottom" v-if="list1.status==3">
-					<div class="flex">
-						<div class="title flexMedial">我要捐赠<i class="yellow">帮扶券</i></div>
-					</div>
-					<div>
-						<van-field label="爱心问候"
-						  v-model="word"
-						  rows="2"
-						  autosize clearable
-						  type="textarea"
-						  maxlength="100"
-						  placeholder="顺便给求助者捎一句问候/慰问,送人玫瑰,手留余香,感恩有你"
-						  show-word-limit
-						/>
-					</div>
-					<div class="placeholderLine10"></div>
-					<div>
-						<van-button round type="info" @click="addTicket(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个</van-button>
-						<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个</van-button>
-						<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个</van-button>
-						<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个</van-button>
-						<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个</van-button>
-						<!-- 增加自己填写数额 -->
-						<div class="placeholderLine10"></div>
-						<van-field v-model="number" center clearable placeholder="自定义捐赠帮扶券数量">
-							<van-button slot="button" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getNumberLoading" @click="addTicket(number)">确认</van-button>
-						</van-field>
-					</div>
-					<div class="placeholderLine10"></div>
-				</div>
-				<div class="materialProve borderBottom" v-if="list1.status==3&&needMineral>0">
-					<div class="flex">
-						<div class="title flexMedial">我要捐赠<i class="yellow">矿石</i></div>
-					</div>
-					<div>
-						<van-field label="爱心问候"
-						  v-model="word4Mineral"
-						  rows="2"
-						  autosize clearable
-						  type="textarea"
-						  maxlength="100"
-						  placeholder="顺便给求助者捎一句问候/慰问,送人玫瑰,手留余香,感恩有你"
-						  show-word-limit
-						/>
-					</div>
-					<div class="placeholderLine10"></div>
-					<div>
-						<van-button round type="info" @click="addMineral(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个</van-button>
-						<van-button round type="info" @click="addMineral(3)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">3个</van-button>
-						<van-button round type="info" @click="addMineral(5)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">5个</van-button>
-						<van-button round type="info" @click="addMineral(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个</van-button>
-						<van-button round type="info" @click="addMineral(20)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">20个</van-button>
-						<div class="placeholderLine10"></div>
-						<van-field v-model="number4Mineral" center clearable placeholder="自定义捐赠矿石数量">
-							<van-button slot="button" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getNumberLoading" @click="addMineral(number4Mineral)">确认</van-button>
-						</van-field>
-					</div>
-					<div class="placeholderLine10"></div>
-				</div>
-				<div v-if="list1.status==3">
-					<van-tabs v-model="tabActiveName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
-					 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated>
-						<van-tab title="赠卷记录" name="raiseRecord1">
-							<div class="records" v-if="list2">
-								<div class="item flexsBox row" v-for="item in list2" :key="item.id">
-									<div class="flexThis column">
-										<div class="line1">
-											<div class="left yellow">{{item.nickName}}</div>
-											<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个帮扶券</div>
-										</div>
-										<div class="line2">
-											{{item.word}}
-										</div>
-										<div class="line3">{{item.createTime}}</div>
-									</div>
-								</div>
-								<div v-if="totalItems>0">
-									<van-pagination 
-									  v-model="currentPage2" 
-									  :total-items="totalItems" 
-									  :items-per-page="pageSize2"
-									  :show-page-size="3" 
-									  force-ellipses
-									  @change="getAssistRaiseRecordListPage"
-									/>
-								</div>
-							</div>
-						</van-tab>
-						<van-tab title="赠卷排行榜" name="raiseRecord2">
-							<div class="records" v-if="list3">
-								<div class="item flexsBox row" v-for="item in list3" :key="item.id">
-									<div class="flexThis column">
-										<div class="line1">
-											<div class="left yellow">{{item.nickName}}</div>
-											<div class="left margL10">捐赠了 <span>{{item.total}}</span> 个帮扶券</div>
-										</div>
-										<div class="line2">
-											{{item.word}}
-										</div>
-										<!-- <div class="line3">{{item.createTime}}</div> -->
-									</div>
-								</div>
-								<div v-if="totalItems3>0">
-									<van-pagination 
-									  v-model="currentPage3" 
-									  :total-items="totalItems3" 
-									  :items-per-page="pageSize3"
-									  :show-page-size="3" 
-									  force-ellipses
-									  @change="getAssistRaiseRecordListPage3"
-									/>
-								</div>
-							</div>
-						</van-tab>
-						<van-tab title="赠矿石记录" name="raiseRecord4" v-if="list1.needMineral>0">
-							<div class="records" v-if="list4">
-								<div class="item flexsBox row" v-for="item in list4" :key="item.id">
-									<div class="flexThis column">
-										<div class="line1">
-											<div class="left yellow">{{item.nickName}}</div>
-											<div class="left margL10">捐赠了 <span>{{item.raiseNum}}</span> 个矿石</div>
-										</div>
-										<div class="line2">
-											{{item.word}}
-										</div>
-										<div class="line3">{{item.createTime}}</div>
-									</div>
-								</div>
-								<div v-if="totalItems4>0">
-									<van-pagination 
-									  v-model="currentPage4" 
-									  :total-items="totalItems4" 
-									  :items-per-page="pageSize4"
-									  :show-page-size="3" 
-									  force-ellipses
-									  @change="getAssistRaiseRecordListPage4"
-									/>
-								</div>
-							</div>
-						</van-tab>
-					</van-tabs>	
-				</div>
-				
 			</div>
 		</div>
+		<van-action-sheet v-model="showRaiseModel" title="捐赠">
+			<div class="materialProve borderBottom" v-if="list1.status==3&&list1.needTicket>0">
+				<div class="flex">
+					<div class="title flexMedial white">我要捐赠<i class="yellow">帮扶券</i></div>
+				</div>
+				<div>
+					<van-field label="爱心问候"
+					  v-model="word"
+					  rows="2"
+					  autosize clearable
+					  type="textarea"
+					  maxlength="100"
+					  placeholder="顺便给求助者捎一句问候/慰问,送人玫瑰,手留余香,感恩有你"
+					  show-word-limit
+					/>
+				</div>
+				<div class="placeholderLine10"></div>
+				<div>
+					<van-button round type="info" @click="addTicket(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个</van-button>
+					<van-button round type="info" @click="addTicket(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个</van-button>
+					<van-button round type="info" @click="addTicket(50)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">50个</van-button>
+					<van-button round type="info" @click="addTicket(100)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">100个</van-button>
+					<van-button round type="info" @click="addTicket(300)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">300个</van-button>
+				
+					<div class="placeholderLine10"></div>
+					<van-field v-model="number" center clearable placeholder="自定义捐赠帮扶券数量">
+						<van-button slot="button" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getNumberLoading" @click="addTicket(number)">确认</van-button>
+					</van-field>
+				</div>
+				<div class="placeholderLine10"></div>
+			</div>
+			<div class="materialProve borderBottom" v-if="list1.status==3&&list1.needMineral>0">
+				<div class="flex">
+					<div class="title flexMedial white">我要捐赠<i class="yellow">矿石</i></div>
+				</div>
+				<div>
+					<van-field label="爱心问候"
+					  v-model="word4Mineral"
+					  rows="2"
+					  autosize clearable
+					  type="textarea"
+					  maxlength="100"
+					  placeholder="顺便给求助者捎一句问候/慰问,送人玫瑰,手留余香,感恩有你"
+					  show-word-limit
+					/>
+				</div>
+				<div class="placeholderLine10"></div>
+				<div>
+					<van-button round type="info" @click="addMineral(1)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">1个</van-button>
+					<van-button round type="info" @click="addMineral(3)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">3个</van-button>
+					<van-button round type="info" @click="addMineral(5)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">5个</van-button>
+					<van-button round type="info" @click="addMineral(10)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">10个</van-button>
+					<van-button round type="info" @click="addMineral(20)" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)">20个</van-button>
+					<div class="placeholderLine10"></div>
+					<van-field v-model="number4Mineral" center clearable placeholder="自定义捐赠矿石数量">
+						<van-button slot="button" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getNumberLoading" @click="addMineral(number4Mineral)">确认</van-button>
+					</van-field>
+				</div>
+				<div class="placeholderLine10"></div>
+			</div>
+		</van-action-sheet>
+		<van-dialog v-model="showPasswordBoxDialog" title="系统提示" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
+			<div class="paddingWing">
+				<div class="placeholderLine20"></div>
+				<div class="yellow textCenter">您是否要捐赠{{num}}个{{textTip}}给求助者？</div>
+				<div class="placeholderLine20"></div>
+				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
+				<div class="placeholderLine20"></div>
+			</div>
+			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
+			<van-button type="info" @click="sureRaiseEvent" :loading="getNumberLoading" :disabled="getNumberLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">确认</van-button>
+		</van-dialog>
+		<div class="raiseBtn" @click="showRaiseModelBtn()" v-if="list1.status==3">我要捐赠</div>
 		<transition name="van-fade">
 		  <router-view></router-view>
 		</transition>
@@ -603,6 +585,8 @@
 	export default {
 		data() {
 			return {
+				showRaiseModel:false,
+				showPasswordBoxDialog:false,
 				isSupportLoading:false,
 				closeable:true,
 				loading:false,
@@ -669,6 +653,14 @@
 				_this.$router.go(-1);
 				//_this.$router.push("/raise")
 			},
+			toView(id){
+				let _this = this;
+				_this.$router.push({path:"raiseRecord",query:{id:id}})
+			},
+			showRaiseModelBtn(){
+				let _this = this;
+				_this.showRaiseModel = true;
+			},
 			handleCopy(text, event) {
 				let _this = this;
 				clip(text,event,function(res){
@@ -697,7 +689,7 @@
 					voteId:_this.list1.id,
 					type:1
 				}
-				if(_this.userInfo.myCalculationPower<0.1){
+				/* if(_this.userInfo.myCalculationPower<0.1){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '参与该投票需要个人算力达到0.1G'
@@ -705,12 +697,13 @@
 					  // on close
 					});
 					return;
-				}
-				_this.$ajax.ajax(_this.$api.insertAssistAnswer, 'POST', params, function(res) {
+				} */
+				_this.$ajax.ajax(_this.$api.insertAssistAnswer4Raise, 'POST', params, function(res) {
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						if(res.data == 1){
 							_this.$toast('投票成功');
+							_this.list1.supportTimes = _this.list1.supportTimes + 1;
 							//_this.getVoteInfo();
 						}else if(res.data == 0){
 							Dialog.alert({
@@ -735,7 +728,9 @@
 			addMineral(num){
 				let _this = this;
 				_this.num = num;
-				Dialog.confirm({
+				_this.showPasswordBoxDialog = true;
+				_this.textTip = "矿石";
+				/* Dialog.confirm({
 				  title: '系统提示',
 				  confirmButtonText:'确认',
 				  closeOnClickOverlay:true,
@@ -744,7 +739,7 @@
 				  // on confirm
 				  //_this.$toast(`即将开放`);
 				  _this.addMineralRequest();
-				})
+				}) */
 				
 			},
 			addMineralRequest(){
@@ -794,12 +789,9 @@
 			addTicket(num){
 				let _this = this;
 				_this.num = num;
-				/* if(_this.word){
-					
-				}else{
-					_this.$toast(`请`);
-				} */
-				Dialog.confirm({
+				_this.showPasswordBoxDialog = true;
+				_this.textTip = "帮扶券";
+				/* Dialog.confirm({
 				  title: '系统提示',
 				  confirmButtonText:'确认',
 				  closeOnClickOverlay:true,
@@ -808,15 +800,91 @@
 				  // on confirm
 				  //_this.$toast(`即将开放`);
 				  _this.addTicketRequest();
-				})
+				}) */
 				
+			},
+			sureRaiseEvent(){
+				let _this = this;
+				_this.raiseRequest();
+			},
+			raiseRequest(){
+				let _this = this;
+				let word = '';
+				if(_this.textTip=="矿石"){
+					word = _this.word4Mineral;
+				}else{
+					word = _this.word;
+				}
+				let params = {
+				  raiseId: _this.list1.id,
+				  raiseNum: _this.num,
+				  word: word||'加油',
+				  type: _this.textTip == "矿石"?0:1,
+				  safePassword:_this.safePassword
+				}
+				if(_this.$utils.hasNull(params)){
+					_this.$toast('请填写完整信息');
+					return;
+				}
+				if(!_this.$reg.positive_integer.test(_this.num)){
+					_this.$toast(`请填写正整数的数量`);
+					return;
+				}
+				if(_this.textTip=="矿石"){
+					if(_this.userInfo.thisWeekMineral<_this.num){
+						_this.$toast(`您所拥有的${_this.textTip}扣不够${_this.num}个，请调整数量`);
+						return;
+					}
+				}else{
+					if(_this.userInfo.platformTicket<_this.num){
+						_this.$toast(`您所拥有的${_this.textTip}扣不够${_this.num}个，请调整数量`);
+						return;
+					}
+				}
+				params.safePassword = _this.$JsEncrypt.encrypt(params.safePassword);
+				_this.safePassword='';
+				_this.getNumberLoading = true;
+				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						//_this.$toast("捐赠成功");
+						_this.showRaiseModel = false;
+						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+						if(_this.textTip=="矿石"){
+							_this.word4Mineral = '';
+							_this.number4Mineral = '';
+							_this.getAssistRaise();
+						}else{
+							_this.word = '';
+							_this.number = '';
+						}
+						
+						Dialog.alert({
+							title: "系统提示",
+							message: "捐赠成功"
+						}).then(() => {
+						  // on confirm
+						  //_this.getCurrentAuction();
+						})
+					}else{
+						Dialog.alert({
+							title: "系统提示",
+							message: res.message
+						}).then(() => {
+						  // on confirm
+						  //_this.getCurrentAuction();
+						})
+					}
+				},function(){
+					_this.getNumberLoading = false;
+					_this.showPasswordBoxDialog = false;
+				})
 			},
 			addTicketRequest(){
 				let _this = this;
 				let params = {
 				  raiseId: _this.list1.id,
 				  raiseNum: _this.num,
-				  word: _this.word,
+				  word: _this.word || '加油',
 				  type: 1
 				}
 				if(_this.$utils.hasNull(params)){
@@ -943,10 +1011,19 @@
 							let picNum = _this.list1.picNum;
 							let id = _this.list1.id;
 							let images = [];
-							for(let i=0;i<picNum;i++){
-								let item = _this.$api.domainName + '/image/raise/' + id + '00'+ (i+1) +'.jpg';
-								images.push(item);
+							if(picNum>0){
+								for(let i=0;i<picNum;i++){
+									let item = _this.$api.domainName + '/image/raise/' + id + '00'+ (i+1) +'.jpg';
+									images.push(item);
+								}
+							}else{
+								let picArr = _this.list1.pic.split('|');
+								for(let i=0;i<picArr.length;i++){
+									let item = picArr[i];
+									images.push(item);
+								}
 							}
+							
 							_this.images=images;
 							//_this.images = _this.list1.pic.split('|');
 							_this.getAssistRaiseRecordListPage();

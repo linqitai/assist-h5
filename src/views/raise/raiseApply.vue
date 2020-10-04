@@ -102,28 +102,25 @@
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="raiseApplyPage">
-			<div class="tip4model3 paddingAll myCell">
-				申请帮扶需注册帮扶链的时间不得少于1个月，少年儿童的求助优先，需通过代理或会长引荐并落实拜访，所提交申请的求助者需要先经过线下拜访，让志愿者与代理先去考察后才能公开求助信息，拜访的时候需要拉横幅【真情感动世界，帮扶成就你我】或【公益志愿行 共筑中国梦】，且参与线下帮扶活动拍照的人数不少于10人。
+			<div class="myCell">
+				<van-field label="标题" required clearable @blur="validate('title')" v-model="form.title" maxlength="30" placeholder="请填写求助申请的标题" />
 			</div>
 			<div class="myCell">
-				<van-field label="标题" required clearable @blur="validate('title')" v-model="form.title" maxlength="30" placeholder="请填写30字内的筹款标题" />
-			</div>
-			<div class="myCell">
-				<van-field label="故事"
+				<van-field label="原因"
 				  v-model="form.story" @blur="validate('story')"
 				  rows="2" required
 				  autosize clearable
 				  type="textarea"
 				  maxlength="500"
-				  placeholder="请填写发起筹款的理由或故事"
+				  placeholder="请填写发起求助的原因"
 				  show-word-limit
 				/>
 			</div>
-			<div class="myCell">
+			<!-- <div class="myCell">
 				<van-field label="需要帮扶券" required clearable @blur="validate('needTicket')" v-model="form.needTicket" type="number" placeholder="请填写您所需要的帮扶券" />
-			</div>
+			</div> -->
 			<div class="tip4model3 paddingAll myCell">
-				{{raiseTip}}
+				筹款数额现阶段统一为100个矿石
 			</div>
 			<!-- <div class="label">
 				<span class="star">*</span>
@@ -136,23 +133,25 @@
 			</div> -->
 			<div class="label">
 				<span class="star">*</span>
-				<span class="text">证明详情图(最多传3张)</span>
+				<span class="text">证明详情图</span>
 			</div>
 			<div class="uploadPic paddingWing">
 				<div class="margT10">
-					<van-uploader v-model="form.fileDetailList" multiple image-fit='cover' :max-count="3"  :before-read="beforeRead"/>
+					<van-uploader v-model="form.fileDetailList" multiple image-fit='cover' :max-count="4"  :before-read="beforeRead"/>
 				</div>
 				<div class="placeholderLine10"></div>
 			</div>
-			<!-- <div class="label">
-				<span class="star">*</span>
-				<span class="text">商家收款码(支付宝+微信)</span>
-			</div> -->
-			<!-- <div class="uploadPic paddingWing">
-				<div class="margT10">
-					<van-uploader v-model="form.filePaymentList" multiple image-fit='cover' :max-count="2"  :before-read="beforeRead"/>
-				</div>
-			</div> -->
+			<div class="tip4model3 paddingAll myCell">
+				申请说明:<br>
+				1.求助者必须是帮扶链会员。<br>
+				2.会员需注册实名并已完成基础任务2。<br>
+				3.会员直系亲属非会员（未满18周岁）可以由会员自行申请救助并提供一些相关证明材料进行审核。<br>
+				4.大病求助需提供近期医院出具的病情证明材料。<br>
+				5.需上传提交本人手持身份证附加当天日期照片。<br>
+				6.必须有一名会长作为担保人，同时上传担保人开具的担保申请书。<br>
+				7.申请所传照片：第一张为手持照，第二张为生活照，第三张为材料证明照，第四张为会长担保申请书照。
+				8.审核通过后，筹款时间为10天，10天后无论筹到多少都会被系统设置为筹款完结。
+			</div>
 			<div class="sureBtn">
 				<!-- <div class="tip">点击登录即表示您同意<span class="agreement">《服务协议》</span></div> -->
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="large" :loading="loading" @click="submit">提交</van-button>
@@ -259,7 +258,7 @@
 				})
 				let params = {
 					title:_this.form.title,
-					needTicket:_this.form.needTicket,
+					/* needTicket:_this.form.needTicket, */
 					story:_this.form.story,
 					pic:pic.join('|'),
 				}

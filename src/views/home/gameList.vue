@@ -74,11 +74,11 @@
 			</div>
 		</div>
 		<van-action-sheet v-model="isShow4Game" title="欢迎来到传奇世界">
-		  <div class="noticeDetail paddingWing">
+		  <div class="noticeDetail paddingWing" v-if="serverListResult[sLen-1]">
 			<div class="title">选区入口</div>
 			<div class="placeholderLine10"></div>
 			<span class="margR20" v-for="item in serverListResult" :key="item.id">
-				<van-tag type="warning" @click="toServerGameView(item)">服务{{item.id}}区({{item.busy<0.5?'空闲':item.busy>0.7?'繁忙':'繁忙'}})</van-tag>
+				<van-tag type="warning" @click="toServerGameView(item)">服务{{item.id}}区({{item.busy>0.7?'拥挤':item.busy<0.5?'空闲':'繁忙'}})</van-tag>
 			</span>
 		  </div>
 		  <div class="placeholderLine20"></div>
@@ -178,7 +178,8 @@
 				account:'',
 				num:'',
 				showSelectBox:false,
-				busy:''
+				busy:'',
+				sLen:''
 			}
 		},
 		watch:{
@@ -243,6 +244,7 @@
 			},
 			sureConvert(){
 				let _this = this;
+				_this.submitLoading = true;
 				let params = {
 					account: _this.account,//账号
 					id:_this.selectRadioValue,//区号
@@ -266,8 +268,17 @@
 							}).then(() => {
 							  // on close
 							  _this.showConvertBox = false;
+							  //let url = `http://www.helpchain.cn.com:8088/app.php?user=${_this.account}&spverify=&srvid=${item.id}&srvaddr=${item.ip}&srvport=${item.port}`;
+							  let item = {
+								  account: _this.account,//账号
+								  id:_this.selectRadioValue,//区号
+								  ip:_this.serverListResult[_this.selectRadioValue-1].ip,
+								  port:_this.serverListResult[_this.selectRadioValue-1].port,
+							  }
+							  _this.toServerGameView(item);
 							});
 						}
+						_this.submitLoading = false;
 						Toast.clear();
 					}else{
 						//_this.$toast(res.message);
@@ -279,6 +290,8 @@
 						  _this.showConvertBox = false;
 						});
 					}
+				},function(){
+					_this.submitLoading = false;
 				})
 			},
 			openChargeModelBtn(){
@@ -293,6 +306,7 @@
 			},
 			submit(){
 				let _this = this;
+				_this.submitLoading = true;
 				let params = {
 					svrid:_this.selectRadioValue,
 					username:_this.account,
@@ -310,6 +324,7 @@
 						if(res.data==1){
 							_this.$toast(res.message);
 							_this.showSelectBox = false;
+							_this.submitLoading = false;
 						}
 					}else{
 						//_this.$toast(res.message);
@@ -320,6 +335,8 @@
 						  // on close
 						});
 					}
+				},function(){
+					_this.submitLoading = false;
 				})
 			},
 			toServerGameView(item){
@@ -341,6 +358,7 @@
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
 						_this.serverList[i-1].busy = res.data;
+						_this.sLen = _this.serverList.length;
 						_this.serverListResult = _this.serverList;
 						_this.isShow4Game = true;
 						Toast.clear();
@@ -373,7 +391,7 @@
 								if (res.code == _this.$api.CODE_OK) {
 									_this.serverList = res.data;
 									for(let i=0;i<_this.serverList.length;i++){
-										_this.serverList[i].busy = 0.4;
+										_this.serverList[i].busy = 0.6;
 										_this.getServerLoadApi(i+1);
 									}
 								}else{

@@ -176,7 +176,7 @@
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header> -->
 		<div class="millContent">
-			<div class="tip4model3 tip">任何一种矿机被租赁完，所有类型的矿机就会集体调整</div>
+			<!-- <div class="tip4model3 tip">任何一种矿机被租赁完，所有类型的矿机就会集体调整</div> -->
 			<van-pull-refresh v-model="loading" @refresh="onLoadMillShop">
 				<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
 					<div class="millList">
@@ -191,13 +191,15 @@
 									<span class="millName">{{item.type | machineTypeType}}</span>
 									<span class="calcullatePower">算力 {{item.calculationPower}}GH/s</span>
 								</div>
-								<div class="line">租金 {{item.price}}矿石</div>
-								<div class="line">总产 {{item.totalOutput}}矿石</div>
-								<div class="line">运行总时长 {{item.allRuntime}}小时</div>
-								<div class="line">限租 {{item.limitBuy}}台</div>
+								<div class="line">租金 {{item.price}} 矿石</div>
+								<div class="line">总产 {{item.totalOutput}} 矿石</div>
+								<div class="line">日产 <b class="yellow">{{(parseFloat(item.totalOutput)/parseFloat(item.allRuntime)*24).toFixed(2)}}</b> 矿石</div>
+								<div class="line">增加流通值 <b class="yellow">{{item.type<10?(parseFloat(item.price)/2).toFixed(2):(parseFloat(item.price)).toFixed(2)}}</b></div>
+								<!-- <div class="line">运行总时长 {{item.allRuntime}}小时</div> -->
+								<div class="line">限租 {{item.limitBuy}} 台</div>
 							</div>
 							<div class="flex flex3">
-								<div class="line">库存{{item.inventory}}</div>
+								<!-- <div class="line" v-if="item.type>0">库存{{item.inventory}}</div> -->
 								<div class="line margT3">
 									<van-button round type="info" @click="buyMill(item)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
 								</div>
@@ -492,6 +494,7 @@
 					_this.$toast("安全密码不能为空");
 					return;
 				}
+				_this.buyMillLoading = true;
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
@@ -502,6 +505,8 @@
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.buyMillLoading = false;
 				})
 			},
 			onLoadMillShop() {

@@ -217,7 +217,7 @@
 			<van-notice-bar
 			  mode = "closeable"
 			  left-icon="volume-o"
-			  text="直推完成基础任务2奖励上级0.5个贡献值和2个流通值;30天没登录将会被系统回收2~12个矿石且需重新实名认证;"
+			  text="直推完成基础任务2奖励上级0.5个贡献值和2个流通值;30天没登录将会被系统回收2~12个矿石;"
 			/>
 			<div class="box box1">
 				<div class="flex flex1">
@@ -244,7 +244,7 @@
 					<div class="line">
 						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
 						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}
-							<span class="margL10">
+							<span class="margL10" v-if="isShowBuyProfit">
 								<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveBuyProfitLoading" @click="givePTRewardYesterday">买入奖励</van-button>
 							</span>
 						</div>
@@ -676,7 +676,8 @@
 				cityInfo:'',
 				dsPassword:'',
 				giveLevelDealProfitLoading:false,
-				giveBuyProfitLoading:false
+				giveBuyProfitLoading:false,
+				isShowBuyProfit:true
 			}
 		},
 		components: {
@@ -700,6 +701,9 @@
 		},
 		created() {
 			let _this = this;
+			if(_this.$utils.getDate(new Date())>'2020/11/02'){
+				_this.isShowBuyProfit = false;
+			}
 			/* let cv = 0;
 			let loveValue = 2000;
 			for(let i=0;i<180;i++){
@@ -1022,7 +1026,7 @@
 				}else if(val=='platformTicket'){
 					message = '帮扶券：可用于交易的时候当手续费(服务费)、可用于解冻、可用于消实名次数、可用于捐赠给平台上生活遇到困难的会员而获得爱心值，或者捐赠给少年儿童基金池来帮助更多的人，后续还会有其他用处......。获取途径：从自己上级或志愿者或省市代理那儿购买。';
 				}else if(val=='contribution'){
-					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：爱心值释放、推广、直推复投矿机。';
+					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：爱心值释放、推广、直推复投矿机、参与游戏。';
 				}else if(val=='teamCalculationPower'){
 					message = '团队算力：个人算力+近代下级的个人算力。它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
 				}else if(val=='myCalculationPower'){
@@ -1032,7 +1036,7 @@
 				}else if(val=='raise'){
 					message = '爱心值：就是您捐赠帮扶券的数量，满10个即可在首页每日释放爱心值';
 				}else if(val=='circulateValue'){
-					message = '流通值：可通过复投、推广、买入矿石获得，复投2:1增加，推广完成2个基础任务1:2增加，买入1:1增加，卖出1:2扣除。';
+					message = '流通值：可通过复投、推广、买入或参与游戏获得，复投1:1/2:1增加，推广会员完成2个基础任务1:2增加，买入1:1增加，卖出1:2扣除。';
 				}
 				Dialog.alert({
 				  title: '温馨提示',

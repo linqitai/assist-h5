@@ -504,7 +504,7 @@ $noticeHeight:40px;
 				<van-notice-bar
 				  mode = "closeable"
 				  left-icon="volume-o"
-				  text="直推完成基础任务2奖励上级0.5个贡献值和2个流通值;30天没登录将会被系统回收2~12个矿石且需重新实名认证;"
+				  text="有效直推:完成基础任务2后即可成为有效直推"
 				/>
 				<div class="swipe">
 					<!-- <van-swipe :autoplay="3000" style="height: 190px;" @change="onChange4Swipe">

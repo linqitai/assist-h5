@@ -58,7 +58,9 @@ export default {
 	isCreateAccount: host + "assist/userInfo/isCreateAccount",
 	serverList: host + "server/serverList",
 	chargeGold: host + "charge/chargeGold",
+	chargeGold4CV: host + "charge/chargeGold4CV",
 	gamePopOutVirculateValue: host + "assist/circulatevalue/gamePopOutVirculateValue",
+	gamePopOutContributionValue: host + "assist/contributionValue/gamePopOutContributionValue",
 	getServerLoadApi: host + "serverLoad/getServerLoadApi",
 	//gameRank
 	insertGameRankRecord: host + "assist/gamerank/insertGameRankRecord",
@@ -173,6 +175,7 @@ export default {
 	let48HMachinesStop: host + "assist/myMachine/let48HMachinesStop",
 	getAssistOtherMachine: host + "assist/myMachine/getAssistOtherMachine",
 	//账本
+	getTicketBookListByUserId: host + "assist/plateformTicketAccountBook/getTicketBookListByUserId",
 	getPTicketBookListByUserId: host + "assist/plateformTicketAccountBook/getPTicketBookListByUserId",
 	getCPowerListByUserId: host + "assist/calculationPower/getCPowerListByUserId",
 	getCalculationPowerPageList: host + "assist/calculationPower/getCalculationPowerPageList",

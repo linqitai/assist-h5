@@ -95,6 +95,11 @@ export default {
 					title:'帮扶链注册实名及基础操作流程',
 					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
 				},
+				{
+					time:'2020/10/07',
+					title:'帮扶链介绍·新手必看',
+					url:'http://note.youdao.com/noteshare?id=76632e4043500e811d3a38f2126eac85'
+				},
 			],			
 			userId:'',
 			loading1: false,

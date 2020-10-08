@@ -133,6 +133,16 @@
 			</div> -->
 			<div class="label">
 				<span class="star">*</span>
+				<span class="text">手持证件图</span>
+			</div>
+			<div class="uploadPic paddingWing">
+				<div class="margT10">
+					<van-uploader v-model="form.headPic" multiple image-fit='cover' :max-count="1"  :before-read="beforeRead"/>
+				</div>
+				<div class="placeholderLine10"></div>
+			</div>
+			<div class="label">
+				<span class="star">*</span>
 				<span class="text">证明详情图</span>
 			</div>
 			<div class="uploadPic paddingWing">
@@ -149,7 +159,7 @@
 				4.大病求助需提供近期医院出具的病情证明材料。<br>
 				5.需上传提交本人手持身份证附加当天日期照片。<br>
 				6.必须有一名会长作为担保人，同时上传担保人开具的担保申请书。<br>
-				7.申请所传照片：第一张为手持照，第二张为生活照，第三张为材料证明照，第四张为会长担保申请书照。
+				7.申请所传照片：第一张为手持照，第二张为生活照，第三张为材料证明照，第四张为会长担保申请书照。<br>
 				8.审核通过后，筹款时间为10天，10天后无论筹到多少都会被系统设置为筹款完结。
 			</div>
 			<div class="sureBtn">
@@ -171,6 +181,7 @@
 					title:'',
 					story:'',
 					needTicket:'',
+					headPic:[],
 					fileDetailList:[]
 				},
 				registerUrl:'',
@@ -252,6 +263,11 @@
 				let _this = this;
 				// _this.$toast(`即将开放`);
 				
+				let headPic=[];
+				_this.form.headPic.forEach((item,index)=>{
+					headPic.push(item.content);
+				})
+				
 				let pic=[];
 				_this.form.fileDetailList.forEach((item,index)=>{
 					pic.push(item.content);
@@ -260,9 +276,10 @@
 					title:_this.form.title,
 					/* needTicket:_this.form.needTicket, */
 					story:_this.form.story,
+					headPic:headPic[0],
 					pic:pic.join('|'),
 				}
-				//console.log('params',params);
+				console.log('params',params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast(`请填写完整信息`);
 				}else{

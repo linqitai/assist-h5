@@ -88,7 +88,7 @@
 				<van-tab title="筹款中" name="onLoad1">
 					<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="wordList">
-							<div class="item" v-for="item in list1" :key="item.id" @click="toRaise4OtherView(item.id)">
+							<div class="item" v-for="item in list1" :key="item.id" @click="toRaise4OtherView(item)">
 								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
 								<div class="itemLeft">
 									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
@@ -96,7 +96,7 @@
 									  width="100px"
 									  height="100px"
 									  fit="cover"
-									  :src="item.pic.split('|')[0]"
+									  :src="item.headPic||item.pic.split('|')[0]"
 									/>
 								</div>
 								<div class="itemRight">
@@ -124,7 +124,7 @@
 									  width="100px"
 									  height="100px"
 									  fit="cover"
-									  :src="item.pic.split('|')[0]"
+									  :src="item.headPic||item.pic.split('|')[0]"
 									/>
 								</div>
 								<div class="itemRight">
@@ -159,7 +159,7 @@
 				<van-tab title="投票中" name="onLoad7">
 					<van-list v-model="loading7" :finished="finished7" finished-text="没有更多了" @load="onLoad7">
 						<div class="wordList">
-							<div class="item" v-for="item in list7" :key="item.id" @click="toRaise4OtherView(item.id)">
+							<div class="item" v-for="item in list7" :key="item.id" @click="toRaise4OtherView(item)">
 								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
 								<div class="itemLeft">
 									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
@@ -167,7 +167,7 @@
 									  width="100px"
 									  height="100px"
 									  fit="cover"
-									  :src="item.pic.split('|')[0]"
+									  :src="item.headPic||item.pic.split('|')[0]"
 									/>
 								</div>
 								<div class="itemRight">
@@ -208,13 +208,11 @@
 						</div>
 					</van-list>
 				</van-tab> -->
-				<van-tab title="待审核" name="onLoad4">
+				<!-- <van-tab title="待审核" name="onLoad4">
 					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
 						<div class="wordList">
 							<div class="item" v-for="item in list4" :key="item.id">
-								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
 								<div class="itemLeft">
-									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
 									<van-image
 									  width="100px"
 									  height="100px"
@@ -225,7 +223,6 @@
 								<div class="itemRight">
 									<div class="title">
 										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
-										<!-- <i class="iconfont iconfont-right-arrow2 f-11"></i> -->
 									</div>
 									<div class="remark margT10">{{item.title}}</div>
 									<div class="margT6 grayc7c7c7">{{item.createTime}}</div>
@@ -235,11 +232,11 @@
 							</div>
 						</div>
 					</van-list>
-				</van-tab>
+				</van-tab> -->
 				<van-tab title="筹款完结" name="onLoad5">
 					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
 						<div class="wordList">
-							<div class="item" v-for="item in list5" :key="item.id" @click="toRaise4OtherView(item.id)">
+							<div class="item" v-for="item in list5" :key="item.id" @click="toRaise4OtherView(item)">
 								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
 								<div class="itemLeft">
 									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
@@ -247,7 +244,7 @@
 									  width="100px"
 									  height="100px"
 									  fit="cover"
-									  :src="item.pic.split('|')[0]"
+									  :src="item.headPic||item.pic.split('|')[0]"
 									/>
 								</div>
 								<div class="itemRight">
@@ -257,8 +254,10 @@
 									</div>
 									<div class="remark margT10">{{item.title}}</div>
 									<div class="time margT6">{{item.createTime}}</div>
-									<div class="time margT6">总筹矿石：{{item.needMineral}}</div>
-									<div class="time margT6">已筹矿石：{{item.getedMineral}}</div>
+									<div class="time margT6" v-if="item.getedMineral>0">总筹矿石：{{item.needMineral}}</div>
+									<div class="time margT6" v-if="item.getedMineral>0">已筹矿石：{{item.getedMineral}}</div>
+									<div class="time margT6" v-if="item.getedTicket>0">总筹帮扶券：{{item.needTicket}}</div>
+									<div class="time margT6" v-if="item.getedTicket>0">已筹帮扶券：{{item.getedTicket}}</div>
 								</div>
 							</div>
 						</div>
@@ -266,6 +265,9 @@
 				</van-tab>
 			</van-tabs>
 		</van-pull-refresh>
+		<transition name="van-fade">
+		  <router-view></router-view>
+		</transition>
 	</div>
 </template>
 
@@ -344,16 +346,16 @@
 				_this.$router.replace('login');
 				return;
 			}
-			if (_this.$cookies.isKey("tab_raise_list")) {
+			/* if (_this.$cookies.isKey("tab_raise_list")) {
 				_this.activeName = _this.$cookies.get("tab_raise_list");
 			}else{
 				_this.activeName = "onLoad1";
-			}
+			} */
 			//_this.getAssistComplainListPage();
 		},
 		methods: {
 			back(){
-				this.$router.go(-1);
+				this.$router.push('/my');
 			},
 			getColor(status) {
 				return status == "0" ? "" : status == "1" ? "green_text" : "";
@@ -415,9 +417,11 @@
 					} */
 				});
 			},
-			toRaise4OtherView(id){
+			toRaise4OtherView(item){
 				let _this = this;
-				_this.$router.push({path:"raise4Other",query:{id:id}})
+				/* let itemStr = JSON.stringify(item);
+				console.log("itemStr",itemStr); */
+				_this.$router.push({path:"raise4Other",query:{id:item.id}})
 			},
 			onLoad1() {
 				let _this = this;

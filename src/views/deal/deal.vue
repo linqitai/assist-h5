@@ -361,11 +361,11 @@
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="boxLeft">
 									<div class="">数量 {{item.minNumber}}~{{item.maxNumber}} 个{{$api.coinUnit}}</div>
-									<div class="margT10">单价 {{(parseFloat(item.price)/7).toFixed(3)}}$/{{item.price}}￥</div>
+									<div class="margT10">单价 {{(parseFloat(item.price)/7).toFixed(3)}}$ / {{item.price}}￥</div>
 								</div>
 								<div class="boxRight">
-									<div>合计 {{(totalPrice(item.price,item.maxNumber)/7).toFixed(3)}}$/{{totalPrice(item.price,item.maxNumber)}}￥</div>
-									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="primary" size="mini" loading-type="spinner">卖 TA</van-button></div>
+									<div>合计 {{(totalPrice(item.price,item.maxNumber)/7).toFixed(3)}}$ / {{totalPrice(item.price,item.maxNumber)}}￥</div>
+									<div class="margT3"><van-button @click="showPickSellModelBtn(item)" type="primary" size="mini" loading-type="spinner">卖 出</van-button></div>
 								</div>
 							</div>
 						</div>
@@ -399,7 +399,7 @@
 						<div class="placeholderLine"></div>
 					</div>
 				</van-tab>
-				<van-tab title="卖单" name="dealArea3">
+				<!-- <van-tab title="卖单" name="dealArea3">
 					<div class="dealContent">
 						<div class="dealList">
 							<div class="line1pxbgcolor"></div>
@@ -433,7 +433,7 @@
 						<div class="placeholderLine"></div>
 						<div class="placeholderLine"></div>
 					</div>
-				</van-tab>
+				</van-tab> -->
 			</van-tabs>	
 		</van-pull-refresh>
 		
@@ -463,7 +463,7 @@
 			  </div>
 			  <!-- <van-field v-model="form4pickSellBill.sellAmountSliderValue" readonly clearable label="数量"/> -->
 			  <van-field v-model="form4pickSellBill.price" readonly clearable label="单价(￥)"/>
-			  <van-field readonly required clickable label="选择手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true"/>
+			  <van-field readonly required clickable label="选择手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true" right-icon="arrow-down"/>
 			  <van-popup v-model="showPicker4ServiceChargePopup" position="bottom">
 			    <van-picker
 			      show-toolbar

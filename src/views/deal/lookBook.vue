@@ -575,9 +575,12 @@
 					userId: _this.userId,
 					offset: _this.offset4,
 					pagesize: _this.pageSize,
+					type: _this.type,
+					pageno:_this.currentPage4
 				}
 				_this.loading4 = true;
-				_this.$ajax.ajax(_this.$api.getPTicketBookListByUserId, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getTicketBookListByUserId, 'GET', params, function(res) {
+					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data;
 						if(list==null||list.length==0){
@@ -600,8 +603,8 @@
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.loading4 = false;
 					_this.loading = false;
+					_this.loading4 = false;
 				})
 			},
 			onLoad5(){

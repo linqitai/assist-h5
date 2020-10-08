@@ -345,7 +345,7 @@
 			  驳回原因：{{list1.remark}}
 			</van-notice-bar>
 			<van-notice-bar mode="link" @click="toView(list1.id)">
-			  查看捐赠记录。
+			  查看捐赠记录
 			</van-notice-bar>
 			<div class="raiseHeader borderBottom">
 				<div class="iconTextBox">
@@ -377,7 +377,7 @@
 							<div class="text">已筹帮扶券</div>
 						</div>
 						<div class="flexC flex1" v-if="list1.needMineral>0">
-							<div class="digit">{{list1.needMineral}}</div>
+							<div class="digit">{{list1.needMineral}}+</div>
 							<div class="text">总筹矿石</div>
 						</div>
 						<div class="flexC flex3" v-if="list1.needMineral>0" @click="toView(list1.id)">
@@ -395,7 +395,7 @@
 						<!-- <div class="flexLeft">
 							<i class="iconfont iconfont-ticket ticket"></i>
 						</div> -->
-						<div class="flexCenter f-10 letterSpacing">求助者所筹到的是矿石，这矿石是直接筹到求助者账户里，然后所筹到的矿石无论是复投还是卖出，由求助者自行安排。审核通过后，筹款时间为10天，10天后无论筹到多少都会被系统设置为筹款完结</div>
+						<div class="flexCenter f-10 letterSpacing">提前声明：求助者所筹到的是矿石，这矿石是直接筹到求助者账户里，然后所筹到的矿石无论是复投还是卖出，由求助者自行安排。审核通过后，筹款时间为10天，10天后无论筹到多少都会被系统设置为筹款完结。</div>
 						<!-- <div class="flexRight"><i class="iconfont iconfont-i" @click="messageAlert"></i></div> -->
 					</div>
 				</div>
@@ -580,7 +580,7 @@
 
 <script>
 	import mHeader from '@/components/Header.vue';
-	import { Dialog,ImagePreview } from 'vant';
+	import { Dialog,ImagePreview,Toast } from 'vant';
 	import clip from '@/assets/js/clipboard';
 	export default {
 		data() {
@@ -1004,6 +1004,11 @@
 					id:_this.$route.query.id
 				}
 				_this.loading1 = true;
+				Toast.loading({
+				  message: '加载中...',
+				  forbidClick: true,
+				  loadingType: 'spinner'
+				});
 				_this.$ajax.ajax(_this.$api.getAssistRaise, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.list1 = res.data;
@@ -1023,11 +1028,10 @@
 									images.push(item);
 								}
 							}
-							
 							_this.images=images;
 							//_this.images = _this.list1.pic.split('|');
-							_this.getAssistRaiseRecordListPage();
-							_this.getRaiseMineralNum(_this.list1.id);
+							//_this.getAssistRaiseRecordListPage();
+							//_this.getRaiseMineralNum(_this.list1.id);
 						}else{
 							_this.list1 = '';
 						}
@@ -1036,6 +1040,7 @@
 					}
 				},function(){
 					_this.loading1 = false;
+					Toast.clear();
 				})
 			},
 			onLoadRecordsList() {

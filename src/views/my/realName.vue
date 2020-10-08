@@ -186,12 +186,12 @@
 	<div class="realName">
 		<div class="tip4model4Green">
 			<b class="textBold">温馨提示：</b>
-			<div class="textJustify">
+			<div class="textJustify lineHeight">
 				尊敬的原始矿工实名前请认真阅读以下规则：<br>
 				【1】实名认证年龄范围为18~70周岁，若超过70周岁，需找首页的客服额外申请。<br>
 				【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
 				【3】平台为保证交易的顺利进行，<b class="red">【真实姓名要和支付宝、微信中的实名信息一致，且支付宝和微信都要设置照片头像】</b>，交易的时候若遇到实名信息不一致的问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
-				【4】请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。<br>
+				<span class="red">【4】支付宝默认为注册手机号，您的支付宝若没绑定该手机号,请先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。</span><br>
 				<!-- 【5】请矿工们预先在微信的【我--设置--账号与安全】中绑定手机号，该手机号务必是注册帮扶链的手机号。否则交易的时候买家若无法通过手机号向你转账的，客服介入调查属实后会取消交易。<br> -->
 				<span class="red">【5】微信号默认为注册手机号，您的微信若没绑定该手机号，请先在微信的【我--设置--账号与安全】中绑定，且在[设置--隐私--添加我的方式]里打开用手机号搜索到我的功能；若没绑定或搜索不到，实名审核不会通过。</span><br>
 				【6】矿工点对点交易，所有资金不经过平台，无私募、无认筹、无充值提现端口。<br>
@@ -206,9 +206,9 @@
 		<!-- <van-field v-model="form.telPhone" required clearable label="手机号" right-icon="question-o" :placeholder="errorHint.telPhone" maxlength="11"
 		@click-right-icon="$toast(errorHint.telPhone)"
 		@blur="validate('telPhone')"
-		:error-message="errorInfo.telPhone"/> -->
-		<van-field v-model="form.wechartNum" :required="form.actived==2?true:false" :disabled="form.actived==2?false:true" clearable label="微信号" maxlength="20" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
-		<van-field v-model="form.alipayNum" required clearable label="支付宝" maxlength="24" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
+		:error-message="errorInfo.telPhone"/> :required="form.actived==2?true:false" :disabled="form.actived==2?false:true"-->
+		<van-field v-model="form.wechartNum" readonly clearable label="微信号" maxlength="20" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
+		<van-field v-model="form.alipayNum" readonly clearable label="支付宝" maxlength="24" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
 		<!-- <van-field v-model="form.bankCard" required clearable label="银行卡号" right-icon="question-o" :placeholder="errorHint.bankCard"
 		@click-right-icon="$toast(errorHint.bankCard)"
 		@blur="validate('bankCard')"
@@ -424,9 +424,10 @@ export default {
 			_this.userInfo = JSON.parse(userInfo);
 			_this.mobilePhone = _this.userInfo.mobilePhone;
 			_this.form.wechartNum = _this.userInfo.mobilePhone;
+			_this.form.alipayNum = _this.userInfo.mobilePhone;
 			/* _this.mobilePhone = _this.$JsEncrypt.decrypt(_this.userInfo.mobilePhone); */
 			/* _this.form.wechartNum = _this.userInfo.mobilePhone;
-			_this.form.alipayNum = _this.userInfo.mobilePhone; */
+			 */
 			//console.log(_this.mobilePhone,_this.form.wechartNum,_this.form.alipayNum);
 			if(_this.userInfo.actived==2){
 				_this.form = _this.userInfo;

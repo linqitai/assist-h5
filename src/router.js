@@ -523,6 +523,12 @@ export default new Router({
 			component: resolve => require(['./views/raise/raiseApplyList'],resolve)
 		},
 		{
+			path: '/raise4Other',
+			name: 'raise4Other',
+			component: resolve => require(['./views/raise/raise4Other'],resolve),
+			meta:{footer:true,keepAlive:true},
+		},
+		{
 			path: '/myRaiseList',
 			name: '我的帮扶筹申请列表',
 			component: resolve => require(['./views/raise/myRaiseList'],resolve)
@@ -555,12 +561,6 @@ export default new Router({
 			name: '购买矿机记录表',
 			component: resolve => require(['./views/mill/millRecord'],resolve),
 			meta:{footer:false,keepAlive:true}
-		},
-		{
-			path: '/raise4Other',
-			name: 'raise4Other',
-			component: resolve => require(['./views/raise/raise4Other'],resolve),
-			meta:{footer:true,keepAlive:true},
 		},
 		{
 			path: '/raiseRecord',

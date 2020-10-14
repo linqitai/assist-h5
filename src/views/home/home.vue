@@ -885,6 +885,8 @@ $noticeHeight:40px;
 				_this.account = localStorage.getItem('mobilePhone');
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('token');
 				_this.$router.replace('/login');
 				return;
 			}
@@ -902,6 +904,7 @@ $noticeHeight:40px;
 				localStorage.removeItem('_USERINFO_');
 				//_this.$cookies.remove('token');
 				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$cookies.remove('token');
 				_this.$router.replace('/login');
 				/* return; */
 			}

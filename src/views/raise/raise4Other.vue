@@ -16,7 +16,6 @@
 			padding: 0 $boxPadding2;
 			box-sizing: border-box;
 			align-items: center;
-			background: linear-gradient(left top, #ffae00 , #ffae00) !important;
 			height: 30px;
 			line-height: 30px;
 			.leftBox{
@@ -37,7 +36,6 @@
 					font-size: 0.75rem;
 				}
 				&.icon{
-					color: linear-gradient(left right, #ffae00 , #ffae00);
 					font-size: 11px;
 				}
 			}
@@ -51,7 +49,6 @@
 				flex: 0 0 20px;
 				font-size: 20px;
 				color: red;
-				color: linear-gradient(left right, #ffae00 , #e10000) !important;
 			}
 			.iconText{
 				flex: 1;
@@ -177,18 +174,6 @@
 					margin-right: 3px;
 					margin-top: 3px;
 				}
-				/* img{
-					flex: 0 0 100px;
-					width: 100px;
-					height: 100px;
-					padding: 3px;
-					&::last-child{
-						padding-right: 0;
-					}
-					&::first-child{
-						padding-left: 0;
-					}
-				} */
 			}
 		}
 		.materialProve{
@@ -317,12 +302,11 @@
 			position: fixed;
 			bottom: 0px;
 			right: 0px;
-			background: linear-gradient(to right, #ffae00 , #ff8400);
+			background-color: $main-adorn-color;
 			color: $main-box-fh-text-color;
 			width:100%;
 			height:50px;
 			line-height:50px;
-			/* border-radius:$fixed-btn-width2; */
 			text-align: center;
 			z-index:2001;
 			font-size: 14px;
@@ -470,29 +454,6 @@
 						
 						</div>
 					</div>
-					<!-- <div class="proverList">
-						<div class="flex">
-							<div class="flexMedial proveLabel">已有<span>38</span>人证明情况属实</div>
-							<div class="iDo">我也来证明</div>
-						</div>
-						<div class="flex">
-							<div class="flexMedial">
-								<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-							</div>
-							<div class="flexMedial">
-								<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-							</div>
-							<div class="flexMedial">
-								<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-							</div>
-							<div class="flexMedial">
-								<van-image round width="50" height="50" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg"/>
-							</div>
-							<div class="flexProveMore">
-								<i class="iconfont-right-arrow iconfont"></i>
-							</div>
-						</div>
-					</div> -->
 					<div class="placeholderLine20"></div>
 					<div class="placeholderLine20"></div>
 					<div class="placeholderLine20"></div>
@@ -651,7 +612,6 @@
 			back(){
 				let _this = this;
 				_this.$router.go(-1);
-				//_this.$router.push("/raise")
 			},
 			toView(id){
 				let _this = this;
@@ -673,7 +633,7 @@
 			tabChange(name,title){
 				let _this = this;
 				//console.log(name,title);
-				this.$cookies.set("tabName4Record", name, 60 * 60 * 1)
+				this.$cookies.set("tabName4Record", name, 60 * 60 * 1);
 				if(name == 'raiseRecord1'){
 					_this.getAssistRaiseRecordListPage();
 				}else if(name == 'raiseRecord2'){
@@ -750,7 +710,6 @@
 				  word: _this.word4Mineral||'加油',
 				  type: 0
 				}
-				console.log("params",params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');
 					return;
@@ -764,7 +723,6 @@
 					return;
 				}
 				_this.getNumberLoading = true;
-				//console.log("p",params)
 				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast("捐赠成功");
@@ -772,14 +730,12 @@
 						_this.word4Mineral = '';
 						_this.number4Mineral = '';
 						_this.getAssistRaiseRecordListPage4();
-						//_this.getAssistRaiseRecordListPage();
 					}else{
 						Dialog.alert({
 							title: "系统提示",
 							message: res.message
 						}).then(() => {
 						  // on confirm
-						  //_this.getCurrentAuction();
 						})
 					}
 				},function(){
@@ -791,17 +747,6 @@
 				_this.num = num;
 				_this.showPasswordBoxDialog = true;
 				_this.textTip = "帮扶券";
-				/* Dialog.confirm({
-				  title: '系统提示',
-				  confirmButtonText:'确认',
-				  closeOnClickOverlay:true,
-				  message: `您是否要捐赠${num}个给求助者？`
-				}).then(() => {
-				  // on confirm
-				  //_this.$toast(`即将开放`);
-				  _this.addTicketRequest();
-				}) */
-				
 			},
 			sureRaiseEvent(){
 				let _this = this;
@@ -846,7 +791,6 @@
 				_this.getNumberLoading = true;
 				_this.$ajax.ajax(_this.$api.insertAssistRaiseRecord, 'POST', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						//_this.$toast("捐赠成功");
 						_this.showRaiseModel = false;
 						_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 						if(_this.textTip=="矿石"){
@@ -863,7 +807,6 @@
 							message: "捐赠成功"
 						}).then(() => {
 						  // on confirm
-						  //_this.getCurrentAuction();
 						})
 					}else{
 						Dialog.alert({
@@ -871,7 +814,6 @@
 							message: res.message
 						}).then(() => {
 						  // on confirm
-						  //_this.getCurrentAuction();
 						})
 					}
 				},function(){
@@ -907,14 +849,12 @@
 						_this.word = '';
 						_this.number = '';
 						_this.getAssistRaise();
-						//_this.getAssistRaiseRecordListPage();
 					}else{
 						Dialog.alert({
 							title: "系统提示",
 							message: res.message
 						}).then(() => {
 						  // on confirm
-						  //_this.getCurrentAuction();
 						})
 					}
 				},function(){
@@ -936,7 +876,6 @@
 			},
 			getAssistRaiseRecordListPage(){
 				let _this = this;
-				
 				let params = {
 					pageNo: _this.currentPage2,
 					pageSize: _this.pageSize2,
@@ -958,7 +897,6 @@
 			},
 			getAssistRaiseRecordListPage4(){
 				let _this = this;
-				
 				let params = {
 					pageNo: _this.currentPage4,
 					pageSize: _this.pageSize4,
@@ -1029,9 +967,6 @@
 								}
 							}
 							_this.images=images;
-							//_this.images = _this.list1.pic.split('|');
-							//_this.getAssistRaiseRecordListPage();
-							//_this.getRaiseMineralNum(_this.list1.id);
 						}else{
 							_this.list1 = '';
 						}
@@ -1043,18 +978,8 @@
 					Toast.clear();
 				})
 			},
-			onLoadRecordsList() {
-				let _this = this;
-				// 异步更新数据
-				setTimeout(() => {
-					// 加载状态结束
-					_this.loadingRecordsList = false;
-					_this.finishedRecordsList = true;
-				}, 500);
-			},
 			imagePreviewEvent(index){
 				this.showImagePreview = true;
-				console.log("index",index);
 				this.imageIndex = index;
 			},
 			onChangeImageIndex(index) {

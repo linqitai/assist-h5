@@ -33,7 +33,7 @@ export default {
 	cookiesTime8h: 60 * 60 * 8,
 	cookiesTime24h: 60 * 60 * 24,
 	cookiesTime72h: 60 * 60 * 72,
-	loginAgainTipText:"需重新登录",
+	loginAgainTipText:"请安全退出后再重新登录",
 	CODE_OK: 200, //正常请求
 	CODE_4003: 4003, //未实名认证
 	CODE_ERROR: 500, //未实名认证

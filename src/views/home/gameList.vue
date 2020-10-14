@@ -505,6 +505,7 @@
 				//_this.account="1234567";
 				let url = `http://www.helpchain.cn.com:8088/app.php?user=${_this.account}&spverify=&srvid=${item.id}&srvaddr=${item.ip}&srvport=${item.port}`;
 				window.open(url);
+				//window.open(url,'_self') 
 			},
 			game2Btn(){
 				let _this = this;

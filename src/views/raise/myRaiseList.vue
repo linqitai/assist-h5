@@ -9,7 +9,6 @@
 		@include pageHaveHeight4Scroll();
 		.wordList{
 			background-color: $main-box-color;
-			//margin-top:$header-height;
 			.item{
 				display:flex;
 				padding:$boxPadding2 $boxPadding2;
@@ -17,9 +16,6 @@
 				align-content: center;
 				align-items: center;
 				justify-content: center;
-				// &:last-child{
-				// 	border-bottom: 1px solid transparent;
-				// }
 				.itemRight{
 					flex: 1;
 					padding-left: 10px;
@@ -37,7 +33,6 @@
 					.time{
 						font-size: 0.875rem;
 						color: $grayDarker;
-						// margin-top: 0.5rem;
 					}
 					.iconfont-right-arrow{
 						font-size: 10px !important;
@@ -45,12 +40,8 @@
 				}
 				.itemLeft{
 					flex: 0 0 100px;
-					/* height: $itemLRHeight;
-					line-height: $itemLRHeight; */
 					color: $grayLight2;
 					.statusText{
-						// height: $itemLRHeight;
-						// line-height: $itemLRHeight;
 						font-size: 0.75rem;
 						display: inline-block;
 						color: $main-adorn-color;

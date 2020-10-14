@@ -12,12 +12,6 @@ export default {
     name: 'app',
 	created() {
 		let _this = this;
-		/* let device = this.$utils.isIphoneOrAndroid();
-		console.log('device',device);
-		if(device=='pc'){
-			_this.$router.push('tip');
-		} */
-		//防止微信中所设置的字体大小影响到了WEB
 		if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
 			_this.handleFontSize();
 		} else {
@@ -30,22 +24,8 @@ export default {
 				});
 			}, false);
 		}
-		//_this.getDealPageInfo();
-		//强制让内容超过   
-		//$('#app').css("height",window.innerHeight+100);   
-		//window.scrollTo(0, 1);   
-		//重置成新高度   
-		//$("#app").css("height",window.innerHeight);   
-		//非常重要，用于兼容不同机型，防止浏览器窗口移动   
-		//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-		// console.log('this.$refs.app.style.height',this.$refs.app.style.height)
-		// console.log('window.innerHeight',window.innerHeight)
-		// this.$refs.app.style.height = window.innerHeight+100;
-		/* this.$utils.isIphoneOrAndroid(); */
 	},
 	mounted(){
-		// console.log('this.$refs.app.style.height',this.$refs.app.style.color)
-		// console.log('app height',$('#app').css("height")); 
 	},
 	methods:{
 		handleFontSize() {
@@ -64,10 +44,6 @@ export default {
 					let dealPageInfo = res.data;
 					let currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 					let serviceCharge = `${dealPageInfo.dealRatio*100}%矿石`;
-					/* _this.columns4ServiceCharge = [{id:0,text:_this.serviceCharge},{id:1,text:'10%矿石+10%帮扶券'}];
-					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice); */
-					/* _this.$cookies.remove('haveDealPageInfo');
-					_this.$cookies.set("haveDealPageInfo",1, 60 * 30 * 1); */
 					localStorage.setItem("dealPageInfo",JSON.stringify(dealPageInfo))
 				}else{
 					_this.$toast(res.message);

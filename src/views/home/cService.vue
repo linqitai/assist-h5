@@ -70,7 +70,7 @@
 				</div>
 			</div> -->
 			<div class="placeholderLine10"></div>
-			<div class="title">矿工工会群：</div>
+			<div class="title">微信群：</div>
 			<div class="placeholderLine10"></div>
 			<div class="cateInfo">
 				<div class="infoBox">

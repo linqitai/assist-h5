@@ -62,6 +62,14 @@ export default {
 						message: XMLHttpRequest.responseJSON.message
 					}).then(() => {
 						if(XMLHttpRequest.responseJSON.message=='登录已过期，请重新登录'){
+							localStorage.removeItem('_USERINFO_');
+							VueCookies.remove('userId');
+							VueCookies.remove('token');
+							VueCookies.remove('isRefreshDealInfo');
+							VueCookies.remove('statistics');
+							VueCookies.remove('haveDealPageInfo');
+							VueCookies.remove('hasNoticeList4Swipe');
+							VueCookies.remove('token');
 							router.replace('/login');
 						}
 					});

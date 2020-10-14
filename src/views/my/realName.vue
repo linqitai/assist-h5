@@ -191,9 +191,9 @@
 				【1】实名认证年龄范围为18~70周岁，若超过70周岁，需找首页的客服额外申请。<br>
 				【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
 				【3】平台为保证交易的顺利进行，<b class="red">【真实姓名要和支付宝、微信中的实名信息一致，且支付宝和微信都要设置照片头像】</b>，交易的时候若遇到实名信息不一致的问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
-				<span class="red">【4】支付宝默认为注册手机号，您的支付宝若没绑定该手机号,请先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。</span><br>
+				<span class="red">【4】<i class="blue">支付宝</i>默认为注册手机号，您的支付宝若没绑定该手机号,请先在微信的【我的--设置--安全设置】中绑定，且在【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。</span><br>
 				<!-- 【5】请矿工们预先在微信的【我--设置--账号与安全】中绑定手机号，该手机号务必是注册帮扶链的手机号。否则交易的时候买家若无法通过手机号向你转账的，客服介入调查属实后会取消交易。<br> -->
-				<span class="red">【5】微信号默认为注册手机号，您的微信若没绑定该手机号，请先在微信的【我--设置--账号与安全】中绑定，且在[设置--隐私--添加我的方式]里打开用手机号搜索到我的功能；若没绑定或搜索不到，实名审核不会通过。</span><br>
+				<span class="red">【5】<i class="blue">微信号</i>默认为注册手机号，您的微信若没绑定该手机号，请先在微信的【我--设置--账号与安全】中绑定，且在[设置--隐私--添加我的方式]里打开用手机号搜索到我的功能；若没绑定或搜索不到，实名审核不会通过。</span><br>
 				【6】矿工点对点交易，所有资金不经过平台，无私募、无认筹、无充值提现端口。<br>
 			</div>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
@@ -260,18 +260,21 @@
 			<span class="label">身份证正面照片</span>
 			<span class="text" @click="showExamplePic">点我查看详细模板</span>
 			<span class="value">
-				<i class="iconfont iconfont-upload-pic"></i>
-				<input accept="image/*;capture=camera" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)"/>
+				<van-uploader v-model="pic1" image-fit='cover' :max-count="1" :before-read="beforeRead" :after-read = "afterRead"/>
 			</span>
 		</div>
-		<div class="line" v-if="!form.idCardPic">
+		<!-- <div class="line" v-if="!form.idCardPic">
 			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 			<img style="width: 100%;" :src="$api.domainName + '/image/idt.jpg'">
 		</div>
-		<div class="line">
-			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
-			<img class="selectedImg" :src="form.idCardPic"/>
-		</div>
+		 <div class="line">
+		 	<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
+		 	<img class="selectedImg" :src="form.idCardPic"/>
+		 </div>
+		 -->
+		 <div class="line" v-if="form.idCardPic">
+		 	<img class="selectedImg" :src="form.idCardPic"/>
+		 </div>
 		<van-field v-model="form.securityPassword" required clearable label="设置安全密码" type="password" :placeholder="errorHint.securityPassword" maxlength="20" @blur="validate('securityPassword')" :error-message="errorInfo.securityPassword"/>
 		<van-field v-model="form.securityPassword2" required clearable label="确认安全密码"  type="password" :placeholder="errorHint.securityPassword2" maxlength="20" @blur="validate('securityPassword2')" :error-message="errorInfo.securityPassword2"/>
 		<div class="line tip4modelRedText">
@@ -362,8 +365,9 @@ export default {
 				bankCard:"",
 				idCard:"",
 				idCardSure:"",
-				idCardPic:"",
+				idCardPic:[],
 			},
+			pic1:[],
 			pic2:'',
 			errorHint:{
 				nickName:"",
@@ -449,6 +453,29 @@ export default {
 			let _this = this;
 			_this.isWeixin = _this.$utils.isWeixin();
 		},
+		beforeRead(file) {
+			let _this = this;
+			console.log("fileSize:",file.size);
+			if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+				_this.$toast('请上传 jpg/png 格式图片');
+				return false;
+			}
+			if (file.size/1024/1024>1) {
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '所上传图片大小超过了1M(1024KB)，请先裁剪压缩后再上传(微信转发后再保存，用保存后的照片再上传试试)'
+				}).then(() => {
+				  // on close
+				});
+				return false;
+			}
+			return true;
+		},
+		afterRead(file){
+			let _this = this;
+			//console.log("file:",file);
+			_this.form.idCardPic = file.content;
+		},
 		/* bsTip(){
 			let _this = this;
 			let isWeixin = _this.$utils.isWeixin();
@@ -465,10 +492,10 @@ export default {
 			let _this = this;
 			_this.$ajax.ajax(_this.$api.getAssistUserInfoPicByUserId, 'GET', null, function(res){
 				if(res.code == _this.$api.CODE_OK){
-					_this.form.idCardPic = res.data.idCardPic;
-					_this.pic2 = res.data.gesturePic;
+					//_this.pic2 = res.data.gesturePic;
+					//_this.pic1 = res.data.idCardPic.split('|');
 					_this.form = res.data;
-					//console.log("form",_this.form);
+					//console.log("pic1",_this.pic1);
 				}
 			})
 		},
@@ -703,6 +730,10 @@ export default {
 					tip = '实名次数已用完';
 				} 
 			}*/
+			let pic=[];
+			_this.pic1.forEach((item,index)=>{
+				pic.push(item.content);
+			})
 			let params = {
 				id:_this.userInfo.id,
 				nickName:_this.form.nickName,
@@ -714,7 +745,7 @@ export default {
 				/* gesturePic:_this.pic2, */
 				securityPassword:_this.form.securityPassword,
 			}
-			// //console.log('params',params)
+			console.log('params',params)
 			if(_this.$utils.hasNull(params)){
 				_this.$toast('系统提示：请填写完整信息');
 				return;

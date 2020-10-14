@@ -329,7 +329,7 @@
 	  <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 	  	<div class="paddingWing f-12 lineHeight tip4model2">
 	  		<div class="textIndent">
-	  			奖励(赠送)型的矿机不加算力，从矿机商城中所租赁的矿机才加算力。请广大会员们在24~48小时内领取一次收益，否则矿机会被临时暂停，需要重新启动后再过24小时来领取收益，感谢您的配合。
+	  			奖励(赠送)型的矿机不加算力，从矿机商城中所租赁的矿机才加算力。请广大会员们在24~168小时内领取一次收益，否则矿机会被临时暂停，需要重新启动后再过24小时来领取收益，感谢您的配合。
 	  		</div>
 	  	</div>
 	  </van-dialog>

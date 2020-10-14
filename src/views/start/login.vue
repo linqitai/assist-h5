@@ -31,9 +31,10 @@
 			.van-cell{
 				color: $mainTextColor !important;
 				padding: 10px 0 !important;
-				&::last-child{
+				border-bottom: 1px solid $main-adorn-color !important;
+				/* &::last-child{
 					border-bottom: 1px solid #BABABA !important;
-				}
+				} */
 			}
 			.van-cell__value,.van-cell__value--alone,.van-field__control{
 				color: $mainTextColor !important;
@@ -140,11 +141,18 @@
 			</van-cell-group>
 		</div>
 		<div class="sureBox paddingWing">
+			
 			<div class="tip">点击登录即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span><span class="forget" @click="forget">忘记密码？</span></div>
+			<div class="read">
+				 <van-checkbox v-model="isRemember" @change="isRememberChange" icon-size="18px" shape="square" checked-color="#07c160">记住密码</van-checkbox>
+			</div>
+			<div class="placeholderLine6"></div>
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" :loading="isLoading" @click="loginBtn" loading-type="spinner">登  录</van-button>
-		
 			<div class="placeholderLine10"></div>
-			<van-button color="linear-gradient(to right, #e7e7e7, #c5c5c5)" size="normal" :block="true" @click="registerBtn" loading-type="spinner">去注册</van-button>
+			<van-button type="primary" size="normal" :block="true" @click="toAppView" loading-type="spinner">下载APP</van-button>
+			
+			<div class="placeholderLine10"></div>
+			<van-button color="linear-gradient(to right, #e7e7e7, #c5c5c5)" size="normal" :block="true" @click="registerBtn" loading-type="spinner">注册</van-button>
 			<div class="placeholderLine10"></div>
 			<!-- <div class="tip4model3">
 				Tip：您若已经参与了内排注册，登录密码初始化为所注册的手机号。
@@ -179,12 +187,13 @@
 	export default {
 		data() {
 			return {
+				isRemember:false,
 				images: [
 					this.$api.domainName + '/image/banner/banner0058.jpg'
 				],
 				welcomeText:"",
 				isNo:false,
-				securityCode:'love',
+				securityCode:'刷新',
 				form:{
 					phone:'',
 					password:'',
@@ -213,18 +222,22 @@
 		},
 		mounted() {
 			let _this = this;
-			localStorage.removeItem('_USERINFO_');
-			_this.$cookies.remove("statistics");
+			/* localStorage.removeItem('_USERINFO_');
+			_this.$cookies.remove("statistics"); */
 			_this.form.phone = localStorage.getItem("mobilePhone") || '';
 			// console.log(_this.form.phone,'_this.form.phone')
 			_this.welcomeText = _this.$api.welcomeText;
 			_this.helpList = _this.$config.helpList;
-			
+			//是否记住密码
+			if(localStorage.getItem('password')){
+				_this.form.password = localStorage.getItem('password');
+				_this.isRemember = true;
+			}
 			//_this.$cookies.remove('_USERINFO_')
 			
-			/* if(_this.$cookies.get('token')){
-				_this.$router.push("home");
-			} */
+			if(_this.$cookies.get('token')){
+				_this.$router.replace("home");
+			}
 			//_this.bsTip();
 			//_this.getAssistMaintainInfo();
 		},
@@ -241,7 +254,7 @@
 			},
 			registerBtn(){
 				let _this = this;
-				_this.$router.replace('/register');
+				_this.$router.push('/register');
 			},
 			judgeMoreAccount(){
 				let _this = this;
@@ -258,6 +271,11 @@
 						return;
 					}
 				}
+			},
+			toAppView(){
+				let _this = this;
+				
+				_this.$router.replace('/downLoadApp');
 			},
 			forget(){
 				let _this = this;
@@ -395,6 +413,10 @@
 					//_this.$router.replace('login');
 				})
 			},
+			isRememberChange(val){
+				let _this = this;
+				_this.isRemember = val;
+			},
 			loginBtn(){
 				let _this = this;
 				let params = {
@@ -418,7 +440,7 @@
 				}
 				
 				if(_this.$utils.hasNull(params)){
-					_this.$toast('系统提示:请填写完成信息');
+					_this.$toast('系统提示:请填写完整信息');
 					return;
 				}
 				if(_this.$utils.hasVal(_this.errorHint)){
@@ -436,11 +458,16 @@
 						_this.$cookies.remove('userId');
 						_this.$cookies.set("userId", _this.userInfo.userId);
 						_this.$cookies.remove('token');
-						_this.$cookies.set('token',res.data.token);
+						_this.$cookies.set('token',res.data.token,_this.$api.cookiesTime72h);
 						_this.$cookies.remove('hasNoticeList4Swipe');
 						//登录后手机号缓存到本地，每次登录免得继续输入手机号，提高用户体验
 						localStorage.setItem('_USERINFO_',JSON.stringify(_this.userInfo));
 						localStorage.setItem('mobilePhone',_this.userInfo.mobilePhone);
+						if(_this.isRemember){
+							localStorage.setItem('password',_this.form.password.replace(/ /g,""));
+						}else{
+							localStorage.removeItem('password');
+						}
 						if(_this.userInfo.accountStatus == 1){
 							_this.getUserFreezeInfo();
 						}else{

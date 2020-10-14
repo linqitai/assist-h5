@@ -588,7 +588,7 @@
 				  @select="onSelectMin"
 				  @cancel="onCancelMin"
 				/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="指导单价(￥)" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" type="number" required clearable label="买入单价(￥)" placeholder="请填写单价"
 				:error-message="errorInfo4BuyBill.price"/>
 				<!-- <div class="paddingWing tip4model3RedText margT3">当前买单的单价区间为：{{buyMinPrice}}~{{buyMaxPrice}}￥</div> -->
 				<!-- <div class="inLine">
@@ -961,6 +961,8 @@ export default {
 				}
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('token');
 				_this.$router.replace('login');
 				return;
 			}
@@ -992,12 +994,15 @@ export default {
 				}
 				_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'},{id:3,text:'20%矿石+交易总金额的10%帮扶券'},{id:0,text:`${parseFloat(_this.dealPageInfo.dealRatio)*100}%矿石`}];
 				//_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice)/2;
-				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentMaxPrice);
+				_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.maxPrice);
 				/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
 				_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
 				_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写${_this.minBuyAmount}~${_this.dealPageInfo.minBuyBillNum}之间`;
 				_this.buyLowestAmountText = `最低匹配数量请填写${_this.minBuyAmount}~${_this.dealPageInfo.minBuyBillNum}之间`;
 			}else{
+				_this.getDealPageInfo();
+			}
+			if(!_this.newbiePagesize){
 				_this.getDealPageInfo();
 			}
 			//给人买卖信息，次缓存来自我的页面
@@ -1247,7 +1252,7 @@ export default {
 					}
 					_this.columns4ServiceCharge = [{id:1,text:'10%矿石+交易总金额的10%帮扶券'},{id:3,text:'20%矿石+交易总金额的10%帮扶券'},{id:0,text:`${parseFloat(_this.dealPageInfo.dealRatio)*100}%矿石`}];
 					//_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentMaxPrice)/2;
-					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentMaxPrice);
+					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.maxPrice);
 					/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
 					_this.buyLowestAmountText = `最低匹配数量请填写1~500之间`; */
 					_this.clickIconTip.buyLowestAmount = `最低匹配数量请填写${_this.minBuyAmount}~${_this.dealPageInfo.minBuyBillNum}之间`;

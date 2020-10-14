@@ -507,10 +507,6 @@ export default {
 				if(res.code == _this.$api.CODE_OK){
 					_this.$toast(res.message);
 					localStorage.removeItem('_USERINFO_');
-					// localStorage.clear();//若不允许多账号登录，请把这个给去掉
-					// console.log("_this.$cookies.keys()",_this.$cookies.keys());
-					// _this.$cookies.remove('_USERINFO_');
-					// _this.$cookies.remove('buyAndSellInfo');
 					_this.$cookies.remove('userId');
 					_this.$cookies.remove('token');
 					_this.$cookies.remove('isRefreshDealInfo');

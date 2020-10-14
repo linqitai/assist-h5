@@ -106,7 +106,7 @@
 									</div>
 									<div class="remark margT10">{{item.title}}</div>
 									<div class="margT6 grayc7c7c7">{{item.createTime}} <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i></div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
+									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}} +</div>
 									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
 								</div>
 							</div>
@@ -134,7 +134,7 @@
 									</div>
 									<div class="remark margT10">{{item.title}}</div>
 									<div class="margT6 grayc7c7c7">{{item.createTime}}</div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
+									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}} +</div>
 									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
 								</div>
 							</div>
@@ -176,7 +176,7 @@
 									</div>
 									<div class="remark margT10">{{item.title}}</div>
 									<div class="margT6 grayc7c7c7">{{item.createTime}} <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i></div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
+									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}} +</div>
 									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
 								</div>
 							</div>
@@ -254,9 +254,9 @@
 									</div>
 									<div class="remark margT10">{{item.title}}</div>
 									<div class="time margT6">{{item.createTime}}</div>
-									<div class="time margT6" v-if="item.getedMineral>0">总筹矿石：{{item.needMineral}}</div>
+									<div class="time margT6" v-if="item.getedMineral>0">总筹矿石：{{item.needMineral}} +</div>
 									<div class="time margT6" v-if="item.getedMineral>0">已筹矿石：{{item.getedMineral}}</div>
-									<div class="time margT6" v-if="item.getedTicket>0">总筹帮扶券：{{item.needTicket}}</div>
+									<div class="time margT6" v-if="item.getedTicket>0">总筹帮扶券：{{item.needTicket}} +</div>
 									<div class="time margT6" v-if="item.getedTicket>0">已筹帮扶券：{{item.getedTicket}}</div>
 								</div>
 							</div>
@@ -343,6 +343,13 @@
 			_this.userId = _this.$cookies.get('userId');
 			if(_this.$utils.isNUll(_this.userId)){
 				_this.$toast(_this.$api.loginAgainTipText);
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.remove('statistics');
+				_this.$cookies.remove('haveDealPageInfo');
+				_this.$cookies.remove('hasNoticeList4Swipe');
 				_this.$router.replace('login');
 				return;
 			}

@@ -17,6 +17,11 @@ export default new Router({
 	base: process.env.BASE_URL,
 	routes: [
 		{
+			path: '/downLoadApp',
+			name: 'downLoadApp',
+			component: resolve => require(['./views/start/downLoadApp'],resolve)
+		},
+		{
 			path: '/gameCharge',
 			name: '游戏充值',
 			component: resolve => require(['./views/start/gameCharge'],resolve)
@@ -138,14 +143,7 @@ export default new Router({
 					path: '/raise',
 					name: '帮扶筹',
 					component: resolve => require(['./views/raise/raise'],resolve),
-					meta:{footer:true,keepAlive:true},
-					/* children:[
-						{
-							path: '/raiseApply',
-							name: '帮扶筹申请',
-							component: resolve => require(['./views/raise/raiseApply'],resolve)
-						},
-					] */
+					meta:{footer:true,keepAlive:true}
 				},
 				{
 					path: '/mill',

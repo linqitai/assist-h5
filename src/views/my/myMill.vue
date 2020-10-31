@@ -205,12 +205,11 @@
 			<van-notice-bar
 			  mode = "closeable"
 			  left-icon="volume-o"
-			  text="若遇到网址打不开的情况，请切换一个网址或者切换一下网络试试，若还是不行，就耐心等会儿再试"
+			  text="每次矿机收益需要在24~168小时之间领取"
 			/>
 			<div class="statistics" v-if="remainCount">
 				<div class="line clearBoth flexCenter f-14">
-					<div class="left title">智能统计小助手</div>
-					<div class="right">待产出矿石 ≈ {{(parseFloat(remainCount)).toFixed(3)}}个</div>
+					<div class="right">待产出矿石 ≈ {{(parseFloat(remainCount)).toFixed(3)}} 个</div>
 				</div>
 			</div>
 			<!-- <div class="statistics">
@@ -236,7 +235,7 @@
 							 我的矿机 {{myMillList.length}}
 						</div>
 						<div class="getMineral" v-if="isShowOneReciept">
-							<div class="tip4model3 textCenter">每次矿机收益需要在24~168小时之间领取</div>
+							<!-- <div class="tip4model3 textCenter">每次矿机收益需要在24~168小时之间领取</div> -->
 							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
 						</div>
 						<van-list v-model="loadingMyMill" :finished="finished1" :finished-text="finishedMyMillText" @load="onLoadMyMill">
@@ -254,14 +253,15 @@
 											<div class="inline calcullatePower">算力 {{item.calculationPower}}GH/s</div>
 											<!-- <div class="inline f-12 status">{{item.status | machineStatus}}</div> -->
 										</div>
-										<div class="line" v-if="item.turnOnTime">{{item.turnOnTime}} 启动</div>
+										<div class="line" v-if="item.turnOnTime">{{item.turnOnTime.substring(0,19)}} 启动</div>
 										<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 到期</div>
-										<div class="line">租金 {{item.price}}矿石</div>
-										<div class="line">总产 {{item.totalOutput}}矿石</div>
-										<div class="line">已产 {{item.alreadyGet}}矿石</div>
-										<div class="line">总运行时长 {{item.allRuntime}}小时</div>
+										<div class="line">租金 <b class="yellow">{{item.price}}</b> 个矿石</div>
+										<div class="line">总产 <b class="yellow">{{item.totalOutput}}</b> 个矿石</div>
+										<div class="line">已产 <b class="yellow">{{item.alreadyGet}}</b> 个矿石</div>
+										<div class="line">日产 <b class="yellow">{{(parseFloat(item.totalOutput)/parseFloat(item.allRuntime)*24).toFixed(2)}}</b> 个矿石</div>
+										<!-- <div class="line">总运行时长 {{item.allRuntime}}小时</div> -->
 										<!-- <div class="line" v-if="item.turnOnTime">开机 {{item.turnOnTime}}</div> -->
-										<div class="line" v-if="item.alreadyGet">上次领取 {{item.beforeReceipt || '--'}}</div>
+										<div class="line" v-if="item.alreadyGet">上次操作矿机时间 {{item.beforeReceipt.substring(0,19) || '--'}}</div>
 										<!-- <div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
 										<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div> -->
 									</div>
@@ -399,6 +399,9 @@
 				_this.userInfo = JSON.parse(userInfo);
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('token');
+				_this.$cookies.remove('userId');
 				_this.$router.replace('login');
 				return;
 			}

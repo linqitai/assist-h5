@@ -213,6 +213,9 @@
 			_this.userId = _this.$cookies.get('userId');
 			if(_this.$utils.isNUll(_this.userId)){
 				_this.$toast(_this.$api.loginAgainTipText);
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('token');
+				_this.$cookies.remove('userId');
 				_this.$router.replace('login');
 			}
 		},

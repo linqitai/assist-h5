@@ -177,7 +177,7 @@
 		</m-header> -->
 		<div class="millContent">
 			<!-- <div class="tip4model3 tip">任何一种矿机被租赁完，所有类型的矿机就会集体调整</div> -->
-			<van-pull-refresh v-model="loading" @refresh="onLoadMillShop">
+			<van-pull-refresh v-model="loading" @refresh="refresh">
 				<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
 					<div class="millList">
 						<div class="item" v-for="item in millShopList" :key="item.id">
@@ -196,7 +196,7 @@
 								<div class="line">日产 <b class="yellow">{{(parseFloat(item.totalOutput)/parseFloat(item.allRuntime)*24).toFixed(2)}}</b> 矿石</div>
 								<div class="line">增加流通值 <b class="yellow">{{item.type<10?(parseFloat(item.price)/2).toFixed(2):(parseFloat(item.price)).toFixed(2)}}</b></div>
 								<!-- <div class="line">运行总时长 {{item.allRuntime}}小时</div> -->
-								<div class="line">限租 {{item.limitBuy}} 台</div>
+								<div class="line">租赁上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
 							</div>
 							<div class="flex flex3">
 								<!-- <div class="line" v-if="item.type>0">库存{{item.inventory}}</div> -->
@@ -263,8 +263,7 @@
 	// import HelloWorld from '@/components/HelloWorld.vue'
 	// import { ajax } from "@/api/ajax";
 	import mHeader from '@/components/Header.vue';
-	import { Dialog } from 'vant';
-	import { Toast } from 'vant';
+	import { Dialog,Toast } from 'vant';
 	export default {
 		data() {
 			return {
@@ -304,7 +303,8 @@
 				receiptModelTile:"领取结果计算中",
 				isShowConfirmButton:false,
 				price:'',
-				machineId:''
+				machineId:'',
+				myMill:''
 			}
 		},
 		components: {
@@ -323,21 +323,12 @@
 				_this.$toast(_this.$api.loginAgainTipText);
 				localStorage.removeItem('_USERINFO_');
 				_this.$cookies.remove('token');
+				_this.$cookies.remove('userId');
 				_this.$router.replace('login');
 				return;
 			}
+			_this.onLoadMyMill();
 			
-			if(_this.$cookies.get('HMSI')){
-				let millShopList = JSON.parse(localStorage.getItem('millShopList'));
-				if(millShopList){
-					_this.millShopList = millShopList;
-					_this.finishedMillShop = true;
-				}else{
-					_this.onLoadMillShop();
-				}
-			}else{
-				_this.onLoadMillShop();
-			}
 		},
 		methods: {
 			back() {
@@ -403,6 +394,82 @@
 						_this.errorHint.securityCode = _this.$reg.securityCodeHint;
 					}
 				}
+			},
+			refresh(){
+				//console.log("onLoadMyMill");
+				let _this = this;
+				/* let params = {
+					status:machineId
+				} */
+				Toast.loading({
+				  message: '加载中...',
+				  forbidClick: true,
+				  loadingType: 'spinner'
+				});
+				_this.$ajax.ajax(_this.$api.getAssistMyMachineByStatus01, 'GET', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						let myMill = res.data;
+						_this.myMill = myMill;
+						_this.onLoadMillShop();
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					Toast.clear();
+				})
+			},
+			onLoadMyMill() {
+				let _this = this;
+				/* let params = {
+					status:machineId
+				} */
+				Toast.loading({
+				  message: '租赁中...',
+				  forbidClick: true,
+				  loadingType: 'spinner'
+				});
+				_this.$ajax.ajax(_this.$api.getAssistMyMachineByStatus01, 'GET', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						let myMill = res.data;
+						_this.myMill = myMill;
+						//console.log("myMill",myMill);
+						/* _this.myMillList.forEach((item,index)=>{
+							remainCount = remainCount + (item.totalOutput - (item.alreadyGet||0));
+						}) */
+						if(_this.$cookies.get('HMSI')){
+							let millShopList = JSON.parse(localStorage.getItem('millShopList'));
+							if(millShopList){
+								
+								_this.finishedMillShop = true;
+								let type1,type2;
+								for(let i=0;i<millShopList.length;i++){
+									 millShopList[i].haveMill = 0;
+								}
+								for(let i=0;i<millShopList.length;i++){
+									type1 = millShopList[i].type;
+									for(let j=0;j<myMill.length;j++){
+										if(myMill[j].tag==0){
+											type2 = myMill[j].type;
+											if(type1==type2){
+												millShopList[i].haveMill = millShopList[i].haveMill+1;
+											}
+										}
+									}
+								}
+								_this.millShopList = millShopList;
+								//console.log("_this.millShopList",_this.millShopList);
+							}else{
+								_this.onLoadMillShop();
+							}
+						}else{
+							_this.onLoadMillShop();
+						}
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					Toast.clear();
+				})
 			},
 			buyMill(item){
 				let _this = this;
@@ -471,7 +538,7 @@
 						}).then(() => {
 						  // on close
 						  if(res.data==1){
-							  _this.onLoadMillShop();
+							  //_this.onLoadMillShop();
 							  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime8h);
 							  _this.$router.push('myMill');
 						  }
@@ -522,10 +589,29 @@
 				_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
 					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
-						let list = res.data;
-						localStorage.setItem("millShopList",JSON.stringify(list));
+						let millShopList = res.data;
+						let myMill = _this.myMill;
+						//console.log("_this.myMill",_this.myMill);
+						localStorage.setItem("millShopList",JSON.stringify(millShopList));
 						_this.$cookies.set("HMSI",1,_this.$api.cookiesTime8h);
-						_this.millShopList = list;
+						
+						let type1,type2;
+						for(let i=0;i<millShopList.length;i++){
+							 millShopList[i].haveMill = 0;
+						}
+						for(let i=0;i<millShopList.length;i++){
+							type1 = millShopList[i].type;
+							for(let j=0;j<myMill.length;j++){
+								if(myMill[j].tag==0){
+									type2 = myMill[j].type;
+									if(type1==type2){
+										millShopList[i].haveMill = millShopList[i].haveMill+1;
+									}
+								}
+							}
+						}
+						_this.millShopList = millShopList;
+						//console.log("_this.millShopList",_this.millShopList);
 					}else{
 						//_this.$toast(res.message);
 						Dialog.alert({

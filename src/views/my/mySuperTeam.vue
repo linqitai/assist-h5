@@ -185,7 +185,7 @@
 										<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
 										<div class="line2" v-if="item.wechartNum"><i class="iconfont iconfont-weichat"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 实名时间 {{item.registerTime}}</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册/实名时间 {{item.registerTime}}</div>
 										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
 									</div> 
 									<!-- <div class="flex flex3">
@@ -193,31 +193,6 @@
 										<div class="line3">战友数{{item.teamateNum}}个</div>
 									</div> -->
 									<div class="flex flex4" v-if="item.teamateNum>0" @click="toTeamView(item.userId,item.realnameNum)">
-										<i class="iconfont iconfont-right-arrow2"></i>
-									</div>
-								</div>
-							</div>
-						</van-list>
-					</van-tab>
-					<van-tab :title="validText" name="validNum">
-						<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
-							<div class="list">
-								<div class="item" v-for="item in list4" :key="item.id">
-									<div class="flex flex1">
-										<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
-									</div>
-									<div class="flex flex2">
-										<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
-										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
-										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 实名时间 {{item.registerTime}}</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
-									</div>
-									<!-- <div class="flex flex3">
-										<div class="line2">{{item.level | getUserType}}</div>
-										<div class="line3">战友数{{item.teamateNum}}个</div>
-									</div> -->
-									<div class="flex flex4" v-if="item.validNum>0"  @click="toTeamView(item.userId,item.validNum)">
 										<i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
@@ -235,7 +210,7 @@
 										<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
 										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 实名时间 {{item.registerTime}}</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册/实名时间 {{item.registerTime}}</div>
 										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
 									</div>
 									<!-- <div class="flex flex3">
@@ -243,6 +218,31 @@
 										<div class="line3">战友数{{item.teamateNum}}个</div>
 									</div> -->
 									<div class="flex flex4" v-if="item.teamateNum>0"  @click="toTeamView(item.userId,item.realnameNum)">
+										<i class="iconfont iconfont-right-arrow2"></i>
+									</div>
+								</div>
+							</div>
+						</van-list>
+					</van-tab>
+					<van-tab :title="validText" name="validNum">
+						<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
+							<div class="list">
+								<div class="item" v-for="item in list4" :key="item.id">
+									<div class="flex flex1">
+										<div class="name">{{$JsCrypto.myDecode1(item.realName) | getLastName}}</div>
+									</div>
+									<div class="flex flex2">
+										<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
+										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
+										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册/实名时间 {{item.registerTime}}</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
+									</div>
+									<!-- <div class="flex flex3">
+										<div class="line2">{{item.level | getUserType}}</div>
+										<div class="line3">战友数{{item.teamateNum}}个</div>
+									</div> -->
+									<div class="flex flex4" v-if="item.validNum>0"  @click="toTeamView(item.userId,item.validNum)">
 										<i class="iconfont iconfont-right-arrow2"></i>
 									</div>
 								</div>
@@ -260,7 +260,7 @@
 										<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
 										<div class="line2" v-if="item.wechartNum"><i class="iconfont iconfont-weichat"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 实名时间 {{item.registerTime}}</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册/实名时间 {{item.registerTime}}</div>
 										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
 									</div> 
 									<!-- <div class="flex flex3">
@@ -289,7 +289,7 @@
 				currentPage3: 1,
 				currentPage4: 1,
 				pageSize: 20,
-				activeName: 'validNum',
+				activeName: 'myShare',
 				loading1: false,
 				finished1: false,
 				loading2: false,

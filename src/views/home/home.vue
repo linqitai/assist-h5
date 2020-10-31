@@ -504,7 +504,7 @@ $noticeHeight:40px;
 				<van-notice-bar
 				  mode = "closeable"
 				  left-icon="volume-o"
-				  text="有效直推:完成基础任务2后即可成为有效直推"
+				  text="有效直推:完成基础任务2后即可成为有效直推(有效会员)"
 				/>
 				<div class="swipe">
 					<!-- <van-swipe :autoplay="3000" style="height: 190px;" @change="onChange4Swipe">
@@ -886,6 +886,7 @@ $noticeHeight:40px;
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
 				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
 				_this.$cookies.remove('token');
 				_this.$router.replace('/login');
 				return;
@@ -904,6 +905,7 @@ $noticeHeight:40px;
 				localStorage.removeItem('_USERINFO_');
 				//_this.$cookies.remove('token');
 				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$cookies.remove('userId');
 				_this.$cookies.remove('token');
 				_this.$router.replace('/login');
 				/* return; */
@@ -937,7 +939,9 @@ $noticeHeight:40px;
 				  _this.getNoticeList();
 				}, 1000)
 			}
-			_this.initEmail();
+			if(_this.$utils.isNUll(_this.userInfo.email)){
+				_this.initEmail();
+			}
 			//轮播图存获取
 			/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
 				//console.log('hasNoticeList4Swipe');

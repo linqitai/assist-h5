@@ -167,7 +167,7 @@
 	<m-header>
 	<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 	<div class="text">
-		2048竞技区(不计时模式)
+		2048竞技区(倒计时模式)
 	</div>
 	<i class="rightBox icon iconfont iconfont-rank" @click="rank"></i>
 	</m-header>
@@ -181,15 +181,17 @@
 		<span class="score">总分：{{score}}</span>
 		<!-- <van-button round type="primary" @click="init" size="normal">开始新的游戏</van-button>
 		<van-button round type="warning" @click="end" size="normal"结算总分</van-button> -->
-		<button class="bg_green" @click="init">开始挑战</button>
+		<button class="bg_green" @click="start">开始挑战</button>
 		<button class="bg_yellow" @click="end">保存总分</button>
 	  </div>
 	  <div class="f-12" v-if="useTicket">当前所参与玩家共使用帮扶券：{{useTicket}}</div>
-	  <div class="placeholderLine10"></div>
-	  <div>
-		  <van-button size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveProfitLoading" @click="giveYesterdayProfit">领取昨日排行榜分红</van-button>
+	  <div class="textLeft">
+		  <van-count-down ref="countDown" millisecond :time="time" :auto-start="false" format="HH:mm:ss:SS" @finish="timeEndEvent"/>
 	  </div>
 	  <div class="placeholderLine10"></div>
+	  <div>
+	  		  <van-button size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveProfitLoading" @click="giveYesterdayProfit">领取昨日排行榜分红</van-button>
+	  </div>
 	</div>
 	<div class="layout">
 		<div class="all-container">
@@ -262,6 +264,7 @@
 	  },
     data() {
       return {
+		time: 10*60*1000,
 		showRankBox:false,
         msg:'',
         score:0,
@@ -286,12 +289,12 @@
 		currentPage:1,
 		pageSize:10,
 		userInfo:'',
-		serveId: 1,
+		serveId: 2,
 		useTicket:0,
 		giveProfitLoading:false,
 		yesterdayRankList:'',
 		myRank:0
-      }
+      };
     },
     mounted() {
 		let _this = this;
@@ -364,6 +367,26 @@
 		back(){
 			this.$router.go(-1);
 		},
+		timeEndEvent(){
+			let _this = this;
+			console.log("endTime");
+			_this.end();
+		},
+		getHMSTime(value){
+			let _this = this;
+			return value.split(' ')[1];
+			//return _this.$utils.getTimeHMS(value);
+		},
+		giveYesterdayProfit(){
+			let _this = this;
+			Dialog.confirm({
+			  title: '确认信息',
+			  confirmButtonText:'确定',
+			  message: '是否确定要领取分红？'
+			}).then(() => {
+				_this.givePT1SIURewardYesterday();
+			});
+		},
 		getGameUseTicket(){
 			let _this = this;
 			//获取游戏排名
@@ -375,7 +398,7 @@
 			var params = {
 				intervalDay: 0,
 				serveId: _this.serveId,
-				type:22
+				type:24
 			}
 			_this.$ajax.ajax(_this.$api.getGameUseTicket, 'GET', params, function(res) {
 				// //console.log('res', res);
@@ -387,54 +410,6 @@
 			},function(){
 				Toast.clear();
 			})
-		},
-		getHMSTime(value){
-			let _this = this;
-			return value.split(' ')[1];
-			//return _this.$utils.getTimeHMS(value);
-		},
-		givePT1SIURewardYesterday(){
-			let _this = this;
-			//获取游戏排名
-			Toast.loading({
-			  message: '加载中...',
-			  forbidClick: true,
-			  loadingType: 'spinner'
-			});
-			let params = {
-				serveId:1
-			}
-			_this.$ajax.ajax(_this.$api.givePT1SIURewardYesterday, 'POST', params, function(res) {
-				// //console.log('res', res);
-				if (res.code == _this.$api.CODE_OK) {
-					Dialog.alert({
-					  title: '系统提示',
-					  message: `您昨日排名为第${res.data.rank}名,分红总量为${parseFloat(res.data.num).toFixed(2)}个帮扶券,个人所得${parseFloat(res.data.getTicket).toFixed(2)}个帮扶券`
-					}).then(() => {
-					  // on close
-					});
-				}else{
-					//_this.$toast(res.message);
-					Dialog.alert({
-					  title: '系统提示',
-					  message: res.message
-					}).then(() => {
-					  // on close
-					});
-				}
-			},function(){
-				Toast.clear();
-			})
-		},
-		giveYesterdayProfit(){
-			let _this = this;
-			Dialog.confirm({
-			  title: '确认信息',
-			  confirmButtonText:'确定',
-			  message: '是否确定要领取分红？'
-			}).then(() => {
-				_this.givePT1SIURewardYesterday();
-			});
 		},
 		rank(){
 			let _this = this;
@@ -475,8 +450,41 @@
           return `${(e?e.x:0) * 120}px, ${(e?e.y:0) * 120}px`
         }
       },
+	  givePT1SIURewardYesterday(){
+	  	let _this = this;
+	  	//获取游戏排名
+	  	Toast.loading({
+	  	  message: '加载中...',
+	  	  forbidClick: true,
+	  	  loadingType: 'spinner'
+	  	});
+		let params = {
+			serveId:2
+		}
+	  	_this.$ajax.ajax(_this.$api.givePT1SIURewardYesterday, 'POST', params, function(res) {
+	  		// //console.log('res', res);
+	  		if (res.code == _this.$api.CODE_OK) {
+	  			Dialog.alert({
+	  			  title: '系统提示',
+	  			  message: `您昨日排名为第${res.data.rank}名,分红总量为${parseFloat(res.data.num).toFixed(2)}个帮扶券,个人所得${parseFloat(res.data.getTicket).toFixed(2)}个帮扶券`
+	  			}).then(() => {
+	  			  // on close
+	  			});
+	  		}else{
+	  			//_this.$toast(res.message);
+	  			Dialog.alert({
+	  			  title: '系统提示',
+	  			  message: res.message
+	  			}).then(() => {
+	  			  // on close
+	  			});
+	  		}
+	  	},function(){
+	  		Toast.clear();
+	  	})
+	  },
       //初始化所有记录块
-      init(){
+      start(){
 		  let _this = this;
 		  Dialog.confirm({
 		    title: '确认信息',
@@ -490,13 +498,15 @@
 			  loadingType: 'spinner'
 			});
 			let params = {
-				serveId:1
+				serveId:2
 			}
 			_this.$ajax.ajax(_this.$api.addTicketRecord42048Start, 'POST', params, function(res) {
 				// //console.log('res', res);
 				if (res.code == _this.$api.CODE_OK) {
 					if(res.data==1){
 						_this.score = 0;
+						_this.$refs.countDown.reset();
+						_this.$refs.countDown.start();
 						_this.initRocks();
 					}
 				}else{
@@ -518,7 +528,7 @@
 		  let params = {
 			/* userInfo:_this.userInfo.userId, */
 		  	gameName: "1024",
-			serveId: _this.serveId,
+			serveId: 2,
 		  	score:_this.score
 		  }
 		  Toast.loading({
@@ -530,12 +540,14 @@
 		  	// //console.log('res', res);
 		  	if (res.code == _this.$api.CODE_OK) {
 		  		if(res.data==1){
+					_this.$refs.countDown.pause();
 					//_this.$toast("保存成功");
 					Dialog.alert({
 					  title: '系统提示',
 					  message: res.message
 					}).then(() => {
 					  // on close
+					  _this.back();
 					});
 					//_this.init();
 				}
@@ -546,6 +558,7 @@
 				  message: res.message
 				}).then(() => {
 				  // on close
+				  _this.back();
 				});
 		  	}
 		  },function(){

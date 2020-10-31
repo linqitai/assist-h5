@@ -572,7 +572,7 @@
 				  :actions="actions"
 				  cancel-text="取消"
 				  close-on-click-action
-				  description="请选择挂买数量(最多可挂6单)"
+				  description="请选择挂买数量(最多可挂2单)"
 				  @select="onSelect"
 				  @cancel="onCancel"
 				/>
@@ -606,9 +606,9 @@
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
 					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
-					<div class="tip4model3">系统提示：平价区的匹配机制为随机匹配，每天新挂的单子更有机会被匹配，若被匹配后，有2小时的交易时间，买家锁定交易后，可继续往后延长2小时的交易时间。（同时，交易过程中若遇到问题，随时都可以点诉讼反馈问题按钮，若是特殊情况，最好主动联系客服让客服介入调查或协调）</div>
+					<div class="tip4model3">系统提示：平价区的匹配机制为随机匹配，被匹配后有2小时的交易时间，买家锁定交易后，可继续往后延长2小时的交易时间。（同时，交易过程中若遇到问题，随时都可以点诉讼反馈问题按钮，若是特殊情况，最好主动联系客服让客服介入调查或协调）</div>
 					<div class="placeholderLine10"></div>
-					<div class="tip4model3RedText">买单匹配后务必要完成交易，否则会被系统回收一定数量的贡献值或矿石;贡献值为负数无法进行交易、租赁和启动矿机</div>
+					<div class="tip4model3RedText">买单匹配后务必要完成交易，否则很可能会被系统回收一定数量的贡献值或矿石;贡献值若为负数无法进行交易、租赁和启动矿机。</div>
 					<div class="placeholderLine10"></div>
 				    <van-button @click="sureHangBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Buy" :block="true">确 认</van-button>
 				</div>
@@ -963,6 +963,7 @@ export default {
 				_this.$toast(_this.$api.loginAgainTipText);
 				localStorage.removeItem('_USERINFO_');
 				_this.$cookies.remove('token');
+				_this.$cookies.remove('userId');
 				_this.$router.replace('login');
 				return;
 			}
@@ -1125,6 +1126,7 @@ export default {
 				_this.currentPage2 = 1;
 				_this.list2 = [];
 				_this.finished2 = false;
+				console.log("refreshEvent dealArea2");
 				_this.getListAddPrice();
 			}else if(_this.tabActiveName == 'dealArea3'){
 				//console.log("refresh2");
@@ -1157,6 +1159,7 @@ export default {
 					_this.pages = parseInt(_this.$cookies.get('pages'));
 					//console.log('_this.totalItems2',_this.totalItems2);
 				}else{
+					console.log("tabChange dealArea2");
 					_this.getListAddPrice();
 				}
 			}else if(name == 'dealArea1'){
@@ -1417,19 +1420,28 @@ export default {
 			}
 			//console.log('tabActiveName==dealArea2');
 			//console.log(_this.tabActiveName == "dealArea2")
-			if(_this.tabActiveName == "dealArea2"){
+			if(_this.tabActiveName == "dealArea2" || localStorage.getItem("LIST2")){
 				if(_this.$cookies.isKey("totalItems2")){
 					_this.totalItems2 = parseInt(_this.$cookies.get("totalItems2"));
+					_this.list2 = JSON.parse(localStorage.getItem("LIST2"))|| [];
+					_this.loading = false;
 				}else{
+					console.log(" initializeTabActiveName dealArea2");
 					_this.getListAddPrice();
 				}
-				if(localStorage.getItem("LIST2")){
+				/* if(_this.$cookies.isKey("totalItems2")){
+					_this.totalItems2 = parseInt(_this.$cookies.get("totalItems2"));
+				}else{
+					console.log("initializeTabActiveName dealArea2");
+					_this.getListAddPrice();
+				} */
+				/* if(localStorage.getItem("LIST2")){
 					_this.list2 = JSON.parse(localStorage.getItem("LIST2"))|| [];
-					_this.list1 = JSON.parse(localStorage.getItem("LIST1"))|| [];
+					//_this.list1 = JSON.parse(localStorage.getItem("LIST1"))|| [];
 					_this.loading = false;
 				}else{
 					_this.getListAddPrice();
-				}
+				} */
 			}else if(_this.tabActiveName == "dealArea1"){
 				if(_this.$cookies.isKey("totalItems1")){
 					_this.totalItems1 = parseInt(_this.$cookies.get("totalItems1"));
@@ -1587,7 +1599,7 @@ export default {
 			if(_this.isRead == 0){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: '请尊敬的矿工，请先认真阅读交易规则'
+				  message: '尊敬的矿工，请先认真阅读交易规则'
 				}).then(() => {
 				  // on close
 				});
@@ -1663,7 +1675,7 @@ export default {
 			if(_this.isRead == 0){
 				Dialog.alert({
 				  title: '系统提示',
-				  message: '请尊敬的矿工，请先认真阅读交易规则'
+				  message: '尊敬的矿工，请先认真阅读交易规则'
 				}).then(() => {
 				  // on close
 				});
@@ -1722,6 +1734,10 @@ export default {
 				type:type,
 				safePassword:_this.form4pickSellBill.safePassword,
 				idCard:_this.form4pickSellBill.idCard
+			}
+			if(params.num<3.0){
+				_this.$toast('最低匹配数量为3个');
+				return;
 			}
 			if(_this.userInfo.actived!=1 || _this.userInfo.buyMachineNum<2){
 				Dialog.alert({
@@ -2171,9 +2187,9 @@ export default {
 				}
 			}else if(key == 'price') {
 				//console.log("price");
-				_this.form4BuyBill.price = parseFloat((_this.form4BuyBill.price)).toFixed(1);
+				_this.form4BuyBill.price = parseFloat((_this.form4BuyBill.price)).toFixed(2);
 				if(_this.tabActiveName == 'dealArea4'){
-					_this.form4BuyBill.price = parseFloat((_this.form4BuyBill.price)).toFixed(1);
+					_this.form4BuyBill.price = parseFloat((_this.form4BuyBill.price)).toFixed(2);
 				}
 				let minPrice = _this.buyMinPrice;
 				let currentMaxPrice = _this.buyMaxPrice;

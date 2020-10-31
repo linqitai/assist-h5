@@ -144,6 +144,36 @@
 				.label{
 					flex: 0 0 90px;
 				}
+				.textCenter{
+					flex: 1;
+					text-align: right;
+					color: red;
+					font-size: 11px;
+					line-height: 1.2em;
+				}
+				.valuePic{
+					flex: 0 0 60px;
+					text-align: right;
+					position: relative;
+					.copy{
+						font-size: $fs-12;
+						margin-right: 10px;
+						/* background-color: #E5E5E5; */
+						padding: 1px 2px;
+						color: $main-adorn-color;
+					}
+					.iconfont-upload-pic{
+						font-size: 50px;
+						color: $main-adorn-color;
+					}
+					.selectPicInput{
+						position: absolute;
+						right: 0;
+						top: 0;
+						width: 50px;
+						height: 50px;
+					}
+				}
 				.value{
 					flex: 1;
 					text-align: right;
@@ -527,10 +557,10 @@
 				<div class="placeholderLine20"></div>
 			</div>
 			<div class="detailBox" v-if="showSellerDetailLoading==false&&detail4sellerInfo">
-				<div class="tip4model3RedText">
-					1.若卖家支付宝或微信号异常，请买家点诉讼反馈问题；匹配后若不第一时间发短信提醒，客服有权介入调查，并给予相应的处理。<br>
-					2.交易默认收款方式为支付宝，若用微信转账，请买家预先和卖家沟通并说明原因后再转；若是小额转账，务必使用支付宝或微信完成，若是银行卡当天向多个地方的号转，会被银行判定为银行卡被盗而临时冻结。<br>
-					3.平台为保证交易的顺利进行，卖方的真实姓名若与收款账户里的不一致将冻结账号处理，交易的时候买方若遇到此问题请不要付款，务必第一时间向平台诉讼反馈问题，情况属实买方会得到贡献值奖励。
+				<div class="tip4model3">
+					1.<b class="red textBold">若卖家支付宝或微信号异常，请买家点申诉</b>；匹配后卖家若没第一时间发短信提醒，被申诉后客服会介入调查，并给予卖家相应处罚。<br>
+					2.交易默认收款方式为支付宝，若用微信转账，<b class="red textBold">严禁微信红包转账</b>，只可通过【支付--收付款】中的向手机号转账；若是小额转账，务必使用支付宝或微信完成，银行卡转账只应对大额交易。<br>
+					3.平台为保证交易的顺利进行，请买家务必校对卖家的真实姓名，<b class="red textBold">若卖家的真实姓名若与收款账户里的不一致将会被冻结账号处理</b>，交易的时候买方若遇到此问题请不要付款，务必第一时间向平台申诉，情况属实买方会得到贡献值奖励。
 				</div>
 				<div class="line" v-if="detail4sellerInfo.id">
 					<span class="label">订单编号</span>
@@ -573,7 +603,7 @@
 					<span class="value textAdornColor">{{detail4sellerInfo.status | dealStatusType}}</span>
 				</div>
 				<div class="line" v-if="detail4sellerInfo.remark">
-					<span class="label">诉讼反馈问题</span>
+					<span class="label">申诉信息</span>
 					<span class="value red letterSpacing lineHeight">{{detail4sellerInfo.remark}}</span>
 				</div>
 				<div class="line" v-if="detail4sellerInfo.status==0 || detail4sellerInfo.status==1">
@@ -599,7 +629,8 @@
 				</div>
 				<div class="line" v-if="detail4sellerInfo.status==3">
 					<span class="label">付款凭证</span>
-					<span class="value">
+					<span class="textCenter">若遇到图片上传不了的解决办法：换浏览器操作，UC/QQ浏览器优先</span>
+					<span class="valuePic">
 						<i class="iconfont iconfont-upload-pic"></i>
 						<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
 						<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
@@ -612,13 +643,14 @@
 						<input accept="image/png,image/jpeg,image/jpg" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
 						<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
 					</span>
+					<b class="textBold">若遇到图片上传不了的解决办法：换浏览器操作，UC/QQ浏览器优先</b>
 				</div>
 				<div v-if="detail4sellerInfo.status==4 || detail4sellerInfo.status==5">
 					<img class="selectedImg" :src="detail4sellerInfo.imgUrl"/>
 				</div>
 				<div class="margT10 tip4model3" v-html="$api.tip4Complain"></div>
 				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4sellerInfo)" size="normal" :block="true">诉讼反馈问题</van-button>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4sellerInfo)" size="normal" :block="true">申诉</van-button>
 				</div>
 				<div class="margT10 tip4model3" v-html="$api.tipText"></div>
 			</div>
@@ -723,7 +755,7 @@
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">取消交易</van-button>
 				</div>
 				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">诉讼反馈问题</van-button>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">申诉</van-button>
 				</div>
 			</div>
 		</van-action-sheet>
@@ -772,7 +804,7 @@
 					<span class="value textAdornColor">{{detail4buyerInfo.status | dealStatusType}}</span>
 				</div>
 				<div class="line" v-if="detail4buyerInfo.remark">
-					<span class="label">诉讼反馈问题</span>
+					<span class="label">申诉信息</span>
 					<span class="value red letterSpacing lineHeight">{{detail4buyerInfo.remark}}</span>
 				</div>
 				<div class="line" v-if="detail4buyerInfo.status==0 || detail4buyerInfo.status==1">
@@ -798,7 +830,7 @@
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="notReciveCNYBtn" size="normal" :block="true">我没收到款 请对方上传付款凭证</van-button>
 				</div>
 				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4buyerInfo)" size="normal" :block="true">诉讼反馈问题</van-button>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(detail4buyerInfo)" size="normal" :block="true">申诉</van-button>
 				</div>
 				<div class="margT10 tip4model3" v-html="$api.tipText"></div>
 			</div>
@@ -820,7 +852,7 @@
 		</van-action-sheet>
 		<van-action-sheet v-model="showSureCancelTransactionModel4buyer" title="温馨提示">
 			<div class="cancelSellTip">
-				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要扣2~5个贡献值。若卖方实名信息不符或者有其他问题，请向平台诉讼反馈问题，让客服来处理单子。</div>
+				<div class="tipText2">为了避免买方随意取消交易而导致扰乱市场的现象，经平台研究决定，买方主动取消交易或因超时未打款而被动取消交易，要扣部分个贡献值。若卖方实名信息不符或者有其他问题，请向平台申诉，让客服来处理单子。</div>
 			</div>
 			<div class="sureAppointBtnBox">
 				<van-button @click="cancel4buyer" :loading="sureCancelBtnLoading" loading-type="spinner" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true">确认取消</van-button>
@@ -836,7 +868,7 @@
 		</van-action-sheet>
 		<van-dialog
 		  v-model="showComplainDialog"
-		  title="诉讼反馈问题的理由"
+		  title="申诉的理由"
 		  show-cancel-button
 		  @confirm="submitComplainBtn"
 		>
@@ -853,7 +885,7 @@
 			</div>	  
 		  <!-- <van-field v-model="remark" required clearable placeholder="写点内容,让平台好找到线索"/> -->
 		</van-dialog>
-		<van-action-sheet v-model="showSellerUserInfoModel" title="去了解卖家信息或诉讼反馈问题">
+		<van-action-sheet v-model="showSellerUserInfoModel" title="去了解卖家信息或申诉">
 			<!-- <div class="box box2">
 				<div class="flex flex1">
 					<div class="value" @click="toBookView('1',sellerUserInfo.userId)">{{sellerUserInfo.teamCalculationPower}}</div>
@@ -883,10 +915,10 @@
 				</div>
 			</div> -->
 			<div class="margT10">
-				<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="toMy4OtherView(sellerUserInfo.userId)">查看对方信息，若异常就控告或诉讼反馈问题</van-button>
+				<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="toMy4OtherView(sellerUserInfo.userId)">查看对方信息</van-button>
 			</div>
 			<div class="margT10">
-				<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" size="normal" @click="complain(sellerUserInfo)" :block="true">诉讼反馈问题</van-button>
+				<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" size="normal" @click="complain(sellerUserInfo)" :block="true">申诉</van-button>
 			</div>
 			<div class="placeholderLine10"></div>
 		</van-action-sheet>
@@ -905,7 +937,7 @@
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="myCell">
-					<van-field label="对方手机号" clearable disabled v-model="mobilePhone"/>
+					<van-field label="对方手机号" clearable v-model="mobilePhone"/>
 				</div>
 				<van-cell-group>
 				  <van-field
@@ -921,6 +953,7 @@
 				</van-cell-group>
 				<div class="placeholderLine10"></div>
 				<van-button type="primary" size="normal" :block="true" @click="toSendPage">一键发送</van-button>
+				<!-- <a :href="sendSmsHref">一键发送</a> -->
 				<div class="placeholderLine10"></div>
 				<van-button type="info" size="normal" :block="true" @click="handleCopy(smsContent,$event)">我是对方好友 复制该短信内容</van-button>
 				 <!-- v-if="phoneType!='pc'" -->
@@ -947,7 +980,7 @@
 				isPayLoading:false,
 				sendSmsTipText:"订单匹配成功，为了让交易顺利进行，请给买家发个短信提醒。",
 				mobilePhone:"",
-				sendSmsHref:"",
+				sendSmsHref:"sms:1000000000?body=123test",
 				smsContent:"",
 				showSendSMSTipModel:false,
 				showTipModel:false,
@@ -1061,14 +1094,14 @@
 				////console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
 				if(_this.$route.query.dealType==1){
 					if(_this.$route.query.isSelf) {
-						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家2~5个贡献值";
+						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。";
 						_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“个人中心--我的单子--待付款”的订单详情中查看并及时完成交易。`;
 					}else{
 						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请提醒代理审核单子。";
 						_this.smsContent = `【${_this.$api.projectName}】我的定向交易单子选择了您做担保，请审核，谢谢。`;
 					}
 				}else{
-					_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。不然交易取消后可能会扣卖家1贡献值";
+					_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。";
 					_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“个人中心--我的单子--待付款”的订单详情中查看并及时完成交易。`;
 				}
 				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
@@ -1548,7 +1581,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
 						if(res.data == 1){
-							_this.$toast("诉讼反馈问题成功");
+							_this.$toast("申诉成功");
 							_this.onLoad2();
 							_this.showSellerDetailModel = false;
 							_this.onLoad4();
@@ -1582,10 +1615,10 @@
 				if(_this.cancelSellSureBtnText=="知道了"){
 					_this.showSureCancelTransactionModel4seller = false;
 				}else{
-					//_this.$toast("卖方取消单子功能已经被下线，若有问题请点诉讼反馈问题");
+					//_this.$toast("卖方取消单子功能已经被下线，若有问题请点申诉");
 					Dialog.alert({
 						title: "系统提示",
-						message: "卖方取消单子功能已经被撤销，若有问题请点诉讼反馈问题"
+						message: "卖方取消单子功能已经被撤销，若有问题请点申诉"
 					}).then(() => {
 					  // on confirm
 					  
@@ -1614,7 +1647,7 @@
 			},
 			cancel4buyer(){
 				let _this = this;
-				_this.$toast('取消交易请点诉讼反馈问题按钮，让客服取消');
+				_this.$toast('取消交易请点申诉按钮，让客服取消');
 				//调用取消接口
 				/*let params = {
 					id: _this.id,
@@ -1692,7 +1725,7 @@
 				let _this = this;
 				Dialog.alert({
 				  title: '提示信息',
-				  message: item.remark||'暂无诉讼反馈问题信息',
+				  message: item.remark||'暂无申诉信息',
 				  closeOnClickOverlay:true
 				}).then(() => {
 				  // on confirm
@@ -1733,7 +1766,7 @@
 					}else if(_this.activeName == 'pay'){//pay是买家
 						////console.log('pay是买家');
 						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0||item.status==1)){
-							_this.$toast("交易已经超时，请点诉讼反馈问题让客服取消交易");
+							_this.$toast("交易已经超时，请点申诉让客服取消交易");
 							return;
 						} */
 						_this.showAgentDetailModel = true;
@@ -1791,7 +1824,7 @@
 						console.log('_this.$utils.getDateTime(new Date())',_this.$utils.getDateTime(new Date()))
 						console.log('item.status',item.status) */
 						/* if(item.canCancelTime<_this.$utils.getDateTime(new Date())&&(item.status==0)){
-							_this.$toast("交易已经超时，请点诉讼反馈问题让客服取消交易");
+							_this.$toast("交易已经超时，请点申诉让客服取消交易");
 							return;
 						} */
 						//console.log('buy')
@@ -2055,7 +2088,7 @@
 					// let encodeUrl = "HPC"
 					_this.sendSmsHref = `sms:${mobilePhone}&body=${encodeUrl}`;
 				}else{
-					_this.sendSmsHref = `sms:${mobilePhone}?body=${smsContent}`;
+					_this.sendSmsHref = `sms:${mobilePhone}?body=${smsContent}?time=${((new Date()).getTime())}`;
 				}
 				_this.showSendSMSTipModel = true;
 			},

@@ -90,11 +90,20 @@
 				</div>
 			</div>
 			<div class="body">
-			  <!-- <keep-alive> -->
-				<!-- <router-view></router-view> -->
-			  <!-- </keep-alive> -->
-				<transition name="van-fade">
+				<!-- <transition name="van-fade">
 					<router-view></router-view>
+				</transition> -->
+			  <!-- <keep-alive include="voteList,dealRecord,millRecord,raiseApplyList">
+				<router-view></router-view>
+			  </keep-alive> -->
+				<transition name="van-fade">
+					<keep-alive include="voteList,dealRecord,millRecord,raiseApplyList">
+						<router-view></router-view>
+					</keep-alive>
+					<!-- <keep-alive v-if="$route.meta.keepAlive==true">
+						<router-view></router-view>
+					</keep-alive>
+					<router-view v-if="$route.meta.keepAlive==false"></router-view> -->
 				</transition>
 			</div>
 			<div class="footer" v-if="$route.meta.footer">

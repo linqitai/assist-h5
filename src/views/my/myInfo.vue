@@ -245,7 +245,16 @@
 				安全密码
 			</div>
 			<div class="flex2">
-				<span class="ellipsis">修改安全密码</span>
+				<span class="ellipsis">修改安全密码(知道原始密码)</span>
+				<i class="iconfont iconfont-right-arrow2"></i>
+			</div>
+		</div>
+		<div class="my-cell" @click="toUpdateSecurityPassword">
+			<div class="flex1">
+				安全密码
+			</div>
+			<div class="flex2">
+				<span class="ellipsis">修改安全密码(忘记原始密码)</span>
 				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>
@@ -303,14 +312,14 @@
 			<!-- <van-field center clearable label="短信验证码" placeholder="请输入短信验证码">
 				<van-button slot="button" size="small" type="primary">发送验证码</van-button>
 			</van-field> -->
-			<van-field v-model="form['idCard']" required clearable label="身份证号" right-icon="question-o" :placeholder="errorHint['idCard']" type="text"
+			<van-field v-model="form['idCard']" required clearable label="身份证号" type="password" right-icon="question-o" :placeholder="errorHint['idCard']" 
 			  maxlength="18" @click-right-icon="$toast(errorHint['idCard'])"
 			  @blur="validate('idCard')"
 			  :error-message="errorInfo['idCard']"/>
-			<van-field v-model="form['originalPassowrd']" required clearable label="原密码" right-icon="question-o" :placeholder="errorHint['originalPassowrd']"
+			<van-field v-model="form['originalPassword']" required clearable label="原密码" right-icon="question-o" :placeholder="errorHint['originalPassword']"
 				maxlength="20" type="password"
-			  @click-right-icon="$toast(errorHint['originalPassowrd'])"
-			  @blur="validate('originalPassowrd')"
+			  @click-right-icon="$toast(errorHint['originalPassword'])"
+			  @blur="validate('originalPassword')"
 			  :error-message="errorInfo['sureNewPassword']"/>
 			<van-field v-model="form[flag]" required clearable :label="label" right-icon="question-o" :placeholder="errorHint[flag]" type="password"
 			  maxlength="20" @click-right-icon="$toast(errorHint[flag])"
@@ -359,7 +368,7 @@ export default {
 				alipayNum:"",
 				wechartNum:"",
 				address:"",
-				originalPassowrd:"",
+				originalPassword:"",
 				loginPassword:"",
 				securityPassword:"",
 				sureNewPassword:"",
@@ -374,7 +383,7 @@ export default {
 				alipayNum:"",
 				wechartNum:"",
 				address:"",
-				originalPassowrd:"",
+				originalPassword:"",
 				loginPassword:"",
 				securityPassword:"",
 				sureNewPassword:"",
@@ -389,7 +398,7 @@ export default {
 				alipayNum:"",
 				wechartNum:"",
 				address:"",
-				originalPassowrd:"",
+				originalPassword:"",
 				loginPassword:"",
 				securityPassword:"",
 				sureNewPassword:"",
@@ -564,7 +573,7 @@ export default {
 				alipayNum:"请填写绑定了支付宝的登录手机号",
 				wechartNum:"请填写正确的微信号",
 				address:"",
-				originalPassowrd:"请填写原来的密码",
+				originalPassword:"请填写原来的密码",
 				loginPassword:"请填写新登录密码",
 				securityPassword:"请填写新安全密码",
 				sureNewPassword:"请确认新密码",
@@ -576,11 +585,9 @@ export default {
 		// 更新信息
 		update(flag){
 			let _this = this;
-			console.log('flag',flag);
 			this.showUpdateModel = true;
 			_this.flag = flag;
 			_this.form = _this.$utils.formClear(_this.form);
-			console.log('_this.form',_this.form);
 			if(flag == 'nickName'){
 				_this.label = '昵称';
 				_this.titleName = '修改昵称';
@@ -607,6 +614,45 @@ export default {
 				_this.label = '安全密码';
 				_this.titleName = '修改安全密码';
 			}
+		},
+		toUpdateSecurityPassword(){
+			let _this = this;
+			Dialog.confirm({
+			  title: '系统提示',
+			  message: `安全密码是实名认证的时候所设置的，您的安全密码头2位是:${_this.userInfo.securityPassword}，若忘记了，可找客服初始化成手机号，或重新提交实名，请问是否要去重新实名？`,
+			  confirmButtonText:'重新实名',
+			  cancelButtonText:'我再想想'
+			}).then(() => {
+			  // on close resetRealName
+			  _this.$ajax.ajax(_this.$api.resetRealName, 'POST', null, function(res){
+			  	// console.log('res',res);
+			  	if(res.code == _this.$api.CODE_OK){
+					_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res){
+						//console.log('res',res);
+						if(res.code == _this.$api.CODE_OK){
+							// _this.$cookies.set("_USERINFO_", _this.userInfo, 60 * 60 * 12);
+							localStorage.setItem("_USERINFO_",JSON.stringify(res.data))
+							_this.$router.push('/realName');
+						}else{
+							_this.$toast(res.message);
+						}
+					})
+			  	}else{
+			  		Dialog.alert({
+			  		  title: '系统提示',
+			  		  message: res.message,
+			  		}).then(() => {
+			  		  // on close
+			  		  
+			  		});
+			  	}
+			  },function(){
+			  	_this.update1Loading = false;
+			  })
+			}).catch(() => {
+				// on cancel
+				//_this.$router.push('/cService');
+			});
 		},
 		// 更新密码
 		updatePassword(flag){
@@ -671,13 +717,13 @@ export default {
 				if(_this.form[_this.flag]==_this.form['sureNewPassword']){
 					let params = {
 						idCard:_this.form.idCard,
-						originalPassowrd:_this.form.originalPassowrd,
+						originalPassword:_this.form.originalPassword,
 					}
-					if(_this.form.loginPassword){
+					if(_this.flag == 'loginPassword'){
 						params.type = 0;
 						params.password = _this.$JsEncrypt.encrypt(_this.form.loginPassword);
 					}
-					if(_this.form.securityPassword){
+					if(_this.flag == 'securityPassword'){
 						params.type = 1;
 						params.password = _this.$JsEncrypt.encrypt(_this.form.securityPassword);
 					}
@@ -685,7 +731,7 @@ export default {
 						_this.$toast('系统提示：请填写完整信息');
 						return;
 					}
-					params.originalPassowrd = _this.$JsEncrypt.encrypt(_this.form.originalPassowrd);
+					params.originalPassword = _this.$JsEncrypt.encrypt(_this.form.originalPassword);
 					// console.log('params', params);
 					_this.update2Loading = true;
 					_this.$ajax.ajax(_this.$api.updatePassword, 'POST', params, function(res){
@@ -751,11 +797,11 @@ export default {
 				}else{
 					_this.errorInfo.wechartNum = _this.errorHint.wechartNum;
 				}
-			}else if(key == 'originalPassowrd') {
-				if(_this.$reg.password.test(_this.form.originalPassowrd)){
-					_this.errorInfo.originalPassowrd = '';
+			}else if(key == 'originalPassword') {
+				if(_this.$reg.password.test(_this.form.originalPassword)){
+					_this.errorInfo.originalPassword = '';
 				}else{
-					_this.errorInfo.originalPassowrd = _this.$reg.passwordHint;
+					_this.errorInfo.originalPassword = _this.$reg.passwordHint;
 				}
 			}else if(key == 'loginPassword') {
 				if(_this.$reg.password.test(_this.form.loginPassword)){

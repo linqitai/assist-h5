@@ -61,19 +61,20 @@
 			<div class="loading">
 				<van-loading color="#ff8400" type="spinner" size="36px"/>
 				<div class="placeholderLine10"></div>
+				<div class="textCenter">产出进度 {{getThisNum}} 个矿石</div>
 				<!-- <van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getRecieptLoading"><span class="letterSpacing">领取收益</span></van-button> -->
 			</div>
 			<div class="info">
 				<div class="millType">{{millInfo.type | machineTypeType}}</div>
 				<div class="">状态 {{millInfo.status | machineStatus}}</div>
 				<div class="">算力 {{millInfo.calculationPower}}GH/s</div>
-				<div class="">租金 {{millInfo.price}}矿石</div>
-				<div class="">总产 {{millInfo.totalOutput}}矿石</div>
-				<div class="">已产 {{millInfo.alreadyGet}}矿石</div>
-				<div class="">总运行时长 {{millInfo.allRuntime}}小时</div>
-				<div class="">开机时间 {{millInfo.turnOnTime}}</div>
+				<div class="">租金 {{millInfo.price}} 个矿石</div>
+				<div class="">总产 {{millInfo.totalOutput}} 个矿石</div>
+				<div class="">已产 {{millInfo.alreadyGet}} 个矿石</div>
+				<div class="">总运行时长 {{millInfo.allRuntime}} 小时</div>
+				<div class="">启动时间 {{millInfo.turnOnTime.substring(0,19)}}</div>
 				<div class="">到期时间 {{millInfo.turnOffTime}}</div>
-				<div class="" v-if="millInfo.beforeReceipt">上次领取 {{millInfo.beforeReceipt}}</div>
+				<div class="" v-if="millInfo.beforeReceipt">上次操作矿机时间 {{millInfo.beforeReceipt}}</div>
 				<!-- <div class="line" v-if="millInfo.beforeReceipt">下次领取 {{ $utils.nextReceipt(millInfo.beforeReceipt) }} 之后</div>
 				<div class="line" v-if="!millInfo.beforeReceipt"><span v-if="millInfo.turnOnTime">下次领取 {{ $utils.nextReceipt(millInfo.turnOnTime) }} 之后</span></div> -->
 				<!-- <div>全网算力：{{millInfo.calculationPower}}GH/s</div> -->
@@ -107,6 +108,7 @@
 	export default {
 		data() {
 			return {
+				getThisNum:'',
 				millInfo:'',
 				userInfo:'',
 				showReceiptTip:false,
@@ -125,7 +127,17 @@
 		created() {
 			let _this = this;
 			_this.millInfo = JSON.parse(localStorage.getItem('thisMillInfo'));
-			console.log("millInfo",_this.millInfo);
+			//计算当前可领取数量
+			let nowTime = new Date().getTime();
+			let beforeReceiptTime = new Date(_this.millInfo.beforeReceipt).getTime();
+			//和上次领取收益相差这么多秒
+			let nowStampTime = (nowTime - beforeReceiptTime)/1000;
+			//计算每秒领取收益量
+			let secondGet = parseFloat((parseFloat(_this.millInfo.totalOutput)/parseFloat(_this.millInfo.allRuntime)/60/60).toFixed(7));
+			_this.getThisNum = parseFloat((nowStampTime*secondGet).toFixed(7));
+			setInterval(function(){
+				_this.getThisNum = parseFloat((_this.getThisNum + secondGet).toFixed(7));
+			},1000)
 		},
 		mounted() {
 			let _this = this;

@@ -6,10 +6,10 @@
 		position: absolute;
 		min-height: 100%;
 		width: 100%;
-		$iconBgWidth:50px;
+		$iconBgWidth: 3.75rem;
 		background-color: $main-box-fh-bg-color;
 		.refreshBox{
-			top: 60px;
+			top: 6rem;
 		}
 		.tip{
 			font-size:12px;
@@ -28,7 +28,7 @@
 			.infoBox {
 				flex: 1;
 				text-align: center;
-				font-size: 14px;
+				font-size: 0.875rem;
 		
 				.iconBox {
 					.iconBackground {
@@ -38,7 +38,7 @@
 						border-radius: $iconBgWidth/3;
 						margin: 0 auto;
 						color: $main-box-fh-text-color;
-						font-size: 30px;
+						font-size: 1.875rem;
 					}
 		
 					.iconBackground1 {
@@ -95,8 +95,8 @@
 			color: $main-box-fh-text-color; */
 			.flex {
 				&.flex1 {
-					flex: 0 0 70px;
-					$heightwidht:70px;
+					flex: 0 0 3.375rem;
+					$heightwidht:3.375rem;
 					.name{
 						width: $heightwidht;
 						height: $heightwidht;
@@ -105,40 +105,40 @@
 						color: $main-box-fh-text-color;
 						text-align: center;
 						line-height: $heightwidht;
-						font-size: 18px;
+						font-size: 1.125rem;
 					}
 				}
 				&.flex2 {
 					flex: 1;
-					padding: 0 $boxPadding2;
+					padding-left: 0.5rem;
 					display: flex;
 					flex-direction: column;
 					align-content: center;
 					
 					.line1{
 						flex: 1;
-						line-height: 26px;
+						line-height: 1.625rem;
 		
 						.nick_name {
-							font-size: 14px;
-							height: 20px;
-							line-height: 20px;
+							font-size: 0.875rem;
+							height: 1.25rem;
+							line-height: 1.25rem;
 						}
 		
 						.level {
 							background-color: $main-adorn-color;
 							color: $main-box-fh-text-color;
-							height: 20px;
-							line-height: 20px;
-							font-size: 11px;
-							border-radius: 0 10px 10px 0;
-							padding: 0 8px 0 4px;
+							height: 1.25rem;
+							line-height: 1.25rem;
+							font-size: 0.6875rem;
+							border-radius: 0 0.625rem 0.625rem 0;
+							padding: 0 0.5rem 0 0.25rem;
 						}
 					}
 					.line{
 						flex: 1;
-						line-height: 20px;
-						font-size: 11px;
+						line-height: 1.25rem;
+						font-size: 0.6875rem;
 					}
 				}
 			}
@@ -155,7 +155,7 @@
 				}
 				.text {
 					font-size: $fs-1;
-					margin-top: 6px;
+					margin-top: 0.375rem;
 				}
 			}
 		}
@@ -168,7 +168,7 @@
 				flex: 1;
 				.text {
 					font-size: $fs-1;
-					margin-top: 6px;
+					margin-top: 0.375rem;
 					line-height: 1.2em;
 				}
 			}
@@ -191,7 +191,7 @@
 					color: $main-box-fh-text-color;
 				}
 				.flex2 {
-					flex: 0 0 40px;
+					flex: 0 0 2.5rem;
 					text-align: right;
 					.iconfont-right-arrow2 {
 						font-size: 0.75rem;
@@ -225,13 +225,14 @@
 					<!-- <div class="name" @click="toMyInfo">{{$JsEncrypt.decrypt(userInfo.realName) | getLastName}}</div> -->
 					<div class="name" @click="toMyInfo">{{userInfo.realName | getLastName}}</div>
 					<div class="textCenter margT10">
-						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
+						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16"> {{userInfo.beComplaintTimes}}</i>
 					</div>
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
 						<div class="nick_name left">
-							{{userInfo.nickName}} 
+							{{userInfo.nickName}} <i class="iconfont iconfont-good f-14 margL6 margR2" @click="toBookView('5')"></i><span class="margR2">{{Number(userInfo.aword).toFixed(2)}}</span> 
+							 <i class="iconfont iconfont-question" @click="showTip('raise')"/>
 						</div>
 					</div>
 					<div class="line1 margT3">
@@ -244,7 +245,7 @@
 					<div class="line">
 						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
 						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}
-							<span class="margL10" v-if="isShowBuyProfit">
+							<span class="margL4" v-if="isShowBuyProfit">
 								<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveBuyProfitLoading" @click="givePTRewardYesterday">买入奖励</van-button>
 							</span>
 						</div>
@@ -261,9 +262,9 @@
 						</span>
 					</div>
 					<!-- @click="toBookView('5')" -->
-					<div class="line">
+					<!-- <div class="line">
 						<span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/>	
-					</div>
+					</div> -->
 					<div class="line">
 						<span @click="toBookView('6')">流通值 {{Number(userInfo.email).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
 					</div>
@@ -419,22 +420,22 @@
 				<!-- <router-link to="transferMineral4F">
 					
 				</router-link> -->
-				<div class="my-cell" @click="close">
+				<!-- <div class="my-cell" @click="close">
 					<div class="flex1">
 						定向转让矿石(服务商)
 					</div>
 					<div class="flex2">
 						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
-				</div>
-				<div class="my-cell" @click="close">
+				</div> -->
+				<!-- <div class="my-cell" @click="close">
 					<div class="flex1">
 						定向转让矿石(会长)
 					</div>
 					<div class="flex2">
 						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
-				</div>
+				</div> -->
 				<!-- <router-link to="transferMineral4L">
 					<div class="my-cell">
 						<div class="flex1">
@@ -642,6 +643,7 @@
 			</div>
 		</van-dialog>
 	</div>
+	<m-refresh @refreshEvent="refreshPage"></m-refresh>
 	<transition name="van-fade">
 	  <router-view></router-view>
 	</transition>
@@ -650,7 +652,7 @@
 
 <script>
 	import mHeader from '@/components/Header.vue';
-	//import mRefresh from '@/components/Refresh2.vue';
+	import mRefresh from '@/components/Refresh2.vue';
 	import { Dialog } from 'vant';
 	import clip from '@/assets/js/clipboard';
 	// import mFullscreen from '@/components/Fullscreen.vue';
@@ -682,7 +684,7 @@
 		},
 		components: {
 			mHeader,
-			/* mRefresh, */
+			mRefresh,
 			// mFullscreen
 		},
 		// beforeRouteEnter(to,from,next) {
@@ -728,6 +730,7 @@
 			}else{
 				/* _this.$cookies.remove('userId'); */
 				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
 				_this.$cookies.remove('token');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
@@ -1034,7 +1037,7 @@
 				}else if(val=='limitBuyNum'){
 					message = '个人限购数量=初始限购数量+(卖出数量-买入数量)，若有特殊需要，个人限购数量可找客服申请提升';
 				}else if(val=='raise'){
-					message = '爱心值：就是您捐赠帮扶券的数量，满10个即可在首页每日释放爱心值';
+					message = '爱心值：满10个即可在首页通过签到每日释放贡献值；获取途径：捐赠';
 				}else if(val=='circulateValue'){
 					message = '流通值：可通过复投、推广、买入或参与游戏获得，复投1:1/2:1增加，推广会员完成2个基础任务1:2增加，买入1:1增加，卖出1:2扣除。';
 				}
@@ -1135,6 +1138,9 @@
 				},function(){
 					_this.loading = false;
 				})
+			},
+			refreshPage() {
+				location.reload();
 			},
 			refreshEvent() {
 				//console.log("refresh")

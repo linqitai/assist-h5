@@ -64,7 +64,7 @@
 				<van-button plain type="primary" url="https://www.assist-china.co.ax/apk/app-assist.apk" size="large" :block="true">下载</van-button>
 			</div>
 			<div class="placeholderLine20"></div>
-			<div class="placeholderLine20"></div>
+			<!-- <div class="placeholderLine20"></div>
 			<div class="son">
 				<img class='img' src="../../assets/image/cqzl.jpg" alt="pic">
 				<div class="placeholderLine10"></div>
@@ -75,7 +75,7 @@
 			<div class="textCenter">
 				<div class="placeholderLine10"></div>
 				<van-button plain type="primary" url="https://www.assist-china.co.ax/apk/app-cq.apk" size="large" :block="true">下载</van-button>
-			</div>
+			</div> -->
 		</div>
 		<div class="shadeMaster" v-if="isWeixin">
 			<p>请点开右上角按钮选择<br>

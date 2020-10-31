@@ -1,9 +1,16 @@
 <template>
   <div id="app" ref="app">
 	<transition name="van-fade">
-		<keep-alive include="dealRecord">
-			<router-view/>
+		<keep-alive include="voteList,dealRecord,millRecord,raiseApplyList">
+			<router-view></router-view>
 		</keep-alive>
+		<!-- <keep-alive>
+			<router-view></router-view>
+		</keep-alive> -->
+		<!-- <keep-alive v-if="$route.meta.keepAlive==true">
+			<router-view></router-view>
+		</keep-alive>
+		<router-view v-if="$route.meta.keepAlive==false"></router-view> -->
 	</transition>
   </div>
 </template>
@@ -155,13 +162,13 @@ b{font-weight: bold;}
 	padding: 2px;
 }
 .width80{width: 80px !important;}.width100{width: 100px !important;}.width120{width: 120px !important;}.width140{width: 140px !important;}.width160{width: 160px !important;}.width200 {width: 200px !important;}.width220{width: 220px;}.width240{width: 240px;}.width260{width: 260px;}.width280{width: 280px;}.width300 {width: 300px !important;}.width400 {width: 400px !important;}
-.margint{margin-top: 6px;}.marginb{margin-bottom: 6px;}
-.margL6{margin-left: 6;}.margL10{margin-left: 10;}
-.margR2{margin-right: 2px;}.margR20{margin-right: 20px;}
-.margT3{margin-top: 3px;}.margT6{margin-top: 6px;}.margT8{margin-top: 8px;}.margT10{margin-top: 10px;}.margT16{margin-top: 16px;}.margT20{margin-top: 20px;}.margTHeader{margin-top: $header-height + 10px;}
-.margL1{margin-left: 1px;}margL4{margin-left: 4px;}.margL10{margin-left: 10px;}.margL12{margin-left: 12px;}.margL20{margin-left: 20px;}.margL40{margin-left: 40px;}
+.margint{margin-top: 0.375rem;}.marginb{margin-bottom: 0.375rem;}
+.margL4{margin-left: 0.25rem;}.margL6{margin-left: 0.375rem;}.margL10{margin-left: 0.625rem;}
+.margR2{margin-right: 0.125rem;}.margR20{margin-right: 1.25rem;}
+.margT3{margin-top: 0.1875rem;}.margT6{margin-top: 0.375rem;}.margT8{margin-top: 0.5rem;}.margT10{margin-top: 0.625rem;}.margT16{margin-top: 1rem;}.margT20{margin-top: 1.25rem;}.margTHeader{margin-top: $header-height + 10px;}
+.margL1{margin-left: 0.0625rem;}margL4{margin-left: 0.25rem;}.margL10{margin-left: 0.625rem;}.margL12{margin-left: 0.75rem;}.margL20{margin-left: 1.25rem;}.margL40{margin-left: 2.5rem;}
 .margL100{margin-left: 100px;}.margL200{margin-left: 200px;}
-.paddingT20{padding-top: 30px;}
+.paddingT20{padding-top: 1.875rem;}
 .blueLight{color: #00e3e3;}
 .brown{color: #ba7c00;}
 .white{color: white;}
@@ -179,17 +186,17 @@ b{font-weight: bold;}
 .bg_black{background-color: #199E00;}
 .inline{display: inline-block;}
 .lineHeight{line-height: 1.3em;}
-.f-10{font-size: 10px !important;}
-.f-11{font-size: 11px !important;}
-.f-12{font-size: 12px !important;}
-.f-13{font-size: 13px !important;}
-.f-14{font-size: 14px !important;}
-.f-15{font-size: 15px !important;}
-.f-16{font-size: 16px !important;}
-.f-18{font-size: 18px !important;}
-.f-20{font-size: 20px !important;}
+.f-10{font-size: 0.625rem !important;}
+.f-11{font-size: 0.6875rem !important;}
+.f-12{font-size: 0.75rem !important;}
+.f-13{font-size: 0.8125rem !important;}
+.f-14{font-size: 0.875rem !important;}
+.f-15{font-size: 0.9375rem !important;}
+.f-16{font-size: 1rem !important;}
+.f-18{font-size: 1.125rem !important;}
+.f-20{font-size: 1.25rem !important;}
 .flex-1{flex: 1;}
-.letterSpacing{letter-spacing: 1px;}
+.letterSpacing{letter-spacing: 0.0625rem;}
 .textIndent{text-indent: 2em;}
 
 

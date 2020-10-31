@@ -14,8 +14,14 @@
 </style>
 <template>
   <transition name="van-fade">
-    <router-view></router-view>
-	<!-- <keep-alive>
+    <!-- <keep-alive v-if="$route.meta.keepAlive==true">
+    	<router-view></router-view>
+    </keep-alive>
+    <router-view v-if="$route.meta.keepAlive==false"></router-view> -->
+	<keep-alive include="voteList,dealRecord,millRecord,raiseApplyList">
+		<router-view></router-view>
+	</keep-alive>
+	<!-- <keep-alive include="voteList,dealRecord,millRecord,raiseApplyList">
 		<router-view></router-view>
 	</keep-alive> -->
   </transition>

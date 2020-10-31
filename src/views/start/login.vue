@@ -132,7 +132,7 @@
 				<div class="labelText">账号</div>
 				<van-field v-model="form.phone" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
 				<div class="labelText">密码</div>
-				<van-field v-model="form.password" type="password" @focus="getSecurityCode" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
+				<van-field v-model="form.password" type="password" clearable :placeholder="placeholder.password" @blur="validate('password')" :error-message="errorHint.password" />
 				<div class="labelText">验证码</div>
 				<!-- @blur="validate('securityCode')" -->
 				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" :error-message="errorHint.securityCode">
@@ -305,7 +305,7 @@
 							//_this.$toast(res.message);
 							Dialog.alert({
 							  title: '系统提示',
-							  message: '您有矿机超过48小时未领取，【该矿机】的开启时间和截止时间都自动延后了[当前时间-上次领取时间或开机时间]，但总产不变，现在上次领取时间已经被系统自动设置成[当前时间]，矿机需要重新启动，再过24~48小时再领取就又会有收益。'
+							  message: '您有矿机超过168小时未领取，【该矿机】的开启时间和截止时间都自动延后了[当前时间-上次领取时间或开机时间]，但总产不变，现在上次领取时间已经被系统自动设置成[当前时间]，矿机需要重新启动，再过24~168小时再领取就又会有收益。'
 							}).then(() => {
 							  // on close
 							  //_this.getMyPastMachinesReceipt();
@@ -456,9 +456,9 @@
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						_this.userInfo = res.data.assistUserInfoVo4Web;
 						_this.$cookies.remove('userId');
-						_this.$cookies.set("userId", _this.userInfo.userId);
+						_this.$cookies.set("userId", _this.userInfo.userId,60*60*72);
 						_this.$cookies.remove('token');
-						_this.$cookies.set('token',res.data.token,_this.$api.cookiesTime72h);
+						_this.$cookies.set('token',res.data.token,60*60*72);
 						_this.$cookies.remove('hasNoticeList4Swipe');
 						//登录后手机号缓存到本地，每次登录免得继续输入手机号，提高用户体验
 						localStorage.setItem('_USERINFO_',JSON.stringify(_this.userInfo));

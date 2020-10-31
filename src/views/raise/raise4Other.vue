@@ -379,7 +379,7 @@
 						<!-- <div class="flexLeft">
 							<i class="iconfont iconfont-ticket ticket"></i>
 						</div> -->
-						<div class="flexCenter f-10 letterSpacing">提前声明：求助者所筹到的是矿石，这矿石是直接筹到求助者账户里，然后所筹到的矿石无论是复投还是卖出，由求助者自行安排。审核通过后，筹款时间为10天，10天后无论筹到多少都会被系统设置为筹款完结。</div>
+						<div class="flexCenter f-10 letterSpacing">提前声明：求助者所筹到的是矿石，这矿石是直接筹到求助者账户里，然后所筹到的矿石无论是复投还是卖出，由求助者自行安排。审核通过后，筹款时间为10天，10天后无论筹到多少根据情况有可能会被系统设置为筹款完结。</div>
 						<!-- <div class="flexRight"><i class="iconfont iconfont-i" @click="messageAlert"></i></div> -->
 					</div>
 				</div>

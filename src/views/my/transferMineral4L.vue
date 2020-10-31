@@ -116,7 +116,7 @@
 			<div class="placeholderLine40"></div>
 			<div class="sureBtn">
 				<div class="placeholderLine4"></div>
-				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
+				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="close">提 交</van-button>
 			</div>
 		</div>
 	</div>
@@ -279,6 +279,14 @@
 					}
 				}
 			},
+			close(){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '该通道已关闭'
+				}).then(() => {
+				  // on close
+				});
+			},
 			submit(){
 				let _this = this;
 				/* if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
@@ -290,7 +298,7 @@
 					});
 					return;
 				} */
-				if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
+				/* if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '定向交易时间是9~21点，请到点再来'
@@ -298,7 +306,7 @@
 					  // on close
 					});
 					return;
-				}
+				} */
 				let leaveNum = (Number(_this.userInfo.thisWeekMineral) - Number(_this.form4AppointDeal.transferAmount)).toFixed(2);
 				if(leaveNum<2){
 					Dialog.alert({

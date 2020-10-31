@@ -75,43 +75,68 @@
 		</div>
 		<van-action-sheet v-model="isShow4Game" title="欢迎来到传奇世界">
 		  <div class="noticeDetail paddingWing" v-if="serverListResult[sLen-1]">
-			<div class="title">选区入口</div>
+			<div class="title textBold f-16">选区入口</div>
 			<div class="placeholderLine10"></div>
 			<span class="margR20" v-for="item in serverListResult" :key="item.id">
 				<van-tag type="warning" @click="toServerGameView(item)">服务{{item.id}}区({{item.busy>0.7?'拥挤':item.busy<0.5?'空闲':'繁忙'}})</van-tag>
 			</span>
-			<div class="tip4model3RedText margT10">系统提示：打出HPC后要立马兑换成流通值或者贡献值，否则将会消失，消失后系统不做补发。</div>
+			<div class="tip4model3RedText margT10">系统提示：<b class="yellow">该游戏电脑上玩体验更佳。</b>升到80级(一转)后即可打神域BOSS爆出HPC，打出HPC后要立马回到该页面兑换成流通值或者贡献值，否则将会消失，消失后系统不做补发。</div>
 		  </div>
-		  <div class="placeholderLine20"></div>
+		  <div class="placeholderLine4"></div>
 		  <div class="paddingWing">
+			   <van-divider content-position="left">材料购买</van-divider>
+			   <div class="placeholderLine4"></div>
+			   <van-row type="flex" justify="space-between">
+					<van-col span="12">
+						<div class="textCenter"><a class="underline blue" href="http://www.8gesy.com/payment/group.html?id=3D6B69C7FF2787A6" target="_blank">一区</a></div>
+					</van-col>
+					<van-col span="12">
+						<div class="textCenter"><a class="underline blue" href="http://www.8gesy.com/payment/group.html?id=0A111009CE56ABF0" target="_blank">二区</a></div>
+					</van-col>
+			   </van-row>
+			   <div class="placeholderLine4"></div>
 			  <van-divider content-position="left">充值</van-divider>
 			  <!-- <van-row type="flex" justify="space-between">
 					<van-col span="24">
 						<div class="underline blue" @click="openChargeModelBtn">通过<b class="textBold">【支付宝/微信】</b>充值元宝</div>
 					</van-col>
 			  </van-row> -->
-			  <div class="placeholderLine20"></div>
+			  <!-- <div class="tip4model3RedText">
+				  <b class="textBold">维持10天的充值活动</b>：10月23号到11月1号，单笔充值100个矿石或贡献值可兑换100万个元宝，单笔充值100个帮扶券可兑换10万个元宝。
+			  </div> -->
+			  <div class="tip4model3RedText">充值提醒：游戏中通过支付宝/微信充值的时候，若充值月卡、至尊卡或礼品若没到账，请找【客服】提供【账号和角色昵称】来领取</div>
+			  <div class="placeholderLine10"></div>
 			  <van-row type="flex" justify="space-between">
 				<van-col span="12">
-					<div class="underline blue" @click="showModelBtn">用矿石充值元宝(今日1:{{parseFloat(parameter.maxPrice)*parseFloat(parameter.gameRatio)}})</div>
+					<div class="underline blue" @click="showModelBtn">用矿石充值元宝</div>
 				</van-col>
 				<van-col span="12">
-					<div class="underline blue" @click="showCCVModelBtn">用贡献值充值元宝(今日1:{{parseFloat(parameter.maxPrice)*parseFloat(parameter.gameRatio)}})</div>
+					<div class="underline blue" @click="showCCVModelBtn">用贡献值充值元宝</div>
 				</van-col>
 			  </van-row>
 			  <div class="placeholderLine20"></div>
-			  <van-divider content-position="left">兑换</van-divider>
+			  <van-row type="flex" justify="space-between">
+					<van-col span="24">
+						<div class="underline blue" @click="showPTModelBtn">用帮扶券充值元宝</div>
+					</van-col>
+			  </van-row>
+			  <div class="placeholderLine4"></div>
+			  <van-divider content-position="left">游戏中爆出的HPC兑换</van-divider>
+			  <!-- <div class="tip4model3RedText">
+				  <b class="textBold">游戏中的HPC兑换贡献值比例调整公告：</b>从11月1号开始，HPC兑换贡献值比例将做动态调整；且HPC兑换贡献值每日次数将有上限，兑换贡献值次数超出上限后需走兑换流通值的通道。
+			  </div> -->
+			  <div class="placeholderLine10"></div>
 			  <van-row type="flex" justify="space-between" v-if="parameter.gameContributionRatio">
 					<van-col span="12">
-						<div class="underline blue" @click="convertCirBtn">用HPC兑换流通值(今日{{parameter.gameViculateRatio}}:1)</div>
+						<div class="underline blue" @click="convertCirBtn">流通值</div>
 					</van-col>
 					<van-col span="12">
-						<div class="underline blue" @click="convertConBtn">用HPC兑换贡献值(今日{{parameter.gameContributionRatio}}:1)</div>
+						<div class="underline blue" @click="convertConBtn">贡献值</div>
 					</van-col>
 			  </van-row>
 		  </div>
-		  <div class="placeholderLine20"></div>
-		  <div class="tip4model3RedText paddingWing margT10">充值提醒：通过支付宝/微信充值的时候，若充值月卡、至尊卡或礼品若没到账，请找【客服】提供【账号和角色昵称】来领取</div>
+		  <div class="placeholderLine4"></div>
+		  
 		  
 		  <div class="placeholderLine20"></div>
 		</van-action-sheet>
@@ -128,7 +153,8 @@
 					  <div class="placeholderLine10"></div>
 				  </div>
 				</van-radio-group>
-				<van-field v-model="num" label="贡献值数量" required type="Number" clearable placeholder="请填写所要使用的贡献值数量"/>
+				<div class="f-14">当前比例 1:{{parseFloat(parameter.maxPrice)*parseFloat(parameter.gameRatio)}}</div>
+				<van-field v-model="num" @blur="getInteger" label="贡献值数量" required type="Number" clearable placeholder="请填写所要使用的贡献值数量"/>
 				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
 				<div class="tip4model3RedText">安全密码是实名的时候所设置的安全(交易)密码</div>
 				<div class="placeholderLine10"></div>
@@ -148,12 +174,34 @@
 					  <div class="placeholderLine10"></div>
 				  </div>
 				</van-radio-group>
-				<van-field v-model="num" label="矿石数量" required type="Number" clearable placeholder="请填写所要使用的矿石数量"/>
+				<div class="f-14">当前比例 1:{{parseFloat(parameter.maxPrice)*parseFloat(parameter.gameRatio)}}</div>
+				<van-field v-model="num" label="矿石数量" @blur="getInteger" required type="Number" clearable placeholder="请填写所要使用的矿石数量"/>
 				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
 				<div class="tip4model3RedText">安全密码是实名的时候所设置的安全(交易)密码</div>
 				<div class="placeholderLine10"></div>
 			</div>
 			<van-button type="info" size="large" @click="submit" :loading="submitLoading" :disabled="submitLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">提交</van-button>
+		</van-dialog>
+		<van-dialog v-model="showPTSelectBox" title="用帮扶券兑换元宝" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
+			<div class="paddingWing">
+				<div class="placeholderLine20"></div>
+				<div class="f-14">当前可用帮扶券：{{userInfo.platformTicket}}</div>
+				<div class="placeholderLine20"></div>
+				<div>选择区号：</div>
+				<div class="placeholderLine10"></div>
+				<van-radio-group v-model="selectRadioValue">
+				  <div v-for="item in serverList" :key="item.id">
+					  <van-radio :name="item.id">服务{{item.id}}区</van-radio>
+					  <div class="placeholderLine10"></div>
+				  </div>
+				</van-radio-group>
+				<div class="f-14">当前比例 1:200</div>
+				<van-field v-model="num" label="帮扶券数量" @blur="getInteger" required type="Number" clearable placeholder="请填写所要使用的帮扶券数量"/>
+				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
+				<div class="tip4model3RedText">安全密码是实名的时候所设置的安全(交易)密码</div>
+				<div class="placeholderLine10"></div>
+			</div>
+			<van-button type="info" size="large" @click="submit4PT" :loading="submitLoading" :disabled="submitLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">提交</van-button>
 		</van-dialog>
 		<van-dialog v-model="showConvertCirVBox" title="用HPC兑换流通值" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
 			<div class="paddingWing">
@@ -169,7 +217,7 @@
 				<!-- <van-field v-model="num" label="充值矿石数量" required type="Number" clearable placeholder="请填写所要充值的数量"/>
 				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
 				-->
-				<div class="tip4model3RedText">游戏背包中的HPC需要在第一时间兑换，您是否确认去兑换？</div> 
+				<div class="tip4model3RedText">游戏中爆出的HPC需要在第一时间兑换，您是否确认兑换？</div> 
 				<div class="placeholderLine10"></div>
 			</div>
 			<van-button type="info" size="large" @click="sureConvertCirculateValue" :loading="submitLoading" :disabled="submitLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">确认</van-button>
@@ -188,7 +236,7 @@
 				<!-- <van-field v-model="num" label="充值矿石数量" required type="Number" clearable placeholder="请填写所要充值的数量"/>
 				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
 				-->
-				<div class="tip4model3RedText">游戏背包中的HPC需要在第一时间兑换，您是否确认去兑换？</div> 
+				<div class="tip4model3RedText">游戏中爆出的HPC需要在第一时间兑换，您是否确认兑换？</div> 
 				<div class="placeholderLine10"></div>
 			</div>
 			<van-button type="info" size="large" @click="sureConvertContributionValue" :loading="submitLoading" :disabled="submitLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">确认</van-button>
@@ -207,6 +255,7 @@
 		},
 		data() {
 			return {
+				showPTSelectBox:false,
 				showConvertConVBox:false,
 				showConvertCirVBox:false,
 				selectRadioValue:'',
@@ -430,19 +479,70 @@
 				let _this = this;
 				_this.showSelectBox = true;
 			},
-			submit4ChargeCV(){
+			showPTModelBtn(){
 				let _this = this;
-				_this.submitLoading = true;
+				_this.showPTSelectBox = true;
+			},
+			getInteger(){
+				let _this = this;
+				_this.num = parseInt(_this.num);
+			},
+			submit4PT(){
+				let _this = this;
 				let params = {
 					svrid:_this.selectRadioValue,
 					username:_this.account,
 					num:_this.num,
 					safePassword:_this.safePassword
 				}
+				if(params.num<1){
+					_this.$toast('充值数量不得小于1');
+					return;
+				}
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');
 					return;
 				}
+				_this.submitLoading = true;
+				params.safePassword = _this.$JsEncrypt.encrypt(params.safePassword);
+				_this.$ajax.ajax(_this.$api.chargeGold4PT, 'POST', params, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						if(res.data==1){
+							_this.$toast(res.message);
+							_this.showPTSelectBox = false;
+							_this.submitLoading = false;
+						}
+					}else{
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+					}
+				},function(){
+					_this.submitLoading = false;
+				})
+			},
+			submit4ChargeCV(){
+				let _this = this;
+				let params = {
+					svrid:_this.selectRadioValue,
+					username:_this.account,
+					num:_this.num,
+					safePassword:_this.safePassword
+				}
+				if(params.num<1){
+					_this.$toast('充值数量不得小于1');
+					return;
+				}
+				if(_this.$utils.hasNull(params)){
+					_this.$toast('请填写完整信息');
+					return;
+				}
+				_this.submitLoading = true;
 				params.safePassword = _this.$JsEncrypt.encrypt(params.safePassword);
 				_this.$ajax.ajax(_this.$api.chargeGold4CV, 'POST', params, function(res) {
 					//console.log('getUserInfo');
@@ -467,17 +567,21 @@
 			},
 			submit(){
 				let _this = this;
-				_this.submitLoading = true;
 				let params = {
 					svrid:_this.selectRadioValue,
 					username:_this.account,
 					num:_this.num,
 					safePassword:_this.safePassword
 				}
+				if(params.num<1){
+					_this.$toast('充值数量不得小于1');
+					return;
+				}
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写完整信息');
 					return;
 				}
+				_this.submitLoading = true;
 				params.safePassword = _this.$JsEncrypt.encrypt(params.safePassword);
 				_this.$ajax.ajax(_this.$api.chargeGold, 'POST', params, function(res) {
 					//console.log('getUserInfo');

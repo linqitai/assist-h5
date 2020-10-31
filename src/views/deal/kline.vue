@@ -31,6 +31,7 @@
 
 <script>
 	import mHeader from '@/components/Header.vue';
+	import { Toast } from 'vant';
 	// import mRefresh from '@/components/Refresh.vue';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
@@ -73,6 +74,11 @@
 				let params = {
 					num: 365
 				}
+				Toast.loading({
+				  message: '加载中...',
+				  forbidClick: true,
+				  loadingType: 'spinner'
+				});
 				_this.$ajax.ajax(_this.$api.getAssistStatisticsBookList4Num, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let dataArr = res.data;
@@ -82,6 +88,8 @@
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(){
+					Toast.clear();
 				})
 			},
 			getKLineDataArr(dataArr){

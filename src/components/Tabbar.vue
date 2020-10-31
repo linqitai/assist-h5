@@ -69,7 +69,7 @@ export default {
 			case 'my':
 			   _this.active = 3;
 			   break;
-			case 'raise':
+			case 'raiseApplyList':
 			   _this.active = 4;
 			   break;
 		    default:

@@ -12,7 +12,7 @@
 			height: 200px;
 			line-height: 200px;
 			text-align: center;
-			font-size: 50px;
+			font-size: 28px;
 			font-weight: bolder;
 			color: white;
 		}
@@ -38,8 +38,11 @@
 			<div class="logoBox color1" @click="game1Btn">
 				新手练习区
 			</div>
-			<div class="logoBox color2" @click="game2Btn">
-				竞技分红区
+			<div class="logoBox color2 margT3" @click="game2Btn">
+				竞技分红区(不计时模式)
+			</div>
+			<div class="logoBox color2 margT3" @click="game3Btn">
+				竞技分红区(倒计时模式)
 			</div>
 		</div>
 	</div>
@@ -137,7 +140,7 @@
 			},
 			game2Btn(){
 				let _this = this;
-				if(_this.$utils.getTimeHMS(new Date())>'20:00:00'&&_this.$utils.getTimeHMS(new Date())<'23:59:59'){
+				/* if(_this.$utils.getTimeHMS(new Date())>'20:00:00'&&_this.$utils.getTimeHMS(new Date())<'23:59:59'){
 					Dialog.alert({
 					  title: '系统提示',
 					  message: '20~24点是系统清算时间，请明日再来'
@@ -145,8 +148,12 @@
 					  // on close
 					});
 					return;
-				}
+				} */
 				_this.$router.push('/game1024');
+			},
+			game3Btn(){
+				let _this = this;
+				_this.$router.push('/game10242');
 			},
 		}
 	}

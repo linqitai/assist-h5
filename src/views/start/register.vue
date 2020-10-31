@@ -34,9 +34,10 @@
 			.van-cell{
 				color: $mainTextColor !important;
 				padding: 10px 0 !important;
-				&::last-child{
+				border-bottom: 1px solid $main-adorn-color !important;
+				/* &::last-child{
 					border-bottom: 1px solid #BABABA !important;
-				}
+				} */
 			}
 			.van-cell::after{
 				border: none;
@@ -135,7 +136,7 @@
 				<div class="labelText">确认账号</div>
 				<van-field v-model="form.phone2" type="password" clearable :placeholder="placeholder.phone2" @blur="validate('phone2')" :error-message="errorHint.phone2" maxlength="11"/>
 				<div class="tip4model3RedText margT6">
-					温馨提示：注册账号即是本人的手机号，请填写绑定了自己微信号的手机号。若是港澳台及海外用户，只要有自己的支付宝和微信号即可注册并实名。
+					温馨提示：注册账号即是本人的手机号，请填写绑定了自己【微信和支付宝】的手机号。若是港澳台及海外用户，只要有自己的支付宝和微信号即可注册并实名。
 					<!-- 2.若不是看好帮扶的理念，而是单纯想撸羊毛的用户请不要注册，因为每次交易的数据都公开透明，纯撸者会被会员控告并冻结账号。 -->
 				</div>
 				<div class="labelText">登录密码</div>
@@ -144,7 +145,7 @@
 				<van-field v-model="form.password2" type="password" clearable :placeholder="placeholder.password2" @blur="validate('password2')" :error-message="errorHint.password2"/>
 				<div class="labelText">验证码</div>
 				 <!-- @blur="validate('securityCode')" -->
-				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" @focus="getSecurityCode" :error-message="errorHint.securityCode">
+				<van-field v-model="form.securityCode" center clearable placeholder="请输入右边的图形验证码" :error-message="errorHint.securityCode">
 					<van-button slot="button" size="small" type="primary" :loading="getSCLoading" @click="getSecurityCode">{{securityCode}}</van-button>
 				</van-field>
 				<!-- <div class="labelText">短信验证码</div>
@@ -161,7 +162,7 @@
 			</van-cell-group>
 		</div>
 		<div class="sureBox">
-			<div class="tip">点击注册即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span></div>
+			<!-- <div class="tip">点击注册即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span></div> -->
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" @click="registerBtn" :loading="isLoading" loading-type="spinner">注  册</van-button>
 			<div class="placeholderLine10"></div>
 			<van-button color="linear-gradient(to right, #e7e7e7, #c5c5c5)" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>
@@ -212,7 +213,7 @@
 				time:180,
 				welcomeText:"",
 				isNo:false,
-				securityCode:'love',
+				securityCode:'点击刷新',
 				form:{
 					phone:'',
 					phone2:'',
@@ -223,7 +224,7 @@
 					shareCode:''
 				},
 				placeholder:{
-					phone:'请填写绑定了微信的手机号',
+					phone:'请填写绑定了[微信和支付宝]的手机号',
 					phone2:'请填写与上面一致的注册手机号',
 					password:'请填写6~16位登录密码',
 					password2:'请填写与上面一致的登录密码',
@@ -369,7 +370,7 @@
 			registerBtn(){
 				let _this = this;
 				//console.log('form',this.form);
-				/* let phone = localStorage.getItem("mobilePhone");
+				let phone = localStorage.getItem("mobilePhone");
 				if(!_this.$utils.isNUll(phone)){
 					if(_this.form.phone != phone){
 						// _this.$toast("一机一号，切勿违规操作");
@@ -381,7 +382,7 @@
 						});
 						return;
 					}
-				} */
+				}
 				let params = {
 					telephone:_this.form.phone.replace(/ /g,""),
 					password:_this.form.password.replace(/ /g,""),

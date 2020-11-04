@@ -282,6 +282,12 @@ export default new Router({
 							meta:{footer:false,keepAlive:false},
 						},
 						{
+							path: '/transferFGC',
+							name: '合成FGC',
+							component: resolve => require(['./views/my/transferFGC'],resolve),
+							meta:{footer:false,keepAlive:false},
+						},
+						{
 							path: '/transferTicket',
 							name: '定向转让帮扶券',
 							component: resolve => require(['./views/my/transferTicket'],resolve),

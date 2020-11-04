@@ -199,9 +199,9 @@
 								<div class="line">租赁上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
 							</div>
 							<div class="flex flex3">
-								<!-- <div class="line" v-if="item.type>0">库存{{item.inventory}}</div> -->
+								<div class="line" v-if="item.type>0">库存{{item.inventory}}</div>
 								<div class="line margT3">
-									<van-button round type="info" @click="buyMill(item)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
+									<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
 								</div>
 							</div>
 						</div>
@@ -424,7 +424,7 @@
 					status:machineId
 				} */
 				Toast.loading({
-				  message: '租赁中...',
+				  message: '加载中...',
 				  forbidClick: true,
 				  loadingType: 'spinner'
 				});

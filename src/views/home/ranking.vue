@@ -168,7 +168,7 @@
 					<van-tab title="矿石" name="ranking1">
 						<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 							<div class="list" v-for="(item,index) in list1" :key='item.id'>
-								<div class="item" @click="toMy4OtherView(item.userId)">
+								<div class="item">
 									<div class="flexLeft">
 										<div class="name">{{index+1}}</div>
 									</div>
@@ -183,7 +183,7 @@
 										</div> -->
 									</div>
 									<div class="flexRight">
-										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+										{{item.num}}
 									</div>
 								</div>
 							</div>

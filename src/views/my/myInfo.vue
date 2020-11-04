@@ -617,14 +617,13 @@ export default {
 		},
 		toUpdateSecurityPassword(){
 			let _this = this;
-			Dialog.confirm({
+			Dialog.alert({
 			  title: '系统提示',
-			  message: `安全密码是实名认证的时候所设置的，您的安全密码头2位是:${_this.userInfo.securityPassword}，若忘记了，可找客服初始化成手机号，或重新提交实名，请问是否要去重新实名？`,
-			  confirmButtonText:'重新实名',
-			  cancelButtonText:'我再想想'
+			  message: `安全密码是实名认证的时候所设置的，您的安全密码头2位是：${_this.userInfo.securityPassword}，若忘记了，可找客服初始化成手机号！`,
+			  confirmButtonText:'好的，我再试试'
 			}).then(() => {
 			  // on close resetRealName
-			  _this.$ajax.ajax(_this.$api.resetRealName, 'POST', null, function(res){
+			  /* _this.$ajax.ajax(_this.$api.resetRealName, 'POST', null, function(res){
 			  	// console.log('res',res);
 			  	if(res.code == _this.$api.CODE_OK){
 					_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res){
@@ -645,10 +644,10 @@ export default {
 			  		  // on close
 			  		  
 			  		});
-			  	}
+			  	} 
 			  },function(){
 			  	_this.update1Loading = false;
-			  })
+			  })*/
 			}).catch(() => {
 				// on cancel
 				//_this.$router.push('/cService');

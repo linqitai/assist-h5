@@ -224,9 +224,9 @@
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 					<!-- <div class="name" @click="toMyInfo">{{$JsEncrypt.decrypt(userInfo.realName) | getLastName}}</div> -->
 					<div class="name" @click="toMyInfo">{{userInfo.realName | getLastName}}</div>
-					<div class="textCenter margT10">
+					<!-- <div class="textCenter margT10">
 						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16"> {{userInfo.beComplaintTimes}}</i>
-					</div>
+					</div> -->
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
@@ -245,9 +245,9 @@
 					<div class="line">
 						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
 						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}
-							<span class="margL4" v-if="isShowBuyProfit">
+							<!-- <span class="margL4" v-if="isShowBuyProfit">
 								<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveBuyProfitLoading" @click="givePTRewardYesterday">买入奖励</van-button>
-							</span>
+							</span> -->
 						</div>
 					</div>
 					<div class="line">
@@ -611,6 +611,16 @@
 						</div>
 					</div>
 				</router-link>
+				<!-- <router-link to="transferFGC">
+					<div class="my-cell">
+						<div class="flex1">
+							合成钻石值
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link> -->
 			</div>
 			<!-- <div class="paddingAll">
 				<van-button color="#c7c7c7" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户(暂对尚未实名的用户开放)</van-button>
@@ -643,7 +653,7 @@
 			</div>
 		</van-dialog>
 	</div>
-	<m-refresh @refreshEvent="refreshPage"></m-refresh>
+	<m-refresh @refreshEvent="refreshEvent"></m-refresh>
 	<transition name="van-fade">
 	  <router-view></router-view>
 	</transition>
@@ -703,8 +713,10 @@
 		},
 		created() {
 			let _this = this;
-			if(_this.$utils.getDate(new Date())>'2020/11/02'){
+			//console.log("_this.$utils.getDate(new Date())",_this.$utils.getDate(new Date()));
+			if(_this.$utils.getDate(new Date())>'2020/11/01'){
 				_this.isShowBuyProfit = false;
+				//console.log("_this.isShowBuyProfit",_this.isShowBuyProfit);
 			}
 			/* let cv = 0;
 			let loveValue = 2000;

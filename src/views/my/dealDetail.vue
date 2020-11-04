@@ -193,9 +193,13 @@
 			<div v-if="form.status==5&&(loginerUserId=='en15079AQ107o91Y7217'||loginerUserId=='1502d824670iQ1215VW8'||loginerUserId=='1580I60773e1XBJ52634'||loginerUserId=='1HW5f80P5N66z45835w5')">
 				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
+				<div class="placeholderLine20"></div>
+				<van-button size="normal" type="warning" :block="true" @click="waitSureBtn">设置成待确认</van-button>
+				<div class="placeholderLine10"></div>
 				<div class="tip4model3">
 					注：若卖家确认超时后(过待确认时间尚未确认)，客服可给确认，并扣卖家1个贡献值。
 				</div>
+				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" type="primary" @click="sureBtn">给确认</van-button>
 			</div>
 			<!-- <van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="passBtn">通 过</van-button> -->
@@ -391,6 +395,37 @@ export default {
 			  _this.addContributionValue = 0.0;
 			}
 			console.log("_this.addContributionValue:"+_this.addContributionValue);
+		},
+		waitSureBtn(){
+			let _this = this;
+			Dialog.confirm({
+			  title: '系统提示',
+			  confirmButtonText:'继续',
+			  closeOnClickOverlay:true,
+			  message: '该操作将会把该笔交易设置成待确认，请问是否继续？'
+			}).then(() => {
+			  
+			  let params = {
+			  	id:_this.form.id
+			  }
+			  _this.$ajax.ajax(_this.$api.setDealToWaitSure4S, 'POST', params, function(res){
+			  	// //console.log('res',res)
+			  	if (res.code == _this.$api.CODE_OK) { // 
+					_this.$toast(`设置成功`);
+			  		_this.back();
+			  	}else{
+			  		Dialog.alert({
+			  		  title: '系统提示',
+			  		  message: res.message
+			  		}).then(() => {
+			  		  // on close
+			  		});
+			  	}
+			  })
+			}).catch(() => {
+			  // on cancel
+			  //console.log('cancel');
+			});
 		},
 		cancelBtn(){
 			let _this = this;

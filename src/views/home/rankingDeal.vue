@@ -183,11 +183,11 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line" @click="toMy4OtherView(item.userId)"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> <span>{{$JsCrypto.myDecode1(item.nickName)}}</span></div>
 										<div class="line margT6"><i class="iconfont iconfont-weichat green_text"></i> {{$JsCrypto.myDecode1(item.wechartNum)}}<span class="copy margL10" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 									</div>
-									<div class="flexRight" @click="toMy4OtherView(item.userId)">
-										{{item.num}} <i class="iconfont iconfont-right-arrow2"></i>
+									<div class="flexRight">
+										{{item.num}}
 									</div>
 								</div>
 							</div>

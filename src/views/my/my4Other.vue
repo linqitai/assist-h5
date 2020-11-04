@@ -223,9 +223,9 @@
 					<!-- <div class="textCenter margT10 f-18">
 						<i class="iconfont iconfont-good"></i>v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'"
 					</div> -->
-					<div class="textCenter margT10">
+					<!-- <div class="textCenter margT10">
 						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
-					</div>
+					</div> -->
 					<div class="textCenter margT10" v-if="userInfo4Me.isAgent==3&&(userInfo4Me.userId=='en15079AQ107o91Y7217'||userInfo4Me.userId=='1502d824670iQ1215VW8'||userInfo4Me.userId=='1580I60773e1XBJ52634')">
 						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4Freeze" @click="freeze">冻结TA</van-button>
 						<div class="placeholderLine10"></div>

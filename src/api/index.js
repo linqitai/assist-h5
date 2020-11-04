@@ -53,6 +53,8 @@ export default {
 	loginOut: host + 'web/login/loginOut',
 	register: host + 'assist/register/register',
 	innerRegister: host + 'assist/register/innerRegister',
+	//group
+	getGroupPic: host + "assist/admin/group/getGroupPic",
 	//game
 	givePT1SIURewardYesterday: host + "assist/reward/givePT1SIURewardYesterday",
 	getGameUseTicket: host + "assist/plateformTicketAccountBook/getGameUseTicket",
@@ -179,6 +181,7 @@ export default {
 	let48HMachinesStop: host + "assist/myMachine/let48HMachinesStop",
 	getAssistOtherMachine: host + "assist/myMachine/getAssistOtherMachine",
 	//账本
+	monToChildCV: host + "assist/mineralBook/monToChildCV",
 	getTicketBookListByUserId: host + "assist/plateformTicketAccountBook/getTicketBookListByUserId",
 	getPTicketBookListByUserId: host + "assist/plateformTicketAccountBook/getPTicketBookListByUserId",
 	getCPowerListByUserId: host + "assist/calculationPower/getCPowerListByUserId",
@@ -210,6 +213,7 @@ export default {
 	giveLevelDealProfit: host + "assist/reward/giveLevelDealProfit",
 	givePTRewardYesterday: host + "assist/reward/givePTRewardYesterday",
 	//deal
+	setDealToWaitSure4S: host + "assist/transaction/setDealToWaitSure4S",
 	getAssistTransactionByCoinRT: host + "assist/transaction/getAssistTransactionByCoinRT",
 	sureDeal4SellerById: host + "assist/transaction/sureDeal4SellerById",
 	cancelAssistTransaction4S: host + "assist/transaction/cancelAssistTransaction4S",

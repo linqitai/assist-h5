@@ -798,6 +798,9 @@
 			_this.tipText = _this.$api.tipText;
 			if(_this.$utils.isNUll(_this.userId)){
 				_this.$toast(_this.$api.loginAgainTipText);
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
 				_this.$router.replace('login');
 			}
 			_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);

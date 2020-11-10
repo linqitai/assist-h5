@@ -306,6 +306,9 @@
 			_this.mobilePhone = localStorage.getItem('mobilePhone');
 			if(_this.$utils.isNUll(_this.mobilePhone)){
 				_this.$toast(_this.$api.loginAgainTipText);
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
 				_this.$router.replace('login');
 			}
 			_this.getUserInfo();

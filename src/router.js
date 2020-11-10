@@ -167,13 +167,13 @@ export default new Router({
 					path: '/mill',
 					name: '矿机商城',
 					component: resolve => require(['./views/mill/mill'],resolve),
-					meta:{footer:true,question:true,questionName:'mill',showMillRecordIcon:true,keepAlive:true},
+					meta:{footer:true,question:true,questionName:'mill',showMillRecordIcon:true,keepAlive:true,toMyMill:true},
 				},
 				{
 					path: '/deal',
 					name: '流通中心',
 					component: resolve => require(['./views/deal/deal'],resolve),
-					meta:{footer:true,question:true,questionName:'deal',showRecordIcon:true,keepAlive:true},
+					meta:{footer:true,question:true,questionName:'deal',showRecordIcon:true,keepAlive:true,toMyDeal:true},
 					// children:[
 					// 	{
 					// 		path: '/myDeal4Deal',

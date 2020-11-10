@@ -176,6 +176,9 @@
 				_this.userInfo = JSON.parse(userInfo);
 				_this.userId = _this.userInfo.userId;
 			}else{
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;

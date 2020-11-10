@@ -326,10 +326,23 @@
 		},
 		mounted() {
 			let _this = this;
-			_this.userId = _this.$cookies.get('userId');
-			if(_this.$utils.isNUll(_this.userId)){
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				////console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+				_this.userId = _this.userInfo.userId;
+				if(_this.userInfo.accountStatus==1){
+					//退出登录
+					_this.logout();
+				}
+			}else{
+				/* _this.$cookies.remove('userId'); */
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
+				return;
 			}
 			_this.$utils.scrollTop();
 		},

@@ -535,7 +535,7 @@
 						</div>
 					</div>
 				</router-link>
-				<router-link to="updateIdCard">
+				<!-- <router-link to="updateIdCard">
 					<div class="my-cell">
 						<div class="flex1">
 							帮他人修改身份证号
@@ -544,7 +544,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link>
+				</router-link> -->
 				<!-- <router-link to="updateAlipay">
 					<div class="my-cell">
 						<div class="flex1">
@@ -566,7 +566,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3||userInfo.isAgent==4" @click="toMyCheck">
+			<div class="items" v-if="(userInfo.isAgent==3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090'||userInfo.userId=='15805Rx6hU3hz3g26018'||userInfo.userId=='en15079AQ107o91Y7217'))||userInfo.isAgent==4" @click="toMyCheck">
 				<router-link to="myCheck">
 					<div class="my-cell">
 						<div class="flex1">
@@ -578,7 +578,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent>0">
+			<!-- <div class="items" v-if="userInfo.isAgent==3">
 				<router-link to="unFreeze">
 					<div class="my-cell">
 						<div class="flex1">
@@ -589,7 +589,7 @@
 						</div>
 					</div>
 				</router-link>
-			</div>
+			</div> -->
 			<div class="items">
 				<router-link to="myVoteList">
 					<div class="my-cell">
@@ -744,6 +744,8 @@
 				localStorage.removeItem('_USERINFO_');
 				_this.$cookies.remove('userId');
 				_this.$cookies.remove('token');
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.remove('isRefreshUserInfo');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;

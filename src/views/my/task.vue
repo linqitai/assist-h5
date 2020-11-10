@@ -521,6 +521,9 @@ export default {
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
 		}else{
+			localStorage.removeItem('_USERINFO_');
+			_this.$cookies.remove('userId');
+			_this.$cookies.remove('token');
 			_this.$toast(_this.$api.loginAgainTipText);
 			_this.$router.replace('login');
 			return;

@@ -189,10 +189,12 @@
 			_this.tipText4AppointDeal = _this.$api.tipText4AppointDeal;
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
-				console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
 				_this.userId = _this.userInfo.userId;
 			}else{
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;

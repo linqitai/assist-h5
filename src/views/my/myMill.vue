@@ -236,7 +236,7 @@
 						</div>
 						<div class="getMineral" v-if="isShowOneReciept">
 							<!-- <div class="tip4model3 textCenter">每次矿机收益需要在24~168小时之间领取</div> -->
-							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
+							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :disable="getRecieptLoading" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
 						</div>
 						<van-list v-model="loadingMyMill" :finished="finished1" :finished-text="finishedMyMillText" @load="onLoadMyMill">
 							<div class="millList">
@@ -400,8 +400,11 @@
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
 				localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('token');
 				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.remove('isRefreshUserInfo');
+				_this.$cookies.remove('tab_raise_list');
 				_this.$router.replace('login');
 				return;
 			}
@@ -500,69 +503,79 @@
 				  // on confirm
 				  // _this.$router.push("task");
 				}) */
-				_this.getRecieptLoading = true;
-				let nowTimestamp = Number(new Date().getTime());
-				let lastReceiptTimestamp = Number(new Date(_this.userInfo.lastReceiptTime).getTime());
-				let timestamp = (nowTimestamp - lastReceiptTimestamp)/1000;
-				/* if(timestamp<24*60*60){
-					_this.receiptModelTile = "系统提示";
-					_this.isShowReceiptLoading = false;
-					_this.mineralNumTip = "未到领取收益时间";
-					_this.isShowMineralNum = true;
-					_this.isShowConfirmButton = true;
-					_this.getRecieptLoading = false;
-					return;
-				} */
-				
-				_this.$ajax.ajax(_this.$api.getMyMachinesReceipt, 'POST', null, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						if(res.data){
-							_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
-							_this.isShowMineralNum = true;
-							//_this.$toast(`此次领取收益为${res.data}个矿石`);
-							_this.onLoadMyMill();
-							_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
-							_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime)
-							//_this.$router.push('/myBook');
+				Dialog.confirm({
+				  title: '系统提示',
+				  confirmButtonText:'确认',
+				  closeOnClickOverlay:true,
+				  message: '请问是否领取矿机收益？'
+				}).then(() => {
+					_this.getRecieptLoading = true;
+					let nowTimestamp = Number(new Date().getTime());
+					let lastReceiptTimestamp = Number(new Date(_this.userInfo.lastReceiptTime).getTime());
+					let timestamp = (nowTimestamp - lastReceiptTimestamp)/1000;
+					/* if(timestamp<24*60*60){
+						_this.receiptModelTile = "系统提示";
+						_this.isShowReceiptLoading = false;
+						_this.mineralNumTip = "未到领取收益时间";
+						_this.isShowMineralNum = true;
+						_this.isShowConfirmButton = true;
+						_this.getRecieptLoading = false;
+						return;
+					} */
+					
+					_this.$ajax.ajax(_this.$api.getMyMachinesReceipt, 'POST', null, function(res) {
+						if (res.code == _this.$api.CODE_OK) {
+							if(res.data){
+								_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
+								_this.isShowMineralNum = true;
+								//_this.$toast(`此次领取收益为${res.data}个矿石`);
+								_this.onLoadMyMill();
+								_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
+								_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime)
+								//_this.$router.push('/myBook');
+							}else{
+								if(res.data == 0.0){
+									/* Dialog.alert({
+									  title: '系统提示',
+									  message: '暂无矿机需领取'
+									}).then(() => {
+										// on close
+									});
+									return; */
+									_this.mineralNumTip = `暂无矿机可领取`;
+									_this.onLoadMyMill();
+								}else{
+									_this.mineralNumTip = `未到领取收益的时间`;
+								}
+							}
+							_this.showReceiptTip = true;
 						}else{
-							if(res.data == 0.0){
-								/* Dialog.alert({
+							/* if(res.code == 10011002){
+								Dialog.alert({
 								  title: '系统提示',
-								  message: '暂无矿机需领取'
+								  message: '有矿机超过48小时未领取，需重新登录'
 								}).then(() => {
 									// on close
+									_this.$router.replace('login');
+									//_this.logout();
 								});
-								return; */
-								_this.mineralNumTip = `暂无矿机可领取`;
-								_this.onLoadMyMill();
-							}else{
-								_this.mineralNumTip = `未到领取收益的时间`;
+								return;
 							}
+							_this.mineralNumTip = res.message;
+							_this.isShowMineralNum = true; */
+							_this.$toast(res.message);
 						}
-						_this.showReceiptTip = true;
-					}else{
-						/* if(res.code == 10011002){
-							Dialog.alert({
-							  title: '系统提示',
-							  message: '有矿机超过48小时未领取，需重新登录'
-							}).then(() => {
-								// on close
-								_this.$router.replace('login');
-								//_this.logout();
-							});
-							return;
-						}
-						_this.mineralNumTip = res.message;
-						_this.isShowMineralNum = true; */
-						_this.$toast(res.message);
-					}
-				},function(){
-					_this.receiptModelTile = "系统提示";
-					_this.isShowConfirmButton = true;
-					_this.isShowReceiptLoading = false;
-					_this.getRecieptLoading = false;
-					_this.isShowMineralNum = true;
-				})
+					},function(){
+						_this.receiptModelTile = "系统提示";
+						_this.isShowConfirmButton = true;
+						_this.isShowReceiptLoading = false;
+						_this.getRecieptLoading = false;
+						_this.isShowMineralNum = true;
+					})
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
+				});
 			},
 			getMyPastMachinesReceipt(){
 				let _this = this;
@@ -610,6 +623,9 @@
 						  // on confirm
 						  // _this.$router.push("task");
 						})
+						if(res.code == 4004){
+							_this.onLoadMyMill();
+						}
 					}
 				},function(){
 					_this.isRunMillBtnLoading = false;

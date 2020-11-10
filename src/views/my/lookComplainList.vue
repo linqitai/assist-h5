@@ -120,12 +120,6 @@
 		},
 		created() {
 			let _this = this;
-			_this.userId = _this.$cookies.get('userId');
-			if(_this.$utils.isNUll(_this.userId)){
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			}
 			//_this.getAssistComplainListPage();
 		},
 		methods: {

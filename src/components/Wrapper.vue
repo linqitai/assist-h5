@@ -78,15 +78,17 @@
 		<div class="wrapperIn">
 			<div class="header">
 				<div class="leftBox">
-					<i class="iconfont iconfont-record f-16" v-if="$route.meta.showMillRecordIcon" @click="toView('millRecord')"></i>
-					<i class="iconfont iconfont-lookDealRecord f-16" v-if="$route.meta.showRecordIcon" @click="toView('dealRecord')"></i>
+					<i class="f-15 underline" v-if="$route.meta.showMillRecordIcon" @click="toView('millRecord')">租赁记录</i>
+					<i class="f-15 underline" v-if="$route.meta.showRecordIcon" @click="toView('dealRecord')">流通记录</i>
 					<i class="iconfont iconfont-left-arrow f-12" v-if="$route.meta.back" @click="back"></i>
 				</div>
 				<div class="centerBox">
 					{{$route.name}}
 				</div>
 				<div class="rightBox">
-					<i class="iconfont iconfont-question f-18" v-if="$route.meta.question" @click="showTip($route.meta.questionName)"></i>
+					<!-- <i class="iconfont iconfont-question f-18" v-if="$route.meta.question" @click="showTip($route.meta.questionName)"></i> -->
+					<i class="f-15 underline" v-if="$route.meta.toMyMill" @click="toView('myMill')">我的矿机</i>
+					<i class="f-15 underline" v-if="$route.meta.toMyDeal" @click="toView('myDeal')">我的单子</i>
 				</div>
 			</div>
 			<div class="body">
@@ -206,6 +208,10 @@ export default {
 				// _this.$router.push({path:"lookBook",query:{lookUserId:'50'}})
 			}else if(view == 'millRecord'){
 				_this.$router.push({path:"millRecord"});
+			}else if(view == 'myMill'){
+				_this.$router.push({path:"myMill"});
+			}else if(view == 'myDeal'){
+				_this.$router.push({path:"myDeal"});
 			}
 			//this.$router.push("lookBook");
 		},

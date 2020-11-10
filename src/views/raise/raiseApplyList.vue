@@ -12,7 +12,7 @@
 			//margin-top:$header-height;
 			.item{
 				display:flex;
-				padding:$boxPadding2 $boxPadding2;
+				padding:$boxPadding2*3 $boxPadding2;
 				border-bottom:1px solid $mainBorderColor;
 				align-content: center;
 				align-items: center;
@@ -25,12 +25,13 @@
 					padding-left: 10px;
 					.title{
 						width: 100%;
-						font-size: 14px;
+						font-size: 15px;
 						color: $mainTextColor2;
 					}
 					.remark{
 						width: 100%;
-						font-size: 12px;
+						font-size: 14px;
+						font-weight: bold;
 						color: $mainTextColor;
 						line-height: 1.3em;
 					}
@@ -49,7 +50,7 @@
 					}
 				}
 				.itemLeft{
-					flex: 0 0 100px;
+					flex: 0 0 120px;
 					/* height: $itemLRHeight;
 					line-height: $itemLRHeight; */
 					color: $grayLight2;
@@ -93,8 +94,8 @@
 								<div class="itemLeft">
 									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
 									<van-image
-									  width="100px"
-									  height="100px"
+									  width="120px"
+									  height="120px"
 									  fit="cover"
 									  :src="item.headPic||item.pic.split('|')[0]"
 									/>
@@ -105,9 +106,9 @@
 										<!-- <i class="iconfont iconfont-right-arrow2 f-11"></i> -->
 									</div>
 									<div class="remark margT10">{{item.title}}</div>
-									<div class="margT6 grayc7c7c7">{{item.createTime}} <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i></div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}} +</div>
-									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
+									<div class="margT10 grayc7c7c7">{{item.createTime}} <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i></div>
+									<div class="margT10 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}} +</div>
+									<div class="margT10 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
 								</div>
 							</div>
 						</div>
@@ -238,15 +239,14 @@
 						<div class="wordList">
 							<div class="item" v-for="item in list5" :key="item.id" @click="toRaise4OtherView(item)">
 								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
-								<div class="itemLeft">
-									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
+								<!-- <div class="itemLeft">
 									<van-image
 									  width="100px"
 									  height="100px"
 									  fit="cover"
 									  :src="item.headPic||item.pic.split('|')[0]"
 									/>
-								</div>
+								</div> -->
 								<div class="itemRight">
 									<div class="title">
 										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span> <span class="underline blue">查看详情</span>
@@ -350,6 +350,7 @@
 				_this.$cookies.remove('statistics');
 				_this.$cookies.remove('haveDealPageInfo');
 				_this.$cookies.remove('hasNoticeList4Swipe');
+				_this.$cookies.remove('tab_raise_list');
 				_this.$router.replace('login');
 				return;
 			}
@@ -547,11 +548,11 @@
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage5,
-					pageSize: _this.pageSize,
+					pageSize: 5,
 					status:4
 				}
 				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistRaiseListPage4Finish, 'GET', params, function(res) {
 					//console.log('res', res);
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {

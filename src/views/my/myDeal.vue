@@ -557,10 +557,10 @@
 				<div class="placeholderLine20"></div>
 			</div>
 			<div class="detailBox" v-if="showSellerDetailLoading==false&&detail4sellerInfo">
-				<div class="tip4model3">
-					1.<b class="red textBold">若卖家支付宝或微信号异常，请买家点申诉</b>；匹配后卖家若没第一时间发短信提醒，被申诉后客服会介入调查，并给予卖家相应处罚。<br>
-					2.交易默认收款方式为支付宝，若用微信转账，<b class="red textBold">严禁微信红包转账</b>，只可通过【支付--收付款】中的向手机号转账；若是小额转账，务必使用支付宝或微信完成，银行卡转账只应对大额交易。<br>
-					3.平台为保证交易的顺利进行，请买家务必校对卖家的真实姓名，<b class="red textBold">若卖家的真实姓名若与收款账户里的不一致将会被冻结账号处理</b>，交易的时候买方若遇到此问题请不要付款，务必第一时间向平台申诉，情况属实买方会得到贡献值奖励。
+				<div class="tip4modelNew">
+					<b class="textBold">买家需知：</b><br>
+					1.交易默认收款方式为支付宝，若用微信转账，<b class="yellow textBold">请不要用微信红包转账</b>，只可通过【支付--收付款】中的向手机号转账；若是小额转账，务必使用支付宝或微信完成，银行卡转账只应对大额交易。<br>
+					2.平台为保证交易的顺利进行，请买家务必校对卖家的真实姓名，<b class="yellow textBold">若卖家的支付宝未实名</b>或<b class="yellow textBold">真实姓名若与收款账户里的不一致，请买家点申诉反馈问题</b>，情况属实买方会得到贡献值奖励。
 				</div>
 				<div class="line" v-if="detail4sellerInfo.id">
 					<span class="label">订单编号</span>
@@ -1059,27 +1059,23 @@
 		},
 		created() {
 			let _this = this;
-			//_this.pen = _this.$api.projectEnglishName;
-			_this.userId = _this.$cookies.get('userId');
-			// _this.tipText = _this.$api.tipText;
-			if(_this.$utils.isNUll(_this.userId)){
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-			}
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
 				//////console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
-				//_this.userId = _this.userInfo.userId;
+				_this.userId = _this.userInfo.userId;
 				if(_this.userInfo.accountStatus==1){
 					//退出登录
 					_this.logout();
 				}
 			}else{
-				/* localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('userId');
-				_this.$cookies.remove('token'); */
 				_this.$toast(_this.$api.loginAgainTipText);
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.remove('isRefreshUserInfo');
+				_this.$cookies.remove('tab_raise_list');
 				_this.$router.replace('login');
 				return;
 			}

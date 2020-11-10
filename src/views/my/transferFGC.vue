@@ -80,14 +80,14 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				合成砖石
+				合成钻石
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="transferPageL">
 			<div class="placeholderLine10"></div>
-			<div class="paddingWing tip4model3">今日可合成砖石所剩数量:{{assistParameterVo.todayTransferNum}}</div>
-			<div class="paddingWing tip4model3">您当前拥有矿石{{userInfo.thisWeekMineral.toFixed(2)}}个,每合成一个砖石值需要花10个矿石和20个流通值</div>
+			<div class="paddingWing tip4model3">今日可合成钻石所剩数量:{{assistParameterVo.todayTransferNum}}</div>
+			<div class="paddingWing tip4model3">您当前拥有矿石{{userInfo.thisWeekMineral.toFixed(2)}}个,每合成一个钻石值需要花10个矿石和20个流通值</div>
 			<div class="paddingWing tip4model3">单次合成数量在1~10之间,当前合成所需个人算力:{{assistParameterVo.transferNeedCp}}</div>
 			<van-cell-group>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="所用矿石数量" placeholder="请填写所用矿石数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
@@ -176,10 +176,15 @@
 			_this.tipText4AppointDeal = _this.$api.tipText4AppointDeal;
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
-				console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
 				_this.userId = _this.userInfo.userId;
 			}else{
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.remove('isRefreshUserInfo');
+				_this.$cookies.remove('tab_raise_list');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;
@@ -208,11 +213,11 @@
 			validate4AppointDeal(key){
 				let _this = this;
 				if(key == 'transferAmount') {
-					if(_this.form4AppointDeal[key]>=1&&_this.form4AppointDeal[key]<=10){
+					if(_this.form4AppointDeal[key]>=10&&_this.form4AppointDeal[key]<=100){
 						_this.form4AppointDeal[key] = parseFloat(_this.form4AppointDeal[key]).toFixed(0);
 						_this.errorInfo4AppointDeal.transferAmount = '';
 					}else{
-						_this.errorInfo4AppointDeal.transferAmount = "单次合成数量在1~10之间";
+						_this.errorInfo4AppointDeal.transferAmount = "单次合成钻石值数量在1~10之间，所需矿石在10~100之间";
 					}
 				}else if(key == 'mobilePhone') {
 					if(_this.$reg.phone2.test(_this.form4AppointDeal.mobilePhone)){
@@ -257,7 +262,7 @@
 					if(_this.$reg.safePassword.test(_this.form4AppointDeal[key])){
 						_this.errorInfo4AppointDeal.safePassword = '';
 					}else{
-						_this.errorInfo4AppointDeal.safePassword = "安全密码不超过20位，由'字母或数字或._'组成";
+						_this.errorInfo4AppointDeal.safePassword = _this.$reg.safePasswordHint;
 					}
 				}else if(key == 'dsPassword') {
 					if(_this.$reg.dsPassword.test(_this.form4AppointDeal[key].replace(/ /g,""))){
@@ -295,20 +300,11 @@
 					});
 					return;
 				} */
-				let leaveNum = (Number(_this.userInfo.thisWeekMineral) - Number(_this.form4AppointDeal.transferAmount)).toFixed(2);
-				if(leaveNum<2){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: `您当前可售矿石数为${_this.userInfo.thisWeekMineral-2}，转出后得保留注册所送的2个矿石，用来复投矿机`
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
+				
 				Dialog.confirm({
 				  title: '提示信息',
 				  confirmButtonText:'确定',
-				  message: `当前所花矿石数量为:${_this.form4AppointDeal.transferAmount}个,可合成${parseFloat(parseFloat(_this.form4AppointDeal.transferAmount)/10).toFixed(2)}个砖石值,请问是否确认合成？`
+				  message: `当前所花矿石数量为:${_this.form4AppointDeal.transferAmount}个,可合成${parseFloat(parseFloat(_this.form4AppointDeal.transferAmount)/10).toFixed(2)}个钻石值,请问是否确认合成？`
 				}).then(() => {
 				  // on confirm
 					let params = {

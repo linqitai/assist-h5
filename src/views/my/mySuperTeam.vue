@@ -325,8 +325,11 @@
 				_this.userInfo = JSON.parse(userInfo);
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
-				/* _this.$cookies.remove('userId');
-				_this.$cookies.remove('token'); */
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$cookies.remove('isRefreshUserInfo');
 				_this.$router.replace('login');
 				return;
 			}

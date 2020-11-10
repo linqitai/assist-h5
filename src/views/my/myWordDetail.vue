@@ -73,7 +73,6 @@
 		mounted() {
 			let _this = this;
 			_this.id = _this.$route.query.id;
-			console.log('_this.id', _this.id);
 			_this.getWordDetail();
 		},
 		methods: {

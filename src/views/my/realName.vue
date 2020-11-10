@@ -189,18 +189,18 @@
 			<div class="textJustify lineHeight">
 				尊敬的原始矿工实名前请认真阅读以下规则：<br>
 				【1】实名认证年龄范围为18~70周岁，若超过70周岁，需找首页的客服额外申请。<br>
-				【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写。<br>
-				【3】平台为保证交易的顺利进行，<b class="red">【真实姓名要和支付宝、微信中的实名信息一致，且支付宝和微信都要设置照片头像】</b>，交易的时候若遇到实名信息不一致的问题欢迎向平台反馈，情况属实买方会得到贡献值奖励。<br>
-				<span class="red">【4】<i class="blue">支付宝</i>默认为注册手机号，您的支付宝若没绑定该手机号,请先在微信的【我的--设置--安全设置】中绑定，且在【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。</span><br>
+				【2】实名信息是用户之间交换矿石时的重要凭据，提交实名后需待客服审核，每个账号只有3次实名的机会，务必认真填写，若出现实名信息不一致、伪造信息等违反实名条例的情况，会被审核客服冻结处理。<br>
+				【3】平台为保证交易的顺利进行，<b class="blue">【真实姓名要和支付宝、微信中的实名信息一致，且支付宝和微信都要设置照片头像】。</b><br>
+				【4】<i class="blue">支付宝</i>默认为注册手机号，您的支付宝若没绑定该手机号,请先在微信的【我的--设置--安全设置】中绑定，且在【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。否则交易的时候买家若无法查找到您的支付宝而无法完成交易的，客服介入调查属实后会取消交易且处理卖方账号。<br>
 				<!-- 【5】请矿工们预先在微信的【我--设置--账号与安全】中绑定手机号，该手机号务必是注册帮扶链的手机号。否则交易的时候买家若无法通过手机号向你转账的，客服介入调查属实后会取消交易。<br> -->
-				<span class="red">【5】<i class="blue">微信号</i>默认为注册手机号，您的微信若没绑定该手机号，请先在微信的【我--设置--账号与安全】中绑定，且在[设置--隐私--添加我的方式]里打开用手机号搜索到我的功能；若没绑定或搜索不到，实名审核不会通过。</span><br>
+				【5】<i class="blue">微信号</i>默认为注册手机号，您的微信若没绑定该手机号，请先在微信的【我--设置--账号与安全】中绑定，且在[设置--隐私--添加我的方式]里打开可通过手机号搜索到我的功能；若没绑定或搜索不到，实名审核不会通过。<br>
 			</div>
 			 <b class="textBold">提交实名认证后即代表您已认真阅读以上规则，并同意加入矿工联盟</b>
 		</div>
 		<van-field v-model="mobilePhone" readonly clearable label="手机号"/>
-		<div class="tip4modelRedText paddingWing textJustify margT10">
+		<!-- <div class="tip4modelRedText paddingWing textJustify margT10">
 			填写昵称请注意：请手写文字、字母或数字的组合<br>
-		</div>
+		</div> -->
 		<van-field v-model="form.nickName" required clearable label="昵称" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
 		<!-- <van-field v-model="form.telPhone" required clearable label="手机号" right-icon="question-o" :placeholder="errorHint.telPhone" maxlength="11"
 		@click-right-icon="$toast(errorHint.telPhone)"
@@ -236,11 +236,12 @@
 			1.实名审核通过后2张照片会被系统自动删除，上传证件照片的时候，请按照模板要求用纸条盖住证件头像。<br>
 			2.实名认证年龄范围为18~70周岁，若不在该范围内，需找首页的客服额外申请。
 		</div> -->
-		<div class="tip4modelRedText paddingWing textJustify margT10">
+		<div class="tip4modelNew paddingWing textJustify margT10">
 			注意事项强调：<br>
 			1.为了保证照片能够顺利上传，请在拍照后，先对照片进行裁剪，保证清晰可见，方便审核员快速审核。<br>
 			2.小纸条上需写上"帮扶链实名认证专用+手机号+当天日期"，<b class="green textBold">照片上任何内容严禁P图，审核时，P图的账号会被驳回或冻结处理。</b><br>
-			3.若遇到图片上传不了的解决办法：换浏览器操作，UC/QQ浏览器优先。
+			<b class="textBold">若遇到证件照片却上传不了的解决办法：</b><br>
+			换浏览器操作，UC/QQ浏览器优先、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
 		</div>
 		<!-- <form enctype="multipart/form-data">
 			
@@ -254,13 +255,18 @@
 		</form> -->
 		<!-- <van-uploader multiple result-type="file" :after-read="afterRead" /> -->
 		<div class="line">
-			<span class="label">身份证正面照片</span>
-			<span class="text" @click="showExamplePic">点我查看详细模板</span>
-			<span class="value">
+			<span class="label">贴纸条证件照</span>
+			<span class="text" @click="showExamplePic">点我查看照片模板</span>
+			<!-- <span class="value">
 				<van-uploader v-model="pic1" accept='image/*' image-fit='cover' :max-count="1" :before-read="beforeRead" :after-read = "afterRead"/>
+			</span> -->
+			<span class="value">
+				<i class="iconfont iconfont-upload-pic"></i>
+				<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
+				<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
 			</span>
 		</div>
-		<!-- <div class="line" v-if="!form.idCardPic">
+		<div class="line" v-if="userInfo.actived==-1&&!form.idCardPic">
 			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 			<img style="width: 100%;" :src="$api.domainName + '/image/idt.jpg'">
 		</div>
@@ -268,10 +274,10 @@
 		 	<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 		 	<img class="selectedImg" :src="form.idCardPic"/>
 		 </div>
-		 -->
-		 <div class="line" v-if="form.idCardPic">
+		
+		 <!-- <div class="line" v-if="form.idCardPic">
 		 	<img class="selectedImg" :src="form.idCardPic"/>
-		 </div>
+		 </div> -->
 		<van-field v-model="form.securityPassword" required clearable label="设置安全密码" type="password" :placeholder="errorHint.securityPassword" maxlength="20" @blur="validate('securityPassword')" :error-message="errorInfo.securityPassword"/>
 		<van-field v-model="form.securityPassword2" required clearable label="确认安全密码"  type="password" :placeholder="errorHint.securityPassword2" maxlength="20" @blur="validate('securityPassword2')" :error-message="errorInfo.securityPassword2"/>
 		<div class="line tip4modelRedText">
@@ -282,8 +288,6 @@
 		<div class="sureAppointBtnBox">
 			<div class="tip4model3RedText textJustify">
 				<div class="placeholderLine4"></div>
-				<b class="textBold">若遇到证件照片却上传不了的解决办法：</b><br>
-				1、把拍照下来的证件照片重新截图一下用截图过来的照片上传。<br>
 				<div class="placeholderLine4"></div>
 				<b class="textBold">若遇到提交实名一直转圈圈或提示区块拥堵的解决办法：</b><br>
 				1、检查网络信号是否良好。<br>
@@ -434,6 +438,9 @@ export default {
 				_this.getAssistUserInfoPicByUserId();
 			}
 		}else{
+			localStorage.removeItem('_USERINFO_');
+			_this.$cookies.remove('userId');
+			_this.$cookies.remove('token');
 			_this.$toast(_this.$api.loginAgainTipText);
 			_this.$router.replace('login');
 			return;
@@ -502,7 +509,7 @@ export default {
 			formdata.append('submit', false);
 			_this.$ajax.ajax4FileUpload(_this.$api.fileUpload1, 'POST', formdata, function(res){
 				if (res.code == _this.$api.CODE_OK) { //
-					console.log(res.data);
+					//console.log(res.data);
 				}else{
 					Dialog.alert({
 					  title: '系统提示',
@@ -726,10 +733,10 @@ export default {
 					tip = '实名次数已用完';
 				} 
 			}*/
-			let pic=[];
+			/* let pic=[];
 			_this.pic1.forEach((item,index)=>{
 				pic.push(item.content);
-			})
+			}) */
 			let params = {
 				id:_this.userInfo.id,
 				nickName:_this.form.nickName,
@@ -741,7 +748,7 @@ export default {
 				/* gesturePic:_this.pic2, */
 				securityPassword:_this.form.securityPassword,
 			}
-			console.log('params',params)
+			//console.log('params',params)
 			if(_this.$utils.hasNull(params)){
 				_this.$toast('系统提示：请填写完整信息');
 				return;

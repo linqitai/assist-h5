@@ -149,6 +149,9 @@
 				_this.userId = _this.userInfo.userId;
 			}else{
 				_this.$toast(_this.$api.loginAgainTipText);
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
 				_this.$router.replace('login');
 				return;
 			}

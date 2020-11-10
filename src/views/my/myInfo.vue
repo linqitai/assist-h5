@@ -317,10 +317,7 @@
 			  @blur="validate('idCard')"
 			  :error-message="errorInfo['idCard']"/>
 			<van-field v-model="form['originalPassword']" required clearable label="原密码" right-icon="question-o" :placeholder="errorHint['originalPassword']"
-				maxlength="20" type="password"
-			  @click-right-icon="$toast(errorHint['originalPassword'])"
-			  @blur="validate('originalPassword')"
-			  :error-message="errorInfo['sureNewPassword']"/>
+				maxlength="20" type="password" @click-right-icon="$toast(errorHint['originalPassword'])"/>
 			<van-field v-model="form[flag]" required clearable :label="label" right-icon="question-o" :placeholder="errorHint[flag]" type="password"
 			  maxlength="20" @click-right-icon="$toast(errorHint[flag])"
 			  @blur="validate(flag)"
@@ -432,13 +429,15 @@ export default {
 		let userInfo = localStorage.getItem("_USERINFO_");
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
-			console.log(_this.userInfo,'_this.userInfo')
+			//console.log(_this.userInfo,'_this.userInfo')
 			_this.userId = _this.userInfo.userId;
 			_this.mobilePhone = _this.userInfo.mobilePhone;
 		}else{
-			/* localStorage.removeItem('_USERINFO_');
+			localStorage.removeItem('_USERINFO_');
 			_this.$cookies.remove('userId');
-			_this.$cookies.remove('token'); */
+			_this.$cookies.remove('token');
+			_this.$cookies.remove('isRefreshDealInfo');
+			_this.$toast(_this.$api.loginAgainTipText);
 			_this.$router.replace('login');
 			return;
 		}
@@ -499,7 +498,6 @@ export default {
 			}else if(val==0){
 				return _this.$api.checkTip;
 			}else if(val==2){
-				console.log('_this.userInfo.remark',_this.userInfo.remark);
 				return "审核结果：" + _this.userInfo.remark;
 			}
 		},
@@ -519,6 +517,8 @@ export default {
 					_this.$cookies.remove('userId');
 					_this.$cookies.remove('token');
 					_this.$cookies.remove('isRefreshDealInfo');
+					_this.$cookies.remove('isRefreshUserInfo');
+					_this.$cookies.remove('tab_raise_list');
 					_this.$cookies.remove('statistics');
 					_this.$cookies.remove('haveDealPageInfo');
 					_this.$cookies.remove('hasNoticeList4Swipe');
@@ -542,7 +542,6 @@ export default {
 			let _this = this;
 			_this.loading = true;
 			_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res){
-				console.log('res',res);
 				if(res.code == _this.$api.CODE_OK){
 					_this.userInfo = res.data;
 					// _this.$cookies.set("_USERINFO_", _this.userInfo, 60 * 60 * 12);
@@ -656,7 +655,6 @@ export default {
 		// 更新密码
 		updatePassword(flag){
 			let _this = this;
-			console.log('flag',flag);
 			this.showUpdatePasswordModel = true;
 			_this.flag = flag;
 			_this.form = _this.$utils.formClear(_this.form);
@@ -678,7 +676,6 @@ export default {
 					securityPassword:_this.form.safePassword,
 				}
 				params[_this.flag] = _this.form[_this.flag];
-				console.log('params', params);
 				if(_this.$utils.hasNull(params)){	
 					_this.$toast('请填写完整信息');
 					return;
@@ -692,7 +689,6 @@ export default {
 					return;
 				} */
 				params.securityPassword = _this.$JsEncrypt.encrypt(_this.form.safePassword);
-				console.log('params',params);
 				_this.update1Loading = true;//updateAssistNickName
 				_this.$ajax.ajax(_this.$api.updateAssistUsrInfo, 'POST', params, function(res){
 					// console.log('res',res);
@@ -808,11 +804,32 @@ export default {
 				}else{
 					_this.errorInfo.loginPassword = _this.$reg.passwordHint;
 				}
+				if(_this.form.loginPassword.length<6){
+					_this.errorInfo.loginPassword = '密码长度请填写6~16位之间';
+				}
 			}else if(key == 'securityPassword') {
 				if(_this.$reg.safePassword.test(_this.form.securityPassword)){
 					_this.errorInfo.securityPassword = '';
 				}else{
 					_this.errorInfo.securityPassword = _this.$reg.securityPasswordHint;
+				}
+				if(_this.form.securityPassword.length<6){
+					_this.errorInfo.securityPassword = '密码长度请填写6~16位之间';
+				}
+			}else if(key == 'sureNewPassword'){
+				if(_this.flag=='loginPassword'){
+					if(_this.form.sureNewPassword==_this.form.loginPassword){
+						_this.errorInfo.sureNewPassword = '';
+					}else{
+						_this.errorInfo.sureNewPassword = '两次密码不一致';
+					}
+				}
+				if(_this.flag=='securityPassword'){
+					if(_this.form.sureNewPassword==_this.form.securityPassword){
+						_this.errorInfo.sureNewPassword = '';
+					}else{
+						_this.errorInfo.sureNewPassword = '两次密码不一致';
+					}
 				}
 			}else if(key == 'bankCard') {
 				if(_this.$reg.bankCard.test(_this.form.bankCard)){
@@ -829,7 +846,6 @@ export default {
 			}
 		},
 		refreshEvent(){
-			console.log("refresh")
 			let _this = this;
 			_this.getUserInfo();
 		},

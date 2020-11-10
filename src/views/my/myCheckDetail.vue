@@ -121,8 +121,8 @@
 	</m-header>
 	<!-- 实名认证 -->
 	<div class="realName">
-		<div class="f-12 lineHeight textJustify tip4model3RedText paddingWing margT10">
-			<b class="textBold">总结审核技巧</b><br>			1.先复制对方支付宝账号去支付宝首页-转账里验证是否搜索得到对方且是同一人，再查看对方支付宝头像是否已经设置<br>			2.再复制对方的注册手机号去添加TA的微信好友，要能搜索到才行，再查看对方微信头像是否已经设置<br>			3.务必检查对方支付宝头像和微信头像是否已经设置，没设置就驳回，有刷小号嫌疑<br>			4.再查看纸条里的信息是否对得上，如果明显是P图出来的纸条，就驳回<br>			5.再看纸条上手机号是否一致<br>			6.再看身份证号是否一致<br>			7.再看看对方年龄是否在18~70周岁之内（超过这个范围的，需要特殊申请）<br>			以上7点若有一条未达到要求，就审核驳回，若发现严重P图或多次P图的直接冻结账号<br>			支付宝关联了多个邮箱账号且没指定哪个是常用的，酌情处理。<br>
+		<div class="f-12 lineHeight textJustify tip4modelNew paddingWing margT10">
+			<b class="textBold">总结审核技巧</b><br>			1.先复制对方<b class="textBold yellow">支付宝</b>账号去支付宝【首页-转账】里验证是否搜索得到对方且是同一人，并查看对方支付宝头像是否已经设置。<br>			2.再复制对方的注册手机号去添加TA的<b class="textBold yellow">微信</b>好友，首先对方的微信要能搜索到，并查看对方微信头像是否已经设置。<br>			3.再查看纸条里的信息是否对得上，与是否明显是P出来的纸条。<br>			4.再查看身份证号是否一致。<br>			5.再看看对方年龄是否在18~70周岁之内（超过这个范围的，需要特殊申请）。<br>			以上5点若有一条未达到要求，就审核驳回，若发现乱传图、严重P图或多次P图的直接冻结账号。<br>			支付宝关联了多个邮箱账号且没指定哪个是常用的，酌情处理。<br>
 		</div>
 		<van-field v-model="form.nickName" required clearable label="昵称" disabled="true" :placeholder="errorHint.nickName" maxlength="20" @blur="validate('nickName')" :error-message="errorInfo.nickName"/>
 		<van-field v-model="form.realName" required clearable label="真实姓名" disabled="true" placeholder="请填写真实姓名" maxlength="20"
@@ -226,9 +226,9 @@ export default {
 		return {
 			list:[
 				'所传照片模糊不清或没拍全面(需露出证件的四个角)，请重新拍照且经过裁剪后再次上传更可观更清晰的图片',
-				'微信里需先设置头像，',
+				'微信里需先设置头像，证明您已经使用过微信',
 				'注册手机号无法搜索到微信，请在[设置-隐私-添加我的方式]里打开用手机号搜索到我的功能',
-				'支付宝里需先设置头像',
+				'支付宝里需先设置头像，证明您已经使用过支付宝',
 				'注册手机号无法搜索到支付宝，请在支付宝的[我的--设置--隐私]里开启通过手机号找到我',
 				'您的支付宝账号未实名，请先去实名',
 				'所填写的身份证号和证件照中不一致',
@@ -238,7 +238,7 @@ export default {
 				'纸条不合格，请按照模板要求来',
 				'纸条请不要遮住身份证号，这样无法核对，需重新拍照',
 				'纸条上写的手机号和注册手机号不一致',
-				'为了保护您的证件照片无法被他用，请按模板要求用纸条盖住证件头像',
+				'为了保护您的证件照片无法被他用，请按模板要求在证件上贴上纸条后再上传',
 				'年龄超出70周岁，若要加入帮扶链，需加客服额外申请',
 				'您的认证资料还存在多处问题，请仔细阅读实名规则后再提交资料'],
 			submitPassLoading:false,
@@ -333,6 +333,9 @@ export default {
 		let _this = this;
 		_this.loginerUserId = _this.$cookies.get('userId');
 		if(_this.$utils.isNUll(_this.loginerUserId)){
+			localStorage.removeItem('_USERINFO_');
+			_this.$cookies.remove('userId');
+			_this.$cookies.remove('token');
 			_this.$toast(_this.$api.loginAgainTipText);
 			_this.$router.replace('login');
 			return;

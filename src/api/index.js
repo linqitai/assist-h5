@@ -293,6 +293,7 @@ export default {
 	insertAssistRaise: host + "assist/raise/insertAssistRaise",
 	getRaiseMineralNum: host + "assist/raise/getRaiseMineralNum",
 	//raiseRecord
+	getAssistRaiseListPage4Finish: host + "assist/raise/getAssistRaiseListPage4Finish",
 	insertAssistRaiseRecord: host + "assist/raise/insertAssistRaiseRecord",
 	getAssistRaiseRecordListPage: host + "assist/raise/getAssistRaiseRecordListPage",
 	getAssistRaiseRecordRanking: host + "assist/raise/getAssistRaiseRecordRanking",

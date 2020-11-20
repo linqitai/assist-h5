@@ -39,6 +39,39 @@ $noticeHeight:40px;
 		    border: 0px solid transparent !important;
 		}
 	}
+	.list4Guide {
+		width: 100%;
+		padding: 6px 6px;
+		box-sizing: border-box;
+		.item {
+			width: 100%;
+			border: 1px solid $bottomLineColor;
+			letter-spacing: 1px;
+			background-color: $main-box-color;
+			margin-bottom: 4px;
+			border-radius: 4px;
+			overflow: hidden;
+			&::last-child{
+				margin-bottom: 0px;
+			}
+			.imgBox{
+				width: 100%;
+				img{
+					width: 100%;
+				}
+			}
+			.textBox{
+				padding: 8px 10px;
+				.freeGet{color: $main-adorn-color !important;}
+				.title{font-size: $fs-title;font-weight: bold;color: $mainTextColor !important;line-height: 1.4em;}
+				.line{
+					overflow: hidden;clear: both;
+					&.content{font-size: $fs-content;line-height: 1.4em;color: $mainTextColor !important;}
+				}
+				
+			}
+		}
+	}
 	.HomeContent{
 		position: relative;
 		.swipe {
@@ -326,7 +359,7 @@ $noticeHeight:40px;
 				</div>
 				<div class="placeholderLine20"></div>
 				<div class="title">{{attendanceTitle}}</div>
-				<div class="tomorrowContribution">连续签到30天可额外获得1个帮扶券</div>
+				<div class="tomorrowContribution">连续签到30天可额外获得0.1个帮扶券</div>
 				<div class="tomorrowContribution">系统提示：日常签到建议在白天完成，若因特殊因素而导致错过签到的，原则上不补签</div>
 				<!-- <div class="tomorrowContribution">随着矿石价值的增加，签到所得贡献值会不定期做调整</div> -->
 				<div class="placeholderLine10"></div>
@@ -386,81 +419,81 @@ $noticeHeight:40px;
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(13)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(13)">0.03</div>
 						<div class="day">13天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(14)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(14)">0.03</div>
 						<div class="day">14天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(15)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(15)">0.03</div>
 						<div class="day">15天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(16)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(16)">0.03</div>
 						<div class="day">16天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(17)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(17)">0.03</div>
 						<div class="day">17天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(18)">0.04</div>
+						<div class="circle" :class="getAttendanceBgColor(18)">0.03</div>
 						<div class="day">18天</div>
 					</div>
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(19)">0.06</div>
+						<div class="circle" :class="getAttendanceBgColor(19)">0.04</div>
 						<div class="day">19天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(20)">0.06</div>
+						<div class="circle" :class="getAttendanceBgColor(20)">0.04</div>
 						<div class="day">20天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(21)">0.06</div>
+						<div class="circle" :class="getAttendanceBgColor(21)">0.04</div>
 						<div class="day">21天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(22)">0.06</div>
+						<div class="circle" :class="getAttendanceBgColor(22)">0.04</div>
 						<div class="day">22天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(23)">0.06</div>
+						<div class="circle" :class="getAttendanceBgColor(23)">0.04</div>
 						<div class="day">23天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(24)">0.06</div>
+						<div class="circle" :class="getAttendanceBgColor(24)">0.04</div>
 						<div class="day">24天</div>
 					</div>
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(25)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(25)">0.05</div>
 						<div class="day">25天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(26)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(26)">0.05</div>
 						<div class="day">26天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(27)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(27)">0.05</div>
 						<div class="day">27天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(28)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(28)">0.05</div>
 						<div class="day">28天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(29)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(29)">0.05</div>
 						<div class="day">29天</div>
 					</div>
 					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(30)">0.08</div>
+						<div class="circle" :class="getAttendanceBgColor(30)">0.05</div>
 						<div class="day">30天</div>
 					</div>
 				</div>
@@ -473,7 +506,7 @@ $noticeHeight:40px;
 					<div class="textCenter red f-13">今日签到已领取{{getTodayAttendanceValue}}帮扶券</div>
 					<div class="tomorrowContribution" v-if="dayNum<30">明日签到可领取{{getTomorrowContributionValue}}帮扶券</div>
 					<!-- <div class="tomorrowContribution" v-if="dayNum==30">恭喜您：今日已成功获取一台体验矿机，明日将重置签到</div> -->
-					<div class="tomorrowContribution" v-if="dayNum==30">恭喜您：签到满30天，已成功额外领得1个帮扶券奖励，明日将重置签到</div>
+					<div class="tomorrowContribution" v-if="dayNum==30">恭喜您：签到满30天，已成功额外获得0.1个帮扶券奖励，明日将重置签到</div>
 					<div class="placeholderLine20"></div>
 				</div>
 			</div>
@@ -564,7 +597,7 @@ $noticeHeight:40px;
 				<div class="millInfo">
 					<div class="infoBox">
 						<div>
-							<span class="yellow underline" @click="toBlcokSearchView">区块浏览器·全</span> <i class="iconfont iconfont-question" @click="showTip('blockSearch')"/>
+							<span class="yellow underline" @click="toBlcokSearchView">区块浏览器</span> <i class="iconfont iconfont-question" @click="showTip('blockSearch')"/>
 						</div>
 					</div>
 				</div>
@@ -584,7 +617,7 @@ $noticeHeight:40px;
 					<div class="infoBox">
 						<router-link to="/volunteer">
 							<div class="iconBox">
-								<div class="iconBackground iconBackgroundRaise">
+								<div class="iconBackground iconBackgroundAttendance">
 									<van-icon class-prefix="iconfont" name="love2" />
 								</div>
 							</div>
@@ -614,37 +647,30 @@ $noticeHeight:40px;
 							</div>
 						</div>
 						<div class="text">排行榜</div>
-						<!-- <router-link to="/ranking">
-						</router-link> -->
 					</div>
+					
 					<div class="infoBox">
-						<router-link to="/voteList">
+						<router-link to="/newGuide">
 							<div class="iconBox">
-								<div class="iconBackground iconBackground4">
-									<van-icon class-prefix="iconfont" name="vote" />
+								<div class="iconBackground iconBackgroundRank">
+									<van-icon class-prefix="iconfont" name="new-guide" />
 								</div>
 							</div>
-							<div class="text">共识投票</div>
+							<div class="text">新手指南</div>
 						</router-link>
 					</div>
-					<div class="infoBox">
-						<!-- <div class="bubble" v-if="isbubble1">
-							该模块正在内测中，暂时只对个人算力大于20G的矿工开放内测权限，内测完毕后方可对全体矿工开放！
-						</div> -->
-						<div class="bubble" v-if="isbubble1" @click="isbubble1 = false">
-							游戏模块已开通！
-						</div>
-						<div class="triangleRight" v-if="isbubble1"></div>
-						<div class="iconBox" @click="toGameView">
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="game" size="35"/>
+					
+					<div class="infoBox" @click="attendanceBtn">
+						<div class="iconBox">
+							<div class="iconBackground iconBackgroundAttendance">
+								<van-icon class-prefix="iconfont" name="attendance" size="35"/>
 							</div>
 						</div>
-						<div class="text">娱乐游戏</div>
+						<div class="text">日常签到</div>
 					</div>
 				</div>
 				<div class="cateInfo">
-					<div class="infoBox">
+					<!-- <div class="infoBox">
 						<router-link to="/agency">
 							<div class="iconBox">
 								<div class="iconBackground iconBackground3">
@@ -653,8 +679,8 @@ $noticeHeight:40px;
 							</div>
 							<div class="text">省市代理</div>
 						</router-link>
-					</div>
-					<div class="infoBox">
+					</div> -->
+					<!-- <div class="infoBox">
 						<router-link to="/rankingDeal">
 							<div class="iconBox">
 								<div class="iconBackground iconBackground1">
@@ -663,18 +689,16 @@ $noticeHeight:40px;
 							</div>
 							<div class="text">服务商</div>
 						</router-link>
-					</div>
-					<div class="infoBox" @click="toRanking4Level">
+					</div> -->
+					<!-- <div class="infoBox" @click="toRanking4Level">
 						<div class="iconBox">
 							<div class="iconBackground iconBackground2">
 								<van-icon class-prefix="iconfont" name="merchant" />
 							</div>
 						</div>
 						<div class="text">工会会长</div>
-						<!-- <router-link to="/ranking4Level">
-						</router-link> -->
-					</div>
-					<div class="infoBox">
+					</div> -->
+					<!-- <div class="infoBox">
 						<router-link to="/cService">
 							<div class="iconBox">
 								<div class="iconBackground iconBackgroundCService">
@@ -683,7 +707,7 @@ $noticeHeight:40px;
 							</div>
 							<div class="text">客服</div>
 						</router-link>
-					</div>
+					</div> -->
 					<!-- <div class="infoBox" @click="waiting">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundRaise">
@@ -713,6 +737,16 @@ $noticeHeight:40px;
 						</router-link>
 					</div>
 					<div class="infoBox">
+						<router-link to="/voteList">
+							<div class="iconBox">
+								<div class="iconBackground iconBackground4">
+									<van-icon class-prefix="iconfont" name="vote" />
+								</div>
+							</div>
+							<div class="text">共识投票</div>
+						</router-link>
+					</div>
+					<!-- <div class="infoBox">
 						<router-link to="/helpRecord">
 							<div class="iconBox">
 								<div class="iconBackground iconBackgroundRaise">
@@ -721,28 +755,36 @@ $noticeHeight:40px;
 							</div>
 							<div class="text">帮扶历史</div>
 						</router-link>
-					</div>
+					</div> -->
 					<div class="infoBox">
-						<router-link to="/newGuide">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundRank">
-									<van-icon class-prefix="iconfont" name="new-guide" />
-								</div>
-							</div>
-							<div class="text">新手指南</div>
-						</router-link>
-					</div>
-					<div class="infoBox" @click="attendanceBtn">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="attendance" size="35"/>
+						<!-- <div class="bubble" v-if="isbubble1">
+							该模块正在内测中，暂时只对个人算力大于20G的矿工开放内测权限，内测完毕后方可对全体矿工开放！
+						</div> -->
+						<!-- <div class="bubble" v-if="isbubble1" @click="isbubble1 = false">
+							游戏模块已开通！
+						</div> -->
+						<!-- <div class="triangleRight" v-if="isbubble1"></div> -->
+						<div class="iconBox" @click="toGameView">
+							<div class="iconBackground iconBackground1">
+								<van-icon class-prefix="iconfont" name="game" size="35"/>
 							</div>
 						</div>
-						<div class="text">日常签到</div>
+						<div class="text">娱乐游戏</div>
 					</div>
+					<div class="infoBox">
+						<router-link to="/cService">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundCService">
+									<van-icon class-prefix="iconfont" name="cservice" />
+								</div>
+							</div>
+							<div class="text">客服</div>
+						</router-link>
+					</div>
+					
 				</div>
 				<div class="placeholderLine10"></div>
-				<div class="helpList">
+				<div class="list4Guide">
 					<div class="item" v-for="item in list">
 						<div class="textBox">
 							<div class="line">
@@ -906,12 +948,13 @@ $noticeHeight:40px;
 				_this.refreshAttendanceInfo();
 			}else{
 				localStorage.removeItem('_USERINFO_');
-				//_this.$cookies.remove('token');
-				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$cookies.remove('userId');
 				_this.$cookies.remove('token');
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.remove('isRefreshUserInfo');
+				_this.$cookies.remove('tab_raise_list');
 				_this.$router.replace('/login');
-				/* return; */
+				return;
 			}
 			// //console.log('getImageHost',_this.$api.HOST_IMG)
 			/* this.mill = {
@@ -927,47 +970,10 @@ $noticeHeight:40px;
 				   _this.getHomeMineralStaticInfo();
 				}, 500)
 			}
-			//公告缓存获取
-			if(_this.$cookies.get('hasnoticeList')){
-				_this.noticeList = JSON.parse(localStorage.getItem("noticeListLocal"));
-				if(_this.noticeList){
-					_this.lastNoticeItem = _this.noticeList[0];
-				}else{
-					setTimeout(() => {
-					  _this.getNoticeList();
-					}, 1000)
-				}
-			}else{
-				setTimeout(() => {
-				  _this.getNoticeList();
-				}, 1000)
-			}
+			
 			if(_this.$utils.isNUll(_this.userInfo.email)){
 				_this.initEmail();
 			}
-			//轮播图存获取
-			/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
-				//console.log('hasNoticeList4Swipe');
-				_this.noticeList4Swipe = JSON.parse(localStorage.getItem("noticeList4Swipe"));
-				if(_this.noticeList4Swipe){
-				}else{
-					_this.getNoticeList4Swipe();
-				}
-			}else{
-				_this.getNoticeList4Swipe();
-			} */
-			/* let qqFlock = _this.$cookies.get('qqFlock');
-			if(qqFlock){
-				_this.qqFlock = `官方QQ群：${qqFlock}`;
-			}else{
-				_this.getAssistQQFlock();
-			} */
-			// _this.getCanCirculateMineralNum();
-			/* if(_this.$cookies.get("haveDealPageInfo")){
-				_this.dealPageInfo = JSON.parse(localStorage.getItem("dealPageInfo"));
-				//console.log("dealPageInfo",_this.dealPageInfo);
-			} */
-			
 		},
 		methods: {
 			initEmail(){
@@ -1029,25 +1035,6 @@ $noticeHeight:40px;
 				}).then(() => {
 					// on confirm
 					//console.log('sure');
-				})
-			},
-			logout(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.$toast('账户异常且退出登录');
-						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-						// _this.$cookies.remove('_USERINFO_');
-						// _this.$cookies.remove('buyAndSellInfo');
-						_this.$cookies.remove('userId');
-						_this.$cookies.remove('token');
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-					}else{
-						_this.$toast(res.message);
-					}
-				},function(){
-					_this.$router.replace('login');
 				})
 			},
 			waiting(){
@@ -1443,22 +1430,24 @@ $noticeHeight:40px;
 			refreshEvent() {
 				/* alert("refresh"); */
 				let _this = this;
-				_this.getHomeMineralStaticInfo();
-				// _this.getNoticeList4Swipe();
-				setTimeout(() => {
-				  _this.getNoticeList();
-				}, 1000)
-				//轮播图存获取
-				/* if(_this.$cookies.isKey('hasNoticeList4Swipe')){
-					//console.log('hasNoticeList4Swipe');
-					_this.noticeList4Swipe = JSON.parse(localStorage.getItem("noticeList4Swipe"));
-					if(_this.noticeList4Swipe){
+				//_this.getHomeMineralStaticInfo();
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getHomeMineralStaticInfo, 'GET', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.statistics = res.data;
+						_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime);
+						_this.loading = false;
+						if(_this.statistics.isShowNotice){
+							_this.getNoticeList();
+						}
+						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
+						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
 					}else{
-						_this.getNoticeList4Swipe();
+						//_this.$toast(res.message);
 					}
-				}else{
-					_this.getNoticeList4Swipe();
-				} */
+				},function(){
+					_this.loading = false;
+				})
 			},
 			toNoticeDetail(item) {
 				let _this = this;
@@ -1475,7 +1464,7 @@ $noticeHeight:40px;
 				_this.$ajax.ajax(_this.$api.getHomeMineralStaticInfo, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.statistics = res.data;
-						_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime);
+						_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime8h);
 						_this.loading = false;
 						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
@@ -1484,19 +1473,6 @@ $noticeHeight:40px;
 					}
 				},function(){
 					_this.loading = false;
-				})
-			},
-			getMineralStatic() {
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.getMineralStatic, 'GET', null, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						_this.statistics = res.data;
-						_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime);
-						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
-					}else{
-						_this.$toast(res.message);
-					}
 				})
 			},
 			getCanCirculateMineralNum() {
@@ -1511,24 +1487,6 @@ $noticeHeight:40px;
 					}
 				})
 			},
-			/* getNoticeList4Swipe() {
-				let _this = this;
-				let params = {
-					pageNo: _this.currentPage,
-					pageSize: 6,
-					type:1
-				}
-				_this.$ajax.ajax(_this.$api.getNoticePageList, 'GET', params, function(res) {
-					// //console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) {
-						_this.noticeList4Swipe = res.data.list;
-						localStorage.setItem('noticeList4Swipe',JSON.stringify(_this.noticeList4Swipe));
-						_this.$cookies.set('hasNoticeList4Swipe',1,_this.$api.cookiesTime72h);
-					}else{
-						_this.$toast(res.message);
-					}
-				})
-			}, */
 			getNoticeList() {
 				let _this = this;
 				let params = {
@@ -1541,13 +1499,6 @@ $noticeHeight:40px;
 					if (res.code == _this.$api.CODE_OK) {
 						_this.noticeList = res.data.list;
 						_this.lastNoticeItem = _this.noticeList[0];
-						//实在显示首页的最新公告弹窗
-						_this.isShowLastNotice = true;
-						localStorage.removeItem('noticeListLocal');
-						localStorage.setItem('noticeListLocal',JSON.stringify(res.data.list));
-						_this.$cookies.set('hasnoticeList',1,60*60*2);
-						//首页弹窗的缓存
-						//_this.$cookies.set('isShowLN',1,60*60);
 						//实在显示首页的最新公告弹窗
 						_this.isShowLastNotice = true;
 					}else{

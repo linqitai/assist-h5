@@ -63,10 +63,10 @@
 		  v-model="loading1"
 		  :finished="finished1"
 		  finished-text="没有更多了"
-		  @load="onLoad1"
+		  @load="getNoticePageList"
 		>
 		<div class="noticeList">
-			<div class="item" v-for="item in noticelist" :key="item.id" @click="toNoticeDetail(item)">
+			<div class="item" v-for="item in noticelist" :key="item.id" @click="toNoticeDetail(item)" offset="100">
 				<div class="itemLeft">
 					<div class="title">{{item.noticeTitle}}</div>
 					<div class="time">{{item.createTime}}</div>
@@ -95,12 +95,13 @@
 			return {
 				noticelist: [],
 				loading1:false,
-				finished1:false
+				finished1:false,
+				currentPage1:1
 			}
 		},
 		mounted() {
 			let _this = this;
-			_this.getNoticeList();
+			//_this.getNoticePageList();
 		},
 		methods: {
 			back(){
@@ -125,18 +126,29 @@
 					}
 				});
 			},
-			getNoticeList() {
+			getNoticePageList() {
 				let _this = this;
 				let params = {
+					pageNo: _this.currentPage1,
+					pageSize: 20,
 					type:0
 				}
-				_this.$ajax.ajax(_this.$api.getNoticeList, 'GET', params, function(res) {
-					console.log('res', res);
+				_this.loading1 = true;
+				_this.$ajax.ajax(_this.$api.getNoticePageList, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						_this.noticelist = res.data;
+						let list = res.data.list;
+						_this.noticelist.push(...list);
+						_this.loading1 = false;
+						if(res.data.endRow == res.data.total){
+							_this.finished1 = true;
+						}else{
+							_this.currentPage1 = _this.currentPage1 + 1;
+						}
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(){
+					_this.loading1 = false;
 				})
 			},
 			noticeTap() {

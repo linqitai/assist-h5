@@ -23,6 +23,11 @@
 				}
 			}
 		}
+		.topTitle{
+			padding: $boxPadding1 12px;
+			font-size: 1.5rem;
+			font-weight: bolder;
+		}
 		.formBox{
 			padding: $boxPadding1;
 			.van-cell__value,.van-cell__value--alone,.van-field__control{
@@ -117,25 +122,14 @@
 
 <template>
 	<div class="register">
-		<div class="logoBox">
-			<van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
-			  <van-swipe-item v-for="(image, index) in images" :key="index">
-				<img v-lazy="image" />
-			  </van-swipe-item>
-			</van-swipe>
-			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0058.jpg" alt=""> -->
-			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0055.jpg" alt=""> -->
-		</div>
-		<div class="formHeader">
-			<div class="welcomeText green_text">{{welcomeText}}</div>
-		</div>
+		<div class="topTitle">HPC帮扶链注册页面</div>
 		<div class="formBox">
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>
 				<van-field v-model="form.phone" type="text" clearable :placeholder="placeholder.phone" @blur="validate('phone')" :error-message="errorHint.phone" maxlength="11"/>
 				<div class="labelText">确认账号</div>
 				<van-field v-model="form.phone2" type="password" clearable :placeholder="placeholder.phone2" @blur="validate('phone2')" :error-message="errorHint.phone2" maxlength="11"/>
-				<div class="tip4model3RedText margT6">
+				<div class="tip4modelNew margT6">
 					温馨提示：注册账号即是本人的手机号，请填写绑定了自己【微信和支付宝】的手机号。若是港澳台及海外用户，只要有自己的支付宝和微信号即可注册并实名。
 					<!-- 2.若不是看好帮扶的理念，而是单纯想撸羊毛的用户请不要注册，因为每次交易的数据都公开透明，纯撸者会被会员控告并冻结账号。 -->
 				</div>
@@ -180,23 +174,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="shadeMaster" v-if="isWeixin">
-			<p>请打开右上角按钮选择<br>
-				<span>【在浏览器打开】</span>
-			</p>
-			<img class='img' src="../../assets/image/open_right.png" alt="pic">
-		</div> -->
-		<!-- <van-dialog v-model="showTipModel" title="系统提示" :show-confirm-button="false">
-			<div class="placeholderLine10"></div>
-			<div class="securityCodeBox">
-				<van-field v-model="form.securityCode" label="图形验证" center clearable placeholder="请填写图形验证码">
-					<van-button slot="button" size="small" type="primary" :loading="getSCLoading">{{securityCode}}</van-button>
-				</van-field>
-			</div>
-			<div class="placeholderLine10"></div>
-			<div class="placeholderLine10"></div>
-			<van-button type="primary" size="normal" :block="true" @click="verifySecurityCodeBtn">确认</van-button>
-		</van-dialog> -->
 	</div>
 </template>
 
@@ -205,9 +182,6 @@
 	export default {
 		data() {
 			return {
-				images: [
-					this.$api.domainName + '/image/banner/banner0058.jpg'
-				],
 				getSCLoading:false,
 				interval:180,
 				time:180,
@@ -249,12 +223,6 @@
 				helpList:[]
 			}
 		},
-		/* watch:{
-			'time'(now,old){
-				let _this = this;
-				console.log(now,old);
-			},
-		}, */
 		created() {
 			let _this = this;
 			_this.welcomeText = _this.$api.welcomeText;

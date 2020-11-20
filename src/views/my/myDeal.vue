@@ -560,7 +560,8 @@
 				<div class="tip4modelNew">
 					<b class="textBold">买家需知：</b><br>
 					1.交易默认收款方式为支付宝，若用微信转账，<b class="yellow textBold">请不要用微信红包转账</b>，只可通过【支付--收付款】中的向手机号转账；若是小额转账，务必使用支付宝或微信完成，银行卡转账只应对大额交易。<br>
-					2.平台为保证交易的顺利进行，请买家务必校对卖家的真实姓名，<b class="yellow textBold">若卖家的支付宝未实名</b>或<b class="yellow textBold">真实姓名若与收款账户里的不一致，请买家点申诉反馈问题</b>，情况属实买方会得到贡献值奖励。
+					2.平台为保证交易的顺利进行，请买家务必校对卖家的真实姓名，<b class="yellow textBold">若卖家的支付宝未实名</b>或<b class="yellow textBold">真实姓名若与收款账户里的不一致，请买家点申诉反馈问题</b>，情况属实买方会得到贡献值奖励。<br>
+					3.匹配后，若卖方没发短信通知买方而导致买方<b class="yellow textBold">超时付款</b>，买方可直接点申诉反馈。
 				</div>
 				<div class="line" v-if="detail4sellerInfo.id">
 					<span class="label">订单编号</span>
@@ -971,8 +972,7 @@
 	import mRefresh from '@/components/Refresh.vue';
 	import clip from '@/assets/js/clipboard';
 	import EXIF from 'exif-js';
-	import { Dialog } from 'vant';
-	import { Toast } from 'vant';
+	import { Dialog,Toast } from 'vant';
 	export default {
 		data() {
 			return {
@@ -1676,6 +1676,10 @@
 				let params = {
 					id: item.id
 				}
+				const toast = Toast.loading({
+				  forbidClick: true,
+				  message: '加载中...',
+				});
 				_this.$ajax.ajax(_this.$api.getAssistSellerUserInfoByTransactionId, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						if(res.data){
@@ -1685,6 +1689,8 @@
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(){
+					Toast.clear();
 				})
 			},
 			refreshEvent() {

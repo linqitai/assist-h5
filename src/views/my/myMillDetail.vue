@@ -129,7 +129,7 @@
 			_this.millInfo = JSON.parse(localStorage.getItem('thisMillInfo'));
 			//计算当前可领取数量
 			let nowTime = new Date().getTime();
-			let beforeReceiptTime = new Date(_this.millInfo.beforeReceipt).getTime();
+			let beforeReceiptTime = new Date(_this.millInfo.beforeReceipt.substring(0,19)).getTime();
 			//和上次领取收益相差这么多秒
 			let nowStampTime = (nowTime - beforeReceiptTime)/1000;
 			//计算每秒领取收益量

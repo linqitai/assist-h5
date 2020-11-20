@@ -233,11 +233,11 @@ function getNextAttendanceValue(toDay){
 	}else if(nextDay>=7&&nextDay<=12){
 		contributionValue = 0.02;
 	}else if(nextDay>=13&&nextDay<=18){
-		contributionValue = 0.04;
+		contributionValue = 0.03;
 	}else if(nextDay>=19&&nextDay<=24){
-		contributionValue = 0.06;
+		contributionValue = 0.04;
 	}else if(nextDay>=25&&nextDay<=30){
-		contributionValue = 0.08;
+		contributionValue = 0.05;
 	}else if(nextDay==31){
 		contributionValue = 0.01;
 	}
@@ -253,11 +253,11 @@ function getTodayAttendanceValue(toDay){
 	}else if(num>=7&&num<=12){
 		contributionValue = 0.02;
 	}else if(num>=13&&num<=18){
-		contributionValue = 0.04;
+		contributionValue = 0.03;
 	}else if(num>=19&&num<=24){
-		contributionValue = 0.06;
+		contributionValue = 0.04;
 	}else if(num>=25&&num<=30){
-		contributionValue = 0.08;
+		contributionValue = 0.05;
 	}
 	return contributionValue;
 }

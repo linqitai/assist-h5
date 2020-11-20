@@ -208,7 +208,7 @@
 				 <!-- @load="onLoad1" -->
 				<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 					 <div class="millList">
-					 	<div class="item" v-for="item in list1" :key="item.id" @click="toMy4OtherView(item.userId)">
+					 	<div class="item" v-for="item in list1" :key="item.id">
 					 		<!-- <div class="flex flex1">
 					 			<div class="machingBox">
 					 				<div class="name">{{item.type | machineType4Pic}}</div>
@@ -222,7 +222,7 @@
 					 			<div class="line">租金{{item.price}} 算力{{item.calculationPower}}G 租赁时间{{item.getTime}}</div>
 					 		</div>
 					 		<div class="flex flex3">
-								<i class="iconfont iconfont-right-arrow2"></i>
+								<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 					 			<!-- <div class="line">库存{{item.inventory}}</div>
 					 			<div class="line margT3">
 					 				<van-button round type="info" @click="buyMill(item)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>

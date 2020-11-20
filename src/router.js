@@ -64,7 +64,7 @@ export default new Router({
 			component: resolve => require(['./views/other/tip'],resolve),
 			meta:{footer:false,keepAlive:true},
 		},
-		{
+		/* {
 			path: '/404',
 			name: '404',
 			component: resolve => require(['./views/other/404'],resolve),
@@ -81,7 +81,7 @@ export default new Router({
 			name: 'maintain',
 			component: resolve => require(['./views/other/maintain'],resolve),
 			meta:{footer:false,keepAlive:true},
-		},
+		}, */
 		{
 			path: '/test',
 			name: 'test',
@@ -151,18 +151,18 @@ export default new Router({
 						}
 					]
 				},
-				{
+				/* {
 					path: '/shop',
 					name: '小店',
 					component: resolve => require(['./views/shop/shop'],resolve),
 					meta:{footer:true,keepAlive:true}
-				},
-				{
+				}, */
+				/* {
 					path: '/raise',
 					name: '帮扶筹',
 					component: resolve => require(['./views/raise/raise'],resolve),
 					meta:{footer:true,keepAlive:true}
-				},
+				}, */
 				{
 					path: '/mill',
 					name: '矿机商城',
@@ -417,8 +417,14 @@ export default new Router({
 				},
 				{
 					path: '/myMill',
-					name: '我的矿机',
+					name: '常规矿机',
 					component: resolve => require(['./views/my/myMill'],resolve),
+					meta:{footer:false,keepAlive:true},
+				},
+				{
+					path: '/myMill2',
+					name: '算力矿机',
+					component: resolve => require(['./views/my/myMill2'],resolve),
 					meta:{footer:false,keepAlive:true},
 				},
 				{
@@ -433,7 +439,7 @@ export default new Router({
 					component: resolve => require(['./views/my/myMillDetail'],resolve),
 					meta:{footer:false,keepAlive:false},
 				},
-				{
+				/* {
 					path: '/merchantProcess',
 					name: '商家入驻',
 					component: resolve => require(['./views/home/merchantProcess'],resolve),
@@ -452,7 +458,7 @@ export default new Router({
 							meta:{footer:false,back:true,child1:0,keepAlive:true},
 						},
 					]
-				},
+				}, */
 				{
 					path: '/myInfo',
 					name: '个人信息',
@@ -543,7 +549,7 @@ export default new Router({
 					component: resolve => require(['./views/my/myCheckDetail'],resolve),
 					meta:{footer:false,keepAlive:false}
 				},
-				{
+				/* {
 					path: '/shopCharge',
 					name: '订购商品',
 					component: resolve => require(['./views/shop/shopCharge'],resolve),
@@ -560,7 +566,7 @@ export default new Router({
 					name: '购物订单',
 					component: resolve => require(['./views/my/shopOrder'],resolve),
 					meta:{footer:false,keepAlive:true}
-				},
+				}, */
 			]
 		},
 		{

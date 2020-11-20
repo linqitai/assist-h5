@@ -207,6 +207,7 @@ b{font-weight: bold;}
 	line-height: 1.5em;
 	letter-spacing: 1px;
 	text-indent: 2em;
+	text-align: justify;
 }
 
 .tip4model1{
@@ -215,6 +216,7 @@ b{font-weight: bold;}
 	font-size: 0.75rem;
 	line-height: 1.2em;
 	letter-spacing: 1px;
+	text-align: justify;
 }
 
 .tip4model4Green{
@@ -223,6 +225,7 @@ b{font-weight: bold;}
 	font-size: 0.75rem;
 	line-height: 1.2em;
 	letter-spacing: 1px;
+	text-align: justify;
 }
 
 .tip4model2{
@@ -231,6 +234,7 @@ b{font-weight: bold;}
 	font-size: 0.75rem;
 	line-height: 1.4em;
 	letter-spacing: 1px;
+	text-align: justify;
 }
 
 .tip4model3{
@@ -238,6 +242,7 @@ b{font-weight: bold;}
 	font-size: 0.75rem;
 	line-height: 1.4em;
 	letter-spacing: 1px;
+	text-align: justify;
 }
 
 .tip4modelNew{
@@ -245,6 +250,7 @@ b{font-weight: bold;}
 	font-size: 0.75rem;
 	line-height: 1.4em;
 	letter-spacing: 1px;
+	text-align: justify;
 }
 
 .tip4model3RedText{
@@ -252,6 +258,7 @@ b{font-weight: bold;}
 	font-size: 0.75rem;
 	line-height: 1.4em;
 	letter-spacing: 1px;
+	text-align: justify;
 }
 
 .tip4model4{
@@ -259,6 +266,7 @@ b{font-weight: bold;}
 	font-size: 0.75rem;
 	line-height: 1.4em;
 	letter-spacing: 1px;
+	text-align: justify;
 }
 
 .tip4modelRedText{
@@ -266,6 +274,7 @@ b{font-weight: bold;}
 	font-size: 0.75rem;
 	line-height: 1.4em;
 	letter-spacing: 1px;
+	text-align: justify;
 }
 	
 .van-pagination{

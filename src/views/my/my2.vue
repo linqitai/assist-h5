@@ -217,7 +217,7 @@
 			<van-notice-bar
 			  mode = "closeable"
 			  left-icon="volume-o"
-			  text="直推完成基础任务2奖励上级0.5个贡献值和2个流通值;30天没登录将会被系统回收2~12个矿石;"
+			  text="直推完成基础任务2奖励上级0.5个贡献值;30天没登录将会被系统回收2~12个矿石;"
 			/>
 			<div class="box box1">
 				<div class="flex flex1">
@@ -236,7 +236,7 @@
 						</div>
 					</div>
 					<div class="line1 margT3">
-						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}</div>
+						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}+{{getCityName(cityInfo)}}{{userInfo.isAgent | agentType}}</div>
 						
 					</div>
 					<div class="line margT3">
@@ -257,8 +257,14 @@
 					<!-- <div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div> -->
 					<div class="line">
 						<span @click="toBookView('3')">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/>
-						
+						<!-- <span class="margL10">
+							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveLevelDealProfitLoading" @click="giveLevelDealProfit">全球分红</van-button>
+						</span> -->
 					</div>
+					<!-- @click="toBookView('5')" -->
+					<!-- <div class="line">
+						<span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/>	
+					</div> -->
 					<div class="placeholderLine"></div>
 					<div class="line" v-if="Number(userInfo.email)>0">
 						<span @click="toBookView('6')">流通值 {{Number(userInfo.email).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
@@ -278,9 +284,6 @@
 							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" @click="buyTicketBtn">购买帮扶券</van-button>
 						</span>
 					</div>
-					<!-- <div class="line" v-if="userInfo.manType==2">
-						服务商动态密码：{{dsPassword}} <span class="copy" @click="handleCopy(dsPassword,$event)">复制</span>
-					</div> -->
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
@@ -328,7 +331,7 @@
 			</div>
 			<div class="line1pxbgcolor"></div>
 			<div class="cateInfo">
-				<div class="infoBox">
+				<!-- <div class="infoBox">
 					<router-link to="/task">
 						<div class="iconBox">
 							<div class="iconBackground iconBackground1">
@@ -337,7 +340,7 @@
 						</div>
 						<div class="text">任务中心</div>
 					</router-link>
-				</div>
+				</div> -->
 				<div class="infoBox">
 					<router-link to="/myMill">
 						<div class="iconBox">
@@ -345,7 +348,17 @@
 								<van-icon class-prefix="iconfont" name="mill2" />
 							</div>
 						</div>
-						<div class="text">我的矿机</div>
+						<div class="text">常规矿机</div>
+					</router-link>
+				</div>
+				<div class="infoBox">
+					<router-link to="/myMill2">
+						<div class="iconBox">
+							<div class="iconBackground iconBackgroundMill">
+								<van-icon class-prefix="iconfont" name="mill2" />
+							</div>
+						</div>
+						<div class="text">算力矿机</div>
 					</router-link>
 				</div>
 				<div class="infoBox">
@@ -621,7 +634,7 @@
 						</div>
 					</div>
 				</router-link>
-				<!-- <router-link to="transferFGC">
+				<router-link to="transferFGC">
 					<div class="my-cell">
 						<div class="flex1">
 							合成钻石值
@@ -630,7 +643,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link> -->
+				</router-link>
 			</div>
 			<!-- <div class="paddingAll">
 				<van-button color="#c7c7c7" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户(暂对尚未实名的用户开放)</van-button>
@@ -764,7 +777,6 @@
 			if(_this.$cookies.get('isRefreshUserInfo')==1){
 				_this.getUserInfo();
 			}
-			//_this.rectifyMyCP();
 			/* if(_this.userInfo.isAgent==1){
 				_this.getAssistAgentInfo4Province();
 			}
@@ -867,18 +879,6 @@
 				}
 				_this.$router.push('myBook');
 			},
-			rectifyMyCP(){
-				let _this = this;
-				if(_this.$utils.getDateTime(new Date())<'2020/11/20 23:59:59'){
-					_this.$ajax.ajax(_this.$api.rectifyMyCP, 'GET', null, function(res){
-						if(res.code == _this.$api.CODE_OK){
-							if(res.data == 1){
-								_this.getUserInfo();
-							}
-						}
-					})
-				}
-			},
 			givePTRewardYesterday(){
 				let _this = this;
 				/* if(_this.userInfo.buyAmount<100){
@@ -924,15 +924,6 @@
 			},
 			circulateToMyCPEvent(){
 				let _this = this;
-				if(_this.$utils.getDateTime(new Date())<'2020/11/20 23:59:59'){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: "该兑换功能将在21号开启"
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
 				Dialog.confirm({
 				  title: '系统提示',
 				  confirmButtonText:'确认',
@@ -995,14 +986,14 @@
 				  title: '系统提示',
 				  confirmButtonText:'确认',
 				  closeOnClickOverlay:true,
-				  message: '工会会长的全球分红按多劳多得的方式发放，每周一手动领取分红，您是否确认领取？'
+				  message: '工会会长的全球分红每天领取矿石数量=(个人算力矿机总算力+个人算力/100)/当前所有会长的个人算力之和*昨日交易量*3%*等级值（等级值：青铜为1，白银为2，以此类推），您是否确认领取？'
 				}).then(() => {
 				  _this.giveLevelDealProfitLoading = true;
 				  _this.$ajax.ajax(_this.$api.giveLevelDealProfit, 'POST', null, function(res){
 				  	if(res.code == _this.$api.CODE_OK){
 				  		if(res.data == 1){
 				  			_this.$toast('领取成功');
-				  			_this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+				  			_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime)
 				  			_this.$router.push('myBook');
 				  		}
 				  	}else{
@@ -1123,7 +1114,7 @@
 				if(val=='mineral'){
 					message = '矿石：当前所能用来流通的矿石。卖出的时候要额外收20%的手续费(服务费)，比如卖100个矿石要使用110个矿石(其中10个销毁)+价值10个矿石价格的帮扶券(其中部分存入基金池，做为线下帮扶时的启动资金，无形中，大家的每笔交易都给自己增加了福报，行善积德，大慈大悲，感谢有您的支持)。获得途径：矿机产出、买入。';
 				}else if(val=='platformTicket'){
-					message = '帮扶券：可用于交易的时候当手续费(服务费)、可用于解冻、可用于消实名次数、可用于捐赠给平台上生活遇到困难的会员而获得爱心值，或者捐赠给少年儿童基金池来帮助更多的人，后续还会有其他用处......。获取途径：从自己上级或志愿者或省市代理那儿购买。';
+					message = '帮扶券：可用于交易的时候当手续费。获取途径：购买。';
 				}else if(val=='contribution'){
 					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：爱心值释放、推广、直推复投矿机、参与游戏。';
 				}else if(val=='teamCalculationPower'){

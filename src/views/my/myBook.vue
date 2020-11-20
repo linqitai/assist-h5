@@ -163,7 +163,8 @@
 							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="flex">
 									<div class="line">{{item.createTime}}</div>
-									<div class="line margT6" v-if="item.type==2||item.type==3||item.type==16">从<i class="mainAdornColor">{{item.fromUserName}}</i>到<i class="mainAdornColor">{{item.toUserName}}</i></div>
+									<!-- <div class="line margT6" v-if="item.type==2||item.type==3||item.type==16">从<i class="mainAdornColor">{{item.fromUserName}}</i>到<i class="mainAdornColor">{{item.toUserName}}</i></div> -->
+									
 									<div class="line margT6">{{item.type | mineralBookType}}后拥有矿石数 {{item.currentMineralNum}}</div>
 								</div>
 								<div class="flexRight">{{item.addOrReduce}} {{item.number}}</div>

@@ -86,9 +86,9 @@
 		</m-header>
 		<div class="transferPageL">
 			<div class="placeholderLine10"></div>
-			<div class="paddingWing tip4model3">今日可合成钻石所剩数量:{{assistParameterVo.todayTransferNum}}</div>
-			<div class="paddingWing tip4model3">您当前拥有矿石{{userInfo.thisWeekMineral.toFixed(2)}}个,每合成一个钻石值需要花10个矿石和20个流通值</div>
-			<div class="paddingWing tip4model3">单次合成数量在1~10之间,当前合成所需个人算力:{{assistParameterVo.transferNeedCp}}</div>
+			<div class="paddingWing tip4model3">今日可合成钻石值所剩数量:{{assistParameterVo.todayTransferNum}}</div>
+			<div class="paddingWing tip4model3">您当前拥有矿石{{userInfo.thisWeekMineral.toFixed(2)}}个,可合成“合成钻石值数量=所花矿石数*今日矿石流通平均价/钻石当前挂单最高价”个钻石值</div>
+			<div class="paddingWing tip4model3">当前合成所需个人算力:{{assistParameterVo.transferNeedCp}}</div>
 			<van-cell-group>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="所用矿石数量" placeholder="请填写所用矿石数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
 				<!-- <van-field v-model="form4AppointDeal.mobilePhone" required clearable label="对方手机号" placeholder="请填写对方的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/> -->
@@ -217,7 +217,7 @@
 						_this.form4AppointDeal[key] = parseFloat(_this.form4AppointDeal[key]).toFixed(0);
 						_this.errorInfo4AppointDeal.transferAmount = '';
 					}else{
-						_this.errorInfo4AppointDeal.transferAmount = "单次合成钻石值数量在1~10之间，所需矿石在10~100之间";
+						_this.errorInfo4AppointDeal.transferAmount = "单次合成钻石值所需矿石在数量10~100之间";
 					}
 				}else if(key == 'mobilePhone') {
 					if(_this.$reg.phone2.test(_this.form4AppointDeal.mobilePhone)){
@@ -304,7 +304,7 @@
 				Dialog.confirm({
 				  title: '提示信息',
 				  confirmButtonText:'确定',
-				  message: `当前所花矿石数量为:${_this.form4AppointDeal.transferAmount}个,可合成${parseFloat(parseFloat(_this.form4AppointDeal.transferAmount)/10).toFixed(2)}个钻石值,请问是否确认合成？`
+				  message: `当前所花矿石数量为:${_this.form4AppointDeal.transferAmount}个,可合成“所花矿石数*今日矿石流通平均价/钻石当前挂单最高价”个钻石值,请问是否确认合成？`
 				}).then(() => {
 				  // on confirm
 					let params = {
@@ -319,10 +319,10 @@
 						_this.$toast('您的矿石不够');
 						return;
 					}
-					if(Number(_this.userInfo.email)<Number(params.useMineral)*2){
+					/* if(Number(_this.userInfo.email)<Number(params.useMineral)*2){
 						_this.$toast('您的流通值不够');
 						return;
-					}
+					} */
 					/* if(_this.userInfo.platformTicket<1){
 						_this.$toast('您的帮扶券不够');
 						return;

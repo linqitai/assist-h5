@@ -121,7 +121,7 @@
 				let _this = this;
 				//_this.isWeixin = _this.$utils.isWeixin();
 			},
-			shortMessageBtn(){
+			/* shortMessageBtn(){
 				let _this = this;
 				if(_this.$utils.isNUll(_this.form.phone)){
 					_this.$toast('请先填写注册手机号');
@@ -163,7 +163,7 @@
 				},function(res){
 					_this.getSCLoading = false;
 				})
-			},
+			}, */
 			setTimeInterval(){
 				let _this = this;
 				let tv = setInterval(function(){

@@ -173,7 +173,7 @@
 										<div class="name">{{index+1}}</div>
 									</div>
 									<div class="flex">
-										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.nickName)}}</div>
+										<div class="line"><i class="iconfont iconfont-name green_text"></i> {{(item.userId)}}</div>
 										<!-- <div class="placeholderLine10"></div>
 										<div class="line">
 											<div>

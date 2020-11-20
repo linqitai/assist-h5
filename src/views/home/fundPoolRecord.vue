@@ -152,12 +152,12 @@
 										</div>
 										<div class="line margT6">
 											<!-- >0?'+'+item.num:item.num -->
-											<i class="textAdornColor">{{item.remark}}</i><i :class="item.type==0?'green':'red'">{{item.type==0?'存入':'转出'}}</i><i class="textAdornColor">{{item.num}}个</i>给											
+											<i class="textAdornColor">{{item.remark}}</i><i :class="item.type==0?'green':'red'">{{item.type==0?'存入':'转出'}}</i><i class="textAdornColor">{{item.num}}个</i>
 										</div>
 										<!-- @click="toMy4OtherView(item.toUserId)" -->
-										<div class="line margT6">
+										<!-- <div class="line margT6">
 											<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toNickName}}</i></span>
-										</div>
+										</div> -->
 										<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
 									</div>
 									<div class="flexRight2">

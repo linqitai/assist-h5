@@ -34,12 +34,12 @@
 					}
 				}
 				.textBox{
-					padding: 4px 10px;
+					padding: 8px 10px;
 					.freeGet{color: $main-adorn-color !important;}
-					.title{font-size: $fs-title;font-weight: bold;color: $mainTextColor !important;}
+					.title{font-size: $fs-title;font-weight: bold;color: $mainTextColor !important;line-height: 1.4em;}
 					.line{
 						overflow: hidden;clear: both;
-						&.content{font-size: $fs-content;line-height: 1.3em;color: $mainTextColor !important;}
+						&.content{font-size: $fs-content;line-height: 1.4em;color: $mainTextColor !important;}
 					}
 					
 				}

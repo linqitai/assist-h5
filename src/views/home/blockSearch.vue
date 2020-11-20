@@ -108,11 +108,11 @@
 							<div class="flex">
 								<div class="line">{{item.createTime}}</div>
 								<div class="line margT6" @click="toMy4OtherView(item.fromUserId)" v-if="item.type!=0&&item.type!=5">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromUserName}}</i></span>
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromUserId}}</i></span>
 									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
 								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)" v-if="item.type==0">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toUserName}}</i></span>
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toUserId}}</i></span>
 									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
 								<div class="line margT6" v-if="item.type==0">
@@ -125,7 +125,7 @@
 									{{item.type | mineralBookType}} 使用<i class="textAdornColor">{{item.number}}</i>个
 								</div>
 								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)" v-if="item.type!=1&&item.type!=0">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toUserName}}</i></span>
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toUserId}}</i></span>
 									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
 								<div class="line margT6">

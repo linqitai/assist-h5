@@ -18,7 +18,7 @@ export default {
 	tip4Rest:'该区块日常更新中，请明日再来查看......',
 	tip4Sure:'由于卖家超时没确认，请再次联系对方，若联系无果，请点申诉，让客服帮您确认！',
 	tip4Complain:'买家付款后，卖家若在2小时内卖家没给确认，且联系无果，2小时后买家可点申诉，并让平台来帮忙确认。',
-	tip4ReduceMill:'请广大会员们在租赁矿机后，在24~48小时内领取一次收益，否则矿机会被临时暂停，需要重新启动后再过24小时来领取收益，感谢您的配合。',
+	tip4ReduceMill:'请广大会员们在租赁矿机后，在24~168小时内领取一次收益，否则矿机会被临时暂停，需要重新启动后再过24小时来领取收益，感谢您的配合。',
 	tipText4Safe:"<b class='textBold'>担保交易的安全性：</b><br>每笔交易都由省市代理预先来审核双方账号是否正常、实名信息是否正确、区块账本数据是否对得上等，最大限度得维护了投资者的利益，保证了交易的安全性。<br>注:买卖双方交易前先检查自己的手机号是否已经绑定了自己的支付宝和微信号(即通过手机号可以搜索到自己的支付宝和微信号)，若审核出未绑定或者实名信息不一致,一律冻结账号处理。",
 	tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可通过申诉反馈问题来申请取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长120分钟交易时间，锁定交易后买方若在2小时内没付款，卖方亦可通过[申诉反馈问题]来申请取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
 	tipText4AppointDeal: "<b class='textBold'>担保交易流程：</b><br>1.卖方和买方或省市代理之间预先谈好价格，然后买方把自己的区块地址告诉卖方或代理。<br>2.卖方通过区块地址去匹配买方，同时选择该代理(一名代理)做担保。<br>3.订单匹配成功后，需要让担保代理审核。<br>4.审核通过后，买方先把担保总价支付给担保代理。<br>5.担保代理确认如实收到款后，再把担保金额打到卖方账户，并让卖方确认收款且释放矿石。<br>注1:该流程中若遇到问题，代理有权终止并取消交易，若是卖方账号有问题，担保代理亦有权冻结该账号<b class='textBold'>(该交易流程担保代理应收取担保服务辛苦费3%)</b>。<br>注2：若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能。",
@@ -53,6 +53,8 @@ export default {
 	loginOut: host + 'web/login/loginOut',
 	register: host + 'assist/register/register',
 	innerRegister: host + 'assist/register/innerRegister',
+	//circulate
+	circulateToMyCP: host + "assist/circulatevalue/circulateToMyCP",
 	//group
 	getGroupPic: host + "assist/admin/group/getGroupPic",
 	//game
@@ -74,6 +76,7 @@ export default {
 	//upload
 	fileUpload1: host + 'assist/userInfo/fileUpload',
 	//用户信息
+	rectifyMyCP: host + "assist/userInfo/rectifyMyCP",
 	resetRealName: host + "assist/userInfo/resetRealName",
 	cancelAccountByIsAgent: host + "assist/userInfo/cancelAccountByIsAgent",
 	updateUserAlipay: host + "assist/userInfo/updateUserAlipay",
@@ -161,12 +164,17 @@ export default {
 	//machine
 	getAssistMiningMachineList: host + "assist/miningMachine/getAssistMiningMachineList",
 	getAssistMiningMachineList4MillShop: host + "assist/miningMachine/getAssistMiningMachineList4MillShop",
+	getAssistMiningMachineListByTag: host + "assist/miningMachine/getAssistMiningMachineListByTag",
 	getAssistMiningMachineList4MillShopToString: host + "assist/miningMachine/getAssistMiningMachineList4MillShopToString",
 	getAssistMachine: host + 'assist/miningMachine/getAssistMiningMachineList',
 	getAssistMyMachineList4Tag: host + 'assist/myMachine/getAssistMyMachineList4Tag',
 	//mymachine
+	relieveAppointMachine: host + "assist/myMachine/relieveAppointMachine",
+	getHoldCPReceipt: host + "assist/myMachine/getHoldCPReceipt",
 	getAssistMyMachineByStatus: host + 'assist/myMachine/getAssistMyMachineByStatus',
+	getAssistMyMachineByUserIdAndStatusAndTag8: host + 'assist/myMachine/getAssistMyMachineByUserIdAndStatusAndTag8',
 	getAssistMyMachineByStatus01: host + 'assist/myMachine/getAssistMyMachineByStatus01',
+	getAssistMyNewMachineByStatus01: host + 'assist/myMachine/getAssistMyNewMachineByStatus01',
 	getAssistMyMachine: host + "assist/myMachine/getAssistMyMachine",
 	insertAssistMyMachine: host + "assist/myMachine/insertAssistMyMachine",
 	runMyMachineById: host + "assist/myMachine/runMyMachineById/",
@@ -221,6 +229,7 @@ export default {
 	getAssistTransactionListByPage: host + "assist/transaction/getAssistTransactionListByPage",
 	insertTransaction4PickSellBill: host + "assist/transaction/insertTransaction4PickSellBill",
 	getAssistSellBillList: host + "assist/buybill/getAssistSellBillList",
+	getBuyBillInfo: host + "assist/statistics/getBuyBillInfo",
 	getAssistBuyBillListNewbiePage: host + "assist/buybill/getAssistBuyBillListNewbiePage",
 	getAssistBuyBillListGeneralPage: host + "assist/buybill/getAssistBuyBillListGeneralPage",
 	getAssistBuyBillListAddPricePage: host + "assist/buybill/getAssistBuyBillListAddPricePage",

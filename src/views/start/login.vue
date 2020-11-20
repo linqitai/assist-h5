@@ -21,6 +21,11 @@
 				}
 			}
 		}
+		.topTitle{
+			padding: $boxPadding1 12px;
+			font-size: 1.5rem;
+			font-weight: bolder;
+		}
 		.formBox{
 			.labelText{
 				margin-top: 20px;
@@ -110,23 +115,7 @@
 
 <template>
 	<div class="loginBox">
-		<div class="logoBox">
-			<van-swipe :autoplay="2000" style="height: 190px;" :lazy-render="true">
-			  <van-swipe-item v-for="(image, index) in images" :key="index">
-				<img v-lazy="image" />
-			  </van-swipe-item>
-			</van-swipe>
-			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0058.jpg" alt=""> -->
-			<!-- <img src="../../assets/image/banner0058.jpg" alt=""> -->
-		</div>
-		<div class="formHeader">
-			<div class="welcomeText green_text">{{welcomeText}}</div>
-		</div>
-		<!-- <div class="wing">
-			<div class="placeholderLine10"></div>
-			<div class="placeholderLine10"></div>
-			<div class="green_text">欢迎来到HPC帮扶链</div>
-		</div> -->
+		<div class="topTitle">欢迎来到HPC帮扶链</div>
 		<div class="formBox paddingWing">
 			<van-cell-group :border="isNo">
 				<div class="labelText">账号</div>
@@ -377,7 +366,7 @@
 						if(_this.userFreezeInfo==null){
 							Dialog.alert({
 							  title: '系统提示',
-							  message: '您的账号被系统检测存在刷号现象，已被冻结。',
+							  message: _this.userInfo.remark,
 							}).then(() => {
 							  // on close
 							});

@@ -195,7 +195,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				常规矿机
+				算力矿机
 			</div>
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
@@ -205,26 +205,11 @@
 			<van-notice-bar
 			  mode = "closeable"
 			  left-icon="volume-o"
-			  text="每次矿机收益需要在24~168小时之间领取"
+			  text="该收益需一天可领取一次,每次只领取当天的收益"
 			/>
-			<div class="statistics" v-if="remainCount">
+			<!-- <div class="statistics" v-if="remainCount">
 				<div class="line clearBoth flexCenter f-14">
-					<div class="right">待产出矿石 ≈ {{(parseFloat(remainCount)).toFixed(3)}} 个</div>
-				</div>
-			</div>
-			<!-- <div class="statistics">
-				<div class="line clearBoth flexCenter f-14">
-					<div>系统提示:由于总资产的统计是根据矿机所产来计算的，而每台矿机所产都四舍五入保留了几位小数，所以每次领取矿机后，总资产会在近似值内上下浮动。只有矿机到期后，才会产生最准确的矿石数据。</div>
-				</div>
-			</div>
-			<div class="statistics" v-if="remainCount">
-				<div class="line clearBoth flexCenter f-14">
-					<div class="left title">智能统计小助手</div>
-					<div class="right">总资产 ≈ {{parseFloat(Number(userInfo.thisWeekMineral)+Number(remainCount)).toFixed(3)}}个</div>
-				</div>
-				<div class="line clearBoth">
-					<div class="left">背包中矿石 {{userInfo.thisWeekMineral.toFixed(3)}}个</div>
-					<div class="right">待产出矿石 ≈ {{(parseFloat(remainCount)).toFixed(3)}}个</div>
+					<div class="right">全网总算力 ≈ 4040Gh/s</div>
 				</div>
 			</div> -->
 			<van-pull-refresh v-model="loadingMyMill" @refresh="refreshEvent">
@@ -232,11 +217,11 @@
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 					<van-tab name="myMill">
 						<div slot="title" class="tabTitle">
-							 我的矿机 {{myMillList.length}}
+							 我的算力矿机 {{myMillList.length}}
 						</div>
 						<div class="getMineral" v-if="isShowOneReciept">
 							<!-- <div class="tip4model3 textCenter">每次矿机收益需要在24~168小时之间领取</div> -->
-							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :disable="getRecieptLoading" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
+							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :disable="getRecieptLoading" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键算力挖矿收益</span></van-button>
 						</div>
 						<van-list v-model="loadingMyMill" :finished="finished1" :finished-text="finishedMyMillText" @load="onLoadMyMill">
 							<div class="millList">
@@ -250,25 +235,28 @@
 										<div class="line1">
 											<div class="millName inline">{{item.type | machineTypeType}}</div>
 											<!-- <div class="inline"><span class="tag" :class="tagColor(item.tag)">{{item.tag | machineTagType}}</span></div> -->
-											<div class="inline calcullatePower">算力 {{item.calculationPower}}GH/s</div>
+											<!-- <div class="inline calcullatePower">算力 {{item.calculationPower}}GH/s</div> -->
 											<!-- <div class="inline f-12 status">{{item.status | machineStatus}}</div> -->
 										</div>
+										<div class="line">算力 {{item.calculationPower}}GH/s</div>
 										<div class="line" v-if="item.turnOnTime">{{item.turnOnTime.substring(0,19)}} 启动</div>
-										<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 到期</div>
+										<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 后可自然解约</div>
 										<div class="line">租金 <b class="yellow">{{item.price}}</b> 个矿石</div>
-										<div class="line">总产 <b class="yellow">{{item.totalOutput}}</b> 个矿石</div>
+										<div class="line">自然解约退还 <b class="yellow">{{item.price}}</b> 个矿石</div>
+										<div class="line">提前解约退还 <b class="yellow">{{parseFloat(item.price)*0.9}}</b> 个矿石</div>
+										<!-- <div class="line">总产 <b class="yellow">{{item.totalOutput}}</b> 个矿石</div>
 										<div class="line">已产 <b class="yellow">{{item.alreadyGet}}</b> 个矿石</div>
-										<div class="line">日产 <b class="yellow">{{(parseFloat(item.totalOutput)/parseFloat(item.allRuntime)*24).toFixed(2)}}</b> 个矿石</div>
+										<div class="line">日产 <b class="yellow">{{(parseFloat(item.totalOutput)/parseFloat(item.allRuntime)*24).toFixed(2)}}</b> 个矿石</div> -->
 										<!-- <div class="line">总运行时长 {{item.allRuntime}}小时</div> -->
 										<!-- <div class="line" v-if="item.turnOnTime">开机 {{item.turnOnTime}}</div> -->
-										<div class="line" v-if="item.alreadyGet">上次操作矿机时间 {{item.beforeReceipt.substring(0,19) || '--'}}</div>
+										<!-- <div class="line" v-if="item.alreadyGet">上次操作矿机时间 {{item.beforeReceipt.substring(0,19) || '--'}}</div> -->
 										<!-- <div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
 										<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div> -->
 									</div>
 									<div class="flex flex3">
 										<div class="status line">{{item.status | machineStatus}}</div>
 										<div class="line margT3">
-											<van-button round type="info" v-if="item.status==1" size="small" @click="toMillDetailPage(item)" color="linear-gradient(to right, #099eee, #0b6fcc)" :block="true">详情</van-button>
+											<van-button round type="info" v-if="item.status==1" size="small" :loading="relieveAppointBtnLoading" @click="relieveAppointBtn(item)" color="linear-gradient(to right, #099eee, #0b6fcc)" :block="true">解约</van-button>
 											<van-button round type="info" v-if="item.status==0" :loading="isRunMillBtnLoading" @click="runMillEvent(item.id)" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">运行</van-button>
 										</div>
 									</div>
@@ -280,7 +268,7 @@
 					</van-tab>
 					<van-tab name="pastMill">
 						<div slot="title" class="tabTitle">
-							 过期矿机 {{pastMillList?pastMillList.length:''}}
+							已解约矿机 {{pastMillList?pastMillList.length:''}}
 						</div>
 						<van-list :offset="100" v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoadPastMill">
 							<div class="millList">
@@ -293,15 +281,9 @@
 									<div class="flex flex2">
 										<div class="line1">
 											<div class="millName inline">{{item.type | machineTypeType}}</div>
-											<div class="status inline">总运行 {{item.allRuntime}}小时</div>
-											<!-- <div class="status inline">{{item.status | machineStatus}}</div>
-											<div class="calcullatePower inline">算力 {{item.calculationPower}}GH/s</div> -->
 										</div>
-										<div class="line">租金{{item.price}}矿石 总产{{item.totalOutput}}矿石 已产{{item.alreadyGet}}矿石</div>
-										<!-- <div class="line">总运行时长 {{item.allRuntime}}小时</div> -->
-										<!-- <div class="line" v-if="item.turnOnTime">开机时间 {{item.turnOnTime}}</div> -->
-										<div class="line" v-if="item.turnOffTime">到期时间 {{item.turnOffTime}}</div>
-										<!-- <div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div> -->
+										<!-- <div class="line">总运行 {{item.allRuntime}}小时</div> -->
+										<div class="line">租金{{item.price}}矿石</div>
 									</div>
 									<!-- <div class="flex flex3">
 										<div class="line">算力 {{item.calculationPower}}</div>
@@ -326,10 +308,22 @@
 		<div class="placeholderLine20"></div>
 		<div class="placeholderLine20"></div>
 	  </van-dialog>
+	  <van-dialog v-model="showComfirmTipModel" title="确认弹窗" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
+	  		<div class="paddingWing">
+	  				<div class="tip4modelNew">{{tipRelieveText}}</div>
+	  				<div class="placeholderLine20"></div>
+	  				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
+	  				<div class="placeholderLine10"></div>
+	  				<div class="tip4model3RedText">安全密码是实名的时候所设置的安全(交易)密码</div>
+	  				<div class="placeholderLine10"></div>
+	  			</div>
+	  			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
+	  			<van-button type="info" size="large" @click="relieveAppointMachine" :loading="relieveAppointBtnLoading" :disabled="relieveAppointBtnLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">确认解约</van-button>
+	  </van-dialog>
 	  <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 	  	<div class="paddingWing f-12 lineHeight tip4model2">
 	  		<div class="textIndent">
-	  			奖励(赠送)型的矿机不加算力，从矿机商城中所租赁的矿机才加算力。请广大会员们在24~168小时内领取一次收益，否则矿机会被临时暂停，需要重新启动后再过24小时来领取收益，感谢您的配合。
+	  			算力矿机每天可领取一次收益，若是多天领取一次，只会领取到一天的量。
 	  		</div>
 	  	</div>
 	  </van-dialog>
@@ -346,6 +340,7 @@
 	export default {
 		data() {
 			return {
+				tipRelieveText:'',
 				isRunMillBtnLoading: false,
 				showTipModel:false,
 				activeName: "myMill",
@@ -377,7 +372,11 @@
 				isShowConfirmButton:false,
 				getRecieptLoading:false,
 				remainCount:0,
-				totalCount:0
+				totalCount:0,
+				relieveAppointBtnLoading:false,
+				machineId:'',
+				showComfirmTipModel:false,
+				safePassword:''
 			}
 		},
 		components: {
@@ -507,7 +506,7 @@
 				  title: '系统提示',
 				  confirmButtonText:'确认',
 				  closeOnClickOverlay:true,
-				  message: '请问是否领取矿机收益？'
+				  message: '每日领取算力挖矿收益=(个人算力矿机总算力+个人算力/100)/全网总算力*当日全网挖矿总产量,请问是否领取此次收益？'
 				}).then(() => {
 					_this.getRecieptLoading = true;
 					let nowTimestamp = Number(new Date().getTime());
@@ -523,13 +522,13 @@
 						return;
 					} */
 					
-					_this.$ajax.ajax(_this.$api.getMyMachinesReceipt, 'POST', null, function(res) {
+					_this.$ajax.ajax(_this.$api.getHoldCPReceipt, 'POST', null, function(res) {
 						if (res.code == _this.$api.CODE_OK) {
 							if(res.data){
 								_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
 								_this.isShowMineralNum = true;
 								//_this.$toast(`此次领取收益为${res.data}个矿石`);
-								_this.onLoadMyMill();
+								//_this.onLoadMyMill();
 								_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
 								_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime)
 								//_this.$router.push('/myBook');
@@ -543,7 +542,7 @@
 									});
 									return; */
 									_this.mineralNumTip = `暂无矿机可领取`;
-									_this.onLoadMyMill();
+									//_this.onLoadMyMill();
 								}else{
 									_this.mineralNumTip = `未到领取收益的时间`;
 								}
@@ -595,6 +594,72 @@
 				_this.$router.push('myMillDetail');
 				localStorage.setItem("thisMillInfo",JSON.stringify(item));
 			},
+			relieveAppointBtn(item){
+				let _this = this;
+				let num = item.price;
+				_this.machineId = item.id;
+				console.log("_this.machineId",_this.machineId);
+				if(_this.$utils.getDateTime(new Date())<item.turnOffTime){
+					num = parseFloat(item.price)*0.9;
+					_this.tipRelieveText = `该次解约为提前解约，该矿机租金${item.price}矿石，违约金${parseFloat(item.price)*0.1}矿石，可退还${num}个矿石，请问是否确认要提前解约？`
+					//提前解约
+					/* Dialog.alert({
+						title: "系统提示",
+						message: `该次解约为提前解约，可退还${num}个矿石，请问是否确认要提前解约？`
+					}).then(() => {
+					  // on confirm
+					  // _this.$router.push("task");
+					  _this.relieveAppointMachine(item.id);
+					}) */
+				}else{
+					_this.tipRelieveText = `该次解约为自然解约，该矿机租金${item.price}矿石，可退还${num}个矿石，请问是否确认要解约？`
+					//自然解约
+					/* Dialog.alert({
+						title: "系统提示",
+						message: `该次解约为自然解约，可退还${num}个矿石，请问是否确认要解约？`
+					}).then(() => {
+					  // on confirm
+					  // _this.$router.push("task");
+					  _this.relieveAppointMachine(item.id);
+					}) */
+				}
+				_this.showComfirmTipModel = true;
+			},
+			relieveAppointMachine(){
+				let _this = this;
+				if(_this.safePassword==''||_this.safePassword==null){
+					_this.$toast("安全密码不能为空");
+					return;
+				}
+				let params = {
+					id:_this.machineId,
+					safePassword:_this.safePassword
+				}
+				console.log("params",params);
+				_this.relieveAppointBtnLoading = true;
+				params.safePassword = _this.$JsEncrypt.encrypt(params.safePassword);
+				_this.safePassword='';
+				_this.$ajax.ajax(_this.$api.relieveAppointMachine, 'POST', params, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.$toast("解约成功");
+						_this.showComfirmTipModel = false;
+						_this.onLoadMyMill();
+					}else{
+						Dialog.alert({
+							title: "系统提示",
+							message: res.message
+						}).then(() => {
+						  // on confirm
+						  // _this.$router.push("task");
+						})
+						if(res.code == 4004){
+							_this.onLoadMyMill();
+						}
+					}
+				},function(){
+					_this.relieveAppointBtnLoading = false;
+				})
+			},
 			runMillEvent(id){
 				let _this = this;
 				// let params = {
@@ -637,7 +702,7 @@
 					tag:0
 				} */
 				_this.loadingMyMill = true;
-				_this.$ajax.ajax(_this.$api.getAssistMyMachineByStatus01, 'GET', null, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistMyNewMachineByStatus01, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let myMill = res.data;
 						_this.myMillList = myMill.filter(item=>item.status!=2);
@@ -648,18 +713,6 @@
 							_this.isShowOneReciept = false;
 							_this.finishedMyMillText = '亲，您目前没有矿机';
 						}
-						let remainCount = 0;
-						_this.myMillList.forEach((item,index)=>{
-							remainCount = remainCount + (item.totalOutput - (item.alreadyGet||0));
-						})
-						_this.remainCount = remainCount;
-						
-						/* let totalCount = 0;
-						_this.myMillList.forEach((item,index)=>{
-							totalCount = totalCount + Number(item.totalOutput);
-						})
-						_this.totalCount = totalCount; */
-						//console.log("remainCount" + _this.remainCount);
 						
 						_this.$nextTick(function(){
 							_this.startCodeRain();
@@ -678,7 +731,7 @@
 					status:2
 				}
 				_this.loadingMyMill = true;
-				_this.$ajax.ajax(_this.$api.getAssistMyMachineByStatus, 'GET', params, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistMyMachineByUserIdAndStatusAndTag8, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.pastMillList = res.data;
 						if(_this.myMillList.length>0){

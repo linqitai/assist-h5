@@ -216,7 +216,7 @@
 					pageSize: 20,
 				}
 				_this.$ajax.ajax(_this.$api.getAdminUserPageList, 'GET', params, function(res) {
-					console.log('res', res);
+					//console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.serviceList = res.data.list;
 						// let qqList = [];

@@ -266,7 +266,7 @@
 				<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
 			</span>
 		</div>
-		<div class="line" v-if="userInfo.actived==-1&&!form.idCardPic">
+		<div class="line" v-if="form.idCardPic==''||form.idCardPic==null">
 			<input accept="image/*;capture=camera" class="selectPicInput2" style="opacity:0" type="file" @change="uploadIMG($event)"/>
 			<img style="width: 100%;" :src="$api.domainName + '/image/idt.jpg'">
 		</div>

@@ -262,14 +262,15 @@
 								<div class="flex flex2">
 									<div class="line1">
 										<div class="millName inline">{{item.type | machineTypeType}}</div>
-										<div class="status inline">总运行 {{item.allRuntime}}小时</div>
+										<div class="status inline" v-if="item.tag!=8">总运行 {{item.allRuntime}}小时</div>
 										<!-- <div class="status inline">{{item.status | machineStatus}}</div>
 										<div class="calcullatePower inline">算力 {{item.calculationPower}}GH/s</div> -->
 									</div>
-									<div class="line">租金{{item.price}}矿石 总产{{item.totalOutput}}矿石 已产{{item.alreadyGet}}矿石</div>
+									<div class="line" v-if="item.tag==8">租金{{item.price}}矿石</div>
+									<div class="line" v-if="item.tag!=8">租金{{item.price}}矿石 总产{{item.totalOutput}}矿石 已产{{item.alreadyGet}}矿石</div>
 									<!-- <div class="line">总运行时长 {{item.allRuntime}}小时</div> -->
 									<!-- <div class="line" v-if="item.turnOnTime">开机时间 {{item.turnOnTime}}</div> -->
-									<div class="line" v-if="item.turnOffTime">到期时间 {{item.turnOffTime}}</div>
+									<div class="line" v-if="item.tag!=8">到期时间 {{item.turnOffTime}}</div>
 									<!-- <div class="line" v-if="item.beforeReceipt">上次领取 {{item.beforeReceipt}}</div> -->
 								</div>
 								<!-- <div class="flex flex3">

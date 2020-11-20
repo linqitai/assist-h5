@@ -121,9 +121,9 @@
 			
 			<!-- <div class="margT10 paddingWing tip4model3" v-html="tipText4AppointDeal"></div> -->
 			<div class="placeholderLine40"></div>
-			<div class="paddingWing tip4model3RedText">
+			<!-- <div class="paddingWing tip4model3RedText">
 				通过服务商转让矿石的功能将于8月16号取消(将会取消服务商的定向收，定向出保留)。想快速收到矿石的矿工，也可联系个人算力大于20G的矿工来预约矿石，通过溢价卖单来定向匹配交易。
-			</div>
+			</div> -->
 			<div class="placeholderLine40"></div>
 			<div class="placeholderLine40"></div>
 			<div class="sureBtn">

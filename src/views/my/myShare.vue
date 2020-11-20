@@ -222,7 +222,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				我要分享
+				战队招募
 			</div>
 			<i class="rightBox icon"></i>
 			<!-- <i class="iconfont iconfont-question rightBox icon" @click="showTipModel=true"></i> -->
@@ -263,7 +263,7 @@
 					分享链接: {{registerUrl}}
 				</div>
 				<div class="placeholderLine10"></div>
-				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="switchImage" :block="true">切换推广图片</van-button>
+				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="switchImage" :block="true">切换招募图片</van-button>
 				<div class="placeholderLine10"></div>
 				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopy(registerUrl,$event)" :block="true">复制分享链接</van-button>
 				<div class="placeholderLine10"></div>

@@ -234,35 +234,34 @@
 				</div>
 				<div class="flex flex2">
 					<div class="line1">
-						<span class="nick_name" v-if="userInfo4Me.isAgent<3">***</span>
+						<span class="nick_name" v-if="userInfo4Me.isAgent<3">匿名</span>
 						<span class="nick_name" v-if="userInfo4Me.isAgent>2">{{$JsCrypto.myDecode1(userInfo.nickName)}} </span>
 						<!-- <span class="level margL6" v-if="userInfo.manType == 2">服务商</span> -->
-					</div>
-					<div class="line1">
-						<!-- {{getCityName(cityInfo)}} -->
-						<!-- <div class="level left">{{userInfo.level | getUserType}}{{userInfo.isAgent==1?'+省代理':userInfo.isAgent==2?'+市代理':''}}</div> -->
-						<!-- <div class="level left">{{userInfo.level | getUserType}}</div> -->
 					</div>
 					<div class="line margT3">
 						注册实名时间 {{userInfo.registerTime}}
 					</div>
-					<div class="line">
-						<div class="left">买入次数 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.buyTimes}}</i></span></div>
-						<div class="mlBox left">买入数量 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.buyAmount}}</i></span></div>
+					<div class="line" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'">
+						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
+						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}</div>
 					</div>
-					<div class="line">
-						<div class="left">卖出次数 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.sellTimes}}</i></span></div>
-						<div class="mlBox left">卖出数量 <span><i v-if="isShowAmount==false" @click="submit4Raise">**</i><i v-if="isShowAmount==true">{{userInfo.sellAmount}}</i></span></div>
+					<div class="line" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'">
+						<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
+						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
 					</div>
 					<!-- <div class="line" @click="showTip('limitBuyNum')">个人限购数量 {{userInfo.canBuyNum}} <i class="iconfont iconfont-question"/></div> -->
-					<div class="line">
+					<div class="line" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'">
 						<div class="left">直推人数 {{userInfo.teamateNum}}</div>
 						<div class="mlBox left">有效人数 {{userInfo.validNum}}</div>
 					</div>
-					<div class="line"><span @click="toBookView('3',userInfo.userId)">贡献值 {{userInfo.contributionValue}}</span> <i class="iconfont iconfont-question" @click="showTip('contribution')"/></div>
-					<div class="line"><span @click="toBookView('5',userInfo.userId)">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/></div>
+					<div class="line"><span>贡献值 {{userInfo.contributionValue}}</span> </div>
 					<div class="line">
-						<span @click="toBookView('6',userInfo.userId)">流通值 {{Number(userInfo.email).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
+						<!-- <span @click="toBookView('5',userInfo.userId)">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> -->
+						<span @click="toBookView('5',userInfo.userId)" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span>
+						<span v-if="userInfo4Me.userId!='en15079AQ107o91Y7217'">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span>
+					</div>
+					<div class="line" v-if="userInfo4Me.isAgent==3&&userInfo4Me.userId=='en15079AQ107o91Y7217'">
+						<span @click="toBookView('6',userInfo.userId)">流通值 {{Number(userInfo.email).toFixed(2)}}</span>	
 					</div>
 					<div class="line">
 						<i class="underline" @click="toMachineView(userInfo.userId)">查看TA的矿机</i>
@@ -272,13 +271,15 @@
 			<div class="line1pxbgcolor"></div>
 			<div class="box box2">
 				<div class="flex flex1">
-					<div class="value" @click="toBookView('1',userInfo.userId)">{{userInfo.teamCalculationPower}}</div>
-					<div class="text" @click="showTip('teamCalculationPower')">团队算力 <i class="iconfont iconfont-question"/></div>
+					<div class="value" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'" @click="toBookView('1',userInfo.userId)">{{userInfo.teamCalculationPower}}</div>
+					<div class="value" v-if="userInfo4Me.userId!='en15079AQ107o91Y7217'">{{userInfo.teamCalculationPower}}</div>
+					<div class="text">团队算力</div>
 				</div>
 				<div class="flex flex4">
 					<!-- <div>{{userInfo.platformTicket}}</div> -->
-					<div class="value" @click="toBookView('2',userInfo.userId)">{{userInfo.platformTicket}}</div>
-					<div class="text" @click="showTip('platformTicket')">帮扶券 <i class="iconfont iconfont-question"/></div>
+					<div class="value" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'" @click="toBookView('2',userInfo.userId)">{{userInfo.platformTicket}}</div>
+					<div class="value" v-if="userInfo4Me.userId!='en15079AQ107o91Y7217'">{{userInfo.platformTicket}}</div>
+					<div class="text">帮扶券</div>
 				</div>
 				<!-- <div class="flex flex3">
 					<div class="value" @click="toBookView('3')">{{userInfo.contributionValue}}</div>
@@ -286,8 +287,11 @@
 				</div> -->
 				<div class="flex flex2">
 					<!-- <div>{{userInfo.thisWeekMineral}}</div> -->
-					<div class="value" @click="toBookView('4',userInfo.userId)">{{userInfo.thisWeekMineral}}</div>
-					<div class="text" @click="showTip('mineral')">矿石 <i class="iconfont iconfont-question"/></div>
+					<div class="value" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'" @click="toBookView('4',userInfo.userId)">{{userInfo.thisWeekMineral}}</div>
+					<div class="value" v-if="userInfo4Me.userId!='en15079AQ107o91Y7217'">{{userInfo.thisWeekMineral}}</div>
+					<!-- <span @click="toBookView('4',userInfo.userId)" v-if="userInfo4Me.userId=='17y60355638oks179u51'">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span>
+					<span v-if="userInfo4Me.userId!='17y60355638oks179u51'">{{userInfo.thisWeekMineral}}</span> -->
+					<div class="text">矿石</div>
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
@@ -295,7 +299,7 @@
 				<div class="flex flex1">
 					<div>{{userInfo.myCalculationPower}}</div>
 					<!-- <NumberGrow :value="userInfo.myCalculationPower"></NumberGrow> -->
-					<div class="text" @click="showTip('myCalculationPower')">个人算力<br><i class="iconfont iconfont-question"/></div>
+					<div class="text">个人算力<br></div>
 				</div>
 				<div class="flex flex4">
 					<div>{{userInfo.temporaryFreezePlatformTicket}}</div>
@@ -760,7 +764,7 @@
 				let params = {
 					lookUserId: _this.userInfo.checkerId
 				}
-				console.log("params",params);
+				//console.log("params",params);
 				_this.$ajax.ajax(_this.$api.getNickNameByUserId, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
 						_this.cheker = res.data;

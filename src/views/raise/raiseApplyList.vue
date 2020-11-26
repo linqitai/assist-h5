@@ -87,7 +87,7 @@
 			<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				:title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
 				<van-tab title="筹款中" name="onLoad1">
-					<van-list v-model="loading1" :finished="finished1" finished-text="暂无筹款申请" @load="onLoad1">
+					<van-list v-model="loading1" :finished="finished1" finished-text="暂无其他筹款申请" @load="onLoad1">
 						<div class="wordList">
 							<div class="item" v-for="item in list1" :key="item.id" @click="toRaise4OtherView(item)">
 								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->

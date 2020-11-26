@@ -156,20 +156,6 @@
 		components: {
 			mHeader
 		},
-		computed:{
-			getGuidancePrice() {
-				let _this = this;
-				let guidancePrice = _this.form4AppointDeal.transferAmount * _this.curerntPlatformPrice;
-				_this.guidancePrice = guidancePrice.toFixed(2);
-				return _this.guidancePrice;
-			},
-			getAssurePrice () {
-				let _this = this;
-				let assurePrice = Number(_this.form4AppointDeal.transferAmount) * Number(_this.form4AppointDeal.price);
-				_this.form4AppointDeal.assurePrice = assurePrice.toFixed(2);
-				return _this.form4AppointDeal.assurePrice;
-			},
-		},
 		created() {
 			let _this = this;
 			//console.log("number:",(Number(7.12) - Number(6.11)).toFixed(2));

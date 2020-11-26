@@ -618,7 +618,7 @@ export default {
 			let _this = this;
 			Dialog.alert({
 			  title: '系统提示',
-			  message: `安全密码是实名认证的时候所设置的，您的安全密码头2位是：${_this.userInfo.securityPassword}，若忘记了，可找客服初始化成手机号！`,
+			  message: `安全密码是实名认证的时候所设置的，系统对您的安全密码提醒是：${_this.userInfo.securityPassword}，若忘记了，可找客服初始化成手机号！`,
 			  confirmButtonText:'好的，我再试试'
 			}).then(() => {
 			  // on close resetRealName

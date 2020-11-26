@@ -243,6 +243,9 @@
 							</div>
 						</div>
 						<div class="placeholderLine10"></div>
+						<div class="tip4modelTextCenter">流通中心的匹配方式为随机匹配，一次展示20条求购单子</div>
+						<div class="placeholderLine10"></div>
+						<!-- <div class="placeholderLine10"></div>
 						<div class="paddingWing" v-if="totalItems2>0">
 							<van-pagination 
 							  v-model="currentPage2" 
@@ -253,13 +256,13 @@
 							  @change="changeCurrentPage2"
 							/>
 						</div>
-						<div class="placeholderLine10"></div>
+						<div class="placeholderLine10"></div> -->
 					</div>
 				</van-tab>
 			</van-tabs>	
 		</van-pull-refresh>
 		
-		<van-action-sheet v-model="showPickSellModel" title="卖出">
+		<van-action-sheet v-model="showPickSellModel" title="卖出" v-if="usePt">
 		  <van-cell-group>
 			  <div class="pickSellContent">
 				  <div class="showMyInfo">
@@ -286,7 +289,7 @@
 			  <van-field v-model="form4pickSellBill.price" readonly clearable label="单价(￥)"/>
 			  <van-field readonly clickable label="手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true"/>
 			  <div class="placeholderLine10"></div>
-			  <div class="tip4model3 paddingWing">规划说明：矿机商城中的常规矿机被租赁完后不再出新的常规矿机。最后一次矿机减产平台已开启算力挖矿模式，算力挖矿模式的交易手续费统一为每笔20个帮扶券。</div>
+			  <div class="tip4model3 paddingWing">当前算力挖矿的交易手续费统一为每笔{{usePt}}个帮扶券，由于平台的收入基本全靠帮扶券，所以该手续费会根据矿石价格来动态调整，望广大会员理解。</div>
 			  <!-- <van-field readonly clickable label="选择手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true" right-icon="arrow-down"/> -->
 			  <!-- <van-popup v-model="showPicker4ServiceChargePopup" position="bottom">
 			    <van-picker
@@ -318,7 +321,7 @@
 					<b class="textBold">尊敬的原始矿工交易前请认真阅读以下交易规则：</b>
 					<br>
 					<div class="placeholderLine4"></div>
-					【1】同价单子的匹配是<b class="textBold blue">随机</b>的，匹配后卖家务必主动<b class="textBold blue">短信提醒</b>买家，卖家若2小时内没付款，卖家可点<b class="textBold blue">申诉反馈问题</b>说明情况；买家付款后，卖家务必在<b class="textBold blue">2小时</b>内给予<b class="textBold blue">确认</b>，若是没收到款就点让买家<b class="textBold blue">上传付款凭证</b>或直接点<b class="textBold blue">申诉反馈问题</b>。<br>
+					【1】同价单子的匹配是<b class="textBold blue">随机</b>的，匹配后卖家务必主动<b class="textBold blue">短信提醒</b>买家，通知后买家若2小时内没付款，卖家可点<b class="textBold blue">申诉反馈问题</b>说明情况；买家付款后，卖家务必在<b class="textBold blue">2小时</b>内给予<b class="textBold blue">确认</b>，若是没收到款就点让买家<b class="textBold blue">上传付款凭证</b>或直接点<b class="textBold blue">申诉反馈问题</b>。<br>
 					<div class="placeholderLine4"></div>
 					【2】交易之前请<b class="textBold blue">卖家</b>先检查在平台上所预留的<b class="textBold blue">真实姓名</b>与<b class="textBold blue">【支付宝、微信】</b>里的是否一致、自己的<b class="textBold blue">支付宝和微信号</b>是否可以<b class="textBold blue">被搜索到且可以正常收付款且有设置头像，手机号可以接通</b>，确保能顺利交易与顺畅沟通。<br>
 					 <b class="textBold blue">支付宝收款</b>(首选）：若卖家支付宝异常，订单可被终止，请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
@@ -496,7 +499,7 @@ export default {
 			currentPage2:1,
 			currentPage3:1,
 			currentPage4:1,
-			pageSize:7,
+			pageSize:20,
 			pageSize3:3,
 			newbiePagesize:7,
 			pageCount:0,
@@ -616,7 +619,7 @@ export default {
 			],
 			showBuyAmountPopup:false,
 			showBuyMinAmountPopup:false,
-			actions: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200}],
+			actions: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:500}],
 			actionsMin: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200}],
 			showPicker4ServiceChargePopup: false,
 			platformTicket:0,
@@ -639,7 +642,7 @@ export default {
 			isDealDisabled:true,
 			showTipModel3Deal:false,
 			buyBillInfo:'',
-			usePt:'20个帮扶券'
+			usePt:''
 		}
 	},  
 	components:{
@@ -748,8 +751,9 @@ export default {
 			//_this.form4pickSellBill.price = _this.minPrice;
 			//_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 			_this.form4pickSellBill.serviceCharge = 5;
-			_this.serviceCharge = _this.usePt;
-			_this.columns4ServiceCharge = [{id:5,text:_this.usePt}];
+			_this.usePt=_this.dealPageInfo.dealNeedTicket;
+			_this.serviceCharge = `${_this.usePt}个帮扶券`;
+			_this.columns4ServiceCharge = [{id:5,text:_this.serviceCharge}];
 			//_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentPlatformPrice)/2;
 			_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.maxPrice);
 			/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
@@ -777,11 +781,11 @@ export default {
 			serviceCharge:"请先选择服务费",
 			safePassword:_this.$reg.safePasswordHint
 		}
-		if(_this.$cookies.get('isRefreshDealInfo')==1){
+		/* if(_this.$cookies.get('isRefreshDealInfo')==1){
 			_this.refreshEvent();
 			_this.$cookies.remove('isRefreshDealInfo');
 			_this.$cookies.set('isRefreshDealInfo',0,_this.$api.cookiesTime);
-		}
+		} */
 		_this.getListAddPrice();
 		//_this.bsTip();
 		//_this.initializeData();
@@ -1040,8 +1044,10 @@ export default {
 					//_this.currentMaxPrice = _this.dealPageInfo.maxPrice;
 					_this.dealPageInfo.currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
 					_this.form4pickSellBill.serviceCharge = 5;
-					_this.serviceCharge = _this.usePt;
-					_this.columns4ServiceCharge = [{id:5,text:_this.usePt}];
+					_this.usePt=_this.dealPageInfo.dealNeedTicket;
+					//_this.serviceCharge = _this.usePt;
+					_this.serviceCharge = `${_this.usePt}个帮扶券`;
+					_this.columns4ServiceCharge = [{id:5,text:_this.serviceCharge}];
 					//_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.currentMaxPrice)/2;
 					_this.form4BuyBill.price = parseFloat(_this.dealPageInfo.maxPrice);
 					/* _this.clickIconTip.buyLowestAmount = `最低匹配数量请填写1~500之间`;
@@ -1774,7 +1780,7 @@ export default {
 							_this.$toast(res.message);
 							// _this.getList();
 							_this.$cookies.set("tabName4MyDeal", "buy", 60 * 60 * 1)
-							_this.$cookies.set("isRefreshDealInfo", 1, 60 * 60 * 1)
+							//_this.$cookies.set("isRefreshDealInfo", 1, 60 * 60 * 1)
 							_this.$router.push('myDeal');
 						}
 					}else if(res.code == 2003){

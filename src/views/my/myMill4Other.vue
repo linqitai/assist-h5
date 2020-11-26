@@ -224,13 +224,13 @@
 										<div class="inline calcullatePower">算力 {{item.calculationPower}}GH/s</div>
 										<!-- <div class="inline f-12 status">{{item.status | machineStatus}}</div> -->
 									</div>
-									<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 到期</div>
+									<div class="line" v-if="item.turnOffTime&&item.tag!=8">{{item.turnOffTime}} 到期</div>
 									<div class="line">租金 {{item.price}}矿石</div>
-									<div class="line">总产 {{item.totalOutput}}矿石</div>
-									<div class="line">已产 {{item.alreadyGet}}矿石</div>
+									<div class="line" v-if="item.tag!=8">总产 {{item.totalOutput}}矿石</div>
+									<div class="line" v-if="item.tag!=8">已产 {{item.alreadyGet}}矿石</div>
 									<div class="line">总运行时长 {{item.allRuntime}}小时</div>
 									<!-- <div class="line" v-if="item.turnOnTime">开机 {{item.turnOnTime}}</div> -->
-									<div class="line" v-if="item.alreadyGet">上次领取 {{item.beforeReceipt || '--'}}</div>
+									<div class="line" v-if="item.alreadyGet&&item.tag!=8">上次领取 {{item.beforeReceipt || '--'}}</div>
 									<!-- <div class="line" v-if="item.beforeReceipt">下次领取 {{ nextReceipt(item.beforeReceipt) }} 之后</div>
 									<div class="line" v-if="!item.beforeReceipt"><span v-if="item.turnOnTime">下次领取 {{ nextReceipt(item.turnOnTime) }} 之后</span></div> -->
 								</div>

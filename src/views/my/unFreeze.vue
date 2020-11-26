@@ -277,7 +277,7 @@
 				<van-button color="#08abee" :loading="loading" size="large" @click="getUserInfo">查看该区块状态</van-button>
 			</div> -->
 			<div class="placeholderLine10"></div>
-			<div class="sureBtn" v-if="thisUserInfo">
+			<div class="sureBtn" v-if="userInfo.userId='en15079AQ107o91Y7217'">
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">给解冻</van-button>
 			</div>
 		</div>
@@ -300,7 +300,7 @@
 				showTipModel:false,
 				//定向交易
 				form4AppointDeal:{
-					mobilePhone:'',
+					mobilePhone:"",
 					blockAddress:"",
 					safePassword:"",
 				},
@@ -319,6 +319,9 @@
 				pageCount: 1000,
 				totalItems: 10000,
 				userId:"",
+				userInfo:{
+					userId:''
+				},
 				loading:false,
 				thisUserInfo:"",
 				userFreezeInfo:""
@@ -329,10 +332,21 @@
 		},
 		mounted() {
 			let _this = this;
-			_this.userId = _this.$cookies.get('userId');
-			if(_this.$utils.isNUll(_this.userId)){
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				////console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+				_this.userId = _this.userInfo.userId;
+			}else{
+				/* _this.$cookies.remove('userId'); */
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.remove('isRefreshUserInfo');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
+				return;
 			}
 			_this.$utils.scrollTop();
 		},

@@ -236,7 +236,7 @@
 						</div>
 					</div>
 					<div class="line1 margT3">
-						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}</div>
+						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}{{userInfo.isAgent==5?'+志愿者':userInfo.isAgent==3?'+客服':''}}</div>
 						
 					</div>
 					<div class="line margT3">
@@ -260,7 +260,7 @@
 						
 					</div>
 					<div class="placeholderLine"></div>
-					<div class="line" v-if="Number(userInfo.email)>0">
+					<div class="line" v-if="Number(userInfo.email)>6">
 						<span @click="toBookView('6')">流通值 {{Number(userInfo.email).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
 						<span class="margL10">
 							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="circulateToMyCPLoading" @click="circulateToMyCPEvent">流通值兑换个人算力</van-button>
@@ -456,7 +456,7 @@
 						</div>
 					</div>
 				</router-link> -->
-				<router-link to="transferTicket">
+				<router-link to="transferTicket" v-if="userInfo.isAgent>=3||userInfo.innerRegister==2||userInfo.innerRegister==6">
 					<div class="my-cell">
 						<div class="flex1">
 							定向转让帮扶券
@@ -524,7 +524,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3">
+			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='en15079AQ107o91Y7217'||userInfo.userId=='1502d824670iQ1215VW8')">
 				<router-link to="dealList">
 					<div class="my-cell">
 						<div class="flex1">
@@ -588,11 +588,11 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3&&userInfo.userId=='en15079AQ107o91Y7217'">
+			<div class="items" v-if="userInfo.isAgent==3||userInfo.isAgent==5">
 				<router-link to="unFreeze">
 					<div class="my-cell">
 						<div class="flex1">
-							给他人解冻账号
+							查看会员被冻结原因
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>

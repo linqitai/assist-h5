@@ -236,8 +236,8 @@
 						</div>
 					</div>
 					<div class="line1 margT3">
-						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}+{{getCityName(cityInfo)}}{{userInfo.isAgent | agentType}}</div>
-						
+						<!-- <div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}+{{getCityName(cityInfo)}}{{userInfo.isAgent | agentType}}</div> -->
+						<div class="level left" @click="toMyInfo">{{userInfo.level | getUserType}}{{userInfo.isAgent==5?'+志愿者':userInfo.isAgent==3?'+客服':''}}</div>
 					</div>
 					<div class="line margT3">
 						注册实名时间 {{userInfo.registerTime}}
@@ -266,7 +266,7 @@
 						<span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/>	
 					</div> -->
 					<div class="placeholderLine"></div>
-					<div class="line" v-if="Number(userInfo.email)>0">
+					<div class="line" v-if="Number(userInfo.email)>6">
 						<span @click="toBookView('6')">流通值 {{Number(userInfo.email).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
 						<span class="margL10">
 							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="circulateToMyCPLoading" @click="circulateToMyCPEvent">流通值兑换个人算力</van-button>
@@ -469,7 +469,7 @@
 						</div>
 					</div>
 				</router-link> -->
-				<router-link to="transferTicket">
+				<router-link to="transferTicket" v-if="userInfo.isAgent>=3||userInfo.innerRegister==2||userInfo.innerRegister==6">
 					<div class="my-cell">
 						<div class="flex1">
 							定向转让帮扶券
@@ -537,7 +537,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3">
+			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='en15079AQ107o91Y7217'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634')">
 				<router-link to="dealList">
 					<div class="my-cell">
 						<div class="flex1">
@@ -601,11 +601,11 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3&&userInfo.userId=='en15079AQ107o91Y7217'">
+			<div class="items" v-if="userInfo.isAgent==3||userInfo.isAgent==5">
 				<router-link to="unFreeze">
 					<div class="my-cell">
 						<div class="flex1">
-							给他人解冻账号
+							查看会员被冻结原因
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>
@@ -1112,7 +1112,7 @@
 				//console.log(val);
 				let message = '';
 				if(val=='mineral'){
-					message = '矿石：当前所能用来流通的矿石。卖出的时候要额外收20%的手续费(服务费)，比如卖100个矿石要使用110个矿石(其中10个销毁)+价值10个矿石价格的帮扶券(其中部分存入基金池，做为线下帮扶时的启动资金，无形中，大家的每笔交易都给自己增加了福报，行善积德，大慈大悲，感谢有您的支持)。获得途径：矿机产出、买入。';
+					message = '矿石：当前个人所能用来流通的矿石，若出售后需留2个用来复投。获得途径：矿机产出、买入、分红奖励。';
 				}else if(val=='platformTicket'){
 					message = '帮扶券：可用于交易的时候当手续费。获取途径：购买。';
 				}else if(val=='contribution'){

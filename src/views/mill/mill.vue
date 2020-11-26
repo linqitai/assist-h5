@@ -194,7 +194,7 @@
 								<div class="line">租金 {{item.price}} 矿石</div>
 								<div class="line">总产 {{item.totalOutput}} 矿石</div>
 								<div class="line">日产 <b class="yellow">{{(parseFloat(item.totalOutput)/parseFloat(item.allRuntime)*24).toFixed(2)}}</b> 矿石</div>
-								<div class="line">增加流通值 <b class="yellow">{{item.type<10?(parseFloat(item.price)/2).toFixed(2):(parseFloat(item.price)).toFixed(2)}}</b></div>
+								<!-- <div class="line">增加流通值 <b class="yellow">{{item.type<10?(parseFloat(item.price)/2).toFixed(2):(parseFloat(item.price)).toFixed(2)}}</b></div> -->
 								<!-- <div class="line">运行总时长 {{item.allRuntime}}小时</div> -->
 								<div class="line">租赁上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
 							</div>
@@ -238,7 +238,7 @@
 			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
 			<van-button type="info" size="large" @click="sureBuyMillEvent" :loading="buyMillLoading" :disabled="buyMillLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
 	  </van-dialog>
-	  <van-dialog v-model="showReceiptTip" :title="receiptModelTile" :show-confirm-button="isShowConfirmButton">
+	  <van-dialog v-model="showReceiptTip" :title="receiptModelTile" :show-confirm-button="isShowConfirmButton" :close-on-click-overlay="true">
 		<div class="placeholderLine20"></div>
 	    <div class="paddingWing textCenter">
 			<van-loading type="spinner" color="#1989fa" v-if="isShowReceiptLoading"/>

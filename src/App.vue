@@ -245,6 +245,14 @@ b{font-weight: bold;}
 	text-align: justify;
 }
 
+.tip4modelTextCenter{
+	color: $main-adorn-color;
+	font-size: 0.75rem;
+	line-height: 1.4em;
+	letter-spacing: 1px;
+	text-align: center;
+}
+
 .tip4modelNew{
 	color: $grayDarker;
 	font-size: 0.75rem;

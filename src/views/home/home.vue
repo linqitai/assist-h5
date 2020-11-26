@@ -596,23 +596,24 @@ $noticeHeight:40px;
 				</div> -->
 				<div class="millInfo">
 					<div class="infoBox">
-						<div>
-							<span class="yellow underline" @click="toBlcokSearchView">区块浏览器</span> <i class="iconfont iconfont-question" @click="showTip('blockSearch')"/>
-						</div>
+						<div class="amount">{{statistics.totalCp || 0}}</div>
+						<div class="margT6">全网算力</div>
+					</div>
+					<div class="infoBox">
+						<div class="amount">{{statistics.fundPoolNum || 0}}</div>
+						<div class="margT6">基金池 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/></div>
 					</div>
 				</div>
-				<div class="millInfo">
+				<!-- <div class="millInfo">
 					<div class="infoBox">
 						<div>
-							<!-- @click="toFundPoolRecordView" -->
 							<span @click="toFundPoolRecordView" class="yellow underline">尊老爱幼帮扶基金池</span>
 							<span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
-							<!-- <span class="margL10 underline" @click="addFundPoolBtn">我要捐赠</span> -->
 						</div>
 						<div class="placeholderLine10"></div>
 						<div><span class="underline" @click="addFundPoolBtn">我要捐赠</span></div>
 					</div>
-				</div>
+				</div> -->
 				<div class="cateInfo">
 					<div class="infoBox">
 						<router-link to="/volunteer">
@@ -640,15 +641,22 @@ $noticeHeight:40px;
 						</div>
 						<div class="text">帮扶感言</div>
 					</div> -->
-					<div class="infoBox" @click="toRanking">
+					<!-- <div class="infoBox" @click="toRanking">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundRank">
 								<van-icon class-prefix="iconfont" name="rank" />
 							</div>
 						</div>
 						<div class="text">排行榜</div>
+					</div> -->
+					<div class="infoBox" @click="toRanking">
+						<div class="iconBox">
+							<div class="iconBackground iconBackground2">
+								<van-icon class-prefix="iconfont" name="rank" />
+							</div>
+						</div>
+						<div class="text">排行榜</div>
 					</div>
-					
 					<div class="infoBox">
 						<router-link to="/newGuide">
 							<div class="iconBox">
@@ -669,7 +677,83 @@ $noticeHeight:40px;
 						<div class="text">日常签到</div>
 					</div>
 				</div>
+				
 				<div class="cateInfo">
+					<!-- <div class="infoBox" @click="waiting">
+						<div class="iconBox">
+							<div class="iconBackground iconBackground4">
+								<van-icon class-prefix="iconfont" name="crown" />
+							</div>
+						</div>
+						<div class="text">讲师招募</div>
+					</div> -->
+					<div class="infoBox">
+						<router-link to="/noticeList">
+							<div class="iconBox">
+								<div class="iconBackground iconBackground4">
+									<van-icon class-prefix="iconfont" name="notice-record" />
+								</div>
+							</div>
+							<div class="text">历史公告</div>
+						</router-link>
+					</div>
+					
+					<div class="infoBox">
+						<router-link to="/voteList">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundCService">
+									<van-icon class-prefix="iconfont" name="vote" />
+								</div>
+							</div>
+							<div class="text">共识投票</div>
+						</router-link>
+					</div>
+					<!-- <div class="infoBox">
+						<router-link to="/helpRecord">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundRaise">
+									<van-icon class-prefix="iconfont" name="flow" />
+								</div>
+							</div>
+							<div class="text">帮扶历史</div>
+						</router-link>
+					</div> -->
+					<div class="infoBox">
+						<!-- <div class="bubble" v-if="isbubble1">
+							该模块正在内测中，暂时只对个人算力大于20G的矿工开放内测权限，内测完毕后方可对全体矿工开放！
+						</div> -->
+						<!-- <div class="bubble" v-if="isbubble1" @click="isbubble1 = false">
+							游戏模块已开通！
+						</div> -->
+						<!-- <div class="triangleRight" v-if="isbubble1"></div> -->
+						<div class="iconBox" @click="toGameView">
+							<div class="iconBackground iconBackground1">
+								<van-icon class-prefix="iconfont" name="game" size="35"/>
+							</div>
+						</div>
+						<div class="text">娱乐游戏</div>
+					</div>
+					<div class="infoBox">
+						<router-link to="/cService">
+							<div class="iconBox">
+								<div class="iconBackground iconBackgroundCService">
+									<van-icon class-prefix="iconfont" name="cservice" />
+								</div>
+							</div>
+							<div class="text">客服</div>
+						</router-link>
+					</div>
+					
+				</div>
+				<div class="cateInfo">
+					<div class="infoBox" @click="toBlcokSearchView">
+						<div class="iconBox">
+							<div class="iconBackground iconBackground3">
+								<van-icon class-prefix="iconfont" name="share3" />
+							</div>
+						</div>
+						<div class="text">区块浏览器</div>
+					</div>
 					<!-- <div class="infoBox">
 						<router-link to="/agency">
 							<div class="iconBox">
@@ -716,72 +800,6 @@ $noticeHeight:40px;
 						</div>
 						<div class="text">水滴帮扶筹</div>
 					</div> -->
-				</div>
-				<div class="cateInfo">
-					<!-- <div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground4">
-								<van-icon class-prefix="iconfont" name="crown" />
-							</div>
-						</div>
-						<div class="text">讲师招募</div>
-					</div> -->
-					<div class="infoBox">
-						<router-link to="/noticeList">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground4">
-									<van-icon class-prefix="iconfont" name="notice-record" />
-								</div>
-							</div>
-							<div class="text">历史公告</div>
-						</router-link>
-					</div>
-					<div class="infoBox">
-						<router-link to="/voteList">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground4">
-									<van-icon class-prefix="iconfont" name="vote" />
-								</div>
-							</div>
-							<div class="text">共识投票</div>
-						</router-link>
-					</div>
-					<!-- <div class="infoBox">
-						<router-link to="/helpRecord">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundRaise">
-									<van-icon class-prefix="iconfont" name="flow" />
-								</div>
-							</div>
-							<div class="text">帮扶历史</div>
-						</router-link>
-					</div> -->
-					<div class="infoBox">
-						<!-- <div class="bubble" v-if="isbubble1">
-							该模块正在内测中，暂时只对个人算力大于20G的矿工开放内测权限，内测完毕后方可对全体矿工开放！
-						</div> -->
-						<!-- <div class="bubble" v-if="isbubble1" @click="isbubble1 = false">
-							游戏模块已开通！
-						</div> -->
-						<!-- <div class="triangleRight" v-if="isbubble1"></div> -->
-						<div class="iconBox" @click="toGameView">
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="game" size="35"/>
-							</div>
-						</div>
-						<div class="text">娱乐游戏</div>
-					</div>
-					<div class="infoBox">
-						<router-link to="/cService">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundCService">
-									<van-icon class-prefix="iconfont" name="cservice" />
-								</div>
-							</div>
-							<div class="text">客服</div>
-						</router-link>
-					</div>
-					
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="list4Guide">

@@ -91,33 +91,50 @@
 		<div class="paddingWing">
 			<van-radio-group v-model="status" icon-size='16px' direction="horizontal" @change="statusChange">
 			  <!-- <van-radio name="">全部</van-radio>  -->
+			  <van-radio name="8">已完成交易</van-radio>
 			  <van-radio name="5">待客服调查</van-radio>
 			  <van-radio name="2">待确认</van-radio>
 			</van-radio-group>
 		</div>
-		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
-			<van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="getcheckList">
+		<!-- <van-pull-refresh v-model="loading" @refresh="refreshEvent"> -->
+			<!-- <van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="getcheckList"> -->
+			<!-- v-model="loading1" :finished="finished1" -->
+			<van-list finished-text="没有更多了">
 				<div class="checkList">
-					<div class="item" v-for="item in list1" :key="item.id" @click="toCheckDetail(item)">
+					<div class="item" v-for="item in list1" :key="item.id">
 						<div class="itemLeft">
 							<div class="time">订单编号 {{item.id}}</div>
 							<div class="title">{{item.price}}CNY {{item.num}}个 <span class="statusText" :class="getColor(item.status)">{{item.status | dealStatusType}}</span></div>
+							<div class="time">买家昵称 {{item.nickName}}</div>
+							<div class="time">买家微信号 {{item.wechartNum}} <van-button slot="button" size="mini" type="primary" @click="handleCopy(item.wechartNum,$event)">复制微信号</van-button></div>
 							<div class="time">匹配时间 {{item.machingTime}}</div>
 							<div class="time" v-if="item.letSureTime">确认截止时间 {{item.letSureTime}}</div>
 						</div>
-						<div class="itemRight">
+						<div class="itemRight" @click="toCheckDetail(item)">
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
 				</div>
 			</van-list>
-		</van-pull-refresh>
+			<div class="paddingWing" v-if="totalItems1>0">
+				<van-pagination 
+				  v-model="currentPage1"
+				  :total-items="totalItems1" 
+				  :items-per-page="pageSize"
+				  :show-page-size="3" 
+				  force-ellipses
+				  @change="changeCurrentPage1"
+				/>
+			</div>
+		<!-- </van-pull-refresh> -->
 	</div>
 </template>
 
 <script>
 	import mHeader from '@/components/Header.vue';
 	import mRefresh from '@/components/Refresh.vue';
+	import clip from '@/assets/js/clipboard';
+	import { Toast,Dialog } from 'vant';
 	// import { image_host } from '@/assets/js/config.js'
 	
 	export default {
@@ -128,14 +145,16 @@
 			return {
 				showTipModel:false,
 				searchValue:"",
-				status:5,
+				status:8,
 				list1: [],
 				loading:false,
 				loading1:false,
 				finished1:false,
 				currentPage1:1,
-				pageSize:16,
+				pageSize:8,
 				checkCount:0,
+				userInfo:"",
+				totalItems1:""
 			}
 		},
 		filters: {
@@ -151,18 +170,35 @@
 		},
 		created() {
 			let _this = this;
-			_this.userId = _this.$cookies.get('userId');
-			if(_this.$utils.isNUll(_this.userId)){
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				////console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+				_this.userId = _this.userInfo.userId;
+			}else{
+				/* _this.$cookies.remove('userId'); */
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.remove('isRefreshUserInfo');
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;
 			}
 			_this.status=_this.$cookies.get("status")||_this.status;
+			_this.getcheckList();
 			//_this.getCount4Check();
 		},
 		methods: {
 			back(){
 				this.$router.go(-1);
+			},
+			handleCopy(text, event) {
+				let _this = this;
+				clip(text,event,function(res){
+					_this.$toast(`复制成功`);
+				});
 			},
 			refreshEvent() {
 				console.log("refresh")
@@ -201,6 +237,12 @@
 				_this.currentPage1 = 1;
 				_this.searchValue = '';
 				_this.list1 = '';
+				_this.getcheckList();
+			},
+			changeCurrentPage1(val){
+				let _this = this;
+				//console.log('val',val);
+				_this.currentPage1 = val;
 				_this.getcheckList();
 			},
 			getcheckList4Search() {
@@ -250,33 +292,32 @@
 					pageSize:_this.pageSize,
 					status: _this.status||_this.$cookies.get("status")
 				}
-				/* if((!_this.$utils.isNUll(params.mobilePhone))&&_this.$reg.phone.test(params.mobilePhone)){
-					
-				}else{
-					_this.$toast("请输入正确的手机号格式");
-					_this.loading = false;
-					return;
-				} */
-				_this.loading = true;
+				const toast = Toast.loading({
+				  forbidClick: true,
+				  message: '加载中...',
+				});
+				_this.loading1 = true;
 				_this.$ajax.ajax(_this.$api.getAssistTransactionListByPage, 'GET', params, function(res) {
 					/* console.log('res', res); */
-					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						let list = res.data.list;
 						_this.list1 = list;
+						_this.totalItems1 = res.data.total;
+						
 						//_this.list1.push(...list);
-						_this.loading1 = false;
 						//_this.finished1 = true;
-						if(res.data.endRow == res.data.total){
+						/* if(res.data.endRow == res.data.total){
 							_this.finished1 = true;
 						}else{
 							_this.currentPage1 = _this.currentPage1 + 1;
-						}
+						} */
 					}else{
 						_this.list1 = [];
-						_this.loading1 = false;
 						_this.finished1 = true;
 					}
+				},function(){
+					_this.loading1 = false;
+					Toast.clear();
 				})
 			},
 			noticeTap() {

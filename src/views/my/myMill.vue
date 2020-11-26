@@ -205,7 +205,7 @@
 			<van-notice-bar
 			  mode = "closeable"
 			  left-icon="volume-o"
-			  text="每次矿机收益需要在24~168小时之间领取"
+			  text="常规矿机收益可在24~168小时之间领取一次"
 			/>
 			<div class="statistics" v-if="remainCount">
 				<div class="line clearBoth flexCenter f-14">

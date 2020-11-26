@@ -91,14 +91,24 @@ export default {
 		return {
 			list:[
 				{
+					time:'2020/11/25',
+					title:'帮扶链模式介绍·新',
+					url:'http://note.youdao.com/noteshare?id=76632e4043500e811d3a38f2126eac85'
+				},
+				{
+					time:'2020/11/21',
+					title:'帮扶链语音课程打包记录',
+					url:'http://note.youdao.com/noteshare?id=c4382af4ba2b44e73e0087177d1ef043'
+				},
+				{
 					time:'2020/08/20',
 					title:'帮扶链注册实名及基础操作流程',
 					url:'http://note.youdao.com/noteshare?id=283685c92247f9c7dd17a81bd022e675'
 				},
 				{
-					time:'2020/10/07',
-					title:'帮扶链介绍·新手必看',
-					url:'http://note.youdao.com/noteshare?id=76632e4043500e811d3a38f2126eac85'
+					time:'2020/11/26',
+					title:'修改资料与解冻流程',
+					url:'http://note.youdao.com/noteshare?id=5f2079b7d0566c254b52f1d0fcf12a7e'
 				},
 				{
 					time:'2020/11/06',

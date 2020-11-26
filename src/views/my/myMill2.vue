@@ -205,7 +205,7 @@
 			<van-notice-bar
 			  mode = "closeable"
 			  left-icon="volume-o"
-			  text="该收益需一天可领取一次,每次只领取当天的收益"
+			  text="算力矿机收益一天可领取一次,每次只领取当天的收益"
 			/>
 			<!-- <div class="statistics" v-if="remainCount">
 				<div class="line clearBoth flexCenter f-14">

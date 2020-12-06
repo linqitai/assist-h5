@@ -386,7 +386,7 @@
 										</div>
 									</div>
 									<div class="timeBox">
-										匹配时间 {{ item.machingTime }}
+										匹配时间 {{ item.machingTime.substring(0,19) }}
 									</div>
 									<div class="timeBox">
 										订单编号 <span class="copy" @click="handleCopy(item.id,$event)">{{ item.id }}</span>
@@ -436,7 +436,7 @@
 										</div>
 									</div>
 									<div class="timeBox">
-										匹配时间 {{ item.machingTime }}
+										匹配时间 {{ item.machingTime.substring(0,19) }}
 									</div>
 									<div class="timeBox">
 										订单编号 <span class="copy" @click="handleCopy(item.id,$event)">{{ item.id }}</span>
@@ -480,10 +480,10 @@
 										</div>
 									</div>
 									<div class="timeBox">
-										匹配时间 {{ item.machingTime }}
+										匹配时间 {{ item.machingTime.substring(0,19) }}
 									</div>
 									<div class="timeBox" v-if="item.coinReleaseTime">
-										完成时间 {{ item.coinReleaseTime }}
+										完成时间 {{ item.coinReleaseTime.substring(0,19) }}
 									</div>
 									<div class="timeBox">
 										订单编号 <span class="copy" @click="handleCopy(item.id,$event)">{{ item.id }}</span>
@@ -521,7 +521,7 @@
 										</div>
 									</div>
 									<div class="timeBox">
-										匹配时间 {{ item.machingTime }}
+										匹配时间 {{ item.machingTime.substring(0,19) }}
 									</div>
 									<div class="timeBox">
 										订单编号 <span class="copy" @click="handleCopy(item.id,$event)">{{ item.id }}</span>
@@ -607,12 +607,12 @@
 					<span class="label">申诉信息</span>
 					<span class="value red letterSpacing lineHeight">{{detail4sellerInfo.remark}}</span>
 				</div>
-				<div class="line" v-if="detail4sellerInfo.status==0 || detail4sellerInfo.status==1">
+				<!-- <div class="line" v-if="detail4sellerInfo.status==0 || detail4sellerInfo.status==1">
 					<span class="label">可取消倒计时</span>
 					<span class="value textAdornColor">
 						<van-count-down :time="setCancelDealDownTime(detail4sellerInfo.canCancelTime)" />
 					</span>
-				</div>
+				</div> -->
 				<!-- <div class="line" v-if="detail4sellerInfo.status=='1'">
 					<span class="label">锁定</span>
 					<span class="value textAdornColor">买方已锁定交易</span>
@@ -639,12 +639,12 @@
 				</div>
 				<div class="line" v-if="detail4sellerInfo.status==4">
 					<span class="label">修改凭证</span>
-					<span class="value">
+					<span class="textCenter">若遇到图片上传不了的解决办法：换浏览器操作，UC/QQ浏览器优先</span>
+					<span class="valuePic">
 						<i class="iconfont iconfont-upload-pic"></i>
 						<input accept="image/png,image/jpeg,image/jpg" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
 						<!-- <van-button color="#ffae00" size="normal" :block="true" @click="uploadBtn">确认上传以上截图</van-button> -->
 					</span>
-					<b class="textBold">若遇到图片上传不了的解决办法：换浏览器操作，UC/QQ浏览器优先</b>
 				</div>
 				<div v-if="detail4sellerInfo.status==4 || detail4sellerInfo.status==5">
 					<img class="selectedImg" :src="detail4sellerInfo.imgUrl"/>
@@ -706,12 +706,12 @@
 					<span class="label">状态</span>
 					<span class="value">{{appointDealDetail.assistAppointDealInfo.status | dealStatusType}}</span>
 				</div>
-				<div class="line" v-if="(appointDealDetail.assistAppointDealInfo.status==0 || appointDealDetail.assistAppointDealInfo.status==1)&&activeName=='get'">
+				<!-- <div class="line" v-if="(appointDealDetail.assistAppointDealInfo.status==0 || appointDealDetail.assistAppointDealInfo.status==1)&&activeName=='get'">
 					<span class="label">可取消倒计时</span>
 					<span class="value textAdornColor">
 						<van-count-down :time="setCancelDealDownTime(appointDealDetail.assistAppointDealInfo.canCancelTime)" />
 					</span>
-				</div>
+				</div> -->
 				<div class="line green">
 					<span class="label">买方昵称</span>
 					<span class="value">{{appointDealDetail.assistAppointDealBuyerInfo.nickName}}</span>
@@ -756,7 +756,7 @@
 					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">取消交易</van-button>
 				</div>
 				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">申诉</van-button>
+					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">11申诉</van-button>
 				</div>
 			</div>
 		</van-action-sheet>
@@ -808,12 +808,12 @@
 					<span class="label">申诉信息</span>
 					<span class="value red letterSpacing lineHeight">{{detail4buyerInfo.remark}}</span>
 				</div>
-				<div class="line" v-if="detail4buyerInfo.status==0 || detail4buyerInfo.status==1">
+				<!-- <div class="line" v-if="detail4buyerInfo.status==0 || detail4buyerInfo.status==1">
 					<span class="label">可取消倒计时</span>
 					<span class="value textAdornColor">
 						<van-count-down :time="setCancelDealDownTime(detail4buyerInfo.canCancelTime)" />
 					</span>
-				</div>
+				</div> -->
 				<!-- <div class="line" v-if="detail4buyerInfo.status=='1'">
 					<span class="label">锁定</span>
 					<span class="value textAdornColor">买方已锁定交易</span>
@@ -839,7 +839,7 @@
 		<!-- 取消交易提示 -->
 		<van-action-sheet v-model="showSureCancelTransactionModel4seller" title="温馨提示">
 			<div class="cancelSellTip">
-				<div class="tipText2">若买方在120分钟内没付款，且联系无果，卖方可取消交易。若买方正有事情在忙，锁定了交易，则交易时间往后延长120分钟。</div>
+				<div class="tipText2">若买方在120分钟内没付款，且联系无果，卖方可取消交易。锁定交易后务必在30分钟内付款。</div>
 				<div class="countDownTimeBox margT20 clear hidden" v-if="cancelSellSureBtnText=='知道了'">
 					<div class="flexCountTime">可取消倒计时：</div>
 					<div class="flexCountTime">
@@ -926,7 +926,7 @@
 		<van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="好的">
 			<div class="paddingWing f-12 lineHeight tip4model2 textJustify">
 				<div class="textIndent">
-					单子匹配后，请卖家主动提示买家去查看订单信息，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。单子匹配后，买家若当时在忙没时间付款，可先锁定交易，锁定交易后，交易时间可往后延长120分钟。（注：买方若是要通过微信所绑定的手机号转账，请卖方在微信中的'<b>支付-支付管理</b>'中开通'<b>允许通过手机号向我转账</b>'的功能）。
+					单子匹配后，请卖家主动提示买家去查看订单信息，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取诉讼申请消交易。单子匹配后，一旦锁定交易后，务必在30分钟内付款。（注：买方若是要通过微信所绑定的手机号转账，请卖方在微信中的'<b>支付-支付管理</b>'中开通'<b>允许通过手机号向我转账</b>'的功能）。
 				</div>
 			</div>
 		</van-dialog>
@@ -990,7 +990,7 @@
 				pen:"",
 				uploadPicBase64:"",
 				buyerHaveWord:"买方有话说：您好，我已锁定订单，请稍等片刻，我会尽快付款。",
-				tipText:"<b class='textBold'>温馨提示：</b><br>1.单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可取消交易。<br>2.单子匹配后，买方若当时在忙没时间付款，可先通过【锁定交易】来延长120分钟交易时间，锁定交易后买方若在匹配后的120分钟内没付款，卖方亦可取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
+				tipText:"<b class='textBold'>温馨提示：</b><br>单子一旦匹配，请卖方务必【发送短信提醒】，然后耐心等待120分钟，若买方在120分钟内没付款，也没锁定交易，卖方可申诉申请取消交易。<br>（注：买方若是要通过微信所绑定的手机号转账，请卖方预先在微信中的【支付-支付管理】中开通【允许通过手机号向我转账】的功能）",
 				tipText4AppointDeal: "",
 				activeName: "pay",
 				pageCount: 1000,
@@ -1473,7 +1473,7 @@
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
-				  message: '锁定交易可延长120分钟的交易时间，您是否确定要锁定交易？'
+				  message: '锁定交易后务必在20分钟内完成付款，您是否确定要锁定交易？'
 				}).then(() => {
 					// on confirm
 					////console.log('sure');
@@ -1843,7 +1843,7 @@
 										Dialog.alert({
 										  title: '温馨提示',
 										  confirmButtonText:'锁定交易',
-										  message: '为了让交易顺利进行，查看详情之前需先锁定交易，锁定后可往后延长120分钟交易的时间！'
+										  message: '为了让交易顺利进行，查看详情之前需先锁定交易，锁定后需在30分钟内完成付款或申诉反馈问题！'
 										}).then(() => {
 											// on confirm
 											////console.log('sure');

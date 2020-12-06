@@ -309,14 +309,16 @@
 					{ text: '最近7天', value: 7 },
 					{ text: '最近15天', value: 15 }
 				],
-				mineralList:[]
+				mineralList:[],
+				tag:0
 			}
 		},
 		components: {
 			mHeader,mRefresh
 		},
 		create() {
-			this.toScrollTop();
+			let _this = this;
+			_this.toScrollTop();
 		},
 		mounted() {
 			let _this = this;
@@ -365,10 +367,15 @@
 			},
 			onLoad1(){
 				let _this = this;
+				/* if(_this.$utils.getDateTime(new Date())>'2020/11/01 00:00:01'){
+					_this.tag=8;
+				}else{
+					_this.tag=0;
+				} */
 				let params = {
 					pageNo: _this.currentPage1,
 					pageSize: _this.pageSize,
-					tag:0,
+					tag:localStorage.getItem('tag'),
 					type:_this.form.type,
 					day:_this.form.day
 				}

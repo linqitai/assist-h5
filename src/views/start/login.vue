@@ -141,7 +141,7 @@
 			<van-button type="primary" size="normal" :block="true" @click="toAppView" loading-type="spinner">下载APP</van-button>
 			
 			<div class="placeholderLine10"></div>
-			<van-button color="linear-gradient(to right, #e7e7e7, #c5c5c5)" size="normal" :block="true" @click="registerBtn" loading-type="spinner">注册</van-button>
+			<van-button size="normal" :block="true" @click="registerBtn" loading-type="spinner">去注册</van-button>
 			<div class="placeholderLine10"></div>
 			<!-- <div class="tip4model3">
 				Tip：您若已经参与了内排注册，登录密码初始化为所注册的手机号。
@@ -374,7 +374,7 @@
 							//'您的账号异常或暂时被冻结，原因：' + _this.userFreezeInfo.reason + '。need_ticket',
 							Dialog.alert({
 							  title: '系统提示',
-							  message: `您的账号异常或被冻结，原因：${_this.userFreezeInfo.reason}。`
+							  message: `您的账号异常或被冻结，原因：${_this.userFreezeInfo.reason}。需花${_this.userFreezeInfo.needTicket}个帮扶券解冻并在3天内提交申请`
 							}).then(() => {
 							  // on close
 							});

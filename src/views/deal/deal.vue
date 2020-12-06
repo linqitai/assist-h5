@@ -409,7 +409,7 @@
 					<b class="textBold">尊敬的原始矿工交易前请认真阅读以下交易规则：</b>
 					<br>
 					<div class="placeholderLine4"></div>
-					【1】同价单子的匹配是<b class="textBold blue">随机</b>的，匹配后卖家务必主动<b class="textBold blue">短信提醒</b>买家，通知后买家若2小时内没付款，卖家可点<b class="textBold blue">申诉反馈问题</b>说明情况；买家付款后，卖家务必在<b class="textBold blue">2小时</b>内给予<b class="textBold blue">确认</b>，若是没收到款就点让买家<b class="textBold blue">上传付款凭证</b>或直接点<b class="textBold blue">申诉反馈问题</b>。<br>
+					【1】同价单子的匹配是<b class="textBold blue">随机</b>的，匹配后卖家务必主动<b class="textBold blue">短信提醒</b>买家，通知后买家若2小时内没付款，卖家可点<b class="textBold blue">申诉反馈问题</b>说明情况；买家付款后，卖家务必在<b class="textBold blue">2小时</b>内给予<b class="textBold blue">确认</b>，若是没收到款就点<b class="textBold blue">让买家上传付款凭证</b>或直接点<b class="textBold blue">申诉反馈问题</b>。<br>
 					<div class="placeholderLine4"></div>
 					【2】交易之前请<b class="textBold blue">卖家</b>先检查在平台上所预留的<b class="textBold blue">真实姓名</b>与<b class="textBold blue">【支付宝、微信】</b>里的是否一致、自己的<b class="textBold blue">支付宝和微信号</b>是否可以<b class="textBold blue">被搜索到且可以正常收付款且有设置头像，手机号可以接通</b>，确保能顺利交易与顺畅沟通。<br>
 					 <b class="textBold blue">支付宝收款</b>(首选）：若卖家支付宝异常，订单可被终止，请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
@@ -577,7 +577,7 @@
 				</van-cell-group>
 				<div class="sureAppointBtnBox">
 					<!-- <div class="tip4model3">系统提示：卖出匹配是随机的，最新挂买的前{{dealPageInfo.limit}}单会优先被匹配。</div> -->
-					<div class="tip4model3">系统提示：新手区的匹配机制为随机匹配，若被匹配后，有2小时的交易时间，买家锁定交易后，可继续往后延长2小时的交易时间。（同时，交易过程中若遇到问题，随时都可以点申诉反馈问题按钮，若是特殊情况，最好主动联系客服让客服介入调查或协调）</div>
+					<div class="tip4model3">系统提示：新手区的匹配机制为随机匹配，若被匹配后，有2小时的交易时间，买家锁定交易后，务必在20分钟内付款。（同时，交易过程中若遇到问题，随时都可以点申诉反馈问题按钮，若是特殊情况，最好主动联系客服让客服介入调查或协调）</div>
 					<div class="placeholderLine10"></div>
 				    <van-button @click="sureHangBuyBillBtn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Buy" :block="true">确 认</van-button>
 				</div>

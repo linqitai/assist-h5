@@ -221,7 +221,7 @@
 						</div>
 						<div class="getMineral" v-if="isShowOneReciept">
 							<!-- <div class="tip4model3 textCenter">每次矿机收益需要在24~168小时之间领取</div> -->
-							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :disable="getRecieptLoading" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键算力挖矿收益</span></van-button>
+							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :disable="getRecieptLoading" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取算力挖矿收益</span></van-button>
 						</div>
 						<van-list v-model="loadingMyMill" :finished="finished1" :finished-text="finishedMyMillText" @load="onLoadMyMill">
 							<div class="millList">
@@ -506,7 +506,7 @@
 				  title: '系统提示',
 				  confirmButtonText:'确认',
 				  closeOnClickOverlay:true,
-				  message: '每日领取算力挖矿收益=(个人算力矿机总算力+个人算力/100)/全网总算力*当日全网挖矿总产量,请问是否领取此次收益？'
+				  message: '每日领取算力挖矿收益=(个人拥有算力矿机总算力+个人算力/100)/全网总算力*当日全网挖矿总产量,请问是否领取此次收益？'
 				}).then(() => {
 					_this.getRecieptLoading = true;
 					let nowTimestamp = Number(new Date().getTime());

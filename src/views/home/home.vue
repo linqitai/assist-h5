@@ -600,7 +600,7 @@ $noticeHeight:40px;
 						<div class="margT6">全网算力</div>
 					</div>
 					<div class="infoBox">
-						<div class="amount">{{statistics.fundPoolNum || 0}}</div>
+						<div class="amount underline" @click="toFundPoolRecordView">{{statistics.fundPoolNum || 0}}</div>
 						<div class="margT6">基金池 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/></div>
 					</div>
 				</div>
@@ -1340,6 +1340,25 @@ $noticeHeight:40px;
 						  
 						})
 					} 
+				})
+			},
+			logout(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
+					if(res.code == _this.$api.CODE_OK){
+						_this.$toast('账户异常且退出登录');
+						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+						// _this.$cookies.remove('_USERINFO_');
+						// _this.$cookies.remove('buyAndSellInfo');
+						_this.$cookies.remove('userId');
+						_this.$cookies.remove('token');
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					_this.$router.replace('login');
 				})
 			},
 			sureAttendanceBtn(){

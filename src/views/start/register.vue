@@ -159,7 +159,7 @@
 			<!-- <div class="tip">点击注册即表示您同意<span class="agreement" @click="$router.push('agreement')">《用户协议》</span></div> -->
 			<van-button color="linear-gradient(to right, #ffae00 , #ffae00)" size="normal" :block="true" @click="registerBtn" :loading="isLoading" loading-type="spinner">注  册</van-button>
 			<div class="placeholderLine10"></div>
-			<van-button color="linear-gradient(to right, #e7e7e7, #c5c5c5)" size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>
+			<van-button size="normal" :block="true" @click="loginBtn">已有账号，去登录</van-button>
 			<div class="placeholderLine10"></div>
 		</div>
 		<div class="helpList">
@@ -378,7 +378,7 @@
 					// console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						localStorage.setItem("mobilePhone",_this.form.phone);
-						_this.$toast('注册成功');
+						_this.$toast('注册成功,请登录');
 						_this.$router.push('/login');
 					}else{
 						//_this.$toast(res.message);

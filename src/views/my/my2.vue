@@ -281,7 +281,8 @@
 							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" @click="giveCashProfit">持钻挖矿</van-button>
 						</span> -->
 						<span class="margL10">
-							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" @click="buyTicketBtn">购买帮扶券</van-button>
+							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopy4BuyTicket(userInfo.mobilePhone,$event)">购买帮扶券</van-button>
+							<!-- <van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" @click="buyTicketBtn">购买帮扶券</van-button> -->
 						</span>
 					</div>
 				</div>
@@ -342,16 +343,6 @@
 					</router-link>
 				</div> -->
 				<div class="infoBox">
-					<router-link to="/myMill">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundMill">
-								<van-icon class-prefix="iconfont" name="mill2" />
-							</div>
-						</div>
-						<div class="text">常规矿机</div>
-					</router-link>
-				</div>
-				<div class="infoBox">
 					<router-link to="/myMill2">
 						<div class="iconBox">
 							<div class="iconBackground iconBackgroundMill">
@@ -361,6 +352,17 @@
 						<div class="text">算力矿机</div>
 					</router-link>
 				</div>
+				<div class="infoBox">
+					<router-link to="/myMill">
+						<div class="iconBox">
+							<div class="iconBackground iconBackgroundMill">
+								<van-icon class-prefix="iconfont" name="mill2" />
+							</div>
+						</div>
+						<div class="text">常规矿机</div>
+					</router-link>
+				</div>
+				
 				<div class="infoBox">
 					<router-link to="/myDeal">
 						<div class="iconBox">
@@ -384,7 +386,7 @@
 			</div>
 			<div class="line1pxbgcolor"></div>
 			<div class="cateInfo">
-				<div class="infoBox">
+				<!-- <div class="infoBox">
 					<router-link to="/myInfo">
 						<div class="iconBox">
 							<div class="iconBackground iconBackground4">
@@ -392,6 +394,16 @@
 							</div>
 						</div>
 						<div class="text">我的实名</div>
+					</router-link>
+				</div> -->
+				<div class="infoBox">
+					<router-link to="/task">
+						<div class="iconBox">
+							<div class="iconBackground iconBackground1">
+								<van-icon class-prefix="iconfont" name="task2" />
+							</div>
+						</div>
+						<div class="text">任务中心</div>
 					</router-link>
 				</div>
 				<div class="infoBox">
@@ -537,7 +549,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='en15079AQ107o91Y7217'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634')">
+			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='en15079AQ107o91Y7217'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090')">
 				<router-link to="dealList">
 					<div class="my-cell">
 						<div class="flex1">
@@ -634,7 +646,7 @@
 						</div>
 					</div>
 				</router-link>
-				<router-link to="transferFGC">
+				<!-- <router-link to="transferFGC">
 					<div class="my-cell">
 						<div class="flex1">
 							合成钻石值
@@ -643,7 +655,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link>
+				</router-link> -->
 			</div>
 			<!-- <div class="paddingAll">
 				<van-button color="#c7c7c7" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户(暂对尚未实名的用户开放)</van-button>
@@ -660,7 +672,15 @@
 				</div>
 			</div> -->
 		</van-pull-refresh>
-		
+		<van-dialog v-model="showToBuyTicketModel" title="买券提示" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
+				<div class="paddingWing">
+						<div class="placeholderLine20"></div>
+						<div class="tip4modelNew">扶券1CNY/张，另加少许服务费，<b class="red textBold">为了避免充值的时候填写错手机号，系统已经帮您复制了手机号</b>，前去买券页面粘贴即可！</div>
+						<div class="placeholderLine20"></div>
+					</div>
+					<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
+					<van-button type="info" size="large" @click="buyTicketBtn" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">好的</van-button>
+		</van-dialog>
 		<!-- <m-fullscreen></m-fullscreen> -->
 		<!-- <m-refresh @refreshEvent="refreshEvent"></m-refresh> -->
 		<van-dialog v-model="showTipModel" title="系统提示" :showCancelButton="isShowCancelBtn" cancelButtonText="稍后" confirmButtonText="好的" @confirm="confirmBtn">
@@ -693,6 +713,7 @@
 	export default {
 		data() {
 			return {
+				showToBuyTicketModel:false,
 				isShowCancelBtn:true,
 				showTipModel:false,
 				showTipModel2:false,
@@ -957,20 +978,22 @@
 			},
 			buyTicketBtn(){
 				let _this = this;
+				let url = `http://pay.8gesy.com/payment/fenqu.html?id=574932D6D9E879EF`;
+				//window.open(url);
+				window.open(url,'_blank');
+			},
+			/* buyTicketBtn(){
+				let _this = this;
 				Dialog.confirm({
 				  title: '购买提示',
 				  confirmButtonText:'确认',
-				  message: "帮扶券1CNY/张，另加少许服务费，请问是否确认要购买帮扶券?"
+				  message: "扶券1CNY/张，另加少许服务费，【为了避免充值的时候填写错手机号，系统已经帮您复制了手机号】，前去买券页面粘贴即可！"
 				}).then(() => {
-				  // on confirm
-				  //_this.account="1234567";
 				  let url = `http://pay.8gesy.com/payment/fenqu.html?id=574932D6D9E879EF`;
-				  //window.open(url);
 				  window.open(url,'_self');
 				}).catch(()=>{
-					//cancel
 				})
-			},
+			}, */
 			giveLevelDealProfit(){
 				let _this = this;
 				if(_this.userInfo.level<1){
@@ -986,7 +1009,7 @@
 				  title: '系统提示',
 				  confirmButtonText:'确认',
 				  closeOnClickOverlay:true,
-				  message: '工会会长的全球分红每天领取矿石数量=(个人算力矿机总算力+个人算力/100)/当前所有会长的个人算力之和*昨日交易量*3%*等级值（等级值：青铜为1，白银为2，以此类推），您是否确认领取？'
+				  message: '工会会长的全球分红每天领取矿石数量=(个人拥有算力矿机总算力+个人算力/100)/当前所有会长的个人算力之和*昨日交易量*3%*等级值（等级值：青铜为1，白银为2，以此类推），您是否确认领取？'
 				}).then(() => {
 				  _this.giveLevelDealProfitLoading = true;
 				  _this.$ajax.ajax(_this.$api.giveLevelDealProfit, 'POST', null, function(res){
@@ -1023,6 +1046,12 @@
 				_this.showSendSMSTipModel = false;
 				clip(text,event,function(res){
 					_this.$toast(`复制成功`);
+				});
+			},
+			handleCopy4BuyTicket(text, event) {
+				let _this = this;
+				clip(text,event,function(res){
+					_this.showToBuyTicketModel=true;
 				});
 			},
 			getServiceDsPassword(){
@@ -1116,7 +1145,7 @@
 				}else if(val=='platformTicket'){
 					message = '帮扶券：可用于交易的时候当手续费。获取途径：购买。';
 				}else if(val=='contribution'){
-					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：爱心值释放、推广、直推复投矿机、参与游戏。';
+					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：爱心值释放、做任务、参与游戏。';
 				}else if(val=='teamCalculationPower'){
 					message = '团队算力：个人算力+近代下级的个人算力。它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
 				}else if(val=='myCalculationPower'){

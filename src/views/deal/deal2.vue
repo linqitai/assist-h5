@@ -289,7 +289,7 @@
 			  <van-field v-model="form4pickSellBill.price" readonly clearable label="单价(￥)"/>
 			  <van-field readonly clickable label="手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true"/>
 			  <div class="placeholderLine10"></div>
-			  <div class="tip4model3 paddingWing">当前算力挖矿的交易手续费统一为每笔{{usePt}}个帮扶券，由于平台的收入基本全靠帮扶券，所以该手续费会根据矿石价格来动态调整，望广大会员理解。</div>
+			  <div class="tip4model3 paddingWing">当前算力挖矿的交易手续费统一为每笔{{usePt}}个帮扶券，帮扶券作为手续费是维持平台运营的基础条件，它会根据矿石的价格来动态调整。</div>
 			  <!-- <van-field readonly clickable label="选择手续费" :value="serviceCharge" placeholder="请先选择手续费" @click="showPicker4ServiceChargePopup = true" right-icon="arrow-down"/> -->
 			  <!-- <van-popup v-model="showPicker4ServiceChargePopup" position="bottom">
 			    <van-picker
@@ -321,7 +321,7 @@
 					<b class="textBold">尊敬的原始矿工交易前请认真阅读以下交易规则：</b>
 					<br>
 					<div class="placeholderLine4"></div>
-					【1】同价单子的匹配是<b class="textBold blue">随机</b>的，匹配后卖家务必主动<b class="textBold blue">短信提醒</b>买家，通知后买家若2小时内没付款，卖家可点<b class="textBold blue">申诉反馈问题</b>说明情况；买家付款后，卖家务必在<b class="textBold blue">2小时</b>内给予<b class="textBold blue">确认</b>，若是没收到款就点让买家<b class="textBold blue">上传付款凭证</b>或直接点<b class="textBold blue">申诉反馈问题</b>。<br>
+					【1】同价单子的匹配是<b class="textBold blue">随机</b>的，匹配后卖家务必主动<b class="textBold blue">短信提醒</b>买家，通知后买家若2小时内没付款，卖家可点<b class="textBold blue">申诉反馈问题</b>说明情况；买家付款后，卖家务必在<b class="textBold blue">30分钟</b>内给予<b class="textBold blue">确认</b>，若是没收到款就点<b class="textBold blue">让买家上传付款凭证</b>或直接点<b class="textBold blue">申诉</b>反馈问题。<br>
 					<div class="placeholderLine4"></div>
 					【2】交易之前请<b class="textBold blue">卖家</b>先检查在平台上所预留的<b class="textBold blue">真实姓名</b>与<b class="textBold blue">【支付宝、微信】</b>里的是否一致、自己的<b class="textBold blue">支付宝和微信号</b>是否可以<b class="textBold blue">被搜索到且可以正常收付款且有设置头像，手机号可以接通</b>，确保能顺利交易与顺畅沟通。<br>
 					 <b class="textBold blue">支付宝收款</b>(首选）：若卖家支付宝异常，订单可被终止，请矿工们预先在支付宝的【设置--隐私--常用隐私设置】里开启【向好友公开我的真实姓名】和【通过手机号查找到我】的功能。<br>
@@ -619,7 +619,7 @@ export default {
 			],
 			showBuyAmountPopup:false,
 			showBuyMinAmountPopup:false,
-			actions: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:500}],
+			actions: [{name:5},{name:10},{name:20},{name:50},{name:100},{name:200},{name:500}],
 			actionsMin: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200}],
 			showPicker4ServiceChargePopup: false,
 			platformTicket:0,
@@ -687,6 +687,8 @@ export default {
 			}else if(_this.form4pickSellBill.serviceCharge==3){
 				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue*(1.0+_this.dealPageInfo.newbieRatio);
 			}else if(_this.form4pickSellBill.serviceCharge==2){
+				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue;
+			}else if(_this.form4pickSellBill.serviceCharge==5){
 				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue;
 			}else{
 				num = _this.userInfo.thisWeekMineral - _this.form4pickSellBill.sellAmountSliderValue*1.1;
@@ -1215,6 +1217,7 @@ export default {
 			if(myMaxCanSellNum>=item.maxNumber){
 				_this.maxBill = Math.floor(item.maxNumber);
 			}
+			//console.log("myMaxCanSellNum",myMaxCanSellNum);
 			if(myMaxCanSellNum<item.minNumber){
 				Dialog.alert({
 				  title: '系统提示',
@@ -1356,7 +1359,7 @@ export default {
 				return;
 			}
 			//挂卖之前先判断时间
-			if(_this.$utils.getTimeHMS(new Date())>'20:00:00'){
+			/* if(_this.$utils.getTimeHMS(new Date())>'20:00:00'){
 				Dialog.alert({
 				  title: '系统提示',
 				  message: '交易时间是9~20点，请明天再来'
@@ -1373,7 +1376,7 @@ export default {
 				  // on close
 				});
 				return;
-			}
+			} */
 			if(_this.userInfo.manType==1){
 				if(_this.userInfo.realnameNum<30||_this.userInfo.teamCalculationPower<30||_this.userInfo.buyAmount<300){
 					Dialog.alert({
@@ -1429,7 +1432,7 @@ export default {
 			}
 			
 			//console.log("_this.remainMineral",_this.remainMineral);
-			if(_this.remainMineral<2.0){
+			/* if(_this.remainMineral<2.0){
 				Dialog.alert({
 				  title: '系统提示',
 				  message: "卖出后所剩矿石数不得少于2个，注册所赠送的2个矿石是用来复投矿机的"
@@ -1437,7 +1440,7 @@ export default {
 				  // on close
 				});
 				return;
-			}
+			} */
 			/* if(_this.userInfo.thisWeekMineral - params.num){
 				_this.$toast('系统提示：您的矿石不够');
 				return;

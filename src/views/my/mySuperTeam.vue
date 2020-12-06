@@ -211,7 +211,7 @@
 										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
 										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册/实名时间 {{item.registerTime}}</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
+										<!-- <div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div> -->
 									</div>
 									<!-- <div class="flex flex3">
 										<div class="line2">{{item.level | getUserType}}</div>
@@ -236,7 +236,7 @@
 										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
 										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册/实名时间 {{item.registerTime}}</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
+										<!-- <div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div> -->
 									</div>
 									<!-- <div class="flex flex3">
 										<div class="line2">{{item.level | getUserType}}</div>
@@ -261,7 +261,7 @@
 										<div class="line2" v-if="item.wechartNum"><i class="iconfont iconfont-weichat"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
 										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册/实名时间 {{item.registerTime}}</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
+										<!-- <div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div> -->
 									</div> 
 									<!-- <div class="flex flex3">
 										<div class="line2">{{item.level | getUserType}}</div>

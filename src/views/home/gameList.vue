@@ -101,9 +101,9 @@
 						<div class="underline blue" @click="openChargeModelBtn">通过<b class="textBold">【支付宝/微信】</b>充值元宝</div>
 					</van-col>
 			  </van-row> -->
-			  <div class="tip4model3RedText">
+			  <!-- <div class="tip4model3RedText">
 				  <b class="textBold">最新充值活动</b>：截止到11月30号，每充值1个矿石或贡献值可兑换1万个元宝，每充值1个帮扶券可兑换2千个元宝。
-			  </div>
+			  </div> -->
 			  <div class="tip4modelNew">充值提醒：游戏中通过支付宝/微信充值的时候，若充值月卡、至尊卡或礼品若没到账，请找【客服】提供【账号和角色昵称】来领取</div>
 			  <div class="placeholderLine10"></div>
 			  <van-row type="flex" justify="space-between">

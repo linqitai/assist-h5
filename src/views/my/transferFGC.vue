@@ -87,7 +87,7 @@
 		<div class="transferPageL">
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing tip4model3">今日可合成钻石值所剩数量:{{assistParameterVo.todayTransferNum}}</div>
-			<div class="paddingWing tip4model3">您当前拥有矿石{{userInfo.thisWeekMineral.toFixed(2)}}个,可合成“合成钻石值数量=所花矿石数*今日矿石流通平均价/钻石当前挂单最高价”个钻石值</div>
+			<div class="paddingWing tip4model3">您当前拥有矿石{{userInfo.thisWeekMineral.toFixed(2)}}个,可合成钻石值数量=所花矿石数*今日矿石流通平均价/钻石当前挂单最高价</div>
 			<div class="paddingWing tip4model3">当前合成所需个人算力:{{assistParameterVo.transferNeedCp}}</div>
 			<van-cell-group>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="所用矿石数量" placeholder="请填写所用矿石数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>

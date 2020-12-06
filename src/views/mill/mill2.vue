@@ -183,41 +183,11 @@
 					</van-dropdown-menu>
 				</div>
 			</div> -->
-			<div class="tip4model3 paddingWing tip justify" v-if="tag==8">租赁说明：租赁算力矿机需要质押所需租金，待签约时长到期后才会退还租金，若提前解约退还租金，需收取10%租金的解约费。算力挖矿的每日领取收益=(个人算力矿机总算力+个人算力/100)/全网总算力*当日全网挖矿总产量，算力挖矿产量类似于比特币挖矿的产出方式，参与的人越多越难挖。</div>
+			<div class="tip4model3 paddingWing tip justify" v-if="tag==8">租赁说明：租赁算力矿机需要质押所需租金，待签约时长到期后才会退还租金，若提前解约退还租金，需收取10%租金的解约费。算力挖矿的每日领取收益=(个人算力矿机总算力+个人算力/100)/全网总算力*当日全网挖矿总产量，算力挖矿产量类似于比特币挖矿的产出方式，参与的人越多会越难挖。</div>
 			<van-pull-refresh v-model="loading" @refresh="refresh">
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
-					<van-tab title="常规矿机" name="mill1">
-						<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
-							<div class="millList">
-								<div class="item" v-for="item in millShopList" :key="item.id">
-									<!-- <div class="flex flex1">
-										<div class="machingBox">
-											<div class="name">{{item.type | machineType4Pic}}</div>
-										</div>
-									</div> -->
-									<div class="flex flex2">
-										<div class="line1">
-											<span class="millName">{{item.type | machineTypeType}}</span>
-											<span class="calcullatePower">算力 {{item.calculationPower}}GH/s</span>
-										</div>
-										<div class="line">租金 {{item.price}} 矿石</div>
-										<div class="line" v-if="tag==0">总产 {{item.totalOutput}} 矿石</div>
-										<div class="line" v-if="tag==0">日产 <b class="yellow">{{(parseFloat(item.totalOutput)/parseFloat(item.allRuntime)*24).toFixed(2)}}</b> 矿石</div>
-										<!-- <div class="line">增加流通值 <b class="yellow">{{item.type<10?(parseFloat(item.price)/2).toFixed(2):(parseFloat(item.price)).toFixed(2)}}</b></div> -->
-										<div class="line" v-if="tag==8">签约时长 {{item.allRuntime}}小时</div>
-										<div class="line">租赁上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
-									</div>
-									<div class="flex flex3">
-										<div class="line" v-if="item.type>0&&item.tag==0">库存{{item.inventory}}</div>
-										<div class="line margT3">
-											<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</van-list>
-					</van-tab>
+					
 					<van-tab title="算力矿机" name="mill2">
 						<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
 							<div class="millList">
@@ -246,6 +216,30 @@
 							</div>
 						</van-list>
 					</van-tab>
+					<!-- <van-tab title="常规矿机" name="mill1">
+						<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
+							<div class="millList">
+								<div class="item" v-for="item in millShopList" :key="item.id">
+									<div class="flex flex2">
+										<div class="line1">
+											<span class="millName">{{item.type | machineTypeType}}</span>
+											<span class="calcullatePower">算力 {{item.calculationPower}}GH/s</span>
+										</div>
+										<div class="line">租金 {{item.price}} 矿石</div>
+										<div class="line" v-if="tag==0">总产 {{item.totalOutput}} 矿石</div>
+										<div class="line" v-if="tag==0">日产 <b class="yellow">{{(parseFloat(item.totalOutput)/parseFloat(item.allRuntime)*24).toFixed(2)}}</b> 矿石</div>
+										<div class="line" v-if="tag==8">签约时长 {{item.allRuntime}}小时</div>
+										<div class="line">租赁上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
+									</div>
+									<div class="flex flex3">
+										<div class="line margT3">
+											<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</van-list>
+					</van-tab> -->
 				</van-tabs>
 			</van-pull-refresh>
 		</div>
@@ -313,13 +307,13 @@
 					{ text: '常规矿机', value: 0 },
 					{ text: '算力矿机', value: 8 },
 				],
-				tag:0,
+				tag:8,
 				safePassword:'',
 				buyMillLoading:false,
 				selectRadioValue:'1',
 				loading: false,
 				showTipModel:false,
-				activeName: "mill1",
+				activeName: "mill2",
 				loadingMyMill: false,
 				finishedMyMill: false,
 				finishedMyMillText:'',
@@ -454,7 +448,7 @@
 				  forbidClick: true,
 				  loadingType: 'spinner'
 				});
-				let url = ''
+				let url = '';
 				if(_this.tag == 0){
 					url = _this.$api.getAssistMyMachineByStatus01;
 				}
@@ -713,9 +707,10 @@
 						_this.refresh();
 					}
 				}else{
-					_this.tag = 0;
+					_this.tag = 8;
 					_this.refresh();
 				}
+				//localStorage.setItem('tag',_this.tag);
 			},
 			tabChange(name, title) {
 				//console.log(name, title);
@@ -731,6 +726,7 @@
 					_this.tag = 8;
 					_this.refresh();
 				}
+				//localStorage.setItem('tag',_this.tag);
 			}
 		}
 	}

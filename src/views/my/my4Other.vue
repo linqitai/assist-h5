@@ -334,7 +334,7 @@
 				<div class="textCenter margT6 em13" v-if="userInfo.actived==2">
 					上次审核被驳回原因：{{userInfo.remark}}<br>
 				</div>
-				<div class="textCenter margT6" v-if="cheker">
+				<div class="textCenter margT6" v-if="cheker&&userInfo.isAgent==3">
 					审核者：{{cheker}}
 				</div>
 			</div>

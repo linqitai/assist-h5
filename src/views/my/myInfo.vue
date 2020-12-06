@@ -177,7 +177,6 @@
 			</div>
 			<div class="flex2">
 				<span class="ellipsis">{{userInfo.wechartNum}}</span>
-				<!-- <span class="ellipsis">{{$JsEncrypt.decrypt(userInfo.wechartNum)}}</span> -->
 				<i class="iconfont iconfont-right-arrow2"></i>
 			</div>
 		</div>

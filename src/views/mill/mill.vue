@@ -177,9 +177,11 @@
 		</m-header> -->
 		<div class="millContent">
 			<!-- <div class="tip4model3 tip">任何一种矿机被租赁完，所有类型的矿机就会集体调整</div> -->
+			<div class="tip4model3 paddingWing tip" v-if="tag==0">当前矿机将在12月1号全体下架，然后上架新的算力矿机。</div>
+			<div class="tip4model3 paddingWing tip" v-if="tag==8">租赁说明：租赁算力矿机需要质押所需租金，待签约时长到期后才会退还租金，若提前解约退还租金，需收取10%租金的解约费。算力挖矿的每日领取收益=(个人算力矿机总算力+个人算力/100)/全网总算力*当日全网挖矿总产量，算力挖矿产量类似于比特币挖矿的产出方式，参与的人越多越难挖。</div>
 			<van-pull-refresh v-model="loading" @refresh="refresh">
 				<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
-					<div class="millList">
+					<div class="millList" v-if="tag==0">
 						<div class="item" v-for="item in millShopList" :key="item.id">
 							<!-- <div class="flex flex1">
 								<div class="machingBox">
@@ -206,6 +208,25 @@
 							</div>
 						</div>
 					</div>
+					<div class="millList" v-if="tag==8">
+						<div class="item" v-for="item in millShopList" :key="item.id">
+							<div class="flex flex2">
+								<div class="line1">
+									<span class="millName">{{item.type | machineTypeType}}</span>
+									<span class="calcullatePower">算力 {{item.calculationPower}}GH/s</span>
+								</div>
+								<div class="line">租金 {{item.price}} 矿石</div>
+								<!-- <div class="line">增加流通值 <b class="yellow">{{item.type<10?(parseFloat(item.price)/2).toFixed(2):(parseFloat(item.price)).toFixed(2)}}</b></div> -->
+								<div class="line">签约时长 {{item.allRuntime}}小时</div>
+								<div class="line">租赁上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
+							</div>
+							<div class="flex flex3">
+								<div class="line margT3">
+									<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</van-list>
 			</van-pull-refresh>
 		</div>
@@ -226,18 +247,38 @@
 				  <div class="placeholderLine10"></div>
 				  <van-radio name="2">贡献值</van-radio>
 				</van-radio-group>
-				<!-- <van-field v-model="securityCode" center clearable placeholder="请输入右边的图形验证码" @blur="validate('securityCode')" :error-message="errorHint.securityCode">
-					<van-button slot="button" size="small" type="primary" @click="getSecurityCode">{{securityCode}}</van-button>
-				</van-field> -->
+				<div class="placeholderLine20"></div>
+				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
+				<div class="placeholderLine10"></div>
+				<div class="tip4modelNew">安全密码是实名的时候所设置的安全(交易)密码</div>
+				<div class="placeholderLine10"></div>
+				<div class="tip4model3RedText" v-if="tag==8">租赁该算力矿机需质押{{price}}个矿石或贡献值，等矿机到期后才能申请解约退还所质押的{{price}}个矿石；若提前解约，会扣除10%违约金后退还{{parseFloat(price)*0.9}}个矿石，请您再次确认是否要继续租赁该矿机？</div>
+				<div class="placeholderLine10"></div>
+			</div>
+	  		<van-button type="info" size="large" @click="sureBuyMillEvent" :loading="buyMillLoading" :disabled="buyMillLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
+	  </van-dialog>
+	  <!-- <van-dialog v-model="showSelectBox" title="请选择用什么租赁" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
+	  		<div class="paddingWing">
+				<div class="placeholderLine20"></div>
+				<div class="f-14">当前可用矿石：{{userInfo.thisWeekMineral}}</div>
+				<div class="placeholderLine10"></div>
+				<div class="f-14">当前可用贡献值：{{userInfo.contributionValue}}</div>
+				<div class="placeholderLine10"></div>
+				<div class="f-14">租赁此矿机要花{{price}}个矿石或者贡献值</div>
+				<div class="placeholderLine10"></div>
+				<van-radio-group v-model="selectRadioValue" @change="selectRadioChange">
+				  <van-radio name="1">矿石</van-radio>
+				  <div class="placeholderLine10"></div>
+				  <van-radio name="2">贡献值</van-radio>
+				</van-radio-group>
 				<div class="placeholderLine20"></div>
 				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
 				<div class="placeholderLine10"></div>
 				<div class="tip4model3RedText">安全密码是实名的时候所设置的安全(交易)密码</div>
 				<div class="placeholderLine10"></div>
 			</div>
-			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
 			<van-button type="info" size="large" @click="sureBuyMillEvent" :loading="buyMillLoading" :disabled="buyMillLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
-	  </van-dialog>
+	  </van-dialog> -->
 	  <van-dialog v-model="showReceiptTip" :title="receiptModelTile" :show-confirm-button="isShowConfirmButton" :close-on-click-overlay="true">
 		<div class="placeholderLine20"></div>
 	    <div class="paddingWing textCenter">
@@ -304,7 +345,8 @@
 				isShowConfirmButton:false,
 				price:'',
 				machineId:'',
-				myMill:''
+				myMill:'',
+				tag:0
 			}
 		},
 		components: {
@@ -328,6 +370,11 @@
 				_this.$cookies.remove('tab_raise_list');
 				_this.$router.replace('login');
 				return;
+			}
+			if(_this.$utils.getDateTime(new Date())>'2020/12/01 00:00:01'){
+				_this.tag=8;
+			}else{
+				_this.tag=0;
 			}
 			_this.onLoadMyMill();
 			
@@ -430,15 +477,23 @@
 				  forbidClick: true,
 				  loadingType: 'spinner'
 				});
-				_this.$ajax.ajax(_this.$api.getAssistMyMachineByStatus01, 'GET', null, function(res) {
+				let url = ''
+				if(_this.tag == 0){
+					url = _this.$api.getAssistMyMachineByStatus01;
+				}
+				if(_this.tag == 8){
+					url = _this.$api.getAssistMyNewMachineByStatus01;
+				}
+				_this.$ajax.ajax(url, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let myMill = res.data;
 						_this.myMill = myMill;
+						_this.onLoadMillShop();
 						//console.log("myMill",myMill);
 						/* _this.myMillList.forEach((item,index)=>{
 							remainCount = remainCount + (item.totalOutput - (item.alreadyGet||0));
 						}) */
-						if(_this.$cookies.get('HMSI')){
+						/* if(_this.$cookies.get('HMSI')){
 							let millShopList = JSON.parse(localStorage.getItem('millShopList'));
 							if(millShopList){
 								
@@ -465,7 +520,7 @@
 							}
 						}else{
 							_this.onLoadMillShop();
-						}
+						} */
 					}else{
 						_this.$toast(res.message);
 					}
@@ -584,29 +639,32 @@
 				let _this = this;
 				//console.log("onLoadMillShop");
 				// 异步更新数据
-				// let params = {
-				// 	versionNo: 1
-				// }
+				let params = {
+					tag: _this.tag
+				}
 				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
+				_this.$ajax.ajax(_this.$api.getAssistMiningMachineListByTag, 'GET', params, function(res) {
 					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						let millShopList = res.data;
 						let myMill = _this.myMill;
 						//console.log("_this.myMill",_this.myMill);
-						localStorage.setItem("millShopList",JSON.stringify(millShopList));
-						_this.$cookies.set("HMSI",1,_this.$api.cookiesTime8h);
+						/* localStorage.setItem("millShopList",JSON.stringify(millShopList));
+						_this.$cookies.set("HMSI",1,_this.$api.cookiesTime8h); */
 						
 						let type1,type2;
+						let tag1,tag2;
 						for(let i=0;i<millShopList.length;i++){
 							 millShopList[i].haveMill = 0;
 						}
 						for(let i=0;i<millShopList.length;i++){
 							type1 = millShopList[i].type;
+							tag1 = millShopList[i].tag;
 							for(let j=0;j<myMill.length;j++){
-								if(myMill[j].tag==0){
+								if(myMill[j].tag==0||myMill[j].tag==8){
 									type2 = myMill[j].type;
-									if(type1==type2){
+									tag2 = myMill[j].tag;
+									if(type1==type2&&tag1==tag2){
 										millShopList[i].haveMill = millShopList[i].haveMill+1;
 									}
 								}
@@ -629,6 +687,47 @@
 					_this.finishedMillShop = true;
 				})
 			},
+			/* onLoadMillShop() {
+				let _this = this;
+				_this.loading = true;
+				_this.$ajax.ajax(_this.$api.getAssistMiningMachineList4MillShop, 'GET', null, function(res) {
+					// //console.log('res', res);
+					if (res.code == _this.$api.CODE_OK) {
+						let millShopList = res.data;
+						let myMill = _this.myMill;
+						//localStorage.setItem("millShopList",JSON.stringify(millShopList));
+						//_this.$cookies.set("HMSI",1,_this.$api.cookiesTime8h); 
+						
+						let type1,type2;
+						for(let i=0;i<millShopList.length;i++){
+							 millShopList[i].haveMill = 0;
+						}
+						for(let i=0;i<millShopList.length;i++){
+							type1 = millShopList[i].type;
+							for(let j=0;j<myMill.length;j++){
+								if(myMill[j].tag==0){
+									type2 = myMill[j].type;
+									if(type1==type2){
+										millShopList[i].haveMill = millShopList[i].haveMill+1;
+									}
+								}
+							}
+						}
+						_this.millShopList = millShopList;
+					}else{
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+					}
+				},function(){
+					_this.loading = false;
+					_this.loadingMillShop = false;
+					_this.finishedMillShop = true;
+				})
+			}, */
 			initializeTabActiveName() {
 				let _this = this;
 				if (_this.$cookies.isKey("mill_tab_name")) {

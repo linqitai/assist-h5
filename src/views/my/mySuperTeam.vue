@@ -156,8 +156,8 @@
 					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 				</div>
 				<div class="flex flex2">
-					<div class="line">上级昵称：{{(parentUserInfo.nickName)}}</div>
-					<div class="line">上级电话：{{(parentUserInfo.mobilePhone)}} <span class="copy" @click="handleCopy((parentUserInfo.mobilePhone),$event)">复制</span></div>
+					<!-- <div class="line">上级昵称：{{(parentUserInfo.nickName)}}</div> -->
+					<!-- <div class="line">上级电话：{{(parentUserInfo.mobilePhone)}} <span class="copy" @click="handleCopy((parentUserInfo.mobilePhone),$event)">复制</span></div> -->
 					<div class="line">上级微信：{{(parentUserInfo.wechartNum)}} <span class="copy" @click="handleCopy((parentUserInfo.wechartNum),$event)">复制</span></div>
 					<div class="line">我的二代总人数：{{teamNum}}</div>
 					<!-- <div class="line">因风控部门提供消息说三代奖励会有政策风险，团队上矿机三代贡献值收益分红的功能已终止研发，该奖励将会换成以全球分红的形式发放。</div> -->
@@ -186,7 +186,7 @@
 										<div class="line2" v-if="item.wechartNum"><i class="iconfont iconfont-weichat"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
 										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册/实名时间 {{item.registerTime}}</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div>
+										<!-- <div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div> -->
 									</div> 
 									<!-- <div class="flex flex3">
 										<div class="line2">{{item.level | getUserType}}</div>
@@ -235,7 +235,7 @@
 										<div class="line1"><i class="iconfont iconfont-name"></i> {{$JsCrypto.myDecode1(item.nickName)}} {{item.level | getUserType}}</div>
 										<div class="line2"><i class="iconfont iconfont-weichat" v-if="item.wechartNum"></i> {{$JsCrypto.myDecode1(item.wechartNum)}} <span class="copy" @click="handleCopy($JsCrypto.myDecode1(item.wechartNum),$event)">复制</span></div>
 										<div class="line3"><i class="iconfont iconfont-mill"></i> {{item.myCalculationPower}}算力 战友数{{item.teamateNum}}个</div>
-										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册/实名时间 {{item.registerTime}}</div>
+										<div class="line3"><i class="iconfont iconfont-clock"></i> 注册时间 {{item.registerTime}}</div>
 										<!-- <div class="line3"><i class="iconfont iconfont-clock"></i> 上次登录时间 {{item.lastLoginTime||'未知'}}</div> -->
 									</div>
 									<!-- <div class="flex flex3">
@@ -417,8 +417,8 @@
 					// console.log('res',res);
 					if(res.code == _this.$api.CODE_OK){
 						_this.parentUserInfo = res.data;
-						localStorage.setItem('parentUserInfo',JSON.stringify(_this.parentUserInfo));
-						_this.$cookies.set("parent_info",1,_this.$api.cookiesTime24h);
+						/* localStorage.setItem('parentUserInfo',JSON.stringify(_this.parentUserInfo));
+						_this.$cookies.set("parent_info",1,_this.$api.cookiesTime24h); */
 						// console.log('_this.parentUserInfo',_this.parentUserInfo);
 					}else{
 						_this.$toast(res.message);

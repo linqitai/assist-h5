@@ -1,7 +1,7 @@
 <template>
   <div id="app" ref="app">
 	<transition name="van-fade">
-		<keep-alive include="voteList,dealRecord,millRecord,raiseApplyList">
+		<keep-alive include="voteList,shop,dealRecord,millRecord,raiseApplyList">
 			<router-view></router-view>
 		</keep-alive>
 		<!-- <keep-alive>
@@ -42,26 +42,13 @@ export default {
 		    WeixinJSBridge.on('menu:setfont', function() {
 		        WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
 		    });
-		},
-		getDealPageInfo(){
-			let _this = this;
-			_this.$ajax.ajax(_this.$api.getDealPageInfo, 'POST', null, function(res) {
-				//console.log('getDealPageInfo', res);
-				if (res.code == _this.$api.CODE_OK) {
-					let dealPageInfo = res.data;
-					let currentBuyNum = _this.dealPageInfo.currentBuyNum.toFixed(2);
-					let serviceCharge = `${dealPageInfo.dealRatio*100}%矿石`;
-					localStorage.setItem("dealPageInfo",JSON.stringify(dealPageInfo))
-				}else{
-					_this.$toast(res.message);
-				}
-			})
-		},
+		}
 	}
 }
 </script>
 <style lang="scss">
 @import '~@/assets/scss/variable.scss';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -138,6 +125,8 @@ b{font-weight: bold;}
 	text-align: justify;
 }
 .mlBox{margin-left:10px;}
+.line1pxgraycolor{height: 1px;background-color: $bottomLineColor;}
+.line1pxbgcolor{height: 1px;background-color: $bottomLineColor;}
 .line1pxbgcolor{height: 1px;background-color: $bottomLineColor;}
 .line2pxbgcolor{height: 2px;background-color: #009af3;}
 .placeholderLine{height: 4px;}
@@ -337,7 +326,7 @@ b{font-weight: bold;}
 			}
 		}
 		.textBox{
-			padding: 4px 10px;
+			padding: 10px 10px;
 			.freeGet{color: $main-adorn-color !important;}
 			.title{font-size: $fs-title;font-weight: bold;color: $mainTextColor !important;}
 			.line{

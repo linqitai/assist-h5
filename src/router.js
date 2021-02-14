@@ -152,12 +152,6 @@ export default new Router({
 					]
 				},
 				/* {
-					path: '/shop',
-					name: '小店',
-					component: resolve => require(['./views/shop/shop'],resolve),
-					meta:{footer:true,keepAlive:true}
-				}, */
-				/* {
 					path: '/raise',
 					name: '帮扶筹',
 					component: resolve => require(['./views/raise/raise'],resolve),
@@ -187,15 +181,7 @@ export default new Router({
 					path: '/raiseApplyList',
 					name: '申请列表',
 					component: resolve => require(['./views/raise/raiseApplyList'],resolve),
-					meta:{footer:true,keepAlive:true},
-					children:[
-						{
-							path: '/raise4Other',
-							name: 'raise4Other',
-							component: resolve => require(['./views/raise/raise4Other'],resolve),
-							meta:{footer:false,keepAlive:false},
-						},
-					]
+					meta:{footer:true,keepAlive:true}
 				},
 				{
 					path: '/my',
@@ -439,26 +425,32 @@ export default new Router({
 					component: resolve => require(['./views/my/myMillDetail'],resolve),
 					meta:{footer:false,keepAlive:false},
 				},
-				/* {
-					path: '/merchantProcess',
-					name: '商家入驻',
-					component: resolve => require(['./views/home/merchantProcess'],resolve),
-					meta:{footer:false,back:true,child1:1,keepAlive:true},
-					children:[
-						{
-							path: '/merchantEnter',
-							name: '填写资料',
-							component: resolve => require(['./views/home/merchantEnter'],resolve),
-							meta:{footer:false,back:true,child1:0,keepAlive:true},
-						},
-						{
-							path: '/charge',
-							name: '缴费中心',
-							component: resolve => require(['./views/charge/charge'],resolve),
-							meta:{footer:false,back:true,child1:0,keepAlive:true},
-						},
-					]
-				}, */
+				{
+					path: '/merchantEnter',
+					name: '上架申请',
+					component: resolve => require(['./views/home/merchantEnter'],resolve),
+					meta:{footer:false,back:true,keepAlive:true},
+				},
+				// {
+				// 	path: '/merchantProcess',
+				// 	name: '商家入驻',
+				// 	component: resolve => require(['./views/home/merchantProcess'],resolve),
+				// 	meta:{footer:false,back:true,child1:1,keepAlive:true},
+				// 	children:[
+				// 		{
+				// 			path: '/merchantEnter',
+				// 			name: '填写资料',
+				// 			component: resolve => require(['./views/home/merchantEnter'],resolve),
+				// 			meta:{footer:false,back:true,child1:0,keepAlive:true},
+				// 		},
+				// 		{
+				// 			path: '/charge',
+				// 			name: '缴费中心',
+				// 			component: resolve => require(['./views/charge/charge'],resolve),
+				// 			meta:{footer:false,back:true,child1:0,keepAlive:true},
+				// 		},
+				// 	]
+				// },
 				{
 					path: '/myInfo',
 					name: '个人信息',
@@ -549,25 +541,37 @@ export default new Router({
 					component: resolve => require(['./views/my/myCheckDetail'],resolve),
 					meta:{footer:false,keepAlive:false}
 				},
-				/* {
-					path: '/shopCharge',
-					name: '订购商品',
-					component: resolve => require(['./views/shop/shopCharge'],resolve),
+				{
+					path: '/shopOrder4Merchant',
+					name: '货物订单',
+					component: resolve => require(['./views/my/shopOrder4Merchant'],resolve),
 					meta:{footer:false,keepAlive:true}
 				},
 				{
-					path: '/shopDetail',
-					name: '详情',
-					component: resolve => require(['./views/shop/shopDetail'],resolve),
-					meta:{footer:false,keepAlive:false}
+					path: '/shopProduct4S',
+					name: '商城管理',
+					component: resolve => require(['./views/my/shopProduct4S'],resolve),
+					meta:{footer:false,keepAlive:true}
 				},
 				{
 					path: '/shopOrder',
 					name: '购物订单',
 					component: resolve => require(['./views/my/shopOrder'],resolve),
 					meta:{footer:false,keepAlive:true}
-				}, */
+				},
+				{
+					path: '/shopCharge',
+					name: '订购商品',
+					component: resolve => require(['./views/shop/shopCharge'],resolve),
+					meta:{footer:false,keepAlive:true}
+				},
 			]
+		},
+		{
+			path: '/homeIndex',
+			name: 'homeIndex',
+			component: resolve => require(['./views/home/homeIndex'],resolve),
+			meta:{footer:false,keepAlive:true},
 		},
 		{
 			path: '/myRaiseList',
@@ -626,10 +630,34 @@ export default new Router({
 			meta:{footer:false,keepAlive:false},
 		},
 		{
+			path: '/my4Other2',
+			name: '查询信息',
+			component: resolve => require(['./views/my/my4Other2'],resolve),
+			meta:{footer:false,keepAlive:false},
+		},
+		{
 			path: '/dealRecord',
 			name: '交易记录',
 			component: resolve => require(['./views/deal/dealRecord'],resolve),
 			meta:{footer:false,keepAlive:true},
+		},
+		{
+			path: '/shop',
+			name: '小店',
+			component: resolve => require(['./views/shop/shop'],resolve),
+			meta:{footer:false,keepAlive:true}
+		},
+		{
+			path: '/shopDetail/:id',
+			name: '商品详情',
+			component: resolve => require(['./views/shop/shopDetail'],resolve),
+			meta:{footer:false,keepAlive:false}
+		},
+		{
+			path: '/raise4Other',
+			name: 'raise4Other',
+			component: resolve => require(['./views/raise/raise4Other'],resolve),
+			meta:{footer:false,keepAlive:false},
 		},
 	]
 })

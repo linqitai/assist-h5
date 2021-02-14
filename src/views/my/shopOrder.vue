@@ -58,7 +58,7 @@
 						}
 					}
 					.flex3{
-						flex: 0 0 60px;
+						flex: 0 0 80px;
 						display: flex;
 						flex-direction: column;
 						justify-content: center;
@@ -68,8 +68,6 @@
 						}
 						.line1{
 							font-size:$fs-title;
-							height: 30px;
-							line-height: 30px;
 						}
 						.line2{
 							font-size: 11px !important;
@@ -87,11 +85,12 @@
 		<div class="text">
 			购物订单
 		</div>
-		<i class="iconfont iconfont-question rightBox icon"></i>
+		<i class="iconfont rightBox icon"></i>
 	  </m-header>
 	  <div class="millContent">
-		  <!-- <van-tabs v-model="activeName" background="#1a2843" color="#ffae00" title-active-color="#ffae00" title-inactive-color="#ffffff" :border="false" @change="tabChange" animated sticky>
-		    <van-tab title="待付款" name="active1">
+		  <van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
+			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
+		    <van-tab title="待发货" name="active1">
 				<van-list
 				  v-model="loading1"
 				  :finished="finished1"
@@ -99,54 +98,58 @@
 				  @load="onLoad1"
 				>
 					<div class="list">
-						<div class="item">
+						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex flex1">
-								<img width="60" height="60" src="../../assets/image/shop/lkl01.png"/>
+								<img width="60" height="60" :src="item.headPic"/>
 							</div>
 							<div class="flex flex2">
-								<div class="line1"><div class="title">拉卡拉智能POS机</div></div>
-								<div class="line2 content margT3">奖励299张平台券</div>
-								<div class="line3 content">每人最多拍1件</div>
-								<div class="line4 decorete">创建 2019-12-12 12:12:!2</div>
+								<div class="line1"><div class="title">{{item.name}} {{item.platPrice}}<i class="f-10">￥</i> ×{{item.num}}</div></div>
+								<div class="line2 content margT3">{{item.detail}}</div>
+								<!-- <div class="line3 content">每人最多拍1件</div> -->
+								<div class="line4 decorete">{{item.createTime}}</div>
 							</div>
 							<div class="flex flex3">
-								<div class="line1 freeGet">￥299</div>
+								<div class="line1">总价</div>
+								<div class="line1"><i class="freeGet">{{item.totalPrice}}￥</i></div>
 								<div class="line2">
-									<van-button round type="info" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="toPayView">去付款</van-button>
+									<van-button round type="info" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="toDetail(item.productId)">商品详情</van-button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</van-list>
-
 		  	</van-tab>
-		    <van-tab title="待发货" name="active2">
+		    <van-tab title="待收货" name="active2">
 				<van-list
 				  v-model="loading2"
 				  :finished="finished2"
 				  finished-text="没有更多了"
 				  @load="onLoad2"
+				  offset="100"
 				>
 		  			<div class="list">
-		  				<div class="item">
+		  				<div class="item" v-for="item in list2" :key="item.id">
 		  					<div class="flex flex1">
-		  						<img width="60" height="60" src="../../assets/image/shop/lkl01.png"/>
+		  						<img width="60" height="60" :src="item.headPic"/>
 		  					</div>
 		  					<div class="flex flex2">
-		  						<div class="line1"><div class="title">拉卡拉智能POS机</div></div>
-		  						<div class="line2 content margT3">奖励299张平台券</div>
-		  						<div class="line3 content">每人最多拍1件</div>
-								<div class="line4 decorete">下单 2019-12-12 12:12:!2</div>
+		  						<div class="line1"><div class="title">{{item.name}} {{item.platPrice}}<i class="f-10">￥</i> ×{{item.num}}</div></div>
+		  						<div class="line2 content margT3">{{item.detail}}</div>
+		  						<!-- <div class="line3 content">每人最多拍1件</div> -->
+		  						<div class="line4 decorete">{{item.createTime}}</div>
 		  					</div>
 		  					<div class="flex flex3">
-		  						<div class="line1 freeGet">￥299</div>
-		  						<div class="line2">3天内发货</div>
+		  						<div class="line1">总价</div>
+		  						<div class="line1"><i class="freeGet">{{item.totalPrice}}￥</i></div>
+		  						<div class="line2">
+		  							<van-button round type="info" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="sureGetGoods(item.id)">确认收货</van-button>
+		  						</div>
 		  					</div>
 		  				</div>
 		  			</div>
 				</van-list>
 		  	</van-tab>
-		    <van-tab title="待收获" name="active3">
+		    <van-tab title="已完成" name="active3">
 				<van-list
 				  :offset="100"
 				  v-model="loading3"
@@ -154,29 +157,29 @@
 				  finished-text="没有更多了"
 				  @load="onLoad3"
 				>
-		  		<div class="list">
-		  			<div class="item">
-		  				<div class="flex flex1">
-		  					<img width="60" height="60" src="../../assets/image/shop/lkl01.png"/>
-		  				</div>
-		  				<div class="flex flex2">
-		  					<div class="line1"><div class="title">拉卡拉智能POS机</div></div>
-		  					<div class="line2 content margT3">奖励299张平台券</div>
-		  					<div class="line3 content">每人最多拍1件</div>
-		  					<div class="line4 decorete">下单 2019-12-12 12:12:!2</div>
-		  				</div>
-		  				<div class="flex flex3">
-		  					<div class="line1 freeGet">￥299</div>
-		  					<div class="line2">
-								<van-button round type="info" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">确认收获</van-button>
+					<div class="list">
+						<div class="item" v-for="item in list3" :key="item.id">
+							<div class="flex flex1">
+								<img width="60" height="60" :src="item.headPic"/>
 							</div>
-		  				</div>
-		  			</div>
-					
-		  		</div>
+							<div class="flex flex2">
+								<div class="line1"><div class="title">{{item.name}} {{item.platPrice}}<i class="f-10">￥</i> ×{{item.num}}</div></div>
+								<div class="line2 content margT3">{{item.detail}}</div>
+								<!-- <div class="line3 content">每人最多拍1件</div> -->
+								<div class="line4 decorete">{{item.createTime}}</div>
+							</div>
+							<div class="flex flex3">
+								<div class="line1">总价</div>
+								<div class="line1"><i class="freeGet">{{item.totalPrice}}￥</i></div>
+								<div class="line2">
+									<van-button round type="info" size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true" @click="toDetail(item.productId)">商品详情</van-button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</van-list>
 		  	</van-tab>
-		  </van-tabs> -->
+		  </van-tabs>
 	  </div>
 	  <!-- <van-button type="primary" @click="testLoginUrl()">登录</van-button>
 	  <van-button type="primary" @click="testUrl()">获取信息</van-button> -->
@@ -186,20 +189,25 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-// import { ajax } from "@/api/ajax";
+import ajaxs from '@/api/ajax';
 import mHeader from '@/components/Header.vue';
+import { Dialog } from 'vant';
 export default {
 	data() {
 		return {
 			activeName:"active1",
 			loading1: false,
 			finished1: false,
-			millShopCurrentPage:1,
+			currentPage1: 1,
+			list1:[],
 			loading2: false,
 			finished2: false,
-			pastMillCurrentPage:1,
+			currentPage2:1,
+			list2:[],
 			loading3: false,
 			finished3: false,
+			currentPage3: 1,
+			list3:[],
 			miningMachine: [{
 				miningMachineType:'小型矿机',
 				price:100,
@@ -221,57 +229,100 @@ export default {
 			_this.$router.replace('login');
 		}
 		_this.initializeTabActiveName();
-		// _this.getMachine();
 	},
 	methods:{
 		back(){
 			this.$router.go(-1);
 		},
-		toPayView(){
-			this.$router.push('shopCharge');
+		toDetail(id){
+			this.$router.push({
+			  path: `/shopDetail/${id}`,
+			});
 		},
-		getMachine(){
+		sureGetGoods(id){
 			let _this = this;
-			_this.$ajax.ajax(_this.$api.getAssistMachine, 'GET', null, function(res) {
-				if (res.code == _this.$api.CODE_OK) {
-					_this.miningMachine = res.data;
-					console.log("-------" + _this.miningMachine);
-				}
-			})
+			Dialog.confirm({
+			  title: '提示信息',
+			  confirmButtonText:'确定',
+			  message: '是否确定已经收到货物并检验货物的品质符合预期？'
+			}).then(() => {
+			  // on confirm
+			  //这里调用确认付款接口
+			  let params = {
+			  	id:id
+			  }
+			  _this.$ajax.ajax(_this.$api.updateOrderStatusById, 'POST', params, function(res) {
+			  	if (res.code == _this.$api.CODE_OK) {
+			  		_this.$toast('确认成功');
+					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
+					//_this.$router.replace('/my');
+					_this.onLoad2();
+			  	}
+			  })
+			});
 		},
 		onLoad1() {
 			let _this = this;
 			_this.loading1 = true;
-		  // 异步更新数据
-		  setTimeout(() => {
-			// 加载状态结束
-			_this.loading1 = false;
-			_this.finished1 = true;
-		  }, 500);
+			let params = {
+				pageNo: _this.currentPage1,
+				pageSize: 8,
+				status: 0
+			}
+			_this.$ajax.ajax(_this.$api.getAssistOrderPageList, 'GET', params, function(res) {
+				if (res.code == _this.$api.CODE_OK) {
+					_this.list1 = res.data.list;
+					if(res.data.endRow == res.data.total){
+						_this.finished1 = true;
+					}else{
+						_this.currentPage1 = _this.currentPage1 + 1;
+					}
+				}
+			},function(){
+				_this.loading1 = false;
+			})
 		},
 		onLoad2() {
 			let _this = this;
 			_this.loading2 = true;
-			// _this.millShopCurrentPage = _this.millShopCurrentPage + 1;
-			// console.log('_this.millShopCurrentPage',_this.millShopCurrentPage);
-		  // 异步更新数据
-		  setTimeout(() => {
-			// 加载状态结束
-			_this.loading2 = false;
-			_this.finished2 = true;
-		  }, 500);
+			let params = {
+				pageNo: _this.currentPage2,
+				pageSize: 8,
+				status: 1
+			}
+			_this.$ajax.ajax(_this.$api.getAssistOrderPageList, 'GET', params, function(res) {
+				if (res.code == _this.$api.CODE_OK) {
+					_this.list2 = res.data.list;
+					if(res.data.endRow == res.data.total){
+						_this.finished2 = true;
+					}else{
+						_this.currentPage2 = _this.currentPage2 + 1;
+					}
+				}
+			},function(){
+				_this.loading2 = false;
+			})
 		},
 		onLoad3() {
 			let _this = this;
 			_this.loading3 = true;
-			// _this.millShopCurrentPage = _this.millShopCurrentPage + 1;
-			// console.log('_this.millShopCurrentPage',_this.millShopCurrentPage);
-		  // 异步更新数据
-		  setTimeout(() => {
-			// 加载状态结束
-			_this.loading3 = false;
-			_this.finished3 = true;
-		  }, 500);
+			let params = {
+				pageNo: _this.currentPage3,
+				pageSize: 8,
+				status: 2
+			}
+			_this.$ajax.ajax(_this.$api.getAssistOrderPageList, 'GET', params, function(res) {
+				if (res.code == _this.$api.CODE_OK) {
+					_this.list3 = res.data.list;
+					if(res.data.endRow == res.data.total){
+						_this.finished3 = true;
+					}else{
+						_this.currentPage3 = _this.currentPage3 + 1;
+					}
+				}
+			},function(){
+				_this.loading3 = false;
+			})
 		},
 		initializeTabActiveName(){
 			let _this = this;

@@ -141,8 +141,8 @@
 			<van-button type="primary" size="normal" :block="true" @click="toAppView" loading-type="spinner">下载APP</van-button>
 			
 			<div class="placeholderLine10"></div>
-			<van-button size="normal" :block="true" @click="registerBtn" loading-type="spinner">去注册</van-button>
-			<div class="placeholderLine10"></div>
+			<!-- <van-button size="normal" :block="true" @click="registerBtn" loading-type="spinner">去注册</van-button>
+			<div class="placeholderLine10"></div> -->
 			<!-- <div class="tip4model3">
 				Tip：您若已经参与了内排注册，登录密码初始化为所注册的手机号。
 			</div> -->
@@ -156,16 +156,16 @@
 						<!-- <div class="freeGet right">2020/08/01 12:12:12</div> -->
 					</div>
 					<!-- <div class="line content margT3 justify">平台小店预热优惠活动：订购此产品需交￥299押金，下单成功且经过商家审核后，奖励299张平台券，每人最多拍1件(备注：激活POS机需要刷卡满￥299，激活成功后再找商家审核，审核确实激活后，您所交的￥299押金可退回)</div> -->
-					<div class="line content margT3"><div class="left">{{item.time}}</div><div class="right underline"><a :href="item.url" target="_self">查看详情</a></div></div>
+					<div class="line content margT3"><div class="left">{{item.time}}</div><div class="right underline"><a :href="item.url" target="_blank">查看详情</a></div></div>
 				</div>
 			</div>
 		</div>
-		<!-- <div class="shadeMaster" v-if="isWeixin">
+		<div class="shadeMaster" v-if="isWeixin">
 			<p>请点开右上角按钮选择<br>
 				<span>【在浏览器打开并收藏】</span>
 			</p>
 			<img class='img' src="../../assets/image/open_right.png" alt="pic">
-		</div> -->
+		</div>
 	</div>
 </template>
 
@@ -227,7 +227,7 @@
 			if(_this.$cookies.get('token')){
 				_this.$router.replace("home");
 			}
-			//_this.bsTip();
+			_this.bsTip();
 			//_this.getAssistMaintainInfo();
 		},
 		methods:{
@@ -374,7 +374,7 @@
 							//'您的账号异常或暂时被冻结，原因：' + _this.userFreezeInfo.reason + '。need_ticket',
 							Dialog.alert({
 							  title: '系统提示',
-							  message: `您的账号异常或被冻结，原因：${_this.userFreezeInfo.reason}。需花${_this.userFreezeInfo.needTicket}个帮扶券解冻并在3天内提交申请`
+							  message: `您的账号异常或被冻结，原因：${_this.userFreezeInfo.reason}。`
 							}).then(() => {
 							  // on close
 							});
@@ -442,7 +442,7 @@
 				_this.$ajax.ajax(_this.$api.loginUser, 'GET', params, function(res) {
 					// console.log('res', res);
 					_this.isLoading = false;
-					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 12
+					if (res.code == _this.$api.CODE_OK) { // 200  60 * 60 * 24
 						_this.userInfo = res.data.assistUserInfoVo4Web;
 						_this.$cookies.remove('userId');
 						_this.$cookies.set("userId",_this.userInfo.userId,60*60*72);

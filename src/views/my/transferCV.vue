@@ -90,19 +90,19 @@
 			<van-cell-group>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
 				<van-field v-model="form4AppointDeal.mobilePhone" required clearable label="手机号" placeholder="请粘贴对方的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/>
-				<van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
+				<!-- <van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/> -->
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写安全密码"/>
 			</van-cell-group>
 			<!-- <div class="myCell">
 				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的留言标题" />
 			</div> -->
 			<div class="placeholderLine10"></div>
-			<div class="paddingWing tip4model3">
+			<!-- <div class="paddingWing tip4model3">
 				<b class="textBold">定向转让贡献值的规则：</b><br>
 				1.定向转让贡献值暂时只对服务商和代理开放。<br>
 				2.代理转让贡献值的条件：个人算力需要大于等于3G，团队算力大于等于30G，买入矿石数量大于等于100个。<br>
 				3.定向转让贡献值暂时不收手续费。<br>
-			</div>
+			</div> -->
 			<div class="sureBtn">
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
 			</div>
@@ -210,9 +210,9 @@
 				}).then(() => {
 				  // on confirm
 				  let params = {
-				  	transferAmount: _this.form4AppointDeal.transferAmount,
+				  	num: _this.form4AppointDeal.transferAmount,
 				  	mobilePhone: _this.form4AppointDeal.mobilePhone,
-				  	idCard: _this.form4AppointDeal.idCard,
+				  	/* idCard: _this.form4AppointDeal.idCard, */
 				  	safePassword: _this.form4AppointDeal.safePassword,
 				  }
 				  if(_this.$utils.hasNull(params)){

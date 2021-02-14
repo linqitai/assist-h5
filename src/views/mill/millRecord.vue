@@ -266,6 +266,7 @@
 	import mRefresh from '@/components/Refresh.vue';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	export default {
+		name:'millRecord',
 		data() {
 			return {
 				userId:"",

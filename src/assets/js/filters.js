@@ -204,7 +204,20 @@ const loveValueBookTypeOptions = config.loveValueBookOptions;
 function loveValueBookType(val){
 	 return loveValueBookTypeOptions[val].value;
 }
-
+//类型（矿机产出、买入、卖出、释放）
+function productStatus(val){
+	if(val==0){
+		return '待审核';
+	}else if(val==1){
+		return '已上架';
+	}else if(val==2){
+		return '被驳回';
+	}else if(val==3){
+		return '已下架';
+	}else if(val==4){
+		return '已下架';
+	}
+}
 //0-捐赠矿石 1-捐赠帮扶券 2-捐赠基金池 3-释放爱心
 const circulateValueBookTypeOptions = config.circulateValueOptions;
 function circulateValueBookType(val){
@@ -326,5 +339,6 @@ export {
 	accountStatus,
 	canUnFreeze,
 	activedStatus,
-	circulateValueBookType
+	circulateValueBookType,
+	productStatus
 }

@@ -70,7 +70,7 @@
 				<img src="https://www.assist-china.co.ax/image/banner/game01.jpg" alt="">
 			</div>
 			<div class="logoBox" @click="game2Btn">
-				<img src="../../assets/image/1024.jpg" alt="">
+				<img src="../../assets/image/2048.jpg" alt="">
 			</div>
 		</div>
 		<van-action-sheet v-model="isShow4Game" title="欢迎来到传奇世界">
@@ -96,14 +96,6 @@
 			   </van-row>
 			   <div class="placeholderLine4"></div>
 			  <van-divider content-position="left">充值</van-divider>
-			  <!-- <van-row type="flex" justify="space-between">
-					<van-col span="24">
-						<div class="underline blue" @click="openChargeModelBtn">通过<b class="textBold">【支付宝/微信】</b>充值元宝</div>
-					</van-col>
-			  </van-row> -->
-			  <!-- <div class="tip4model3RedText">
-				  <b class="textBold">最新充值活动</b>：截止到11月30号，每充值1个矿石或贡献值可兑换1万个元宝，每充值1个帮扶券可兑换2千个元宝。
-			  </div> -->
 			  <div class="tip4modelNew">充值提醒：游戏中通过支付宝/微信充值的时候，若充值月卡、至尊卡或礼品若没到账，请找【客服】提供【账号和角色昵称】来领取</div>
 			  <div class="placeholderLine10"></div>
 			  <van-row type="flex" justify="space-between">
@@ -122,14 +114,8 @@
 			  </van-row>
 			  <div class="placeholderLine4"></div>
 			  <van-divider content-position="left">游戏中爆出的HPC兑换</van-divider>
-			  <!-- <div class="tip4model3RedText">
-				  <b class="textBold">游戏中的HPC兑换贡献值比例调整公告：</b>从11月1号开始，HPC兑换贡献值比例将做动态调整；且HPC兑换贡献值每日次数将有上限，兑换贡献值次数超出上限后需走兑换流通值的通道。
-			  </div> -->
 			  <div class="placeholderLine10"></div>
 			  <van-row type="flex" justify="space-between" v-if="parameter.gameContributionRatio">
-					<!-- <van-col span="12">
-						<div class="underline blue" @click="convertCirBtn">流通值</div>
-					</van-col> -->
 					<van-col span="12">
 						<div class="underline blue" @click="convertConBtn">贡献值</div>
 					</van-col>
@@ -195,7 +181,7 @@
 					  <div class="placeholderLine10"></div>
 				  </div>
 				</van-radio-group>
-				<div class="f-14">当前比例 1:200</div>
+				<div class="f-14">当前比例 1:50000</div>
 				<van-field v-model="num" label="帮扶券数量" @blur="getInteger" required type="Number" clearable placeholder="请填写所要使用的帮扶券数量"/>
 				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
 				<div class="tip4model3RedText">安全密码是实名的时候所设置的安全(交易)密码</div>
@@ -641,6 +627,41 @@
 			},
 			gameBtn(){
 				let _this = this;
+				/* Dialog.alert({
+				  title: '系统提示',
+				  message: '该模块暂时关闭，开放时间另行通知！'
+				}).then(() => {
+				  // on close
+				}); */
+				if(_this.userInfo.userId!='en15079AQ107o91Y7217'){
+					if(_this.$utils.getDate(new Date())>'2021/02/15 20:00:00'){
+						Dialog.alert({
+						  title: '系统提示',
+						  message: '游戏版块维护中，请战力排行榜前十的会员在【个人中心--我要留言】中申请排行奖励，留言格式：几区，战力排行第几，申请排行奖励。'
+						}).then(() => {
+						  // on close
+						});
+						return;
+					}
+					if(_this.$utils.getTimeHMS(new Date())>'20:00:00'){
+						Dialog.alert({
+						  title: '系统提示',
+						  message: '游戏运营时间是9~20点，请明天再来'
+						}).then(() => {
+						  // on close
+						});
+						return;
+					}
+					if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
+						Dialog.alert({
+						  title: '系统提示',
+						  message: '游戏运营时间是9~20点，请明天再来'
+						}).then(() => {
+						  // on close
+						});
+						return;
+					}
+				}
 				Toast.loading({
 				  message: '加载中...',
 				  forbidClick: true,

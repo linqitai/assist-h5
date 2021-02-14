@@ -1,12 +1,12 @@
 /* 引入第三方或自定义的字体图标样式 */
 @font-face {
   font-family: 'iconfont';  /* project id 1410914 */
-  src: url('//at.alicdn.com/t/font_1410914_ju3b26692j.eot');
-  src: url('//at.alicdn.com/t/font_1410914_ju3b26692j.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1410914_ju3b26692j.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1410914_ju3b26692j.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1410914_ju3b26692j.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1410914_ju3b26692j.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_1410914_axw18uxewpv.eot');
+  src: url('//at.alicdn.com/t/font_1410914_axw18uxewpv.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1410914_axw18uxewpv.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1410914_axw18uxewpv.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1410914_axw18uxewpv.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1410914_axw18uxewpv.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -190,6 +190,10 @@
 
 .iconfont-question::before {
   content: '\e6a6';
+}
+
+.iconfont-shop:before {
+  content: '\e624';
 }
 
 .iconfont-guide::before {//新手指南

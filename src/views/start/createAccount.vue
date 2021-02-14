@@ -122,7 +122,7 @@
 				<img v-lazy="image" />
 			  </van-swipe-item>
 			</van-swipe> -->
-			<img src="../../assets/image/cq.jpg" alt="">
+			<img src="https://www.assist-china.co.ax/image/banner/game01.jpg" alt="">
 			<!-- <img src="https://www.assist-china.co.ax/image/banner/banner0055.jpg" alt=""> -->
 		</div>
 		<div class="formHeader">

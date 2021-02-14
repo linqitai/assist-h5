@@ -52,12 +52,13 @@
 				_this.myEcharts();
 				_this.myKLineEcharts();
 			}); */
-			if(_this.$cookies.get("hasKLData")){
+			/* if(_this.$cookies.get("hasKLData")){
 				let dataArr = JSON.parse(localStorage.getItem("klineData"));
 				_this.getKLineDataArr(dataArr);
 			}else{
 				_this.getAssistStatisticsBookList4Num();
-			}
+			} */
+			_this.getAssistStatisticsBookList4Num();
 		},
 		methods: {
 			back(){
@@ -82,8 +83,8 @@
 				_this.$ajax.ajax(_this.$api.getAssistStatisticsBookList4Num, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						let dataArr = res.data;
-						_this.$cookies.set("hasKLData",1,_this.$cookies.cookiesTime8h);
-						localStorage.setItem("klineData",JSON.stringify(dataArr));
+						/* _this.$cookies.set("hasKLData",1,_this.$cookies.cookiesTime8h);
+						localStorage.setItem("klineData",JSON.stringify(dataArr)); */
 						_this.getKLineDataArr(dataArr);
 					}else{
 						_this.$toast(res.message);
@@ -105,6 +106,7 @@
 					itemArr.push(item.transactionNum24);
 					dataList.push(itemArr)
 				})
+				dataList.reverse();
 				let data = _this.$utils.splitData(dataList);
 				// _this.dataList = dataList;
 				// console.log("data",data);

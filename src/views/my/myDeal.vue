@@ -3,10 +3,10 @@
 	.myDeal{
 		@include pageHaveHeight4Scroll();
 		
-		[class*=van-hairline]::after {
+		/* [class*=van-hairline]::after {
 			border: none !important;
 		    border-bottom: 1px solid #efefef !important;
-		}
+		} */
 		.myDealTabs {
 			// margin-top: $header-height;
 			// min-height: 100%;
@@ -16,7 +16,6 @@
 				min-height: 700px !important;
 			} */
 			.list{
-				
 				.item{
 					margin-top: 1px;
 					display: flex;
@@ -201,6 +200,9 @@
 			.selectedImg{
 				width: 100%;
 			}
+			.selectedImg2{
+				height: 200px;
+			}
 			.tipText{
 				text-indent: 2em;
 				line-height: 1.4em;
@@ -326,7 +328,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				我的单子
+				我的交易
 			</div>
 			<i class="iconfont iconfont-question rightBox icon" @click="showTip"></i>
 		</m-header>
@@ -393,9 +395,9 @@
 									</div>
 								</div>
 								<div class="operatorBox">
-									<div>
+									<!-- <div>
 										<span class="showDetailBtn lineHeight" @click="showSellerInfoBtn(item)">了解卖家</span>
-									</div>
+									</div> -->
 									<div class="margT6">
 										<span class="showDetailBtn lineHeight" @click="showDetailBtn(item)">订单详情</span>
 									</div>
@@ -406,9 +408,9 @@
 									<!-- <div class="margT6" v-if="buyOrSell(item)=='sell'&&item.status==0">
 										<span class="cancelBtn" @click="cancelDealBtn(item)">取消交易</span>
 									</div> -->
-									<div class="margT6" v-if="buyOrSell(item)=='buy'&&item.status==0&&item.type!=2">
+									<!-- <div class="margT6" v-if="buyOrSell(item)=='buy'&&item.status==0&&item.type!=2">
 										<span class="cancelBtn" @click="lockTransactionBtn(item)">锁定交易</span>
-									</div>
+									</div> -->
 								</div>
 								<i class="tagIcon iconfont iconfont-tag tag4Buy"></i>
 								<i class="tagIconText">买</i>
@@ -568,6 +570,14 @@
 					<span class="value"><span class="copy" @click="handleCopy(detail4sellerInfo.id,$event)">复制</span>{{detail4sellerInfo.id}}</span>
 				</div>
 				<div class="line">
+					<span class="label">挂单时间</span>
+					<span class="value">{{detail4sellerInfo.hangBillTime}}</span>
+				</div>
+				<div class="line">
+					<span class="label">匹配时间</span>
+					<span class="value">{{detail4sellerInfo.machingTime}}</span>
+				</div>
+				<div class="line">
 					<span class="label">卖方</span>
 					<span class="value"><span class="copy" @click="handleCopy((detail4sellerInfo.realName.substring(0,1)),$event)">复制姓</span>{{detail4sellerInfo.realName}}</span>
 				</div>
@@ -622,14 +632,14 @@
 					<div class="placeholderLine10"></div>
 					<!-- <van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(detail4sellerInfo)" size="normal" :block="true">取消交易</van-button> -->
 				</div>
-				<div class="line" v-if="detail4sellerInfo.status==2 || detail4sellerInfo.status==4">
+				<!-- <div class="line" v-if="detail4sellerInfo.status==2 || detail4sellerInfo.status==4">
 					<span class="label">卖方确认倒计时</span>
 					<span class="value textAdornColor">
 						<van-count-down :time="setLetSureDownTime(detail4sellerInfo.letSureTime)" />
 					</span>
-				</div>
+				</div> -->
 				<div class="line" v-if="detail4sellerInfo.status==3">
-					<span class="label">付款凭证</span>
+					<span class="label">上传凭证</span>
 					<span class="textCenter">若遇到图片上传不了的解决办法：换浏览器操作，UC/QQ浏览器优先</span>
 					<span class="valuePic">
 						<i class="iconfont iconfont-upload-pic"></i>
@@ -656,110 +666,6 @@
 				<div class="margT10 tip4model3" v-html="$api.tipText"></div>
 			</div>
 		</van-action-sheet>
-		<!-- 省市代理订单详情 -->
-		<van-action-sheet v-model="showAgentDetailModel" title="订单详情">
-			<div v-if="!appointDealDetail">
-				<div class="placeholderLine20"></div>
-				<van-skeleton :row="16"/>
-				<div class="placeholderLine20"></div>
-			</div>
-			<div class="detailBox" v-if="appointDealDetail">
-				<div class="tip4model3" v-html="$api.tipText4Safe"></div>
-				<div class="margT10 tip4model3" v-html="$api.tipText4AppointDeal"></div>
-				<div class="line" v-if="appointDealDetail.id">
-					<span class="label">订单编号</span>
-					<span class="value">{{appointDealDetail.id}}</span>
-				</div>
-				<div class="line">
-					<span class="label">数量</span>
-					<span class="value">{{appointDealDetail.assistAppointDealInfo.num}} {{$api.numUnit}}</span>
-				</div>
-				<div class="line blueLight">
-					<span class="label">指导单价</span>
-					<span class="value">{{appointDealDetail.assistAppointDealInfo.curerntPlatformPrice}} CNY</span>
-				</div>
-				<div class="line blueLight">
-					<span class="label">指导总价</span>
-					<span class="value">{{getGuidancePrice}} CNY</span>
-				</div>
-				<div class="line blue">
-					<span class="label">担保单价</span>
-					<span class="value">{{appointDealDetail.assistAppointDealInfo.price.toFixed(2)}} CNY</span>
-				</div>
-				<div class="line blue">
-					<span class="label">担保总价</span>
-					<span class="value">{{totalPrice(appointDealDetail.assistAppointDealInfo)}} CNY</span>
-				</div>
-				<div class="line" v-if="activeName=='pay'">
-					<span class="label">买方应付</span>
-					<span class="value">{{totalPrice(appointDealDetail.assistAppointDealInfo)}} CNY</span>
-				</div>
-				<div class="line" v-if="activeName=='get'">
-					<span class="label">卖方应收</span>
-					<span class="value">{{sellerGet(appointDealDetail.assistAppointDealInfo)}} CNY</span>
-				</div>
-				<div class="line" v-if="activeName=='get'">
-					<span class="label">代理应收</span>
-					<span class="value">{{agentGet(appointDealDetail.assistAppointDealInfo)}} CNY</span>
-				</div>
-				<div class="line textAdornColor" v-if="appointDealDetail.assistAppointDealInfo.status>-1">
-					<span class="label">状态</span>
-					<span class="value">{{appointDealDetail.assistAppointDealInfo.status | dealStatusType}}</span>
-				</div>
-				<!-- <div class="line" v-if="(appointDealDetail.assistAppointDealInfo.status==0 || appointDealDetail.assistAppointDealInfo.status==1)&&activeName=='get'">
-					<span class="label">可取消倒计时</span>
-					<span class="value textAdornColor">
-						<van-count-down :time="setCancelDealDownTime(appointDealDetail.assistAppointDealInfo.canCancelTime)" />
-					</span>
-				</div> -->
-				<div class="line green">
-					<span class="label">买方昵称</span>
-					<span class="value">{{appointDealDetail.assistAppointDealBuyerInfo.nickName}}</span>
-				</div>
-				<div class="line red">
-					<span class="label">卖方昵称</span>
-					<span class="value">{{appointDealDetail.assistAppointDealSellerInfo.nickName}}</span>
-				</div>
-				<!-- <div class="line">
-					<span class="label blue">代理昵称</span>
-					<span class="value">{{appointDealDetail.assistAppointAgentInfo.nickName}}</span>
-				</div> -->
-				<div class="line blue">
-					<span class="label">代理姓名</span>
-					<span class="value">{{appointDealDetail.assistAppointAgentInfo.realName}}</span>
-				</div>
-				<div class="line blue">
-					<div class="label">代理手机号</div>
-					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.mobilePhone,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.mobilePhone}}</div>
-				</div>
-				<div class="line blue">
-					<div class="label">代理支付宝</div>
-					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.alipayNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.alipayNum}}</div>
-				</div>
-				<div class="line blue">
-					<div class="label">代理微信号</div>
-					<div class="value"><span class="copy" @click="handleCopy(appointDealDetail.assistAppointAgentInfo.wechartNum,$event)">复制</span>{{appointDealDetail.assistAppointAgentInfo.wechartNum}}</div>
-				</div>
-				
-				<van-button v-if="appointDealDetail.assistAppointDealInfo.status==4" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
-				<div class="margT10" v-if="appointDealDetail.assistAppointDealInfo.status==4">
-					<img class="selectedImg" :src="appointDealDetail.assistAppointDealInfo.imgUrl"/>
-				</div>
-				<div class="margT10" v-if="appointDealDetail.assistAppointDealInfo.status==2&&activeName=='get'">
-					<van-button color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
-					<!-- <div class="placeholderLine10"></div>
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="notReciveCNYBtn" size="normal" :block="true">代理没收到款 请对方上传付款凭证</van-button> -->
-				</div>
-				<div v-if="(appointDealDetail.assistAppointDealInfo.status==0||appointDealDetail.assistAppointDealInfo.status==1)&&activeName=='pay'">
-					<van-button color="#ffae00" size="normal" :block="true" @click="payedBtn(appointDealDetail.assistAppointDealInfo)">我已付款 让代理确认</van-button>
-					<div class="placeholderLine10"></div>
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="cancelDealBtn(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">取消交易</van-button>
-				</div>
-				<div class="margT10">
-					<van-button color="linear-gradient(to right, #c7c7c7 , #aaaaaa)" @click="complain(appointDealDetail.assistAppointDealInfo)" size="normal" :block="true">11申诉</van-button>
-				</div>
-			</div>
-		</van-action-sheet>
 		<!-- 卖家所显示的订单详情 -->
 		<van-action-sheet v-model="showBuyerDetailModel" title="订单详情">
 			<div v-if="!detail4buyerInfo">
@@ -773,6 +679,14 @@
 					<span class="value">{{detail4buyerInfo.id}}</span>
 				</div>
 				<div class="line">
+					<span class="label">挂单时间</span>
+					<span class="value">{{detail4buyerInfo.hangBillTime}}</span>
+				</div>
+				<div class="line">
+					<span class="label">匹配时间</span>
+					<span class="value">{{detail4buyerInfo.machingTime}}</span>
+				</div>
+				<div class="line">
 					<span class="label">买方</span>
 					<span class="value">{{detail4buyerInfo.realName}}</span>
 				</div>
@@ -780,11 +694,11 @@
 					<span class="label">买方手机号</span>
 					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.mobilePhone,$event)">复制</span>{{detail4buyerInfo.mobilePhone}}</div>
 				</div> -->
-				<div class="line" v-if="detail4buyerInfo.status!=5">
+				<div class="line">
 					<div class="label">买方手机号</div>
 					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.mobilePhone,$event)">复制</span>{{detail4buyerInfo.mobilePhone}}</div>
 				</div>
-				<div class="line" v-if="detail4buyerInfo.status!=5">
+				<div class="line">
 					<div class="label">买方微信号</div>
 					<div class="value"><span class="copy" @click="handleCopy(detail4buyerInfo.wechartNum,$event)">复制</span>{{detail4buyerInfo.wechartNum}}</div>
 				</div>
@@ -821,8 +735,19 @@
 				<div class="tipText2" v-if="detail4buyerInfo.status==1">
 					{{buyerHaveWord}}
 				</div>
+				<div class="line" v-if="detail4buyerInfo.status==12">
+					<span class="label">上传凭证</span>
+					<span class="textCenter">若遇到图片上传不了的解决办法：换浏览器操作，UC/QQ浏览器优先</span>
+					<span class="valuePic">
+						<i class="iconfont iconfont-upload-pic"></i>
+						<input accept="image/*" class="selectPicInput" style="opacity:0" type="file" @change="uploadIMG($event)">
+					</span>
+				</div>
+				<div class="margT10" v-if="imgData&&(detail4buyerInfo.status==12)">
+				<img class="selectedImg" :src="imgData"/>
+				</div>
 				<van-button v-if="detail4buyerInfo.status==4" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="sureLetLoading" :block="true" @click="letMineralBtn">我已收到款 确认并释放矿石</van-button>
-				<div class="margT10" v-if="detail4buyerInfo.status==4">
+				<div class="margT10" v-if="detail4buyerInfo.imgUrl&&(detail4buyerInfo.status==4||detail4buyerInfo.status==5)">
 					<img class="selectedImg" :src="detail4buyerInfo.imgUrl"/>
 				</div>
 				<div class="margT10" v-if="detail4buyerInfo.status==2">
@@ -873,17 +798,20 @@
 		  show-cancel-button
 		  @confirm="submitComplainBtn"
 		>
-			<div class="remark">
-				<van-field
-					v-model="remark"
-					rows="2"
-					autosize
-					type="textarea"
-					maxlength="100"
-					placeholder="请填写理由,让平台找到线索好介入调查"
-					show-word-limit
-				  />
-			</div>	  
+			<div class="detailBox">
+				
+				<div class="remark">
+					<van-field
+						v-model="remark"
+						rows="2"
+						autosize
+						type="textarea"
+						maxlength="100"
+						placeholder="请填写理由,让平台找到线索好介入调查"
+						show-word-limit
+					  />
+				</div>	
+			</div>
 		  <!-- <van-field v-model="remark" required clearable placeholder="写点内容,让平台好找到线索"/> -->
 		</van-dialog>
 		<van-action-sheet v-model="showSellerUserInfoModel" title="去了解卖家信息或申诉">
@@ -1041,7 +969,8 @@
 				guidancePrice:'',
 				userInfo:'',
 				cancelDetailText:'',
-				showCancelDetailBox:false
+				showCancelDetailBox:false,
+				imgData:''
 			}
 		},
 		components: {
@@ -1061,7 +990,6 @@
 			let _this = this;
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
-				//////console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
 				_this.userId = _this.userInfo.userId;
 				if(_this.userInfo.accountStatus==1){
@@ -1069,13 +997,8 @@
 					_this.logout();
 				}
 			}else{
+				_this.$storage.removeAll();
 				_this.$toast(_this.$api.loginAgainTipText);
-				localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('userId');
-				_this.$cookies.remove('token');
-				_this.$cookies.remove('isRefreshDealInfo');
-				_this.$cookies.remove('isRefreshUserInfo');
-				_this.$cookies.remove('tab_raise_list');
 				_this.$router.replace('login');
 				return;
 			}
@@ -1086,19 +1009,17 @@
 			if(_this.$route.query.mobilePhone){
 				//发送短信提示start
 				_this.mobilePhone = _this.$route.query.mobilePhone;
-				////console.log('_this.mobilePhone',_this.mobilePhone);
-				////console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
 				if(_this.$route.query.dealType==1){
 					if(_this.$route.query.isSelf) {
 						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。";
-						_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“个人中心--我的单子--待付款”的订单详情中查看并及时完成交易。`;
+						_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“个人中心--我的交易--待付款”的订单详情中查看并及时完成交易。`;
 					}else{
 						_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请提醒代理审核单子。";
 						_this.smsContent = `【${_this.$api.projectName}】我的定向交易单子选择了您做担保，请审核，谢谢。`;
 					}
 				}else{
 					_this.sendSmsTipText = "订单匹配成功，为了让交易顺利进行，请给对方发个短信提醒。";
-					_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“个人中心--我的单子--待付款”的订单详情中查看并及时完成交易。`;
+					_this.smsContent = `【${_this.$api.projectName}】我所转让的${_this.$route.query.num}个矿石已经匹配到了您，请在“个人中心--我的交易--待付款”的订单详情中查看并及时完成交易。`;
 				}
 				_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 				//发送短信提示end
@@ -1272,11 +1193,9 @@
 					    let dataOri = canvas.toDataURL("image/png");
 						let img = new Image();
 						img.src = dataOri;//base64
-						// ////console.log("dataOri",dataOri);
-						////console.log('********未压缩前的图片大小(KB)********');
-						////console.log(dataOri.length / 1024);
 						img.onload = function() {
 							let data = _this.$utils.compress(img, 0.4);//调整压缩比例
+							_this.imgData = data;
 							let params = {
 								imgUrl: data,
 								id: _this.id,
@@ -1294,8 +1213,13 @@
 									}else{
 										_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
 									}
-									_this.smsContent = `【${_this.$api.projectName}】我的付款凭证已上传，请在“个人中心--我的单子--待收款”的订单详情中查看。`;
-									_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
+									if(_this.detail4buyerInfo.status==12){
+										//让卖家上传发短信提醒的照片，不用短信提醒买家
+									}else{
+										_this.smsContent = `【${_this.$api.projectName}】我的付款凭证已上传，请在“个人中心--我的交易--待收款”的订单详情中查看。`;
+										_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
+									}
+									
 									//发送短信提示end
 									_this.showSellerDetailModel = false;
 									_this.onLoad2();
@@ -1468,21 +1392,17 @@
 			lockTransactionBtn(item){
 				let _this = this;
 				_this.id = item.id;
-				////console.log('lockTransactionBtn');
-				
 				Dialog.confirm({
 				  title: '确认信息',
 				  confirmButtonText:'确定',
 				  message: '锁定交易后务必在20分钟内完成付款，您是否确定要锁定交易？'
 				}).then(() => {
 					// on confirm
-					////console.log('sure');
 					let params = {
 						/* userId:  _this.userId, */
 						status:1,
 						id: _this.id
 					}
-					////console.log('params',params)
 					_this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
 						// ////console.log('res', res);
 						if (res.code == _this.$api.CODE_OK) {
@@ -1496,7 +1416,6 @@
 					})
 				}).catch(() => {
 				  // on cancel
-				  ////console.log('cancel');
 				});
 			},
 			cancelDeal4OverTime(){
@@ -1556,7 +1475,7 @@
 				  ////console.log('cancel');
 				});
 			},
-			complain(){
+			complain(detailInfo){
 				let _this = this;
 				_this.showComplainDialog = true;
 			},
@@ -1569,6 +1488,7 @@
 				////console.log('params',params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast('请填写理由');
+					_this.showComplainDialog = true;
 					return;
 				}
 				//调用申诉接口
@@ -1668,7 +1588,7 @@
 			toMy4OtherView(userId){
 				let _this = this;
 				////console.log('userIdInDealRecolod:',userId);
-				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
+				_this.$router.push({path:"my4Other2",query:{lookUserId:userId}});
 			},
 			showSellerInfoBtn(item){
 				let _this = this;
@@ -1699,18 +1619,23 @@
 				_this.loading = true;
 				if(_this.activeName == "buy"){
 					_this.currentPage1 = 1;
+					_this.list1 = [];
 					_this.onLoad1();
 				}else if(_this.activeName == "pay"){
 					_this.currentPage2 = 1;
+					_this.list2 = [];
 					_this.onLoad2();
 				}else if(_this.activeName == "get"){
 					_this.currentPage4 = 1;
+					_this.list4 = [];
 					_this.onLoad4();
 				}else if(_this.activeName == "complated"){
 					_this.currentPage3 = 1;
+					_this.list3 = [];
 					_this.onLoad3();
 				}else if(_this.activeName == "canceled"){
 					_this.currentPage5 = 1;
+					_this.list5 = [];
 					_this.onLoad5();
 				}
 			},
@@ -1926,7 +1851,6 @@
 								  //_this.letSureByBuyer();
 								}).catch(() => {
 								  // on cancel
-								  ////console.log('cancel');
 								});
 							}
 						}else{
@@ -1945,9 +1869,7 @@
 					status:8,
 					id: _this.id,
 				}
-				////console.log('params',params)
 				_this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-					// ////console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						// let list = res.data.list;
 						if(res.data==1){
@@ -1963,26 +1885,6 @@
 					}
 				})
 			},
-			/* letSureByBuyer(){
-				let _this = this;
-				let params = {
-					id: _this.id,
-				}
-				////console.log('params',params)
-				_this.$ajax.ajax(_this.$api.updateTransactionStatus84buyerById, 'POST', params, function(res) {
-					// ////console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) {
-						// let list = res.data.list;
-						if(res.data==1){
-							_this.showSellerDetailModel = false;
-							_this.$toast('确认成功');
-							//把是否刷新用户信息设置成true,打开‘我的’页面的时候，会自动重新获取一遍userInfo
-							_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
-							_this.onLoad2();
-						}
-					}
-				})
-			}, */
 			notReciveCNYBtn(){
 				let _this = this;
 				// _this.showBuyDetailModel = false;
@@ -1992,7 +1894,6 @@
 				  message: '请先去确认是否收到款，您确定没收到款？'
 				}).then(() => {
 				  // on confirm
-				  ////console.log('sure');
 				  _this.showSellerDetailModel = false;
 				  //这里调用让对方上传截图接口
 				  let params = {
@@ -2000,9 +1901,7 @@
 					status:3,
 				  	id: _this.id
 				  }
-				  ////console.log('params',params)
 				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-				  	// ////console.log('res', res);
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
 				  		if(res.data==1){
@@ -2012,7 +1911,7 @@
 							}else{
 								_this.mobilePhone = _this.detail4buyerInfo.mobilePhone;
 							}
-							_this.smsContent = `【${_this.$api.projectName}】您好，我并未收到款，请在“个人中心--我的单子--待付款”的订单详情中上传付款凭证。`;
+							_this.smsContent = `【${_this.$api.projectName}】您好，我并未收到款，请在“个人中心--我的交易--待付款”的订单详情中上传付款凭证。`;
 							_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 							_this.showBuyerDetailModel = false;
 							_this.onLoad4();
@@ -2023,7 +1922,6 @@
 				  })
 				}).catch(() => {
 				  // on cancel
-				  ////console.log('cancel');
 				});
 			},
 			letMineralBtn(){
@@ -2036,7 +1934,6 @@
 				  confirmButtonText:'确认已收到'
 				}).then(() => {
 				  // on confirm
-				  ////console.log('sure');
 				  //这里调用确认付款接口
 				  _this.sureLetLoading = true;
 				  let params = {
@@ -2044,9 +1941,7 @@
 					status:8,
 				  	id: _this.id
 				  }
-				  ////console.log('params',params)
 				  _this.$ajax.ajax(_this.$api.updateTransactionStatusById, 'POST', params, function(res) {
-				  	// ////console.log('res', res);
 					_this.showBuyerDetailModel = false;
 				  	if (res.code == _this.$api.CODE_OK) {
 				  		// let list = res.data.list;
@@ -2055,8 +1950,6 @@
 							//发送短信提示start
 							_this.sendSmsTipText = "交易已经顺利完成！请最后告知对方您已经确认收款并释放矿石。";
 							if(_this.type==2){
-								////console.log('_this.mobilePhone',_this.mobilePhone);
-								////console.log("localStorage.getItem('mobilePhone')",localStorage.getItem('mobilePhone'));
 								_this.mobilePhone = _this.appointDealDetail.assistAppointDealBuyerInfo.mobilePhone || _this.appointDealDetail.assistAppointAgentInfo.mobilePhone;
 								//_this.smsContent = `【${_this.$api.projectName}】我已确认并释放矿石，谢谢。`;
 							}else{
@@ -2127,7 +2020,7 @@
 								//发送短信提示start
 								_this.sendSmsTipText = "提交已付款状态成功，为了让交易顺利进行，请发个短信提醒对方确认收款并释放矿石。";
 								_this.mobilePhone = _this.detail4sellerInfo.mobilePhone;
-								_this.smsContent = `【${_this.$api.projectName}】所匹配的${item.num}个矿石已付款，请确认收款，并在“个人中心--我的单子--待收款”的订单详情中确认收款并释放矿石。HPC帮扶链感恩有您的支持!`;
+								_this.smsContent = `【${_this.$api.projectName}】所匹配的${item.num}个矿石已付款，请确认收款，并在“个人中心--我的交易--待收款”的订单详情中确认收款并释放矿石。HPC帮扶链感恩有您的支持!`;
 								_this.setSendSmsHref(_this.mobilePhone,_this.smsContent);
 								//发送短信提示end
 								_this.showSellerDetailModel = false;

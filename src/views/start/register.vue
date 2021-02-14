@@ -170,9 +170,15 @@
 						<!-- <div class="freeGet right">2020/08/01 12:12:12</div> -->
 					</div>
 					<!-- <div class="line content margT3 justify">平台小店预热优惠活动：订购此产品需交￥299押金，下单成功且经过商家审核后，奖励299张平台券，每人最多拍1件(备注：激活POS机需要刷卡满￥299，激活成功后再找商家审核，审核确实激活后，您所交的￥299押金可退回)</div> -->
-					<div class="line content margT3"><div class="left">{{item.time}}</div><div class="right underline"><a :href="item.url" target="_self">查看详情</a></div></div>
+					<div class="line content margT3"><div class="left">{{item.time}}</div><div class="right underline"><a :href="item.url" target="_blank">查看详情</a></div></div>
 				</div>
 			</div>
+		</div>
+		<div class="shadeMaster" v-if="isWeixin">
+			<p>请点开右上角按钮选择<br>
+				<span>【在浏览器打开并收藏】</span>
+			</p>
+			<img class='img' src="../../assets/image/open_right.png" alt="pic">
 		</div>
 	</div>
 </template>

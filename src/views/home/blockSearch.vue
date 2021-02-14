@@ -49,7 +49,7 @@
 						font-size: $fs-16;
 					}
 					.flexRight2{
-						flex: 0 0 100px;
+						flex: 0 0 120px;
 						text-align: right;
 						font-size: $fs-12;
 					}
@@ -87,7 +87,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				区块浏览器·全
+				区块浏览器
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
@@ -107,32 +107,18 @@
 						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex">
 								<div class="line">{{item.createTime}}</div>
-								<div class="line margT6" @click="toMy4OtherView(item.fromUserId)" v-if="item.type!=0&&item.type!=5">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromUserId}}</i></span>
+								<div class="line margT6"  @click="toMy4OtherView(item.userId)">
+									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.userId}}</i></span>
 									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
-								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)" v-if="item.type==0">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toUserId}}</i></span>
-									<i class="iconfont iconfont-right-arrow2"></i>
-								</div>
-								<div class="line margT6" v-if="item.type==0">
+								<div class="line margT6">
 									{{item.type | mineralBookType}} <i class="textAdornColor">{{item.number}}</i>个
-								</div>
-								<div class="line margT6" v-if="item.type!=1&&item.type!=0">
-									{{item.type | mineralBookType}} <i class="textAdornColor">{{item.number}}</i>个 <span v-if="item.type!=1">给</span>
-								</div>
-								<div class="line margT6" v-if="item.type==1">
-									{{item.type | mineralBookType}} 使用<i class="textAdornColor">{{item.number}}</i>个
-								</div>
-								<div class="line margT6"  @click="toMy4OtherView(item.toUserId)" v-if="item.type!=1&&item.type!=0">
-									<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.toUserId}}</i></span>
-									<i class="iconfont iconfont-right-arrow2"></i>
 								</div>
 								<div class="line margT6">
 									<span class="nickName">区块高度 <i class="textColor">{{item.id}}</i></span>
 								</div>
 							</div>
-							<div class="flexRight2">所剩<span class="textAdornColor">{{item.currentMineralNum}}</span>个</div>
+							<div class="flexRight2">当前拥有<span class="textAdornColor">{{item.currentMineralNum}}</span>个</div>
 						</div>
 					 </div>
 				</van-list>
@@ -197,7 +183,7 @@
 		},
 		create() {
 			this.toScrollTop();
-			//console.log("inArray:",_this.utils.inArray('a',['a','b']));
+			console.log('=create==');
 		},
 		mounted() {
 			let _this = this;
@@ -207,7 +193,7 @@
 			}else{
 				_this.activeName = "mineral";
 			}
-			//console.log("inArray:",_this.$utils.inArray('c',['a','b']));
+			console.log('=mounted==');
 		},
 		methods: {
 			back(){
@@ -233,7 +219,7 @@
 			toMy4OtherView(userId){
 				let _this = this;
 				//console.log('userIdInDealRecolod:',userId);
-				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
+				_this.$router.push({path:"my4Other2",query:{lookUserId:userId}});
 			},
 			toBookView(val,userId){
 				let _this = this;

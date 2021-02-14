@@ -265,12 +265,12 @@
 					<!-- <div class="line">
 						<span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/>	
 					</div> -->
-					<div class="placeholderLine"></div>
-					<div class="line" v-if="Number(userInfo.email)>6">
-						<span @click="toBookView('6')">流通值 {{Number(userInfo.email).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
-						<span class="margL10">
+					<!-- <div class="placeholderLine"></div> -->
+					<div class="line">
+						<span @click="toBookView('6')" class="yellow">可售额度 {{Number(userInfo.email).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
+						<!-- <span class="margL10">
 							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="circulateToMyCPLoading" @click="circulateToMyCPEvent">流通值兑换个人算力</van-button>
-						</span>
+						</span> -->
 					</div>
 					<div class="placeholderLine"></div>
 					<div class="line">
@@ -370,7 +370,7 @@
 								<van-icon class-prefix="iconfont" name="deal" />
 							</div>
 						</div>
-						<div class="text">我的单子</div>
+						<div class="text">我的交易</div>
 					</router-link>
 				</div>
 				<div class="infoBox" @click="toMyBook">
@@ -439,19 +439,41 @@
 				</div>
 			</div>
 			<div class="line1pxbgcolor"></div>
-			<!-- <div class="items">
-				<router-link to="innerRegister">
+			<div class="items">
+				<router-link to="shopProduct4S">
 					<div class="my-cell">
 						<div class="flex1">
-							第二轮内排注册(6月6号~7月6号)
+							商城管理(客服专用)
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
 				</router-link>
-			</div> -->
+			</div>
 			<div class="items">
+				<router-link to="shopOrder4Merchant">
+					<div class="my-cell">
+						<div class="flex1">
+							我的商城(商家专用)
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+			</div>
+			<div class="items">
+				<router-link to="shopOrder">
+					<div class="my-cell">
+						<div class="flex1">
+							商城购物订单
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
 				<!-- <router-link to="transferMineral4F">
 					
 				</router-link> -->
@@ -471,17 +493,38 @@
 						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
 				</div> -->
-				<!-- <router-link to="transferMineral4L">
+				<!-- <router-link to="transferMineral4L" v-if="userInfo.isAgent>=3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='en15079AQ107o91Y7217')">
 					<div class="my-cell">
 						<div class="flex1">
-							定向转让矿石(会长)
+							定向转让矿石
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+				<router-link to="transferCV" v-if="userInfo.isAgent>=3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='en15079AQ107o91Y7217')">
+					<div class="my-cell" to="transferCV">
+						<div class="flex1">
+							定向转让贡献值
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
 				</router-link> -->
-				<router-link to="transferTicket" v-if="userInfo.isAgent>=3||userInfo.innerRegister==2||userInfo.innerRegister==6">
+				<router-link to="transferTicket">
+					<div class="my-cell">
+						<div class="flex1">
+							定向转让帮扶券
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+				<!-- <router-link to="transferTicket" v-if="userInfo.isAgent>=3||userInfo.innerRegister>0">
+				<router-link to="transferTicket">
 					<div class="my-cell">
 						<div class="flex1">
 							定向转让帮扶券
@@ -492,39 +535,17 @@
 					</div>
 				</router-link>
 				<!-- to="transferCV" -->
-				<!-- <div class="my-cell" @click="closeTCV">
-					<div class="flex1">
-						定向转让贡献值
-					</div>
-					<div class="flex2">
-						<i class="iconfont iconfont-right-arrow2"></i>
-					</div>
-				</div> -->
-			</div>
-			<!-- <div class="items">
-				<router-link to="transferMineral">
-					<div class="my-cell">
+				<!-- <router-link to="transferCV" v-if="userInfo.isAgent>=3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='en15079AQ107o91Y7217')">
+					<div class="my-cell" to="transferCV">
 						<div class="flex1">
-							担保交易矿石
+							定向转让贡献值
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link>
+				</router-link> -->
 			</div>
-			<div class="items" v-if="userInfo.isAgent==1||userInfo.isAgent==2">
-				<router-link to="myDealCheck">
-					<div class="my-cell">
-						<div class="flex1">
-							担保交易审核
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div> -->
 			<div class="items">
 				<router-link to="myRaiseList">
 					<div class="my-cell">
@@ -549,7 +570,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='en15079AQ107o91Y7217'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090')">
+			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='en15079AQ107o91Y7217'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090'||userInfo.userId=='1586gt1n48Q5jr4M0523')">
 				<router-link to="dealList">
 					<div class="my-cell">
 						<div class="flex1">
@@ -570,7 +591,7 @@
 						</div>
 					</div>
 				</router-link>
-				<!-- <router-link to="updateIdCard">
+				<router-link to="updateIdCard">
 					<div class="my-cell">
 						<div class="flex1">
 							帮他人修改身份证号
@@ -579,7 +600,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link> -->
+				</router-link>
 				<!-- <router-link to="updateAlipay">
 					<div class="my-cell">
 						<div class="flex1">
@@ -626,7 +647,7 @@
 				</router-link>
 			</div>
 			<div class="items">
-				<router-link to="myVoteList">
+				<!-- <router-link to="myVoteList">
 					<div class="my-cell">
 						<div class="flex1">
 							我的投票申请
@@ -635,7 +656,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link>
+				</router-link> -->
 				<router-link to="reduceRNTimes">
 					<div class="my-cell">
 						<div class="flex1">
@@ -646,7 +667,8 @@
 						</div>
 					</div>
 				</router-link>
-				<!-- <router-link to="transferFGC">
+				
+				<router-link to="transferFGC">
 					<div class="my-cell">
 						<div class="flex1">
 							合成钻石值
@@ -655,7 +677,7 @@
 							<i class="iconfont iconfont-right-arrow2"></i>
 						</div>
 					</div>
-				</router-link> -->
+				</router-link>
 			</div>
 			<!-- <div class="paddingAll">
 				<van-button color="#c7c7c7" size="normal" :block="true" @click="cancelAccount" loading-type="spinner">注销账户(暂对尚未实名的用户开放)</van-button>
@@ -675,7 +697,7 @@
 		<van-dialog v-model="showToBuyTicketModel" title="买券提示" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
 				<div class="paddingWing">
 						<div class="placeholderLine20"></div>
-						<div class="tip4modelNew">扶券1CNY/张，另加少许服务费，<b class="red textBold">为了避免充值的时候填写错手机号，系统已经帮您复制了手机号</b>，前去买券页面粘贴即可！</div>
+						<div class="tip4modelNew">帮扶券1CNY/张，另加少许服务费，<b class="red textBold">为了避免充值的时候填写错手机号，系统已经帮您复制了手机号</b>，前去买券页面粘贴即可！</div>
 						<div class="placeholderLine20"></div>
 					</div>
 					<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
@@ -756,26 +778,13 @@
 				}
 			}, */
 		},
+		computed:{
+			
+		},
 		created() {
 			let _this = this;
-			//console.log("_this.$utils.getDate(new Date())",_this.$utils.getDate(new Date()));
-			if(_this.$utils.getDate(new Date())>'2020/11/01'){
-				_this.isShowBuyProfit = false;
-				//console.log("_this.isShowBuyProfit",_this.isShowBuyProfit);
-			}
-			/* let cv = 0;
-			let loveValue = 2000;
-			for(let i=0;i<180;i++){
-				cv=cv+0.1;
-				loveValue = loveValue - 0.1*19;
-			}
-			/* setTimeout(function(){
-				console.log("123200000")
-			},2000) */
-			//console.log("getTime:" + Date.parse(new Date('2020/04/30 09:45:12:123')));
-			/* let JsDecrypt = _this.$JsCrypto.myDecode2("FIeZaO8MkOVJTu2sSmbdcw==");
-			console.log("JsDecrypt",JsDecrypt); */
 			let userInfo = localStorage.getItem("_USERINFO_");
+			//let userInfo = _this.$store.state.userInfo;
 			if(userInfo){
 				////console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
@@ -785,12 +794,7 @@
 					_this.logout();
 				}
 			}else{
-				/* _this.$cookies.remove('userId'); */
-				localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('userId');
-				_this.$cookies.remove('token');
-				_this.$cookies.remove('isRefreshDealInfo');
-				_this.$cookies.remove('isRefreshUserInfo');
+				_this.$storage.removeAll();
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;
@@ -798,6 +802,9 @@
 			if(_this.$cookies.get('isRefreshUserInfo')==1){
 				_this.getUserInfo();
 			}
+			//_this.$storage.remove('statistics');
+			//console.log('storage', _this.$storage.getToken());
+			//console.log('statistics', _this.$storage.getCookie('statistics'));
 			/* if(_this.userInfo.isAgent==1){
 				_this.getAssistAgentInfo4Province();
 			}
@@ -1145,15 +1152,15 @@
 				}else if(val=='platformTicket'){
 					message = '帮扶券：可用于交易的时候当手续费。获取途径：购买。';
 				}else if(val=='contribution'){
-					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：爱心值释放、做任务、参与游戏。';
+					message = '贡献值：贡献值是平台对会员的奖励，可以用来租赁矿机。获取途径：爱心值释放。';
 				}else if(val=='teamCalculationPower'){
-					message = '团队算力：个人算力+近代下级的个人算力。它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【我的--任务中心】。';
+					message = '团队算力：个人算力+近代下级的个人算力。它决定着您的用户等级，分别有：青铜、白银、黄金、铂金、钻石五个等级，具体请查看【个人中心--任务中心】。';
 				}else if(val=='myCalculationPower'){
-					message = '我的算力：由个人所拥有的矿机所决定。';
+					message = '个人算力：由个人所拥有的矿机所决定，其他特殊奖励也有加个人算力。';
 				}else if(val=='limitBuyNum'){
 					message = '个人限购数量=初始限购数量+(卖出数量-买入数量)，若有特殊需要，个人限购数量可找客服申请提升';
 				}else if(val=='raise'){
-					message = '爱心值：满10个即可在首页通过签到每日释放贡献值；获取途径：捐赠';
+					message = '爱心值：满10个即可在首页通过签到每日释放贡献值；获取途径：帮扶筹中捐赠';
 				}else if(val=='circulateValue'){
 					message = '流通值：可通过复投、推广、买入或参与游戏获得，复投1:1/2:1增加，推广会员完成2个基础任务1:2增加，买入1:1增加，卖出1:2扣除。';
 				}
@@ -1203,17 +1210,13 @@
 				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
 					if(res.code == _this.$api.CODE_OK){
 						_this.$toast('账户异常且退出登录');
-						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-						// _this.$cookies.remove('_USERINFO_');
-						// _this.$cookies.remove('buyAndSellInfo');
-						_this.$cookies.remove('userId');
-						_this.$cookies.remove('token');
+						_this.$storage.removeAll();
 						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
 					}else{
 						_this.$toast(res.message);
 					}
 				},function(){
+					_this.$storage.removeAll();
 					_this.$router.replace('login');
 				})
 			},
@@ -1225,6 +1228,32 @@
 			getUserInfo() {
 				let _this = this;
 				_this.loading = true;
+				/* let params = {}
+				_this.$store.dispatch('getAssistUserInfo', params).then(res => {
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						_this.userInfo = res.data;
+						if(_this.userInfo.actived==-1){
+							_this.showTipModel = true;
+						}
+						if(_this.userInfo.actived==2){
+							_this.showTipModel2 = true;
+						}
+						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
+						//console.log(_this.userInfo,"userInfo");
+						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
+						// if(_this.userInfo.manType==2){
+						// 	_this.getServiceDsPassword();
+						// }
+						if(_this.userInfo.accountStatus==1){
+							//退出登录
+							_this.logout();
+						}
+					}
+				}).catch(res=>{
+					console.log('res', res);
+					_this.loading = false;
+				}) */
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
@@ -1244,11 +1273,6 @@
 						if(_this.userInfo.accountStatus==1){
 							//退出登录
 							_this.logout();
-						}
-					}else{
-						_this.$toast(res.message);
-						if(res.message=='登录已过期，请重新登录'){
-							_this.$router.push('/login');
 						}
 					}
 				},function(){

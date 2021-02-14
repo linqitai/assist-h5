@@ -276,6 +276,7 @@
 	// import { image_host } from '@/assets/js/config.js'
 	
 	export default {
+		name: 'raiseApplyList',
 		components: {
 			mHeader
 		},
@@ -314,30 +315,30 @@
 				list7:[],
 			}
 		},
-			filters: {
-				filterStatus(val) {
-					//0-待审核 1-审核通过 2-审核驳回 3-筹款中 4-筹款结束
-					var result = '';
-					if (val == 0) {
-						result = '待审核';
-					}else if (val == 1) {
-						result = '审核通过';
-					}else if (val == 2) {
-						result = '排队中';
-					}else if (val == 3) {
-						result = '筹款中';
-					}else if (val == 4) {
-						result = '筹款结束';
-					}else if (val == 5) {
-						result = '投票中';
-					}else if (val == 6) {
-						result = '待拜访';
-					}else if (val == 7) {
-						result = '审核驳回';
-					}
-					return result;
+		filters: {
+			filterStatus(val) {
+				//0-待审核 1-审核通过 2-审核驳回 3-筹款中 4-筹款结束
+				var result = '';
+				if (val == 0) {
+					result = '待审核';
+				}else if (val == 1) {
+					result = '审核通过';
+				}else if (val == 2) {
+					result = '排队中';
+				}else if (val == 3) {
+					result = '筹款中';
+				}else if (val == 4) {
+					result = '筹款结束';
+				}else if (val == 5) {
+					result = '投票中';
+				}else if (val == 6) {
+					result = '待拜访';
+				}else if (val == 7) {
+					result = '审核驳回';
 				}
-			},
+				return result;
+			}
+		},
 		created() {
 			let _this = this;
 			let userInfo = localStorage.getItem("_USERINFO_");
@@ -347,25 +348,23 @@
 				_this.userId = _this.userInfo.userId;
 				if(_this.userInfo.accountStatus==1){
 					//退出登录
-					_this.logout();
+					_this.$storage.removeAll();
+					_this.$toast(_this.$api.loginAgainTipText);
+					_this.$router.replace('login');
 				}
 			}else{
 				/* _this.$cookies.remove('userId'); */
-				localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('userId');
-				_this.$cookies.remove('token');
-				_this.$cookies.remove('isRefreshDealInfo');
-				_this.$cookies.remove('isRefreshUserInfo');
+				_this.$storage.removeAll();
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;
 			}
-			/* if (_this.$cookies.isKey("tab_raise_list")) {
+			if (_this.$cookies.isKey("tab_raise_list")) {
 				_this.activeName = _this.$cookies.get("tab_raise_list");
 			}else{
 				_this.activeName = "onLoad1";
-			} */
-			//_this.getAssistComplainListPage();
+			}
+			_this.refreshEvent();
 		},
 		methods: {
 			back(){
@@ -373,25 +372,6 @@
 			},
 			getColor(status) {
 				return status == "0" ? "" : status == "1" ? "green_text" : "";
-			},
-			logout(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.$toast('账户异常且退出登录');
-						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-						// _this.$cookies.remove('_USERINFO_');
-						// _this.$cookies.remove('buyAndSellInfo');
-						_this.$cookies.remove('userId');
-						_this.$cookies.remove('token');
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-					}else{
-						_this.$toast(res.message);
-					}
-				},function(){
-					_this.$router.replace('login');
-				})
 			},
 			refreshEvent() {
 				let _this = this;

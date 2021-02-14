@@ -209,7 +209,7 @@
 			/>
 			<div class="statistics" v-if="remainCount">
 				<div class="line clearBoth flexCenter f-14">
-					<div class="right">待产出矿石 ≈ {{(parseFloat(remainCount)).toFixed(3)}} 个</div>
+					<div class="right">常规矿机中的资产 ≈ {{(parseFloat(remainCount)).toFixed(3)}} 个</div>
 				</div>
 			</div>
 			<!-- <div class="statistics">
@@ -526,13 +526,15 @@
 					_this.$ajax.ajax(_this.$api.getMyMachinesReceipt, 'POST', null, function(res) {
 						if (res.code == _this.$api.CODE_OK) {
 							if(res.data){
-								_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
+								/* _this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
 								_this.isShowMineralNum = true;
-								//_this.$toast(`此次领取收益为${res.data}个矿石`);
 								_this.onLoadMyMill();
 								_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
+								_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime) */
+								_this.$toast(`此次领取收益为${res.data}个矿石`);
+								_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
 								_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime)
-								//_this.$router.push('/myBook');
+								_this.$router.push('/myBook');
 							}else{
 								if(res.data == 0.0){
 									/* Dialog.alert({

@@ -183,7 +183,7 @@
 					</van-dropdown-menu>
 				</div>
 			</div> -->
-			<div class="tip4model3 paddingWing tip justify" v-if="tag==8">租赁说明：租赁算力矿机需要质押所需租金，待签约时长到期后才会退还租金，若提前解约退还租金，需收取10%租金的解约费。算力挖矿的每日领取收益=(个人算力矿机总算力+个人算力/100)/全网总算力*当日全网挖矿总产量，算力挖矿产量类似于比特币挖矿的产出方式，参与的人越多会越难挖。</div>
+			<div class="tip4model3 paddingWing tip justify" v-if="tag==8">算力矿机的挖矿模式犹如存本金，然后每日领取利息。复投说明：复投算力矿机需要质押所需租金，待签约时长到期后才会退还租金，若提前解约退还租金，需收取10%租金的解约费(一周年之后所复投的算力矿机统一需等运行周期到期后自动解约)。算力挖矿的每日领取收益=(个人算力矿机总算力+个人算力/100)/全网总算力*当日全网挖矿总产量，算力挖矿产量类似于比特币挖矿的产出方式，参与的人越多会越难挖。</div>
 			<van-pull-refresh v-model="loading" @refresh="refresh">
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
@@ -205,18 +205,18 @@
 										<div class="line">租金 {{item.price}} 矿石</div>
 										<!-- <div class="line">增加流通值 <b class="yellow">{{item.type<10?(parseFloat(item.price)/2).toFixed(2):(parseFloat(item.price)).toFixed(2)}}</b></div> -->
 										<div class="line">签约时长 {{item.allRuntime}}小时</div>
-										<div class="line">租赁上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
+										<div class="line">复投上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
 									</div>
 									<div class="flex flex3">
 										<div class="line margT3">
-											<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
+											<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">复投</van-button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</van-list>
 					</van-tab>
-					<!-- <van-tab title="常规矿机" name="mill1">
+					<van-tab title="常规矿机" name="mill1">
 						<van-list v-model="loadingMillShop" :finished="finishedMillShop" finished-text="没有更多了">
 							<div class="millList">
 								<div class="item" v-for="item in millShopList" :key="item.id">
@@ -229,31 +229,33 @@
 										<div class="line" v-if="tag==0">总产 {{item.totalOutput}} 矿石</div>
 										<div class="line" v-if="tag==0">日产 <b class="yellow">{{(parseFloat(item.totalOutput)/parseFloat(item.allRuntime)*24).toFixed(2)}}</b> 矿石</div>
 										<div class="line" v-if="tag==8">签约时长 {{item.allRuntime}}小时</div>
-										<div class="line">租赁上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
+										<div class="line">复投上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
 									</div>
 									<div class="flex flex3">
 										<div class="line margT3">
-											<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
+											<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">复投</van-button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</van-list>
-					</van-tab> -->
+					</van-tab>
 				</van-tabs>
 			</van-pull-refresh>
 		</div>
 		<!-- <van-button type="primary" @click="testLoginUrl()">登录</van-button>
 	  <van-button type="primary" @click="testUrl()">获取信息</van-button> -->
-	  <!-- <van-dialog v-model="showSelectBox" title="请选择用什么租赁" :show-cancel-button="true" :show-confirm-button="true" @confirm="sureBuyMillEvent"> -->
-	  <van-dialog v-model="showSelectBox" title="请选择用什么租赁" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
+	  <!-- <van-dialog v-model="showSelectBox" title="请选择用什么复投" :show-cancel-button="true" :show-confirm-button="true" @confirm="sureBuyMillEvent"> -->
+	  <van-dialog v-model="showSelectBox" title="请选择用什么复投" :show-cancel-button="false" :show-confirm-button="false" :close-on-click-overlay="true">
 	  		<div class="paddingWing">
 				<div class="placeholderLine20"></div>
 				<div class="f-14">当前可用矿石：{{userInfo.thisWeekMineral}}</div>
 				<div class="placeholderLine10"></div>
 				<div class="f-14">当前可用贡献值：{{userInfo.contributionValue}}</div>
 				<div class="placeholderLine10"></div>
-				<div class="f-14">租赁此矿机要花{{price}}个矿石或者贡献值</div>
+				<div class="f-14">复投此矿机要花{{price}}个矿石或者贡献值</div>
+				<div class="placeholderLine10"></div>
+				<div class="f-14">您最近30天已累计买入{{monthBuyNum}}个矿石</div>
 				<div class="placeholderLine10"></div>
 				<van-radio-group v-model="selectRadioValue" @change="selectRadioChange">
 				  <van-radio name="1">矿石</van-radio>
@@ -268,11 +270,11 @@
 				<div class="placeholderLine10"></div>
 				<div class="tip4modelNew">安全密码是实名的时候所设置的安全(交易)密码</div>
 				<div class="placeholderLine10"></div>
-				<div class="tip4model3RedText" v-if="tag==8">租赁该算力矿机需质押{{price}}个矿石或贡献值，等矿机到期后才能申请解约退还所质押的{{price}}个矿石；若提前解约，会扣除10%违约金后退还{{parseFloat(price)*0.9}}个矿石，请您再次确认是否要继续租赁该矿机？</div>
+				<div class="tip4model3RedText" v-if="tag==8">复投该算力矿机需质押{{price}}个矿石或贡献值，等矿机到期后才能申请解约退还所质押的{{price}}个矿石；若提前解约，会扣除10%违约金后退还{{parseFloat(price)*0.9}}个矿石，请您再次确认是否要继续复投该矿机？</div>
 				<div class="placeholderLine10"></div>
 			</div>
-			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">租赁</van-button> -->
-			<van-button type="info" size="large" @click="sureBuyMillEvent" :loading="buyMillLoading" :disabled="buyMillLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">租赁</van-button>
+			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">复投</van-button> -->
+			<van-button type="info" size="large" @click="sureBuyMillEvent" :loading="buyMillLoading" :disabled="buyMillLoading" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">复投</van-button>
 	  </van-dialog>
 	  <van-dialog v-model="showReceiptTip" :title="receiptModelTile" :show-confirm-button="isShowConfirmButton">
 		<div class="placeholderLine20"></div>
@@ -345,7 +347,8 @@
 				isShowConfirmButton:false,
 				price:'',
 				machineId:'',
-				myMill:''
+				myMill:'',
+				monthBuyNum:''
 			}
 		},
 		components: {
@@ -361,12 +364,8 @@
 					_this.logout();
 				}
 			}else{
+				_this.$storage.removeAll();
 				_this.$toast(_this.$api.loginAgainTipText);
-				localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('userId');
-				_this.$cookies.remove('token');
-				_this.$cookies.remove('isRefreshDealInfo');
-				_this.$cookies.remove('tab_raise_list');
 				_this.$router.replace('login');
 				return;
 			}
@@ -536,9 +535,10 @@
 				_this.showSelectBox = true;
 				_this.price = item.price;
 				_this.machineId = item.id;
+				_this.getMonthBuyNum();
 				// Dialog.confirm({
 				//   title: '确认弹窗',
-				//   message: `您当前可用矿石${_this.userInfo.thisWeekMineral}个,租赁此矿机要花${item.price}矿石,是否确定租赁？`
+				//   message: `您当前可用矿石${_this.userInfo.thisWeekMineral}个,复投此矿机要花${item.price}矿石,是否确定复投？`
 				// }).then(() => {
 				//   // on confirm
 				//   if(_this.userInfo.thisWeekMineral<item.price){
@@ -550,18 +550,36 @@
 				//   // on cancel
 				// });
 			},
+			getMonthBuyNum(){
+				let _this = this;
+				Toast.loading({
+				  message: '复投中...',
+				  forbidClick: true,
+				  loadingType: 'spinner'
+				});
+				_this.$ajax.ajax(_this.$api.getMonthBuyNum, 'GET', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						_this.monthBuyNum = res.data;
+					}else{
+						_this.$toast(res.message);
+						_this.showSelectBox = false;
+					}
+				},function(){
+					Toast.clear();
+				})
+			},
 			requestBuyMillUrl(){
 				let _this = this;
 				_this.showSelectBox = false;
 				_this.buyMillLoading = true;
 				if(_this.selectRadioValue==1){
 					if(_this.userInfo.thisWeekMineral<_this.price){
-						_this.$toast("您所拥有的矿石不够租赁该矿机");
+						_this.$toast("您所拥有的矿石不够复投该矿机");
 						_this.buyMillLoading = false;return;
 					}
 				}else if(_this.selectRadioValue==2){
 					if(_this.userInfo.contributionValue<_this.price){
-						_this.$toast("您所拥有的贡献值不够租赁该矿机");
+						_this.$toast("您所拥有的贡献值不够复投该矿机");
 						_this.buyMillLoading = false;return;
 					}
 				}
@@ -583,7 +601,7 @@
 					safePassword:_this.safePassword
 				}
 				Toast.loading({
-				  message: '租赁中...',
+				  message: '复投中...',
 				  forbidClick: true,
 				  loadingType: 'spinner'
 				});
@@ -594,7 +612,7 @@
 					if (res.code == _this.$api.CODE_OK) {
 						Dialog.alert({
 						  title: '系统提示',
-						  message: res.data == 1?'租赁成功':'租赁失败'
+						  message: res.data == 1?'复投成功':'复投失败'
 						}).then(() => {
 						  // on close
 						  if(res.data==1){

@@ -206,7 +206,7 @@
 		@click-right-icon="$toast(errorHint.telPhone)"
 		@blur="validate('telPhone')"
 		:error-message="errorInfo.telPhone"/> :required="form.actived==2?true:false" :disabled="form.actived==2?false:true"-->
-		<van-field v-model="form.wechartNum" clearable label="微信号" maxlength="20" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
+		<van-field v-model="form.wechartNum" readonly clearable label="微信号" maxlength="20" :placeholder="errorHint.wechartNum" @blur="validate('wechartNum')" :error-message="errorInfo.wechartNum"/>
 		<van-field v-model="form.alipayNum" readonly clearable label="支付宝" maxlength="24" :placeholder="errorHint.alipayNum" @blur="validate('alipayNum')" :error-message="errorInfo.alipayNum"/>
 		<!-- <van-field v-model="form.bankCard" required clearable label="银行卡号" right-icon="question-o" :placeholder="errorHint.bankCard"
 		@click-right-icon="$toast(errorHint.bankCard)"

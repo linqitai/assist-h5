@@ -195,9 +195,13 @@
 				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
 				<div class="placeholderLine20"></div>
 				<van-button size="normal" type="warning" :block="true" @click="waitSureBtn">设置成待确认</van-button>
+				<div class="placeholderLine20"></div>
+				<van-button size="normal" type="info" :block="true" @click="letUploadPicBtn">请卖家上传已短信通知的截图</van-button>
+				<div class="placeholderLine20"></div>
+				<van-button size="normal" type="success" :block="true" @click="letGoOnDealBtn">请卖家再次短信通知买家继续完成交易</van-button>
 				<div class="placeholderLine10"></div>
 				<div class="tip4model3">
-					注：若卖家确认超时后(过待确认时间尚未确认)，客服可给确认，并扣卖家1个贡献值。
+					注：若卖家确认超时后(过待确认时间尚未确认)，客服可给确认，并扣卖家10个矿石。
 				</div>
 				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" type="primary" @click="sureBtn">给确认</van-button>
@@ -206,7 +210,7 @@
 			<div v-if="form.status==2||form.status==4">
 				<div class="placeholderLine10"></div>
 				<div class="tip4model3">
-					注：若卖家确认超时后(过待确认时间尚未确认)，客服可给确认，并扣卖家1个贡献值。
+					注：若卖家确认超时后(过待确认时间尚未确认)，客服可给确认，并扣卖家10个矿石。
 				</div>
 				<van-button size="normal" :block="true" type="primary" @click="sureBtn">给确认</van-button>
 				<div class="placeholderLine10"></div>
@@ -215,6 +219,16 @@
 			<van-button size="normal" :block="true" @click="freezzBtn">冻结账号</van-button> -->
 		</div>
 	</div>
+	
+	<van-dialog v-model="showCancelReasonModel" title="取消确认" :showConfirmButton="false" :close-on-click-overlay="true">
+		<div class="placeholderLine10"></div>
+		<div class="refuseReason">
+			<van-checkbox v-model="checked4Buyer" @change="checkedChange">买家诉讼有效给买家奖励0.1贡献值</van-checkbox>
+			<van-field v-model="safePassword"  required placeholder="安全密码"/>
+			<van-button size="normal" :block="true" @click="cancelEvent">确认取消</van-button>
+		</div>
+		<div class="placeholderLine10"></div>
+	</van-dialog>
 	<van-dialog v-model="showFreezeReasonModel" title="冻结原因" :showConfirmButton="false" :close-on-click-overlay="true">
 		<div class="placeholderLine10"></div>
 		<div class="refuseReason">
@@ -238,6 +252,8 @@ import { Toast } from 'vant';
 export default {
 	data() {
 		return {
+			safePassword:'',
+			showCancelReasonModel:false,
 			addContributionValue:0.1,
 			checked4Buyer:false,
 			showFreezeReasonModel:false,
@@ -326,14 +342,24 @@ export default {
 	},
 	mounted(){
 		let _this = this;
-		_this.loginerUserId = _this.$cookies.get('userId');
-		if(_this.$utils.isNUll(_this.loginerUserId)){
+		let userInfo = localStorage.getItem("_USERINFO_");
+		if(userInfo){
+			////console.log("userInfo_localStorage");
+			_this.userInfo = JSON.parse(userInfo);
+			_this.loginerUserId = _this.userInfo.userId;
+			console.log('loginerUserId', _this.loginerUserId);
+		}else{
+			/* _this.$cookies.remove('userId'); */
+			localStorage.removeItem('_USERINFO_');
+			_this.$cookies.remove('userId');
+			_this.$cookies.remove('token');
+			_this.$cookies.remove('isRefreshDealInfo');
+			_this.$cookies.remove('isRefreshUserInfo');
 			_this.$toast(_this.$api.loginAgainTipText);
 			_this.$router.replace('login');
 			return;
 		}
 		_this.id = _this.$route.query.id;
-		console.log('id', _this.id);
 		_this.getAssistTransactionExtendById();
 	},
 	methods:{
@@ -355,7 +381,7 @@ export default {
 			let params = {
 				id: _this.id
 			}
-			_this.$ajax.ajax4GetCheckDetail(_this.$api.getAssistTransactionExtendById, 'GET', params, function(res){
+			_this.$ajax.ajax(_this.$api.getAssistTransactionExtendById, 'GET', params, function(res){
 				if(res.code == _this.$api.CODE_OK){
 					// _this.form.idCardPic = res.data.idCardPic;
 					// _this.form.gesturePic = res.data.gesturePic;
@@ -429,41 +455,103 @@ export default {
 		},
 		cancelBtn(){
 			let _this = this;
+			_this.showCancelReasonModel = true;
+		},
+		letGoOnDealBtn(){
+			let _this = this;
 			Dialog.confirm({
 			  title: '系统提示',
-			  confirmButtonText:'继续',
+			  confirmButtonText:'确认',
 			  closeOnClickOverlay:true,
-			  message: '该操作会将取消该交易，是否继续？'
+			  message: '是否确认设置成继续交易状态？'
 			}).then(() => {
-			  if(!_this.checked4Buyer){
-			    _this.addContributionValue = 0.00;
-			  }
 			  let params = {
-			  	id:_this.form.id,
-			  	buyerId:_this.form.buyerId,
-			  	sellerId:_this.form.sellerId,
-			    addContributionValue:_this.addContributionValue.toFixed(2)
+				 status: 0,
+				 remark:';【客服】请卖家再次短信通知买家继续完成交易',
+			  	 id:_this.form.id
 			  }
-			  //console.log('params',params);
-			  
-			  _this.$ajax.ajax(_this.$api.cancelAssistTransaction4S, 'POST', params, function(res){
+			  _this.$ajax.ajax(_this.$api.updateDealStatusAndRemark, 'POST', params, function(res){
 			  	// //console.log('res',res)
 			  	if (res.code == _this.$api.CODE_OK) { // 
-					_this.$toast(`取消成功`);
+					_this.$toast(`操作成功`);
 			  		_this.back();
 			  	}else{
 			  		Dialog.alert({
 			  		  title: '系统提示',
 			  		  message: res.message
 			  		}).then(() => {
-			  		  // on close
 			  		});
 			  	}
 			  })
 			}).catch(() => {
-			  // on cancel
-			  //console.log('cancel');
+				
 			});
+		},
+		letUploadPicBtn(){
+			let _this = this;
+			Dialog.confirm({
+			  title: '系统提示',
+			  confirmButtonText:'确认',
+			  closeOnClickOverlay:true,
+			  message: '是否确认让卖家上传短信通知的截图？'
+			}).then(() => {
+			  let params = {
+			  	id:_this.form.id
+			  }
+			  //console.log('params',params);
+			  
+			  _this.$ajax.ajax(_this.$api.letSellerUploadPic, 'POST', params, function(res){
+			  	// //console.log('res',res)
+			  	if (res.code == _this.$api.CODE_OK) { // 
+					_this.$toast(`操作成功`);
+			  		_this.back();
+			  	}else{
+			  		Dialog.alert({
+			  		  title: '系统提示',
+			  		  message: res.message
+			  		}).then(() => {
+			  		});
+			  	}
+			  })
+			}).catch(() => {
+				
+			});
+		},
+		cancelEvent(){
+			let _this = this;
+			if(_this.$utils.isNUll(_this.safePassword)){
+				Dialog.alert({
+				  title: '系统提示',
+				  message: '请填写安全密码'
+				}).then(() => {
+				  // on close
+				});
+				return;
+			}
+			if(!_this.checked4Buyer){
+			  _this.addContributionValue = 0.00;
+			}
+			let params = {
+				id:_this.form.id,
+				buyerId:_this.form.buyerId,
+				sellerId:_this.form.sellerId,
+				addContributionValue:_this.addContributionValue.toFixed(2),
+				safePassowrd:_this.$JsEncrypt.encrypt(_this.safePassword)
+			}
+			_this.$ajax.ajax(_this.$api.cancelAssistTransaction4S, 'POST', params, function(res){
+				// //console.log('res',res)
+				if (res.code == _this.$api.CODE_OK) { // 
+								_this.$toast(`取消成功`);
+					_this.back();
+				}else{
+					Dialog.alert({
+					  title: '系统提示',
+					  message: res.message
+					}).then(() => {
+					  // on close
+					});
+				}
+			})
 		},
 		sureBtn(){
 			let _this = this;

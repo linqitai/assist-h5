@@ -78,8 +78,8 @@
 		<div class="wrapperIn">
 			<div class="header">
 				<div class="leftBox">
-					<i class="f-15 underline" v-if="$route.meta.showMillRecordIcon" @click="toView('millRecord')">租赁记录</i>
-					<i class="f-15 underline" v-if="$route.meta.showRecordIcon" @click="toView('dealRecord')">流通记录</i>
+					<!-- <i class="f-12 underline" v-if="$route.meta.showMillRecordIcon" @click="toView('millRecord')">租赁记录</i> -->
+					<i class="f-12 underline" v-if="$route.meta.showRecordIcon" @click="toView('dealRecord')">交易记录</i>
 					<i class="iconfont iconfont-left-arrow f-12" v-if="$route.meta.back" @click="back"></i>
 				</div>
 				<div class="centerBox">
@@ -87,8 +87,8 @@
 				</div>
 				<div class="rightBox">
 					<!-- <i class="iconfont iconfont-question f-18" v-if="$route.meta.question" @click="showTip($route.meta.questionName)"></i> -->
-					<i class="f-15 underline" v-if="$route.meta.toMyMill" @click="toView('myMill')">我的矿机</i>
-					<i class="f-15 underline" v-if="$route.meta.toMyDeal" @click="toView('myDeal')">我的单子</i>
+					<!-- <i class="f-15 underline" v-if="$route.meta.toMyMill" @click="toView('myMill')">我的矿机</i> -->
+					<i class="f-12 underline" v-if="$route.meta.toMyDeal" @click="toView('myDeal')">我的交易</i>
 				</div>
 			</div>
 			<div class="body">
@@ -99,7 +99,7 @@
 				<router-view></router-view>
 			  </keep-alive> -->
 				<transition name="van-fade">
-					<keep-alive include="voteList,dealRecord,millRecord,raiseApplyList">
+					<keep-alive include="voteList,shop,dealRecord,millRecord,raiseApplyList">
 						<router-view></router-view>
 					</keep-alive>
 					<!-- <keep-alive v-if="$route.meta.keepAlive==true">
@@ -194,18 +194,7 @@ export default {
 		toView(view){
 			let _this = this;
 			if(view == 'dealRecord'){
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.tip4Rest
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
-				// console.log("dealRecord");
 				_this.$router.push({path:"dealRecord"});
-				// _this.$router.push({path:"lookBook",query:{lookUserId:'50'}})
 			}else if(view == 'millRecord'){
 				_this.$router.push({path:"millRecord"});
 			}else if(view == 'myMill'){
@@ -213,7 +202,6 @@ export default {
 			}else if(view == 'myDeal'){
 				_this.$router.push({path:"myDeal"});
 			}
-			//this.$router.push("lookBook");
 		},
 		showTip(type){
 			if(type=="deal"){

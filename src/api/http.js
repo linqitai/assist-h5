@@ -1,0 +1,44 @@
+import axios from 'axios'
+import qs from 'qs'
+import VueCookies from 'vue-cookies'
+axios.defaults.timeout = 7000
+let token = VueCookies.get('token')
+if (token) { 
+  axios.defaults.headers.common.token = token
+}
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www=form-urlencoded'
+
+export default {
+  fetchGet(url, params) {
+    return new Promise((resolve, reject) => {
+      axios.get(url, params).then(res => {
+        resolve(res.data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  fetchPost(url, data = {}) {
+    return new Promise((resolve, reject) => {
+      axios.post(url, qs.stringify(data)).then(res => {
+        resolve(res.data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  fetchPostForUpload(url, data = {}) {
+    return new Promise((resolve, reject) => {
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      } // 添加请求头
+      axios.post(url, data, config).then(res => {
+        resolve(res.data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  }
+}

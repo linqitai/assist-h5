@@ -86,11 +86,15 @@
 		</m-header>
 		<div class="transferPageL">
 			<div class="placeholderLine10"></div>
-			<div class="paddingWing tip4model3">今日可合成钻石值所剩数量:{{assistParameterVo.todayTransferNum}}</div>
-			<div class="paddingWing tip4model3">您当前拥有矿石{{userInfo.thisWeekMineral.toFixed(2)}}个,可合成钻石值数量=所花矿石数*今日矿石流通平均价/钻石当前挂单最高价</div>
-			<div class="paddingWing tip4model3">当前合成所需个人算力:{{assistParameterVo.transferNeedCp}}</div>
+			<div class="paddingWing tip4model3">合成须知：</div>
+			<div class="paddingWing tip4model3">1.今日可合成钻石值所剩数量:{{assistParameterVo.todayTransferNum}}，您当前可用矿石{{userInfo.thisWeekMineral.toFixed(2)}}个。</div>
+			<div class="paddingWing tip4model3">2.用矿石合成钻石值的比例固定为10:1(当前合成规则为有多少个人算力就可以合成多少数量的钻石值)，子币中用钻石值也可以租赁矿机。</div>
+			<!-- <div class="paddingWing tip4model3">2.当矿石和钻石的价格相差不到10倍的时候，用矿石合成钻石值的比例至少为10:1，也就是说合成一个钻石值至少要花10个矿石</div>
+			<div class="paddingWing tip4model3">3.当矿石和钻石的价格相差超过10倍的时候，可合成钻石值数量=使用矿石数*矿石当前挂单最高价/钻石当前可挂单最高价</div> -->
+			<div class="paddingWing tip4model3">3.当前时间段合成钻石值需个人算力:{{assistParameterVo.transferNeedCp}}Gh/s，合成所需个人算力要求会逐渐降低。</div>
+			
 			<van-cell-group>
-				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="所用矿石数量" placeholder="请填写所用矿石数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
+				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="使用矿石数量" placeholder="请填写所使用矿石数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
 				<!-- <van-field v-model="form4AppointDeal.mobilePhone" required clearable label="对方手机号" placeholder="请填写对方的手机号" maxlength="11" @blur="validate4AppointDeal('mobilePhone')" :error-message="errorInfo4AppointDeal.mobilePhone"/> -->
 				<!-- <van-field v-model="form4AppointDeal.agentPhone" required clearable label="担保代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone"> -->
 					<!-- <van-button slot="button" size="small" type="primary">自动分配</van-button> -->
@@ -199,11 +203,11 @@
 			validate4AppointDeal(key){
 				let _this = this;
 				if(key == 'transferAmount') {
-					if(_this.form4AppointDeal[key]>=10&&_this.form4AppointDeal[key]<=100){
+					if(_this.form4AppointDeal[key]>=10&&_this.form4AppointDeal[key]<=500){
 						_this.form4AppointDeal[key] = parseFloat(_this.form4AppointDeal[key]).toFixed(0);
 						_this.errorInfo4AppointDeal.transferAmount = '';
 					}else{
-						_this.errorInfo4AppointDeal.transferAmount = "单次合成钻石值所需矿石在数量10~100之间";
+						_this.errorInfo4AppointDeal.transferAmount = "单次合成钻石值所需矿石在数量10~500之间";
 					}
 				}else if(key == 'mobilePhone') {
 					if(_this.$reg.phone2.test(_this.form4AppointDeal.mobilePhone)){
@@ -268,29 +272,21 @@
 			},
 			submit(){
 				let _this = this;
-				/* if(_this.$utils.getTimeHMS(new Date())>'21:00:00'){
+				
+				if(_this.$utils.getTimeHMS(new Date())>'21:00:00'||_this.$utils.getTimeHMS(new Date())<'13:00:00'){
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '定向交易时间是9~21点，请明天再来'
+					  message: '合成钻石窗口未开时间为13到21点'
 					}).then(() => {
 					  // on close
 					});
 					return;
-				} */
-				/* if(_this.$utils.getTimeHMS(new Date())>'00:00:00'&&_this.$utils.getTimeHMS(new Date())<'09:00:00'){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: '定向交易时间是9~21点，请到点再来'
-					}).then(() => {
-					  // on close
-					});
-					return;
-				} */
+				}
 				
 				Dialog.confirm({
 				  title: '提示信息',
 				  confirmButtonText:'确定',
-				  message: `当前所花矿石数量为:${_this.form4AppointDeal.transferAmount}个,可合成“所花矿石数*今日矿石流通平均价/钻石当前挂单最高价”个钻石值,请问是否确认合成？`
+				  message: `当前所花矿石数量为:${_this.form4AppointDeal.transferAmount}个,请问是否确认合成钻石值？`
 				}).then(() => {
 				  // on confirm
 					let params = {

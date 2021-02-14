@@ -113,7 +113,7 @@
 										<div class="line">{{item.createTime}}</div>
 										 <!-- @click="toMy4OtherView(item.fromUserId)" -->
 										<div class="line margT6">
-											<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromNickName}}</i></span>
+											<span class="nickName"><i class="iconfont iconfont-name"></i> <i class="textColor">{{item.fromUserId}}</i></span>
 											<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 										</div>
 										<div class="line margT6">

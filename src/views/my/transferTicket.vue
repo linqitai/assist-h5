@@ -99,8 +99,7 @@
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing tip4model3">
 				<b class="textBold">定向转让帮扶券的规则：</b><br>
-				1.每个会员都可以向自己的三代伞下会员转帮扶券，转让帮扶券不收手续费。<br>
-				2.帮扶券恒价1CNY/个。<br>
+				每个会员都可以向自己的三代伞下会员转帮扶券，转让帮扶券不收手续费。<br>
 			</div>
 			<div class="sureBtn">
 				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
@@ -218,7 +217,7 @@
 				  _this.showBuyDetailModel = false;
 				  //这里调用确认付款接口
 				  let params = {
-				  	transferAmount: _this.form4AppointDeal.transferAmount,
+				  	num: _this.form4AppointDeal.transferAmount,
 				  	mobilePhone: _this.form4AppointDeal.mobilePhone,
 				  	/* idCard: _this.form4AppointDeal.idCard, */
 				  	safePassword: _this.form4AppointDeal.safePassword,

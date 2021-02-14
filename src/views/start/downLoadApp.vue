@@ -98,7 +98,6 @@
 		},
 		mounted() {
 			let _this = this;
-			
 			_this.bsTip();
 		},
 		methods:{

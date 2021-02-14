@@ -207,6 +207,11 @@
 			  left-icon="volume-o"
 			  text="算力矿机收益一天可领取一次,每次只领取当天的收益"
 			/>
+			<div class="statistics" v-if="remainCount">
+				<div class="line clearBoth flexCenter f-14">
+					<div class="right">算力矿机中的资产 ≈ {{(parseFloat(remainCount)).toFixed(3)}} 个</div>
+				</div>
+			</div>
 			<!-- <div class="statistics" v-if="remainCount">
 				<div class="line clearBoth flexCenter f-14">
 					<div class="right">全网总算力 ≈ 4040Gh/s</div>
@@ -240,7 +245,7 @@
 										</div>
 										<div class="line">算力 {{item.calculationPower}}GH/s</div>
 										<div class="line" v-if="item.turnOnTime">{{item.turnOnTime.substring(0,19)}} 启动</div>
-										<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 后可自然解约</div>
+										<div class="line" v-if="item.turnOffTime">{{item.turnOffTime}} 后会自然解约</div>
 										<div class="line">租金 <b class="yellow">{{item.price}}</b> 个矿石</div>
 										<div class="line">自然解约退还 <b class="yellow">{{item.price}}</b> 个矿石</div>
 										<div class="line">提前解约退还 <b class="yellow">{{parseFloat(item.price)*0.9}}</b> 个矿石</div>
@@ -280,10 +285,10 @@
 									</div> -->
 									<div class="flex flex2">
 										<div class="line1">
-											<div class="millName inline">{{item.type | machineTypeType}}</div>
+											<div class="inline">{{item.type | machineTypeType}} 租金{{item.price}}矿石</div>
 										</div>
 										<!-- <div class="line">总运行 {{item.allRuntime}}小时</div> -->
-										<div class="line">租金{{item.price}}矿石</div>
+										<div class="line">过期时间 {{item.turnOffTime}}</div>
 									</div>
 									<!-- <div class="flex flex3">
 										<div class="line">算力 {{item.calculationPower}}</div>
@@ -525,13 +530,12 @@
 					_this.$ajax.ajax(_this.$api.getHoldCPReceipt, 'POST', null, function(res) {
 						if (res.code == _this.$api.CODE_OK) {
 							if(res.data){
-								_this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
-								_this.isShowMineralNum = true;
-								//_this.$toast(`此次领取收益为${res.data}个矿石`);
-								//_this.onLoadMyMill();
+								/* _this.mineralNumTip = `此次领取收益为${res.data}个矿石`;
+								_this.isShowMineralNum = true; */
+								_this.$toast(`此次领取了${res.data}个矿石`);
 								_this.$cookies.set('isRefreshUserInfo', 1, _this.$api.cookiesTime);
 								_this.$cookies.set("tab_name_book", 'mineral', _this.$api.cookiesTime)
-								//_this.$router.push('/myBook');
+								_this.$router.push('/myBook');
 							}else{
 								if(res.data == 0.0){
 									/* Dialog.alert({
@@ -598,7 +602,15 @@
 				let _this = this;
 				let num = item.price;
 				_this.machineId = item.id;
-				console.log("_this.machineId",_this.machineId);
+				if(item.getTime>'2021/02/19 00:00:01'){
+					Dialog.alert({
+						title: "系统提示",
+						message: `一周年之后所租赁的算力矿机统一需等运行周期到期后再自动解约`
+					}).then(() => {
+					  // on confirm
+					})
+					return;
+				}
 				if(_this.$utils.getDateTime(new Date())<item.turnOffTime){
 					num = parseFloat(item.price)*0.9;
 					_this.tipRelieveText = `该次解约为提前解约，该矿机租金${item.price}矿石，违约金${parseFloat(item.price)*0.1}矿石，可退还${num}个矿石，请问是否确认要提前解约？`
@@ -635,7 +647,6 @@
 					id:_this.machineId,
 					safePassword:_this.safePassword
 				}
-				console.log("params",params);
 				_this.relieveAppointBtnLoading = true;
 				params.safePassword = _this.$JsEncrypt.encrypt(params.safePassword);
 				_this.safePassword='';
@@ -713,6 +724,11 @@
 							_this.isShowOneReciept = false;
 							_this.finishedMyMillText = '亲，您目前没有矿机';
 						}
+						let remainCount = 0;
+						_this.myMillList.forEach((item,index)=>{
+							remainCount = remainCount + item.totalOutput;
+						})
+						_this.remainCount = remainCount;
 						
 						_this.$nextTick(function(){
 							_this.startCodeRain();

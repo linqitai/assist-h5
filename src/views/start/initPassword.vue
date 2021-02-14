@@ -121,7 +121,6 @@
 						return;
 					}
 					_this.isLoading = true;
-					console.log('params', params);
 					_this.$ajax.ajax(_this.$api.initPassWord, 'POST', params, function(res) {
 						// console.log('res', res);
 						if (res.code == _this.$api.CODE_OK) { // 200

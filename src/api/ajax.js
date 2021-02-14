@@ -6,7 +6,7 @@ import router from '@/router.js';
 import VueCookies from 'vue-cookies';
 import { Dialog } from 'vant';
 // import { getCookie } from '../assets/js/utils.js'
-// import axios from 'axios'
+//import axios from 'axios';
 // import http from './service'
 // import Vue from 'vue';
 // import VueCookies from 'vue-cookies';
@@ -14,7 +14,59 @@ import { Dialog } from 'vant';
 let tip4Login = '登录已过期,请重新登录再试';
 let tip4Refresh = '当前网络信号不稳定,请稍后再试';
 
+//axios.defaults.baseURL = '/fgcApp'
+/* let token = VueCookies.get('token');
+if (token) { 
+  axios.defaults.headers.common.token = token
+}
+//axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.interceptors.request.use(config => {
+  if (config.method == 'post' && config.data != undefined) {
+	config.data = qs.stringify(config.data)
+  }
+  // store.commit('setLoading', true)
+  // store.commit('setError', { status: false, message: '' })
+  return config
+})
+axios.interceptors.response.use(config => {
+	console.log('config',config)
+	console.log('=config.data.code=', config.data.code)
+  if (config.data.code != 200) { 
+	//store.commit('setError', { status: true, message: config.data.message })
+	Dialog.alert({
+		title: '温馨提示',
+		message: config.data.message
+	}).then(() => {
+		//...
+	});
+  }
+  return config
+}, e => {
+  //e.response.data
+  console.log('=e=', e)
+  // console.log('=e.code=', e.code)
+  // console.log('=e.message=', e.message)
+  if (e.message.indexOf('登录已过期')>=0) { 
+	Dialog.alert({
+		title: '温馨提示',
+		message: '登录已过期，请重新登录'
+	}).then(() => {
+		router.push('/login')
+	});
+  } else {
+	Dialog.alert({
+		title: '温馨提示',
+		message: e.message
+	}).then(() => {
+		//...
+	});
+  }
+  //createMessage('登录成功 2秒后跳转首页', 'error')
+  return Promise.reject(e)
+}) */
+
 export default {
+	
 	getJson(url, doSuccess) {
 		$.getJSON(url, function(res) {
 			if (typeof doSuccess == "function") {

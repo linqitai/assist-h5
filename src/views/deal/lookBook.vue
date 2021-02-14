@@ -74,18 +74,7 @@
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
-					<van-tab title="团队算力" name="calculation">
-						<!-- <van-list v-model="loading2" :finished="finished2" finished-text="没有更多了" @load="onLoad2">
-							<div class="list">
-								<div class="item" v-for="item in list2" :key="item.id">
-									<div class="flex">
-										<div class="line">{{item.createTime}}</div>
-										<div class="line margT6">{{item.type | calculationType}}后拥有算力 {{item.currentCalculationNum}}</div>
-									</div>
-									<div class="flexRight">{{item.addOrReduce}} {{item.calculation}}</div>
-								</div>
-							</div>
-						</van-list> -->
+					<van-tab title="算力" name="calculation">
 						<div class="list">
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="flex">
@@ -98,18 +87,6 @@
 						<van-button @click="loadingMore2Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading2" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 					<van-tab title="帮扶券" name="ticket">
-						<!-- <van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
-						<div class="list">
-							<div class="item" v-for="item in list4" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime}}</div>
-									
-									<div class="line margT6"><i :class="item.type==12?'mainAdornColor':''">{{item.type | platformBookType}}</i><i class="mainAdornColor" v-if="item.type==7">给{{item.toUserName}}</i>后拥有券 {{item.currentTicketNum}}</div>
-								</div>
-								<div class="flexRight">{{item.addOrReduce}} {{item.platformTicket}}</div>
-							</div>
-						</div>
-						</van-list> -->
 						<div class="list">
 							<div class="item" v-for="item in list4" :key="item.id">
 								<div class="flex">
@@ -124,17 +101,6 @@
 						<van-button @click="loadingMore4Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading4" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 					<van-tab title="贡献值" name="contribution">
-						<!-- <van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
-							<div class="list">
-								<div class="item" v-for="item in list3" :key="item.id">
-									<div class="flex">
-										<div class="line">{{item.createTime}}</div>
-										<div class="line margT6" :class="item.type==20?'red':item.type==15?'red2':item.type==22?'green':''">{{item.type | contributeType}}后拥有贡献值 {{item.currentContributionValue}}</div>
-									</div>
-									<div class="flexRight">{{item.addOrReduce}} {{item.contributionValue}}</div>
-								</div>
-							</div>
-						</van-list> -->
 						<div class="list">
 							<div class="item" v-for="item in list3" :key="item.id">
 								<div class="flex">
@@ -147,22 +113,10 @@
 						<van-button @click="loadingMore3Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading3" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 					<van-tab title="矿石" name="mineral">
-						<!-- <van-list v-model="loading1" :finished="finished1" finished-text="没有更多了" @load="onLoad1">
 						<div class="list">
 							<div class="item" v-for="item in list1" :key="item.id">
 								<div class="flex">
-									<div class="line">{{item.createTime}}</div>
-									<div class="line margT6" v-if="item.type==2||item.type==3">从<i class="mainAdornColor">{{item.fromUserName}}</i>到<i class="mainAdornColor">{{item.toUserName}}</i></div>
-									<div class="line margT6">{{item.type | mineralBookType}}后拥有矿石数 {{item.currentMineralNum}}</div>
-								</div>
-								<div class="flexRight">{{item.addOrReduce}} {{item.number}}</div>
-							</div>
-						</div>
-						</van-list> -->
-						<div class="list">
-							<div class="item" v-for="item in list1" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime}}</div>
+									<div class="line">{{item.createTime.substring(0,19)}}</div>
 									<!-- <div class="line margT6" v-if="item.type==2||item.type==3">从<i class="mainAdornColor">{{item.fromUserName}}</i>到<i class="mainAdornColor">{{item.toUserName}}</i></div> -->
 									<!-- <div class="line margT6" v-if="item.type==2||item.type==3">从<i class="mainAdornColor">{{item.fromUserId}}</i>到<i class="mainAdornColor">{{item.toUserId}}</i></div> -->
 									<div class="line margT6">{{item.type | mineralBookType}}后拥有矿石数 {{item.currentMineralNum}}</div>
@@ -171,41 +125,6 @@
 							</div>
 						</div>
 						<van-button @click="loadingMore1Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading1" loading-type="spinner">加载更多</van-button>
-					</van-tab>
-					<van-tab title="爱心值" name="loveValue">
-						<!-- <van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
-						<div class="list">
-							<div class="item" v-for="item in list5" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime}}</div>
-									<div class="line margT6"><i :class="item.type==0?'red':item.type==1?'green':item.type==2?'blue':item.type==3?'yellow':''">{{item.type | loveValueBookType}}</i>后拥有爱心值 {{item.currentNum}}</div>
-								</div>
-								<div class="flexRight">{{item.addOrReduce}} {{item.num}}</div>
-							</div>
-						</div>
-						</van-list> -->
-						<div class="list">
-							<div class="item" v-for="item in list5" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime}}</div>
-									<div class="line margT6"><i :class="item.type==0?'red':item.type==1?'green':item.type==2?'blue':item.type==3?'yellow':''">{{item.type | loveValueBookType}}</i>后拥有爱心值 {{item.currentNum}}</div>
-								</div>
-								<div class="flexRight">{{item.addOrReduce}} {{item.num}}</div>
-							</div>
-						</div>
-						<van-button @click="loadingMore5Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading5" loading-type="spinner">加载更多</van-button>
-					</van-tab>
-					<van-tab title="流通值" name="circulateValue">
-						<div class="list">
-							<div class="item" v-for="item in list6" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime}}</div>
-									<div class="line margT6"><i :class="item.type==0?'red':item.type==1?'green':item.type==2?'blue':item.type==3?'yellow':''">{{item.type | circulateValueBookType}}</i>后拥有流通值 {{item.currentNum}}</div>
-								</div>
-								<div class="flexRight">{{item.addOrReduce}} {{item.num}}</div>
-							</div>
-						</div>
-						<van-button @click="loadingMore6Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading6" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 				</van-tabs>
 			</van-pull-refresh>
@@ -227,6 +146,7 @@
 					{ text: '历史记录', value: 1 }
 				],
 				userId:"",
+				userInfo:'',
 				isShowSkeleton:true,
 				loading: true,
 				currentPage1: 0,
@@ -292,12 +212,29 @@
 		mounted() {
 			let _this = this;
 			// _this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
+			let userInfo = localStorage.getItem("_USERINFO_");
+			if(userInfo){
+				////console.log("userInfo_localStorage");
+				_this.userInfo = JSON.parse(userInfo);
+			}else{
+				/* _this.$cookies.remove('userId'); */
+				localStorage.removeItem('_USERINFO_');
+				_this.$cookies.remove('userId');
+				_this.$cookies.remove('token');
+				_this.$cookies.remove('isRefreshDealInfo');
+				_this.$cookies.remove('isRefreshUserInfo');
+				_this.$toast(_this.$api.loginAgainTipText);
+				_this.$router.replace('login');
+				return;
+			}
+			console.log("activeName",_this.$cookies.get("tab_name_book"));
 			if (_this.$cookies.isKey("tab_name_book")) {
 				_this.activeName = _this.$cookies.get("tab_name_book");
 			}else{
 				_this.activeName = "mineral";
 			}
 			_this.userId = _this.$route.query.lookUserId;
+			
 			_this.refreshEvent();
 		},
 		methods: {
@@ -313,26 +250,28 @@
 				// console.log("refresh1")
 				let _this = this;
 				if(_this.activeName == 'mineral'){
-					console.log("refresh1");
+					//console.log("refresh1");
 					_this.currentPage1 = 0;
 					_this.offset1=0;
 					_this.list1 = [];
 					_this.finished1 = false;
 					_this.onLoad1();
 				}else if(_this.activeName == 'calculation'){
-					console.log("refresh2");
+					//console.log("refresh2");
 					_this.currentPage2 = 0;
 					_this.offset2=0;
 					_this.list2 = [];
 					_this.finished2 = false;
 					_this.onLoad2();
 				}else if(_this.activeName == 'contribution'){
+					//console.log("contribution");
 					_this.currentPage3 = 0;
 					_this.offset3=0;
 					_this.list3 = [];
 					_this.finished3 = false;
 					_this.onLoad3();
 				}else if(_this.activeName == 'ticket'){
+					//console.log("ticket");
 					_this.currentPage4 = 0;
 					_this.offset4=0;
 					_this.list4 = [];

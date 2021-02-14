@@ -109,29 +109,21 @@
 					 <div class="list">
 						<div class="item" v-for="item in list1" :key="item.id">
 							<div class="flex">
-								<div class="">{{item.coinReleaseTime}}</div>
-								<div class="line margT10">
-									<span @click="toMy4OtherView(item.buyerId)">
-										<!-- <i class="iconfont iconfont-name"></i> -->
-										<span class="nickName"><i class="textColor">{{item.buyerId}}</i></span>
+								<!-- <div class="">{{item.coinReleaseTime}}</div> -->
+								<div class="line">
+									<span>
+										<!-- <i class="iconfont iconfont-name">@click="toMy4OtherView(item.buyerId)"</i> -->
+										<span class="nickName" @click="toMy4OtherView(item.buyerId)"><i class="textColor">{{item.buyerId2}}</i></span>
 										<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
 									</span>
 									从
-									<span @click="toMy4OtherView(item.sellerId)">
-										<span class="nickName"><i class="textColor">{{item.sellerId}}</i></span>
-										<!-- <i class="iconfont iconfont-right-arrow2"></i> -->
+									<span>
+										<span class="nickName" @click="toMy4OtherView(item.sellerId)"><i class="textColor">{{item.sellerId2}}</i></span>
+										<!-- <i class="iconfont iconfont-right-arrow2">@click="toMy4OtherView(item.sellerId)"</i> -->
 									</span>
 									买<i class="textAdornColor">{{item.num}}</i>个
 								</div>
-								<!-- <div class="line margT16">
-									<span class="nickName">区块高度 <i class="textColor">{{item.id}}</i></span>
-								</div> -->
-								<!-- <div class="line margT6">手机号 {{item.mobilePhone}} <span class="copy" @click="handleCopy(item.mobilePhone,$event)">复制</span></div> -->
 							</div>
-							<!-- <div class="flexRight2">所剩<span class="textAdornColor">{{item.currentMineralNum}}</span>个</div> -->
-							<!-- <div class="flexRight3">
-								<i class="iconfont iconfont-right-arrow2"  @click="toMy4OtherView(item.fromUserId)"></i>
-							</div> -->
 						</div>
 					 </div>
 				</van-list>
@@ -186,7 +178,7 @@
 					addOrReduce:'+',
 					number:'20'
 				}],
-				manTypeList:['158Xy2r123W5140Z5n28','l1582p59551N0O6058L4','15483b1u5523T21d1u77','Z15L873r23p6082t1665','15M8n39064y6G10y4067','1Iu5783Zs1564L891731','158L2o9e5A79D504N753','Z1583E14d6E7A5j71o29']
+				manTypeList:['158Xy2r123W5140Z5n28','en15079AQ107o91Y7217','l1582p59551N0O6058L4','15483b1u5523T21d1u77','Z15L873r23p6082t1665','15M8n39064y6G10y4067','1Iu5783Zs1564L891731','158L2o9e5A79D504N753','Z1583E14d6E7A5j71o29']
 			}
 		},
 		components: {
@@ -225,7 +217,7 @@
 			toMy4OtherView(userId){
 				let _this = this;
 				//console.log('userIdInDealRecolod:',userId);
-				_this.$router.push({path:"my4Other",query:{lookUserId:userId}});
+				_this.$router.push({path:"my4Other2",query:{lookUserId:userId}});
 			},
 			toBookView(val,userId){
 				let _this = this;
@@ -242,7 +234,6 @@
 				// console.log("refresh1")
 				let _this = this;
 				if(_this.activeName == 'mineral'){
-					console.log("refresh1");
 					_this.currentPage1 = 1;
 					_this.list1 = [];
 					_this.finished1 = false;

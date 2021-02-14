@@ -149,7 +149,7 @@
 				} */
 				.registerCode {
 					position: absolute;
-					bottom: 160px;
+					bottom: 186px;
 					left: 0;
 					right: 0;
 					text-align: center;
@@ -165,13 +165,14 @@
 
 				.registerCodeText {
 					position: absolute;
-					bottom: 138px;
+					bottom: 130px;
 					left: 0;
 					right: 0;
+					line-height:1.3em;
 					text-align: center;
 					z-index: 101;
 					font-weight: bolder;
-					font-size: 14px;
+					font-size: 18px;
 					color: white;
 					left: 50%;
 					transform: translateX(-50%);
@@ -238,8 +239,8 @@
 				<!-- <div class="box5">
 					<img src="../../assets/image/poster/PostText1.png">
 				</div> -->
-				<!-- <img class="registerCode" src="../../assets/image/code.png"> -->
-				<img class="helpPic" :src="images[index]">
+				<img class="helpPic" src="../../assets/image/banner0058.jpg">
+				<!-- <img class="helpPic" src="images[index]"> -->
 				<!-- <div style="width: 100%;">
 					<van-swipe :autoplay="3000" :lazy-render="true">
 					  <van-swipe-item v-for="(image, index) in images" :key="index">
@@ -250,7 +251,7 @@
 				<!-- <div class="titleWord">真情感动世界 帮扶成就你我</div> -->
 				<!-- <img class="helpPic" src="https://www.assist-china.co.ax/image/banner/banner0057.jpg"> -->
 				<div class="registerCode" id="qrcode" ref="qrcode"></div>
-				<div class="registerCodeText">扫码注册</div>
+				<div class="registerCodeText">扫码注册就送总产20个矿石的矿机</div>
 				<div class="registerCodeText2">我为帮扶链代言：{{userInfo.nickName}}</div>
 				<div class="registerCodeText3">助学 扶志 助业</div>
 				<div class="registerCodeText4" @click="handleCopyShareCode(userInfo.shareCode,$event)">
@@ -262,8 +263,8 @@
 				<div class="myShareUrl">
 					分享链接: {{registerUrl}}
 				</div>
-				<div class="placeholderLine10"></div>
-				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="switchImage" :block="true">切换招募图片</van-button>
+				<!-- <div class="placeholderLine10"></div>
+				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="switchImage" :block="true">切换招募图片</van-button> -->
 				<div class="placeholderLine10"></div>
 				<van-button type="info" size="normal" color="linear-gradient(to right, #ffae00, #ff8400)" @click="handleCopy(registerUrl,$event)" :block="true">复制分享链接</van-button>
 				<div class="placeholderLine10"></div>
@@ -299,9 +300,7 @@
 			return {
 				index:0,
 				images: [
-					this.$api.domainName + '/image/banner/banner0058.jpg',
-					this.$api.domainName + '/image/banner/game01.jpg',
-					this.$api.domainName + '/image/banner/game02.jpg',
+					/* this.$api.domainName + '/image/banner/banner0058.jpg' */
 				],
 				showTipModel:false,
 				loading1: false,
@@ -367,8 +366,8 @@
 				let _this = this;
 				let id = _this.userInfo.shareCode;
 				let href = window.location.href;
-				console.log('window.location.href:',window.location.href);
-				let domainName = href.split('#')[0];
+				//let domainName = href.split('#')[0];
+				let domainName = 'http://www.assist-china.cn.com/';
 				let registerUrl = ''
 				if (process.env.NODE_ENV === "development") {
 					registerUrl = domainName + '#/register?id=' + id;
@@ -381,9 +380,6 @@
 						registerUrl = domainName + '#/register?id=' + id;
 						//registerUrl = _this.$api.domainName + '/#/register?id=' + id;
 					}
-					//registerUrl = href.split('#')[0] + '#/register?id=' + id;
-					
-					//console.log('registerUrl', registerUrl);
 				}
 				
 				let qrcode = new QRCode('qrcode', {

@@ -540,6 +540,30 @@ export default {
 		getUserInfo(){
 			let _this = this;
 			_this.loading = true;
+			// let params = {}
+			// _this.$store.dispatch('getUserInfo', params).then(res => {
+			// 	_this.loading = false;
+			// 	if(res.code == _this.$api.CODE_OK){
+			// 		_this.userInfo = res.data;
+			// 		// _this.$cookies.set("_USERINFO_", _this.userInfo, 60 * 60 * 12);
+			// 		localStorage.setItem("_USERINFO_",JSON.stringify(res.data))
+			// 		_this.userId = _this.userInfo.userId;
+			// 		if(_this.userInfo.actived==1){
+			// 			_this.isRealName = true;
+			// 		}else{
+			// 			_this.isRealName = false;
+			// 		}
+			// 	}else{
+			// 		_this.$toast(res.message);
+			// 	}
+			// 	if(res.code == _this.$api.CODE_4003){
+			// 		// _this.info = res.data.list;
+			// 		// _this.showRealNameModel = true;
+			// 		_this.isRealName = false;
+			// 	}
+			// }).catch(res=>{
+			// 	_this.loading = false;
+			// })
 			_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res){
 				if(res.code == _this.$api.CODE_OK){
 					_this.userInfo = res.data;
@@ -617,7 +641,7 @@ export default {
 			let _this = this;
 			Dialog.alert({
 			  title: '系统提示',
-			  message: `安全密码是实名认证的时候所设置的，系统对您的安全密码提醒是：${_this.userInfo.securityPassword}，若忘记了，可找客服初始化成手机号！`,
+			  message: `安全密码是实名认证的时候所设置的，系统对您的安全密码前几位提醒是：${_this.userInfo.securityPassword}，若忘记了，可找客服初始化成手机号！`,
 			  confirmButtonText:'好的，我再试试'
 			}).then(() => {
 			  // on close resetRealName
@@ -810,7 +834,7 @@ export default {
 				if(_this.$reg.safePassword.test(_this.form.securityPassword)){
 					_this.errorInfo.securityPassword = '';
 				}else{
-					_this.errorInfo.securityPassword = _this.$reg.securityPasswordHint;
+					_this.errorInfo.securityPassword = _this.$reg.safePasswordHint;
 				}
 				if(_this.form.securityPassword.length<6){
 					_this.errorInfo.securityPassword = '密码长度请填写6~16位之间';

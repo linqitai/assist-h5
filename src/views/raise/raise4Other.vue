@@ -491,7 +491,7 @@
 				</div>
 				<div class="placeholderLine10"></div>
 			</div>
-			<div class="materialProve borderBottom" v-if="list1.status==3&&list1.needMineral>0">
+			<div class="materialProve borderBottom" v-if="list1.needMineral>0">
 				<div class="flex">
 					<div class="title flexMedial white">我要捐赠<i class="yellow">矿石</i></div>
 				</div>

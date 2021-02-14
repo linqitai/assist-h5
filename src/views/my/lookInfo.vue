@@ -10,23 +10,6 @@
 		bottom: 0;
 		background-color: $main-box-color;
 		z-index: 2;
-		/* .van-dropdown-menu{
-			height: $cellHeight !important;
-			background-color: inherit !important;
-		}
-		.van-dropdown-menu__title{
-			color: $mainTextColor;
-			font-size: 0.75rem !important;
-		}
-		[class*=van-hairline]::after{
-			border: none !important;
-		}
-		.van-field__control{
-			color: $mainTextColor;
-		}
-		.van-cell,.van-cell-group{
-			background-color: inherit !important;
-		} */
 		.lookInfoPage{
 			color: $mainTextColor;
 			margin-top: $headerHeight;
@@ -35,17 +18,11 @@
 				width: 70px !important;
 				line-height: 30px;
 			}
-			// .van-cell__value, .van-cell__value--alone, .van-field__control,.van-cell {
-			//     color: #FFFFFF !important;
-			// }
 			.myCell{
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 				border-bottom: 1px solid $main-bg-color;
-				// .van-cell__value, .van-cell__value--alone, .van-field__control {
-				//     color: #FFFFFF !important;
-				// }
 				.flex{
 					flex: 1;
 					padding-left: 16px;
@@ -213,10 +190,7 @@
 			let _this = this;
 			let userInfo = localStorage.getItem("_USERINFO_");
 			if(userInfo){
-				if(_this.userInfo.accountStatus==1){
-					//退出登录
-					_this.logout();
-				}
+				
 			}else{
 				/* _this.$cookies.remove('userId'); */
 				localStorage.removeItem('_USERINFO_');

@@ -107,7 +107,7 @@
 					第二次租赁矿机<br>
 					<!-- 在获得(租赁矿机所需矿石数的1%~4%)点贡献值的同时，额外增加1点贡献值<br> -->
 					<!-- 1.额外增加1点贡献值<br> -->
-					完成后即可成为有效会员且开通在买单区出售矿石的权限，并奖励上级0.5个贡献值<br>
+					完成后即可成为有效会员且开通在买单区出售矿石的权限<br>
 				</div>
 			</div>
 			<div class="flexRight">
@@ -115,17 +115,17 @@
 				<i class="iconfont iconfont-finished" v-if="userInfo.buyMachineNum>=2"></i>
 			</div>
 		</div>
-		<div class="placeholderLine10"></div>
+		<!-- <div class="placeholderLine10"></div>
 		<div class="box blueLight">
 			<div class="flexLeft">
 				<div class="line title">
-					分享任务1
+					分享任务
 				</div>
 				<div class="line text margT10">
 					分享10名会员完成基础任务1<br>
 					领取奖励者本人要先完成基础任务2<br>
 					达到后:<br>
-					可额外获得一个贡献值
+					可额外获得1个贡献值并奖励上级1G个人算力
 				</div>
 			</div>
 			<div class="flexRight">
@@ -135,8 +135,8 @@
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask>=1"></i>
 			</div>
 		</div>
-		<div class="placeholderLine10"></div>
-		<div class="box blueLight" v-if="userInfo.registerTime>'2020/05/22'">
+		<div class="placeholderLine10"></div> -->
+		<!-- <div class="box blueLight" v-if="userInfo.registerTime>'2020/05/22'">
 			<div class="flexLeft">
 				<div class="line title">
 					分享任务2
@@ -145,7 +145,7 @@
 					分享20名会员完成基础任务1<br>
 					领取奖励者本人要先完成基础任务2<br>
 					达到后:<br>
-					可额外获得一个贡献值
+					可额外获得1个贡献值并奖励上级1G个人算力
 				</div>
 			</div>
 			<div class="flexRight">
@@ -154,18 +154,19 @@
 				</div>
 				<i class="iconfont iconfont-finished" v-if="userInfo.isGetShareTask==2"></i>
 			</div>
-		</div>
-		<div class="placeholderLine10" v-if="userInfo.registerTime>'2020/05/22'"></div>
+		</div> -->
+		<div class="placeholderLine10"></div>
 		<div class="box share">
 			<div class="flexLeft" @click="toView('deal')">
 				<div class="line title">
-					进阶任务1 收购矿石
+					进阶任务
 				</div>
 				<div class="line text margT10">
 					需要：<br>
 					累计收购10个矿石<br>
 					达到后：<br>
-					可额外获得一个贡献值
+					可领取1个可售额度<br>
+					并奖励上级1G个人算力和1个可售额度
 				</div>
 			</div>
 			<div class="flexRight">
@@ -176,7 +177,7 @@
 			</div>
 		</div>
 		<div class="placeholderLine10"></div>
-		<div class="box share">
+		<!-- <div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
 					进阶任务2 建群
@@ -259,10 +260,9 @@
 				<div>
 					<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading4Reword" @click="getActivity3Reward">去领取</van-button>
 				</div>
-				<!-- <i class="iconfont iconfont-finished" v-if="myActivity2MillNum>=1"></i> -->
 			</div>
 		</div>
-		<div class="placeholderLine10"></div>
+		<div class="placeholderLine10"></div> -->
 		<!-- <div class="box share">
 			<div class="flexLeft">
 				<div class="line title">
@@ -515,9 +515,7 @@ export default {
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
 		}else{
-			localStorage.removeItem('_USERINFO_');
-			_this.$cookies.remove('userId');
-			_this.$cookies.remove('token');
+			_this.$storage.removeAll();
 			_this.$toast(_this.$api.loginAgainTipText);
 			_this.$router.replace('login');
 			return;
@@ -529,10 +527,10 @@ export default {
 		}else{
 			_this.isRealName = false;
 		}
-		_this.getAssistMyMachineCount4Task();
+		/* _this.getAssistMyMachineCount4Task();
 		_this.getActivityCompleteInfo();
-		_this.getActivityMachineInventory();
-		_this.getAssistUserInfoList4RealName();
+		_this.getActivityMachineInventory(); 
+		_this.getAssistUserInfoList4RealName();*/
 		// console.log('_this.isRealName',_this.isRealName);
 	},
 	methods:{
@@ -833,11 +831,11 @@ export default {
 					_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 					Dialog.alert({
 					  title: '温馨提示',
-					  message: '恭喜您，奖励领取成功。为了把控算力上的泡沫，经研究决定所奖励的矿机不加算力，用此矿机所产出的矿石去商城租赁矿机即可加算力，请您知晓，帮扶链感恩有您的支持！'
+					  message: '奖励领取成功。'
 					}).then(() => {
 					  // on close
 					  //_this.$router.push('/mill');
-					  _this.$cookies.set("tab_name_book", "contribution", _this.$api.cookiesTime)
+					  _this.$cookies.set("tab_name_book", "circulateValue", _this.$api.cookiesTime)
 					  _this.$router.push('/myBook');
 					});
 				}else{
@@ -853,7 +851,7 @@ export default {
 			//console.log("_this.userInfo",_this.userInfo);
 			let teamCP = _this.userInfo.teamCalculationPower;
 			let myCP = _this.userInfo.myCalculationPower;
-			let teamNum = _this.userInfo.realnameNum;
+			let teamNum = _this.userInfo.validNum;
 			let levelNow = _this.userInfo.level;
 			if(level==1){
 				if((teamNum<3||teamCP<10||levelNow<=0) && (myCP<1)){
@@ -922,7 +920,7 @@ export default {
 				}
 				// url = _this.$api.getAssistRewardThreeLevelByUserId;
 			}else if(level==4){
-				if((teamNum<100||teamCP<2000||levelNow<=3) && (myCP<133.4)){
+				/* if((teamNum<100||teamCP<2000||levelNow<=3)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',
@@ -941,10 +939,10 @@ export default {
 					  // on close
 					});
 					return;
-				}
+				} */
 				// url = _this.$api.getAssistRewardFourLevelByUserId;
 			}else if(level==5){
-				if((teamNum<300||teamCP<10000||levelNow<=4) && (teamNum<500||myCP<133.4)){
+				if((teamNum<300||teamCP<10000||levelNow<=4)){
 					// _this.$toast(_this.$api.DATA_NOTGET);
 					Dialog.alert({
 					  title: '系统提示',

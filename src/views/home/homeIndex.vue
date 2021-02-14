@@ -1,7 +1,15 @@
 <style scoped lang="scss">
 @import '~@/assets/scss/variable.scss';
 $noticeHeight:40px;
-.homePage{
+@media screen and (min-width: 1201px) { 
+	.homePage1 {
+		width: 375px;
+		position: absolute;
+		left: 50%;
+		margin-left: -(375px/2);
+	} 
+}
+.homePage1{
 	[class*=van-hairline]::after {
 	    border: 0px solid transparent !important;
 	}
@@ -41,8 +49,28 @@ $noticeHeight:40px;
 	}
 	.list4Guide {
 		width: 100%;
-		padding: 6px 6px;
+		padding: 6px 6px 10px 6px;
 		box-sizing: border-box;
+		background-color:$main-box-fh-bg-color;
+		letter-spacing: 1px;
+		ul{
+			font-size: 0.875rem;
+			color: $main-box-color;
+			padding-left: 6px;
+			li{
+				margin-top: 4px;
+				line-height: 1.3em;
+				&:first-child{
+					margin-top: 0px;
+				}
+			}
+		}
+		.content{
+			font-size: 0.875rem;
+			color: $main-box-color;
+			padding-left: 6px;
+			line-height: 1.3em;
+		}
 		.item {
 			width: 100%;
 			border: 1px solid $bottomLineColor;
@@ -74,30 +102,13 @@ $noticeHeight:40px;
 	}
 	.HomeContent{
 		position: relative;
-		/* @media screen and (min-width: 1201px) {
-			.swipe{
-				height: auto !important;
-			}
-			.van-swipe {
-				height: auto !important;
-			}
-			.van-swipe-item{
-				height: auto !important;
-			}
-		} */
+		/* margin-top: $headerHeight; */
 		.swipe {
-			.img{
-				width: 100%;
-			}
-			.van-swipe{
-				height: 176px;
-				.van-swipe-item {
-					img {
-						width: 100%;
-					}
+			.van-swipe-item {
+				img {
+					width: 100%;
 				}
 			}
-			
 		}
 		.notice {
 			width: $lineWidth;
@@ -241,12 +252,12 @@ $noticeHeight:40px;
 			width: $lineWidth;
 			overflow: hidden;
 			clear: both;
+			background-color:$main-box-fh-bg-color;
 			.title {
 				float: left;
 				font-size: 0.875rem;
-				color: $grayDarker;
-				height: $noticeFlagHeight;
-				line-height: $noticeFlagHeight;
+				color: white;
+				padding-top: 10px;
 			}
 		
 			.lookMore {
@@ -369,7 +380,7 @@ $noticeHeight:40px;
 }
 </style>
 <template>
-	<div class="homePage">
+	<div class="homePage1">
 		<van-popup v-model="showAttendanceModel" :style="{ width: '92%' }" :round="true">
 			<div class="attendanceBox">
 				<div class="close" @click="closeBtn">
@@ -377,127 +388,154 @@ $noticeHeight:40px;
 				</div>
 				<div class="placeholderLine20"></div>
 				<div class="title">{{attendanceTitle}}</div>
-				<div class="tomorrowContribution">每次签到加0.003个可售额度，同时会领取一周年之后所上矿机每日所得的可售额度、领取算力矿机的收益和释放爱心值</div>
-				<div class="tomorrowContribution">连续签到30天可额外获得0.2G个人算力奖励</div>
-				<div class="placeholderLine10"></div>
-				<div class="flexBox">
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(1)">1</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(2)">2</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(3)">3</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(4)">4</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(5)">5</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(6)">6</div>
-					</div>
-				</div>
-				<div class="placeholderLine10"></div>
-				<div class="flexBox">
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(7)">7</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(8)">8</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(9)">9</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(10)">10</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(11)">11</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(12)">12</div>
-					</div>
-				</div>
-				<div class="placeholderLine10"></div>
-				<div class="flexBox">
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(13)">13</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(14)">14</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(15)">15</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(16)">16</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(17)">17</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(18)">18</div>
-					</div>
-				</div>
-				<div class="placeholderLine10"></div>
-				<div class="flexBox">
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(19)">19</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(20)">20</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(21)">21</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(22)">22</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(23)">23</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(24)">24</div>
-					</div>
-				</div>
-				<div class="placeholderLine10"></div>
-				<div class="flexBox">
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(25)">25</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(26)">26</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(27)">27</div>
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(28)">28</div>
-						<!-- <div class="day">28天</div> -->
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(29)">29</div>
-						<!-- <div class="day">29天</div> -->
-					</div>
-					<div class="flex">
-						<div class="circle" :class="getAttendanceBgColor(30)">30</div>
-						<!-- <div class="day">30天</div> -->
-					</div>
-				</div>
-				<div class="placeholderLine"></div>
+				<div class="tomorrowContribution">连续签到30天可额外获得0.1个帮扶券</div>
 				<div class="tomorrowContribution">系统提示：日常签到建议在白天完成，若因特殊因素而导致错过签到的，原则上不补签</div>
+				<!-- <div class="tomorrowContribution">随着矿石价值的增加，签到所得贡献值会不定期做调整</div> -->
+				<div class="placeholderLine10"></div>
+				<div class="flexBox">
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(1)">0.01</div>
+						<div class="day">1天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(2)">0.01</div>
+						<div class="day">2天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(3)">0.01</div>
+						<div class="day">3天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(4)">0.01</div>
+						<div class="day">4天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(5)">0.01</div>
+						<div class="day">5天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(6)">0.01</div>
+						<div class="day">6天</div>
+					</div>
+				</div>
+				<div class="placeholderLine10"></div>
+				<div class="flexBox">
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(7)">0.02</div>
+						<div class="day">7天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(8)">0.02</div>
+						<div class="day">8天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(9)">0.02</div>
+						<div class="day">9天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(10)">0.02</div>
+						<div class="day">10天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(11)">0.02</div>
+						<div class="day">11天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(12)">0.02</div>
+						<div class="day">12天</div>
+					</div>
+				</div>
+				<div class="placeholderLine10"></div>
+				<div class="flexBox">
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(13)">0.03</div>
+						<div class="day">13天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(14)">0.03</div>
+						<div class="day">14天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(15)">0.03</div>
+						<div class="day">15天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(16)">0.03</div>
+						<div class="day">16天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(17)">0.03</div>
+						<div class="day">17天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(18)">0.03</div>
+						<div class="day">18天</div>
+					</div>
+				</div>
+				<div class="placeholderLine10"></div>
+				<div class="flexBox">
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(19)">0.04</div>
+						<div class="day">19天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(20)">0.04</div>
+						<div class="day">20天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(21)">0.04</div>
+						<div class="day">21天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(22)">0.04</div>
+						<div class="day">22天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(23)">0.04</div>
+						<div class="day">23天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(24)">0.04</div>
+						<div class="day">24天</div>
+					</div>
+				</div>
+				<div class="placeholderLine10"></div>
+				<div class="flexBox">
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(25)">0.05</div>
+						<div class="day">25天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(26)">0.05</div>
+						<div class="day">26天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(27)">0.05</div>
+						<div class="day">27天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(28)">0.05</div>
+						<div class="day">28天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(29)">0.05</div>
+						<div class="day">29天</div>
+					</div>
+					<div class="flex">
+						<div class="circle" :class="getAttendanceBgColor(30)">0.05</div>
+						<div class="day">30天</div>
+					</div>
+				</div>
 				<div class="placeholderLine20"></div>
 				<div v-if="!todayIsAttendance">
 					<van-button type="info" size="normal" @click="sureAttendanceBtn" :loading="isLoading" :disabled="isDisableAttendanceBtn"  loading-type="spinner" loading-text="加载中..." color="linear-gradient(to right, #ffae00, #ff8400)" :block="true"><span class="letterSpacing">签到</span></van-button>
 					<div class="placeholderLine20"></div>
 				</div>
 				<div v-if="todayIsAttendance">
-					<!-- <div class="textCenter red f-13">今日签到已领取{{getTodayAttendanceValue}}帮扶券</div>
-					<div class="tomorrowContribution" v-if="dayNum<30">明日签到可领取{{getTomorrowContributionValue}}帮扶券</div> -->
-					<div class="tomorrowContribution" v-if="dayNum==30">恭喜您：签到满30天，已成功额外获得0.2G个人算力奖励，明日将重置签到</div>
+					<div class="textCenter red f-13">今日签到已领取{{getTodayAttendanceValue}}帮扶券</div>
+					<div class="tomorrowContribution" v-if="dayNum<30">明日签到可领取{{getTomorrowContributionValue}}帮扶券</div>
+					<!-- <div class="tomorrowContribution" v-if="dayNum==30">恭喜您：今日已成功获取一台体验矿机，明日将重置签到</div> -->
+					<div class="tomorrowContribution" v-if="dayNum==30">恭喜您：签到满30天，已成功额外获得0.1个帮扶券奖励，明日将重置签到</div>
 					<div class="placeholderLine20"></div>
 				</div>
 			</div>
@@ -523,22 +561,28 @@ $noticeHeight:40px;
 				</div>
 			</div>
 		</van-popup>
-		<van-pull-refresh v-model="loading" @refresh="refreshEvent" v-if="$route.meta.footer">
+		<!-- <m-header>
+			<i class="leftBox iconfont"></i>
+			<div class="text">
+				HPC帮扶链
+			</div>
+			<i class="rightBox icon"></i>
+		</m-header> -->
+		<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 			<div class="HomeContent">
-				<van-notice-bar
+				<!-- <van-notice-bar
 				  mode = "closeable"
 				  left-icon="volume-o"
 				  text="有效直推:完成基础任务2后即可成为有效直推(有效会员)"
-				/>
+				/> -->
 				<div class="swipe">
-					<img class="img" :src="imageUrl" />
-					<!-- <van-swipe :autoplay="3000" :lazy-render="true" vertical>
+					<van-swipe :autoplay="3000" style="height: 176px;" :lazy-render="true">
 					  <van-swipe-item v-for="(image, index) in images" :key="index">
 						<img v-lazy="image" />
 					  </van-swipe-item>
-					</van-swipe> -->
+					</van-swipe>
 				</div>
-				<!-- <div class="placeholderLine4"></div> -->
+				<div class="placeholderLine4"></div>
 				<!-- <van-notice-bar :text="qqFlock" left-icon="volume-o" @click="toServicePage"/> -->
 				<!-- <div class="notice">
 					<van-notice-bar :text="lastNoticeItem.noticeTitle" left-icon="volume-o" @click="toNoticeDetail(lastNoticeItem)" />
@@ -557,18 +601,14 @@ $noticeHeight:40px;
 						<div class="amount">{{ statistics.allMineralNum - statistics.beDigNum - statistics.awardNum - statistics.beDestroyNum  || 0}}</div>
 						<div class="margT6">所剩数量</div>
 					</div>
-					<!-- <div class="infoBox">
+					<div class="infoBox">
 						<div class="amount">{{ statistics.canCirculateNum  || 0}}</div>
 						<div class="margT6">可流通数量</div>
-					</div> -->
-					<!-- <div class="infoBox">
+					</div>
+					<div class="infoBox">
 						<div class="amount">{{statistics.beDestroyNum || 0}}</div>
 						<div class="margT6">销毁数量</div>
-					</div> -->
-					<!-- <div class="infoBox">
-						<div class="amount">{{statistics.totalCp || 0}}</div>
-						<div class="margT6">全网算力</div>
-					</div> -->
+					</div>
 				</div>
 				<!-- <div class="millInfo" v-if="statistics.allMineralNum">
 					<div class="infoBox">
@@ -580,233 +620,72 @@ $noticeHeight:40px;
 						<div class="margT6">最后所剩矿石数量</div>
 					</div>
 				</div> -->
-				<!-- <div class="millInfo">
+				<div class="millInfo">
 					<div class="infoBox">
 						<div class="amount">{{statistics.totalCp || 0}}</div>
 						<div class="margT6">全网算力</div>
 					</div>
 					<div class="infoBox">
-						<div class="amount underline" @click="toFundPoolRecordView">{{statistics.fundPoolNum || 0}}</div>
+						<div class="amount">{{statistics.fundPoolNum || 0}}</div>
 						<div class="margT6">基金池 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/></div>
 					</div>
-				</div> -->
-				<!-- <div class="millInfo">
-					<div class="infoBox">
-						<div>
-							<span @click="toFundPoolRecordView" class="yellow underline">尊老爱幼帮扶基金池</span>
-							<span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
-						</div>
-						<div class="placeholderLine10"></div>
-						<div><span class="underline" @click="addFundPoolBtn">我要捐赠</span></div>
-					</div>
-				</div> -->
+				</div>
 				<div class="cateInfo">
-					<div class="infoBox">
-						<router-link to="/volunteer">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundAttendance">
-									<van-icon class-prefix="iconfont" name="love2" />
-								</div>
-							</div>
-							<div class="text">志愿者</div>
-						</router-link>
-					</div>
-					<!-- <div class="infoBox" @click="releaseLove">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="free-love" size="35"/>
-							</div>
-						</div>
-						<div class="text">释放爱心</div>
-					</div> -->
-					<!-- <div class="infoBox" @click="releaseLove">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="word" size="35"/>
-							</div>
-						</div>
-						<div class="text">帮扶感言</div>
-					</div> -->
-					<!-- <div class="infoBox" @click="toRanking">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundRank">
-								<van-icon class-prefix="iconfont" name="rank" />
-							</div>
-						</div>
-						<div class="text">排行榜</div>
-					</div> -->
-					<div class="infoBox" @click="toRanking">
+					<div class="infoBox" @click="toBookView">
 						<div class="iconBox">
 							<div class="iconBackground iconBackground2">
-								<van-icon class-prefix="iconfont" name="rank" />
+								<van-icon class-prefix="iconfont" name="book" />
 							</div>
 						</div>
-						<div class="text">排行榜</div>
+						<div class="text">HPC白皮书</div>
 					</div>
-					<div class="infoBox">
-						<router-link to="/newGuide">
+					<div class="infoBox" @click="toZDView">
+						<!-- <router-link to="/newGuide"> -->
 							<div class="iconBox">
 								<div class="iconBackground iconBackgroundRank">
 									<van-icon class-prefix="iconfont" name="new-guide" />
 								</div>
 							</div>
-							<div class="text">新手指南</div>
-						</router-link>
+							<div class="text">HPC模式制度</div>
+						<!-- </router-link> -->
 					</div>
-					
-					<div class="infoBox" @click="attendanceBtn">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="attendance" size="35"/>
-							</div>
-						</div>
-						<div class="text">日常签到</div>
-					</div>
-				</div>
-				
-				<div class="cateInfo">
-					<!-- <div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground4">
-								<van-icon class-prefix="iconfont" name="crown" />
-							</div>
-						</div>
-						<div class="text">讲师招募</div>
-					</div> -->
-					<div class="infoBox">
-						<router-link to="/noticeList">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground4">
-									<van-icon class-prefix="iconfont" name="notice-record" />
-								</div>
-							</div>
-							<div class="text">历史公告</div>
-						</router-link>
-					</div>
-					
-					<div class="infoBox">
-						<router-link to="/voteList">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundCService">
-									<van-icon class-prefix="iconfont" name="vote" />
-								</div>
-							</div>
-							<div class="text">共识投票</div>
-						</router-link>
-					</div>
-					<!-- <div class="infoBox">
-						<router-link to="/helpRecord">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundRaise">
-									<van-icon class-prefix="iconfont" name="flow" />
-								</div>
-							</div>
-							<div class="text">帮扶历史</div>
-						</router-link>
-					</div> -->
-					<div class="infoBox">
-						<!-- <div class="bubble" v-if="isbubble1">
-							该模块正在内测中，暂时只对个人算力大于20G的矿工开放内测权限，内测完毕后方可对全体矿工开放！
-						</div> -->
-						<!-- <div class="bubble" v-if="isbubble1" @click="isbubble1 = false">
-							游戏模块已开通！
-						</div> -->
-						<!-- <div class="triangleRight" v-if="isbubble1"></div> -->
-						<div class="iconBox" @click="toGameView">
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="game" size="35"/>
-							</div>
-						</div>
-						<div class="text">娱乐游戏</div>
-					</div>
-					<div class="infoBox">
-						<router-link to="/cService">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundCService">
-									<van-icon class-prefix="iconfont" name="cservice" />
-								</div>
-							</div>
-							<div class="text">客服</div>
-						</router-link>
-					</div>
-				</div>
-				<div class="cateInfo">
-					<div class="infoBox" @click="toBlcokSearchView">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground3">
-								<van-icon class-prefix="iconfont" name="share3" />
-							</div>
-						</div>
-						<div class="text">区块浏览器</div>
-					</div>
-					<div class="infoBox">
-						<router-link to="/shop">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground4">
-									<van-icon class-prefix="iconfont" name="shop" />
-								</div>
-							</div>
-							<div class="text">商城</div>
-						</router-link>
-					</div>
-					<!-- <div class="infoBox">
-						<router-link to="/merchantEnter">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundAttendance">
-									<van-icon class-prefix="iconfont" name="crown" />
-								</div>
-							</div>
-							<div class="text">上架申请</div>
-						</router-link>
-					</div> -->
-					<!-- <div class="infoBox">
-						<router-link to="/agency">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground3">
-									<van-icon class-prefix="iconfont" name="crown" />
-								</div>
-							</div>
-							<div class="text">省市代理</div>
-						</router-link>
-					</div> -->
-					<!-- <div class="infoBox">
-						<router-link to="/rankingDeal">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground1">
-									<van-icon class-prefix="iconfont" name="merchant" />
-								</div>
-							</div>
-							<div class="text">服务商</div>
-						</router-link>
-					</div> -->
-					<!-- <div class="infoBox" @click="toRanking4Level">
+					<div class="infoBox" @click="toBookView2">
 						<div class="iconBox">
 							<div class="iconBackground iconBackground2">
-								<van-icon class-prefix="iconfont" name="merchant" />
+								<van-icon class-prefix="iconfont" name="book" />
 							</div>
 						</div>
-						<div class="text">工会会长</div>
-					</div> -->
-					<!-- <div class="infoBox">
-						<router-link to="/cService">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundCService">
-									<van-icon class-prefix="iconfont" name="cservice" />
-								</div>
-							</div>
-							<div class="text">客服</div>
-						</router-link>
-					</div> -->
-					<!-- <div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundRaise">
-								<van-icon class-prefix="iconfont" name="love2" />
-							</div>
-						</div>
-						<div class="text">水滴帮扶筹</div>
-					</div> -->
+						<div class="text">FGC白皮书</div>
+					</div>
 				</div>
-				<div class="placeholderLine10"></div>
+				<div class="placeholderLine"></div>
+				<div class="noticeFlag paddingWing margT8">
+					<div class="title">帮扶链发展理念</div>
+				</div>
+				<div class="list4Guide">
+					<div class="content">
+						我们在公益慈善中所捐的每一分钱，或许依然改变不了整个社会的现状，但是我们的每一次捐赠，都能唤醒及改变我们自己内心原有的良善，同时唤醒了受助者的善心。越来越多的人，内心在公益慈善的践行中得到唤醒及净化后，社会的文明即会发生质的进步，这就是做公益慈善的真正目的：虽然我们救赎不了整个世界，但是能唤醒自己及他人的灵魂，在灵魂有朝一日离开肉体的时候，让脸上多展现出一份安详的笑容，这笑容，是您崇高的灵魂，在离去的那一瞬间，给您的生平事迹多点了一个赞。
+					</div>
+				</div>
+				<div class="placeholderLine"></div>
+				<div class="noticeFlag paddingWing margT8">
+					<div class="title">帮扶链发展历程</div>
+				</div>
+				<div class="list4Guide">
+					<ul>
+						<li>2020/02/19 公测推广</li>
+						<li>2020/02/20 招募代理</li>
+						<li>2020/03/15 招募服务商</li>
+						<li>2020/05/23 创立基金池</li>
+						<li>2020/05/25 开展线下帮扶活动</li>
+						<li>2021/01/01 发行子币FGC感恩链200万枚</li>
+						<li>2021 计划发行10万枚FGCC，通过FGC兑换FGCC，比例为20:1，并在交易所上交易</li>
+					</ul>
+				</div>
+				<div class="placeholderLine"></div>
+				<div class="noticeFlag paddingWing margT8">
+					<div class="title">帮扶活动记录</div>
+				</div>
 				<div class="list4Guide">
 					<div class="item" v-for="item in list">
 						<div class="textBox">
@@ -900,11 +779,13 @@ $noticeHeight:40px;
 				attendanceTitle:"",
 				currentPage:1,
 				pageSize:3,
-				imageUrl: this.$api.domainName + '/image/banner/002.jpg',
 				images: [
 					this.$api.domainName + '/image/banner/001.jpg',
 					this.$api.domainName + '/image/banner/002.jpg',
 					this.$api.domainName + '/image/banner/003.jpg',
+					this.$api.domainName + '/image/banner/banner001.jpg',
+					this.$api.domainName + '/image/banner/banner0062.jpg',
+					this.$api.domainName + '/image/banner/banner0055.jpg',
 					this.$api.domainName + '/image/banner/1009.jpg',
 				],
 				mill: {
@@ -947,46 +828,7 @@ $noticeHeight:40px;
 		},
 		mounted() {
 			let _this = this;
-			if(localStorage.getItem('mobilePhone')){
-				_this.account = localStorage.getItem('mobilePhone');
-			}else{
-				_this.$storage.removeAll();
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('/login');
-				return;
-			}
-			let userInfo = localStorage.getItem("_USERINFO_");
-			/* alert("userInfo:" + userInfo); */
-			if(userInfo){
-				_this.userInfo = JSON.parse(userInfo);
-				_this.userId = _this.userInfo.userId;
-				if(_this.userInfo.accountStatus==1){
-					//退出登录
-					_this.logout();
-				}
-				_this.refreshAttendanceInfo();
-			}else{
-				_this.$storage.removeAll();
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('/login');
-				return;
-			}
-			// //console.log('getImageHost',_this.$api.HOST_IMG)
-			/* this.mill = {
-				zl: _this.$utils.fmoney(80000000, 0),
-				bw: _this.$utils.fmoney(8000000, 0),
-				sy: _this.$utils.fmoney(79000000, 0)
-			} */
-			// alert("statistics:"+_this.$cookies.get("statistics"));
-			if (_this.$cookies.get("statistics")) {
-				_this.statistics = _this.$cookies.get("statistics");
-			}else{
-				_this.getHomeMineralStaticInfo();
-			}
-			
-			/* if(_this.$utils.isNUll(_this.userInfo.email)){
-				_this.initEmail();
-			} */
+			_this.getHomeMineralStaticInfo();
 		},
 		methods: {
 			initEmail(){
@@ -1015,6 +857,27 @@ $noticeHeight:40px;
 						_this.$toast(res.message);
 					}
 				})
+			},
+			toBookView(){
+				let _this = this;
+				//_this.$router.push('fundPoolRecord');
+				let url = `https://www.helpchain.co.ax/baipiBook/HPCwhitepaper.pdf`;
+				//window.open(url);
+				window.open(url,'_blank');
+			},
+			toBookView2(){
+				let _this = this;
+				//_this.$router.push('fundPoolRecord');
+				let url = `https://fgc.helpchain.co.ax/baipiBook/FGCwhitepaper.pdf`;
+				//window.open(url);
+				window.open(url,'_blank');
+			},
+			toZDView(){
+				let _this = this;
+				//_this.$router.push('fundPoolRecord');
+				let url = `https://www.helpchain.co.ax/baipiBook/HPC帮扶链制度模式介绍.pdf`;
+				//window.open(url);
+				window.open(url,'_blank');
 			},
 			toFundPoolRecordView(){
 				let _this = this;
@@ -1129,8 +992,8 @@ $noticeHeight:40px;
 					_this.dayNum = _this.userInfo.attendanceBook.split(',').length;
 				}
 				_this.attendanceTitle = `已连续签到${_this.dayNum}天`;
-				// _this.getTomorrowContributionValue = _this.$utils.getNextAttendanceValue(_this.dayNum);
-				// _this.getTodayAttendanceValue = _this.$utils.getTodayAttendanceValue(_this.dayNum);
+				_this.getTomorrowContributionValue = _this.$utils.getNextAttendanceValue(_this.dayNum);
+				_this.getTodayAttendanceValue = _this.$utils.getTodayAttendanceValue(_this.dayNum);
 				//判断今天是否已经签到
 				let nowDate = _this.$utils.getDate(new Date());
 				if(nowDate == _this.userInfo.beforeAttendanceDate) {
@@ -1168,6 +1031,27 @@ $noticeHeight:40px;
 					}
 				},function(){
 					Toast.clear();
+				})
+			},
+			getUserInfoByNewAttendance() {
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
+					//console.log('getUserInfo');
+					if (res.code == _this.$api.CODE_OK) {
+						_this.userInfo = res.data;
+						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
+						Dialog.alert({
+						  title: '系统信息',
+						  confirmButtonText:`${_this.userInfo.aword>10?'释放':'好的'}`,
+						  message: `爱心值大于10即可按特定比例释放成贡献值。您当前的爱心值为：${Number(_this.userInfo.aword).toFixed(2)}，${_this.userInfo.aword>10?'可释放爱心值!':'暂时无法释放！'}`
+						}).then(() => {
+							if(_this.userInfo.aword>10){
+								_this.sureAttendance4Love();
+							}
+						})
+					}else{
+						_this.$toast(res.message);
+					}
 				})
 			},
 			toServerGameView(item){
@@ -1255,9 +1139,41 @@ $noticeHeight:40px;
 				}
 				_this.$router.push('/ranking');
 			},
+			releaseLove(){
+				let _this = this;
+				_this.getUserInfoByNewAttendance();
+				//this.showAttendanceModel=true;
+				//this.getUserInfo();
+				//console.log('attendanceBtn');
+			},
 			attendanceBtn(){
 				let _this = this;
 				this.getUserInfo();
+			},
+			sureAttendance4Love(){
+				let _this = this;
+				_this.$ajax.ajax(_this.$api.assistUserAttendance4Love, 'POST', null, function(res) {
+					//_this.isLoading = false;
+					//console.log("res.code",res.code);
+					if (res.code == _this.$api.CODE_OK) {
+						_this.$toast("释放成功");
+						//_this.getUserInfo();
+						_this.$cookies.set("tab_name_book", 'contribution', _this.$api.cookiesTime)
+						_this.$router.push('/myBook');
+						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
+						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
+					}else{
+						//_this.showAttendanceModel=false;
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '提示信息',
+						  message: res.message
+						}).then(() => {
+						  // on confirm
+						  
+						})
+					} 
+				})
 			},
 			sureAttendance(){
 				let _this = this;
@@ -1265,9 +1181,9 @@ $noticeHeight:40px;
 					//_this.isLoading = false;
 					//console.log("res.code",res.code);
 					if (res.code == _this.$api.CODE_OK) {
-						_this.$toast("签到成功");
+						_this.$toast("释放成功");
 						//_this.getUserInfo();
-						_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
+						_this.$cookies.set("tab_name_book", 'ticket', _this.$api.cookiesTime)
 						_this.$router.push('/myBook');
 						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
@@ -1289,15 +1205,18 @@ $noticeHeight:40px;
 				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
 					if(res.code == _this.$api.CODE_OK){
 						_this.$toast('账户异常且退出登录');
-						_this.$storage.removeAll();
-						_this.$router.replace('/login');
+						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
+						// _this.$cookies.remove('_USERINFO_');
+						// _this.$cookies.remove('buyAndSellInfo');
+						_this.$cookies.remove('userId');
+						_this.$cookies.remove('token');
+						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
 					}else{
 						_this.$toast(res.message);
 					}
 				},function(){
-					_this.$storage.removeAll();
-					_this.$toast(_this.$api.loginAgainTipText);
-					_this.$router.replace('/login');
+					_this.$router.replace('login');
 				})
 			},
 			sureAttendanceBtn(){
@@ -1314,14 +1233,19 @@ $noticeHeight:40px;
 						_this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
 							_this.isLoading = false;
 							if (res.code == _this.$api.CODE_OK) {
-								_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
-								_this.$router.push('/myBook');
-								//_this.getUserInfo();
+								_this.getUserInfo();
 								// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 								// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
-							}else if(res.code==1003||res.code==1000005||res.code==10000002){
-								_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
-								_this.$router.push('/myBook');
+							}else if(res.code==1003){
+								Dialog.alert({
+								  title: '提示信息',
+								  confirmButtonText:'前去查看',
+								  message: res.message
+								}).then(() => {
+								  // on confirm
+								  _this.$cookies.set("tab_name_book", 'ticket', _this.$api.cookiesTime)
+								  _this.$router.push('/myBook');
+								})
 							}else{
 								_this.showAttendanceModel=false;
 								//_this.$toast(res.message);
@@ -1346,24 +1270,21 @@ $noticeHeight:40px;
 							  _this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
 							  	_this.isLoading = false;
 							  	if (res.code == _this.$api.CODE_OK) {
-									_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
-									_this.$router.push('/myBook');
-							  		//_this.getUserInfo();
+							  		_this.getUserInfo();
 							  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 							  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
-							  	}else if(res.code==1003||res.code==1000005||res.code==10000002){
-							  		_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
-							  		_this.$router.push('/myBook');
-							  	}else{
-							  		_this.showAttendanceModel=false;
-							  		//_this.$toast(res.message);
+							  	}else if(res.code==1003){
 							  		Dialog.alert({
 							  		  title: '提示信息',
+							  		  confirmButtonText:'前去查看',
 							  		  message: res.message
 							  		}).then(() => {
 							  		  // on confirm
-							  		  
+							  		  _this.$cookies.set("tab_name_book", 'ticket', _this.$api.cookiesTime)
+							  		  _this.$router.push('/myBook');
 							  		})
+							  	}else{
+							  		_this.$toast(res.message);
 							  	}
 							  })
 							})
@@ -1378,23 +1299,22 @@ $noticeHeight:40px;
 							  _this.$ajax.ajax(_this.$api.assistUserAttendance, 'POST', null, function(res) {
 							  	_this.isLoading = false;
 							  	if (res.code == _this.$api.CODE_OK) {
-							  		_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
-							  		_this.$router.push('/myBook');
+							  		_this.getUserInfo();
 							  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 							  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
-							  	}else if(res.code==1003||res.code==1000005||res.code==10000002){
-							  		_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
-							  		_this.$router.push('/myBook');
-							  	}else{
-							  		_this.showAttendanceModel=false;
-							  		//_this.$toast(res.message);
+							  	}else if(res.code==1003){
 							  		Dialog.alert({
 							  		  title: '提示信息',
+							  		  confirmButtonText:'前去查看',
 							  		  message: res.message
 							  		}).then(() => {
 							  		  // on confirm
-							  		  
+							  		  //_this.$router.push("mill");
+									  _this.$cookies.set("tab_name_book", 'ticket', _this.$api.cookiesTime)
+									  _this.$router.push('/myBook');
 							  		})
+							  	}else{
+							  		_this.$toast(res.message);
 							  	} 
 							  })
 							})
@@ -1407,14 +1327,18 @@ $noticeHeight:40px;
 				let _this = this;
 				//_this.getHomeMineralStaticInfo();
 				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.getHomeMineralStaticInfo, 'GET', null, function(res) {
+				let citySN = returnCitySN;
+				let params = {
+					address:_this.$JsEncrypt.encrypt(citySN.cip)
+				}
+				_this.$ajax.ajax(_this.$api.getHomeMineralStaticInfo2, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.statistics = res.data;
 						_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime);
 						_this.loading = false;
-						if(_this.statistics.isShowNotice){
+						/* if(_this.statistics.isShowNotice){
 							_this.getNoticeList();
-						}
+						} */
 						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
 						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
 					}else{
@@ -1436,7 +1360,11 @@ $noticeHeight:40px;
 			getHomeMineralStaticInfo(){
 				let _this = this;
 				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.getHomeMineralStaticInfo, 'GET', null, function(res) {
+				let citySN = returnCitySN;
+				let params = {
+					address:_this.$JsEncrypt.encrypt(citySN.cip)
+				}
+				_this.$ajax.ajax(_this.$api.getHomeMineralStaticInfo2, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.statistics = res.data;
 						_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime8h);

@@ -212,15 +212,14 @@
 			},
 			beforeRead(file) {
 				let _this = this;
-				console.log("fileSize:",file.size);
 				if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
 					_this.$toast('请上传 jpg/png 格式图片');
 					return false;
 				}
-				if (file.size/1024>300) {
+				if (file.size/1024>500) {
 					Dialog.alert({
 					  title: '系统提示',
-					  message: '所上传图片大小超过了300KB，请先压缩后再上传(微信转发后再保存，用保存后的照片上传试试)'
+					  message: '所上传图片大小超过了500KB，请先压缩后再上传(微信转发后再保存，用保存后的照片上传试试)'
 					}).then(() => {
 					  // on close
 					});
@@ -279,7 +278,6 @@
 					headPic:headPic[0],
 					pic:pic.join('|'),
 				}
-				console.log('params',params);
 				if(_this.$utils.hasNull(params)){
 					_this.$toast(`请填写完整信息`);
 				}else{

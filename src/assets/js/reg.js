@@ -36,6 +36,8 @@ export default{
 	positive_integerHint:'请填写小于1000000的正整数',
 	univalence:/^[0-9]+(.[0-9]{1,2})?$/,//只能填写整数或2最多2位小数的正则
 	univalenceHint:'请填写小于1000000的单价',
+	number:/^[0-9]+([.]{1}[0-9]+){0,1}$/,
+	numberHint:'请填写整数或小数',
 	block_address:/^[A-Za-z0-9]{20,36}$/,
 	block_addressHint:'请正确粘贴对方的区块地址',
 	password:/^[A-Za-z0-9._]{6,16}$/,

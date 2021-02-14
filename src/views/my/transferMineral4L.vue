@@ -80,43 +80,44 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				转让矿石(会长)
+				转让矿石
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="transferPageL">
 			<div class="placeholderLine10"></div>
 			<!-- 贡献值:{{userInfo.contributionValue.toFixed(2)}}点 -->
-			<div class="paddingWing tip4model3">当前拥有<br>矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
+			<!-- 帮扶券:{{userInfo.platformTicket.toFixed(2)}}个 -->
+			<div class="paddingWing tip4model3">当前拥有<br>矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个</div>
 			<van-cell-group>
 				<van-field v-model="form4AppointDeal.transferAmount" required clearable label="转让数量" placeholder="请填写转让数量" @blur="validate4AppointDeal('transferAmount')" :error-message="errorInfo4AppointDeal.transferAmount"/>
-				<van-field v-model="curerntPlatformPrice" required disabled label="指导单价"/>
+				<!-- <van-field v-model="curerntPlatformPrice" required disabled label="指导单价"/>
 				<van-field v-model="getGuidancePrice" required disabled label="指导总价"/>
-				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/>
-				<van-field v-model="getAssurePrice" required clearable label="转让总价" placeholder="请先填写转让单价"/>
+				<van-field v-model="form4AppointDeal.price" required clearable label="转让单价" placeholder="请填写协商好的卖出单价" @blur="validate4AppointDeal('price')" :error-message="errorInfo4AppointDeal.price"/> -->
+				<!-- <van-field v-model="getAssurePrice" required clearable label="转让总价" placeholder="请先填写转让单价"/> -->
 				<van-field v-model="form4AppointDeal.blockAddress" required clearable label="区块地址" placeholder="请填写直推的区块地址" maxlength="36" @blur="validate4AppointDeal('blockAddress')" :error-message="errorInfo4AppointDeal.blockAddress"/>
 				<!-- <van-field v-model="form4AppointDeal.agentPhone" required clearable label="担保代理" placeholder="请填写代理手机号" maxlength="11" @blur="validate4AppointDeal('agentPhone')" :error-message="errorInfo4AppointDeal.agentPhone"> -->
 					<!-- <van-button slot="button" size="small" type="primary">自动分配</van-button> -->
 				</van-field>
 				<!-- <van-field required v-model="form4AppointDeal.dsPassword" type="password" clearable label="动态密码" @blur="validate4AppointDeal('dsPassword')" :error-message="errorInfo4AppointDeal.dsPassword" placeholder="请填写服务商给的动态密码"/> -->
-				<van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/>
+				<!-- <van-field v-model="form4AppointDeal.idCard" required clearable label="身份证号" placeholder="请填写自己的身份证号" maxlength="18" @blur="validate4AppointDeal('idCard')" :error-message="errorInfo4AppointDeal.idCard"/> -->
 				<van-field required v-model="form4AppointDeal.safePassword" type="password" clearable label="安全密码" @blur="validate4AppointDeal('safePassword')" :error-message="errorInfo4AppointDeal.safePassword" placeholder="请填写自己的安全密码"/>
 			</van-cell-group>
 			<div class="placeholderLine10"></div>
 			<!-- <div class="paddingWing tip4model3" v-html="$api.tipText4Safe"></div> -->
 			<div class="placeholderLine10"></div>
-			<div class="paddingWing tip4model3">
+			<!-- <div class="paddingWing tip4model3">
 				<b class="textBold">定向转让矿石(会长)交易规则：</b><br>
 				1.青铜及以上级别的工会会长才有权限给自己的3代伞下会员单向转让矿石（下次减产后可能只对白银及以上级别的工会会长开放该权限）。<br>
 				2.转让手续费减半只收交易总金额10%的帮扶券。比如：交易总金额是200CNY，收20CNY价值的帮扶券作为手续费。该手续费，20%会用来做线下的公益事业(爱心帮扶活动)<br>
 				3.交易后所剩矿石数不得少于2个，注册所赠送的2个矿石只能用来复投矿机。<br>
-			</div>
+			</div> -->
 			<!-- <div class="margT10 paddingWing tip4model3" v-html="tipText4AppointDeal"></div> -->
 			<div class="placeholderLine40"></div>
 			<div class="placeholderLine40"></div>
 			<div class="sureBtn">
 				<div class="placeholderLine4"></div>
-				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="close">提 交</van-button>
+				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
 			</div>
 		</div>
 	</div>
@@ -328,11 +329,11 @@
 					let params = {
 						/* userId: _this.userId, */
 						num: _this.form4AppointDeal.transferAmount,
-						curerntPlatformPrice:_this.curerntPlatformPrice,
+						/* curerntPlatformPrice:_this.curerntPlatformPrice,
 						price: _this.form4AppointDeal.price,
-						assurePrice: _this.form4AppointDeal.assurePrice,
+						assurePrice: _this.form4AppointDeal.assurePrice, */
 						blockAddress: _this.form4AppointDeal.blockAddress,
-						idCard: _this.form4AppointDeal.idCard,
+						/* idCard: _this.form4AppointDeal.idCard, */
 						safePassword: _this.form4AppointDeal.safePassword.replace(/ /g,""),
 						// createTime:_this.$utils.getDateTime(new Date())
 					}
@@ -363,39 +364,28 @@
 						_this.$toast('请填写完整信息');
 						return;
 					}
-					console.log('_this.errorInfo4BuyBill',_this.errorInfo4BuyBill);
 					if(_this.$utils.hasVal(_this.errorInfo4AppointDeal)){
 						_this.$toast('请按要求填写信息');
 						return;
 					}
-					// if(_this.userInfo.manType==1){
-					// 	if(_this.userInfo.realnameNum<30||_this.userInfo.teamCalculationPower<30||_this.userInfo.buyAmount<300){
-					// 		Dialog.alert({
-					// 		  title: '系统提示',
-					// 		  message: _this.$api.manType1Tip
-					// 		}).then(() => {
-					// 		  // on close
-					// 		});
-					// 		return;
-					// 	}
-					// }
 					params.safePassword = _this.$JsEncrypt.encrypt(_this.form4AppointDeal.safePassword);
 					_this.loading = true;
-					_this.$ajax.ajax(_this.$api.insertTransaction4LevelTeamBill, 'POST', params, function(res) {
+					_this.$ajax.ajax(_this.$api.transferMineral, 'POST', params, function(res) {
 						if (res.code == _this.$api.CODE_OK) {
-							// _this.$toast('转让成功');
+							_this.$toast('转让成功');
 							_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
 							/* _this.$cookies.set("tab_name_book","mineral",_this.$api.cookiesTime); */
-							_this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
+							/* _this.$cookies.set("tabName4MyDeal", "get", _this.$api.cookiesTime);
 							// _this.$router.push('myDeal');
 							if(params.agentPhone == localStorage.getItem('mobilePhone')) {
 								_this.$router.push({path:'myDeal',query:{dealType:1,isSelf:1,mobilePhone:res.data.mobilePhone,num:params.num}});
 							}else{
 								_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
-							}
+							} */
 							//_this.$router.push({path:'myDeal',query:{dealType:1,mobilePhone:params.agentPhone,num:params.num}});
 							//_this.$router.push({path:'myDeal',query:{mobilePhone:res.data.mobilePhone,num:params.num}});
-							_this.$utils.formClear(_this.form4AppointDeal);
+							//_this.$utils.formClear(_this.form4AppointDeal);
+							_this.form4AppointDeal.blockAddress='';
 						}else{
 							// _this.$toast(res.message);
 							Dialog.alert({

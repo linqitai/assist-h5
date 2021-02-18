@@ -440,18 +440,6 @@
 			</div>
 			<div class="line1pxbgcolor"></div>
 			<div class="items">
-				<router-link to="shopProduct4S">
-					<div class="my-cell">
-						<div class="flex1">
-							商城管理(客服专用)
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</router-link>
-			</div>
-			<div class="items">
 				<router-link to="shopOrder4Merchant">
 					<div class="my-cell">
 						<div class="flex1">
@@ -570,7 +558,30 @@
 					</div>
 				</router-link>
 			</div>
+			<div class="items" v-if="userInfo.isAgent==3&&userInfo.userId=='en15079AQ107o91Y7217'">
+				<router-link to="shopProduct4S">
+					<div class="my-cell">
+						<div class="flex1">
+							商城管理(客服专用)
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+				<router-link to="updateMaxPrice">
+					<div class="my-cell">
+						<div class="flex1">
+							修改单价
+						</div>
+						<div class="flex2">
+							<i class="iconfont iconfont-right-arrow2"></i>
+						</div>
+					</div>
+				</router-link>
+			</div>
 			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='en15079AQ107o91Y7217'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090'||userInfo.userId=='1586gt1n48Q5jr4M0523')">
+				
 				<router-link to="dealList">
 					<div class="my-cell">
 						<div class="flex1">

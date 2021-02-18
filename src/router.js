@@ -280,6 +280,12 @@ export default new Router({
 							meta:{footer:false,keepAlive:false},
 						},
 						{
+							path: '/updateMaxPrice',
+							name: '修改单价',
+							component: resolve => require(['./views/my/updateMaxPrice'],resolve),
+							meta:{footer:false,keepAlive:false},
+						},
+						{
 							path: '/transferCV',
 							name: '定向转让贡献值',
 							component: resolve => require(['./views/my/transferCV'],resolve),

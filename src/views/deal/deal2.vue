@@ -431,7 +431,7 @@
 				  @select="onSelectMin"
 				  @cancel="onCancelMin"
 				/>
-				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" required clearable type="number" label="买入单价(￥)" placeholder="请填写单价"
+				<van-field v-model="form4BuyBill.price" @blur="validate4BuyBill('price')" readonly type="number" label="买入单价(￥)" placeholder="请填写单价"
 				:error-message="errorInfo4BuyBill.price"/>
 				<!-- <div class="paddingWing tip4model3 margT3">最新可挂买入单价和当前最高价之间的上下浮动区间约为10%({{buyMinPrice}}~{{buyMaxPrice}}￥)</div> -->
 				<!-- <div class="paddingWing tip4model3RedText margT3">当前买单的单价区间为：{{buyMinPrice}}~{{buyMaxPrice}}￥</div> -->

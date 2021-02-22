@@ -18,7 +18,7 @@
     	<router-view></router-view>
     </keep-alive>
     <router-view v-if="$route.meta.keepAlive==false"></router-view> -->
-	<keep-alive include="voteList,shop,dealRecord,millRecord,raiseApplyList">
+	<keep-alive include="home,voteList,shop,dealRecord,millRecord,raiseApplyList">
 		<router-view></router-view>
 	</keep-alive>
 	<!-- <keep-alive include="voteList,dealRecord,millRecord,raiseApplyList">

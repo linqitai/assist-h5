@@ -217,7 +217,7 @@
 			<van-notice-bar
 			  mode = "closeable"
 			  left-icon="volume-o"
-			  text="直推完成基础任务2奖励上级0.5个贡献值;30天没登录将会被系统回收2~12个矿石;"
+			  text="直推完成基础任务2奖励上级1个额度"
 			/>
 			<div class="box box1">
 				<div class="flex flex1">
@@ -242,6 +242,9 @@
 					<div class="line margT3">
 						注册实名时间 {{userInfo.registerTime}}
 					</div>
+					<!-- <div class="line margT3" style="display: none;">
+						a {{userInfo}} b {{b}} c {{c}}
+					</div> -->
 					<div class="line">
 						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
 						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}
@@ -267,7 +270,7 @@
 					</div> -->
 					<!-- <div class="placeholderLine"></div> -->
 					<div class="line">
-						<span @click="toBookView('6')" class="yellow">可售额度 {{Number(userInfo.email).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
+						<span @click="toBookView('6')" class="yellow">可售额度 {{Number(userInfo.email).toFixed(3)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
 						<!-- <span class="margL10">
 							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="circulateToMyCPLoading" @click="circulateToMyCPEvent">流通值兑换个人算力</van-button>
 						</span> -->
@@ -743,7 +746,10 @@
 	import clip from '@/assets/js/clipboard';
 	// import mFullscreen from '@/components/Fullscreen.vue';
 	/* import { Skeleton } from 'vant'; */
+	import { myMixin } from '@/assets/js/myMixin.js';
+	import { mapState } from 'vuex';
 	export default {
+		mixins:[myMixin],
 		data() {
 			return {
 				showToBuyTicketModel:false,
@@ -790,11 +796,11 @@
 			}, */
 		},
 		computed:{
-			
+			...mapState(['a','b','c','userInfo'])
 		},
 		created() {
 			let _this = this;
-			let userInfo = localStorage.getItem("_USERINFO_");
+			/* let userInfo = localStorage.getItem("_USERINFO_");
 			//let userInfo = _this.$store.state.userInfo;
 			if(userInfo){
 				////console.log("userInfo_localStorage");
@@ -809,7 +815,7 @@
 				_this.$toast(_this.$api.loginAgainTipText);
 				_this.$router.replace('login');
 				return;
-			}
+			} */
 			if(_this.$cookies.get('isRefreshUserInfo')==1){
 				_this.getUserInfo();
 			}
@@ -1113,7 +1119,6 @@
 				document.body.scrollTop = 0;
 				document.documentElement.scrollTop = 0;
 			},
-			
 			cancelAccount(){
 				let _this = this;
 				Dialog.confirm({
@@ -1173,7 +1178,7 @@
 				}else if(val=='raise'){
 					message = '爱心值：满10个即可在首页通过签到每日释放贡献值；获取途径：帮扶筹中捐赠';
 				}else if(val=='circulateValue'){
-					message = '流通值：可通过复投、推广、买入或参与游戏获得，复投1:1/2:1增加，推广会员完成2个基础任务1:2增加，买入1:1增加，卖出1:2扣除。';
+					message = '可售额度：可通过复投、推广、买入获得，复投可加10%需通过签到每天释放，推广会员完成2个基础任务加1，推广会员完成进阶任务加1，买入1:1.2增加，卖出1:1扣除。';
 				}
 				Dialog.alert({
 				  title: '温馨提示',
@@ -1216,21 +1221,6 @@
 			toMyInfo(){
 				this.$router.push('/myInfo');
 			},
-			logout(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.$toast('账户异常且退出登录');
-						_this.$storage.removeAll();
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-					}else{
-						_this.$toast(res.message);
-					}
-				},function(){
-					_this.$storage.removeAll();
-					_this.$router.replace('login');
-				})
-			},
 			confirmBtn(){
 				let _this = this;
 				_this.showTipModel = false;
@@ -1239,8 +1229,8 @@
 			getUserInfo() {
 				let _this = this;
 				_this.loading = true;
-				/* let params = {}
-				_this.$store.dispatch('getAssistUserInfo', params).then(res => {
+				let params = {}
+				_this.$store.dispatch('getAssistUserInfo', params).then(res=>{
 					_this.loading = false;
 					if (res.code == _this.$api.CODE_OK) {
 						_this.userInfo = res.data;
@@ -1260,33 +1250,13 @@
 							//退出登录
 							_this.logout();
 						}
+					}else if(res.code==500){
+						_this.$storage.removeAll();
+						_this.$toast(_this.$api.loginAgainTipText);
+						_this.$router.replace('login');
 					}
 				}).catch(res=>{
 					console.log('res', res);
-					_this.loading = false;
-				}) */
-				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
-					//console.log('getUserInfo');
-					if (res.code == _this.$api.CODE_OK) {
-						_this.userInfo = res.data;
-						if(_this.userInfo.actived==-1){
-							_this.showTipModel = true;
-						}
-						if(_this.userInfo.actived==2){
-							_this.showTipModel2 = true;
-						}
-						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
-						//console.log(_this.userInfo,"userInfo");
-						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
-						// if(_this.userInfo.manType==2){
-						// 	_this.getServiceDsPassword();
-						// }
-						if(_this.userInfo.accountStatus==1){
-							//退出登录
-							_this.logout();
-						}
-					}
-				},function(){
 					_this.loading = false;
 				})
 			},

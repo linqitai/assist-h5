@@ -184,6 +184,7 @@
 				</div>
 			</div> -->
 			<div class="tip4model3 paddingWing tip justify" v-if="tag==8">算力矿机的挖矿模式犹如存本金，然后每日领取利息。复投说明：复投算力矿机需要质押所需租金，待签约时长到期后才会退还租金，若提前解约退还租金，需收取10%租金的解约费(一周年之后所复投的算力矿机统一需等运行周期到期后自动解约)。算力挖矿的每日领取收益=(个人算力矿机总算力+个人算力/100)/全网总算力*当日全网挖矿总产量，算力挖矿产量类似于比特币挖矿的产出方式，参与的人越多会越难挖。</div>
+			<div class="tip4model3 paddingWing tip justify" v-if="tag==0">复投常规矿机需要先推广或者最近一个月有买入。若没推广也没买入的，可以复投算力矿机，然后通过每天签到获得复投额度。</div>
 			<van-pull-refresh v-model="loading" @refresh="refresh">
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 				 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>
@@ -255,7 +256,8 @@
 				<div class="placeholderLine10"></div>
 				<div class="f-14">复投此矿机要花{{price}}个矿石或者贡献值</div>
 				<div class="placeholderLine10"></div>
-				<div class="f-14">您最近30天已累计买入{{monthBuyNum}}个矿石</div>
+				<div class="f-14" v-if="tag==0">最近30天累计买入了{{monthBuyNum}}个矿石</div>
+				<div class="f-14 margT3" v-if="tag==0">最近30天的新增直推中有{{buy10MineralNumIn30Day}}人完成了进阶任务</div>
 				<div class="placeholderLine10"></div>
 				<van-radio-group v-model="selectRadioValue" @change="selectRadioChange">
 				  <van-radio name="1">矿石</van-radio>
@@ -269,8 +271,6 @@
 				<van-field v-model="safePassword" label="安全密码" required type="password" clearable placeholder="请填写安全密码"/>
 				<div class="placeholderLine10"></div>
 				<div class="tip4modelNew">安全密码是实名的时候所设置的安全(交易)密码</div>
-				<div class="placeholderLine10"></div>
-				<div class="tip4model3RedText" v-if="tag==8">复投该算力矿机需质押{{price}}个矿石或贡献值，等矿机到期后才能申请解约退还所质押的{{price}}个矿石；若提前解约，会扣除10%违约金后退还{{parseFloat(price)*0.9}}个矿石，请您再次确认是否要继续复投该矿机？</div>
 				<div class="placeholderLine10"></div>
 			</div>
 			<!-- <van-button type="info" @click="buyMillLoading=true;" :disabled="buyMillLoading" :block="true">复投</van-button> -->
@@ -348,7 +348,8 @@
 				price:'',
 				machineId:'',
 				myMill:'',
-				monthBuyNum:''
+				monthBuyNum:0,
+				buy10MineralNumIn30Day:0
 			}
 		},
 		components: {
@@ -535,7 +536,9 @@
 				_this.showSelectBox = true;
 				_this.price = item.price;
 				_this.machineId = item.id;
-				_this.getMonthBuyNum();
+				if(_this.tag==0){
+					_this.getMonthBuyNum();
+				}
 				// Dialog.confirm({
 				//   title: '确认弹窗',
 				//   message: `您当前可用矿石${_this.userInfo.thisWeekMineral}个,复投此矿机要花${item.price}矿石,是否确定复投？`
@@ -557,9 +560,10 @@
 				  forbidClick: true,
 				  loadingType: 'spinner'
 				});
-				_this.$ajax.ajax(_this.$api.getMonthBuyNum, 'GET', null, function(res) {
+				_this.$ajax.ajax(_this.$api.getMonthBuyNumAndBuyMill0Info, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
-						_this.monthBuyNum = res.data;
+						_this.monthBuyNum = res.data.getMonthBuyNum;
+						_this.buy10MineralNumIn30Day = res.data.getBuy10MineralNumIn30Day;
 					}else{
 						_this.$toast(res.message);
 						_this.showSelectBox = false;

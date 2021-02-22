@@ -1,7 +1,7 @@
 export default{
 	pageSizes:[8, 10, 12, 14],
 	pageSize:8,
-	circulateValueOptions:[{id:0,value:'买入矿石'},{id:1,value:'复投'},{id:2,value:'直推完成基础任务奖励'},{id:3,value:'卖出'},{id:4,value:'初始化'},{id:5,value:'直推完成基础任务2'},{id:6,value:'直推完成进阶任务奖励'},{id:7,value:'游戏中所获得'},{id:8,value:'合成钻石'},{id:9,value:'流通值兑换'},{id:10,value:'交易超时付款'},{id:11,value:'交易超时确认'},{id:12,value:'交易取消后'},{id:13,value:'购物'},{id:14,value:'商品被确认收货后'},{id:15,value:'签到所得'},{id:16,value:'签到释放'},{id:17,value:'完成进阶任务奖励'}],
+	circulateValueOptions:[{id:0,value:'买入矿石'},{id:1,value:'复投'},{id:2,value:'直推完成基础任务奖励'},{id:3,value:'卖出'},{id:4,value:'初始化'},{id:5,value:'直推完成基础任务2'},{id:6,value:'直推完成进阶任务奖励'},{id:7,value:'游戏中所获得'},{id:8,value:'合成钻石'},{id:9,value:'流通值兑换'},{id:10,value:'交易超时付款'},{id:11,value:'交易超时确认'},{id:12,value:'交易取消后'},{id:13,value:'购物'},{id:14,value:'商品被确认收货后'},{id:15,value:'签到所得'},{id:16,value:'矿机释放'},{id:17,value:'完成进阶任务奖励'}],
 	mineralBookTypeOptions:[{id:0,value:'矿机产出'},{id:1,value:'租赁矿机'},{id:2,value:'转入'},{id:3,value:'转出'},{id:4,value:'取消交易'},{id:5,value:'注册赠送'},{id:6,value:'矿机重置抵扣'},{id:7,value:'竞拍成功'},{id:8,value:'竞拍服务商成功'},{id:9,value:'竞拍代理商成功'},{id:10,value:'矿机异常'},{id:11,value:'账号异常'},{id:12,value:'系统回收'},{id:13,value:'捐赠'},{id:14,value:'近期超过30天没登录被回收后'},{id:15,value:'游戏充值'},{id:16,value:'捐入'},{id:17,value:'交易超时确认被投诉'},{id:18,value:'交易超时付款被投诉后'},{id:19,value:'解冻处罚'},{id:20,value:'合成钻石值'},{id:21,value:'算力挖矿收益'},{id:22,value:'直推收益分红'},{id:23,value:'全球分红'},{id:24,value:'矿机解约'},{id:25,value:'奖励津贴'},{id:26,value:'线下帮扶奖励'},{id:27,value:'合成比例退还'},{id:28,value:'购物'},{id:29,value:'退还'},{id:30,value:'所售商品买家确认收货'},{id:31,value:'直推复投常规矿机'}],
 	contributeTypeOptions:[{id:0,value:'实名认证审核通过'},{id:1,value:'直推实名成功后'},{id:2,value:'转入'},{id:3,value:'转出'},{id:4,value:'建议被采纳'},{id:5,value:'问题反馈成功'},{id:6,value:'购物'},{id:7,value:'租赁矿机奖励'},{id:8,value:'交易权兑换'},{id:9,value:'分享任务奖励'},{id:10,value:'交易取消'},{id:11,value:'有效留言'},{id:12,value:'完成租赁矿机任务'},{id:13,value:'签到'},{id:14,value:'诉讼成功'},{id:15,value:'等级分红'},{id:16,value:'租赁矿机'},{id:17,value:'伞下会员注销账号'},{id:18,value:'伞下会员完成基础任务'},{id:19,value:'奖励津贴'},{id:20,value:'全球分红'},{id:21,value:'优秀领导人扶持'},{id:22,value:'地推扶持'},{id:23,value:'交易超时确认'},{id:24,value:'爱心值释放'},{id:25,value:'线下志愿者奖励'},{id:26,value:'交易不发短信被投诉'},{id:27,value:'解冻处罚'},{id:28,value:'交易超时确认被投诉'},{id:29,value:'30天没登录'},{id:30,value:'违规'},{id:31,value:'被投诉成功后'},{id:32,value:'游戏奖励'},{id:33,value:'游戏充值'},{id:34,value:'游戏中所获得'},{id:35,value:'交易没付款'}],
 	platformTicketBookTypeOptions:[{id:0,value:'转入'},{id:1,value:'修改信息'},{id:2,value:'第一次租赁矿机'},{id:3,value:'卖出使用服务费'},{id:4,value:'取消交易'},{id:5,value:'竞选省代理获得'},{id:6,value:'竞选市代理获得'},{id:7,value:'转出'},{id:8,value:'津贴奖励'},{id:9,value:'内排注册'},{id:10,value:'留言'},{id:11,value:'解冻所花'},{id:12,value:'代理分红'},{id:13,value:'抵押'},{id:14,value:'抵押释放'},{id:15,value:'投诉他人'},{id:16,value:'捐赠'},{id:17,value:'申请投票'},{id:18,value:'直推实名通过'},{id:19,value:'昨日收购矿石奖励'},{id:20,value:'签到所得'},{id:21,value:'游戏充值'},{id:22,value:'挑战2048不限时区使用'},{id:23,value:'挑战2048小游戏胜出'},{id:24,value:'挑战2048限时区使用'}],
@@ -17,7 +17,11 @@ export default{
 	calculationOptions:[{id:0,value:'自己租赁矿机'},{id:1,value:'伞下会员租赁矿机'},{id:2,value:'自己矿机过期'},{id:3,value:'伞下会员矿机过期'},{id:4,value:'自己获得矿机'},{id:5,value:'伞下会员获得矿机'},{id:6,value:'会员实名通过'},{id:7,value:'直推注销账号'},{id:8,value:'流通值转换成个人算力'},{id:9,value:'连续签到30天奖励后'},{id:10,value:'直推完成进阶任务奖励'}],
 	agentOptions:[{id:0,value:''},{id:1,value:'省代理'},{id:2,value:'市代理'},{id:3,value:'客服'},{id:4,value:'团队长'},{id:5,value:'志愿者'},{id:6,value:'群管理'},{id:7,value:'其他'},{id:8,value:'城市盟主'}],
 	helpList:[
-		
+		{
+			time:'2021/02/19',
+			title:'帮扶链一周年',
+			url:'http://note.youdao.com/noteshare?id=d6d62a3949abe5100a401f5fdb2a5cf4'
+		},
 		{
 			time:'2021/01/08',
 			title:'回访孤寡老人张大伯',

@@ -13,14 +13,14 @@ import { Form,Button,Tabbar,TabbarItem,Slider,Swipe,SwipeItem,Lazyload,SwipeCell
 Icon,Sticky,Toast,Image as VanImage,Skeleton,Loading,CellGroup,Cell,Tab,Tabs,Pagination,ActionSheet,
 Field,PullRefresh,Divider,List,Dialog,Tag,ImagePreview,CountDown,Uploader,Search,DropdownMenu, DropdownItem,
 Panel,RadioGroup,Radio,Step,Steps,Stepper,Popup,Picker,Row,Col,Grid,GridItem,Circle,Checkbox,CheckboxGroup,Notify,
-GoodsAction, GoodsActionIcon, GoodsActionButton, Empty } from 'vant';
+GoodsAction, GoodsActionIcon, GoodsActionButton, Empty, Card } from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Form).use(Button).use(Tabbar).use(TabbarItem).use(Slider).use(Swipe).use(SwipeItem).use(SwipeCell).use(NoticeBar)
 .use(NavBar).use(Icon).use(Sticky).use(Toast).use(VanImage).use(Skeleton).use(Loading).use(CellGroup).use(Cell).use(Tab)
 .use(Tabs).use(Pagination).use(ActionSheet).use(Field).use(PullRefresh).use(Divider).use(List).use(Dialog).use(Tag)
 .use(ImagePreview).use(CountDown).use(Checkbox).use(CheckboxGroup).use(Uploader).use(Search).use(DropdownMenu).use(DropdownItem).use(Panel)
 .use(RadioGroup).use(Radio).use(Step).use(Steps).use(Stepper).use(Popup).use(Picker).use(Row).use(Col).use(Grid).use(GridItem).use(Circle).use(Notify)
-.use(GoodsAction).use(GoodsActionIcon).use(GoodsActionButton).use(Empty);
+.use(GoodsAction).use(GoodsActionIcon).use(GoodsActionButton).use(Empty).use(Card);
 Vue.use(Lazyload, {
   lazyComponent: true
 });

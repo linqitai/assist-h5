@@ -94,7 +94,7 @@
 				</div>
 				<div class="detailBox">
 					<img v-for="(item,index) in productInfo.detailPic" :key='index' :src="item" @click="imgEvent">
-					<van-image-preview v-model="showPreviewImg" :images="images" @change="onChange">
+					<van-image-preview v-model="showPreviewImg" :images="productInfo.detailPic" @change="onChange">
 					  <template v-slot:index>第{{ index }}页</template>
 					</van-image-preview>
 				</div>
@@ -292,7 +292,7 @@ export default {
 				return;
 			}
 			params.remark = _this.form.remark||'空';
-			Toast.loading({
+			let ta = Toast.loading({
 			  message: '加载中...',
 			  forbidClick: true,
 			  loadingType: 'spinner'
@@ -315,7 +315,8 @@ export default {
 					});
 				}
 			},function(){
-				Toast.clear();
+				ta.clear();
+				//Toast.clear();
 			})
 		},
 		buyNowBtn(){
@@ -340,7 +341,7 @@ export default {
 			let params = {
 				id: _this.$route.params.id
 			}
-			Toast.loading({
+			let tost = Toast.loading({
 			  message: '加载中...',
 			  forbidClick: true,
 			  loadingType: 'spinner'
@@ -359,7 +360,7 @@ export default {
 					_this.form.merchantId = productInfo.userId;
 				}
 			},function(){
-				Toast.clear();
+				tost.clear();
 			})
 		},
 		back(){

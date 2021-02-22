@@ -343,6 +343,7 @@
 import clip from '@/assets/js/clipboard';
 import mHeader from '@/components/Header.vue';
 import { Dialog } from 'vant';
+import { mapState } from 'vuex';
 export default {
 	data() {
 		return {
@@ -432,18 +433,18 @@ export default {
 			_this.userId = _this.userInfo.userId;
 			_this.mobilePhone = _this.userInfo.mobilePhone;
 		}else{
-			localStorage.removeItem('_USERINFO_');
-			_this.$cookies.remove('userId');
-			_this.$cookies.remove('token');
-			_this.$cookies.remove('isRefreshDealInfo');
+			_this.$storage.removeAll();
 			_this.$toast(_this.$api.loginAgainTipText);
 			_this.$router.replace('login');
 			return;
 		}
 		
 		//_this.$JsEncrypt.decrypt(a);
-		_this.getUserInfo();
+		//_this.getUserInfo();
 		_this.initializeHintInfo();
+	},
+	computed:{
+		...mapState(['userInfo'])
 	},
 	methods:{
 		back(){
@@ -540,50 +541,9 @@ export default {
 		getUserInfo(){
 			let _this = this;
 			_this.loading = true;
-			// let params = {}
-			// _this.$store.dispatch('getUserInfo', params).then(res => {
-			// 	_this.loading = false;
-			// 	if(res.code == _this.$api.CODE_OK){
-			// 		_this.userInfo = res.data;
-			// 		// _this.$cookies.set("_USERINFO_", _this.userInfo, 60 * 60 * 12);
-			// 		localStorage.setItem("_USERINFO_",JSON.stringify(res.data))
-			// 		_this.userId = _this.userInfo.userId;
-			// 		if(_this.userInfo.actived==1){
-			// 			_this.isRealName = true;
-			// 		}else{
-			// 			_this.isRealName = false;
-			// 		}
-			// 	}else{
-			// 		_this.$toast(res.message);
-			// 	}
-			// 	if(res.code == _this.$api.CODE_4003){
-			// 		// _this.info = res.data.list;
-			// 		// _this.showRealNameModel = true;
-			// 		_this.isRealName = false;
-			// 	}
-			// }).catch(res=>{
-			// 	_this.loading = false;
-			// })
-			_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res){
-				if(res.code == _this.$api.CODE_OK){
-					_this.userInfo = res.data;
-					// _this.$cookies.set("_USERINFO_", _this.userInfo, 60 * 60 * 12);
-					localStorage.setItem("_USERINFO_",JSON.stringify(res.data))
-					_this.userId = _this.userInfo.userId;
-					if(_this.userInfo.actived==1){
-						_this.isRealName = true;
-					}else{
-						_this.isRealName = false;
-					}
-				}else{
-					_this.$toast(res.message);
-				}
-				if(res.code == _this.$api.CODE_4003){
-					// _this.info = res.data.list;
-					// _this.showRealNameModel = true;
-					_this.isRealName = false;
-				}
-			})
+			let params = {}
+			_this.$store.dispatch('getAssistUserInfo', params);
+			_this.loading = false;
 		},
 		initializeHintInfo(){
 			let _this = this;

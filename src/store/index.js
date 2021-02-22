@@ -24,7 +24,10 @@ const state={//要设置的全局访问的state对象
     fullscreen: false,
 	userInfo:{},
 	orderPageList4Merchant:[],
-	avgPrice:''
+	avgPrice:'',
+	a:"1",
+	b:"2",
+	c:"3"
 };
 const getters = {//实时监听state值的变化(最新状态)
     getFullscreen(state) {//承载变化的showFooter的值
@@ -41,7 +44,7 @@ const mutations = {
     setFullscreen(state,fullscreen){//同上，这里面的参数除了state之外还传了需要增加的值fullscreen
         state.fullscreen = fullscreen;
     },
-	getAssistUserInfo(state,rawData){//同上，这里面的参数除了state之外还传了需要增加的值fullscreen
+	setAssistUserInfo(state,rawData){//同上，这里面的参数除了state之外还传了需要增加的值fullscreen
 	    state.userInfo = rawData.data;
 	},
 	setOrderPageList4Merchant(state,rawData){//同上，这里面的参数除了state之外还传了需要增加的值fullscreen
@@ -56,12 +59,11 @@ const actions = {
     setFullscreen(context,fullscreen){//同上注释，fullscreen为要变化的形参
         context.commit('setFullscreen',fullscreen)
     },
-	getAssistUserInfo(context,params){
-		return http.fetchGet(api.getAssistUserInfo, params)
-		/* http.fetchGet(api.getAssistUserInfo, params).then(res=>{
-			console.log("action",res);
-			return res.data;
-		}) */
+	async getAssistUserInfo(context,params){
+		let res = await http.fetchGet(api.getAssistUserInfo, params);
+		//console.log("action",res);
+		context.commit('setAssistUserInfo', res);
+		return res;
 	},
 	insertBuyBill(context,data){
 		http.fetchPost(api.insertBuyBill, data).then(res=>{

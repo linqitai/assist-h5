@@ -267,7 +267,7 @@
 			  <div class="pickSellContent">
 				  <div class="showMyInfo">
 					  <div class="placeholderLine20"></div>
-					  <div class="tip4model3">可用 矿石:{{userInfo.thisWeekMineral.toFixed(2)}}个  帮扶券:{{userInfo.platformTicket.toFixed(2)}}个</div>
+					  <div class="tip4model3">可用 矿石{{userInfo.thisWeekMineral.toFixed(2)}}个  帮扶券{{userInfo.platformTicket.toFixed(2)}}个 额度{{Number(userInfo.email).toFixed(3)}}个</div>
 					  <div class="placeholderLine10"></div>
 					  <div class="tip4model3">
 						交易手续费:<br>
@@ -629,7 +629,7 @@ export default {
 			showBuyAmountPopup:false,
 			showBuyMinAmountPopup:false,
 			actions: [{name:10},{name:20},{name:50},{name:100},{name:200},{name:500},{name:1000}],
-			actionsMin: [{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200}],
+			actionsMin: [{name:1},{name:3},{name:5},{name:10},{name:20},{name:50},{name:100},{name:200}],
 			showPicker4ServiceChargePopup: false,
 			platformTicket:0,
 			buyAndSellInfo:{},
@@ -1418,10 +1418,10 @@ export default {
 				safePassword:_this.form4pickSellBill.safePassword,
 				idCard:_this.form4pickSellBill.idCard
 			}
-			if(params.num<3.0){
+			/* if(params.num<3.0){
 				_this.$toast('最低匹配数量为3个');
 				return;
-			}
+			} */
 			if(_this.userInfo.actived!=1 || _this.userInfo.buyMachineNum<2){
 				Dialog.alert({
 				  title: '系统提示',

@@ -1,7 +1,7 @@
 <template>
   <div id="app" ref="app">
 	<transition name="van-fade">
-		<keep-alive include="voteList,shop,dealRecord,millRecord,raiseApplyList">
+		<keep-alive include="home,voteList,shop,dealRecord,millRecord,raiseApplyList">
 			<router-view></router-view>
 		</keep-alive>
 		<!-- <keep-alive>

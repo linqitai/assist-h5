@@ -91,8 +91,13 @@ export default {
 		return {
 			list:[
 				{
+					time:'2021/02/19',
+					title:'帮扶链一周年',
+					url:'http://note.youdao.com/noteshare?id=d6d62a3949abe5100a401f5fdb2a5cf4'
+				},
+				{
 					time:'2020/11/25',
-					title:'帮扶链模式介绍·新',
+					title:'帮扶链模式介绍',
 					url:'http://note.youdao.com/noteshare?id=76632e4043500e811d3a38f2126eac85'
 				},
 				{

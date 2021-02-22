@@ -104,7 +104,7 @@
 		<div class="merchantEnterPage">
 			<van-form @submit="onSubmit">
 				<div class="tip4model3 paddingAll myCell">
-					线上购物需用矿石来交易，每笔购物消费平台收20%矿石手续费，商家上架商品需有30G个人算力。<br>
+					线上购物需用矿石来交易，每笔购物消费平台收20%矿石手续费，商家赚矿石与额度，商家上架商品需有30G个人算力或抵押1000个矿石。<br>
 				</div>
 				<div class="myCell">
 					<van-field label="商品名称" required clearable @blur="validate('name')"

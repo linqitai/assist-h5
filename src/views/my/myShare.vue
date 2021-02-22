@@ -366,8 +366,8 @@
 				let _this = this;
 				let id = _this.userInfo.shareCode;
 				let href = window.location.href;
-				//let domainName = href.split('#')[0];
-				let domainName = 'http://www.assist-china.cn.com/';
+				let domainName = href.split('#')[0];
+				//let domainName = 'http://www.assist-china.cn.com/';
 				let registerUrl = ''
 				if (process.env.NODE_ENV === "development") {
 					registerUrl = domainName + '#/register?id=' + id;

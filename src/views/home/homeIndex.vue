@@ -1331,6 +1331,7 @@ $noticeHeight:40px;
 				let params = {
 					address:_this.$JsEncrypt.encrypt(citySN.cip)
 				}
+				console.log(params);
 				_this.$ajax.ajax(_this.$api.getHomeMineralStaticInfo2, 'GET', params, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
 						_this.statistics = res.data;

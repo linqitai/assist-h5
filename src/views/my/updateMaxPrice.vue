@@ -83,7 +83,10 @@
 			<i class="rightBox icon"></i>
 		</m-header>
 		<div class="transferPageCV">
-			
+			<div class="placeholderLine10"></div>
+			<div class="paddingWing tip4model3">
+				{{statistics.currentBuyNum}} {{statistics.buyNum4Last3Day}} {{statistics.currentPriceBuyNum}}
+			</div>
 			<div class="placeholderLine10"></div>
 			<van-cell-group>
 				<van-field v-model="form.maxPrice" type="number" required clearable label="单价" placeholder="请填写转让数量"/>
@@ -114,7 +117,7 @@
 </template>
 <script>
 	import mHeader from '@/components/Header.vue';
-	import { Dialog } from 'vant';
+	import { Dialog,Toast } from 'vant';
 	export default {
 		data() {
 			return {
@@ -125,6 +128,7 @@
 				},
 				userInfo:"",
 				loading:false,
+				statistics:''
 			}
 		},
 		components: {
@@ -132,10 +136,35 @@
 		},
 		mounted() {
 			let _this = this;
+			_this.getSetMaxPriceStatistics();
 		},
 		methods: {
 			back(){
 				this.$router.go(-1);
+			},
+			getSetMaxPriceStatistics(){
+				let _this = this;
+				Toast.loading({
+				  message: '加载中...',
+				  forbidClick: true,
+				  loadingType: 'spinner'
+				});
+				_this.$ajax.ajax(_this.$api.getSetMaxPriceStatistics, 'GET', null, function(res) {
+					_this.loading = false;
+					if (res.code == _this.$api.CODE_OK) {
+						_this.statistics = res.data;
+					}else{
+						//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '系统提示',
+						  message: res.message
+						}).then(() => {
+						  // on close
+						});
+					}
+				},function(){
+					Toast.clear();
+				})
 			},
 			submit(){
 				let _this = this;

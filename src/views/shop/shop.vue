@@ -13,12 +13,18 @@
 		width: 100%;
 		box-sizing: border-box;
 		background-color: $main-bg-color;
+		margin-top: $headerHeight;
 		.list {
 			width: 100%;
-			padding: 6px 6px;
+			padding: 1% 1%;
 			box-sizing: border-box;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content:space-between;
 			.item {
-				width: 100%;
+				margin-top: 3px;
+				flex: 0 0 100%;
 				border-bottom: 1px solid $bottomLineColor;
 				letter-spacing: 1px;
 				background-color: $main-box-color;
@@ -67,22 +73,35 @@
 						<div class="list">
 							<div class="item" v-for="item in list1" :key='item.id'>
 								<router-link :to="`shopDetail/${item.id}`">
+									<van-card
+									  :price="((Number(item.platPrice))/avgPrice).toFixed(2)"
+									  :origin-price="((Number(item.platPrice)+10)/avgPrice).toFixed(2)"
+									  :desc="item.detail"
+									  :title="item.name"
+									  :thumb="item.headPic"
+									  currency="矿石"
+									  lazy-load
+									/>
+								</router-link>
+							</div>
+							<!-- <div class="item" v-for="item in list1" :key='item.id'>
+								<router-link :to="`shopDetail/${item.id}`">
 								<div class="imgBox">
 									<img :src="item.headPic">
 								</div>
 								<div class="textBox">
 									<div class="line">
 										<div class="left title">{{item.name}}</div>
-										<div class="freeGet right">{{(item.platPrice/avgPrice).toFixed(2)}} <i class="f-12">矿石</i></div>
+										<div class="freeGet right margT3">{{(item.platPrice/avgPrice).toFixed(2)}} <i class="f-12">矿石</i></div>
 									</div>
 									<div class="line content margT3 justify">{{item.detail}}</div>
-									<!-- <div class="line content">
+									<div class="line content">
 										<div class="left">已售 100</div>
 										<div class="right">库存 1000</div>
-									</div> -->
+									</div>
 								</div>
 								</router-link>
-							</div>
+							</div> -->
 						</div>
 						<van-empty v-if="list1==''||list1==[]" description="暂无商品" />
 						<van-button @click="loadingMore1Btn" v-if="list1.length>0"
@@ -109,7 +128,7 @@ export default {
 		return {
 			activeName:'active1',
 			currentPage1: 1,
-			pageSize: 3,
+			pageSize: 4,
 			list1: [],
 			loading1: false,
 			finished1: false,

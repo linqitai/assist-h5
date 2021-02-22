@@ -98,6 +98,7 @@ export default {
 	resetRealName: host + "assist/userInfo/resetRealName",
 	cancelAccountByIsAgent: host + "assist/userInfo/cancelAccountByIsAgent",
 	updateUserAlipay: host + "assist/userInfo/updateUserAlipay",
+	getSetMaxPriceStatistics: host + "assist/statistics/getSetMaxPriceStatistics",
 	getIsAgentRanking: host + "assist/statistics/getIsAgentRanking",
 	getLevelRanking: host + "assist/statistics/getLevelRanking",
 	getAssistUserInfoByIdCard4Service:host + "assist/userInfo/getAssistUserInfoByIdCard4Service",
@@ -239,7 +240,7 @@ export default {
 	giveLevelDealProfit: host + "assist/reward/giveLevelDealProfit",
 	givePTRewardYesterday: host + "assist/reward/givePTRewardYesterday",
 	//deal
-	getMonthBuyNum: host + "assist/transaction/getMonthBuyNum",
+	getMonthBuyNumAndBuyMill0Info: host + "assist/transaction/getMonthBuyNumAndBuyMill0Info",
 	setDealToWaitSure4S: host + "assist/transaction/setDealToWaitSure4S",
 	getAssistTransactionByCoinRT: host + "assist/transaction/getAssistTransactionByCoinRT",
 	sureDeal4SellerById: host + "assist/transaction/sureDeal4SellerById",

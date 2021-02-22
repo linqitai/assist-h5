@@ -89,14 +89,14 @@ $noticeHeight:40px;
 			.img{
 				width: 100%;
 			}
-			.van-swipe{
-				height: 176px;
+			/* .van-swipe{
+				height: 200px;
 				.van-swipe-item {
 					img {
 						width: 100%;
 					}
 				}
-			}
+			} */
 			
 		}
 		.notice {
@@ -377,7 +377,7 @@ $noticeHeight:40px;
 				</div>
 				<div class="placeholderLine20"></div>
 				<div class="title">{{attendanceTitle}}</div>
-				<div class="tomorrowContribution">每次签到加0.003个可售额度，同时会领取一周年之后所上矿机每日所得的可售额度、领取算力矿机的收益和释放爱心值</div>
+				<div class="tomorrowContribution">每次签到至少加0.003个可售额度(个人算力越高，签到所加额度越多)，同时也会领取一周年之后所上矿机每日所得的可售额度、领取算力矿机的收益和释放爱心值</div>
 				<div class="tomorrowContribution">连续签到30天可额外获得0.2G个人算力奖励</div>
 				<div class="placeholderLine10"></div>
 				<div class="flexBox">
@@ -530,14 +530,19 @@ $noticeHeight:40px;
 				  left-icon="volume-o"
 				  text="有效直推:完成基础任务2后即可成为有效直推(有效会员)"
 				/>
-				<div class="swipe">
-					<img class="img" :src="imageUrl" />
-					<!-- <van-swipe :autoplay="3000" :lazy-render="true" vertical>
+				<img class="img" :src="imageUrl" style="width: 100%;" @click="toView(index)"/>
+				<!-- <van-image :src="imageUrl" @click="toView(index)"/> -->
+				<!-- <div class="swipe">
+					<van-swipe :autoplay="3000">
 					  <van-swipe-item v-for="(image, index) in images" :key="index">
-						<img v-lazy="image" />
+						<van-image src="https://img01.yzcdn.cn/vant/cat.jpeg" @click="toView(index)">
+						  <template v-slot:loading>
+						    <van-loading type="spinner" size="20" />
+						  </template>
+						</van-image>
 					  </van-swipe-item>
-					</van-swipe> -->
-				</div>
+					</van-swipe>
+				</div> -->
 				<!-- <div class="placeholderLine4"></div> -->
 				<!-- <van-notice-bar :text="qqFlock" left-icon="volume-o" @click="toServicePage"/> -->
 				<!-- <div class="notice">
@@ -557,6 +562,10 @@ $noticeHeight:40px;
 						<div class="amount">{{ statistics.allMineralNum - statistics.beDigNum - statistics.awardNum - statistics.beDestroyNum  || 0}}</div>
 						<div class="margT6">所剩数量</div>
 					</div>
+					<!-- <div class="infoBox">
+						<div class="amount">{{statistics.beDestroyNum || 0}}</div>
+						<div class="margT6">销毁数量</div>
+					</div> -->
 					<!-- <div class="infoBox">
 						<div class="amount">{{ statistics.canCirculateNum  || 0}}</div>
 						<div class="margT6">可流通数量</div>
@@ -653,15 +662,6 @@ $noticeHeight:40px;
 							<div class="text">新手指南</div>
 						</router-link>
 					</div>
-					
-					<div class="infoBox" @click="attendanceBtn">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="attendance" size="35"/>
-							</div>
-						</div>
-						<div class="text">日常签到</div>
-					</div>
 				</div>
 				
 				<div class="cateInfo">
@@ -694,31 +694,6 @@ $noticeHeight:40px;
 							<div class="text">共识投票</div>
 						</router-link>
 					</div>
-					<!-- <div class="infoBox">
-						<router-link to="/helpRecord">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundRaise">
-									<van-icon class-prefix="iconfont" name="flow" />
-								</div>
-							</div>
-							<div class="text">帮扶历史</div>
-						</router-link>
-					</div> -->
-					<div class="infoBox">
-						<!-- <div class="bubble" v-if="isbubble1">
-							该模块正在内测中，暂时只对个人算力大于20G的矿工开放内测权限，内测完毕后方可对全体矿工开放！
-						</div> -->
-						<!-- <div class="bubble" v-if="isbubble1" @click="isbubble1 = false">
-							游戏模块已开通！
-						</div> -->
-						<!-- <div class="triangleRight" v-if="isbubble1"></div> -->
-						<div class="iconBox" @click="toGameView">
-							<div class="iconBackground iconBackground1">
-								<van-icon class-prefix="iconfont" name="game" size="35"/>
-							</div>
-						</div>
-						<div class="text">娱乐游戏</div>
-					</div>
 					<div class="infoBox">
 						<router-link to="/cService">
 							<div class="iconBox">
@@ -749,62 +724,14 @@ $noticeHeight:40px;
 							<div class="text">商城</div>
 						</router-link>
 					</div>
-					<!-- <div class="infoBox">
-						<router-link to="/merchantEnter">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundAttendance">
-									<van-icon class-prefix="iconfont" name="crown" />
-								</div>
-							</div>
-							<div class="text">上架申请</div>
-						</router-link>
-					</div> -->
-					<!-- <div class="infoBox">
-						<router-link to="/agency">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground3">
-									<van-icon class-prefix="iconfont" name="crown" />
-								</div>
-							</div>
-							<div class="text">省市代理</div>
-						</router-link>
-					</div> -->
-					<!-- <div class="infoBox">
-						<router-link to="/rankingDeal">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground1">
-									<van-icon class-prefix="iconfont" name="merchant" />
-								</div>
-							</div>
-							<div class="text">服务商</div>
-						</router-link>
-					</div> -->
-					<!-- <div class="infoBox" @click="toRanking4Level">
+					<div class="infoBox" @click="attendanceBtn">
 						<div class="iconBox">
-							<div class="iconBackground iconBackground2">
-								<van-icon class-prefix="iconfont" name="merchant" />
+							<div class="iconBackground iconBackgroundAttendance">
+								<van-icon class-prefix="iconfont" name="attendance" size="35"/>
 							</div>
 						</div>
-						<div class="text">工会会长</div>
-					</div> -->
-					<!-- <div class="infoBox">
-						<router-link to="/cService">
-							<div class="iconBox">
-								<div class="iconBackground iconBackgroundCService">
-									<van-icon class-prefix="iconfont" name="cservice" />
-								</div>
-							</div>
-							<div class="text">客服</div>
-						</router-link>
-					</div> -->
-					<!-- <div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundRaise">
-								<van-icon class-prefix="iconfont" name="love2" />
-							</div>
-						</div>
-						<div class="text">水滴帮扶筹</div>
-					</div> -->
+						<div class="text">日常签到</div>
+					</div>
 				</div>
 				<div class="placeholderLine10"></div>
 				<div class="list4Guide">
@@ -900,12 +827,12 @@ $noticeHeight:40px;
 				attendanceTitle:"",
 				currentPage:1,
 				pageSize:3,
-				imageUrl: this.$api.domainName + '/image/banner/002.jpg',
+				imageUrl: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-fddfc161-88de-402d-932e-0f5533bbf87d/f7eac5b8-427f-4504-bed1-eb119d5a0fff.jpg',
 				images: [
-					this.$api.domainName + '/image/banner/001.jpg',
-					this.$api.domainName + '/image/banner/002.jpg',
-					this.$api.domainName + '/image/banner/003.jpg',
-					this.$api.domainName + '/image/banner/1009.jpg',
+					'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-fddfc161-88de-402d-932e-0f5533bbf87d/f7eac5b8-427f-4504-bed1-eb119d5a0fff.jpg',
+					'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-fddfc161-88de-402d-932e-0f5533bbf87d/c6e506f7-c373-4b43-9ff9-a065d9fd8c9c.jpg',
+					/* this.$api.domainName + '/image/banner/003.jpg',
+					this.$api.domainName + '/image/banner/1009.jpg', */
 				],
 				mill: {
 					zl: "",
@@ -940,10 +867,11 @@ $noticeHeight:40px;
 			let _this = this;
 			_this.list = _this.$config.helpList;
 			//console.log(_this.list,"_this.list");
-			if(!localStorage.getItem('isbubble1')){
+			/* if(!localStorage.getItem('isbubble1')){
 				_this.isbubble1 = true;
 				localStorage.setItem('isbubble1',true);
-			}
+			} */
+			_this.getNoticeList();
 		},
 		mounted() {
 			let _this = this;
@@ -998,6 +926,13 @@ $noticeHeight:40px;
 						_this.$toast(res.message);
 					}
 				})
+			},
+			toView(index){
+				let _this = this;
+				if(index==0||index==1){
+					let url = `http://note.youdao.com/noteshare?id=d6d62a3949abe5100a401f5fdb2a5cf4`;
+					window.open(url);
+				}
 			},
 			toServicePage(){
 				this.$router.push('cService');
@@ -1164,7 +1099,13 @@ $noticeHeight:40px;
 						//console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
 					}else{
-						_this.$toast(res.message);
+						if(res.code==4003){
+							_this.$storage.removeAll();
+							_this.$toast(_this.$api.loginAgainTipText);
+							_this.$router.replace('login');
+						}else{
+							_this.$toast(res.message);
+						}
 					}
 				},function(){
 					Toast.clear();

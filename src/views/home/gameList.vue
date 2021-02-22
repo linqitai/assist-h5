@@ -66,12 +66,9 @@
 			<!-- <div class="logoBox" @click="gameBtn">
 				<img src="../../assets/image/cq.jpg" alt="">
 			</div> -->
-			<div class="logoBox" @click="gameBtn">
-				<img src="https://www.assist-china.co.ax/image/banner/game01.jpg" alt="">
-			</div>
-			<div class="logoBox" @click="game2Btn">
+			<!-- <div class="logoBox" @click="game2Btn">
 				<img src="../../assets/image/2048.jpg" alt="">
-			</div>
+			</div> -->
 		</div>
 		<van-action-sheet v-model="isShow4Game" title="欢迎来到传奇世界">
 		  <div class="noticeDetail paddingWing" v-if="serverListResult[sLen-1]">

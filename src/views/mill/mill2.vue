@@ -209,7 +209,7 @@
 										<div class="line">复投上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
 									</div>
 									<div class="flex flex3">
-										<div class="line margT3">
+										<div class="line margT3 animated bounce faster">
 											<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">复投</van-button>
 										</div>
 									</div>
@@ -233,7 +233,7 @@
 										<div class="line">复投上限 <b class="yellow">{{item.limitBuy}}</b>台 <b class="margL10">当前拥有</b> <b class="yellow">{{item.haveMill}}</b>台</div>
 									</div>
 									<div class="flex flex3">
-										<div class="line margT3">
+										<div class="line margT3 animated bounce faster">
 											<van-button round type="info" @click="buyMill(item)" :disabled="item.inventory==0" size="small" color="linear-gradient(to right, #ffae00, #ff8400)" :block="true">复投</van-button>
 										</div>
 									</div>
@@ -302,7 +302,11 @@
 	// import { ajax } from "@/api/ajax";
 	import mHeader from '@/components/Header.vue';
 	import { Dialog,Toast } from 'vant';
+	import { myMixin } from '@/assets/js/myMixin.js';
+	import { mapState } from 'vuex';
 	export default {
+		name:"mill",
+		mixins:[myMixin],
 		data() {
 			return {
 				option1: [
@@ -326,14 +330,7 @@
 				loadingPastMill: false,
 				finishedPastMill: false,
 				pastMillList:[],
-				miningMachine: [{
-					miningMachineType: '小型矿机',
-					price: 100,
-					totalOutput: 12,
-					allRuntime: 720,
-					turnOnTime: '2019-12-12 12:12:12',
-					afterReceipt: '2019-12-13 12:12:12',
-				}],
+				miningMachine: [],
 				errorHint:{
 					securityCode:''
 				},
@@ -349,28 +346,34 @@
 				machineId:'',
 				myMill:'',
 				monthBuyNum:0,
-				buy10MineralNumIn30Day:0
+				buy10MineralNumIn30Day:0,
+				commonMill:[],
+				cpMill:[],
+				commonMill4Shop:[],
+				cpMill4Shop:[],
 			}
 		},
 		components: {
 			mHeader
 		},
+		computed:{
+			...mapState(['commonMill','cpMill','commonMill4Shop','cpMill4Shop'])
+		},
 		created() {
 			let _this = this;
-			let userInfo = localStorage.getItem("_USERINFO_");
-			if(userInfo){
-				_this.userInfo = JSON.parse(userInfo);
-				if(_this.userInfo.accountStatus==1){
-					//退出登录
-					_this.logout();
+			if (_this.$cookies.isKey("mill_tab_name")) {
+				_this.activeName = _this.$cookies.get("mill_tab_name");
+				if(_this.activeName == 'mill1'){
+					_this.tag = 0;
+					_this.refresh();
+				}else{
+					_this.tag = 8;
+					_this.refresh();
 				}
 			}else{
-				_this.$storage.removeAll();
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
+				_this.tag = 8;
+				_this.refresh();
 			}
-			_this.initializeTabActiveName();
 		},
 		methods: {
 			back() {
@@ -405,25 +408,6 @@
 					}
 				})
 			},
-			logout(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.$toast('账户异常且退出登录');
-						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-						// _this.$cookies.remove('_USERINFO_');
-						// _this.$cookies.remove('buyAndSellInfo');
-						_this.$cookies.remove('userId');
-						_this.$cookies.remove('token');
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-					}else{
-						_this.$toast(res.message);
-					}
-				},function(){
-					_this.$router.replace('login');
-				})
-			},
 			selectRadioChange(value){
 				////console.log(value);
 			},
@@ -438,11 +422,35 @@
 				}
 			},
 			refresh(){
-				//console.log("onLoadMyMill");
 				let _this = this;
-				/* let params = {
-					status:machineId
-				} */
+				Toast.loading({
+				  message: '加载中...',
+				  forbidClick: true,
+				  loadingType: 'spinner'
+				});
+				let url = '';
+				let params = {}
+				if(_this.tag == 0){
+					url = _this.$api.getAssistMyMachineByStatus01;
+					//_this.$store.dispatch('getAssistMyMachineByStatus01', params)
+				}
+				if(_this.tag == 8){
+					url = _this.$api.getAssistMyNewMachineByStatus01;
+				}
+				_this.$ajax.ajax(url, 'GET', null, function(res) {
+					if (res.code == _this.$api.CODE_OK) {
+						let myMill = res.data;
+						_this.myMill = myMill;
+						_this.onLoadMillShop();
+					}else{
+						_this.$toast(res.message);
+					}
+				},function(){
+					Toast.clear();
+				})
+			},
+			/* refresh(){
+				let _this = this;
 				Toast.loading({
 				  message: '加载中...',
 				  forbidClick: true,
@@ -459,78 +467,13 @@
 					if (res.code == _this.$api.CODE_OK) {
 						let myMill = res.data;
 						_this.myMill = myMill;
-						_this.onLoadMillShop();
 					}else{
 						_this.$toast(res.message);
 					}
 				},function(){
 					Toast.clear();
 				})
-			},
-			onLoadMyMill() {
-				let _this = this;
-				/* let params = {
-					status:machineId
-				} */
-				Toast.loading({
-				  message: '加载中...',
-				  forbidClick: true,
-				  loadingType: 'spinner'
-				});
-				let url = ''
-				if(_this.tag == 0){
-					url = _this.$api.getAssistMyMachineByStatus01;
-				}
-				if(_this.tag == 8){
-					url = _this.$api.getAssistMyNewMachineByStatus01;
-				}
-				_this.$ajax.ajax(url, 'GET', null, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						let myMill = res.data;
-						_this.myMill = myMill;
-						_this.onLoadMillShop();
-						//console.log("myMill",myMill);
-						/* _this.myMillList.forEach((item,index)=>{
-							remainCount = remainCount + (item.totalOutput - (item.alreadyGet||0));
-						}) */
-						/* if(_this.$cookies.get('HMSI')){
-							let millShopList = JSON.parse(localStorage.getItem('millShopList'));
-							if(millShopList){
-								
-								_this.finishedMillShop = true;
-								let type1,type2;
-								let tag1,tag2;
-								for(let i=0;i<millShopList.length;i++){
-									 millShopList[i].haveMill = 0;
-								}
-								for(let i=0;i<millShopList.length;i++){
-									type1 = millShopList[i].type;
-									tag1 = millShopList[i].tag;
-									for(let j=0;j<myMill.length;j++){
-										if(myMill[j].tag==0){
-											type2 = myMill[j].type;
-											tag2 = myMill[j].tag;
-											if(type1==type2&&tag1==tag2){
-												millShopList[i].haveMill = millShopList[i].haveMill+1;
-											}
-										}
-									}
-								}
-								_this.millShopList = millShopList;
-								//console.log("_this.millShopList",_this.millShopList);
-							}else{
-								_this.onLoadMillShop();
-							}
-						}else{
-							
-						} */
-					}else{
-						_this.$toast(res.message);
-					}
-				},function(){
-					Toast.clear();
-				})
-			},
+			}, */
 			buyMill(item){
 				let _this = this;
 				_this.showSelectBox = true;
@@ -620,7 +563,6 @@
 						}).then(() => {
 						  // on close
 						  if(res.data==1){
-							  //_this.onLoadMillShop();
 							  _this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime8h);
 							  if(_this.tag==0){
 								  _this.$router.push('myMill');
@@ -642,6 +584,7 @@
 					}
 				},function(){
 					_this.buyMillLoading = false;
+					Toast.clear();
 				})
 			},
 			sureBuyMillEvent(){
@@ -650,7 +593,8 @@
 					_this.$toast("安全密码不能为空");
 					return;
 				}
-				_this.buyMillLoading = true;
+				_this.requestBuyMillUrl();
+				/* _this.buyMillLoading = true;
 				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
 					//console.log('getUserInfo');
 					if (res.code == _this.$api.CODE_OK) {
@@ -663,45 +607,43 @@
 					}
 				},function(){
 					_this.buyMillLoading = false;
-				})
+				}) */
 			},
-			onLoadMillShop() {
+			dealMillData(shopMill,myMill){
+				let type1,type2;
+				let tag1,tag2;
+				let millShopList = shopMill;
+				for(let i=0;i<millShopList.length;i++){
+					 millShopList[i].haveMill = 0;
+				}
+				for(let i=0;i<millShopList.length;i++){
+					type1 = millShopList[i].type;
+					tag1 = millShopList[i].tag;
+					for(let j=0;j<myMill.length;j++){
+						if(myMill[j].tag==0||myMill[j].tag==8){
+							type2 = myMill[j].type;
+							tag2 = myMill[j].tag;
+							if(type1==type2&&tag1==tag2){
+								millShopList[i].haveMill = millShopList[i].haveMill+1;
+							}
+						}
+					}
+				}
+				return millShopList;
+			},
+			getMillShopByTag(setTagText){
 				let _this = this;
-				//console.log("onLoadMillShop");
-				// 异步更新数据
 				let params = {
 					tag: _this.tag
 				}
 				_this.loading = true;
 				_this.$ajax.ajax(_this.$api.getAssistMiningMachineListByTag, 'GET', params, function(res) {
-					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						let millShopList = res.data;
+						_this.$store.commit(setTagText,res)
+						//console.log("cpMill4Shop",_this.$store.getters.getCpMill4Shop);
 						let myMill = _this.myMill;
-						//console.log("_this.myMill",_this.myMill);
-						/* localStorage.setItem("millShopList",JSON.stringify(millShopList));
-						_this.$cookies.set("HMSI",1,_this.$api.cookiesTime8h); */
-						
-						let type1,type2;
-						let tag1,tag2;
-						for(let i=0;i<millShopList.length;i++){
-							 millShopList[i].haveMill = 0;
-						}
-						for(let i=0;i<millShopList.length;i++){
-							type1 = millShopList[i].type;
-							tag1 = millShopList[i].tag;
-							for(let j=0;j<myMill.length;j++){
-								if(myMill[j].tag==0||myMill[j].tag==8){
-									type2 = myMill[j].type;
-									tag2 = myMill[j].tag;
-									if(type1==type2&&tag1==tag2){
-										millShopList[i].haveMill = millShopList[i].haveMill+1;
-									}
-								}
-							}
-						}
-						_this.millShopList = millShopList;
-						//console.log("_this.millShopList",_this.millShopList);
+						_this.millShopList = _this.dealMillData(millShopList,myMill);
 					}else{
 						//_this.$toast(res.message);
 						Dialog.alert({
@@ -717,22 +659,22 @@
 					_this.finishedMillShop = true;
 				})
 			},
-			initializeTabActiveName() {
+			onLoadMillShop() {
 				let _this = this;
-				if (_this.$cookies.isKey("mill_tab_name")) {
-					_this.activeName = _this.$cookies.get("mill_tab_name");
-					if(_this.activeName == 'mill1'){
-						_this.tag = 0;
-						_this.refresh();
+				if(_this.tag==8){
+					if(_this.$store.getters.getCpMill4Shop.length>0){
+						_this.millShopList = _this.dealMillData(_this.$store.getters.getCpMill4Shop,_this.myMill);
 					}else{
-						_this.tag = 8;
-						_this.refresh();
+						_this.getMillShopByTag('setAssistMiningMachineListByTag')
 					}
 				}else{
-					_this.tag = 8;
-					_this.refresh();
+					if(_this.$store.getters.getCommonMill4Shop.length>0){
+						_this.millShopList = _this.dealMillData(_this.$store.getters.getCommonMill4Shop,_this.myMill);
+					}else{
+						_this.getMillShopByTag('setAssistMiningMachineListByTag0')
+					}
 				}
-				//localStorage.setItem('tag',_this.tag);
+				_this.loading = false;
 			},
 			tabChange(name, title) {
 				//console.log(name, title);

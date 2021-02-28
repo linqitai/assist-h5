@@ -553,7 +553,7 @@
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage5,
-					pageSize: 5,
+					pageSize: 3,
 					status:4
 				}
 				_this.loading = true;

@@ -89,14 +89,15 @@ $noticeHeight:40px;
 			.img{
 				width: 100%;
 			}
-			/* .van-swipe{
-				height: 200px;
+			.van-swipe{
+				height: min-content;
 				.van-swipe-item {
+					height: min-content;
 					img {
 						width: 100%;
 					}
 				}
-			} */
+			}
 			
 		}
 		.notice {
@@ -502,27 +503,6 @@ $noticeHeight:40px;
 				</div>
 			</div>
 		</van-popup>
-		<van-popup v-model="showRaiseModel" :style="{ width: '92%' }" :round="true">
-			<div class="popRaiseContent">
-				<div class="popTitle">
-					捐赠给基金池
-				</div>
-				<van-cell-group>
-					<van-field v-model="form4FundPool.raiseNum" :border="true" label="捐赠数量" type="number" placeholder="请填写捐赠帮扶券数量"/>
-					
-					<!-- <van-field v-model="form4BuyBill.safePassword" type="password" required clearable label="安全密码" right-icon="question-o" placeholder="请填写安全密码"
-					  @click-right-icon="alertTip(clickIconTip.safePassword)"
-					  @blur="validate4BuyBill('safePassword')"
-					  :error-message="errorInfo4BuyBill.safePassword"
-					  /> -->
-				</van-cell-group>
-				<div class="sureAppointBtnBox">
-					<!-- <div class="tip4model3">系统提示：卖单被匹配的方式是随机的，最新挂的单子被匹配的概率会高一些，若被匹配后，有2小时的交易时间，卖家一旦锁定交易后，可继续往后延长2小时的交易时间，买家若因不知情而没查看所匹配的单子，单子被取消后，只扣卖家的0.5~1.0个贡献值--因卖家通知不到位，没及时提醒买家查看订单。（同时，交易过程中若遇到问题，随时都可以点诉讼按钮，并联系客服让客服介入调查或协调）</div>
-					<div class="placeholderLine10"></div> -->
-				    <van-button @click="submit4Raise" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :loading="loading4Raise" :block="true">确 认</van-button>
-				</div>
-			</div>
-		</van-popup>
 		<van-pull-refresh v-model="loading" @refresh="refreshEvent" v-if="$route.meta.footer">
 			<div class="HomeContent">
 				<van-notice-bar
@@ -530,23 +510,18 @@ $noticeHeight:40px;
 				  left-icon="volume-o"
 				  text="有效直推:完成基础任务2后即可成为有效直推(有效会员)"
 				/>
-				<img class="img" :src="imageUrl" style="width: 100%;" @click="toView(index)"/>
+				<img class="img" :src="imageUrl" style="width: 100%;" @click="toView(0)"/>
 				<!-- <van-image :src="imageUrl" @click="toView(index)"/> -->
 				<!-- <div class="swipe">
 					<van-swipe :autoplay="3000">
 					  <van-swipe-item v-for="(image, index) in images" :key="index">
-						<van-image src="https://img01.yzcdn.cn/vant/cat.jpeg" @click="toView(index)">
+						<van-image min-width="200" :src="image" @click="toView(index)">
 						  <template v-slot:loading>
 						    <van-loading type="spinner" size="20" />
 						  </template>
 						</van-image>
 					  </van-swipe-item>
 					</van-swipe>
-				</div> -->
-				<!-- <div class="placeholderLine4"></div> -->
-				<!-- <van-notice-bar :text="qqFlock" left-icon="volume-o" @click="toServicePage"/> -->
-				<!-- <div class="notice">
-					<van-notice-bar :text="lastNoticeItem.noticeTitle" left-icon="volume-o" @click="toNoticeDetail(lastNoticeItem)" />
 				</div> -->
 				<div class="millInfo" v-if="!statistics.allMineralNum">
 					<div class="placeholderLine10"></div>
@@ -589,26 +564,6 @@ $noticeHeight:40px;
 						<div class="margT6">最后所剩矿石数量</div>
 					</div>
 				</div> -->
-				<!-- <div class="millInfo">
-					<div class="infoBox">
-						<div class="amount">{{statistics.totalCp || 0}}</div>
-						<div class="margT6">全网算力</div>
-					</div>
-					<div class="infoBox">
-						<div class="amount underline" @click="toFundPoolRecordView">{{statistics.fundPoolNum || 0}}</div>
-						<div class="margT6">基金池 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/></div>
-					</div>
-				</div> -->
-				<!-- <div class="millInfo">
-					<div class="infoBox">
-						<div>
-							<span @click="toFundPoolRecordView" class="yellow underline">尊老爱幼帮扶基金池</span>
-							<span class="yellow"> 现有{{statistics.fundPoolNum}}个</span>帮扶券 <i class="iconfont iconfont-question" @click="showTip('fundPool')"/>
-						</div>
-						<div class="placeholderLine10"></div>
-						<div><span class="underline" @click="addFundPoolBtn">我要捐赠</span></div>
-					</div>
-				</div> -->
 				<div class="cateInfo">
 					<div class="infoBox">
 						<router-link to="/volunteer">
@@ -620,30 +575,6 @@ $noticeHeight:40px;
 							<div class="text">志愿者</div>
 						</router-link>
 					</div>
-					<!-- <div class="infoBox" @click="releaseLove">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="free-love" size="35"/>
-							</div>
-						</div>
-						<div class="text">释放爱心</div>
-					</div> -->
-					<!-- <div class="infoBox" @click="releaseLove">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundAttendance">
-								<van-icon class-prefix="iconfont" name="word" size="35"/>
-							</div>
-						</div>
-						<div class="text">帮扶感言</div>
-					</div> -->
-					<!-- <div class="infoBox" @click="toRanking">
-						<div class="iconBox">
-							<div class="iconBackground iconBackgroundRank">
-								<van-icon class-prefix="iconfont" name="rank" />
-							</div>
-						</div>
-						<div class="text">排行榜</div>
-					</div> -->
 					<div class="infoBox" @click="toRanking">
 						<div class="iconBox">
 							<div class="iconBackground iconBackground2">
@@ -665,14 +596,6 @@ $noticeHeight:40px;
 				</div>
 				
 				<div class="cateInfo">
-					<!-- <div class="infoBox" @click="waiting">
-						<div class="iconBox">
-							<div class="iconBackground iconBackground4">
-								<van-icon class-prefix="iconfont" name="crown" />
-							</div>
-						</div>
-						<div class="text">讲师招募</div>
-					</div> -->
 					<div class="infoBox">
 						<router-link to="/noticeList">
 							<div class="iconBox">
@@ -739,38 +662,13 @@ $noticeHeight:40px;
 						<div class="textBox">
 							<div class="line">
 								<div class="left title">{{item.title}}</div>
-								<!-- <div class="freeGet right">2020/08/01 12:12:12</div> -->
 							</div>
-							<!-- <div class="line content margT3 justify">平台小店预热优惠活动：订购此产品需交￥299押金，下单成功且经过商家审核后，奖励299张平台券，每人最多拍1件(备注：激活POS机需要刷卡满￥299，激活成功后再找商家审核，审核确实激活后，您所交的￥299押金可退回)</div> -->
 							<div class="line content margT3"><div class="left">{{item.time}}</div><div class="right underline"><a :href="item.url" target="_blank">查看详情</a></div></div>
 						</div>
 					</div>
 				</div>
-				<!-- <div class="noticeFlag paddingWing margT8">
-					<div class="title">历史公告</div>
-					<router-link class="lookMore" to="/noticeList">查看更多 </router-link>
-				</div>
-				<div class="noticeList">
-					<div class="item" v-for="item in noticeList" :key="item.id" @click="toNoticeDetail(item)">
-						<div class="itemLeft">
-							<div class="title">{{item.noticeTitle}}</div>
-							<div class="time">{{item.createTime}}</div>
-						</div>
-						<div class="itemRight">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
-					</div>
-				</div> -->
 			</div>
 		</van-pull-refresh>
-		<!-- <van-dialog v-model="isShowLastNotice" :title="lastNoticeItem.noticeTitle" v-if="lastNoticeItem.noticeTitle">
-			<div class="noticeDetail paddingWing">
-				<div class="content margT6" v-html="lastNoticeItem.noticeContent"/>
-				<div class="detailTime textCenter margT10">
-					{{lastNoticeItem.createTime}}
-				</div>
-			</div>
-		</van-dialog> -->
 		<van-action-sheet v-model="isShowLastNotice" :title="lastNoticeItem.noticeTitle" v-if="lastNoticeItem.noticeTitle">
 		  <div class="noticeDetail paddingWing">
 		  	<div class="content margT6" v-html="lastNoticeItem.noticeContent"/>
@@ -779,35 +677,17 @@ $noticeHeight:40px;
 		  	</div>
 		  </div>
 		</van-action-sheet>
-		<van-action-sheet v-model="isShow4Game" title="欢迎来到传奇世界">
-		  <div class="noticeDetail paddingWing">
-			<div class="title">进行选区</div>
-			<div class="placeholderLine10"></div>
-			<span class="margR20" v-for="item in serverList" :key="item.id">
-				<van-tag type="warning" @click="toServerGameView(item)">{{item.name}}</van-tag>
-			</span>
-		  </div>
-		  <div class="placeholderLine20"></div>
-		  <div class="placeholderLine20"></div>
-		</van-action-sheet>
-		<transition name="van-fade">
-			<keep-alive include="agency">
-				<router-view></router-view>
-			</keep-alive>
-		</transition>
 	</div>
 </template>
 
 <script>
-	// @ is an alias to /src
-	// import {getImageHost} from '@/assets/js/config'
-	// import {convertMoney} from '@/assets/js/utils';
 	import mHeader from '@/components/Header.vue';
 	import { Dialog,Toast } from 'vant';
-	// import { image_host } from '@/assets/js/config.js'
+	import { myMixin } from '@/assets/js/myMixin.js';
 
 	export default {
 		name: 'home',
+		mixins:[myMixin],
 		components: {
 			mHeader
 		},
@@ -830,7 +710,7 @@ $noticeHeight:40px;
 				imageUrl: 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-fddfc161-88de-402d-932e-0f5533bbf87d/f7eac5b8-427f-4504-bed1-eb119d5a0fff.jpg',
 				images: [
 					'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-fddfc161-88de-402d-932e-0f5533bbf87d/f7eac5b8-427f-4504-bed1-eb119d5a0fff.jpg',
-					'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-fddfc161-88de-402d-932e-0f5533bbf87d/c6e506f7-c373-4b43-9ff9-a065d9fd8c9c.jpg',
+					'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-fddfc161-88de-402d-932e-0f5533bbf87d/616636c7-84c3-4fbb-a048-1c46a13f5be7.jpg',
 					/* this.$api.domainName + '/image/banner/003.jpg',
 					this.$api.domainName + '/image/banner/1009.jpg', */
 				],
@@ -859,74 +739,25 @@ $noticeHeight:40px;
 				currentImage:0,
 				list:[],
 				serverList:[],
-				account:'',
 				isbubble1:false
 			}
 		},
 		created() {
 			let _this = this;
 			_this.list = _this.$config.helpList;
-			//console.log(_this.list,"_this.list");
-			/* if(!localStorage.getItem('isbubble1')){
-				_this.isbubble1 = true;
-				localStorage.setItem('isbubble1',true);
-			} */
-			_this.getNoticeList();
-		},
-		mounted() {
-			let _this = this;
-			if(localStorage.getItem('mobilePhone')){
-				_this.account = localStorage.getItem('mobilePhone');
-			}else{
-				_this.$storage.removeAll();
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('/login');
-				return;
-			}
-			let userInfo = localStorage.getItem("_USERINFO_");
-			/* alert("userInfo:" + userInfo); */
-			if(userInfo){
-				_this.userInfo = JSON.parse(userInfo);
-				_this.userId = _this.userInfo.userId;
-				if(_this.userInfo.accountStatus==1){
-					//退出登录
-					_this.logout();
-				}
-				_this.refreshAttendanceInfo();
-			}else{
-				_this.$storage.removeAll();
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('/login');
-				return;
-			}
-			// //console.log('getImageHost',_this.$api.HOST_IMG)
-			/* this.mill = {
-				zl: _this.$utils.fmoney(80000000, 0),
-				bw: _this.$utils.fmoney(8000000, 0),
-				sy: _this.$utils.fmoney(79000000, 0)
-			} */
-			// alert("statistics:"+_this.$cookies.get("statistics"));
 			if (_this.$cookies.get("statistics")) {
 				_this.statistics = _this.$cookies.get("statistics");
 			}else{
 				_this.getHomeMineralStaticInfo();
 			}
-			
-			/* if(_this.$utils.isNUll(_this.userInfo.email)){
-				_this.initEmail();
-			} */
+			if(localStorage.getItem("lastNoticeItem")){
+				_this.lastNoticeItem = JSON.parse(localStorage.getItem("lastNoticeItem"));
+				_this.isShowLastNotice = true;
+			}else{
+				_this.getNoticeList();
+			}
 		},
 		methods: {
-			initEmail(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.initEmail, 'POST', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						
-					}else{
-						_this.$toast(res.message);
-					}
-				})
-			},
 			toView(index){
 				let _this = this;
 				if(index==0||index==1){
@@ -934,127 +765,12 @@ $noticeHeight:40px;
 					window.open(url);
 				}
 			},
-			toServicePage(){
-				this.$router.push('cService');
-			},
-			onChange4Swipe(index){
-				this.currentImage = index;
-			},
-			getAssistQQFlock(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.getAssistQQFlock, 'POST', null, function(res) {
-					if (res.code == _this.$api.CODE_OK) { // 200
-						_this.qqFlock = `官方QQ群：${res.data.qqFlock}`;
-						_this.$cookies.set('qqFlock',res.data.qqFlock,_this.$api.cookiesTime8h);
-					}else{
-						_this.$toast(res.message);
-					}
-				})
-			},
-			toFundPoolRecordView(){
-				let _this = this;
-				_this.$router.push('fundPoolRecord');
-			},
 			toBlcokSearchView(){
 				let _this = this;
-				/* if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.tip4Rest
-					}).then(() => {
-					  // on close
-					});
-					return;
-				} */
 				_this.$router.push('blockSearch');
-			},
-			showTip(val){
-				//console.log(val);
-				let message = '';
-				if(val=='fundPool'){
-					message = '交易手续费中，有10%~50%(该比例会随着市场发展情况来调节)的帮扶券进入帮扶基金池。各个地区的代理都有权限自主发起线下帮扶活动(需要先提交帮扶活动策划案，由平台审核通过即可开展)，向平台申请帮扶基金，去帮扶身边更多所需帮助的弱势群体';
-				}else if(val=='blockSearch'){
-					message = '全体会员的账户中，矿石上的任何变动都会记录在区块浏览器中，该数据接受全体会员浏览与监管';
-				}
-				Dialog.alert({
-				  title: '温馨提示',
-				  confirmButtonText:'好的',
-				  message: message
-				}).then(() => {
-					// on confirm
-					//console.log('sure');
-				})
-			},
-			waiting(){
-				let _this = this;
-				/* _this.$toast("此功能正在努力建设中"); */
-				Dialog.alert({
-				  title: '系统提示',
-				  confirmButtonText:'好的',
-				  message: "该通道正在努力建设中"
-				}).then(() => {
-				  // on confirm
-				})
-			},
-			waiting2(){
-				let _this = this;
-				/* _this.$toast("此功能正在努力建设中"); */
-				Dialog.alert({
-				  title: '系统提示',
-				  confirmButtonText:'加油',
-				  message: "此模块即将开通"
-				}).then(() => {
-				  // on confirm
-				})
 			},
 			closeBtn(){
 				this.showAttendanceModel = false;
-			},
-			submit4Raise(){
-				let _this = this;
-				let params = {
-				  num: _this.form4FundPool.raiseNum
-				}
-				if(Number(params.num)<=0){
-					_this.$toast('请填写大于0的正整数');
-					return;
-				}
-				if(_this.$utils.hasNull(params)){
-					_this.$toast('请填写完整信息');
-					return;
-				}
-				if(!_this.$reg.positive_integer.test(params.num)){
-					_this.$toast(`请填写正整数的帮扶券`);
-					return;
-				}
-				if(Number(_this.userInfo.platformTicket)<Number(params.num)){
-					_this.$toast(`您所拥有的帮扶券不够${params.num}个`);
-					return;
-				}
-				_this.loading4Raise = true;
-				//console.log("p",params)
-				_this.$ajax.ajax(_this.$api.insertFundPoolRecord, 'POST', params, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						_this.$toast("捐赠成功");
-						_this.form4FundPool.raiseNum = "";
-						_this.showRaiseModel = false;
-						_this.getHomeMineralStaticInfo();
-					}else{
-						Dialog.alert({
-							title: "系统提示",
-							message: res.message
-						}).then(() => {
-						  // on confirm
-						  //_this.getCurrentAuction();
-						})
-					}
-				},function(){
-					_this.loading4Raise = false;
-				})
-			},
-			addFundPoolBtn(){
-				let _this = this;
-				_this.showRaiseModel = true;
 			},
 			refreshAttendanceInfo(){
 				let _this = this;
@@ -1084,104 +800,6 @@ $noticeHeight:40px;
 					return 'bgcolor1';
 				}
 			},
-			getUserInfo() {
-				let _this = this;
-				const toast = Toast.loading({
-				  forbidClick: true,
-				  message: '加载中...',
-				});
-				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
-					//console.log('getUserInfo');
-					if (res.code == _this.$api.CODE_OK) {
-						_this.userInfo = res.data;
-						_this.showAttendanceModel=true;
-						_this.refreshAttendanceInfo();
-						//console.log(_this.userInfo,"userInfo");
-						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
-					}else{
-						if(res.code==4003){
-							_this.$storage.removeAll();
-							_this.$toast(_this.$api.loginAgainTipText);
-							_this.$router.replace('login');
-						}else{
-							_this.$toast(res.message);
-						}
-					}
-				},function(){
-					Toast.clear();
-				})
-			},
-			toServerGameView(item){
-				let _this = this;
-				//_this.account="1234567";
-				let url = `http://www.helpchain.cn.com:8088/app.php?user=${_this.account}&spverify=&srvid=${item.id}&srvaddr=${item.ip}&srvport=${item.port}`;
-				window.open(url);
-			},
-			toGameView(){
-				let _this = this;
-				_this.$router.push('/gameList');
-			},
-			gameBtn(){
-				let _this = this;
-				_this.isbubble1 = false;
-				//_this.$router.push('/createAccount');
-				/* _this.isShow4Game = true;
-				_this.$ajax.ajax(_this.$api.serverList, 'GET', null, function(res) {
-					//console.log('getUserInfo');
-					if (res.code == _this.$api.CODE_OK) {
-						_this.serverList = res.data;
-					}else{
-						_this.$toast(res.message);
-					}
-				}) */
-				if(_this.userInfo.isAgent==3||_this.userInfo.innerRegister==6||_this.userInfo.myCalculationPower>20){
-					_this.$ajax.ajax(_this.$api.isCreateAccount, 'GET', null, function(res) {
-						//console.log('getUserInfo');
-						if (res.code == _this.$api.CODE_OK) {
-							if(res.data==0){
-								_this.$router.push('/createAccount');
-							}else{
-								_this.isShow4Game = true;
-								_this.$ajax.ajax(_this.$api.serverList, 'GET', null, function(res) {
-									//console.log('getUserInfo');
-									if (res.code == _this.$api.CODE_OK) {
-										_this.serverList = res.data;
-									}else{
-										_this.$toast(res.message);
-									}
-								})
-								//_this.$toast("先进行选区");
-								//window.open("https://www.baidu.com");
-								//到游戏登录页面
-								//_this.$toast("再到游戏登录页面");
-							}
-						}else{
-							_this.$toast(res.message);
-						}
-					})
-				}else{
-					Dialog.alert({
-					  title: '系统提示',
-					  message: '该模块正在内测中，暂时只对个人算力大于20G的矿工开放内测权限，内测完毕后方可对全体矿工开放公测，公测的时候会开通用矿石充值的功能！'
-					}).then(() => {
-					  // on close
-					});
-				}
-			},
-			toRanking4Level(){
-				let _this = this;
-				//console.log('_this.$api.tip4Rest',_this.$api.tip4Rest);
-				if(_this.$utils.getTimeHMS(new Date())>_this.$api.restTimeStart&&_this.$utils.getTimeHMS(new Date())<_this.$api.restTimeEnd){
-					Dialog.alert({
-					  title: '系统提示',
-					  message: _this.$api.tip4Rest
-					}).then(() => {
-					  // on close
-					});
-					return;
-				}
-				_this.$router.push('/ranking4Level');
-			},
 			toRanking(){
 				let _this = this;
 				//console.log('_this.$api.tip4Rest',_this.$api.tip4Rest);
@@ -1198,7 +816,9 @@ $noticeHeight:40px;
 			},
 			attendanceBtn(){
 				let _this = this;
-				this.getUserInfo();
+				_this.userInfo = JSON.parse(localStorage.getItem("_USERINFO_"));
+				_this.showAttendanceModel=true;
+				_this.refreshAttendanceInfo();
 			},
 			sureAttendance(){
 				let _this = this;
@@ -1207,7 +827,6 @@ $noticeHeight:40px;
 					//console.log("res.code",res.code);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.$toast("签到成功");
-						//_this.getUserInfo();
 						_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
 						_this.$router.push('/myBook');
 						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
@@ -1223,22 +842,6 @@ $noticeHeight:40px;
 						  
 						})
 					} 
-				})
-			},
-			logout(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.$toast('账户异常且退出登录');
-						_this.$storage.removeAll();
-						_this.$router.replace('/login');
-					}else{
-						_this.$toast(res.message);
-					}
-				},function(){
-					_this.$storage.removeAll();
-					_this.$toast(_this.$api.loginAgainTipText);
-					_this.$router.replace('/login');
 				})
 			},
 			sureAttendanceBtn(){
@@ -1257,9 +860,6 @@ $noticeHeight:40px;
 							if (res.code == _this.$api.CODE_OK) {
 								_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
 								_this.$router.push('/myBook');
-								//_this.getUserInfo();
-								// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-								// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
 							}else if(res.code==1003||res.code==1000005||res.code==10000002){
 								_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
 								_this.$router.push('/myBook');
@@ -1271,7 +871,6 @@ $noticeHeight:40px;
 								  message: res.message
 								}).then(() => {
 								  // on confirm
-								  
 								})
 							} 
 						})
@@ -1289,21 +888,16 @@ $noticeHeight:40px;
 							  	if (res.code == _this.$api.CODE_OK) {
 									_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
 									_this.$router.push('/myBook');
-							  		//_this.getUserInfo();
-							  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-							  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
 							  	}else if(res.code==1003||res.code==1000005||res.code==10000002){
 							  		_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
 							  		_this.$router.push('/myBook');
 							  	}else{
 							  		_this.showAttendanceModel=false;
-							  		//_this.$toast(res.message);
 							  		Dialog.alert({
 							  		  title: '提示信息',
 							  		  message: res.message
 							  		}).then(() => {
 							  		  // on confirm
-							  		  
 							  		})
 							  	}
 							  })
@@ -1321,20 +915,16 @@ $noticeHeight:40px;
 							  	if (res.code == _this.$api.CODE_OK) {
 							  		_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
 							  		_this.$router.push('/myBook');
-							  		// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-							  		// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
 							  	}else if(res.code==1003||res.code==1000005||res.code==10000002){
 							  		_this.$cookies.set("tab_name_book", 'circulateValue', _this.$api.cookiesTime)
 							  		_this.$router.push('/myBook');
 							  	}else{
 							  		_this.showAttendanceModel=false;
-							  		//_this.$toast(res.message);
 							  		Dialog.alert({
 							  		  title: '提示信息',
 							  		  message: res.message
 							  		}).then(() => {
 							  		  // on confirm
-							  		  
 							  		})
 							  	} 
 							  })
@@ -1344,9 +934,7 @@ $noticeHeight:40px;
 				}
 			},
 			refreshEvent() {
-				/* alert("refresh"); */
 				let _this = this;
-				//_this.getHomeMineralStaticInfo();
 				_this.loading = true;
 				_this.$ajax.ajax(_this.$api.getHomeMineralStaticInfo, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) {
@@ -1356,8 +944,6 @@ $noticeHeight:40px;
 						if(_this.statistics.isShowNotice){
 							_this.getNoticeList();
 						}
-						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
 					}else{
 						//_this.$toast(res.message);
 					}
@@ -1382,25 +968,11 @@ $noticeHeight:40px;
 						_this.statistics = res.data;
 						_this.$cookies.set('statistics',_this.statistics,_this.$api.cookiesTime8h);
 						_this.loading = false;
-						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
 					}else{
 						//_this.$toast(res.message);
 					}
 				},function(){
 					_this.loading = false;
-				})
-			},
-			getCanCirculateMineralNum() {
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.getCanCirculateMineralNum, 'GET', null, function(res) {
-					if (res.code == _this.$api.CODE_OK) {
-						_this.canCirculateNum = res.data;
-						// localStorage.setItem("current_plateform_price",res.data.currentPlatefromPrice);
-						// _this.statistics.leave = _this.statistics.allMineralNum - _this.statistics.beDigNum
-					}else{
-						_this.$toast(res.message);
-					}
 				})
 			},
 			getNoticeList() {
@@ -1411,19 +983,16 @@ $noticeHeight:40px;
 					type:0
 				}
 				_this.$ajax.ajax(_this.$api.getNoticePageList, 'GET', params, function(res) {
-					// //console.log('res', res);
 					if (res.code == _this.$api.CODE_OK) {
 						_this.noticeList = res.data.list;
 						_this.lastNoticeItem = _this.noticeList[0];
+						localStorage.setItem("lastNoticeItem", JSON.stringify(_this.lastNoticeItem));
 						//实在显示首页的最新公告弹窗
 						_this.isShowLastNotice = true;
 					}else{
 						//_this.$toast(res.message);
 					}
 				})
-			},
-			noticeTap() {
-				//console.log('you click me')
 			}
 		}
 	}

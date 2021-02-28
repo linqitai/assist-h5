@@ -79,6 +79,7 @@ export default {
 		let queryAjax = $.ajax({
 			url: url,
 			type: method,
+			timeout: 20000,
 			// processData: true,
 			// contentType: 'application/json',
 			// dataType:'json',
@@ -139,33 +140,7 @@ export default {
 					}).catch(() => {
 					  // on cancel
 					});
-					/* Dialog.confirm({
-					  title: '温馨提示',
-					  message: tip4Login,
-					  confirmButtonText:'重新登录',
-					  cancelButtonText:'取消'
-					}).then(() => {
-					  // on confirm
-					  router.replace('/login');
-					}).catch(() => {
-					  // on cancel
-					  window.location.reload();
-					}); */
 				}
-				/* if(status=='error') {//超时,status还有success,error等值的情况
-					//queryAjax.abort();
-					Dialog.confirm({
-					  title: '温馨提示',
-					  message: tip4Refresh,
-					  confirmButtonText:'刷新',
-					  cancelButtonText:'取消'
-					}).then(() => {
-					  // on confirm
-					  window.location.reload();
-					}).catch(() => {
-					  // on cancel
-					});
-				} */
 				if (typeof doComplete == "function") {
 					doComplete(status);
 				}
@@ -230,49 +205,11 @@ export default {
 					}).catch(() => {
 					  // on cancel
 					});
-					/* Dialog.confirm({
-					  title: '温馨提示',
-					  message: tip4Login,
-					  confirmButtonText:'重新登录',
-					  cancelButtonText:'取消'
-					}).then(() => {
-					  // on confirm
-					  router.replace('/login');
-					}).catch(() => {
-					  // on cancel
-					  window.location.reload();
-					}); */
 				}
-				/* if(status=='error') {//超时,status还有success,error等值的情况
-					//queryAjax.abort();
-					Dialog.confirm({
-					  title: '温馨提示',
-					  message: tip4Refresh,
-					  confirmButtonText:'刷新',
-					  cancelButtonText:'取消'
-					}).then(() => {
-					  // on confirm
-					  window.location.reload();
-					}).catch(() => {
-					  // on cancel
-					});
-				} */
 				if (typeof doComplete == "function") {
 					doComplete(status);
 				}
 			}
-			/* error: function(res) {
-				// //console.log("errorInfo", res);
-				if(res.status == 500){
-					// alert(res.responseJSON.message);
-					Dialog.alert({
-					  title: '温馨提示',
-					  message: res.responseJSON.message
-					}).then(() => {
-					  // on close
-					});
-				}
-			} */
 		});
 	},
 	ajax4GetCheckDetail(url, method, params, doSuccess, doComplete) {
@@ -332,33 +269,7 @@ export default {
 					}).catch(() => {
 					  // on cancel
 					});
-					/* Dialog.confirm({
-					  title: '温馨提示',
-					  message: tip4Login,
-					  confirmButtonText:'重新登录',
-					  cancelButtonText:'取消'
-					}).then(() => {
-					  // on confirm
-					  router.replace('/login');
-					}).catch(() => {
-					  // on cancel
-					  window.location.reload();
-					}); */
 				}
-				/* if(status=='error') {//超时,status还有success,error等值的情况
-					//queryAjax.abort();
-					Dialog.confirm({
-					  title: '温馨提示',
-					  message: tip4Refresh,
-					  confirmButtonText:'刷新',
-					  cancelButtonText:'取消'
-					}).then(() => {
-					  // on confirm
-					  window.location.reload();
-					}).catch(() => {
-					  // on cancel
-					});
-				} */
 				if (typeof doComplete == "function") {
 					doComplete(status);
 				}
@@ -407,33 +318,7 @@ export default {
 					}).catch(() => {
 					  // on cancel
 					});
-					/* Dialog.confirm({
-					  title: '温馨提示',
-					  message: tip4Login,
-					  confirmButtonText:'重新登录',
-					  cancelButtonText:'取消'
-					}).then(() => {
-					  // on confirm
-					  router.replace('/login');
-					}).catch(() => {
-					  // on cancel
-					  window.location.reload();
-					}); */
 				}
-				/* if(status=='error') {//超时,status还有success,error等值的情况
-					//queryAjax.abort();
-					Dialog.confirm({
-					  title: '温馨提示',
-					  message: tip4Refresh,
-					  confirmButtonText:'刷新',
-					  cancelButtonText:'取消'
-					}).then(() => {
-					  // on confirm
-					  window.location.reload();
-					}).catch(() => {
-					  // on cancel
-					});
-				} */
 				if (typeof doComplete == "function") {
 					doComplete(status);
 				}

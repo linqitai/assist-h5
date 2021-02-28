@@ -269,7 +269,7 @@
 						<span @click="toBookView('5')">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> <i class="iconfont iconfont-question" @click="showTip('raise')"/>	
 					</div> -->
 					<!-- <div class="placeholderLine"></div> -->
-					<div class="line">
+					<div class="line animated bounce faster">
 						<span @click="toBookView('6')" class="yellow">可售额度 {{Number(userInfo.email).toFixed(3)}}</span> <i class="iconfont iconfont-question" @click="showTip('circulateValue')"/>	
 						<!-- <span class="margL10">
 							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="circulateToMyCPLoading" @click="circulateToMyCPEvent">流通值兑换个人算力</van-button>
@@ -293,12 +293,12 @@
 			<div class="line1pxbgcolor"></div>
 			<div class="box box2">
 				<div class="flex flex1">
-					<div class="value" @click="toBookView('1')">{{userInfo.teamCalculationPower}}</div>
+					<div class="value animated bounce faster" @click="toBookView('1')">{{userInfo.teamCalculationPower}}</div>
 					<div class="text" @click="showTip('teamCalculationPower')">团队算力 <i class="iconfont iconfont-question"/></div>
 				</div>
 				<div class="flex flex4">
 					<!-- <div>{{userInfo.platformTicket}}</div> -->
-					<div class="value" @click="toBookView('2')">{{userInfo.platformTicket}}</div>
+					<div class="value animated bounce faster" @click="toBookView('2')">{{userInfo.platformTicket}}</div>
 					<div class="text" @click="showTip('platformTicket')">帮扶券 <i class="iconfont iconfont-question"/></div>
 				</div>
 				<!-- <div class="flex flex3">
@@ -307,7 +307,7 @@
 				</div> -->
 				<div class="flex flex2">
 					<!-- <div>{{userInfo.thisWeekMineral}}</div> -->
-					<div class="value" @click="toBookView('4')">{{userInfo.thisWeekMineral}}</div>
+					<div class="value animated bounce faster" @click="toBookView('4')">{{userInfo.thisWeekMineral}}</div>
 					<div class="text" @click="showTip('mineral')">矿石 <i class="iconfont iconfont-question"/></div>
 				</div>
 			</div>
@@ -773,7 +773,8 @@
 				giveLevelDealProfitLoading:false,
 				circulateToMyCPLoading:false,
 				giveBuyProfitLoading:false,
-				isShowBuyProfit:true
+				isShowBuyProfit:true,
+				arr:{}
 			}
 		},
 		components: {
@@ -781,56 +782,14 @@
 			mRefresh,
 			// mFullscreen
 		},
-		// beforeRouteEnter(to,from,next) {
-		// 	//console.log("enter");
-		// 	next();
-		// },
-		watch:{
-			/* $route(now,old){
-				let _this = this;
-				//console.log("watch $route change");
-				if(_this.$cookies.get('isRefreshUserInfo')==1){
-					_this.getUserInfo();
-					_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
-				}
-			}, */
-		},
 		computed:{
 			...mapState(['a','b','c','userInfo'])
 		},
 		created() {
 			let _this = this;
-			/* let userInfo = localStorage.getItem("_USERINFO_");
-			//let userInfo = _this.$store.state.userInfo;
-			if(userInfo){
-				////console.log("userInfo_localStorage");
-				_this.userInfo = JSON.parse(userInfo);
-				_this.userId = _this.userInfo.userId;
-				if(_this.userInfo.accountStatus==1){
-					//退出登录
-					_this.logout();
-				}
-			}else{
-				_this.$storage.removeAll();
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			} */
 			if(_this.$cookies.get('isRefreshUserInfo')==1){
 				_this.getUserInfo();
 			}
-			//_this.$storage.remove('statistics');
-			//console.log('storage', _this.$storage.getToken());
-			//console.log('statistics', _this.$storage.getCookie('statistics'));
-			/* if(_this.userInfo.isAgent==1){
-				_this.getAssistAgentInfo4Province();
-			}
-			if(_this.userInfo.isAgent==2){
-				_this.getAssistAgentInfo4City();
-			}
-			if(_this.userInfo.manType==2){
-				_this.getServiceDsPassword();
-			} */
 		},
 		methods: {
 			getCityName(cityInfo){
@@ -1228,6 +1187,7 @@
 			},
 			getUserInfo() {
 				let _this = this;
+				//console.log("getUserInfo__IN__MY");
 				_this.loading = true;
 				let params = {}
 				_this.$store.dispatch('getAssistUserInfo', params).then(res=>{
@@ -1241,16 +1201,12 @@
 							_this.showTipModel2 = true;
 						}
 						_this.$cookies.set('isRefreshUserInfo',0,_this.$api.cookiesTime);
-						//console.log(_this.userInfo,"userInfo");
 						localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
-						// if(_this.userInfo.manType==2){
-						// 	_this.getServiceDsPassword();
-						// }
 						if(_this.userInfo.accountStatus==1){
 							//退出登录
 							_this.logout();
 						}
-					}else if(res.code==500){
+					}else{
 						_this.$storage.removeAll();
 						_this.$toast(_this.$api.loginAgainTipText);
 						_this.$router.replace('login');

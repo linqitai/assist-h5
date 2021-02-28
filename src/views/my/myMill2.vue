@@ -225,7 +225,7 @@
 							 我的算力矿机 {{myMillList.length}}
 						</div>
 						<div class="getMineral" v-if="isShowOneReciept">
-							<!-- <div class="tip4model3 textCenter">每次矿机收益需要在24~168小时之间领取</div> -->
+							<div class="tip4model3 textBold animated bounce faster" style="text-align: center;">每次'签到'会自动领取该领取</div>
 							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :disable="getRecieptLoading" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取算力挖矿收益</span></van-button>
 						</div>
 						<van-list v-model="loadingMyMill" :finished="finished1" :finished-text="finishedMyMillText" @load="onLoadMyMill">

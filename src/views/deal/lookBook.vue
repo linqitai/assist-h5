@@ -126,6 +126,18 @@
 						</div>
 						<van-button @click="loadingMore1Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading1" loading-type="spinner">加载更多</van-button>
 					</van-tab>
+					<van-tab title="额度" name="circulateValue">
+						<div class="list">
+							<div class="item" v-for="item in list6" :key="item.id">
+								<div class="flex">
+									<div class="line">{{item.createTime}}</div>
+									<div class="line margT6"><i :class="item.type==0?'red':item.type==1?'green':item.type==2?'blue':item.type==3?'yellow':''">{{item.type | circulateValueBookType}}</i>后拥有额度 {{item.currentNum}}</div>
+								</div>
+								<div class="flexRight">{{item.addOrReduce}} {{item.num}}</div>
+							</div>
+						</div>
+						<!-- <van-button @click="loadingMore6Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading6" loading-type="spinner">加载更多</van-button> -->
+					</van-tab>
 				</van-tabs>
 			</van-pull-refresh>
 		</div>

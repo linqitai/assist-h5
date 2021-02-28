@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import VueCookies from 'vue-cookies'
 import router from '../router.js'
-axios.defaults.timeout = 7000
+axios.defaults.timeout = 20000
 
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www=form-urlencoded'
 /* axios.interceptors.response.use(config => {
@@ -12,7 +12,7 @@ axios.defaults.timeout = 7000
   
 }) */
 export default {
-  async fetchGet(url, params) {
+  async fetchGet(url, params = {}) {
     return await new Promise((resolve, reject) => {
 		let token = VueCookies.get('token')
 		if (token) { 

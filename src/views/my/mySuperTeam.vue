@@ -150,19 +150,17 @@
 			<!-- <i class="iconfont iconfont-share rightBox icon" @click="toView('myShare')"></i> -->
 		</m-header>
 		<div class="myTeamContent">
-			<div class="top1" v-if="parentUserInfo">
+			<!-- <div class="top1" v-if="parentUserInfo">
 				<div class="flex flex1">
 					<div class="name">{{(parentUserInfo.realName) | getLastName}}</div>
-					<!-- <van-image round width="80" height="80" lazy-load src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
 				</div>
 				<div class="flex flex2">
-					<!-- <div class="line">上级昵称：{{(parentUserInfo.nickName)}}</div> -->
-					<!-- <div class="line">上级电话：{{(parentUserInfo.mobilePhone)}} <span class="copy" @click="handleCopy((parentUserInfo.mobilePhone),$event)">复制</span></div> -->
-					<div class="line">上级微信：{{(parentUserInfo.wechartNum)}} <span class="copy" @click="handleCopy((parentUserInfo.wechartNum),$event)">复制</span></div>
+					<div class="line">上级昵称：{{(parentUserInfo.nickName)}}</div>
+					<div class="line">上级电话：{{(parentUserInfo.mobilePhone)}} <span class="copy" @click="handleCopy((parentUserInfo.mobilePhone),$event)">复制</span></div>
+					<div class="line">上级微信：{{(parentUserInfo.wechartNum)}}</div>
 					<div class="line">我的二代总人数：{{teamNum}}</div>
-					<!-- <div class="line">因风控部门提供消息说三代奖励会有政策风险，团队上矿机三代贡献值收益分红的功能已终止研发，该奖励将会换成以全球分红的形式发放。</div> -->
 				</div>
-			</div>
+			</div> -->
 			<div class="line1pxbgcolor"></div>
 			<div>
 				<van-field v-model="mobilePhone" clearable label="手机号" placeholder="请填写直推的手机号" maxlength="11">
@@ -192,9 +190,9 @@
 										<div class="line2">{{item.level | getUserType}}</div>
 										<div class="line3">战友数{{item.teamateNum}}个</div>
 									</div> -->
-									<div class="flex flex4" v-if="item.teamateNum>0" @click="toTeamView(item.userId,item.realnameNum)">
+									<!-- <div class="flex flex4" v-if="item.teamateNum>0" @click="toTeamView(item.userId,item.realnameNum)">
 										<i class="iconfont iconfont-right-arrow2"></i>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</van-list>
@@ -217,9 +215,9 @@
 										<div class="line2">{{item.level | getUserType}}</div>
 										<div class="line3">战友数{{item.teamateNum}}个</div>
 									</div> -->
-									<div class="flex flex4" v-if="item.teamateNum>0"  @click="toTeamView(item.userId,item.realnameNum)">
+									<!-- <div class="flex flex4" v-if="item.teamateNum>0"  @click="toTeamView(item.userId,item.realnameNum)">
 										<i class="iconfont iconfont-right-arrow2"></i>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</van-list>
@@ -242,9 +240,9 @@
 										<div class="line2">{{item.level | getUserType}}</div>
 										<div class="line3">战友数{{item.teamateNum}}个</div>
 									</div> -->
-									<div class="flex flex4" v-if="item.validNum>0"  @click="toTeamView(item.userId,item.validNum)">
+									<!-- <div class="flex flex4" v-if="item.validNum>0"  @click="toTeamView(item.userId,item.validNum)">
 										<i class="iconfont iconfont-right-arrow2"></i>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</van-list>
@@ -288,7 +286,7 @@
 				currentPage2: 1,
 				currentPage3: 1,
 				currentPage4: 1,
-				pageSize: 20,
+				pageSize: 10,
 				activeName: 'myShare',
 				loading1: false,
 				finished1: false,
@@ -336,7 +334,7 @@
 			_this.realnameNum = _this.userInfo.realnameNum;
 			_this.activedText = '已实名' + ' ' + _this.realnameNum;
 			//_this.getParentUserInfo();
-			_this.getParentUserInfo();
+			//_this.getParentUserInfo();
 			/* if(_this.$cookies.get("parent_info")){
 				_this.parentUserInfo = JSON.parse(localStorage.getItem('parentUserInfo'));
 			}else{

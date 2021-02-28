@@ -231,12 +231,6 @@
 			//_this.getAssistMaintainInfo();
 		},
 		methods:{
-			getECBTN(){
-				//everCookie.get("id", function(value) { alert("EverCookie value is " + value) });
-			},
-			setECBtn(){
-				//everCookie.set("_TEST_","test_ec");
-			},
 			bsTip(){
 				let _this = this;
 				_this.isWeixin = _this.$utils.isWeixin();
@@ -444,7 +438,7 @@
 							_this.getUserFreezeInfo();
 						}else{
 							//_this.$router.replace("/home");
-							_this.let48HMachinesStop();
+							//_this.let48HMachinesStop();
 							_this.$router.replace("/home");
 						}
 					}else{

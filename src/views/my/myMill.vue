@@ -234,7 +234,7 @@
 						<div slot="title" class="tabTitle">
 							 我的矿机 {{myMillList.length}}
 						</div>
-						<div class="getMineral" v-if="isShowOneReciept">
+						<div class="getMineral animated swing faster" v-if="isShowOneReciept">
 							<!-- <div class="tip4model3 textCenter">每次矿机收益需要在24~168小时之间领取</div> -->
 							<van-button type="info" size="normal" @click="getReceipt" color="linear-gradient(to right, #ffae00, #ff8400)" :disable="getRecieptLoading" :loading="getRecieptLoading" :block="true"><span class="letterSpacing">一键领取收益</span></van-button>
 						</div>

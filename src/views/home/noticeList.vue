@@ -12,7 +12,7 @@
 			// margin-top:$header-height;
 			.item{
 				display:flex;
-				padding:10px $boxPadding2;
+				padding:16px $boxPadding2;
 				border-bottom:1px solid $mainBorderColor;
 				// &:last-child{
 				// 	border-bottom: 1px solid transparent;
@@ -64,6 +64,7 @@
 		  :finished="finished1"
 		  finished-text="没有更多了"
 		  @load="getNoticePageList"
+		  offset="50"
 		>
 		<div class="noticeList">
 			<div class="item" v-for="item in noticelist" :key="item.id" @click="toNoticeDetail(item)" offset="100">
@@ -88,6 +89,7 @@
 	// import { image_host } from '@/assets/js/config.js'
 	
 	export default {
+		name:'noticeList',
 		components: {
 			mHeader
 		},
@@ -107,16 +109,6 @@
 			back(){
 				this.$router.go(-1);
 			},
-			onLoad1(){
-				console.log('load1')
-				let _this = this;
-				// 异步更新数据
-				setTimeout(() => {
-					// 加载状态结束
-					_this.loading1 = false;
-					_this.finished1 = true;
-				}, 500);
-			},
 			toNoticeDetail(item) {
 				let _this = this;
 				_this.$router.push({
@@ -130,7 +122,7 @@
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage1,
-					pageSize: 20,
+					pageSize: 12,
 					type:0
 				}
 				_this.loading1 = true;

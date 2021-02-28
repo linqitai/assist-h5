@@ -8,10 +8,9 @@ export const myMixin = {
 	created(){
 		let _this = this;
 		let userInfo = localStorage.getItem("_USERINFO_");
-		//let userInfo = _this.$store.state.userInfo;
 		if(userInfo){
-			////console.log("userInfo_localStorage");
 			_this.userInfo = JSON.parse(userInfo);
+			//console.log("_this.userInfo___created",_this.userInfo);
 			_this.userId = _this.userInfo.userId;
 			if(_this.userInfo.accountStatus==1){
 				//退出登录
@@ -25,6 +24,30 @@ export const myMixin = {
 		}
 	},
 	methods:{
+		getUserInfo() {
+			let _this = this;
+			const toast = Toast.loading({
+			  forbidClick: true,
+			  message: '加载中...',
+			});
+			let params = {}
+			_this.$store.dispatch('getAssistUserInfo', params).then(res=>{
+				if (res.code == _this.$api.CODE_OK) {
+					_this.userInfo = res.data;
+					localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
+					if(_this.userInfo.accountStatus==1){
+						//退出登录
+						_this.logout();
+					}
+				}else{
+					_this.$storage.removeAll();
+					_this.$toast(_this.$api.loginAgainTipText);
+					_this.$router.replace('login');
+				}
+			}).catch(res=>{
+				toast.clear();
+			})
+		},
 		logout(){
 			let _this = this;
 			_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){

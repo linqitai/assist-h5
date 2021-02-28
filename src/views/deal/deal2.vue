@@ -215,7 +215,7 @@
 			<div class="placeholderLine10"></div>
 		</div>
 		
-		<div class="statistics" v-if="dealPageInfo.currentBuyNum">
+		<div class="statistics animated bounce faster" v-if="dealPageInfo.currentBuyNum">
 			<div class="line clearBoth flexCenter f-14">
 				<div class="left title">智能统计小助手</div>
 			</div>
@@ -229,7 +229,7 @@
 			 :title-inactive-color="$api.tabTextColor" :border="false" animated>
 				<van-tab title="买单" name="dealArea2">
 					<div class="dealContent">
-						<div class="dealList">
+						<div class="dealList animated bounce faster">
 							<div class="line1pxbgcolor"></div>
 							<div class="item" v-for="item in list2" :key="item.id">
 								<div class="boxLeft">
@@ -483,6 +483,7 @@ import mHeader from '@/components/Header.vue';
 import mFullscreen from '@/components/Fullscreen.vue';
 import { Skeleton,Toast,Dialog } from 'vant';
 export default {
+	name:"deal",
 	data() {
 		return {
 			showBuyModel4Newbie:false,

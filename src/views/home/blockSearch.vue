@@ -147,7 +147,7 @@
 				currentPage2: 1,
 				currentPage3: 1,
 				currentPage4: 1,
-				pageSize:16,
+				pageSize:10,
 				activeName:'mineral',
 				loading1:false,
 				finished1:false,
@@ -161,20 +161,6 @@
 				list2:[],
 				list3:[],
 				list4:[],
-				list:[{
-					id:0,
-					createTime:'2019-12-12 12:12:12',
-					type:-1,
-					pm:'+',
-					contributionValue:'20'
-				}],
-				mineralList:[{
-					id:0,
-					createTime:'2019-12-12 12:12:12',
-					from:'矿机产出',
-					addOrReduce:'+',
-					number:'20'
-				}],
 				manTypeList:['158Xy2r123W5140Z5n28','l1582p59551N0O6058L4','15483b1u5523T21d1u77','Z15L873r23p6082t1665','15M8n39064y6G10y4067','1Iu5783Zs1564L891731','158L2o9e5A79D504N753','Z1583E14d6E7A5j71o29']
 			}
 		},
@@ -193,7 +179,6 @@
 			}else{
 				_this.activeName = "mineral";
 			}
-			console.log('=mounted==');
 		},
 		methods: {
 			back(){
@@ -236,7 +221,6 @@
 				// console.log("refresh1")
 				let _this = this;
 				if(_this.activeName == 'mineral'){
-					console.log("refresh1");
 					_this.currentPage1 = 1;
 					_this.list1 = [];
 					_this.finished1 = false;

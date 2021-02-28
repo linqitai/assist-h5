@@ -91,6 +91,7 @@
 	// import { image_host } from '@/assets/js/config.js'
 	
 	export default {
+		name:'voteList',
 		components: {
 			mHeader
 		},

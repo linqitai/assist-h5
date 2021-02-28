@@ -128,7 +128,7 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	import clip from '@/assets/js/clipboard';
-	import { Dialog } from 'vant';
+	import { Dialog,Toast } from 'vant';
 	export default {
 		components: {
 			mHeader
@@ -150,13 +150,10 @@
 			if(userInfo){
 				////console.log("userInfo_localStorage");
 				_this.userInfo = JSON.parse(userInfo);
-				_this.userId = _this.userInfo.userId;
 			}else{
-				/* localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('userId');
-				_this.$cookies.remove('token'); */
+				_this.$storage.removeAll();
 				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
+				_this.$router.replace('/login');
 				return;
 			}
 			_this.getAdminUserPageList();
@@ -201,12 +198,18 @@
 			},
 			getGroupPic(){
 				let _this = this;
+				Toast.loading({
+				  forbidClick: true,
+				  message: '加载中...',
+				});
 				_this.$ajax.ajax(_this.$api.getGroupPic, 'GET', null, function(res) {
 					if (res.code == _this.$api.CODE_OK) { // 200
 						_this.groupPic = res.data.pic;
 					}else{
 						_this.$toast(res.message);
 					}
+				},function(){
+					Toast.clear();
 				})
 			},
 			getAdminUserPageList(){

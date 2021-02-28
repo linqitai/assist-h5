@@ -523,6 +523,8 @@ export default {
 					_this.$cookies.remove('haveDealPageInfo');
 					_this.$cookies.remove('hasNoticeList4Swipe');
 					// console.log("_this.$cookies.keys()",_this.$cookies.keys());
+					_this.loading4logout = false;
+					_this.$router.replace('login');
 				}else{
 					_this.$toast(res.message);
 				}

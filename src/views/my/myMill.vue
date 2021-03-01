@@ -341,9 +341,10 @@
 	// import HelloWorld from '@/components/HelloWorld.vue'
 	// import { ajax } from "@/api/ajax";
 	import mHeader from '@/components/Header.vue';
-	import { Dialog } from 'vant';
-	import { Toast } from 'vant';
+	import { Dialog,Toast } from 'vant';
+	import { myMixin } from '@/assets/js/myMixin.js';
 	export default {
+		mixins:[myMixin],
 		data() {
 			return {
 				isRunMillBtnLoading: false,
@@ -383,35 +384,7 @@
 		components: {
 			mHeader
 		},
-		// computed:{
-		// 	nextReceipt:function(value){
-		// 		let _this = this;
-		// 		let dateTime = new Date(value).getTime() + 24*60*60;
-		// 		_this.$nextTick(()=>{
-		// 			return _this.$utils.getDateTime(dateTime);
-		// 		})
-		// 	}
-		// },
 		mounted() {
-			let _this = this;
-			let userInfo = localStorage.getItem("_USERINFO_");
-			if(userInfo){
-				_this.userInfo = JSON.parse(userInfo);
-			}else{
-				_this.$toast(_this.$api.loginAgainTipText);
-				localStorage.removeItem('_USERINFO_');
-				_this.$cookies.remove('userId');
-				_this.$cookies.remove('token');
-				_this.$cookies.remove('isRefreshDealInfo');
-				_this.$cookies.remove('isRefreshUserInfo');
-				_this.$cookies.remove('tab_raise_list');
-				_this.$router.replace('login');
-				return;
-			}
-			if(_this.userInfo.realnameNum>0){
-				_this.updateRealNameNumByUserId();
-			}
-			//console.log(_this.$cookies.get('isRefreshUserInfo'),'isRefreshUserInfo');
 		},
 		methods: {
 			back() {
@@ -482,17 +455,6 @@
 			},
 			confirmEvent(){
 				console.log("confirm");
-			},
-			updateRealNameNumByUserId(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.updateRealNameNumByUserId, 'GET', null, function(res) {
-					// console.log('res', res);
-					if (res.code == _this.$api.CODE_OK) {
-						//_this.$cookies.set("isRefreshUserInfo",1,_this.$api.cookiesTime);
-					}else{
-						_this.$toast(res.message);
-					}
-				})
 			},
 			getReceipt(){
 				let _this = this;

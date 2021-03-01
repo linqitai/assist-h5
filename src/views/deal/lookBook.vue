@@ -100,18 +100,6 @@
 						</div>
 						<van-button @click="loadingMore4Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading4" loading-type="spinner">加载更多</van-button>
 					</van-tab>
-					<van-tab title="贡献值" name="contribution">
-						<div class="list">
-							<div class="item" v-for="item in list3" :key="item.id">
-								<div class="flex">
-									<div class="line">{{item.createTime}}</div>
-									<div class="line margT6" :class="item.type==20?'red':item.type==15?'red2':item.type==22?'green':''">{{item.type | contributeType}}后拥有贡献值 {{item.currentContributionValue}}</div>
-								</div>
-								<div class="flexRight">{{item.addOrReduce}} {{item.contributionValue}}</div>
-							</div>
-						</div>
-						<van-button @click="loadingMore3Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading3" loading-type="spinner">加载更多</van-button>
-					</van-tab>
 					<van-tab title="矿石" name="mineral">
 						<div class="list">
 							<div class="item" v-for="item in list1" :key="item.id">

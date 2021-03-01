@@ -230,6 +230,11 @@
 						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4Freeze" @click="freeze">冻结TA</van-button>
 						<div class="placeholderLine10"></div>
 						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4CancelAccount" @click="cancelAccount">注销账号</van-button>
+						<div class="placeholderLine10"></div>
+						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4correctPersonCP" @click="correctPersonCP">纠正算力</van-button>
+						<div class="placeholderLine10"></div>
+						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4deleteAssistBuyBill" @click="deleteAssistBuyBill">撤销买单</van-button>
+						
 					</div>
 				</div>
 				<div class="flex flex2">
@@ -386,7 +391,9 @@
 				remark:'',
 				loading4CancelAccount:false,
 				loading4Freeze:false,
-				isShowAmount:false
+				isShowAmount:false,
+				loading4correctPersonCP:false,
+				loading4deleteAssistBuyBill:false
 			}
 		},
 		components: {
@@ -430,150 +437,12 @@
 			back(){
 				this.$router.go(-1);
 			},
-			getCityName(cityInfo){
-				if(cityInfo&&cityInfo.provinceName){
-					return cityInfo.provinceName
-				}else if(cityInfo&&cityInfo.cityName){
-					return cityInfo.cityName
-				}
-			},
-			waitingInnerRegister(){
-				let _this = this;
-				/* _this.$toast("此功能正在努力建设中"); */
-				Dialog.alert({
-				  title: '系统提示',
-				  confirmButtonText:'加油',
-				  message: "内排注册功能暂时关闭，如需开通，请联系客服"
-				}).then(() => {
-				  // on confirm
-				})
-			},
-			waiting(){
-				let _this = this;
-				/* _this.$toast("此功能正在努力建设中"); */
-				Dialog.alert({
-				  title: '系统提示',
-				  confirmButtonText:'加油',
-				  message: "此功能即将开放，请等通知"
-				}).then(() => {
-				  // on confirm
-				})
-			},
 			handleCopy(text, event) {
 				let _this = this;
 				_this.showSendSMSTipModel = false;
 				clip(text,event,function(res){
 					_this.$toast(`复制成功`);
 				});
-			},
-			submit4Raise(){
-				let _this = this;
-				Dialog.alert({
-				  title: '系统提示',
-				  confirmButtonText:'查看',
-				  showCancelButton:true,
-				  message: "为了保护他人隐私，查看他人敏感信息需花0.1个帮扶券，这0.1个券将会捐入帮扶基金池，请问是否确认查看？"
-				}).then(() => {
-					  // on confirm
-					  let params = {
-						num: 0.1
-					  }
-					  if(Number(_this.userInfo4Me.platformTicket)<Number(params.num)){
-						_this.$toast(`您所拥有的帮扶券不够0.1个`);
-						return;
-					  }
-					  const toast = Toast.loading({
-					    forbidClick: true,
-					    message: '加载中...',
-					  });
-					  //_this.loading4Raise = true;
-					  //console.log("p",params)
-					  _this.$ajax.ajax(_this.$api.insertFundPoolRecord, 'POST', params, function(res) {
-						if (res.code == _this.$api.CODE_OK) {
-							_this.isShowAmount = true;
-						}else{
-							Dialog.alert({
-								title: "系统提示",
-								message: res.message
-							}).then(() => {
-							  // on confirm
-							  //_this.getCurrentAuction();
-							})
-						}
-					  },function(){
-						Toast.clear();
-					  })
-				})
-			},
-			toComplainView(userId){
-				let _this = this;
-				////console.log('userIdInDealRecolod:',userId);
-				_this.$router.push({path:"lookComplainList",query:{targetUserId:userId}});
-			},
-			complainBtn(){
-				let _this = this;
-				// _this.showBuyDetailModel = false;
-				Dialog.confirm({
-				  title: '提示信息',
-				  confirmButtonText:'确定',
-				  message: '为了提高告发他人的质量，控告他人的时候原告的个人算力需达到0.4G，且需花0.2个帮扶券，请确认是否真的要控告TA？'
-				}).then(() => {
-				  // on confirm
-				  //这里调用让对方上传截图接口
-				  let params = {
-					/* userId:  _this.userId, */
-					targetUserId:_this.$route.query.targetUserId
-				  }
-				  //console.log('params',params)
-				  _this.$ajax.ajax(_this.$api.update4Complain, 'POST', params, function(res) {
-				  	// //console.log('res', res);
-				  	if (res.code == _this.$api.CODE_OK) {
-				  		_this.$toast('控告成功');
-						_this.getUserInfo4Other();
-				  	}else{
-						_this.$toast(res.message);
-					}
-				  })
-				}).catch(() => {
-				  // on cancel
-				  //console.log('cancel');
-				});
-			},
-			getServiceDsPassword(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.getServiceDsPassword, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.dsPassword = res.data.dsPassword;
-					}else{
-						_this.$toast(res.message);
-					}
-				})
-			},
-			getAssistAgentInfo4Province(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.getAssistAgentInfo4Province, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.cityInfo = res.data;
-					}else{
-						_this.$toast(res.message);
-					}
-				})
-			},
-			getAssistAgentInfo4City(){
-				let _this = this;
-				_this.$ajax.ajax(_this.$api.getAssistAgentInfo4City, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.cityInfo = res.data;
-					}else{
-						_this.$toast(res.message);
-					}
-				})
-			},
-			getAddress(){
-				let _this = this;
-				let address = localStorage.getItem("address");
-				let province = _this.$utils.getProvince(address);
-				////console.log("province",province);
 			},
 			toScrollTop(){
 				window.scrollTo(0,0);
@@ -642,24 +511,68 @@
 				let _this = this;
 				_this.$router.push({path:"myMill4Other",query:{lookUserId:userId}})
 			},
-			logout(){
+			deleteAssistBuyBill(){
 				let _this = this;
-				_this.$ajax.ajax(_this.$api.loginOut, 'GET', null, function(res){
-					if(res.code == _this.$api.CODE_OK){
-						_this.$toast('账户异常且退出登录');
-						// localStorage.clear();//若不允许多账号登录，请把这个给去掉
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-						// _this.$cookies.remove('_USERINFO_');
-						// _this.$cookies.remove('buyAndSellInfo');
-						_this.$cookies.remove('userId');
-						_this.$cookies.remove('token');
-						// //console.log("_this.$cookies.keys()",_this.$cookies.keys());
-					}else{
-						_this.$toast(res.message);
-					}
-				},function(){
-					_this.$router.replace('login');
-				})
+				Dialog.alert({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  closeOnClickOverlay:true,
+				  showCancelButton:true,
+				  message: `是否确定要撤销TA的买单？`
+				}).then(() => {
+				  let params = {
+				    userId: _this.userInfo.userId,
+				  }
+				  _this.loading4deleteAssistBuyBill = true;
+				  _this.$ajax.ajax(_this.$api.deleteAssistBuyBill, 'POST', params, function(res){
+				  	if(res.code == _this.$api.CODE_OK){
+				  		_this.$toast('操作成功');
+				  	}else{
+				  		//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '提示信息',
+						  confirmButtonText:'好的',
+						  message: res.message
+						}).then(() => {
+						  
+						});
+				  	}
+				  },function(){
+				  	_this.loading4deleteAssistBuyBill = false;
+				  })
+				});
+			},
+			correctPersonCP(){
+				let _this = this;
+				Dialog.alert({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  closeOnClickOverlay:true,
+				  showCancelButton:true,
+				  message: `是否确定要纠正TA的算力？`
+				}).then(() => {
+				  let params = {
+				    userId: _this.userInfo.userId,
+				  }
+				  _this.loading4correctPersonCP = true;
+				  _this.$ajax.ajax(_this.$api.correctPersonCP, 'POST', params, function(res){
+				  	if(res.code == _this.$api.CODE_OK){
+				  		_this.$toast('操作成功');
+						_this.getUserInfo4Other();
+				  	}else{
+				  		//_this.$toast(res.message);
+						Dialog.alert({
+						  title: '提示信息',
+						  confirmButtonText:'好的',
+						  message: res.message
+						}).then(() => {
+						  
+						});
+				  	}
+				  },function(){
+				  	_this.loading4correctPersonCP = false;
+				  })
+				});
 			},
 			cancelAccount(){
 				let _this = this;
@@ -775,30 +688,6 @@
 					}
 				})
 			},
-			getUserInfo() {
-				let _this = this;
-				_this.loading = true;
-				_this.$ajax.ajax(_this.$api.getAssistUserInfo, 'GET', null, function(res) {
-					//console.log('getUserInfo');
-					if (res.code == _this.$api.CODE_OK) {
-						_this.userInfo = res.data;
-						if(_this.userInfo.isAgent==1){
-							_this.getAssistAgentInfo4Province();
-						}
-						if(_this.userInfo.isAgent==2){
-							_this.getAssistAgentInfo4City();
-						}
-					}else{
-						_this.$toast(res.message);
-					}
-				},function(){
-					_this.loading = false;
-				})
-			},
-			/* refreshEvent() {
-				let _this = this;
-				_this.getUserInfo();
-			}, */
 		}
 	}
 </script>

@@ -64,13 +64,18 @@
 			>
 			  <div slot="action" @click="onSearch">搜索</div>
 			</van-search> -->
-			<div class="selectBox">
+			<!-- <div class="selectBox">
 				<div class="selectLeft">
 					<van-dropdown-menu>
 					  <van-dropdown-item v-model="type" :options="option1" @change="refreshEvent"/>
 					</van-dropdown-menu>
 				</div>
-			</div>
+			</div> -->
+			<van-notice-bar
+			  mode = "closeable"
+			  left-icon="volume-o"
+			  text="近期账本数据"
+			/>
 			<van-pull-refresh v-model="loading" @refresh="refreshEvent">
 				<van-tabs v-model="activeName" :background="$api.tabBgColor" :color="$api.tabActiveColor" :title-active-color="$api.tabActiveColor"
 			 :title-inactive-color="$api.tabTextColor" :border="false" @change="tabChange" animated sticky>

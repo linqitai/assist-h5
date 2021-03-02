@@ -85,16 +85,25 @@
 		<div class="transferPageCV">
 			<div class="placeholderLine10"></div>
 			<div class="paddingWing tip4model3">
-				{{statistics.currentBuyNum}} {{statistics.buyNum4Last3Day}} {{statistics.currentPriceBuyNum}}
+				{{statistics.currentBuyNum}} {{statistics.buyNum4Last3Day}} {{statistics.currentPriceBuyNum}} {{statistics.currentPriceBillNum}}
 			</div>
 			<div class="placeholderLine10"></div>
 			<van-cell-group>
 				<van-field v-model="form.maxPrice" type="number" required clearable label="单价" placeholder="请填写转让数量"/>
 				<van-field v-model="form.safePassword" type="password" required clearable label="安全密码" placeholder="请填写安全密码"/>
 			</van-cell-group>
-			<!-- <div class="myCell">
-				<van-field required clearable @blur="validate('wordTitle')" v-model="form.wordTitle" maxlength="20" placeholder="请输入20字内的留言标题" />
-			</div> -->
+			<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
+			<div class="placeholderLine10"></div>
+			
+			<div class="paddingWing tip4model3">
+				当前签到释放额度比例 {{statistics.releaseRatio}}
+			</div>
+			<div class="placeholderLine10"></div>
+			<van-cell-group>
+				<van-field v-model="form2.releaseRatio" type="number" required clearable label="签到释放额度比例" placeholder="请填写签到释放额度比例"/>
+				<van-field v-model="form2.safePassword" type="password" required clearable label="安全密码" placeholder="请填写安全密码"/>
+			</van-cell-group>
+			<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit4updateParameter4ReleaseRatio">提 交</van-button>
 			<div class="placeholderLine10"></div>
 			<!-- <div class="paddingWing tip4model3">
 				<b class="textBold">定向转让贡献值的规则：</b><br>
@@ -102,9 +111,6 @@
 				2.代理转让贡献值的条件：个人算力需要大于等于3G，团队算力大于等于30G，买入矿石数量大于等于100个。<br>
 				3.定向转让贡献值暂时不收手续费。<br>
 			</div> -->
-			<div class="sureBtn">
-				<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit">提 交</van-button>
-			</div>
 		</div>
 		<!-- <van-dialog v-model="showTipModel" title="问题小帮手" confirmButtonText="知道了">
 			<div class="paddingWing f-12 lineHeight tip4model2">
@@ -124,6 +130,10 @@
 				showTipModel:false,
 				form:{
 					maxPrice:'',
+					safePassword:''
+				},
+				form2:{
+					releaseRatio:'',
 					safePassword:''
 				},
 				userInfo:"",
@@ -165,6 +175,45 @@
 				},function(){
 					Toast.clear();
 				})
+			},
+			submit4updateParameter4ReleaseRatio(){
+				let _this = this;
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  message: `请问是否确定要修改单价？`
+				}).then(() => {
+				  // on confirm
+				  let params = {
+				  	releaseRatio: _this.form2.releaseRatio,
+				  	safePassword: _this.form2.safePassword,
+				  }
+				  if(_this.$utils.hasNull(params)){
+				  	_this.$toast('请填写完整信息');
+				  	return;
+				  }
+				  params.safePassword = _this.$JsEncrypt.encrypt(_this.form2.safePassword);
+				  _this.loading = true;
+				  _this.$ajax.ajax(_this.$api.updateParameter4ReleaseRatio, 'POST', params, function(res) {
+				  	_this.loading = false;
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		_this.$toast('修改成功');
+				  	}else{
+				  		//_this.$toast(res.message);
+				  		Dialog.alert({
+				  		  title: '系统提示',
+				  		  message: res.message
+				  		}).then(() => {
+				  		  // on close
+				  		});
+				  	}
+				  },function(){
+					  _this.loading = false;
+				  })
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
+				});
 			},
 			submit(){
 				let _this = this;

@@ -10,7 +10,7 @@ export const myMixin = {
 		let userInfo = localStorage.getItem("_USERINFO_");
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
-			//console.log("_this.userInfo___created",_this.userInfo);
+			console.log("_this.userInfo___created",_this.userInfo);
 			_this.userId = _this.userInfo.userId;
 			if(_this.userInfo.accountStatus==1){
 				//退出登录

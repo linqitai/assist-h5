@@ -482,7 +482,9 @@
 import mHeader from '@/components/Header.vue';
 import mFullscreen from '@/components/Fullscreen.vue';
 import { Skeleton,Toast,Dialog } from 'vant';
+import { myMixin } from '@/assets/js/myMixin.js';
 export default {
+	mixins:[myMixin],
 	name:"deal",
 	data() {
 		return {
@@ -729,25 +731,11 @@ export default {
 	},
 	created() {
 		let _this = this;
-		let userInfo = localStorage.getItem("_USERINFO_");
-		if(userInfo){
-			_this.userInfo = JSON.parse(userInfo);
-			_this.platformTicket = parseFloat(_this.userInfo.platformTicket);
-			_this.canBuyNum = parseFloat(_this.userInfo.canBuyNum || 0);
-			if(_this.userInfo.accountStatus==1){
-				//退出登录
-				//_this.logout();
-				_this.$storage.removeAll();
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			}
-		}else{
-			_this.$storage.removeAll();
-			_this.$toast(_this.$api.loginAgainTipText);
-			_this.$router.replace('login');
-			return;
-		}
+		console.log("_this.userInfo",_this.userInfo);
+		_this.platformTicket = parseFloat(_this.userInfo.platformTicket);
+		_this.canBuyNum = parseFloat(_this.userInfo.canBuyNum || 0);
+		console.log("platformTicket",_this.platformTicket);
+		console.log("canBuyNum",_this.canBuyNum);
 		//_this.pages = parseInt(_this.$cookies.get('pages')) || 0;
 		_this.pagesPlatPrice = parseInt(_this.$cookies.get('pagesPlatPrice')) || 0;
 		//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));

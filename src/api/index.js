@@ -317,6 +317,7 @@ export default {
 	getAssistQQFlock: host + "assist/parameter/getAssistQQFlock",
 	getAssistParameter4Web: host + "assist/parameter/getAssistParameter4Web",
 	updateParameter: host + "assist/parameter/updateParameter",
+	updateParameter4ReleaseRatio: host + "assist/parameter/updateParameter4ReleaseRatio",
 	//auction
 	getCurrentAuction: host + "assist/auction/getCurrentAuction",
 	insertAuctionBook: host + "assist/auction/insertAuctionBook",

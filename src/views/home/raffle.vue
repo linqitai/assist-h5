@@ -102,6 +102,7 @@
 			<i class="iconfont rightBox icon"></i>
 		</m-header>
 		<div style="width: 100%; height: 47px;"></div>
+		<div class="tip4model3 paddingAll">是否有抽奖权限：{{userInfo.isGetShareTask==1?'有':'无'}}</div> 
 		<!-- <div class="award" v-for="(award,index) in awards" :key="index"
 			:class="['award'+index,{'active': index==current}]">
 			{{award.name}}
@@ -128,8 +129,12 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	import { Dialog,Toast } from 'vant';
+	import { myMixin } from '@/assets/js/myMixin.js';
+	import { mapState } from 'vuex';
+	
 	export default {
 		name: 'raffle',
+		mixins:[myMixin],
 		components: {
 			mHeader
 		},
@@ -178,10 +183,12 @@
 				screenWidth: 360
 			};
 		},
-		created() {
+		computed:{
+			...mapState(['userInfo'])
+		},
+		mounted() {
 			this.screenWidth = window.screen.width
-			console.log(window.screen.width,'screen width')
-			console.log(window.document.body.offsetWidth,'offsetWidth');
+			this.getUserInfo()
 		},
 		methods: {
 			back(){

@@ -49,7 +49,7 @@
 <template>
 	<div class="myBook">
 		<m-header>
-			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
+			<i class="leftBox iconfont iconfont-left-arrow" @click="back('my')"></i>
 			<div class="text">
 				我的账本
 			</div>
@@ -165,7 +165,9 @@
 <script>
 	import mHeader from '@/components/Header.vue';
 	import { Dialog } from 'vant';
+	import { myMixin } from '@/assets/js/myMixin.js';
 	export default {
+		mixins:[myMixin],
 		data() {
 			return {
 				type:0,
@@ -244,30 +246,9 @@
 			}else{
 				_this.activeName = "mineral";
 			}
-			let userInfo = localStorage.getItem("_USERINFO_");
-			if(userInfo){
-				////console.log("userInfo_localStorage");
-				_this.userInfo = JSON.parse(userInfo);
-				_this.userId = _this.userInfo.userId;
-				if(_this.userInfo.accountStatus==1){
-					//退出登录
-					_this.$storage.removeAll();
-					_this.$toast(_this.$api.loginAgainTipText);
-					_this.$router.replace('login');
-				}
-			}else{
-				_this.$storage.removeAll();
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			}
 			_this.refreshEvent();
 		},
 		methods: {
-			back(){
-				this.$router.replace('my');
-				//this.$router.go(-1);
-			},
 			refreshEvent() {
 				// console.log("refresh1")
 				let _this = this;

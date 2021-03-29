@@ -226,7 +226,7 @@
 					<!-- <div class="textCenter margT10">
 						<i class="iconfont iconfont-complaint f-18" @click="toComplainView(userInfo.userId)"></i> <i class="f-16">{{userInfo.beComplaintTimes}}</i>
 					</div> -->
-					<div class="textCenter margT10" v-if="userInfo4Me.isAgent==3&&(userInfo4Me.userId=='en15079AQ107o91Y7217'||userInfo4Me.userId=='1502d824670iQ1215VW8'||userInfo4Me.userId=='1580I60773e1XBJ52634'||userInfo4Me.userId=='1586gt1n48Q5jr4M0523'||userInfo4Me.userId=='1HW58b05L59X4o36m848')">
+					<div class="textCenter margT10" v-if="userInfo4Me.isAgent==3&&(userInfo4Me.userId=='158Xy2r123W5140Z5n28'||userInfo4Me.userId=='1502d824670iQ1215VW8'||userInfo4Me.userId=='1580I60773e1XBJ52634'||userInfo4Me.userId=='1586gt1n48Q5jr4M0523'||userInfo4Me.userId=='1HW58b05L59X4o36m848')">
 						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4Freeze" @click="freeze">冻结TA</van-button>
 						<div class="placeholderLine10"></div>
 						<van-button color="linear-gradient(to right, #ffae00, #ff8400)" size="mini" :loading="loading4CancelAccount" @click="cancelAccount">注销账号</van-button>
@@ -241,11 +241,11 @@
 					<div class="line margT3">
 						注册实名时间 {{userInfo.registerTime}}
 					</div>
-					<div class="line" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'||userInfo4Me.userId=='1586gt1n48Q5jr4M0523'">
+					<div class="line" v-if="userInfo4Me.userId=='158Xy2r123W5140Z5n28'||userInfo4Me.userId=='1586gt1n48Q5jr4M0523'">
 						<div class="left">买入次数 {{userInfo.buyTimes}}</div>
 						<div class="mlBox left">买入数量 {{userInfo.buyAmount}}</div>
 					</div>
-					<div class="line" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'||userInfo4Me.userId=='1586gt1n48Q5jr4M0523'">
+					<div class="line" v-if="userInfo4Me.userId=='158Xy2r123W5140Z5n28'||userInfo4Me.userId=='1586gt1n48Q5jr4M0523'">
 						<div class="left">卖出次数 {{userInfo.sellTimes}}</div>
 						<div class="mlBox left">卖出数量 {{userInfo.sellAmount}}</div>
 					</div>
@@ -259,7 +259,7 @@
 						<!-- <span @click="toBookView('5',userInfo.userId)">爱心值 {{Number(userInfo.aword).toFixed(2)}}</span> -->
 						<span>爱心值 {{Number(userInfo.aword).toFixed(2)}}</span>
 					</div>
-					<div class="line" v-if="userInfo4Me.userId=='en15079AQ107o91Y7217'||userInfo4Me.userId=='1586gt1n48Q5jr4M0523'">
+					<div class="line" v-if="userInfo4Me.userId=='158Xy2r123W5140Z5n28'||userInfo4Me.userId=='1586gt1n48Q5jr4M0523'">
 						<span>可售额度 {{Number(userInfo.email).toFixed(3)}}</span>	
 					</div>
 					<div class="line">

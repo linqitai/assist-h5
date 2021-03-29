@@ -78,7 +78,7 @@
 		<m-header>
 			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
 			<div class="text">
-				更新价格
+				{{$route.name}}
 			</div>
 			<i class="rightBox icon"></i>
 		</m-header>
@@ -104,6 +104,13 @@
 				<van-field v-model="form2.safePassword" type="password" required clearable label="安全密码" placeholder="请填写安全密码"/>
 			</van-cell-group>
 			<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit4updateParameter4ReleaseRatio">提 交</van-button>
+			<div class="placeholderLine10"></div>
+			<van-cell-group>
+				<van-field v-model="form3.mobilePhone" type="number" required clearable label="手机号" placeholder="请填写对方手机号"/>
+				<van-field v-model="form3.limit" type="number" required clearable label="补额度" placeholder="请填写补多少额度"/>
+				<van-field v-model="form3.safePassword" type="password" required clearable label="安全密码" placeholder="请填写安全密码"/>
+			</van-cell-group>
+			<van-button color="linear-gradient(to right, #ffae00, #ff8400)" :loading="loading" size="large" @click="submit4AddLimit">提 交</van-button>
 			<div class="placeholderLine10"></div>
 			<!-- <div class="paddingWing tip4model3">
 				<b class="textBold">定向转让贡献值的规则：</b><br>
@@ -134,6 +141,11 @@
 				},
 				form2:{
 					releaseRatio:'',
+					safePassword:''
+				},
+				form3:{
+					mobilePhone:'',
+					limit:'',
 					safePassword:''
 				},
 				userInfo:"",
@@ -175,6 +187,46 @@
 				},function(){
 					Toast.clear();
 				})
+			},
+			submit4AddLimit(){
+				let _this = this;
+				Dialog.confirm({
+				  title: '提示信息',
+				  confirmButtonText:'确定',
+				  message: `请问是否确定要给对方补额度？`
+				}).then(() => {
+				  // on confirm
+				  let params = {
+					mobilePhone: _this.form3.mobilePhone,
+				  	limit: _this.form3.limit,
+				  	safePassword: _this.form3.safePassword,
+				  }
+				  if(_this.$utils.hasNull(params)){
+				  	_this.$toast('请填写完整信息');
+				  	return;
+				  }
+				  params.safePassword = _this.$JsEncrypt.encrypt(params.safePassword);
+				  _this.loading = true;
+				  _this.$ajax.ajax(_this.$api.addLimit, 'POST', params, function(res) {
+				  	_this.loading = false;
+				  	if (res.code == _this.$api.CODE_OK) {
+				  		_this.$toast('操作成功');
+				  	}else{
+				  		//_this.$toast(res.message);
+				  		Dialog.alert({
+				  		  title: '系统提示',
+				  		  message: res.message
+				  		}).then(() => {
+				  		  // on close
+				  		});
+				  	}
+				  },function(){
+					  _this.loading = false;
+				  })
+				}).catch(() => {
+				  // on cancel
+				  //console.log('cancel');
+				});
 			},
 			submit4updateParameter4ReleaseRatio(){
 				let _this = this;

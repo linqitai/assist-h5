@@ -129,7 +129,7 @@
 								<div class="flexRight">{{item.addOrReduce}} {{item.num}}</div>
 							</div>
 						</div>
-						<!-- <van-button @click="loadingMore6Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading6" loading-type="spinner">加载更多</van-button> -->
+						<van-button @click="loadingMore6Btn" color="linear-gradient(to right, #ffae00 , #ff8400)" size="normal" :block="true" :loading="loading6" loading-type="spinner">加载更多</van-button>
 					</van-tab>
 				</van-tabs>
 			</van-pull-refresh>

@@ -83,7 +83,7 @@ export default new Router({
 			meta:{footer:false,keepAlive:true},
 		}, */
 		{
-			path: '/test',
+			path: '/test/test',
 			name: 'test',
 			component: resolve => require(['./views/test/test'],resolve),
 			meta:{footer:false,keepAlive:true},
@@ -281,7 +281,7 @@ export default new Router({
 						},
 						{
 							path: '/updateMaxPrice',
-							name: '修改单价',
+							name: '配置信息',
 							component: resolve => require(['./views/my/updateMaxPrice'],resolve),
 							meta:{footer:false,keepAlive:false},
 						},
@@ -665,5 +665,11 @@ export default new Router({
 			component: resolve => require(['./views/raise/raise4Other'],resolve),
 			meta:{footer:false,keepAlive:false},
 		},
+		{
+			path: '/raffle',
+			name: '幸运大转盘',
+			component: resolve => require(['./views/home/raffle'],resolve),
+			meta:{footer:false},
+		}
 	]
 })

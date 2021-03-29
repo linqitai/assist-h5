@@ -190,7 +190,7 @@
 				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>1HW5f80P5N66z45835w5
 			</div> -->
-			<div v-if="form.status==5&&(loginerUserId=='en15079AQ107o91Y7217'||loginerUserId=='1502d824670iQ1215VW8'||loginerUserId=='1580I60773e1XBJ52634'||loginerUserId=='1HW5f80P5N66z45835w5')">
+			<div v-if="form.status==5&&(loginerUserId=='158Xy2r123W5140Z5n28'||loginerUserId=='1T5p8SJ04n54o4978Q86')">
 				<div class="placeholderLine10"></div>
 				<van-button size="normal" :block="true" @click="cancelBtn">给取消</van-button>
 				<div class="placeholderLine20"></div>

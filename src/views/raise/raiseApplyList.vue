@@ -90,7 +90,7 @@
 					<van-list v-model="loading1" :finished="finished1" finished-text="暂无其他筹款申请" @load="onLoad1">
 						<div class="wordList">
 							<div class="item" v-for="item in list1" :key="item.id" @click="toRaise4OtherView(item)">
-								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
+								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"  @click="toRaise4OtherView(item)"-->
 								<div class="itemLeft">
 									<!-- <img :src="item.pic.split('|')[0]" alt=""> -->
 									<van-image
@@ -103,10 +103,10 @@
 								<div class="itemRight">
 									<div class="title">
 										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
-										<!-- <i class="iconfont iconfont-right-arrow2 f-11"></i> -->
+										<i class="iconfont iconfont-right-arrow2 f-11"></i>  <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i>
 									</div>
 									<div class="remark margT10">{{item.title}}</div>
-									<div class="margT10 grayc7c7c7">{{item.createTime}} <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i></div>
+									<div class="margT10 grayc7c7c7">{{item.createTime}}</div>
 									<div class="margT10 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}} +</div>
 									<div class="margT10 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
 								</div>
@@ -184,60 +184,10 @@
 						</div>
 					</van-list>
 				</van-tab>
-				<!-- <van-tab title="已审核" name="onLoad3">
-					<van-list v-model="loading3" :finished="finished3" finished-text="没有更多了" @load="onLoad3">
-						<div class="wordList">
-							<div class="item" v-for="item in list3" :key="item.id">
-								<div class="itemLeft">
-									<van-image
-									  width="100px"
-									  height="100px"
-									  fit="cover"
-									  :src="item.pic.split('|')[0]"
-									/>
-								</div>
-								<div class="itemRight">
-									<div class="title">
-										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
-									</div>
-									<div class="remark margT10">{{item.title}}</div>
-									<div class="margT6 grayc7c7c7">{{item.createTime}} <span class="underline blue">查看详情</span> <i class="iconfont iconfont-right-arrow2 f-11"></i></div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
-									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab> -->
-				<!-- <van-tab title="待审核" name="onLoad4">
-					<van-list v-model="loading4" :finished="finished4" finished-text="没有更多了" @load="onLoad4">
-						<div class="wordList">
-							<div class="item" v-for="item in list4" :key="item.id">
-								<div class="itemLeft">
-									<van-image
-									  width="100px"
-									  height="100px"
-									  fit="cover"
-									  :src="item.pic.split('|')[0]"
-									/>
-								</div>
-								<div class="itemRight">
-									<div class="title">
-										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
-									</div>
-									<div class="remark margT10">{{item.title}}</div>
-									<div class="margT6 grayc7c7c7">{{item.createTime}}</div>
-									<div class="margT6 f-14"><b class="textBold">总筹矿石：</b>{{item.needMineral}}</div>
-									<div class="margT6 f-14"><b class="textBold">已筹矿石：</b>{{item.getedMineral}}</div>
-								</div>
-							</div>
-						</div>
-					</van-list>
-				</van-tab> -->
 				<van-tab title="筹款完结" name="onLoad5">
 					<van-list v-model="loading5" :finished="finished5" finished-text="没有更多了" @load="onLoad5">
 						<div class="wordList">
-							<div class="item" v-for="item in list5" :key="item.id" @click="toRaise4OtherView(item)">
+							<div class="item" v-for="item in list5" :key="item.id">
 								<!-- @click="toRaise4OtherView(item.id)"  v-if="item.pic"-->
 								<!-- <div class="itemLeft">
 									<van-image
@@ -249,7 +199,7 @@
 								</div> -->
 								<div class="itemRight">
 									<div class="title">
-										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span> <span class="underline blue">查看详情</span>
+										<i class="yellow">{{item.nickName}}</i> <span>{{item.status|filterStatus}} </span>
 										<!-- <i class="iconfont iconfont-right-arrow2 f-11"></i> -->
 									</div>
 									<div class="remark margT10">{{item.title}}</div>
@@ -553,7 +503,7 @@
 				let _this = this;
 				let params = {
 					pageNo: _this.currentPage5,
-					pageSize: 3,
+					pageSize: 5,
 					status:4
 				}
 				_this.loading = true;

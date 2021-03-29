@@ -1,17 +1,8 @@
 <template>
   <div id="app" ref="app">
-	<transition name="van-fade">
-		<keep-alive include="home,noticeList,voteList,shop,deal,mill,deal2,mill2,dealRecord,millRecord,raiseApplyList">
-			<router-view></router-view>
-		</keep-alive>
-		<!-- <keep-alive>
-			<router-view></router-view>
-		</keep-alive> -->
-		<!-- <keep-alive v-if="$route.meta.keepAlive==true">
-			<router-view></router-view>
-		</keep-alive>
-		<router-view v-if="$route.meta.keepAlive==false"></router-view> -->
-	</transition>
+	<keep-alive include="home,noticeList,voteList,shop,deal,mill,deal2,mill2,dealRecord,millRecord,raiseApplyList">
+		<router-view></router-view>
+	</keep-alive>
   </div>
 </template>
 <script>

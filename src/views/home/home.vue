@@ -638,14 +638,15 @@ $noticeHeight:40px;
 						<div class="text">区块浏览器</div>
 					</div>
 					<div class="infoBox">
-						<router-link to="/shop">
-							<div class="iconBox">
-								<div class="iconBackground iconBackground4">
-									<van-icon class-prefix="iconfont" name="shop" />
-								</div>
+						<!-- <router-link to="/shop">
+							
+						</router-link> -->
+						<div class="iconBox" @click="waitting">
+							<div class="iconBackground iconBackground4">
+								<van-icon class-prefix="iconfont" name="shop" />
 							</div>
-							<div class="text">商城</div>
-						</router-link>
+						</div>
+						<div class="text">商城</div>
 					</div>
 					<div class="infoBox" @click="attendanceBtn">
 						<div class="iconBox">
@@ -677,11 +678,13 @@ $noticeHeight:40px;
 		  	</div>
 		  </div>
 		</van-action-sheet>
+		<raffle top="90"></raffle>
 	</div>
 </template>
 
 <script>
 	import mHeader from '@/components/Header.vue';
+	import Raffle from '@/components/Raffle.vue';
 	import { Dialog,Toast } from 'vant';
 	import { myMixin } from '@/assets/js/myMixin.js';
 
@@ -689,7 +692,8 @@ $noticeHeight:40px;
 		name: 'home',
 		mixins:[myMixin],
 		components: {
-			mHeader
+			mHeader,
+			Raffle
 		},
 		data() {
 			return {

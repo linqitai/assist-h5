@@ -731,11 +731,8 @@ export default {
 	},
 	created() {
 		let _this = this;
-		console.log("_this.userInfo",_this.userInfo);
 		_this.platformTicket = parseFloat(_this.userInfo.platformTicket);
 		_this.canBuyNum = parseFloat(_this.userInfo.canBuyNum || 0);
-		console.log("platformTicket",_this.platformTicket);
-		console.log("canBuyNum",_this.canBuyNum);
 		//_this.pages = parseInt(_this.$cookies.get('pages')) || 0;
 		_this.pagesPlatPrice = parseInt(_this.$cookies.get('pagesPlatPrice')) || 0;
 		//console.log("_this.$cookies.get('haveDealPageInfo')",_this.$cookies.get('haveDealPageInfo'));

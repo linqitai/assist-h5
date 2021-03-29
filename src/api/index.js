@@ -94,6 +94,7 @@ export default {
 	//upload
 	fileUpload1: host + 'assist/userInfo/fileUpload',
 	//用户信息
+	addLimit: host + "assist/userInfo/addLimit",
 	rectifyMyCP: host + "assist/userInfo/rectifyMyCP",
 	resetRealName: host + "assist/userInfo/resetRealName",
 	cancelAccountByIsAgent: host + "assist/userInfo/cancelAccountByIsAgent",
@@ -227,6 +228,7 @@ export default {
 	//流通值账本
 	getCirculateValueListByUserId: host + "assist/circulatevalue/getCirculateValueListByUserId",
 	//领取任务奖励
+	getRaffleReword: host + 'assist/reward/getRaffleReword',
 	getAssistXXLevelRewardByUserId: host + "assist/reward/getAssistXXLevelRewardByUserId",
 	getAssistRewardOneLevelByUserId: host + "assist/reward/getAssistRewardOneLevelByUserId/",
 	getAssistRewardTwoLevelByUserId: host + "assist/reward/getAssistRewardTwoLevelByUserId/",

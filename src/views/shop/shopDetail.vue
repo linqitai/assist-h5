@@ -90,7 +90,7 @@
 					</div>
 					<div class="line content margT3 justify">{{productInfo.detail}}</div>
 					<!-- <div class="line content"><div class="left">已售 100</div><div class="right">库存 1000</div></div> -->
-					<div class="line content weixinBox"><span class="weixin">商家热线 {{productInfo.phone}}</span><span class="copy white" @click="handleCopy(productInfo.phone,$event)">复制</span></div>
+					<!-- <div class="line content weixinBox"><span class="weixin">商家热线 {{productInfo.phone}}</span><span class="copy white" @click="handleCopy(productInfo.phone,$event)">复制</span></div> -->
 				</div>
 				<div class="detailBox">
 					<img v-for="(item,index) in productInfo.detailPic" :key='index' :src="item" @click="imgEvent">

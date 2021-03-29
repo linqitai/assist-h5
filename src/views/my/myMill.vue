@@ -193,7 +193,7 @@
 <template>
 	<div class="myMillPage">
 		<m-header>
-			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
+			<i class="leftBox iconfont iconfont-left-arrow" @click="back('my')"></i>
 			<div class="text">
 				常规矿机
 			</div>
@@ -387,9 +387,6 @@
 		mounted() {
 		},
 		methods: {
-			back() {
-				this.$router.push('my');
-			},
 			showTip(){
 				this.showTipModel = true;
 			},

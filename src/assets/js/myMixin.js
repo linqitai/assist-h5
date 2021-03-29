@@ -1,3 +1,4 @@
+import { Dialog } from 'vant';
 export const myMixin = {
 	data(){
 		return{
@@ -10,7 +11,7 @@ export const myMixin = {
 		let userInfo = localStorage.getItem("_USERINFO_");
 		if(userInfo){
 			_this.userInfo = JSON.parse(userInfo);
-			console.log("_this.userInfo___created",_this.userInfo);
+			//console.log("_this.userInfo___created",_this.userInfo);
 			_this.userId = _this.userInfo.userId;
 			if(_this.userInfo.accountStatus==1){
 				//退出登录
@@ -24,6 +25,21 @@ export const myMixin = {
 		}
 	},
 	methods:{
+		back(to){
+			if(to === 'my') {
+				this.$router.replace(to);
+			}else{
+				this.$router.go(to);
+			}
+		},
+		waitting(){
+			Dialog.alert({
+			  title: '系统提示',
+			  message: '该模块正在维护中......'
+			}).then(() => {
+			  // on close
+			});
+		},
 		getUserInfo() {
 			let _this = this;
 			const toast = Toast.loading({

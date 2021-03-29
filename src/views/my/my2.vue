@@ -443,16 +443,17 @@
 			</div>
 			<div class="line1pxbgcolor"></div>
 			<div class="items">
-				<router-link to="shopOrder4Merchant">
-					<div class="my-cell">
-						<div class="flex1">
-							我的商城(商家专用)
-						</div>
-						<div class="flex2">
-							<i class="iconfont iconfont-right-arrow2"></i>
-						</div>
+				<div class="my-cell" @click="waitting()">
+					<div class="flex1">
+						我的商城(商家专用)
 					</div>
-				</router-link>
+					<div class="flex2">
+						<i class="iconfont iconfont-right-arrow2"></i>
+					</div>
+				</div>
+				<!-- <router-link to="shopOrder4Merchant">
+					
+				</router-link> -->
 			</div>
 			<div class="items">
 				<router-link to="shopOrder">
@@ -484,7 +485,7 @@
 						<i class="iconfont iconfont-right-arrow2"></i>
 					</div>
 				</div> -->
-				<!-- <router-link to="transferMineral4L" v-if="userInfo.isAgent>=3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='en15079AQ107o91Y7217')">
+				<!-- <router-link to="transferMineral4L" v-if="userInfo.isAgent>=3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='158Xy2r123W5140Z5n28')">
 					<div class="my-cell">
 						<div class="flex1">
 							定向转让矿石
@@ -494,7 +495,7 @@
 						</div>
 					</div>
 				</router-link>
-				<router-link to="transferCV" v-if="userInfo.isAgent>=3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='en15079AQ107o91Y7217')">
+				<router-link to="transferCV" v-if="userInfo.isAgent>=3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='158Xy2r123W5140Z5n28')">
 					<div class="my-cell" to="transferCV">
 						<div class="flex1">
 							定向转让贡献值
@@ -526,7 +527,7 @@
 					</div>
 				</router-link>
 				<!-- to="transferCV" -->
-				<!-- <router-link to="transferCV" v-if="userInfo.isAgent>=3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='en15079AQ107o91Y7217')">
+				<!-- <router-link to="transferCV" v-if="userInfo.isAgent>=3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='158Xy2r123W5140Z5n28')">
 					<div class="my-cell" to="transferCV">
 						<div class="flex1">
 							定向转让贡献值
@@ -561,7 +562,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3&&userInfo.userId=='en15079AQ107o91Y7217'">
+			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='158Xy2r123W5140Z5n28'||userInfo.userId=='1T5p8SJ04n54o4978Q86')">
 				<router-link to="shopProduct4S">
 					<div class="my-cell">
 						<div class="flex1">
@@ -575,7 +576,7 @@
 				<router-link to="updateMaxPrice">
 					<div class="my-cell">
 						<div class="flex1">
-							修改单价
+							配置信息
 						</div>
 						<div class="flex2">
 							<i class="iconfont iconfont-right-arrow2"></i>
@@ -583,7 +584,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='en15079AQ107o91Y7217'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090'||userInfo.userId=='1586gt1n48Q5jr4M0523')">
+			<div class="items" v-if="userInfo.isAgent==3&&(userInfo.userId=='158Xy2r123W5140Z5n28'||userInfo.userId=='1T5p8SJ04n54o4978Q86'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634')">
 				
 				<router-link to="dealList">
 					<div class="my-cell">
@@ -636,7 +637,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="(userInfo.isAgent==3&&(userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090'||userInfo.userId=='15805Rx6hU3hz3g26018'||userInfo.userId=='en15079AQ107o91Y7217'))||userInfo.isAgent==4" @click="toMyCheck">
+			<div class="items" v-if="(userInfo.isAgent==3&&(userInfo.userId=='158Xy2r123W5140Z5n28'||userInfo.userId=='1T5p8SJ04n54o4978Q86'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090'||userInfo.userId=='15805Rx6hU3hz3g26018'))" @click="toMyCheck">
 				<router-link to="myCheck">
 					<div class="my-cell">
 						<div class="flex1">
@@ -791,6 +792,9 @@
 				_this.getUserInfo();
 			}
 		},
+		beforeDestroy() {
+			console.log('beforeDestroy my');
+		},
 		methods: {
 			getCityName(cityInfo){
 				if(cityInfo&&cityInfo.provinceName){
@@ -798,18 +802,6 @@
 				}else if(cityInfo&&cityInfo.cityName){
 					return cityInfo.cityName
 				}
-				
-			},
-			waitingInnerRegister(){
-				let _this = this;
-				/* _this.$toast("此功能正在努力建设中"); */
-				Dialog.alert({
-				  title: '系统提示',
-				  confirmButtonText:'加油',
-				  message: "内排注册功能暂时关闭，如需开通，请联系客服"
-				}).then(() => {
-				  // on confirm
-				})
 			},
 			close(){
 				let _this = this;
@@ -829,17 +821,6 @@
 				  title: '系统提示',
 				  confirmButtonText:'好的',
 				  message: "为了规范市场，定向转让贡献值通道已经关闭，请大家统一用矿石交易"
-				}).then(() => {
-				  // on confirm
-				})
-			},
-			waiting(){
-				let _this = this;
-				/* _this.$toast("此功能正在努力建设中"); */
-				Dialog.alert({
-				  title: '系统提示',
-				  confirmButtonText:'加油',
-				  message: "此功能即将开放，请等通知"
 				}).then(() => {
 				  // on confirm
 				})

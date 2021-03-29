@@ -326,7 +326,7 @@
 <template>
 	<div class="myDeal">
 		<m-header>
-			<i class="leftBox iconfont iconfont-left-arrow" @click="back"></i>
+			<i class="leftBox iconfont iconfont-left-arrow" @click="back('my')"></i>
 			<div class="text">
 				我的交易
 			</div>
@@ -901,7 +901,9 @@
 	import clip from '@/assets/js/clipboard';
 	import EXIF from 'exif-js';
 	import { Dialog,Toast } from 'vant';
+	import { myMixin } from '@/assets/js/myMixin.js';
 	export default {
+		mixins:[myMixin],
 		data() {
 			return {
 				sureLetLoading:false,
@@ -988,20 +990,6 @@
 		},
 		created() {
 			let _this = this;
-			let userInfo = localStorage.getItem("_USERINFO_");
-			if(userInfo){
-				_this.userInfo = JSON.parse(userInfo);
-				_this.userId = _this.userInfo.userId;
-				if(_this.userInfo.accountStatus==1){
-					//退出登录
-					_this.logout();
-				}
-			}else{
-				_this.$storage.removeAll();
-				_this.$toast(_this.$api.loginAgainTipText);
-				_this.$router.replace('login');
-				return;
-			}
 			_this.$cookies.set('isRefreshUserInfo',1,_this.$api.cookiesTime);
 			// _this.initializeHintInfo();
 			_this.initializeTabActiveName();
@@ -1025,25 +1013,8 @@
 				//发送短信提示end
 				_this.showSendSMSTipModel = true;
 			}
-			
-			//_this.bsTip();
-			
-			// let all = 2000;
-			// let r=0.005;
-			// let count = 0;
-			// for(let i=0;i<10000;i++){
-			// 	count = count + all*r;
-			// 	all = all-all*r;
-			// 	if(count>8500){
-			// 		////console.log('天数',i); // 天数 353
-			// 		break;
-			// 	}
-			// }
 		},
 		methods: {
-			back(){
-				this.$router.push('my');
-			},
 			bsTip(){
 				let _this = this;
 				let isWeixin = _this.$utils.isWeixin();

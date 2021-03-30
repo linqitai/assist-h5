@@ -76,6 +76,7 @@ export default {
 	//group
 	getGroupPic: host + "assist/admin/group/getGroupPic",
 	//game
+	useMineralGetRaffleTime: host + "assist/reward/useMineralGetRaffleTime",
 	givePT1SIURewardYesterday: host + "assist/reward/givePT1SIURewardYesterday",
 	getGameUseTicket: host + "assist/plateformTicketAccountBook/getGameUseTicket",
 	createGameAccount: host + "assist/register/createGameAccount",

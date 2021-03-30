@@ -277,7 +277,7 @@
 					</div>
 					<div class="placeholderLine"></div>
 					<div class="line">
-						<span class="">
+						<span>
 							<van-button size="mini" color="linear-gradient(to right, #ffae00, #ff8400)" :loading="giveLevelDealProfitLoading" @click="giveLevelDealProfit">全球分红</van-button>
 						</span>
 						<!-- <span class="margL10">
@@ -637,7 +637,7 @@
 					</div>
 				</router-link>
 			</div>
-			<div class="items" v-if="(userInfo.isAgent==3&&(userInfo.userId=='158Xy2r123W5140Z5n28'||userInfo.userId=='1T5p8SJ04n54o4978Q86'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090'||userInfo.userId=='15805Rx6hU3hz3g26018'))" @click="toMyCheck">
+			<div class="items" v-if="(userInfo.isAgent==3&&(userInfo.userId=='158Xy2r123W5140Z5n28'||userInfo.userId=='1T5p8SJ04n54o4978Q86'||userInfo.userId=='1502d824670iQ1215VW8'||userInfo.userId=='1580I60773e1XBJ52634'||userInfo.userId=='B1j580U56l5J78i54090'||userInfo.userId=='15805Rx6hU3hz3g26018'||userInfo.userId=='1E582xV6e3L1jV418416'))" @click="toMyCheck">
 				<router-link to="myCheck">
 					<div class="my-cell">
 						<div class="flex1">
@@ -791,9 +791,6 @@
 			if(_this.$cookies.get('isRefreshUserInfo')==1){
 				_this.getUserInfo();
 			}
-		},
-		beforeDestroy() {
-			console.log('beforeDestroy my');
 		},
 		methods: {
 			getCityName(cityInfo){

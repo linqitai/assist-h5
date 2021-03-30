@@ -49,7 +49,7 @@ export const myMixin = {
 			let params = {}
 			_this.$store.dispatch('getAssistUserInfo', params).then(res=>{
 				if (res.code == _this.$api.CODE_OK) {
-					console.log(res,'res userInfo');
+					// console.log(res,'res userInfo');
 					_this.userInfo = res.data;
 					localStorage.setItem("_USERINFO_", JSON.stringify(_this.userInfo));
 					if(_this.userInfo.accountStatus==1){
